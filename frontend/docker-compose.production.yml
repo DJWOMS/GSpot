@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_prod
+    command: npm run start
+    ports:
+      - "3000:3000"

@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  frontend:
+    build: .
+    container_name: frontend-nextjs
+    command: npm run dev
+    restart: unless-stopped
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
