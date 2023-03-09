@@ -1,12 +1,15 @@
-version: "3.9"
+version: "3"
 
 services:
-  frontend:
-    build: .
-    container_name: frontend-nextjs
-    command: npm run dev
+  frontend_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: frontend_dev
     restart: unless-stopped
     volumes:
-      - ./:/app
+      - .:/app
+      - /app/node_modules
+      - /app/.next
     ports:
-      - "3000:3000"
+      - 3000:3000
