@@ -10,10 +10,12 @@ class GameDlcLink(models.Model):
                                primary_key=True,
                                default=uuid.uuid4,
                                editable=False)
+
     game_id = models.ForeignKey(Product,
                                 on_delete=models.CASCADE,
                                 related_name='game_dlc_links',
                                 limit_choices_to={'type':Product.TypeProduct.GAMES})
+
     dls_id = models.ForeignKey(Product,
                                on_delete=models.CASCADE,
                                related_name='dlc_game_links',
