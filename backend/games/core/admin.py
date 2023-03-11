@@ -13,8 +13,8 @@ class GameDlcLinkAdmin(admin.ModelAdmin):
 class SystemRequirementAdmin(admin.ModelAdmin):
     pass
 
-# при регистрации модели Post источником конфигурации
-# для неё назначаем класс PostAdmin
+# при регистрации модели Product источником конфигурации
+# для неё назначаем класс ProductAdmin
 admin.site.register(Product, ProductAdmin)
 admin.site.register(GameDlcLink, GameDlcLinkAdmin)
 admin.site.register(SystemRequirement, SystemRequirementAdmin)
