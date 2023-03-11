@@ -23,6 +23,8 @@ class GameDlcLink(models.Model):
 
     class Meta:
         db_table='game_dlc_link'
+        verbose_name = 'дополнение для игры'
+        verbose_name_plural = 'дополнение для игры'
         constraints = [
             models.UniqueConstraint(
                 fields=['game_id', 'dls_id'],

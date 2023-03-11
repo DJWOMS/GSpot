@@ -53,8 +53,6 @@ class Product(models.Model):
 
     type = models.CharField(max_length=2,
                             choices=TypeProduct.choices,
-                            blank=False,
-                            null=False,
                             help_text='Укажите тип продукта')
 
     def __str__(self):
