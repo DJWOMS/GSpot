@@ -13,7 +13,6 @@ class Product(models.Model):
     class TypeProduct(models.TextChoices):
         GAMES = 'G', _('GAMES')
         DLC = 'D', _('ADDITIONS')
-        SOUND = 'S', _('SOUNDS')
 
     id = models.UUIDField('UUID продукта',
                           primary_key=True,
