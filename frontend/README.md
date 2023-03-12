@@ -82,3 +82,11 @@ docker run --name gspot_production_frontend -d -p 3000:3000 gspot-frontend:lates
 
 ## Разработка
 Необходимо сделать форк текущего репозитория в свой аккаунт. Сделав необходимые изменения, создайте pull request.
+
+
+## CI/CD
+- Retrieve your Vercel [Access Token](https://vercel.com/guides/how-do-i-use-a-vercel-api-access-token);
+- Install the [Vercel CLI](https://vercel.com/docs/cli) and run vercel login;
+- Inside your folder, run vercel link to create a new Vercel project;
+- Inside the generated `.vercel` folder, save the `projectId` and `orgId` from the `project.json`;
+- Inside GitHub, add `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` as secrets
