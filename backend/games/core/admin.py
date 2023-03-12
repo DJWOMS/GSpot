@@ -7,11 +7,14 @@ from .models import Product, GameDlcLink, SystemRequirement
 class ProductAdmin(admin.ModelAdmin):
     pass
 
+
 class GameDlcLinkAdmin(admin.ModelAdmin):
     pass
 
+
 class SystemRequirementAdmin(admin.ModelAdmin):
     pass
+
 
 # при регистрации модели Product источником конфигурации
 # для неё назначаем класс ProductAdmin
