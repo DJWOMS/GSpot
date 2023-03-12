@@ -1,6 +1,8 @@
 'use client'
 
-import { IconLogin, IconSearch } from '@tabler/icons-react'
+import { IconHeart, IconLogin, IconSearch, IconShoppingCart } from '@tabler/icons-react'
+import Image from 'next/image'
+import Link from 'next/link'
 import styled from 'styled-components'
 
 const StyledHeader = styled.header`
@@ -24,7 +26,7 @@ const Content = styled.div`
     height: 70px;
     width: 100%;
 `
-const Logo = styled.a`
+const Logo = styled(Link)`
     display: block;
     margin-left: 30px;
     height: auto;
@@ -180,6 +182,10 @@ const Actions = styled.div`
     height: 70px;
     width: 120px;
 
+    :has(> :last-child:nth-child(2)) {
+        justify-content: space-between;
+    }
+
     @media (min-width: 576px) {
         width: 230px;
     }
@@ -193,13 +199,7 @@ const Actions = styled.div`
         width: 262px;
     }
 `
-const Actions2 = styled(Actions)`
-    width: 60px;
 
-    @media (min-width: 360px) {
-        width: 75px;
-    }
-`
 const LoginButton = styled.a`
     display: flex;
     flex-direction: row;
@@ -364,7 +364,7 @@ const SearchButton = styled.button`
         stroke: #a782e9;
     }
 `
-const Link = styled.a`
+const ActionLink = styled(Link)`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -409,12 +409,12 @@ export function Header() {
                         </Menu>
 
                         <Logo href="/">
-                            <img src="img/logo.svg" alt="" />
+                            <Image width={496} height={161} src="/img/logo.png" alt="Logo" loading="eager" />
                         </Logo>
 
                         <Nav>
                             <NavItem>
-                                <NavLink href="#">Главная</NavLink>
+                                <NavLink href="/">Главная</NavLink>
                             </NavItem>
                         </Nav>
 
@@ -451,15 +451,17 @@ export function Header() {
                             </SearchButton>
                         </Form>
 
-                        <Actions2>
-                            <Link>
+                        <Actions>
+                            <ActionLink href="/favorite">
+                                <IconHeart />
                                 <span>Favorites</span>
-                            </Link>
+                            </ActionLink>
 
-                            <Link>
+                            <ActionLink href="/cart">
+                                <IconShoppingCart />
                                 <span>$00.00</span>
-                            </Link>
-                        </Actions2>
+                            </ActionLink>
+                        </Actions>
                     </Content>
                 </div>
             </Wrap>
