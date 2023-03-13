@@ -1,8 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import styled from 'styled-components'
 
-export const Section = styled.section`
+interface SectionProps {
+    first?: boolean;
+    last?: boolean;
+}
+
+export const Section =
+    styled.section <
+    SectionProps >
+    `
     position: relative;
     padding-top: ${(props) => (props.first ? '200px' : '60px')};
     padding-bottom: ${(props) => (props.last ? '60px' : null)};
@@ -149,7 +158,16 @@ export const SectionTitleWrap = styled.div`
     }
 `
 
-export const SectionTitle = styled.h2`
+interface SectionTitleProps {
+    uppercase?: boolean;
+    small?: boolean;
+    pre?: boolean;
+    downloads?: boolean;
+}
+export const SectionTitle =
+    styled.h2 <
+    SectionTitleProps >
+    `
     color: #fff;
     font-weight: ${(props) => (props.uppercase ? '300' : '400')};
     font-size: ${(props) => (props.small ? '26px' : '28px')};

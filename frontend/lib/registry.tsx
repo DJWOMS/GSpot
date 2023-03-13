@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client'
 
 import React, { useState } from 'react'
@@ -11,6 +12,7 @@ export default function StyledComponentsRegistry({ children }: { children: React
 
     useServerInsertedHTML(() => {
         const styles = styledComponentsStyleSheet.getStyleElement()
+        // @ts-ignore
         styledComponentsStyleSheet.instance.clearTag()
         return <>{styles}</>
     })
