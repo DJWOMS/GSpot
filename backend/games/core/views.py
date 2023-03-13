@@ -29,3 +29,24 @@ class ProductView(classes.MixedPermissionSerializer, ModelViewSet):
 
     def get_queryset(self):
         return models.Product.objects.all()
+
+
+class DlcView(classes.MixedPermissionSerializer, ModelViewSet):
+    """ CRUD дополнений """
+    serializer_classes_by_action = {
+        "create": serializers.DlcSerializer,
+        "update": serializers.DlcSerializer,
+        "destroy": serializers.DlcSerializer,
+        "list": serializers.DlcSerializer,
+        "retrieve": serializers.DlcSerializer,
+    }
+    permission_classes_by_action = {
+        "create": (IsAdminUser,),
+        "update": (IsAdminUser,),
+        "destroy": (IsAdminUser,),
+        "list": (AllowAny,),
+        "retrieve": (IsAuthenticated,),
+    }
+
+    def get_queryset(self):
+        return models.GameDlcLink.objects.all()
