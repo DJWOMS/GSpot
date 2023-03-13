@@ -11,8 +11,8 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
-            'developers_uuid',
-            'publishers_uuid',
+            # 'developers_uuid',
+            # 'publishers_uuid',
             'release_date',
             'description',
             'about',

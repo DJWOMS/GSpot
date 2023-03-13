@@ -1,19 +1,24 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
 from core import views
 
-urlpatterns = [
-    path('products/', views.ProductView.as_view({
-        "get": "list", "post": "create"
-    }), name="products"),
-    path('products/<str:name__iexact>/', views.ProductView.as_view({
-        "get": "retrieve", "delete": "retrieve", "patch": "update"
-    }), name="product"),
+api_router = DefaultRouter()
+api_router.register('games', views.GameViewSet, basename='games')
 
-    path('dlc/', views.DlcView.as_view({
-        "get": "list", "post": "create"
-    }), name="dlc-all"),
-    path('dlc/<int:pk>/', views.DlcView.as_view({
-        "get": "retrieve", "delete": "retrieve", "patch": "update"
-    }), name="dlc")
+urlpatterns = [
+    path('', include(api_router.urls)),
 ]
+#     path('games/', views.GameViewSet, name="games"),
+#
+#     path('games/<str:name__iexact>/', views.GameViewSet.as_view({
+#         "get": "retrieve", "delete": "retrieve", "patch": "update"
+#     }), name="game"),
+#
+#     path('dlc/', views.DlcView.as_view({
+#         "get": "list", "post": "create"
+#     }), name="dlc-all"),
+#     path('dlc/<int:pk>/', views.DlcView.as_view({
+#         "get": "retrieve", "delete": "retrieve", "patch": "update"
+#     }), name="dlc")
+# ]

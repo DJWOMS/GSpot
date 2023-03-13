@@ -7,7 +7,7 @@ from . import serializers, models
 from .filters import ProductFilter
 
 
-class ProductView(classes.MixedPermissionSerializer, ModelViewSet):
+class GameViewSet(classes.MixedPermissionSerializer, ModelViewSet):
     """ CRUD продукта """
     lookup_field = "name__iexact"
     filter_backends = [DjangoFilterBackend]
@@ -15,9 +15,9 @@ class ProductView(classes.MixedPermissionSerializer, ModelViewSet):
     serializer_classes_by_action = {
         "create": serializers.ProductSerializer,
         "update": serializers.ProductSerializer,
-        "destroy": serializers.ProductSerializer,
+        # "destroy": serializers.ProductSerializer,
         "list": serializers.ProductListSerializer,
-        "retrieve": serializers.ProductSerializer,
+        # "retrieve": serializers.ProductSerializer,
     }
     permission_classes_by_action = {
         "create": (IsAdminUser,),
@@ -28,7 +28,7 @@ class ProductView(classes.MixedPermissionSerializer, ModelViewSet):
     }
 
     def get_queryset(self):
-        return models.Product.objects.all()
+        return models.Product.objects.filter(type=models.Product.TypeProduct.GAMES)
 
 
 class DlcView(classes.MixedPermissionSerializer, ModelViewSet):
