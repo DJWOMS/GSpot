@@ -1,3 +1,4 @@
+/* eslint-disable no-unexpected-multiline */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
