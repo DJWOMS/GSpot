@@ -5,7 +5,9 @@ env:
 on:
   push:
     branches:
-      - main
+    - main
+    paths:
+    - frontend
 jobs:
   deploy-prod:
     runs-on: ubuntu-latest
