@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     #local
+    'apps.payment_accounts',
+    'apps.transactions',
 ]
 
 MIDDLEWARE = [

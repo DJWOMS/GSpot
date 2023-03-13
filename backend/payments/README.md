@@ -13,7 +13,7 @@ TODO
 - `SECRET_KEY` - соль для генерации хэшей. Значение может быть произвольной строкой
 - `DEBUG`- настройка Django для ключения отладочного режима.
 - `ALLOWED_HOSTS` - список разрешенных хостов.
-- `DARABASE_URL` - адрес для подключения к БД PostgreSQL. [Формат записи](https://github.com/jacobian/dj-database-url#url-schema)
+- `DATABASE_URL` - адрес для подключения к БД PostgreSQL. [Формат записи](https://github.com/jacobian/dj-database-url#url-schema)
 - `JWT_SECRET_KEY` - ключ для расшифроки JWT-токена.
 
 ## Установка и настройка flake8
