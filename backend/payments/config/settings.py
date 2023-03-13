@@ -18,12 +18,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #3rd party
+    # 3rd party
     'django_extensions',
     'drf_spectacular',
     'rest_framework',
 
-    #local
+    # local
     'apps.payment_accounts',
     'apps.transactions',
 ]
@@ -60,7 +60,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 DATABASES = {
-    'default': env.dj_db_url('DATABASE_URL', 'postgres://...')
+    'default': env.dj_db_url('DATABASE_URL', 'postgres://...'),
 }
 
 
@@ -106,5 +106,8 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     'TITLE': 'GSpot Payments API',
     'DESCRIPTION': 'API for game store payments service',
-    'VERSION': '1.0.0'
+    'VERSION': '1.0.0',
 }
+
+
+MAX_BALANCE_DIGITS = 11
