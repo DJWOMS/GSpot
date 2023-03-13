@@ -16,6 +16,7 @@ poetry.lock
 
 venv
 
+.env.*
 .env.dev
 .env.prod
 
