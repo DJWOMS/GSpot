@@ -1,16 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
+from .yasg import urlpatterns as doc_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    path('v1/', include('core.urls')),
-    path(
-        'redoc/',
-        TemplateView.as_view(
-            template_name='redoc.html',
-            extra_context={'schema_url': 'openapi-schema'}),
-        name='redoc'
-    ),
+    path('api/', include('core.urls')),
 ]
+
+# urls для swagger
+urlpatterns += doc_urls

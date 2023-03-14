@@ -45,5 +45,12 @@ class DlcSerializer(serializers.ModelSerializer):
     """ Детали DLC """
 
     class Meta:
-        model = GameDlcLink
-        fields = ('id', 'game_id', 'dls_id')
+        model = Product
+        fields = ('id', 'name', 'description',)
+
+class SystemRequirementSerializer(serializers.ModelSerializer):
+    """ Детали DLC """
+
+    class Meta:
+        model = SystemRequirement
+        fields = '__all__'
