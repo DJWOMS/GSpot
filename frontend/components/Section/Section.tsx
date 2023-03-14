@@ -1,4 +1,3 @@
-/* eslint-disable no-unexpected-multiline */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
@@ -98,6 +97,19 @@ export const SectionHead = styled(Section)`
 
 export const SectionCategory = styled(Section)`
     padding-top: 40px;
+`
+
+export const SectionWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 `
 
 export const SectionNavWrap = styled.div`

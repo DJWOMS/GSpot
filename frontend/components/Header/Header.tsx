@@ -154,7 +154,7 @@ const NavItem = styled.li`
         }
     }
 `
-const NavLink = styled.a`
+const NavLink = styled(Link)`
     font-size: 12px;
     color: #fff;
     letter-spacing: 0.4px;
@@ -307,7 +307,7 @@ const Select = styled.select`
         font-size: 14px;
         color: #fff;
         padding: 0;
-        background: url('../img/arrow2.svg') no-repeat center right;
+        background: url('/img/arrow2.svg') no-repeat center right;
         background-size: 12px auto;
         cursor: pointer;
 
@@ -415,6 +415,10 @@ export function Header() {
                         <Nav>
                             <NavItem>
                                 <NavLink href="/">Главная</NavLink>
+                            </NavItem>
+
+                            <NavItem>
+                                <NavLink href="/catalog">Каталог</NavLink>
                             </NavItem>
                         </Nav>
 

@@ -8,7 +8,7 @@ const nextConfig = {
         // Enables the styled-components SWC transform
         styledComponents: true,
     },
-    swcMinify: true,
+    swcMinify: false,
 }
 
 module.exports = nextConfig
