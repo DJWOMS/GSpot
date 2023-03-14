@@ -27,7 +27,6 @@ class Account(models.Model):
         validators=[MinValueValidator(0, message='Insufficient Funds')],
         default=0,
     )
-    blocked_until = models.DateTimeField(null=True)
 
     @classmethod
     @is_amount_positive
@@ -70,12 +69,13 @@ class BalanceChange(models.Model):
         DEPOSIT = ('DT', 'DEPOSIT')
 
     account_id = models.ForeignKey(
-        Account, on_delete=models.PROTECT, related_name='balance_change',
+        Account, on_delete=models.PROTECT,
+        related_name='balance_changes',
     )
     amount = models.DecimalField(
-        decimal_places=2,
         max_digits=settings.MAX_BALANCE_DIGITS,
         validators=[MinValueValidator(0, message='Should be positive value')],
+        decimal_places=2,
         editable=False,
     )
     date_time_creation = models.DateTimeField(
@@ -83,7 +83,7 @@ class BalanceChange(models.Model):
         editable=False,
         db_index=True,
     )
-    accepted = models.BooleanField(default=True)
+    is_accepted = models.BooleanField(default=False)
     operation_type = models.CharField(max_length=20, choices=TransactionType.choices)
 
     def __str__(self) -> str:

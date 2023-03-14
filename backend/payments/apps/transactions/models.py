@@ -11,10 +11,10 @@ from apps.transactions.exceptions import DuplicateError
 class TransferHistory(models.Model):
 
     account_from = models.ForeignKey(
-        Account, on_delete=models.PROTECT, related_name='history_account_from',
+        Account, on_delete=models.PROTECT, related_name='history_accounts_from',
     )
     account_to = models.ForeignKey(
-        Account, on_delete=models.PROTECT, related_name='history_account_to',
+        Account, on_delete=models.PROTECT, related_name='history_accounts_to',
     )
     amount = models.DecimalField(
         decimal_places=2,
@@ -26,13 +26,17 @@ class TransferHistory(models.Model):
         auto_now_add=True,
         editable=False,
         db_index=True,
+
     )
 
-    def save(self, *args, **kwargs):
+    def clean(self):
         if self.account_from == self.account_to:
             raise DuplicateError(
                 'account_from and account_to should be different values',
             )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:
@@ -48,10 +52,10 @@ class Transaction(models.Model):
     MAX_ITEM_PRICE = 10000  # in case of mistake
 
     account_from = models.ForeignKey(
-        Account, on_delete=models.PROTECT, related_name='trans_account_from',
+        Account, on_delete=models.PROTECT, related_name='transactions_account_from',
     )
     account_to = models.ForeignKey(
-        Account, on_delete=models.PROTECT, related_name='trans_account_to',
+        Account, on_delete=models.PROTECT, related_name='transactions_account_to',
     )
     item_price = models.DecimalField(
         decimal_places=2,
@@ -65,7 +69,7 @@ class Transaction(models.Model):
         ]
     )
     item_uid = models.UUIDField(editable=False, db_index=True)
-    is_frozen = models.BooleanField(default=True)
+    is_frozen = models.BooleanField(default=False)
     is_accepted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
@@ -82,7 +86,7 @@ class TransactionHistory(models.Model):
     transaction_id = models.ForeignKey(
         Transaction,
         on_delete=models.PROTECT,
-        related_name='trans_history',
+        related_name='transactions_history',
         editable=False,
     )
     date_time_creation = models.DateTimeField(
