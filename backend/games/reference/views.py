@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, AllowAny
-from games.reference.serializers import GroupSerializer
+from games.reference.serializers import GroupSerializer, GroupElementSerializer
 
 
 class GroupView(viewsets.ModelViewSet):
@@ -14,3 +14,8 @@ class GroupView(viewsets.ModelViewSet):
             return (AllowAny(),)
         else:
             return super().get_permissions()
+
+
+class GroupElementView(GroupView):
+    queryset = GroupElement.objects.all()
+    serializer_class = GroupElementSerializer
