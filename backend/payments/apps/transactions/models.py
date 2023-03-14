@@ -18,7 +18,7 @@ class TransferHistory(models.Model):
     )
     amount = models.DecimalField(
         decimal_places=2,
-        max_digits=settings.MAX_VALUE_DIGITS,
+        max_digits=settings.MAX_BALANCE_DIGITS,
         validators=[MinValueValidator(0, message='Should be positive value')],
         editable=False,
     )
