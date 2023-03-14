@@ -7,7 +7,7 @@ on:
     branches:
     - develop
     paths:
-    - frontend
+    - frontend/**
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
