@@ -5,9 +5,9 @@ idea
 *.egg-info/
 .installed.cfg
 *.egg
-**/migrations/**
-!**/migrations
-!**/migrations/__init__.py
+#**/migrations/**
+#!**/migrations
+#!**/migrations/__init__.py
 
 dist
 db.sqlite3
@@ -39,3 +39,14 @@ Makefile
 
 doc-dev
 .vscode/*
+
+# users ignore
+backend/users/static
+backend/users/logs
+backend/users/media
+backend/users/db
+backend/users/venv
+backend/users/env
+backend/users/.env
+backend/users/docker-compose.yml
+backend/users/Dockerfile
