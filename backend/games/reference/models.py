@@ -5,10 +5,6 @@ from core.models import Product
 
 
 class Language(models.Model):
-    id = models.UUIDField('UUID языка',
-                          primary_key=True,
-                          default=uuid.uuid4,
-                          editable=False)
     name = models.CharField('Наименование языка',
                             max_length=100,
                             help_text='Введите наименование языка')
