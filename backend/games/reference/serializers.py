@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-from .models import Language, ProductLanguage
-from core.serializers import ProductSerializer
+from .models import Language, ProductLanguage, Group, GroupElement
 
 
 class LanguageSerializer(serializers.ModelSerializer):
@@ -18,3 +17,19 @@ class ProductLanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductLanguage
         fields = ('id', 'language', 'product', 'interface', 'subtitles', 'voice')
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    type = serializers.ChoiceField(choices='')
+
+    class Meta:
+        model = Group
+        fields = ('id', 'name', 'type')
+
+
+class GroupElementSerializer(serializers.ModelSerializer):
+    group = serializers.PrimaryKeyRelatedField()
+
+    class Meta:
+        model: GroupElement
+        fields = ('id', 'name', 'group')
