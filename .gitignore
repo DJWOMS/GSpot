@@ -43,6 +43,7 @@ doc-dev
 # users ignore
 backend/users/static
 backend/users/logs
+backend/users/media
 backend/users/db
 backend/users/venv
 backend/users/env
