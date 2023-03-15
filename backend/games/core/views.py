@@ -1,78 +1,94 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
 from base import classes
-from .filters import ProductFilter
-from .models import Product, SystemRequirement
-from .serializers import (SystemRequirementSerializer,
-                          ProductSerializer,
-                          DlcSerializer,
-                          ProductListSerializer)
+from . import filters
+from . import serializers, models
 
-
-class GameViewSet(classes.MixedPermissionSerializer, ModelViewSet):
+class GameViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
     """ CRUD продукта """
-    lookup_field = "name__iexact"
+    # lookup_field = 'id'
     filter_backends = [DjangoFilterBackend]
-    filterset_class = ProductFilter
+    filterset_class = filters.ProductFilter
     serializer_classes_by_action = {
-        "create": ProductSerializer,
-        "update": ProductSerializer,
-        "destroy": ProductSerializer,
-        "list": ProductListSerializer,
-        "retrieve": ProductSerializer,
+        'create': serializers.ProductSerializer,
+        'update': serializers.ProductSerializer,
+        'destroy': serializers.ProductSerializer,
+        'list': serializers.ProductSerializer,
+        'retrieve': serializers.ProductSerializer,
+        'partial_update':serializers.ProductSerializer,
     }
     permission_classes_by_action = {
-        "create": (IsAdminUser,),
-        "update": (IsAdminUser,),
-        "destroy": (IsAdminUser,),
-        "list": (AllowAny,),
-        "retrieve": (IsAuthenticated,)
+        'create': (IsAdminUser,),
+        'update': (IsAdminUser,),
+        'destroy': (IsAdminUser,),
+        'list': (AllowAny,),
+        'retrieve': (IsAuthenticated,),
+        'partial_update': (IsAuthenticated,),
     }
 
     def get_queryset(self):
-        return Product.objects.filter(type=Product.TypeProduct.GAMES)
+        return models.Product.objects.filter(type=models.Product.TypeProduct.GAMES)
 
 
 
 
-class DlcViewSet(classes.MixedPermissionSerializer, ModelViewSet):
+class DlcViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
     """ CRUD дополнений """
     serializer_classes_by_action = {
-        "create": DlcSerializer,
-        "update": DlcSerializer,
-        "destroy": DlcSerializer,
-        "list": DlcSerializer,
-        "retrieve": DlcSerializer,
+        'create': serializers.DlcSerializer,
+        'update': serializers.DlcSerializer,
+        'destroy': serializers.DlcSerializer,
+        'list': serializers.DlcSerializer,
+        'retrieve': serializers.DlcSerializer,
     }
     permission_classes_by_action = {
-        "create": (IsAdminUser,),
-        "update": (IsAdminUser,),
-        "destroy": (IsAdminUser,),
-        "list": (AllowAny,),
-        "retrieve": (IsAuthenticated,),
+        'create': (IsAdminUser,),
+        'update': (IsAdminUser,),
+        'destroy': (IsAdminUser,),
+        'list': (AllowAny,),
+        'retrieve': (IsAuthenticated,),
     }
 
     def get_queryset(self):
-        return Product.objects.filter(type=Product.TypeProduct.DLC)
+        return models.Product.objects.filter(type=models.Product.TypeProduct.DLC)
 
-class SystemRequirementViewSet(classes.MixedPermissionSerializer, ModelViewSet):
-    """ CRUD дополнений """
+class SystemRequirementViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
+    """ CRUD системных требований """
     serializer_classes_by_action = {
-        "create": SystemRequirementSerializer,
-        "update": SystemRequirementSerializer,
-        "destroy": SystemRequirementSerializer,
-        "list": SystemRequirementSerializer,
-        "retrieve": SystemRequirementSerializer,
+        'create': serializers.SystemRequirementSerializer,
+        'update': serializers.SystemRequirementSerializer,
+        'destroy': serializers.SystemRequirementSerializer,
+        'list': serializers.SystemRequirementSerializer,
+        'retrieve': serializers.SystemRequirementSerializer,
     }
     permission_classes_by_action = {
-        "create": (IsAdminUser,),
-        "update": (IsAdminUser,),
-        "destroy": (IsAdminUser,),
-        "list": (AllowAny,),
-        "retrieve": (IsAuthenticated,),
+        'create': (IsAdminUser,),
+        'update': (IsAdminUser,),
+        'destroy': (IsAdminUser,),
+        'list': (AllowAny,),
+        'retrieve': (IsAuthenticated,),
+    }
+    def get_queryset(self):
+        return models.SystemRequirement.objects.all()
+
+class GameDlcLinkViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
+    """ CRUD связки игры с дополнением """
+    serializer_classes_by_action = {
+        'create': serializers.GameDlcLinkSerializer,
+        'update': serializers.GameDlcLinkSerializer,
+        'destroy': serializers.GameDlcLinkSerializer,
+        'list': serializers.GameDlcLinkSerializer,
+        'retrieve': serializers.GameDlcLinkSerializer,
+    }
+    permission_classes_by_action = {
+        'create': (IsAdminUser,),
+        'update': (IsAdminUser,),
+        'destroy': (IsAdminUser,),
+        'list': (AllowAny,),
+        'retrieve': (IsAuthenticated,),
     }
 
     def get_queryset(self):
-        return SystemRequirement.objects.all()
+        return models.GameDlcLink.objects.all()

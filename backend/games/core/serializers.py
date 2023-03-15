@@ -3,28 +3,30 @@ from rest_framework import serializers
 from .models import Product, GameDlcLink, SystemRequirement
 
 
+class GameDlcLinkSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GameDlcLink
+        fields = ('id',
+                  'game',
+                  'dlc'
+                  )
+class DlcSerializer(serializers.ModelSerializer):
+    """ Детали DLC """
+    games = GameDlcLinkSerializer(many=True, read_only=True)
+    class Meta:
+        model = Product
+        fields = ('id',
+                  'name',
+                  'description',
+                  'developers_uuid',
+                  'publishers_uuid',
+                  'games',
+                  )
+
 class ProductSerializer(serializers.ModelSerializer):
     """ Продукт """
-
-    class Meta:
-        model = Product
-        fields = (
-            'id',
-            'name',
-            # 'developers_uuid',
-            # 'publishers_uuid',
-            'release_date',
-            'description',
-            'about',
-            'age',
-            'adult',
-            'status',
-            'type'
-        )
-
-
-class ProductListSerializer(serializers.ModelSerializer):
-    """ Список игр """
+    dlc = GameDlcLinkSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -37,11 +39,13 @@ class ProductListSerializer(serializers.ModelSerializer):
             'age',
             'adult',
             'status',
-            'type'
+            'type',
+            'developers_uuid',
+            'publishers_uuid',
+            'dlc'
         )
 
-
-class DlcSerializer(serializers.ModelSerializer):
+class DlcListSerializer(serializers.ModelSerializer):
     """ Детали DLC """
 
     class Meta:

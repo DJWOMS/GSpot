@@ -70,15 +70,15 @@ class GameDlcLink(models.Model):
                           default=uuid.uuid4,
                           editable=False)
 
-    game_id = models.ForeignKey(Product,
+    game = models.ForeignKey(Product,
                                 on_delete=models.CASCADE,
-                                related_name='game_dlc_links',
+                                related_name='dlc',
                                 limit_choices_to={
                                     'type': Product.TypeProduct.GAMES})
 
-    dls_id = models.ForeignKey(Product,
+    dlc = models.ForeignKey(Product,
                                on_delete=models.CASCADE,
-                               related_name='dlc_game_links',
+                               related_name='games',
                                limit_choices_to={
                                    'type': Product.TypeProduct.DLC})
 
@@ -88,7 +88,7 @@ class GameDlcLink(models.Model):
         verbose_name_plural = 'дополнение для игры'
         constraints = [
             models.UniqueConstraint(
-                fields=['game_id', 'dls_id'],
+                fields=['game_id', 'dlc_id'],
                 name='unique_subscriber'
             )
         ]
@@ -116,7 +116,7 @@ class SystemRequirement(models.Model):
                                         choices=OS.choices,
                                         help_text='Укажите ОС')
 
-    game_id = models.ForeignKey(Product,
+    game = models.ForeignKey(Product,
                                 on_delete=models.CASCADE,
                                 related_name='system_requirements',
                                 limit_choices_to={
