@@ -46,3 +46,5 @@
 ### Создать пользователя
 
     docker-compose run web python manage.py createsuperuser
+
+test testovich
