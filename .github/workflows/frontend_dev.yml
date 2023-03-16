@@ -2,13 +2,13 @@ name: Frontend Develop Deploy
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 on:
   push:
     branches:
     - develop
     paths:
     - frontend/**
-  workflow_dispatch:
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
@@ -30,11 +30,11 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
 
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --token=$VERCEL_TOKEN
 
       - id: deploy
         name: Deploy Project Artifacts to Vercel
-        run: echo "::set-output name=url::$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
+        run: echo "::set-output name=url::$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)"
