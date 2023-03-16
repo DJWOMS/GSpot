@@ -10,26 +10,22 @@ Configuration.secret_key = env.str('shop_secret_key')
 
 
 def create_payment(uuid, value, commission, payment_type, return_url):
-    pay_value = value * (1 / (1 - commission / 100))
-    try:
-        user = Account.objects.get(user_uid=uuid)
-    except BaseException:
-        user = Account.objects.create(
-            user_uid=uuid,
-        )
-        user.save()
+    value_with_commission = value * (1 / (1 - commission / 100))
+    user_account, created = Account.objects.get_or_create(
+        user_uid=uuid,
+    )
 
-    changing = BalanceChange.objects.create(
-        account_id=user,
+    change = BalanceChange.objects.create(
+        account_id=user_account,
         amount=value,
         is_accepted=False,
         operation_type='DEPOSIT',
     )
-    changing.save()
+    change.save()
 
     payment = Payment.create({
         'amount': {
-            'value': pay_value,
+            'value': value_with_commission,
             'currency': 'RUB',
         },
         'payment_method_data': {
@@ -40,8 +36,8 @@ def create_payment(uuid, value, commission, payment_type, return_url):
             'return_url': return_url,
         },
         'metadata': {
-            'table_id': changing.id,
-            'user_id': user.id,
+            'table_id': change.id,
+            'user_id': user_account.id,
         },
         'capture': True,
         'refundable': False,

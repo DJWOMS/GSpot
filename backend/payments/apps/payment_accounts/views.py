@@ -16,16 +16,16 @@ class CreatePaymentView(CreateAPIView):
         serializer = CreatePaymentSerializer(data=request.POST)
 
         if serializer.is_valid():
-            data = serializer.validated_data
+            serialized_data = serializer.validated_data
         else:
             return Response(400)
 
         confirmation_url = create_payment(
-            uuid=data.get('uuid'),
-            value=data.get('value'),
-            commission=data.get('commission'),
-            payment_type=data.get('payment_type'),
-            return_url=data.get('return_url'),
+            uuid=serialized_data.get('uuid'),
+            value=serialized_data.get('value'),
+            commission=serialized_data.get('commission'),
+            payment_type=serialized_data.get('payment_type'),
+            return_url=serialized_data.get('return_url'),
         )
 
         return Response({'confirmation_url': confirmation_url}, 200)
