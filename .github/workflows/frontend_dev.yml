@@ -17,7 +17,7 @@ jobs:
         working-directory: frontend
     environment:
       name: Develop
-      url: ${{ steps.deploy.outputs.url }}
+      url: ${{ steps.deploy.outputs.PREVIEW_URL }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -37,4 +37,5 @@ jobs:
 
       - id: deploy
         name: Deploy Project Artifacts to Vercel
-        run: echo "::set-output name=url::$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)"
+        run: |
+          echo "PREVIEW_URL=$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)" >> $GITHUB_OUTPUT
