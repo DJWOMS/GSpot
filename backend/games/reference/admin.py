@@ -1,13 +1,21 @@
 from django.contrib import admin
-from models import *
+from .models import Language, ProductLanguage, Ganre, SubGanre
 
 class GanreAdmin(admin.ModelAdmin):
-    class Meta():
-        madels = Ganre
+    pass
         
 class SubGanreAdmin (admin.ModelAdmin):
-    class Meta():
-        models = SubGanre
-        
+    pass
+
+class LanguageAdmin(admin.ModelAdmin):
+    pass
+
+
+class ProductLanguageAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Language, LanguageAdmin)
+admin.site.register(ProductLanguage, ProductLanguageAdmin)
 admin.site.register(Ganre, GanreAdmin)
 admin.site.register(SubGanre, SubGanreAdmin)
