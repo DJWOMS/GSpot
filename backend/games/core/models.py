@@ -55,6 +55,8 @@ class Product(models.Model):
                             choices=TypeProduct.choices,
                             help_text='Укажите тип продукта')
 
+    dlcs = models.ManyToManyField('self', through="GameDlcLink", blank=True)
+
     def __str__(self):
         return self.name
 
@@ -72,13 +74,13 @@ class GameDlcLink(models.Model):
 
     game = models.ForeignKey(Product,
                                 on_delete=models.CASCADE,
-                                related_name='dlc',
+                                related_name='dlc_link',
                                 limit_choices_to={
                                     'type': Product.TypeProduct.GAMES})
 
     dlc = models.ForeignKey(Product,
                                on_delete=models.CASCADE,
-                               related_name='games',
+                               related_name='game_link',
                                limit_choices_to={
                                    'type': Product.TypeProduct.DLC})
 
@@ -88,7 +90,7 @@ class GameDlcLink(models.Model):
         verbose_name_plural = 'дополнение для игры'
         constraints = [
             models.UniqueConstraint(
-                fields=['game_id', 'dlc_id'],
+                fields=['dlc_id'],
                 name='unique_subscriber'
             )
         ]
