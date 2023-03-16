@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Product, GameDlcLink, SystemRequirement
+from .models import Product, SystemRequirement
 
 class DlcSerializer(serializers.ModelSerializer):
     """ Детали DLC """
