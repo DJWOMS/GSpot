@@ -10,5 +10,5 @@ api_router.register('system_requirement', views.SystemRequirementViewSet, basena
 
 
 urlpatterns = [
-    path(r'v1/core/', include(api_router.urls)),
+    path('', include(api_router.urls)),
 ]
