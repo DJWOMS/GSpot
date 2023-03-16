@@ -14,12 +14,16 @@ jobs:
     defaults:
       run:
         working-directory: frontend
+    environment:
+      name: Develop
+      url: ${{ steps.deploy.outputs.url }}
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: bahmutov/npm-install@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          working-directory: frontend
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
@@ -30,5 +34,6 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
+      - id: deploy
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+        run: echo "::set-output name=url::$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
