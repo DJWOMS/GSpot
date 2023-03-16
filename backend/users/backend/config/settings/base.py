@@ -11,29 +11,32 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import environ
 import os
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-ENV_FILE = BASE_DIR / '.env'
-LOG_FILE = BASE_DIR.parent / 'logs' / 'django_errors.log'
 
-env = environ.Env(
-    DEBUG=(bool, False),
-    SECRET_KEY=str,
-    ALLOWED_HOSTS=(list, []),
-    DATABASE_URL=str,
-    PAGINATION_SIZE=(int, 100),
-)
-env.read_env(str(ENV_FILE))
 
-DEBUG = env("DEBUG")
-SECRET_KEY = env("SECRET_KEY")
-ALLOWED_HOSTS = env("ALLOWED_HOSTS")
-PAGINATION_SIZE = env("PAGINATION_SIZE")
+def reduce_path(file_name, times):
+    result = os.path.realpath(file_name)
+    for i in range(times):
+        result = os.path.dirname(result)
+    return result
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+
+ROOT_DIR = reduce_path(__file__, 4)
+APPS_DIR = reduce_path(__file__, 3)
+
+DJANGO_ENV = os.getenv("DJANGO_ENV", "DEVELOPMENT")
+DEBUG = DJANGO_ENV != "PRODUCTION"
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+ALLOWED_HOSTS = os.environ["DJANGO_ALLOWED_HOSTS"].split(",")
+
+ROOT_URLCONF = "config.urls"
+
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(ROOT_DIR, "static/")
+STATICFILES_DIRS = [os.path.join(APPS_DIR, "static/")]
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(ROOT_DIR, "media/")
 
 # Application definition
 
@@ -48,7 +51,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
 
-    'users'
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -60,8 +63,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -81,13 +82,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
-    'default': env.db()
-}
 
 
 # Password validation
@@ -124,42 +118,6 @@ AUTH_USER_MODEL = 'users.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-
-STATIC_ROOT = BASE_DIR / 'static'
-STATIC_URL = '/static/'
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
-    },
-    'handlers': {
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': LOG_FILE,
-            'formatter': 'verbose'
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'propagate': True,
-            'level': 'ERROR',
-        }
-    }
-}
-
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -175,7 +133,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
     ],
-    'PAGE_SIZE': PAGINATION_SIZE,
+    'PAGE_SIZE': 10,
     # 'DEFAULT_RENDERER_CLASSES': [
     #     'rest_framework.renderers.JSONRenderer',
     # ]
