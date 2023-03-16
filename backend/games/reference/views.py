@@ -1,21 +1,22 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, AllowAny
-from . import models, serializers
+from .models import Language, ProductLanguage, Group, GroupElement
+from .serializers import LanguageSerializer, ProductLanguageSerializer, GroupSerializer, GroupElementSerializer
 
 
 class LanguageView(viewsets.ModelViewSet):
-    serializer_class = serializers.LanguageSerializer
-    queryset = models.Language.objects.all()
+    serializer_class = LanguageSerializer
+    queryset = Language.objects.all()
 
 
 class ProductLangaugeView(viewsets.ModelViewSet):
-    serializer_class = serializers.ProductLanguageSerializer
-    queryset = models.ProductLanguage.objects.all()
+    serializer_class = ProductLanguageSerializer
+    queryset = ProductLanguage.objects.all()
 
 
 class GroupView(viewsets.ModelViewSet):
-    queryset = models.Group.objects.all()
-    serializer_class = serializers.GroupSerializer
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
     get_permissions = (IsAdminUser,)
     lookup_field = 'name'
 
@@ -27,6 +28,5 @@ class GroupView(viewsets.ModelViewSet):
 
 
 class GroupElementView(GroupView):
-    queryset = models.GroupElement.objects.all()
-    serializer_class = serializers.GroupElementSerializer
-
+    queryset = GroupElement.objects.all()
+    serializer_class = GroupElementSerializer
