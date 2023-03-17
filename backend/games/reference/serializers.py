@@ -15,22 +15,22 @@ class ProductLanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductLanguage
-        fields = ('id', 'language', 'product', 'interface', 'subtitles', 'voice')
+        fields = (
+            'id', 'language', 'product', 'interface', 'subtitles', 'voice'
+        )
 
 
 class GenreSerializer(serializers.ModelSerializer):
-    type = serializers.ChoiceField(choices='')
     """жанр для игры"""
 
     class Meta:
         model = Genre
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'genre')
 
 
 class SubGenreSerializer(serializers.ModelSerializer):
-    group = serializers.PrimaryKeyRelatedField()
     """поджанр для игры"""
 
     class Meta:
         model: SubGenre
-        fields = ('id', 'name', 'genre', 'products')
+        fields = ('id', 'name', 'genre_id', 'products_id')
