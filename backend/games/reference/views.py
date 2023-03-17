@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, AllowAny
-from .models import Language, ProductLanguage, Genre, SubGenre
-from .serializers import LanguageSerializer, ProductLanguageSerializer, GenreSerializer, SubGenreSerializer
+from .models import Language, ProductLanguage, Group, GroupElement
+from .serializers import LanguageSerializer, ProductLanguageSerializer, GroupSerializer, GroupElementSerializer
 
 
 class LanguageView(viewsets.ModelViewSet):
@@ -14,9 +14,9 @@ class ProductLangaugeView(viewsets.ModelViewSet):
     queryset = ProductLanguage.objects.all()
 
 
-class GenreView(viewsets.ModelViewSet):
-    queryset = Genre.objects.all()
-    serializer_class = GenreSerializer
+class GroupView(viewsets.ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
     get_permissions = (IsAdminUser,)
     lookup_field = 'name'
 
@@ -27,6 +27,6 @@ class GenreView(viewsets.ModelViewSet):
             return super().get_permissions()
 
 
-class SubGenreView(GenreView):
-    queryset = SubGenre.objects.all()
-    serializer_class = SubGenreSerializer
+class GroupElementView(GroupView):
+    queryset = GroupElement.objects.all()
+    serializer_class = GroupElementSerializer

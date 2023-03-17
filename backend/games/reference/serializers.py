@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Language, ProductLanguage, Genre, SubGenre
+
+from .models import Language, ProductLanguage, Group, GroupElement
 
 
 class LanguageSerializer(serializers.ModelSerializer):
@@ -15,22 +16,20 @@ class ProductLanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductLanguage
-        fields = (
-            'id', 'language', 'product', 'interface', 'subtitles', 'voice'
-        )
+        fields = ('id', 'language', 'product', 'interface', 'subtitles', 'voice')
 
 
-class GenreSerializer(serializers.ModelSerializer):
-    """жанр для игры"""
+class GroupSerializer(serializers.ModelSerializer):
+    type = serializers.ChoiceField(choices='')
 
     class Meta:
-        model = Genre
-        fields = ('id', 'name', 'genre')
+        model = Group
+        fields = ('id', 'name', 'type')
 
 
-class SubGenreSerializer(serializers.ModelSerializer):
-    """поджанр для игры"""
+class GroupElementSerializer(serializers.ModelSerializer):
+    group = serializers.PrimaryKeyRelatedField()
 
     class Meta:
-        model: SubGenre
-        fields = ('id', 'name', 'genre_id', 'products_id')
+        model: GroupElement
+        fields = ('id', 'name', 'group')
