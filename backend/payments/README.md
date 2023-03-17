@@ -14,7 +14,8 @@ TODO
 - `DEBUG`- настройка Django для ключения отладочного режима.
 - `ALLOWED_HOSTS` - список разрешенных хостов.
 - `DATABASE_URL` - адрес для подключения к БД PostgreSQL. [Формат записи](https://github.com/jacobian/dj-database-url#url-schema)
-- `JWT_SECRET_KEY` - ключ для расшифроки JWT-токена.
+- `account_id` - id вашего магазина yookassa.
+- `shop_secret_key` - api ключ вашего магазина yookassa.
 
 ## Установка и настройка flake8
 На проекте используется линтер flake8 с плагинами. Flake8 не дает возможности перечислить используемые плагины,
