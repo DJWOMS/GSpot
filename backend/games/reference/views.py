@@ -1,8 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, AllowAny
-<<<<<<< HEAD
-from .models import Language, ProductLanguage, Group, GroupElement
-from .serializers import LanguageSerializer, ProductLanguageSerializer, GroupSerializer, GroupElementSerializer
+from .models import Language, ProductLanguage, Genre, SubGenre
+from .serializers import LanguageSerializer, ProductLanguageSerializer, GenreSerializer, SubGenreSerializer
 
 
 class LanguageView(viewsets.ModelViewSet):
@@ -13,10 +12,6 @@ class LanguageView(viewsets.ModelViewSet):
 class ProductLangaugeView(viewsets.ModelViewSet):
     serializer_class = ProductLanguageSerializer
     queryset = ProductLanguage.objects.all()
-=======
-from games.reference.serializers import GenreSerializer, SubGenreSerializer
-from models import Genre, SubGenre
->>>>>>> 2c402bf (исправлены модели и названия классов в соответсвии с моделями   файлах в views,admin,serializers)
 
 
 class GenreView(viewsets.ModelViewSet):

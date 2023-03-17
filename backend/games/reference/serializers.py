@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 from rest_framework import serializers
-
-from .models import Language, ProductLanguage, Group, GroupElement
+from .models import Language, ProductLanguage, Genre, SubGenre
 
 
 class LanguageSerializer(serializers.ModelSerializer):
@@ -20,27 +18,9 @@ class ProductLanguageSerializer(serializers.ModelSerializer):
         fields = ('id', 'language', 'product', 'interface', 'subtitles', 'voice')
 
 
-class GroupSerializer(serializers.ModelSerializer):
-    type = serializers.ChoiceField(choices='')
-
-    class Meta:
-        model = Group
-        fields = ('id', 'name', 'type')
-
-
-class GroupElementSerializer(serializers.ModelSerializer):
-    group = serializers.PrimaryKeyRelatedField()
-
-    class Meta:
-        model: GroupElement
-        fields = ('id', 'name', 'group')
-=======
-from rest_framework import serializers
-from games.reference.models import Genre, SubGenre
-
-
 class GenreSerializer(serializers.ModelSerializer):
     type = serializers.ChoiceField(choices='')
+    """жанр для игры"""
 
     class Meta:
         model = Genre
@@ -49,8 +29,8 @@ class GenreSerializer(serializers.ModelSerializer):
 
 class SubGenreSerializer(serializers.ModelSerializer):
     group = serializers.PrimaryKeyRelatedField()
+    """поджанр для игры"""
 
     class Meta:
         model: SubGenre
         fields = ('id', 'name', 'genre', 'products')
->>>>>>> 2c402bf (исправлены модели и названия классов в соответсвии с моделями   файлах в views,admin,serializers)

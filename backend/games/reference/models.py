@@ -25,9 +25,11 @@ class SubGenre(models.Model):
     
     
     class Meta():
-        verbose_name = 'жанр для игры'
-        verbose_name_plural = 'жанры для игр'
 
+
+        verbose_name = 'поджанр для продукта'
+        verbose_name_plural = 'поджанр для продуктов'
+        
 class Language(models.Model):
     name = models.CharField('Наименование языка',
                             max_length=100,
@@ -57,9 +59,9 @@ class ProductLanguage(models.Model):
         verbose_name = 'Поддерживаемый язык'
         verbose_name_plural = 'Поддерживаемые языки'
 
+
         
 class SubgenreProduct(models.Model):
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     subgenre_id = models.ForeignKey(SubGenre, on_delete=models.CASCADE)
-    
 
