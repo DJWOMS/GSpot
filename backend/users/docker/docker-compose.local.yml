@@ -8,6 +8,10 @@ services:
       - db:/var/lib/postgresql/data
     env_file:
       - ../.env
+    environment:
+      POSTGRES_DB: "gspot_users"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
     ports:
       - "5432:5432"
     networks:

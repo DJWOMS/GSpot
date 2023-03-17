@@ -1,14 +1,9 @@
 import uuid
 
-from django.contrib.auth.models import AbstractUser
 from django.db import models
+from common.models import BaseUser
 
 
-class User(AbstractUser):
-    id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField(unique=True, db_index=True)
-    is_staff = None
-    is_superuser = None
-    groups = None
-    user_permissions = None
+class User(BaseUser):
+    class Meta:
+        db_table = "simple_user"

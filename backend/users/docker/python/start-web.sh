@@ -9,6 +9,6 @@ if [[ "$DJANGO_ENV" = "PRODUCTION" ]]; then
     --log-level ${DJANGO_LOG_LEVEL,,} \
     --access-logfile - config.wsgi:application
 else
-#  python manage.py initadmin
+  python manage.py initadmin
   python manage.py runserver 0.0.0.0:8000
 fi
