@@ -3,7 +3,7 @@ FROM python:3.11-slim-buster
 ARG DJANGO_ENV
 
 ENV DJANGO_ENV=${DJANGO_ENV} \
-  DJANGO_ENV='production' \
+  DJANGO_ENV='development' \
   # python:
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
@@ -36,9 +36,6 @@ RUN apt-get update && \
 # Copy only requirements, to cache them in docker layer
 WORKDIR /code
 COPY ./poetry.lock ./pyproject.toml /code/
-#COPY . /code
-#
-#COPY ./docker/python/start-web.sh /start-web.sh
 
 # Project initialization:
 RUN echo "$DJANGO_ENV" \
