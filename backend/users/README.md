@@ -28,7 +28,7 @@ $ poetry shell
 
 For local development (from `gspot/users/ directory`):
 
-`$ docker-compose -f docker/docker-compose.yml -f docker/docker-compose.local.yml --env-file ../.env up --build`
+`$ docker-compose -f docker/docker-compose.yml -f docker/docker-compose.local.yml --env-file ./.env up -d --build`
 
 Read more [here](https://docs.docker.com/compose/extends/)
 
@@ -36,5 +36,5 @@ Read more [here](https://docs.docker.com/compose/extends/)
 
 The project used Postgres as db engine. To use postgres with docker:
 
-1. Add `POSTGRES_DB=postgres, POSTGRES_USER=postgres, POSTGRES_PASSWORD=postgres` to `.env`
+1. Add `POSTGRES_DB=gspot_users, POSTGRES_USER=postgres, POSTGRES_PASSWORD=postgres` to `.env`
 2. From project root run `$ docker run --rm --volume pgdata:/var/lib/postgresql/data --name pg --env-file ./.env -d -p 5432:5432 postgres:14-alpine`
