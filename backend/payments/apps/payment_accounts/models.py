@@ -8,7 +8,6 @@ from django.db import models, transaction
 from django.shortcuts import get_object_or_404
 
 
-# Create your models here.
 def is_amount_positive(method):
     def wrapper(cls, *args, **kwargs):
         amount = kwargs['amount']
@@ -19,7 +18,6 @@ def is_amount_positive(method):
 
 
 class Account(models.Model):
-
     user_uid = models.UUIDField(unique=True, editable=False, db_index=True)
     balance = models.DecimalField(
         decimal_places=2,
@@ -87,9 +85,11 @@ class BalanceChange(models.Model):
     operation_type = models.CharField(max_length=20, choices=TransactionType.choices)
 
     def __str__(self) -> str:
-        return f'Account id:  {self.account_id} ' \
-               f'Date time of creation: {self.date_time_creation}' \
-               f'Amount: {self.amount}'
+        return (
+            f'Account id:  {self.account_id} '
+            f'Date time of creation: {self.date_time_creation}'
+            f'Amount: {self.amount}'
+        )
 
     class Meta:
         ordering = ['-date_time_creation']
