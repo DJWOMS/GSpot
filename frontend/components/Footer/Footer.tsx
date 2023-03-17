@@ -164,7 +164,7 @@ const List = styled.nav`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 100%;
+
     a {
         font-size: 14px;
         color: #dbdada;
@@ -208,7 +208,7 @@ const Contacts = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 100%;
+
     @media (min-width: 768px) {
         position: absolute;
         bottom: 0;
@@ -332,8 +332,8 @@ export function Footer() {
                             <a href="#">Партнерская программа</a>
                             <a href="#">Продажа</a>
                             <a href="#">Условия и положени</a>
-                            <a href="#">Политика конфиденциальности</a>
-                            <a href="#">Маркетинговое партнерство</a>
+                            <a href="#">Политика </a>
+                            <a href="#">Партнерство</a>
                         </List>
 
                         <Contacts>
