@@ -22,7 +22,6 @@ const Wrapper = styled.div`
     cursor: pointer;
     opacity: 0.7;
     &:hover {
-        // border: 1px solid white;
         opacity: 1;
     }
 `
