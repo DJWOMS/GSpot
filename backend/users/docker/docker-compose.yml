@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  web_users:
+    container_name: users-service
+    build:
+      context: ./..
+      dockerfile: docker/python/Dockerfile
+    environment:
+      - DJANGO_SETTINGS_MODULE
+    env_file:
+      - ../.env
+    command: /start-web.sh
+    volumes:
+      - static:/code/static
+      - media:/code/media
+    restart: always
+    expose:
+      - 8000
+    ports:
+      - "8000:8000"
+
+volumes:
+  media:
+  static:
