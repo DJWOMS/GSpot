@@ -171,6 +171,44 @@ export const SectionTitleWrap = styled.div`
     }
 `
 
+export const SectionTitleWrapSingle = styled(SectionTitleWrap)`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    ${SectionNavWrap} {
+        margin-top: 0;
+        width: auto;
+    }
+`
+
+export const SectionView = styled.a`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-width: 80px;
+    height: 30px;
+    color: #dbdada;
+    font-size: 13px;
+    font-weight: 400;
+    border-radius: 6px;
+    letter-spacing: 0.4px;
+    background-color: rgba(167, 130, 233, 0.03);
+    border: 1px solid rgba(167, 130, 233, 0.06);
+    margin-right: auto;
+
+    :hover {
+        background-color: rgba(167, 130, 233, 0.04);
+        border-color: rgba(167, 130, 233, 0.07);
+        color: #a782e9;
+    }
+
+    @media (min-width: 768px) {
+        margin-right: 0;
+    }
+`
+
 interface SectionTitleProps {
     uppercase?: boolean;
     small?: boolean;

@@ -3,6 +3,8 @@ import { SectionTitleWrap, SectionTitle, SectionNavWrap, SectionBg, SectionNav }
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import { FC } from 'react'
 import { Footer } from '@/components'
+import { LatestNews } from './LatestNews'
+
 const Home: FC = (): JSX.Element => {
     return (
         <>
@@ -26,6 +28,9 @@ const Home: FC = (): JSX.Element => {
                     </SectionTitleWrap>
                 </div>
             </SectionBg>
+
+            <LatestNews />
+
             <Footer />
         </>
     )
