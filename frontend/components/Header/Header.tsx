@@ -420,10 +420,13 @@ export function Header() {
                             <NavItem>
                                 <NavLink href="/catalog">Каталог</NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink href="/news">Новости</NavLink>
+                            </NavItem>
                         </Nav>
 
                         <Actions>
-                            <LoginButton>
+                            <LoginButton href="/singin">
                                 <IconLogin />
                                 <span>Авторизация</span>
                             </LoginButton>

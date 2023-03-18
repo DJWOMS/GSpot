@@ -3,9 +3,8 @@ import { SectionTitleWrap, SectionTitle, SectionNavWrap, SectionBg, SectionNav }
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import { FC } from 'react'
 import { Footer } from '@/components'
-import { LatestNews } from './LatestNews'
 import CardsIndex from '@/components/CardsIndex/cardsIndex'
-
+import { LatestNews } from './LatestNews'
 const Home: FC = (): JSX.Element => {
     return (
         <>
