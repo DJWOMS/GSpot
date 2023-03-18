@@ -3,6 +3,7 @@ import { SectionTitleWrap, SectionTitle, SectionNavWrap, SectionBg, SectionNav }
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import { FC } from 'react'
 import { Footer } from '@/components'
+import CardsIndex from '@/components/CardsIndex/cardsIndex'
 const Home: FC = (): JSX.Element => {
     return (
         <>
@@ -24,6 +25,7 @@ const Home: FC = (): JSX.Element => {
                             </SectionNav>
                         </SectionNavWrap>
                     </SectionTitleWrap>
+                    <CardsIndex />
                 </div>
             </SectionBg>
             <Footer />
