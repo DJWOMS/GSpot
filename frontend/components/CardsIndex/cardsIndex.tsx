@@ -50,7 +50,7 @@ const mockData = [
     ],
 ]
 
-const CardsIndex: FC = ({}): JSX.Element => {
+const CardsIndex: FC<any> = ({}): JSX.Element => {
     return (
         <SectionTitleWrap>
             {mockData.map((item, id: number) => (

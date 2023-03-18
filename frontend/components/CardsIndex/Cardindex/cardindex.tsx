@@ -83,7 +83,7 @@ const AddCart = styled.button`
     }
 `
 
-const CardIndex: FC<cardItem> = ({ content: { title, price, sale } }) => {
+const CardIndex: FC<cardItem> = ({ content: { title, price, sale } }): JSX.Element => {
     return (
         <Wrapper>
             <Image />

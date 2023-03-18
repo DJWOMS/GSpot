@@ -423,7 +423,7 @@ export function Header() {
                         </Nav>
 
                         <Actions>
-                            <LoginButton>
+                            <LoginButton href="/singin">
                                 <IconLogin />
                                 <span>Авторизация</span>
                             </LoginButton>
