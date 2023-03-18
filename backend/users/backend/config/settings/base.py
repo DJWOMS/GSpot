@@ -46,11 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # Third party apps
     'django_filters',
     'rest_framework',
-
     # Local apps
     'admins.apps.AdminAppConfig',
     'developers.apps.DeveloperAppConfig',
@@ -85,8 +83,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
-
-
 
 
 # Internationalization
