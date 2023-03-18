@@ -1,0 +1,8 @@
+DEBUG=1
+SECRET_KEY=foo
+DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+
+POSTGRES_DB=transactions_history_db
+POSTGRES_USER=root
+POSTGRES_PASSWORD=unknown
+PGDATA="/var/lib/postgresql/data/pgdata"
