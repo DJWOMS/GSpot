@@ -1,5 +1,10 @@
 # GSpot Frontend
 
+[Документация Next.js](https://nextjs.org/docs/getting-started).  
+[Бета документация Next.js](https://beta.nextjs.org/docs/getting-started).  
+
+Некоторый функционал Next 13.2+ нестабилен.
+
 ## Структура папок
 ### app
 Папка app содержит настройки маршрутизации для всего сервиса.
@@ -18,6 +23,7 @@
 Сообщение, которое будет отображено пользователю в момент возникновения ошибки.
 
 - not-found.js  
+The not-found file is used to render UI when the notFound function is thrown within a route segment.
 
 - route.js  
 Пользовательский обработчик запросов для данного маршрута, подобный вызову api endpoint.
