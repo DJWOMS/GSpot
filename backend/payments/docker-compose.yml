@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  payments:
+    build: .
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file:
+      - ./.env
+    volumes:
+      - ./apps/:/usr/src/app/
+    ports:
+      - 8000:8000
+    depends_on:
+      - transactions
+
+  transactions:
+    image: postgres:15.2
+    restart: always
+    volumes:
+      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+            
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres_data:
