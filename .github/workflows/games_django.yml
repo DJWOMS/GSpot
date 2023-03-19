@@ -14,7 +14,7 @@ jobs:
       run: pip install flake8
     - name: Test with flake8
       run: |
-        python -m flake8
+        cd backend/games && python -m flake8
     - name: Build and run containers
       run: |
         cd backend/games && docker-compose up -d --build
