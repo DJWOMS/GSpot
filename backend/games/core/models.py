@@ -14,7 +14,7 @@ class Product(models.Model):
         GAMES = 'G', _('GAMES')
         DLC = 'D', _('ADDITIONS')
 
-    id = models.UUIDField('UUID продукта', primary_key=True, default=uuid.uuid4, editable=False, verbose_name='Идентификатор записи ')
+    id = models.UUIDField('UUID продукта', primary_key=True, default=uuid.uuid4, editable=False, verbose_name='Идентификатор записи')
 
     name = models.CharField(
         'Наименование продукта',
