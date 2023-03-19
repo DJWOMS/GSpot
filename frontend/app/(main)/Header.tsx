@@ -1,11 +1,18 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { IconHeart, IconLogin, IconSearch, IconShoppingCart } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
 
-const StyledHeader = styled.header`
+interface HeaderComponentProps {
+    hide: boolean;
+}
+const HeaderComponent =
+    styled.header <
+    HeaderComponentProps >
+    `
     position: fixed;
     top: 0;
     left: 0;
@@ -13,6 +20,12 @@ const StyledHeader = styled.header`
     background-color: #1b222e;
     z-index: 99;
     transition: 0.5s, margin 0s;
+
+    ${(props) =>
+        props.hide &&
+        `
+        top: -71px;
+    `}
 `
 const Wrap = styled.div`
     border-bottom: 1px solid rgba(167, 130, 233, 0.06);
@@ -397,8 +410,22 @@ const ActionLink = styled(Link)`
 `
 
 export function Header() {
+    const [hideHeader, setHideHeader] = useState(false)
+
+    useEffect(() => {
+        const toggler = () => {
+            setHideHeader(window.scrollY > 50)
+        }
+
+        window.addEventListener('scroll', toggler)
+
+        return () => {
+            window.removeEventListener('scroll', toggler)
+        }
+    }, [])
+
     return (
-        <StyledHeader>
+        <HeaderComponent hide={hideHeader}>
             <Wrap>
                 <div className="container">
                     <Content>
@@ -472,6 +499,6 @@ export function Header() {
                     </Content>
                 </div>
             </Wrap>
-        </StyledHeader>
+        </HeaderComponent>
     )
 }
