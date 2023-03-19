@@ -10,7 +10,14 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <Header />
+            <Header
+                links={[
+                    { href: '/', title: 'Главная' },
+                    { href: '/catalog', title: 'Каталог' },
+                    { href: '/news', title: 'Новости' },
+                ]}
+            />
+
             {children}
             <Footer />
         </>

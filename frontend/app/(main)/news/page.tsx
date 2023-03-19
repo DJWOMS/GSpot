@@ -1,6 +1,7 @@
 'use client'
 
-import { Column80, Grid } from '@/components/Grid'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
+import { SectionHead, SectionWrap, SectionTitle } from '@/components/Section'
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import Post from './Post'
@@ -88,39 +89,46 @@ const ColumnCards = styled.div`
 const Page: FC<any> = ({}): JSX.Element => {
     return (
         <>
+            <SectionHead first last>
+                <div className="container">
+                    <SectionWrap>
+                        <SectionTitle>Новости</SectionTitle>
+
+                        <Breadcrumbs items={[{ name: 'Новости' }]} />
+                    </SectionWrap>
+                </div>
+            </SectionHead>
+
             <section className="section section--last section--catalog">
                 <div className="container">
-                    <Grid className="row">
-                        <Column80 className="col-12">
-                            <Sort>
-                                <FilterGroup>
-                                    <FilterLabel htmlFor="genres">Жанры:</FilterLabel>
-                                    <FilterSelectWrap>
-                                        <FilterSelect name="genres" id="genres">
-                                            {['Все категории', 'Экшены', 'Эдвенчуры'].map((_: string, id: number) => (
-                                                <Option key={id} value={id}>
-                                                    {_}
-                                                </Option>
-                                            ))}
-                                        </FilterSelect>
-                                    </FilterSelectWrap>
-                                </FilterGroup>
-                                <FilterGroup>
-                                    <FilterLabel htmlFor="sort">Сортировать по:</FilterLabel>
-                                    <FilterSelectWrap>
-                                        <FilterSelect name="sort" id="sort">
-                                            {['Актуальность', 'Новейшие', 'Старые'].map((_: string, id: number) => (
-                                                <Option key={id} value={id}>
-                                                    {_}
-                                                </Option>
-                                            ))}
-                                        </FilterSelect>
-                                    </FilterSelectWrap>
-                                </FilterGroup>
-                                <SortResults>Найдено 123 постов</SortResults>
-                            </Sort>
-                        </Column80>
-                    </Grid>
+                    <Sort>
+                        <FilterGroup>
+                            <FilterLabel htmlFor="genres">Жанры:</FilterLabel>
+                            <FilterSelectWrap>
+                                <FilterSelect name="genres" id="genres">
+                                    {['Все категории', 'Экшены', 'Эдвенчуры'].map((_: string, id: number) => (
+                                        <Option key={id} value={id}>
+                                            {_}
+                                        </Option>
+                                    ))}
+                                </FilterSelect>
+                            </FilterSelectWrap>
+                        </FilterGroup>
+                        <FilterGroup>
+                            <FilterLabel htmlFor="sort">Сортировать по:</FilterLabel>
+                            <FilterSelectWrap>
+                                <FilterSelect name="sort" id="sort">
+                                    {['Актуальность', 'Новейшие', 'Старые'].map((_: string, id: number) => (
+                                        <Option key={id} value={id}>
+                                            {_}
+                                        </Option>
+                                    ))}
+                                </FilterSelect>
+                            </FilterSelectWrap>
+                        </FilterGroup>
+                        <SortResults>Найдено 123 постов</SortResults>
+                    </Sort>
+
                     <ColumnCards>
                         {new Array(11).fill(0).map((_: number, id: number) => (
                             <Post key={id} />

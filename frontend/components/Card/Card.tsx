@@ -97,12 +97,9 @@ const colors: any = {
     ap: '#555',
 }
 interface PlatformItemProps {
-    type: string;
+    type: string
 }
-export const CardPlatformItem =
-    styled.li <
-    PlatformItemProps >
-    `
+export const CardPlatformItem = styled.li<PlatformItemProps>`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -117,12 +114,11 @@ export const CardPlatformItem =
         fill: #fff;
         width: 14px;
         height: auto;
-      }
+    }
 
-
-      :last-child {
+    :last-child {
         margin-right: 0;
-      }
+    }
 `
 
 export const CardPlatforms = styled.ul`

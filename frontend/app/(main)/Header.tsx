@@ -7,12 +7,9 @@ import Link from 'next/link'
 import styled from 'styled-components'
 
 interface HeaderComponentProps {
-    hide: boolean;
+    hide: boolean
 }
-const HeaderComponent =
-    styled.header <
-    HeaderComponentProps >
-    `
+const HeaderComponent = styled.header<HeaderComponentProps>`
     position: fixed;
     top: 0;
     left: 0;
@@ -61,7 +58,11 @@ const Logo = styled(Link)`
         width: 232px;
     }
 `
-const Menu = styled.button`
+
+interface MenuProps {
+    open: boolean
+}
+const Menu = styled.button<MenuProps>`
     position: absolute;
     width: 24px;
     height: 22px;
@@ -79,24 +80,46 @@ const Menu = styled.button`
         transition: 0.5s;
         opacity: 1;
 
-        :first-child {
-            top: 0;
+        ${(props) =>
+            props.open
+                ? `
+            :first-child {
+                transform: rotate(45deg);
+                top: 10px;
+            }
+            :nth-child(2) {
+                opacity: 0;
+            }
+            :last-child {
+                width: 24px;
+                transform: rotate(-45deg);
+                top: 10px;
+            }
         }
-        :nth-child(2) {
-            top: 10px;
-            width: 16px;
-        }
-        :last-child {
-            top: 20px;
-            width: 8px;
-        }
+    `
+                : `
+            :first-child {
+                top: 0;
+            }
+            :nth-child(2) {
+                top: 10px;
+                width: 16px;
+            }
+            :last-child {
+                top: 20px;
+                width: 8px;
+            }`}
     }
 
     @media (min-width: 1200px) {
         display: none;
     }
 `
-const Nav = styled.ul`
+
+interface NavProps {
+    open: boolean
+}
+const Nav = styled.ul<NavProps>`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -105,7 +128,7 @@ const Nav = styled.ul`
     background-color: #1b222e;
     top: 71px;
     bottom: 0;
-    left: -100%;
+    left: ${(props) => (props.open ? '0' : '-100%')};
     width: 100%;
     z-index: 100;
     padding: 20px 15px 15px;
@@ -409,27 +432,55 @@ const ActionLink = styled(Link)`
     }
 `
 
-export function Header() {
+export function Header({ links }: { links: Array<object> }) {
     const [hideHeader, setHideHeader] = useState(false)
+    const [scrolling, setScrolling] = useState(false)
+    const [previousTop, setPreviousTop] = useState(0)
+    const [currentTop, setCurrentTop] = useState(0)
+    const scrollDelta = 10
+    const scrollOffset = 140
 
     useEffect(() => {
-        const toggler = () => {
-            setHideHeader(window.scrollY > 50)
+        const handleScroll = () => {
+            if (!scrolling) {
+                setScrolling(true)
+                !window.requestAnimationFrame ? setTimeout(autoHideHeader, 250) : requestAnimationFrame(autoHideHeader)
+            }
         }
 
-        window.addEventListener('scroll', toggler)
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [scrolling])
 
-        return () => {
-            window.removeEventListener('scroll', toggler)
+    useEffect(() => {
+        if (previousTop - currentTop > scrollDelta) {
+            setHideHeader(false)
+        } else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
+            setHideHeader(true)
         }
-    }, [])
+
+        setPreviousTop(currentTop)
+        setScrolling(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentTop])
+
+    function autoHideHeader() {
+        setCurrentTop(window.pageYOffset)
+    }
+
+    const [openHeader, setOpenHeader] = useState(false)
+    const toggleOpen = () => setOpenHeader((state) => !state)
+
+    useEffect(() => {
+        window.onscroll = () => (openHeader ? window.scrollTo(window.scrollX, window.scrollY) : () => void 0)
+    }, [openHeader])
 
     return (
         <HeaderComponent hide={hideHeader}>
             <Wrap>
                 <div className="container">
                     <Content>
-                        <Menu type="button">
+                        <Menu open={openHeader} type="button" onClick={toggleOpen}>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -439,17 +490,12 @@ export function Header() {
                             <Image width={496} height={161} src="/img/logo.png" alt="Logo" loading="eager" />
                         </Logo>
 
-                        <Nav>
-                            <NavItem>
-                                <NavLink href="/">Главная</NavLink>
-                            </NavItem>
-
-                            <NavItem>
-                                <NavLink href="/catalog">Каталог</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/news">Новости</NavLink>
-                            </NavItem>
+                        <Nav open={openHeader}>
+                            {links.map((link, index) => (
+                                <NavItem onClick={() => setOpenHeader(false)} key={index}>
+                                    <NavLink href={link}>Главная</NavLink>
+                                </NavItem>
+                            ))}
                         </Nav>
 
                         <Actions>

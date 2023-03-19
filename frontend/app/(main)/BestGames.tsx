@@ -35,7 +35,7 @@ export function BestGames() {
                 nextRef={nextRef}
                 breakpoints={{
                     0: {
-                        slidesPerView: 2,
+                        slidesPerView: 1,
                     },
                     576: {
                         slidesPerView: 2,

@@ -21,6 +21,6 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-unexpected-multiline":"off"
+        "no-unexpected-multiline": "off"
     }
 }
