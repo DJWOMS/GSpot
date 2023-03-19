@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import CardIndex from '../Cardindex/cardindex'
+import CardIndex from '../Cardindex'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
