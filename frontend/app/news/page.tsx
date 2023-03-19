@@ -15,7 +15,7 @@ const Sort = styled.div`
     margin-bottom: 10px;
 `
 
-const Filter__group = styled.div`
+const FilterGroup = styled.div`
     display: flex;
     gap: 20px;
     flex-direction: column;
@@ -36,7 +36,7 @@ const Filter__group = styled.div`
     }
 `
 
-const Filter__label = styled.label`
+const FilterLabel = styled.label`
     margin-top: 10px;
     font-size: 14px;
     line-height: 100%;
@@ -46,13 +46,13 @@ const Filter__label = styled.label`
     margin-bottom: 15px;
 `
 
-const Filter__select_wrap = styled.div`
+const FilterSelectWrap = styled.div`
     position: relative;
     width: 100%;
     width: 210px;
 `
 
-const Filter__select = styled.select`
+const FilterSelect = styled.select`
     width: 100%;
     height: 44px;
     border-radius: 6px;
@@ -64,14 +64,15 @@ const Filter__select = styled.select`
     background: url('../img/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
     background-size: 12px auto;
     letter-spacing: 0.4px;
-    option {
-        padding: 0;
-        margin: 0;
-        color: #000;
-    }
 `
 
-const Sort__results = styled.div`
+const Option = styled.option`
+    padding: 0;
+    margin: 0;
+    color: #000;
+`
+
+const SortResults = styled.div`
     margin-top: 10px;
     font-size: 14px;
     color: #dbdada;
@@ -93,38 +94,38 @@ const Page: FC<any> = ({}): JSX.Element => {
                     <Grid className="row">
                         <Column80 className="col-12">
                             <Sort>
-                                <Filter__group>
-                                    <Filter__label htmlFor="genres">Genres:</Filter__label>
-                                    <Filter__select_wrap>
-                                        <Filter__select name="genres" id="genres">
-                                            <option value="0">Все категории</option>
-                                            <option value="1">Экшены</option>
-                                            <option value="3">Эдвенчуры</option>
-                                        </Filter__select>
-                                    </Filter__select_wrap>
-                                </Filter__group>
-                                <Filter__group>
-                                    <Filter__label htmlFor="sort">Сортировать по:</Filter__label>
-                                    <Filter__select_wrap>
-                                        <Filter__select name="sort" id="sort">
-                                            <option value="0">Relevance</option>
-                                            <option value="1">Newest</option>
-                                            <option value="2">Oldest</option>
-                                        </Filter__select>
-                                    </Filter__select_wrap>
-                                </Filter__group>
-                                <Sort__results>Найдено 123 постов</Sort__results>
+                                <FilterGroup>
+                                    <FilterLabel htmlFor="genres">Жанры:</FilterLabel>
+                                    <FilterSelectWrap>
+                                        <FilterSelect name="genres" id="genres">
+                                            {['Все категории', 'Экшены', 'Эдвенчуры'].map((_: string, id: number) => (
+                                                <Option key={id} value={id}>
+                                                    {_}
+                                                </Option>
+                                            ))}
+                                        </FilterSelect>
+                                    </FilterSelectWrap>
+                                </FilterGroup>
+                                <FilterGroup>
+                                    <FilterLabel htmlFor="sort">Сортировать по:</FilterLabel>
+                                    <FilterSelectWrap>
+                                        <FilterSelect name="sort" id="sort">
+                                            {['Актуальность', 'Новейшие', 'Старые'].map((_: string, id: number) => (
+                                                <Option key={id} value={id}>
+                                                    {_}
+                                                </Option>
+                                            ))}
+                                        </FilterSelect>
+                                    </FilterSelectWrap>
+                                </FilterGroup>
+                                <SortResults>Найдено 123 постов</SortResults>
                             </Sort>
                         </Column80>
                     </Grid>
                     <ColumnCards>
-                        <Post />
-                        <Post />
-                        <Post />
-                        <Post />
-                        <Post />
-                        <Post />
-                        <Post />
+                        {new Array(11).fill(0).map((_: number, id: number) => (
+                            <Post key={id} />
+                        ))}
                     </ColumnCards>
                 </div>
             </section>
