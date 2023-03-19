@@ -3,9 +3,11 @@ from core.models import Product
 
 
 class Language(models.Model):
-    name = models.CharField('Наименование языка',
-                            max_length=100,
-                            help_text='Введите наименование языка')
+    name = models.CharField(
+        'Наименование языка',
+        max_length=100,
+        help_text='Введите наименование языка'
+    )
 
     def __str__(self):
         return self.name
@@ -16,10 +18,16 @@ class Language(models.Model):
 
 
 class ProductLanguage(models.Model):
-    language = models.ForeignKey(Language, on_delete=models.CASCADE,
-                                 related_name='game_supported_language')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE,
-                                related_name='languages')
+    language = models.ForeignKey(
+        Language,
+        on_delete=models.CASCADE,
+        related_name='game_supported_language'
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='languages'
+    )
     interface = models.BooleanField(verbose_name='Интерфейс', default=True)
     subtitles = models.BooleanField(verbose_name='Титры', default=True)
     voice = models.BooleanField(verbose_name='Озвучка', default=True)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, GameDlcLink, SystemRequirement
+from . import models
 
 
 # Register your models here.
@@ -18,6 +18,6 @@ class SystemRequirementAdmin(admin.ModelAdmin):
 
 # при регистрации модели Product источником конфигурации
 # для неё назначаем класс ProductAdmin
-admin.site.register(Product, ProductAdmin)
-admin.site.register(GameDlcLink, GameDlcLinkAdmin)
-admin.site.register(SystemRequirement, SystemRequirementAdmin)
+admin.site.register(models.Product, ProductAdmin)
+admin.site.register(models.GameDlcLink, GameDlcLinkAdmin)
+admin.site.register(models.SystemRequirement, SystemRequirementAdmin)

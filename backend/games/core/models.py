@@ -14,7 +14,12 @@ class Product(models.Model):
         GAMES = 'G', _('GAMES')
         DLC = 'D', _('ADDITIONS')
 
-    id = models.UUIDField('UUID продукта', primary_key=True, default=uuid.uuid4, editable=False, verbose_name='Идентификатор записи')
+    id = models.UUIDField(
+        'UUID продукта',
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+        )
 
     name = models.CharField(
         'Наименование продукта',
@@ -135,7 +140,8 @@ class SystemRequirement(models.Model):
         'UUID продукта',
         primary_key=True,
         default=uuid.uuid4,
-        editable=False)
+        editable=False
+    )
 
     operating_system = models.CharField(
         'ОС',
@@ -148,8 +154,7 @@ class SystemRequirement(models.Model):
         Product,
         on_delete=models.CASCADE,
         related_name='system_requirements',
-        limit_choices_to={
-            'type': Product.TypeProduct.GAMES}
+        limit_choices_to={'type': Product.TypeProduct.GAMES}
     )
 
     device_processor = models.CharField(
@@ -173,7 +178,8 @@ class SystemRequirement(models.Model):
     device_graphics = models.CharField(
         'Модель видеокарты и количество памяти',
         max_length=100,
-        help_text='Укажите модель видеокарты и количество памяти')
+        help_text='Укажите модель видеокарты и количество памяти'
+    )
 
     type_requirements = models.CharField(
         'Тип системных требований',

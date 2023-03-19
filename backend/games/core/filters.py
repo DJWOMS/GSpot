@@ -1,12 +1,12 @@
 from django_filters import rest_framework as filters
-from .models import Product
+from . import models
 
 
 class ProductFilter(filters.FilterSet):
     name = filters.CharFilter(field_name='name', lookup_expr='icontains')
 
     class Meta:
-        model = Product
+        model = models.Product
         fields = ('name', 'status', 'type')
 
 
@@ -14,5 +14,5 @@ class ProductFilter(filters.FilterSet):
 #     name = filters.CharFilter(field_name='name', lookup_expr='icontains')
 #
 #     class Meta:
-#         model = GameDlcLink
+#         model = models.GameDlcLink
 #         fields = ('name')

@@ -8,12 +8,13 @@ class DlcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id',
-                  'name',
-                  'description',
-                  'developers_uuid',
-                  'publishers_uuid',
-                  )
+        fields = (
+            'id',
+            'name',
+            'description',
+            'developers_uuid',
+            'publishers_uuid',
+        )
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -22,18 +23,20 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id',
-                  'name',
-                  'release_date',
-                  'description',
-                  'about',
-                  'age',
-                  'adult',
-                  'status',
-                  'type',
-                  'developers_uuid',
-                  'publishers_uuid',
-                  'dlcs')
+        fields = (
+            'id',
+            'name',
+            'release_date',
+            'description',
+            'about',
+            'age',
+            'adult',
+            'status',
+            'type',
+            'developers_uuid',
+            'publishers_uuid',
+            'dlcs'
+        )
 
 
 class DlcListSerializer(serializers.ModelSerializer):
