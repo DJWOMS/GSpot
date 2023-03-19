@@ -27,7 +27,7 @@ export function BestGame({ badge, title, link, price, sale }: BestGameProps) {
     return (
         <CardBig>
             <CardCover href="/#">
-                <Image width={1000} src="https://picsum.photos/1000" alt="Logo" loading="eager" />
+                <Image width={1000} height={1000} src="https://picsum.photos/1000" alt="Logo" loading="lazy" />
                 {badge && <CardBadgeNew>{badge}</CardBadgeNew>}
             </CardCover>
 
@@ -49,7 +49,7 @@ export function BestGame({ badge, title, link, price, sale }: BestGameProps) {
                 </CardPrice>
 
                 <CardActions>
-                    <CardActionBuy>Buy</CardActionBuy>
+                    <CardActionBuy>Buy Now</CardActionBuy>
 
                     <CardActionFavorite>
                         <IconHeart />

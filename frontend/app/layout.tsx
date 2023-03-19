@@ -1,11 +1,11 @@
-import { Montserrat, Open_Sans } from 'next/font/google'
+import localFont from 'next/font/local'
 import StyledComponentsRegistry from '@/lib/registry'
 import classNames from 'classnames'
 
 // styles
 import GlobalStyles from './GlobalStyles'
-import '@/public/css/bootstrap-reboot.min.css'
-import '@/public/css/bootstrap-grid.min.css'
+import '@/assets/css/bootstrap-reboot.min.css'
+import '@/assets/css/bootstrap-grid.min.css'
 
 // head
 export const metadata = {
@@ -14,16 +14,12 @@ export const metadata = {
 }
 
 // fonts
-const montserrat = Montserrat({
-    weight: ['300', '400', '500'],
-    subsets: ['cyrillic', 'latin'],
-    display: 'swap',
+const montserrat = localFont({
+    src: '../fonts/Montserrat.ttf',
     variable: '--font-montserrat',
 })
-const openSans = Open_Sans({
-    weight: ['400', '600'],
-    subsets: ['cyrillic', 'latin'],
-    display: 'swap',
+const openSans = localFont({
+    src: '../fonts/OpenSans.ttf',
     variable: '--font-opensans',
 })
 

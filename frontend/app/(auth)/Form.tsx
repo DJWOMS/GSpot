@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import styled from 'styled-components'
+import LogoPNG from '@/assets/img/logo.png'
 
 export const SignContent = styled.div`
     display: flex;
@@ -36,7 +37,8 @@ export const SignLogo = styled(Link)`
     transition: 0s;
 
     img {
-        max-height: 80px;
+        width: 100%;
+        height: 100%;
     }
 
     @media (min-width: 576px) {
@@ -243,7 +245,7 @@ export const Form = ({ onSubmit, children }: FormProps) => {
         <SignContent>
             <SignForm onSubmit={onSubmit}>
                 <SignLogo href="/">
-                    <Image width={496} height={161} src="/img/logo.png" alt="Logo" loading="eager" />
+                    <Image src={LogoPNG} alt="Logo" />
                 </SignLogo>
 
                 {children}

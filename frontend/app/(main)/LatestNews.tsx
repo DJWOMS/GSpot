@@ -321,7 +321,7 @@ export function LatestNews() {
                     <div className="col-12 col-md-12 col-lg-6">
                         <PostBig>
                             <PostImg>
-                                <Image width={1001} src="https://picsum.photos/1001" alt="Logo" loading="eager" />
+                                <Image width={1001} height={1000} src="https://picsum.photos/1001" alt="Logo" loading="eager" />
                             </PostImg>
 
                             <PostContent>
@@ -344,7 +344,7 @@ export function LatestNews() {
                     <div className="col-12 col-md-12 col-lg-6">
                         <PostBig>
                             <PostImg>
-                                <Image width={1002} src="https://picsum.photos/1002" alt="Logo" loading="eager" />
+                                <Image width={1002} height={1000} src="https://picsum.photos/1002" alt="Logo" loading="eager" />
                             </PostImg>
 
                             <PostVideo>
@@ -372,7 +372,7 @@ export function LatestNews() {
                     <div className="col-12 col-md-6 col-xl-4">
                         <Post>
                             <PostCover>
-                                <Image width={1003} src="https://picsum.photos/1003" alt="Logo" loading="eager" />
+                                <Image width={1003} height={1000} src="https://picsum.photos/1003" alt="Logo" loading="eager" />
                             </PostCover>
 
                             <PostVideo>
@@ -399,7 +399,7 @@ export function LatestNews() {
                     <div className="col-12 col-md-6 col-xl-4">
                         <Post>
                             <PostCover>
-                                <Image width={1004} src="https://picsum.photos/1004" alt="Logo" loading="eager" />
+                                <Image width={1004} height={1000} src="https://picsum.photos/1004" alt="Logo" loading="eager" />
                             </PostCover>
 
                             <PostContent>
@@ -422,7 +422,7 @@ export function LatestNews() {
                     <div className="col-12 col-md-6 col-xl-4">
                         <Post>
                             <PostCover>
-                                <Image width={1005} src="https://picsum.photos/1005" alt="Logo" loading="eager" />
+                                <Image width={1005} height={1000} src="https://picsum.photos/1005" alt="Logo" loading="eager" />
                             </PostCover>
 
                             <PostContent>

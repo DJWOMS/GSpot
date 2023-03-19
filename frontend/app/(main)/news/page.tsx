@@ -62,7 +62,7 @@ const FilterSelect = styled.select`
     color: #fff;
     padding: 0 20px;
     cursor: pointer;
-    background: url('../img/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
+    background: url('/img/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
     background-size: 12px auto;
     letter-spacing: 0.4px;
 `

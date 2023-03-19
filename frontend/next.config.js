@@ -9,6 +9,10 @@ const nextConfig = {
         styledComponents: true,
     },
     swcMinify: true,
+    // develop
+    images: {
+        domains: ['picsum.photos'],
+    },
 }
 
 module.exports = nextConfig

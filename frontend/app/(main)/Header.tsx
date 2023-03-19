@@ -5,6 +5,7 @@ import { IconHeart, IconLogin, IconSearch, IconShoppingCart } from '@tabler/icon
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
+import LogoPNG from '@/assets/img/logo.png'
 
 interface HeaderComponentProps {
     hide: boolean
@@ -209,6 +210,14 @@ const NavLink = styled(Link)`
         transition: stroke 0.5s ease;
         margin-left: 4px;
     }
+
+    :hover {
+        color: #a782e9;
+
+        svg {
+            color: #a782e9;
+        }
+    }
 `
 const Actions = styled.div`
     display: flex;
@@ -343,7 +352,7 @@ const Select = styled.select`
         font-size: 14px;
         color: #fff;
         padding: 0;
-        background: url('/img/arrow2.svg') no-repeat center right;
+        background: url('/svg/arrow2.svg') no-repeat center right;
         background-size: 12px auto;
         cursor: pointer;
 
@@ -432,7 +441,14 @@ const ActionLink = styled(Link)`
     }
 `
 
-export function Header({ links }: { links: Array<object> }) {
+type HeaderLink = {
+    href: string
+    title: string
+}
+interface HeaderProps {
+    links: Array<HeaderLink>
+}
+export function Header({ links }: HeaderProps) {
     const [hideHeader, setHideHeader] = useState(false)
     const [scrolling, setScrolling] = useState(false)
     const [previousTop, setPreviousTop] = useState(0)
@@ -487,13 +503,13 @@ export function Header({ links }: { links: Array<object> }) {
                         </Menu>
 
                         <Logo href="/">
-                            <Image width={496} height={161} src="/img/logo.png" alt="Logo" loading="eager" />
+                            <Image src={LogoPNG} alt="Logo" loading="eager" />
                         </Logo>
 
                         <Nav open={openHeader}>
-                            {links.map((link, index) => (
+                            {links.map(({ href, title }, index) => (
                                 <NavItem onClick={() => setOpenHeader(false)} key={index}>
-                                    <NavLink href={link}>Главная</NavLink>
+                                    <NavLink href={href}>{title}</NavLink>
                                 </NavItem>
                             ))}
                         </Nav>

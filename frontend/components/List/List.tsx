@@ -61,6 +61,7 @@ export const ListCover = styled.a`
         width: 100%;
         position: relative;
         z-index: 1;
+        max-height: 150px;
         transition: 0.5s;
     }
 

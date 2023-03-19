@@ -28,13 +28,13 @@ const BreadcrumbItem = styled.li<ItemProps>`
     padding-left: 25px;
 
     :after {
-content: '';
+        content: '';
         position: absolute;
         left: 0;
         top: 0;
         height: 22px;
         width: 25px;
-        background: url("/img/home.svg") no-repeat center left/16px auto;
+        background: url("/svg/home.svg") no-repeat center left/16px auto;
       }
   }
 
@@ -45,7 +45,7 @@ content: '';
     top: 0;
     height: 22px;
     width: 40px;
-    background: url("/img/breadcrumb.svg") no-repeat center/14px auto;
+    background: url("/svg/breadcrumb.svg") no-repeat center/14px auto;
     opacity: 0.8;
   }
 
@@ -67,7 +67,6 @@ content: '';
               color: #dbdada;
           }
       `}
-    
   }}
 `
 const LinkBtn = styled(Link)`

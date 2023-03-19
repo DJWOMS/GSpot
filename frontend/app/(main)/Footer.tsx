@@ -1,7 +1,8 @@
 'use client'
 
-import styled from 'styled-components'
+import Link from 'next/link'
 import Image from 'next/image'
+import styled from 'styled-components'
 import {
     IconTriangleSquareCircle,
     IconDeviceGamepad2,
@@ -12,6 +13,7 @@ import {
     IconBrandVk,
     IconBrandTwitch,
 } from '@tabler/icons-react'
+import LogoPNG from '@/assets/img/logo.png'
 
 const StyledFooter = styled.footer`
     position: relative;
@@ -184,7 +186,7 @@ const List = styled.nav`
             bottom: 0;
             left: 0;
             width: 10px;
-            background: url(../img/arrow.svg) no-repeat left center;
+            background: url('/svg/arrow.svg') no-repeat left center;
             background-size: 10px auto;
             opacity: 0.5;
             transition: 0.5s;
@@ -218,7 +220,7 @@ const Contacts = styled.div`
     }
 `
 
-const Link = styled.a`
+const FooterLink = styled(Link)`
     font-size: 16px;
     line-height: 30px;
     color: #fff;
@@ -282,6 +284,16 @@ const Wrap = styled(Container)`
     }
 `
 
+const Logo = styled(Link)`
+    display: block;
+    width: 120px;
+    height: auto;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+`
+
 export function Footer() {
     return (
         <StyledFooter>
@@ -337,8 +349,8 @@ export function Footer() {
                         </List>
 
                         <Contacts>
-                            <Link href="tel:">+3 301 234-52-48</Link>
-                            <Link href="mail:">support@gmail.com</Link>
+                            <FooterLink href="tel:">+3 301 234-52-48</FooterLink>
+                            <FooterLink href="mail:">support@gmail.com</FooterLink>
                             <Social>
                                 <a href="#">
                                     <IconBrandFacebook />
@@ -360,10 +372,11 @@ export function Footer() {
                     </Nav3>
                 </Navs>
             </Container>
+
             <Wrap>
-                <a href="">
-                    <Image width={130} height={40} src="/img/logo.png" alt="Logo" loading="eager" />
-                </a>
+                <Logo href="/">
+                    <Image src={LogoPNG} alt="Logo" loading="eager" />
+                </Logo>
                 <span>
                     © GSpot, 2020—2021
                     <br /> Create by <a href="">GSpot Team</a>

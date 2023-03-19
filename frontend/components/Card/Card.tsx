@@ -17,6 +17,7 @@ export const CardCover = styled(Link)`
     img {
         width: 100%;
         position: relative;
+        max-height: 300px;
         z-index: 1;
         transition: 0.5s;
     }
