@@ -16,11 +16,11 @@ import {
 } from '@/components/Card'
 
 interface BestGameProps {
-    badge?: string;
-    title: string;
-    link: string;
-    price: number;
-    sale?: number;
+    badge?: string
+    title: string
+    link: string
+    price: number
+    sale?: number
 }
 export function BestGame({ badge, title, link, price, sale }: BestGameProps) {
     return (

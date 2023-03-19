@@ -4,14 +4,11 @@
 import styled from 'styled-components'
 
 interface SectionProps {
-    first?: boolean;
-    last?: boolean;
+    first?: boolean
+    last?: boolean
 }
 
-export const Section =
-    styled.section <
-    SectionProps >
-    `
+export const Section = styled.section<SectionProps>`
     position: relative;
     padding-top: ${(props) => (props.first ? '200px' : '60px')};
     padding-bottom: ${(props) => (props.last ? '60px' : null)};
@@ -114,12 +111,9 @@ export const SectionNavWrap = styled.div`
 `
 
 interface SectionNavProps {
-    ref?: any;
+    ref?: any
 }
-export const SectionNav =
-    styled.button <
-    SectionNavProps >
-    `
+export const SectionNav = styled.button<SectionNavProps>`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -201,15 +195,12 @@ export const SectionView = styled.a`
 `
 
 interface SectionTitleProps {
-    uppercase?: boolean;
-    small?: boolean;
-    pre?: boolean;
-    downloads?: boolean;
+    uppercase?: boolean
+    small?: boolean
+    pre?: boolean
+    downloads?: boolean
 }
-export const SectionTitle =
-    styled.h2 <
-    SectionTitleProps >
-    `
+export const SectionTitle = styled.h2<SectionTitleProps>`
     color: #fff;
     font-weight: ${(props) => (props.uppercase ? '300' : '400')};
     font-size: ${(props) => (props.small ? '26px' : '28px')};
@@ -234,7 +225,7 @@ export const SectionTitle =
         background-color: ${props.pre ? '#f26c2a' : props.downloads ? '#5074e1' : '#a782e9'};
         border-radius: 4px;
     }`}
-    
+
     b {
         font-weight: 500;
     }
@@ -253,8 +244,8 @@ export const SectionTitle =
         :before {
             top: 3px;
             bottom: 3px;
-          }
-          
+        }
+
         font-size: ${(props) => (props.small ? '28px' : '32px')};
     }
 `

@@ -16,11 +16,11 @@ import {
 } from '@/components/Card'
 
 interface GameCardProps {
-    badge?: string;
-    title: string;
-    link: string;
-    price: number;
-    sale?: number;
+    badge?: string
+    title: string
+    link: string
+    price: number
+    sale?: number
 }
 export function GameCard({ badge, title, link, price, sale }: GameCardProps) {
     const rand = () => {

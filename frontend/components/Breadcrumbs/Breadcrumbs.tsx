@@ -13,12 +13,9 @@ const StyledComponent = styled.ul`
     }
 `
 interface ItemProps {
-    active?: boolean;
+    active?: boolean
 }
-const BreadcrumbItem =
-    styled.li <
-    ItemProps >
-    `
+const BreadcrumbItem = styled.li<ItemProps>`
   font-size: 14px;
   line-height: 22px;
   color: #dbdada;
@@ -82,11 +79,11 @@ const LinkBtn = styled(Link)`
 `
 
 interface Item {
-    name: string;
-    link?: string;
+    name: string
+    link?: string
 }
 type ItemType = {
-    items: Item[],
+    items: Item[]
 }
 export function Breadcrumbs(props: ItemType) {
     return (

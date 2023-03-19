@@ -68,10 +68,10 @@ const CarouselComponent = styled.div`
 `
 
 interface CarouselProps {
-    prevRef?: React.RefObject<HTMLElement>;
-    nextRef?: React.RefObject<HTMLElement>;
-    breakpoints: object;
-    children: Array<React.ReactNode>;
+    prevRef?: React.RefObject<HTMLElement>
+    nextRef?: React.RefObject<HTMLElement>
+    breakpoints: object
+    children: Array<React.ReactNode>
 }
 
 SwiperCore.use([Autoplay])

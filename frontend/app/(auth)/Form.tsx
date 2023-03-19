@@ -200,12 +200,9 @@ const colors: any = {
     tw: '#1da1f2',
 }
 interface SignSocialProps {
-    color: string;
+    color: string
 }
-export const SignSocial =
-    styled.button <
-    SignSocialProps >
-    `
+export const SignSocial = styled.button<SignSocialProps>`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -221,7 +218,7 @@ export const SignSocial =
         stroke: #fff;
         transition: 0.5s ease;
         transition-property: stroke, fill;
-      }
+    }
 
     :hover {
         background-color: #fff;
@@ -233,8 +230,8 @@ export const SignSocial =
 `
 
 interface FormProps {
-    onSubmit: (data: object) => void;
-    children: React.ReactNode;
+    onSubmit: (data: object) => void
+    children: React.ReactNode
 }
 export const Form = ({ onSubmit, children }: FormProps) => {
     return (
