@@ -2,31 +2,41 @@ name: Frontend Production Deploy
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 on:
   push:
     branches:
-      - main
+    - main
+    paths:
+    - frontend/**
 jobs:
   deploy-prod:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./frontend
+        working-directory: frontend
+    environment:
+      name: Production
+      url: ${{ steps.deploy.outputs.PRODUCTION_URL }}
     steps:
       - uses: actions/checkout@v2
 
-      - uses: bahmutov/npm-install@v1
+      - uses: actions/setup-node@v3
         with:
-          working-directory: frontend
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
 
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --prod --token=$VERCEL_TOKEN
 
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+      - id: deploy
+        name: Deploy Project Artifacts to Vercel
+        run: |
+          echo "PRODUCTION_URL=$(vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN)" >> $GITHUB_OUTPUT
