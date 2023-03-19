@@ -426,7 +426,7 @@ export function Header() {
                         </Nav>
 
                         <Actions>
-                            <LoginButton href="/singin">
+                            <LoginButton href="/signin">
                                 <IconLogin />
                                 <span>Авторизация</span>
                             </LoginButton>

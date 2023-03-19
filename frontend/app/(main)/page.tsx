@@ -1,14 +1,12 @@
-import { Header } from '@/components'
 import { SectionTitleWrap, SectionTitle, SectionNavWrap, SectionBg, SectionNav } from '@/components'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import { FC } from 'react'
-import { Footer } from '@/components'
-import CardsIndex from '@/components/CardsIndex/cardsIndex'
 import { LatestNews } from './LatestNews'
+import CardsIndex from '@/components/CardsIndex/cardsIndex'
+
 const Home: FC = (): JSX.Element => {
     return (
         <>
-            <Header />
             <SectionBg first>
                 <div className="container">
                     <SectionTitleWrap>
@@ -31,8 +29,6 @@ const Home: FC = (): JSX.Element => {
             </SectionBg>
 
             <LatestNews />
-
-            <Footer />
         </>
     )
 }
