@@ -12,13 +12,13 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 class ProductLanguageSerializer(serializers.ModelSerializer):
     """Поддерживаемый язык у игры"""
+    language_name = serializers.CharField(source='language.name')
 
     class Meta:
         model = models.ProductLanguage
         fields = (
             'id',
-            'language',
-            'product',
+            'language_name',
             'interface',
             'subtitles',
             'voice'

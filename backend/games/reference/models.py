@@ -25,8 +25,8 @@ class ProductLanguage(models.Model):
     )
     product = models.ForeignKey(
         Product,
+        related_name='langs',
         on_delete=models.CASCADE,
-        related_name='languages'
     )
     interface = models.BooleanField(verbose_name='Интерфейс', default=True)
     subtitles = models.BooleanField(verbose_name='Титры', default=True)
@@ -38,3 +38,9 @@ class ProductLanguage(models.Model):
     class Meta:
         verbose_name = 'Поддерживаемый язык'
         verbose_name_plural = 'Поддерживаемые языки'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['language', 'product'],
+                name='unique_language_game'
+            )
+        ]
