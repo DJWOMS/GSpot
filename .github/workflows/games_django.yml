@@ -10,6 +10,8 @@ jobs:
     steps:
     - name: Checkout repository code
       uses: actions/checkout@v3
+    - name: Install dependencies
+      run: pip install flake8
     - name: Test with flake8
       run: |
         python -m flake8
