@@ -32,21 +32,6 @@ export const Section =
 
 export const SectionBg = styled(Section)`
     overflow: hidden;
-    :before {
-        content: '';
-        position: absolute;
-        display: block;
-        z-index: 1;
-        top: 140px;
-        left: 0;
-        right: 0;
-        height: 500px;
-        pointer-events: none;
-        background: -webkit-linear-gradient(top, rgba(27, 34, 46, 0.7) 0%, #1b222e 100%);
-        background: -ms-linear-gradient(top, rgba(27, 34, 46, 0.7) 0%, #1b222e 100%);
-        background: linear-gradient(to bottom, rgba(27, 34, 46, 0.7) 0%, #1b222e 100%);
-    }
-
     .container {
         position: relative;
         z-index: 2;
@@ -128,7 +113,13 @@ export const SectionNavWrap = styled.div`
     }
 `
 
-export const SectionNav = styled.button`
+interface SectionNavProps {
+    ref?: any;
+}
+export const SectionNav =
+    styled.button <
+    SectionNavProps >
+    `
     display: flex;
     flex-direction: row;
     justify-content: center;

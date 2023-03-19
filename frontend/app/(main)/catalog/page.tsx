@@ -1,5 +1,9 @@
-import { Breadcrumbs, SectionHead, SectionWrap, SectionTitle, Pagination, Grid, Column20, Column80 } from '@/components'
-import { Card, Filter } from '@/features/games'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
+import { SectionHead, SectionWrap, SectionTitle } from '@/components/Section'
+import { Pagination } from '@/components/Pagination'
+import { Grid, Column20, Column80 } from '@/components/Grid'
+import { GameCard } from '@/features/games'
+import { Filter } from './Filter'
 
 export default function Page() {
     return (
@@ -26,23 +30,23 @@ export default function Page() {
                         <Column80 className="col-12">
                             <div className="row">
                                 <div className="col-12 col-sm-6 col-md-4 col-xl-3">
-                                    <Card title="Hello!" link="#" badge="New" price={30} sale={15} />
+                                    <GameCard title="Hello!" link="#" badge="New" price={30} sale={15} />
                                 </div>
 
                                 <div className="col-12 col-sm-6 col-md-4 col-xl-3">
-                                    <Card title="We" link="#" price={60} />
+                                    <GameCard title="We" link="#" price={60} />
                                 </div>
 
                                 <div className="col-12 col-sm-6 col-md-4 col-xl-3">
-                                    <Card title="Are" link="#" price={70} sale={45} />
+                                    <GameCard title="Are" link="#" price={70} sale={45} />
                                 </div>
 
                                 <div className="col-12 col-sm-6 col-md-4 col-xl-3">
-                                    <Card title="React" link="#" price={40} />
+                                    <GameCard title="React" link="#" price={40} />
                                 </div>
 
                                 <div className="col-12 col-sm-6 col-md-4 col-xl-3">
-                                    <Card title="Developers!" link="#" price={38} />
+                                    <GameCard title="Developers!" link="#" price={38} />
                                 </div>
 
                                 <Pagination />

@@ -1,71 +1,16 @@
-import { IconHeart } from '@tabler/icons-react'
 import Link from 'next/link'
 import styled from 'styled-components'
 
-const CardCatalog = styled.div`
+export const Card = styled.div`
     position: relative;
     display: block;
     margin-top: 30px;
     border-radius: 6px;
     overflow: hidden;
     background-color: #1b222e;
-
-    @media (min-width: 360px) {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: flex-start;
-        flex-wrap: wrap;
-        border-right: 1px solid rgba(167, 130, 233, 0.06);
-    }
-
-    @media (min-width: 576px) {
-        flex-direction: column;
-        border-right: none;
-    }
 `
 
-const BadgeNew = styled.span`
-    position: absolute;
-    bottom: 20px;
-    left: 15px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    background-color: #a782e9;
-    border-radius: 6px;
-    height: 24px;
-    padding: 0 13px;
-    font-family: var(--font-montserrat);
-    font-size: 12px;
-    font-weight: 500;
-    z-index: 2;
-    pointer-events: none;
-`
-
-const BadgePreorder = styled.span`
-    position: absolute;
-    bottom: 20px;
-    left: 15px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    background-color: #f26c2a;
-    border-radius: 6px;
-    height: 24px;
-    padding: 0 13px;
-    font-family: var(--font-montserrat);
-    font-size: 12px;
-    font-weight: 500;
-    z-index: 2;
-    pointer-events: none;
-`
-
-const Cover = styled(Link)`
+export const CardCover = styled(Link)`
     position: relative;
     display: block;
 
@@ -89,6 +34,62 @@ const Cover = styled(Link)`
     }
 `
 
+export const CardCatalog = styled(Card)`
+    @media (min-width: 360px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        border-right: 1px solid rgba(167, 130, 233, 0.06);
+    }
+
+    @media (min-width: 576px) {
+        flex-direction: column;
+        border-right: none;
+    }
+`
+
+export const CardBadgeNew = styled.span`
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #a782e9;
+    border-radius: 6px;
+    height: 24px;
+    padding: 0 13px;
+    font-family: var(--font-montserrat);
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 2;
+    pointer-events: none;
+`
+
+export const CardBadgePreorder = styled.span`
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #f26c2a;
+    border-radius: 6px;
+    height: 24px;
+    padding: 0 13px;
+    font-family: var(--font-montserrat);
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 2;
+    pointer-events: none;
+`
+
 const colors: any = {
     ps: '#665cbe',
     xb: '#0e7a0d',
@@ -98,7 +99,7 @@ const colors: any = {
 interface PlatformItemProps {
     type: string;
 }
-const PlatformItem =
+export const CardPlatformItem =
     styled.li <
     PlatformItemProps >
     `
@@ -124,7 +125,7 @@ const PlatformItem =
       }
 `
 
-const Platforms = styled.ul`
+export const CardPlatforms = styled.ul`
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -146,7 +147,7 @@ const Platforms = styled.ul`
     }
 `
 
-const Title = styled.h3`
+export const CardTitle = styled.h3`
     overflow: hidden;
     white-space: nowrap;
     -o-text-overflow: ellipsis;
@@ -164,7 +165,7 @@ const Title = styled.h3`
     }
 `
 
-const TitleWrap = styled.div`
+export const CardTitleWrap = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
@@ -187,7 +188,7 @@ const TitleWrap = styled.div`
         border-right: none;
         border-top: 1px solid rgba(167, 130, 233, 0.06);
 
-        ${Title} {
+        ${CardTitle} {
             white-space: normal;
         }
 
@@ -208,7 +209,7 @@ const TitleWrap = styled.div`
         border-right: 1px solid rgba(167, 130, 233, 0.06);
         border-top: none;
 
-        ${Title} {
+        ${CardTitle} {
             white-space: nowrap;
         }
 
@@ -222,7 +223,7 @@ const TitleWrap = styled.div`
     }
 `
 
-const TitleLink = styled(Link)`
+export const CardTitleLink = styled(Link)`
     color: #fff;
 
     :hover {
@@ -230,7 +231,7 @@ const TitleLink = styled(Link)`
     }
 `
 
-const Price = styled.div`
+export const CardPrice = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -250,7 +251,12 @@ const Price = styled.div`
     }
 `
 
-const Actions = styled.div`
+export const CardWrap = styled.div`
+    position: relative;
+    width: 100%;
+`
+
+export const CardActions = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -285,7 +291,7 @@ const Actions = styled.div`
     }
 `
 
-const ActionBuy = styled.button`
+export const CardActionBuy = styled.button`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -306,7 +312,7 @@ const ActionBuy = styled.button`
     }
 `
 
-const ActionFavorite = styled.button`
+export const CardActionFavorite = styled.button`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -334,50 +340,83 @@ const ActionFavorite = styled.button`
     }
 `
 
-interface CardProps {
-    badge?: string;
-    title: string;
-    link: string;
-    price: number;
-    sale?: number;
-}
-export function Card({ badge, title, link, price, sale }: CardProps) {
-    const rand = () => {
-        return Math.floor(Math.random() * (1000 - 900 + 1) + 900)
+export const CardBig = styled(Card)`
+    padding: 15px;
+    border: 1px solid rgba(167, 130, 233, 0.06);
+
+    ${CardCover} {
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    ${CardTitle} {
+        padding: 15px 0;
+        border: none;
+
+        h3 {
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+    }
+    ${CardActions} {
+        padding: 0;
+        margin-top: 20px;
+        border: none;
+    }
+    ${CardPlatforms} {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-top: 20px;
     }
 
-    return (
-        <CardCatalog>
-            <Cover href="/#">
-                <img src={`https://picsum.photos/${rand()}`} alt="" />
-                {badge && <BadgeNew>{badge}</BadgeNew>}
-            </Cover>
+    @media (min-width: 360px) {
+        padding: 20px;
+    }
 
-            <Platforms>
-                <PlatformItem type="ps" />
-                <PlatformItem type="xb" />
-                <PlatformItem type="wn" />
-                <PlatformItem type="ap" />
-            </Platforms>
+    @media (min-width: 768px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
 
-            <TitleWrap>
-                <Title>
-                    <TitleLink href={link}>{title}</TitleLink>
-                </Title>
+        ${CardTitle} {
+            height: auto;
+            width: 100%;
+            padding: 0;
 
-                <Price>
-                    {sale ? sale : price}
-                    {sale && <s>{price}</s>}
-                </Price>
-            </TitleWrap>
+            h3 {
+                font-size: 22px;
+            }
+        }
+        ${CardCover} {
+            width: 230px;
+        }
+        ${CardWrap} {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: calc(100% - 250px);
+        }
+        ${CardPrice} {
+            margin-top: auto;
+        }
+        ${CardActionBuy} {
+            width: 160px;
+        }
+    }
 
-            <Actions>
-                <ActionBuy>Buy</ActionBuy>
-
-                <ActionFavorite>
-                    <IconHeart />
-                </ActionFavorite>
-            </Actions>
-        </CardCatalog>
-    )
-}
+    @media (min-width: 1200px) {
+        ${CardCover} {
+            width: 240px;
+        }
+        ${CardWrap} {
+            width: calc(100% - 260px);
+        }
+        ${CardTitle} {
+            h3 {
+                white-space: normal;
+            }
+        }
+    }
+`

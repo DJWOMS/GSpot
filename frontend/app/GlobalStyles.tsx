@@ -107,10 +107,6 @@ const GlobalStyles = createGlobalStyle`
             max-width: 1310px;
         }
     }
-    .owl-carousel .owl-item img {
-        width: auto;
-        max-width: 100%;
-    }
     .tab-content > .tab-pane {
         display: none;
     }

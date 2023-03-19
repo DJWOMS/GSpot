@@ -1,6 +1,6 @@
 'use client'
 
-import { Column80, Grid } from '@/components'
+import { Column80, Grid } from '@/components/Grid'
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import Post from './Post'
