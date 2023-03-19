@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { IconBrandFacebook, IconBrandGoogle, IconBrandTwitter } from '@tabler/icons-react'
 import { Form, SignCheckbox, SignGroup, SignInput, SignBtn, SignDelimiter, SignSocial, SignSocials, SignText } from '../Form'
 
-export default function Signin() {
+export default function Signup() {
     return (
         <Form onSubmit={() => console.log('hello')}>
             <SignGroup>
@@ -21,11 +21,11 @@ export default function Signin() {
             </SignGroup>
 
             <SignCheckbox>
-                <input id="remember" />
-                <label htmlFor="remember">Запомнить меня</label>
+                <input id="agree" />
+                <label htmlFor="agree">Я подтверждаю правила</label>
             </SignCheckbox>
 
-            <SignBtn>Авторизация</SignBtn>
+            <SignBtn>Регистрация</SignBtn>
             <SignDelimiter>или</SignDelimiter>
 
             <SignSocials>
@@ -43,11 +43,7 @@ export default function Signin() {
             </SignSocials>
 
             <SignText>
-                Еще нет аккаунта? <Link href="/signup">Регистрация</Link>
-            </SignText>
-
-            <SignText>
-                <Link href="/forgot">Забыли пароль?</Link>
+                Уже есть аккаунт? <Link href="/signin">Авторизация</Link>
             </SignText>
         </Form>
     )

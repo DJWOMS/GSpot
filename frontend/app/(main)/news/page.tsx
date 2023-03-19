@@ -1,6 +1,6 @@
 'use client'
 
-import { Column80, Grid, Header } from '@/components'
+import { Column80, Grid } from '@/components'
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import Post from './Post'
@@ -88,7 +88,6 @@ const ColumnCards = styled.div`
 const Page: FC<any> = ({}): JSX.Element => {
     return (
         <>
-            <Header />
             <section className="section section--last section--catalog">
                 <div className="container">
                     <Grid className="row">

@@ -1,11 +1,9 @@
-import { Breadcrumbs, Header, SectionHead, SectionWrap, SectionTitle, Pagination, Grid, Column20, Column80 } from '@/components'
+import { Breadcrumbs, SectionHead, SectionWrap, SectionTitle, Pagination, Grid, Column20, Column80 } from '@/components'
 import { Card, Filter } from '@/features/games'
 
 export default function Page() {
     return (
         <>
-            <Header />
-
             <SectionHead first last>
                 <div className="container">
                     <SectionWrap>
