@@ -38,7 +38,7 @@ const BadgeNew = styled.span`
     border-radius: 6px;
     height: 24px;
     padding: 0 13px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-montserrat);
     font-size: 12px;
     font-weight: 500;
     z-index: 2;
@@ -58,7 +58,7 @@ const BadgePreorder = styled.span`
     border-radius: 6px;
     height: 24px;
     padding: 0 13px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-montserrat);
     font-size: 12px;
     font-weight: 500;
     z-index: 2;

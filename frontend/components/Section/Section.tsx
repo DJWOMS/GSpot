@@ -226,9 +226,12 @@ export const SectionTitle =
     margin-bottom: 0;
     position: relative;
     padding-left: ${(props) => (props.small ? '0px' : '30px')};
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-montserrat);
     text-transform: ${(props) => (props.uppercase ? 'uppercase' : null)};
 
+    ${(props) =>
+        !props.small &&
+        `
     :before {
         content: '';
         position: absolute;
@@ -237,17 +240,30 @@ export const SectionTitle =
         bottom: 2px;
         left: 0;
         width: 3px;
-        background-color: ${(props) => (props.pre ? '#f26c2a' : props.downloads ? '#5074e1' : '#a782e9')};
+        background-color: ${props.pre ? '#f26c2a' : props.downloads ? '#5074e1' : '#a782e9'};
         border-radius: 4px;
-    }
-
+    }`}
+    
     b {
         font-weight: 500;
     }
     span {
         font-size: 14px;
         color: #dbdada;
-        font-family: 'Open Sans', sans-serif;
+        font-family: var(--font-opensans);
         letter-spacing: 0.4px;
+    }
+
+    @media (min-width: 576px) {
+        font-size: ${(props) => (props.small ? '28px' : '30px')};
+    }
+
+    @media (min-width: 768px) {
+        :before {
+            top: 3px;
+            bottom: 3px;
+          }
+          
+        font-size: ${(props) => (props.small ? '28px' : '32px')};
     }
 `

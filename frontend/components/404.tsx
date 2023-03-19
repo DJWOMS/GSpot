@@ -41,7 +41,7 @@ const Title = styled.h1`
     font-size: 120px;
     margin-bottom: 20px;
     font-weight: 500;
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-montserrat);
 `
 const Text = styled.p`
     text-align: center;

@@ -12,7 +12,7 @@ const GlobalStyles = createGlobalStyle`
         height: 100%;
     }
     body {
-        font-family: 'Open Sans', sans-serif;
+        font-family: var(--font-opensans);
         font-weight: 400;
         -webkit-font-smoothing: antialiased;
         background-color: #1b222e;

@@ -1,33 +1,13 @@
-import { SectionTitleWrap, SectionTitle, SectionNavWrap, SectionBg, SectionNav } from '@/components'
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import { FC } from 'react'
+import { BestGames } from './BestGames'
 import { LatestNews } from './LatestNews'
-import CardsIndex from '@/components/CardsIndex/cardsIndex'
+import { OtherGames } from './OtherGames'
 
 const Home: FC = (): JSX.Element => {
     return (
         <>
-            <SectionBg first>
-                <div className="container">
-                    <SectionTitleWrap>
-                        <SectionTitle uppercase>
-                            <b>Лучшие игры</b> этого месяца
-                        </SectionTitle>
-
-                        <SectionNavWrap>
-                            <SectionNav>
-                                <IconChevronLeft />
-                            </SectionNav>
-
-                            <SectionNav>
-                                <IconChevronRight />
-                            </SectionNav>
-                        </SectionNavWrap>
-                    </SectionTitleWrap>
-                    <CardsIndex />
-                </div>
-            </SectionBg>
-
+            <BestGames />
+            <OtherGames />
             <LatestNews />
         </>
     )
