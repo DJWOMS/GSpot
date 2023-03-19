@@ -15,4 +15,9 @@ class ProductLanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductLanguage
-        fields = ('id', 'language', 'product', 'interface', 'subtitles', 'voice')
+        fields = ('id',
+                  'language',
+                  'product',
+                  'interface',
+                  'subtitles',
+                  'voice')

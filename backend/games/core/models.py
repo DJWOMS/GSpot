@@ -73,16 +73,14 @@ class GameDlcLink(models.Model):
                           editable=False)
 
     game = models.ForeignKey(Product,
-                                on_delete=models.CASCADE,
-                                related_name='dlc_link',
-                                limit_choices_to={
-                                    'type': Product.TypeProduct.GAMES})
+                             on_delete=models.CASCADE,
+                             related_name='dlc_link',
+                             limit_choices_to={'type': Product.TypeProduct.GAMES})
 
     dlc = models.ForeignKey(Product,
-                               on_delete=models.CASCADE,
-                               related_name='game_link',
-                               limit_choices_to={
-                                   'type': Product.TypeProduct.DLC})
+                            on_delete=models.CASCADE,
+                            related_name='game_link',
+                            limit_choices_to={'type': Product.TypeProduct.DLC})
 
     class Meta:
         db_table = 'game_dlc_link'
@@ -119,27 +117,27 @@ class SystemRequirement(models.Model):
                                         help_text='Укажите ОС')
 
     game = models.ForeignKey(Product,
-                                on_delete=models.CASCADE,
-                                related_name='system_requirements',
-                                limit_choices_to={
-                                    'type': Product.TypeProduct.GAMES})
+                             on_delete=models.CASCADE,
+                             related_name='system_requirements',
+                             limit_choices_to={
+                                 'type': Product.TypeProduct.GAMES})
 
     device_processor = models.CharField('Процессор',
                                         max_length=100,
                                         help_text='Укажите процессор')
 
-    device_memory = models.CharField('Колличество ОЗУ',
+    device_memory = models.CharField('Количество ОЗУ',
                                      max_length=100,
-                                     help_text='Укажите колличество ОЗУ')
+                                     help_text='Укажите количество ОЗУ')
 
-    device_storage = models.CharField('Колличество памяти на Диске',
+    device_storage = models.CharField('Количество памяти на Диске',
                                       max_length=100,
-                                      help_text='Укажите колличество памяти на Диске')
+                                      help_text='Укажите количество памяти на Диске')
 
     device_graphics = models.CharField(
-        'Модель видеокарты и колличество памяти',
+        'Модель видеокарты и количество памяти',
         max_length=100,
-        help_text='Укажиет модель видеокарты и колличество памяти')
+        help_text='Укажите модель видеокарты и количество памяти')
 
     type_requirements = models.CharField('Тип системных требований',
                                          max_length=2,
