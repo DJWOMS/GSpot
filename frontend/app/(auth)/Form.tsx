@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import styled from 'styled-components'
 
 export const SignContent = styled.div`
@@ -194,13 +195,17 @@ export const SignSocials = styled.div`
     margin-top: 15px;
 `
 
-const colors: any = {
+type ColorCodes<T extends string> = {
+    [key in T]: string
+} & { [key: string]: string }
+
+const colors: ColorCodes<'fb' | 'gl' | 'tw'> = {
     fb: '#3b5999',
     gl: '#df4a32',
     tw: '#1da1f2',
 }
 interface SignSocialProps {
-    color: string
+    color: 'fb' | 'gl' | 'tw'
 }
 export const SignSocial = styled.button<SignSocialProps>`
     display: flex;
@@ -238,7 +243,7 @@ export const Form = ({ onSubmit, children }: FormProps) => {
         <SignContent>
             <SignForm onSubmit={onSubmit}>
                 <SignLogo href="/">
-                    <img src="/img/logo.png" />
+                    <Image width={496} height={161} src="/img/logo.png" alt="Logo" loading="eager" />
                 </SignLogo>
 
                 {children}

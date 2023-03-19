@@ -86,7 +86,7 @@ const ColumnCards = styled.div`
     flex-wrap: wrap;
 `
 
-const Page: FC<any> = ({}): JSX.Element => {
+const Page: FC = (): JSX.Element => {
     return (
         <>
             <SectionHead first last>

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Section, SectionNavWrap, SectionTitle, SectionTitleWrapSingle, SectionView } from '@/components/Section'
 import { List, ListItem, ListTitle, ListCover, ListWrap, ListPrice, ListBuy } from '@/components/List'
 import { IconPlus } from '@tabler/icons-react'
@@ -6,7 +7,7 @@ function GameItem() {
     return (
         <ListItem>
             <ListCover>
-                <img src="https://picsum.photos/240/340" alt="" />
+                <Image width={240} height={340} src="https://picsum.photos/240/340" alt="Logo" loading="eager" />
             </ListCover>
 
             <ListWrap>

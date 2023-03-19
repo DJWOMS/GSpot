@@ -90,14 +90,18 @@ export const CardBadgePreorder = styled.span`
     pointer-events: none;
 `
 
-const colors: any = {
+type ColorCodes<T extends string> = {
+    [key in T]: string
+} & { [key: string]: string }
+
+const colors: ColorCodes<'ps' | 'xb' | 'wn' | 'ap'> = {
     ps: '#665cbe',
     xb: '#0e7a0d',
     wn: '#00aef0',
     ap: '#555',
 }
 interface PlatformItemProps {
-    type: string
+    type: 'ps' | 'xb' | 'wn' | 'ap'
 }
 export const CardPlatformItem = styled.li<PlatformItemProps>`
     display: flex;

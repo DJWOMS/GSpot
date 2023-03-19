@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardBig } from '@/components/Card'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Autoplay } from 'swiper'
-import { Swiper as SwiperType } from 'swiper/types'
+import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
 import 'swiper/swiper.css'
 
 import styled from 'styled-components'
@@ -70,7 +70,7 @@ const CarouselComponent = styled.div`
 interface CarouselProps {
     prevRef?: React.RefObject<HTMLElement>
     nextRef?: React.RefObject<HTMLElement>
-    breakpoints: object
+    breakpoints: SwiperOptions['breakpoints']
     children: Array<React.ReactNode>
 }
 

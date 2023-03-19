@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { IconMessages, IconClockHour4, IconPlayerPlay } from '@tabler/icons-react'
 import React, { FC } from 'react'
 import styled from 'styled-components'
@@ -161,11 +162,11 @@ const PostMeta = styled.div`
     height: 20px;
 `
 
-const Post: FC<any> = ({}): JSX.Element => (
+const Post: FC = (): JSX.Element => (
     <div className="col-md-6 col-xl-4">
         <PostStyle>
             <PostCover href="#">
-                <img src="https://www.freecodecamp.org/news/content/images/2019/12/ubuntu-1479782_1280.jpg" alt="" />
+                <Image width={240} height={340} src="https://picsum.photos/240/340" alt="Logo" loading="eager" />
             </PostCover>
             <PostVideo href="#">
                 <IconPlayerPlay />

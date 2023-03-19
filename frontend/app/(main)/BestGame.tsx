@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { IconHeart } from '@tabler/icons-react'
 
 import {
@@ -26,7 +27,7 @@ export function BestGame({ badge, title, link, price, sale }: BestGameProps) {
     return (
         <CardBig>
             <CardCover href="/#">
-                <img src="https://picsum.photos/1000" alt="" />
+                <Image width={1000} src="https://picsum.photos/1000" alt="Logo" loading="eager" />
                 {badge && <CardBadgeNew>{badge}</CardBadgeNew>}
             </CardCover>
 

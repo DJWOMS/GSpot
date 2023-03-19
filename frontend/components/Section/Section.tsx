@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import styled from 'styled-components'
@@ -111,7 +110,7 @@ export const SectionNavWrap = styled.div`
 `
 
 interface SectionNavProps {
-    ref?: any
+    ref?: React.RefObject<HTMLElement>
 }
 export const SectionNav = styled.button<SectionNavProps>`
     display: flex;
