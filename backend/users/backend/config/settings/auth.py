@@ -1,5 +1,10 @@
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'admins.Admin'
+
+AUTHENTICATION_BACKENDS = [
+    "common.auth_backends.AdminBackend",
+    "common.auth_backends.DeveloperBackend",
+    "common.auth_backends.CustomerBackend",
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
