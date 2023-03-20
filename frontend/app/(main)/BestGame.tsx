@@ -14,7 +14,7 @@ import {
     CardActionFavorite,
     CardBig,
     CardWrap,
-} from '@/components/Card'
+} from 'components/Card'
 
 interface BestGameProps {
     badge?: string

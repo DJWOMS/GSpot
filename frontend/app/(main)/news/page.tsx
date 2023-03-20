@@ -1,7 +1,7 @@
 'use client'
 
-import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { SectionHead, SectionWrap, SectionTitle } from '@/components/Section'
+import { Breadcrumbs } from 'components/Breadcrumbs'
+import { SectionHead, SectionWrap, SectionTitle } from 'components/Section'
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import Post from './Post'

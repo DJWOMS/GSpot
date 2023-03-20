@@ -1,8 +1,8 @@
-import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { SectionHead, SectionWrap, SectionTitle } from '@/components/Section'
-import { Pagination } from '@/components/Pagination'
-import { Grid, Column20, Column80 } from '@/components/Grid'
-import { GameCard } from '@/features/games'
+import { Breadcrumbs } from 'components/Breadcrumbs'
+import { SectionHead, SectionWrap, SectionTitle } from 'components/Section'
+import { Pagination } from 'components/Pagination'
+import { Grid, Column20, Column80 } from 'components/Grid'
+import { GameCard } from 'features/games'
 import { Filter } from './Filter'
 
 export default function Page() {

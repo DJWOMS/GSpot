@@ -13,7 +13,7 @@ import {
     IconBrandVk,
     IconBrandTwitch,
 } from '@tabler/icons-react'
-import LogoPNG from '@/assets/img/logo.png'
+import LogoPNG from 'assets/img/logo.png'
 
 const StyledFooter = styled.footer`
     position: relative;
