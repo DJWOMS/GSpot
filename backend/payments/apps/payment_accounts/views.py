@@ -1,14 +1,11 @@
 import json
-from decimal import Decimal
 
-import rollbar
-from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
-from .models import Account, BalanceChange
 from .serializers import CreatePaymentSerializer
 from .services.create_payment import create_payment
+from .services.payment_acceptance import payment_acceptance
 
 
 class CreatePaymentView(CreateAPIView):
@@ -38,27 +35,7 @@ class CreatePaymentAcceptanceView(CreateAPIView):
     def post(self, request, *args, **kwargs):
         response = json.loads(request.body)
 
-        try:
-            table = BalanceChange.objects.get(
-                id=response['object']['metadata']['table_id'],
-            )
-        except ObjectDoesNotExist:
-            rollbar.report_message(
-                "Can't get table for payment id {0}".format(
-                    response['object']['id'],
-                ),
-                'warning',
-            )
+        if payment_acceptance(response):
+            return Response(200)
+        else:
             return Response(404)
-
-        if response['event'] == 'payment.succeeded':
-            table.is_accepted = True
-            table.save()
-            Account.deposit(
-                pk=response['object']['metadata']['user_id'],
-                amount=Decimal(response['object']['income_amount']['value']),
-            )
-        elif response['event'] == 'payment.canceled':
-            table.delete()
-
-        return Response(200)
