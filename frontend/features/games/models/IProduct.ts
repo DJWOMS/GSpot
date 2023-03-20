@@ -19,6 +19,6 @@ export interface IProduct {
     platforms: IProductPlatform[]
     price: number
     discount?: number
-    is_bought: boolean // Является ли игра купленной
-    is_favorite: boolean // Есть ли игра в избранном
+    is_bought: boolean
+    is_favorite: boolean
 }

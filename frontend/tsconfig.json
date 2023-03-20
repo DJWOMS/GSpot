@@ -7,10 +7,7 @@
       "esnext"
     ],
     "allowJs": true,
-<<<<<<< HEAD
     "baseUrl": "./",
-=======
->>>>>>> fa8c76e588642c68340ddb49415b5b68f30c5fa3
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -28,13 +25,7 @@
       }
     ],
     "paths": {
-<<<<<<< HEAD
       "@defaultTypes": ["./lib/types.ts"]
-=======
-      "@/*": [
-        "./*"
-      ]
->>>>>>> fa8c76e588642c68340ddb49415b5b68f30c5fa3
     }
   },
   "include": [
