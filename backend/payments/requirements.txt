@@ -5,9 +5,7 @@ djangorestframework==3.14.0
 drf-spectacular==0.26.0
 pyjwt==2.6.0
 django-extensions==3.2.1
-<<<<<<< Updated upstream
 yookassa==2.3.5
 rollbar==0.16.3
-=======
 dj-database-url==1.2.0
->>>>>>> Stashed changes
+
