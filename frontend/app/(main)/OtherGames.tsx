@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import { Section, SectionNavWrap, SectionTitle, SectionTitleWrapSingle, SectionView } from '@/components/Section'
-import { List, ListItem, ListTitle, ListCover, ListWrap, ListPrice, ListBuy } from '@/components/List'
+import { Section, SectionNavWrap, SectionTitle, SectionTitleWrapSingle, SectionView } from 'components/Section'
+import { List, ListItem, ListTitle, ListCover, ListWrap, ListPrice, ListBuy } from 'components/List'
 import { IconPlus } from '@tabler/icons-react'
 
 function GameItem() {

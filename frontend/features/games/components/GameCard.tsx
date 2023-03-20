@@ -13,7 +13,7 @@ import {
     CardActions,
     CardActionBuy,
     CardActionFavorite,
-} from '@/components/Card'
+} from 'components/Card'
 
 interface GameCardProps {
     badge?: string

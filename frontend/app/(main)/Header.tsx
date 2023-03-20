@@ -5,7 +5,7 @@ import { IconHeart, IconLogin, IconSearch, IconShoppingCart } from '@tabler/icon
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
-import LogoPNG from '@/assets/img/logo.png'
+import LogoPNG from 'assets/img/logo.png'
 
 interface HeaderComponentProps {
     hide: boolean

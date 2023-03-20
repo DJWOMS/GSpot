@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { IconClockHour4, IconMessages, IconPlayerPlay } from '@tabler/icons-react'
-import { SectionNavWrap, SectionTitle, SectionTitleWrapSingle, SectionView } from '@/components/Section'
+import { SectionNavWrap, SectionTitle, SectionTitleWrapSingle, SectionView } from 'components/Section'
 import styled from 'styled-components'
 
 const Section = styled.section`

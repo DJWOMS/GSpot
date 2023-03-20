@@ -1,7 +1,7 @@
 'use client'
 
-import { Carousel } from '@/components/Carousel'
-import { SectionTitleWrap, SectionTitle, SectionNavWrap, SectionBg, SectionNav } from '@/components/Section'
+import { Carousel } from 'components/Carousel'
+import { SectionTitleWrap, SectionTitle, SectionNavWrap, SectionBg, SectionNav } from 'components/Section'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import { useRef } from 'react'
 import { BestGame } from './BestGame'

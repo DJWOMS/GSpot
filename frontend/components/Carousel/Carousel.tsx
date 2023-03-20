@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Card, CardBig } from '@/components/Card'
+import { Card, CardBig } from 'components/Card'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Autoplay } from 'swiper'
 import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'

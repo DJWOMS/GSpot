@@ -1,5 +1,5 @@
 import localFont from 'next/font/local'
-import StyledComponentsRegistry from '@/lib/registry'
+import StyledComponentsRegistry from 'lib/registry'
 import classNames from 'classnames'
 
 // styles
