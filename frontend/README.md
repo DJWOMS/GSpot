@@ -59,7 +59,7 @@ docker-compose up
 ```
 This command will create a Docker container and run a web server inside it. Docker Compose in this case allows you to automatically restart the web server when the project source code files are changed.   
 
-#### Без использования Docker
+#### Without Docker
 ```
 npm run dev
 ```  
@@ -74,6 +74,13 @@ Builds the application for production mode.
 npm start
 ```  
 Starts the application in production mode.
+
+### Mocks Server
+```
+npm run mocks
+```
+Starts the mocks server for fake data.
+
 
 ### Server Deployment
 Compile the files into a single container for further deployment. Use the `make build` command or:
