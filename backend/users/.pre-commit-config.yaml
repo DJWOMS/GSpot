@@ -1,0 +1,15 @@
+files: 'backend/users*'
+repos:
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        args: [--skip-string-normalization, --line-length=100, backend/users]
+        language_version: python3.11
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+      - id: flake8
+        args: [--config=backend/users/.flake8, backend/users]
+        language_version: python3.11
