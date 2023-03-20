@@ -21,6 +21,11 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-unexpected-multiline": "off"
+<<<<<<< HEAD
+        "no-unexpected-multiline": "off",
+        "react/jsx-key": "error",
+        "react/react-in-jsx-scope": "off"
+=======
+>>>>>>> fa8c76e588642c68340ddb49415b5b68f30c5fa3
     }
 }

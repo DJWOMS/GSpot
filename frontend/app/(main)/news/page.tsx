@@ -19,11 +19,7 @@ const Sort = styled.div`
 const FilterGroup = styled.div`
     display: flex;
     gap: 20px;
-    flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    margin-bottom: 30px;
     &:last-child {
         margin-bottom: 0;
     }
@@ -32,7 +28,7 @@ const FilterGroup = styled.div`
     align-items: center;
     margin-bottom: 0;
     margin-right: 60px;
-    &::last-child {
+    &:last-child {
         margin-right: 0;
     }
 `
@@ -49,7 +45,6 @@ const FilterLabel = styled.label`
 
 const FilterSelectWrap = styled.div`
     position: relative;
-    width: 100%;
     width: 210px;
 `
 

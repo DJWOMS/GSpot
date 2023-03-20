@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 import { FC } from 'react'
 import styled from 'styled-components'
@@ -73,7 +71,7 @@ const LinkBtn = styled(Link)`
     }
 `
 
-const PageNotFound: FC = (): JSX.Element => {
+const PageNotFound: FC = () => {
     return (
         <Page404>
             <div className="container">
@@ -88,4 +86,5 @@ const PageNotFound: FC = (): JSX.Element => {
         </Page404>
     )
 }
-export { PageNotFound }
+
+export default PageNotFound

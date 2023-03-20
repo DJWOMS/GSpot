@@ -1,3 +1,5 @@
+'use client'
+
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
 import Link from 'next/link'
 import styled from 'styled-components'
