@@ -2,8 +2,6 @@ AUTH_USER_MODEL = 'admins.Admin'
 
 AUTHENTICATION_BACKENDS = [
     "common.auth_backends.AdminBackend",
-    "common.auth_backends.DeveloperBackend",
-    "common.auth_backends.CustomerBackend",
 ]
 
 AUTH_PASSWORD_VALIDATORS = [
