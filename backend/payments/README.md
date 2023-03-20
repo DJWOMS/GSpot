@@ -54,3 +54,33 @@ git commit --no-verify
 ```shell
 pre-commit autoupdate
 ```
+
+### Запуск Docker  контейнера
+
+Создания образа:
+$ docker-compose build
+ 
+Запуск нескольких контейнеров одновременно:
+$ docker-compose up
+
+Две предыдущие команды можно обьединить в одну:
+$ docker-compose up --build -d
+    -d: запустит контейнеры в фоновом режиме
+
+Остановка всех запущенных контейнеров:
+$ docker-compose down
+
+Удаление всех остановленных контейнеров:
+$ docker container prune
+
+Миграция БД:
+$ docker-compose exec web python manage.py makemigrations
+$ docker-compose exec web python manage.py migrate
+
+Работа с контейнерами:
+$ docker ps                            ## показывает список запущенных контейнеров
+$ docker ps -a                         ## показывает список запущенных и остановленных контейнеров
+$ docker restart <Container ID>        ## перезапускает контейнер
+$ docker stop <Container ID>           ## останавливает контейнер
+$ docker rmi <Container ID>            ## удаляет контейнер
+$ docker exec -it <Container ID> bash  ## запускает интерактивный терминал с оболочкой bash  внутри контейнера
