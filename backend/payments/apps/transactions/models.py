@@ -9,7 +9,6 @@ from apps.transactions.exceptions import DuplicateError
 
 
 class TransferHistory(models.Model):
-
     account_from = models.ForeignKey(
         Account, on_delete=models.PROTECT, related_name='history_accounts_from',
     )
@@ -40,9 +39,11 @@ class TransferHistory(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:
-        return f'Account from: {self.account_from} -> ' \
-               f'Account to: {self.account_to}' \
-               f'Date time of creation: {self.date_time_creation}'
+        return (
+            f'Account from: {self.account_from} -> '
+            f'Account to: {self.account_to}'
+            f'Date time of creation: {self.date_time_creation}'
+        )
 
     class Meta:
         ordering = ['-date_time_creation']
@@ -66,16 +67,18 @@ class Transaction(models.Model):
                 MAX_ITEM_PRICE,
                 message=f'Should be not greater than {MAX_ITEM_PRICE}',
             ),
-        ]
+        ],
     )
     item_uid = models.UUIDField(editable=False, db_index=True)
     is_frozen = models.BooleanField(default=False)
     is_accepted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return f'Account from: {self.account_from} -> ' \
-               f'Account to: {self.account_to} ' \
-               f'Item_uid: {self.item_uid}'
+        return (
+            f'Account from: {self.account_from} -> '
+            f'Account to: {self.account_to} '
+            f'Item_uid: {self.item_uid}'
+        )
 
 
 class TransactionHistory(models.Model):
@@ -97,8 +100,10 @@ class TransactionHistory(models.Model):
     operation_type = models.CharField(max_length=50, choices=TransactionType.choices)
 
     def __str__(self) -> str:
-        return f'Transaction_id: {self.transaction_id}' \
-               f'Date time of creation: {self.date_time_creation} '
+        return (
+            f'Transaction_id: {self.transaction_id}'
+            f'Date time of creation: {self.date_time_creation}'
+        )
 
     class Meta:
         ordering = ['-date_time_creation']
