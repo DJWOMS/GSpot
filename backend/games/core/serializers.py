@@ -1,14 +1,14 @@
 from rest_framework import serializers
 
 from reference import serializers as ref_serializers
-from . import models
+from .models import SystemRequirement, Product
 
 
 class SystemRequirementSerializer(serializers.ModelSerializer):
     """ Системные требования """
 
     class Meta:
-        model = models.SystemRequirement
+        model = SystemRequirement
         exclude = ('game',)
 
 
@@ -17,7 +17,7 @@ class DlcSerializer(serializers.ModelSerializer):
     langs = ref_serializers.ProductLanguageSerializer(many=True)
 
     class Meta:
-        model = models.Product
+        model = Product
         fields = (
             'id',
             'name',
@@ -35,7 +35,7 @@ class ProductSerializer(serializers.ModelSerializer):
     system_requirements = SystemRequirementSerializer(many=True, read_only=False)
 
     class Meta:
-        model = models.Product
+        model = Product
         fields = (
             'id',
             'name',
@@ -58,5 +58,5 @@ class DlcListSerializer(serializers.ModelSerializer):
     """ Детали DLC """
 
     class Meta:
-        model = models.Product
+        model = Product
         fields = ('id', 'name', 'description',)

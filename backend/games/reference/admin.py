@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from . import models
+from .models import Language, ProductLanguage
 
 
 class LanguageAdmin(admin.ModelAdmin):
@@ -11,5 +11,5 @@ class ProductLanguageAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(models.Language, LanguageAdmin)
-admin.site.register(models.ProductLanguage, ProductLanguageAdmin)
+admin.site.register(Language, LanguageAdmin)
+admin.site.register(ProductLanguage, ProductLanguageAdmin)

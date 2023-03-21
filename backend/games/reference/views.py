@@ -1,13 +1,13 @@
 from rest_framework import viewsets
-from . import models
-from . import serializers
+from .models import Language, ProductLanguage
+from .serializers import LanguageSerializer, ProductLanguageSerializer
 
 
 class LanguageView(viewsets.ModelViewSet):
-    serializer_class = serializers.LanguageSerializer
-    queryset = models.Language.objects.all()
+    serializer_class = LanguageSerializer
+    queryset = Language.objects.all()
 
 
 class ProductLangaugeView(viewsets.ModelViewSet):
-    serializer_class = serializers.ProductLanguageSerializer
-    queryset = models.ProductLanguage.objects.all()
+    serializer_class = ProductLanguageSerializer
+    queryset = ProductLanguage.objects.all()

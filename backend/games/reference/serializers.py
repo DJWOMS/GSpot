@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from . import models
+from .models import models, Language, ProductLanguage
 
 
 class LanguageSerializer(serializers.ModelSerializer):
     """Язык"""
 
     class Meta:
-        model = models.Language
+        model = Language
         fields = ('id', 'name')
 
 
@@ -15,7 +15,7 @@ class ProductLanguageSerializer(serializers.ModelSerializer):
     language_name = serializers.CharField(source='language.name')
 
     class Meta:
-        model = models.ProductLanguage
+        model = ProductLanguage
         fields = (
             'id',
             'language_name',

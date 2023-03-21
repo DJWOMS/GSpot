@@ -1,12 +1,12 @@
 from django_filters import rest_framework as filters
-from . import models
+from .models import Product
 
 
 class ProductFilter(filters.FilterSet):
     name = filters.CharFilter(field_name='name', lookup_expr='icontains')
 
     class Meta:
-        model = models.Product
+        model = Product
         fields = ('name', 'status', 'type')
 
 
