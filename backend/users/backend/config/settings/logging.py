@@ -7,11 +7,9 @@ LOGGING = {
     'formatters': {
         'verbose': {
             'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
+            'datefmt': "%d/%b/%Y %H:%M:%S",
         },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
+        'simple': {'format': '%(levelname)s %(message)s'},
     },
     'handlers': {
         # 'file': {
@@ -20,10 +18,7 @@ LOGGING = {
         #     'filename': LOG_FILE,
         #     'formatter': 'verbose'
         # },
-        "console": {
-            "class": "logging.StreamHandler",
-            "formatter": "verbose"
-        }
+        "console": {"class": "logging.StreamHandler", "formatter": "verbose"}
     },
     'loggers': {
         'django': {
@@ -31,5 +26,5 @@ LOGGING = {
             'propagate': True,
             'level': os.getenv("DJANGO_LOG_LEVEL", "INFO"),
         }
-    }
+    },
 }
