@@ -21,6 +21,8 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-unexpected-multiline": "off"
+        "no-unexpected-multiline": "off",
+        "react/jsx-key": "error",
+        "react/react-in-jsx-scope": "off"
     }
 }

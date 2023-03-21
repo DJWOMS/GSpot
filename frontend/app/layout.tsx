@@ -4,8 +4,8 @@ import classNames from 'classnames'
 
 // styles
 import GlobalStyles from './GlobalStyles'
-import '@/assets/css/bootstrap-reboot.min.css'
-import '@/assets/css/bootstrap-grid.min.css'
+import 'assets/css/bootstrap-reboot.min.css'
+import 'assets/css/bootstrap-grid.min.css'
 
 // head
 export const metadata = {

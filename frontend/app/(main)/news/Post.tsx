@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { IconMessages, IconClockHour4, IconPlayerPlay } from '@tabler/icons-react'
 import React, { FC } from 'react'

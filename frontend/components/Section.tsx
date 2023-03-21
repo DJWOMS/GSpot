@@ -28,6 +28,7 @@ export const Section = styled.section<SectionProps>`
 
 export const SectionBg = styled(Section)`
     overflow: hidden;
+
     .container {
         position: relative;
         z-index: 2;
@@ -36,7 +37,8 @@ export const SectionBg = styled(Section)`
 
 export const SectionFullBg = styled.section`
     overflow: hidden;
-    :before {
+
+    &::before {
         content: '';
         position: absolute;
         display: block;
@@ -57,7 +59,8 @@ export const SectionFullBg = styled.section`
 
 export const SectionHead = styled(Section)`
     overflow: hidden;
-    :before {
+
+    &::before {
         content: '';
         position: absolute;
         display: block;
@@ -112,6 +115,7 @@ export const SectionNavWrap = styled.div`
 interface SectionNavProps {
     ref?: React.RefObject<HTMLElement>
 }
+
 export const SectionNav = styled.button<SectionNavProps>`
     display: flex;
     flex-direction: row;
@@ -130,7 +134,7 @@ export const SectionNav = styled.button<SectionNavProps>`
         height: auto;
     }
 
-    :hover {
+    &:hover {
         background-color: rgba(167, 130, 233, 0.04);
         border-color: rgba(167, 130, 233, 0.07);
 
@@ -182,7 +186,7 @@ export const SectionView = styled.a`
     border: 1px solid rgba(167, 130, 233, 0.06);
     margin-right: auto;
 
-    :hover {
+    &:hover {
         background-color: rgba(167, 130, 233, 0.04);
         border-color: rgba(167, 130, 233, 0.07);
         color: #a782e9;
@@ -199,6 +203,7 @@ interface SectionTitleProps {
     pre?: boolean
     downloads?: boolean
 }
+
 export const SectionTitle = styled.h2<SectionTitleProps>`
     color: #fff;
     font-weight: ${(props) => (props.uppercase ? '300' : '400')};
@@ -213,7 +218,7 @@ export const SectionTitle = styled.h2<SectionTitleProps>`
     ${(props) =>
         !props.small &&
         `
-    :before {
+    &:before {
         content: '';
         position: absolute;
         display: block;
@@ -224,10 +229,10 @@ export const SectionTitle = styled.h2<SectionTitleProps>`
         background-color: ${props.pre ? '#f26c2a' : props.downloads ? '#5074e1' : '#a782e9'};
         border-radius: 4px;
     }`}
-
     b {
         font-weight: 500;
     }
+
     span {
         font-size: 14px;
         color: #dbdada;
@@ -240,7 +245,7 @@ export const SectionTitle = styled.h2<SectionTitleProps>`
     }
 
     @media (min-width: 768px) {
-        :before {
+        &:before {
             top: 3px;
             bottom: 3px;
         }
