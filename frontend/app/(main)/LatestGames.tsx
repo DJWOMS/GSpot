@@ -3,8 +3,8 @@
 import { useRef } from 'react'
 import { Section, SectionNavWrap, SectionNav, SectionTitle, SectionTitleWrap, SectionView } from 'components/Section'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
-import { Carousel } from 'components/Carousel'
-import { GameCard } from 'features/games'
+import Carousel from 'components/Carousel'
+import GameCard from 'features/games'
 
 export function LatestGames() {
     const prevRef = useRef(null)

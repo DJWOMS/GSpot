@@ -1,50 +1,41 @@
-'use client'
-
 import Link from 'next/link'
-
-import { IconBrandFacebook, IconBrandGoogle, IconBrandTwitter } from '@tabler/icons-react'
-import { Form, SignCheckbox, SignGroup, SignInput, SignBtn, SignDelimiter, SignSocial, SignSocials, SignText } from '../Form'
+import Form from '../Form'
+import s from '../form.module.scss'
+import cn from 'classnames'
+import SocialBtn from '../SocialBtn'
 
 export default function Signup() {
     return (
         <Form onSubmit={() => console.log('hello')}>
-            <SignGroup>
-                <SignInput type="text" placeholder="Введите username" />
-            </SignGroup>
+            <div className={s.signGroup}>
+                <input className={s.signInput} type="text" placeholder="Введите username" />
+            </div>
 
-            <SignGroup>
-                <SignInput type="email" placeholder="Введите email" />
-            </SignGroup>
+            <div className={s.signGroup}>
+                <input className={s.signInput} type="email" placeholder="Введите email" />
+            </div>
 
-            <SignGroup>
-                <SignInput type="password" placeholder="Введите пароль" />
-            </SignGroup>
+            <div className={s.signGroup}>
+                <input className={s.signInput} type="password" placeholder="Введите пароль" />
+            </div>
 
-            <SignCheckbox>
+            <div className={cn(s.signGroup, s.signCheckbox)}>
                 <input id="agree" />
                 <label htmlFor="agree">Я подтверждаю правила</label>
-            </SignCheckbox>
+            </div>
 
-            <SignBtn>Регистрация</SignBtn>
-            <SignDelimiter>или</SignDelimiter>
+            <button className={s.signBtn}>Регистрация</button>
+            <span className={s.signDelimiter}>или</span>
 
-            <SignSocials>
-                <SignSocial color="fb">
-                    <IconBrandFacebook />
-                </SignSocial>
+            <div className={s.signSocials}>
+                <SocialBtn type="facebook" />
+                <SocialBtn type="google" />
+                <SocialBtn type="twitter" />
+            </div>
 
-                <SignSocial color="gl">
-                    <IconBrandGoogle />
-                </SignSocial>
-
-                <SignSocial color="tw">
-                    <IconBrandTwitter />
-                </SignSocial>
-            </SignSocials>
-
-            <SignText>
+            <span className={s.signText}>
                 Уже есть аккаунт? <Link href="/signin">Авторизация</Link>
-            </SignText>
+            </span>
         </Form>
     )
 }
