@@ -5,6 +5,10 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /games
 
-COPY . .
-RUN pip install --upgrade pip
+COPY /requirements.txt .
+#RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+RUN pip install --upgrade pip
+
+copy . .
