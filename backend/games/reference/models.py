@@ -25,8 +25,8 @@ class ProductLanguage(models.Model):
     )
     product = models.ForeignKey(
         Product,
-        related_name='langs',
         on_delete=models.CASCADE,
+        related_name='langs',
     )
     interface = models.BooleanField(verbose_name='Интерфейс', default=True)
     subtitles = models.BooleanField(verbose_name='Титры', default=True)
