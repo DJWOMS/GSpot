@@ -13,16 +13,19 @@ import {
     CardActions,
     CardActionBuy,
     CardActionFavorite,
-} from 'components/Card'
+} from '../../../components/Card'
 
-interface GameCardProps {
-    badge?: string
-    title: string
-    link: string
-    price: number
-    sale?: number
-}
-export function GameCard({ badge, title, link, price, sale }: GameCardProps) {
+import { GameCardInterface } from '../../../app/(main)/LatestGames'
+
+// interface GameCardProps {
+//     badge?: string
+//     title: string
+//     link: string
+//     price: number
+//     sale?: number
+// }
+
+export function GameCard({ title, link, image, price, sale, avalible, badge }: any) {
     const rand = () => {
         return Math.floor(Math.random() * (1000 - 900 + 1) + 900)
     }
@@ -31,14 +34,18 @@ export function GameCard({ badge, title, link, price, sale }: GameCardProps) {
         <Card>
             <CardCover href="/#">
                 <img src={`https://picsum.photos/${rand()}`} alt="" />
+
                 {badge && <CardBadgeNew>{badge}</CardBadgeNew>}
             </CardCover>
 
             <CardPlatforms>
+                {avalible?.map((_: string, id: number) => (
+                    <CardPlatformItem key={id} type={_} />
+                ))}
+                {/* <CardPlatformItem type="xb" />
                 <CardPlatformItem type="ps" />
-                <CardPlatformItem type="xb" />
                 <CardPlatformItem type="wn" />
-                <CardPlatformItem type="ap" />
+                <CardPlatformItem type="ap" /> */}
             </CardPlatforms>
 
             <CardTitleWrap>
@@ -47,8 +54,8 @@ export function GameCard({ badge, title, link, price, sale }: GameCardProps) {
                 </CardTitle>
 
                 <CardPrice>
-                    {sale ? sale : price}
-                    {sale && <s>{price}</s>}
+                    ${sale ? sale : price}
+                    {sale && <s>${price}</s>}
                 </CardPrice>
             </CardTitleWrap>
 
