@@ -35,7 +35,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class SubGenreSerializer(serializers.ModelSerializer):
-    genre = serializers.PrimaryKeyRelatedField()
+    genre = serializers.PrimaryKeyRelatedField(read_only=True)
     """поджанр для игры"""
 
     class Meta:

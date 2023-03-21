@@ -3,26 +3,19 @@ from django.contrib import admin
 from .models import Language, ProductLanguage, Genre, SubGenre
 
 class GenreAdmin(admin.ModelAdmin):
-    
-    class Meta:
-        madels = Genre
+    pass
+
 
 class SubGenreAdmin (admin.ModelAdmin):
-    
-    class Meta: 
-        models = SubGenre
+    pass
 
 
 class LanguageAdmin(admin.ModelAdmin):
-    
-    class Meta: 
-        models = Language
+    pass
 
 
 class ProductLanguageAdmin(admin.ModelAdmin):
-    
-    class Meta: 
-        models = ProductLanguage
+    pass
 
 
 admin.site.register(Language, LanguageAdmin)
