@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   db:
@@ -9,7 +9,7 @@ services:
     env_file:
       - .env.dev
     ports:
-      - 5432:5432
+      - "5432:5432"
   web:
     build: .
     container_name: games
