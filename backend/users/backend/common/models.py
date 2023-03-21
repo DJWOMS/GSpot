@@ -1,15 +1,23 @@
 import uuid
 
 from django.apps import apps
+
+from django.utils.translation import gettext_lazy as _
+
 from django.contrib.auth.models import PermissionManager, GroupManager, AbstractUser
 from django.contrib.contenttypes.models import ContentTypeManager
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+
+from django.apps import apps
 
 
 class BaseAbstractUser(AbstractUser):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
+
+
+class BaseAbstractUser(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(_("email address"), unique=True, db_index=True)
     is_staff = None
 
