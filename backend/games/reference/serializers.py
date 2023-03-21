@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Language, ProductLanguage
+from .models import models, Language, ProductLanguage
 
 
 class LanguageSerializer(serializers.ModelSerializer):
@@ -7,12 +7,19 @@ class LanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Language
-        fields = ('id', 'name',)
+        fields = ('id', 'name')
 
 
 class ProductLanguageSerializer(serializers.ModelSerializer):
     """Поддерживаемый язык у игры"""
+    language_name = serializers.CharField(source='language.name')
 
     class Meta:
         model = ProductLanguage
-        fields = ('id', 'language', 'product', 'interface', 'subtitles', 'voice')
+        fields = (
+            'id',
+            'language_name',
+            'interface',
+            'subtitles',
+            'voice'
+        )
