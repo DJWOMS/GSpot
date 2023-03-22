@@ -23,11 +23,11 @@ class ProductLanguageSerializer(serializers.ModelSerializer):
             'subtitles',
             'voice'
         )
-        
-        
+
+
 class GenreSerializer(serializers.ModelSerializer):
     type = serializers.ChoiceField(choices='')
-    """жанр для игры"""
+    """Жанр для игры"""
 
     class Meta:
         model = Genre
@@ -36,7 +36,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 class SubGenreSerializer(serializers.ModelSerializer):
     genre = serializers.PrimaryKeyRelatedField(read_only=True)
-    """поджанр для игры"""
+    """Поджанр для игры"""
 
     class Meta:
         model: SubGenre

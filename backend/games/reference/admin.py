@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import Language, ProductLanguage, Genre, SubGenre
 
+
 class GenreAdmin(admin.ModelAdmin):
     pass
 
