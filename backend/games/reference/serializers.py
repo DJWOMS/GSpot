@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import models, Language, ProductLanguage
+from .models import models, Language, ProductLanguage, Genre, SubGenre
 
 
 class LanguageSerializer(serializers.ModelSerializer):
@@ -23,3 +23,21 @@ class ProductLanguageSerializer(serializers.ModelSerializer):
             'subtitles',
             'voice'
         )
+
+
+class GenreSerializer(serializers.ModelSerializer):
+    type = serializers.ChoiceField(choices='')
+    """Жанр для игры"""
+
+    class Meta:
+        model = Genre
+        fields = ('id', 'name')
+
+
+class SubGenreSerializer(serializers.ModelSerializer):
+    genre = serializers.PrimaryKeyRelatedField(read_only=True)
+    """Поджанр для игры"""
+
+    class Meta:
+        model: SubGenre
+        fields = ('id', 'name', 'genre', 'products')
