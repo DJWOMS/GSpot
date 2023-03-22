@@ -12,10 +12,9 @@ def payment_acceptance(response):
             id=response['object']['metadata']['table_id'],
         )
     except ObjectDoesNotExist:
+        payment_id = response['object']['id']
         rollbar.report_message(
-            "Can't get table for payment id {0}".format(
-                response['object']['id'],
-            ),
+            f"Can't get table for payment id {payment_id}",
             'warning',
         )
         return False
