@@ -13,6 +13,7 @@ TODO
 - `SECRET_KEY` - соль для генерации хэшей. Значение может быть произвольной строкой
 - `DEBUG`- настройка Django для ключения отладочного режима.
 - `ALLOWED_HOSTS` - список разрешенных хостов.
+- `DATABASE` - тип БД (например `postgres`)
 - `DATABASE_URL` - адрес для подключения к БД PostgreSQL. [Формат записи](https://github.com/jacobian/dj-database-url#url-schema)
 - `account_id` - id вашего магазина yookassa.
 - `shop_secret_key` - api ключ вашего магазина yookassa.
