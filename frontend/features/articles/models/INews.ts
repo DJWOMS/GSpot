@@ -6,6 +6,6 @@ export default interface INews {
     id: UUID
     category: INewsCategory
     name: string
-    timestamp: number
+    date: string
     image: URL
 }
