@@ -50,23 +50,23 @@ class Genre(models.Model):
     name = models.CharField('Жанр продукта', max_length=50, db_index=True)
 
     class Meta:
-        Verbose_name = 'Жанр продукта'
-        Verbose_name_plural = 'Жанры для продуктов'
+        verbose_name = 'Жанр продукта'
+        verbose_name_plural = 'Жанры для продуктов'
 
 
 class SubGenre(models.Model):
     name = models.CharField('Поджанр для продукта', max_length=50)
-    genre_id = models.ForeignKey(Genre, related_name='genre', unique=True, on_delete=models.CASCADE)
-    products_id = models.ManyToManyField(Product, related_name='subgenre', through='SubgenreProduct')
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='genre', unique=True)
+    products = models.ManyToManyField(Product, related_name='subgenre', through='SubgenreProduct')
 
     def __str__(self) -> str:
         return self.name
 
     class Meta:
-        verbose_name = 'поджанр для продукта'
-        verbose_name_plural = 'поджанр для продуктов'
+        verbose_name = 'Поджанр для продукта'
+        verbose_name_plural = 'Поджанр для продуктов'
 
 
 class SubgenreProduct(models.Model):
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-    subgenre_id = models.ForeignKey(SubGenre, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    subgenre = models.ForeignKey(SubGenre, on_delete=models.CASCADE)
