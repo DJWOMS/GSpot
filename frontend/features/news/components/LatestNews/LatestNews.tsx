@@ -1,5 +1,5 @@
 import Section from 'components/Section'
-import NewsItem from 'features/news/components/NewsItem'
+import { NewsItem } from 'features/news'
 
 export function LatestNews() {
     return (

@@ -1,6 +1,6 @@
 import Breadcrumbs from 'components/Breadcrumbs'
 import { FC } from 'react'
-import NewsItem from 'features/news/components/NewsItem/NewsItem'
+import { NewsItem } from 'features/news'
 import Section from 'components/Section'
 import s from './page.module.scss'
 

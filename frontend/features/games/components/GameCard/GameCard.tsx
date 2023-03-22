@@ -17,4 +17,4 @@ const GameCard: FC<Props> = ({ badge, title, link, price, sale }) => {
     return <Card title={title} link={link} price={price} coverImg={`https://picsum.photos/${rand()}`} badge={badge} sale={sale} />
 }
 
-export default GameCard
+export { GameCard }

@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import Section from 'components/Section'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
-import GameCard from 'features/games'
+import { GameCard } from 'features/games'
 
 export function LatestGames() {
     const prevRef = useRef(null)

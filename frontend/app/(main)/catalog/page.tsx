@@ -1,8 +1,7 @@
 import Breadcrumbs from 'components/Breadcrumbs'
 import Section from 'components/Section'
 import Pagination from 'components/Pagination'
-import GameCard from 'features/games'
-import { FilterGames } from 'features/games/components/FilterGames'
+import { GameCard, FilterGames } from 'features/games'
 
 export default function Page() {
     return (
