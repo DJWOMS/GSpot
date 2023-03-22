@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Media(models.Model):
     GAME_LOGO = 'logo'
     PHOTO_SLIDER = 'slider'
@@ -16,5 +17,6 @@ class Media(models.Model):
 
     def __str__(self):
         return self.product_id
+
     class Meta:
         verbose_name_plural = 'Медиа'
