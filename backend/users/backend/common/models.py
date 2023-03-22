@@ -12,11 +12,6 @@ from django.apps import apps
 
 
 class BaseAbstractUser(AbstractUser):
-    id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
-
-
-class BaseAbstractUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(_("email address"), unique=True, db_index=True)
     is_staff = None

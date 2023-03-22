@@ -1,10 +1,17 @@
 from django.db import models
-from django.db.models import Count
-from django.db.models.functions import Coalesce
 
 
 class AdminQuerySet(models.QuerySet):
-    def with_workers_count(self):
-        return self.annotate(
-            workers_count=Coalesce(Count('username'), 0)
-        )
+    def count_admins(self):
+        return self.filter(is_superuser=True)
+
+
+class AdminManager(models.Manager):
+    def get_query_set(self):
+        return AdminQuerySet(self.model, using=self._db)
+
+    def count_admins(self):
+        return self.get_query_set().count_admins()
+
+
+

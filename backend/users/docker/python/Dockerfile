@@ -1,7 +1,6 @@
 FROM python:3.11-slim-buster
 
 ENV DJANGO_ENV=${DJANGO_ENV} \
-  DJANGO_ENV='development' \
   # python:
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
@@ -33,13 +32,7 @@ WORKDIR /code
 COPY ./poetry.lock ./pyproject.toml /code/
 
 # Project initialization:
-RUN echo "$DJANGO_ENV" \
-  && poetry install --no-root \
-  $(if ["$DJANGO_ENV" = 'production' ]; then echo '--no-dev'; fi) \
-  --no-interaction --no-ansi \
-  # Cloning poetry installation's cache for production:
-  && if [ "$DJANGO_ENV" = 'production' ]; then rm -rf "$POETRY_CACHE_DIR"; fi
-
+RUN poetry install --no-root
 
 # Creating folders, and files for a project:
 COPY . /code
