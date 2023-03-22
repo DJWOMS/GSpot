@@ -9,11 +9,14 @@ Configuration.account_id = env.int('account_id')
 Configuration.secret_key = env.str('shop_secret_key')
 
 
-def create_payment(uuid, value, commission, payment_type, return_url):
+def create_payment(serialized_data):
+    uuid = serialized_data.get('uuid')
+    value = serialized_data.get('value')
+    commission = serialized_data.get('commission')
+    payment_type = serialized_data.get('payment_type')
+    return_url = serialized_data.get('return_url')
     value_with_commission = value * (1 / (1 - commission / 100))
-    user_account, created = Account.objects.get_or_create(
-        user_uid=uuid,
-    )
+    user_account, created = Account.objects.get_or_create(user_uid=uuid)
 
     change = BalanceChange.objects.create(
         account_id=user_account,
@@ -21,7 +24,6 @@ def create_payment(uuid, value, commission, payment_type, return_url):
         is_accepted=False,
         operation_type='DEPOSIT',
     )
-    change.save()
 
     payment = Payment.create({
         'amount': {

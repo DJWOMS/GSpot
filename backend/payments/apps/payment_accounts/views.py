@@ -19,13 +19,7 @@ class CreatePaymentView(CreateAPIView):
         else:
             return Response(400)
 
-        confirmation_url = create_payment(
-            uuid=serialized_data.get('uuid'),
-            value=serialized_data.get('value'),
-            commission=serialized_data.get('commission'),
-            payment_type=serialized_data.get('payment_type'),
-            return_url=serialized_data.get('return_url'),
-        )
+        confirmation_url = create_payment(serialized_data)
 
         return Response({'confirmation_url': confirmation_url}, 200)
 
@@ -37,5 +31,4 @@ class CreatePaymentAcceptanceView(CreateAPIView):
 
         if payment_acceptance(response):
             return Response(200)
-        else:
-            return Response(404)
+        return Response(404)
