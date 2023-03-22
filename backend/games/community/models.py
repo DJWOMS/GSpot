@@ -1,4 +1,5 @@
 from django.db import models
+from core.models import Product
 
 
 class Media(models.Model):
@@ -9,14 +10,14 @@ class Media(models.Model):
         (PHOTO_SLIDER, 'Photo Slider'),
     ]
 
-    id = models.AutoField(primary_key=True)
-    product_id = models.CharField(max_length=255)
-    file_link = models.FileField(upload_to='product_media', default='test')
+    product = models.ForeignKey(Product, max_length=255, on_delete=models.CASCADE)
+    file_link = models.FileField(upload_to='product_media')
     created_at = models.DateTimeField(auto_now_add=True)
     type = models.CharField(choices=MEDIA_CHOICES, max_length=10)
 
     def __str__(self):
-        return self.product_id
+        return f'{self.product}'
 
     class Meta:
+        verbose_name = 'Медиа'
         verbose_name_plural = 'Медиа'
