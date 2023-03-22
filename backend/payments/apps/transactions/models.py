@@ -25,7 +25,6 @@ class TransferHistory(models.Model):
         auto_now_add=True,
         editable=False,
         db_index=True,
-
     )
 
     def clean(self):
