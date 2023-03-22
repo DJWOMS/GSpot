@@ -2,13 +2,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import LogoPNG from 'assets/img/logo.png'
 import s from './form.module.scss'
+import { FC } from 'react'
 
 interface FormProps {
     onSubmit: (data: object) => void
-    children: React.ReactNode
+    children?: React.ReactNode
 }
 
-const Form = ({ onSubmit, children }: FormProps) => {
+const Form: FC<FormProps> = ({ onSubmit, children }) => {
     return (
         <div className={s.signContent}>
             <form className={s.signForm} onSubmit={onSubmit}>
