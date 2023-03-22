@@ -67,7 +67,8 @@ class BalanceChange(models.Model):
         DEPOSIT = ('DT', 'DEPOSIT')
 
     account_id = models.ForeignKey(
-        Account, on_delete=models.PROTECT,
+        Account,
+        on_delete=models.PROTECT,
         related_name='balance_changes',
     )
     amount = models.DecimalField(
