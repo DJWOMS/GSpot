@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper'
 import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
-import 'swiper/swiper.scss'
+import 'swiper/scss'
 import s from './styles.module.scss'
 
 interface CarouselProps {

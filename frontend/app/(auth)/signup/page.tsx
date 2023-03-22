@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import Form from '../Form'
 import s from '../form.module.scss'

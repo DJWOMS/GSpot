@@ -1,6 +1,6 @@
 import List from 'components/List'
 import Section from 'components/Section'
-import { ListWrapper } from '../../components/List/List'
+import { ListWrapper } from 'components/List/List'
 
 function GameItem() {
     return <List coverImg={'https://picsum.photos/240/340'} price={1.99} title={'The Evil Within: The Assignment'} sale={4.99} />

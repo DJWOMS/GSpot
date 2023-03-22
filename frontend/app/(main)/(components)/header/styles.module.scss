@@ -1,16 +1,4 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import { IconHeart, IconLogin, IconSearch, IconShoppingCart } from '@tabler/icons-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import styled from 'styled-components'
-import LogoPNG from 'assets/img/logo.png'
-
-interface HeaderComponentProps {
-    hide: boolean
-}
-const HeaderComponent = styled.header<HeaderComponentProps>`
+.header {
     position: fixed;
     top: 0;
     left: 0;
@@ -19,16 +7,16 @@ const HeaderComponent = styled.header<HeaderComponentProps>`
     z-index: 99;
     transition: 0.5s, margin 0s;
 
-    ${(props) =>
-        props.hide &&
-        `
+    &Hide {
         top: -71px;
-    `}
-`
-const Wrap = styled.div`
+    }
+}
+
+.wrapper {
     border-bottom: 1px solid rgba(167, 130, 233, 0.06);
-`
-const Content = styled.div`
+}
+
+.content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -36,8 +24,9 @@ const Content = styled.div`
     position: relative;
     height: 70px;
     width: 100%;
-`
-const Logo = styled(Link)`
+}
+
+.logo {
     display: block;
     margin-left: 30px;
     height: auto;
@@ -58,12 +47,9 @@ const Logo = styled(Link)`
     @media (min-width: 1310px) {
         width: 232px;
     }
-`
-
-interface MenuProps {
-    open: boolean
 }
-const Menu = styled.button<MenuProps>`
+
+.menu {
     position: absolute;
     width: 24px;
     height: 22px;
@@ -81,46 +67,42 @@ const Menu = styled.button<MenuProps>`
         transition: 0.5s;
         opacity: 1;
 
-        ${(props) =>
-            props.open
-                ? `
-            :first-child {
+        &:first-child {
+            top: 0;
+        }
+        &:nth-child(2) {
+            top: 10px;
+            width: 16px;
+        }
+        &:last-child {
+            top: 20px;
+            width: 8px;
+        }
+    }
+
+    &Open {
+        span {
+            &:first-child {
                 transform: rotate(45deg);
                 top: 10px;
             }
-            :nth-child(2) {
+            &:nth-child(2) {
                 opacity: 0;
             }
-            :last-child {
+            &:last-child {
                 width: 24px;
                 transform: rotate(-45deg);
                 top: 10px;
             }
         }
-    `
-                : `
-            :first-child {
-                top: 0;
-            }
-            :nth-child(2) {
-                top: 10px;
-                width: 16px;
-            }
-            :last-child {
-                top: 20px;
-                width: 8px;
-            }`}
     }
 
     @media (min-width: 1200px) {
         display: none;
     }
-`
-
-interface NavProps {
-    open: boolean
 }
-const Nav = styled.ul<NavProps>`
+
+.nav {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -129,11 +111,15 @@ const Nav = styled.ul<NavProps>`
     background-color: #1b222e;
     top: 71px;
     bottom: 0;
-    left: ${(props) => (props.open ? '0' : '-100%')};
+    left: -100%;
     width: 100%;
     z-index: 100;
     padding: 20px 15px 15px;
     transition: 0.5s ease;
+
+    &Open {
+        left: 0;
+    }
 
     @media (min-width: 576px) {
         padding-left: calc((100% - 510px) / 2);
@@ -172,54 +158,57 @@ const Nav = styled.ul<NavProps>`
             pointer-events: none;
         }
     }
-`
-const NavItem = styled.li`
-    margin-bottom: 20px;
-    position: relative;
 
-    @media (min-width: 1200px) {
-        display: flex;
+    &Item {
+        margin-bottom: 20px;
+        position: relative;
+
+        @media (min-width: 1200px) {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            height: 70px;
+            margin-bottom: 0;
+            margin-right: 60px;
+
+            :last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    &Link {
+        font-size: 12px;
+        color: #fff;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        line-height: 22px;
+        height: 22px;
+        display: inline-flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        height: 70px;
-        margin-bottom: 0;
-        margin-right: 60px;
-
-        :last-child {
-            margin-right: 0;
-        }
-    }
-`
-const NavLink = styled(Link)`
-    font-size: 12px;
-    color: #fff;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    line-height: 22px;
-    height: 22px;
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-
-    svg {
-        stroke: #dbdada;
-        width: 10px;
-        height: auto;
-        transition: stroke 0.5s ease;
-        margin-left: 4px;
-    }
-
-    :hover {
-        color: #a782e9;
 
         svg {
+            stroke: #dbdada;
+            width: 10px;
+            height: auto;
+            transition: stroke 0.5s ease;
+            margin-left: 4px;
+        }
+
+        :hover {
             color: #a782e9;
+
+            svg {
+                color: #a782e9;
+            }
         }
     }
-`
-const Actions = styled.div`
+}
+
+.actions {
     display: flex;
     flex-direction: row;
     justify-content: end;
@@ -243,9 +232,9 @@ const Actions = styled.div`
     @media (min-width: 1310px) {
         width: 262px;
     }
-`
+}
 
-const LoginButton = styled.a`
+.loginBtn {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -301,8 +290,9 @@ const LoginButton = styled.a`
     @media (min-width: 1310px) {
         width: 130px;
     }
-`
-const Form = styled.form`
+}
+
+.form {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -339,8 +329,9 @@ const Form = styled.form`
             left: 232px;
         }
     }
-`
-const Select = styled.select`
+}
+
+.select {
     display: none;
 
     @media (min-width: 1200px) {
@@ -365,8 +356,9 @@ const Select = styled.select`
     @media (min-width: 1310px) {
         width: 150px;
     }
-`
-const Input = styled.input`
+}
+
+.input {
     width: calc(100% - 50px);
     height: 44px;
     border-radius: 6px 0 0 6px;
@@ -382,8 +374,9 @@ const Input = styled.input`
     @media (min-width: 1310px) {
         width: 232px;
     }
-`
-const SearchButton = styled.button`
+}
+
+.searchBtn {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -408,8 +401,9 @@ const SearchButton = styled.button`
         height: auto;
         stroke: #a782e9;
     }
-`
-const ActionLink = styled(Link)`
+}
+
+.actionLink {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -439,128 +433,4 @@ const ActionLink = styled(Link)`
             color: #a782e9;
         }
     }
-`
-
-type HeaderLink = {
-    href: string
-    title: string
-}
-interface HeaderProps {
-    links: Array<HeaderLink>
-}
-export function Header({ links }: HeaderProps) {
-    const [hideHeader, setHideHeader] = useState(false)
-    const [scrolling, setScrolling] = useState(false)
-    const [previousTop, setPreviousTop] = useState(0)
-    const [currentTop, setCurrentTop] = useState(0)
-    const scrollDelta = 10
-    const scrollOffset = 140
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (!scrolling) {
-                setScrolling(true)
-                !window.requestAnimationFrame ? setTimeout(autoHideHeader, 250) : requestAnimationFrame(autoHideHeader)
-            }
-        }
-
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [scrolling])
-
-    useEffect(() => {
-        if (previousTop - currentTop > scrollDelta) {
-            setHideHeader(false)
-        } else if (currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
-            setHideHeader(true)
-        }
-
-        setPreviousTop(currentTop)
-        setScrolling(false)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentTop])
-
-    function autoHideHeader() {
-        setCurrentTop(window.pageYOffset)
-    }
-
-    const [openHeader, setOpenHeader] = useState(false)
-    const toggleOpen = () => setOpenHeader((state) => !state)
-
-    useEffect(() => {
-        window.onscroll = () => (openHeader ? window.scrollTo(window.scrollX, window.scrollY) : () => void 0)
-    }, [openHeader])
-
-    return (
-        <HeaderComponent hide={hideHeader}>
-            <Wrap>
-                <div className="container">
-                    <Content>
-                        <Menu open={openHeader} type="button" onClick={toggleOpen}>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </Menu>
-
-                        <Logo href="/">
-                            <Image src={LogoPNG} alt="Logo" loading="eager" />
-                        </Logo>
-
-                        <Nav open={openHeader}>
-                            {links.map(({ href, title }, index) => (
-                                <NavItem onClick={() => setOpenHeader(false)} key={index}>
-                                    <NavLink href={href}>{title}</NavLink>
-                                </NavItem>
-                            ))}
-                        </Nav>
-
-                        <Actions>
-                            <LoginButton href="/signin">
-                                <IconLogin />
-                                <span>Авторизация</span>
-                            </LoginButton>
-                        </Actions>
-                    </Content>
-                </div>
-            </Wrap>
-
-            <Wrap>
-                <div className="container">
-                    <Content>
-                        <Form>
-                            <Input type="text" placeholder="Я ищу..." />
-                            <Select>
-                                <option value="0">Все категории</option>
-                                <option value="1">Экшн</option>
-                                <option value="3">Приключения</option>
-                                <option value="4">Драка</option>
-                                <option value="5">Симуляторы</option>
-                                <option value="6">Платформер</option>
-                                <option value="7">Гонки</option>
-                                <option value="8">RPG</option>
-                                <option value="9">Спорт</option>
-                                <option value="10">Стратегии</option>
-                                <option value="11">Ужасы</option>
-                            </Select>
-                            <SearchButton>
-                                <IconSearch />
-                            </SearchButton>
-                        </Form>
-
-                        <Actions>
-                            <ActionLink href="/favorite">
-                                <IconHeart />
-                                <span>Favorites</span>
-                            </ActionLink>
-
-                            <ActionLink href="/cart">
-                                <IconShoppingCart />
-                                <span>$00.00</span>
-                            </ActionLink>
-                        </Actions>
-                    </Content>
-                </div>
-            </Wrap>
-        </HeaderComponent>
-    )
 }
