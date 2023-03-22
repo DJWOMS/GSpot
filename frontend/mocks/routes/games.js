@@ -1,7 +1,7 @@
 const GAMES = [
     {
         id: '8d7d3d19-8c68-4225-8e63-10acb3a34a90',
-        title: 'Test game 1',
+        name: 'Test game 1',
         releaseDate: '2023-03-19',
         genres: [
             {
@@ -13,21 +13,20 @@ const GAMES = [
                 name: 'Экшн',
             },
         ],
-        platforms: [
+        systemRequirements: [
             {
-                id: '8d7d3d19-43cv-4225-8e63-frff25f424r',
-                name: 'Windows',
-                icon: 'win',
+                id: 'f45a2256-970d-4df8-a255-ac55a7834500',
+                operatingSystem: 'W',
             },
         ],
         price: 100,
         discount: 5,
-        is_bought: false,
-        is_favorite: false,
+        isBought: false,
+        isFavorite: false,
     },
     {
         id: '8d7d3d19-8c68-4225-34df-10acb3a34a90',
-        title: 'Test game 2',
+        name: 'Test game 2',
         releaseDate: '2023-02-10',
         genres: [
             {
@@ -35,21 +34,20 @@ const GAMES = [
                 name: 'MMO',
             },
         ],
-        platforms: [
+        systemRequirements: [
             {
-                id: '8d7d3d19-54gg-4225-8e63-frff25f424r',
-                name: 'Linux',
-                icon: 'linux',
+                id: 'f45a2256-970d-4df8-a255-ac55a7834500',
+                operatingSystem: 'W',
             },
         ],
         price: 100,
         discount: 5,
-        is_bought: false,
-        is_favorite: false,
+        isBought: false,
+        isFavorite: false,
     },
     {
         id: '8d7d3d19-8c68-4225-34fs-10acb3a34a90',
-        title: 'Test game 3',
+        name: 'Test game 3',
         releaseDate: '2023-03-10',
         genres: [
             {
@@ -57,23 +55,22 @@ const GAMES = [
                 name: 'MMO',
             },
         ],
-        platforms: [
+        systemRequirements: [
             {
-                id: '8d7d3d19-54gg-4225-8e63-frff25f424r',
-                name: 'Windows',
-                icon: 'win',
+                id: 'f45a2256-970d-4df8-a255-ac55a7834500',
+                operatingSystem: 'W',
             },
         ],
         price: 100,
         discount: 5,
-        is_bought: false,
-        is_favorite: false,
+        isBought: false,
+        isFavorite: false,
     },
 ]
 
 const GAME_DETAIL = {
     id: '8d7d3d19-8c68-4225-8e63-10acb3a34a90',
-    title: 'Test game 1',
+    name: 'Game1',
     releaseDate: '2023-03-19',
     genres: [
         {
@@ -85,19 +82,10 @@ const GAME_DETAIL = {
             name: 'Экшн',
         },
     ],
-    platforms: [
-        {
-            id: '8d7d3d19-43cv-4225-8e63-frff25f424r',
-            name: 'Windows',
-            icon: 'win',
-        },
-    ],
     price: 100,
     discount: 5,
-    is_bought: false,
-    is_favorite: false,
-    name: 'Game1',
-    release_date: '2023-03-19',
+    isBought: false,
+    isFavorite: false,
     description: '1',
     about: '1',
     age: null,
@@ -116,7 +104,7 @@ const GAME_DETAIL = {
             langs: [
                 {
                     id: 4,
-                    language_name: 'Russian',
+                    languageName: 'Russian',
                     interface: true,
                     subtitles: true,
                     voice: true,
@@ -127,7 +115,7 @@ const GAME_DETAIL = {
     langs: [
         {
             id: 2,
-            language_name: 'English',
+            languageName: 'English',
             interface: true,
             subtitles: true,
             voice: true,
