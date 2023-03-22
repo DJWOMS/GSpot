@@ -1,11 +1,6 @@
 import localFont from 'next/font/local'
-import StyledComponentsRegistry from 'lib/registry'
-import classNames from 'classnames'
-
-// styles
-import GlobalStyles from './GlobalStyles'
-import 'assets/css/bootstrap-reboot.min.css'
-import 'assets/css/bootstrap-grid.min.css'
+import cn from 'classnames'
+import './global.scss'
 
 // head
 export const metadata = {
@@ -25,13 +20,8 @@ const openSans = localFont({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <StyledComponentsRegistry>
-            <html lang="ru" className={classNames(montserrat.variable, openSans.variable)}>
-                <body>
-                    <GlobalStyles />
-                    {children}
-                </body>
-            </html>
-        </StyledComponentsRegistry>
+        <html lang="ru" className={cn(montserrat.variable, openSans.variable)}>
+            <body>{children}</body>
+        </html>
     )
 }

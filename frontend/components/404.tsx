@@ -74,15 +74,13 @@ const LinkBtn = styled(Link)`
 const PageNotFound: FC = () => {
     return (
         <Page404>
-            <div className="container">
-                <Wrap>
-                    <Content>
-                        <Title>404</Title>
-                        <Text>The page you are looking for not available!</Text>
-                        <LinkBtn href="/">go back</LinkBtn>
-                    </Content>
-                </Wrap>
-            </div>
+            <Wrap>
+                <Content>
+                    <Title>404</Title>
+                    <Text>The page you are looking for not available!</Text>
+                    <LinkBtn href="/">go back</LinkBtn>
+                </Content>
+            </Wrap>
         </Page404>
     )
 }

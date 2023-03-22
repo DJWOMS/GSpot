@@ -1,10 +1,10 @@
 [
     {
         "id": "base",
-        "routes": ["add-headers:enabled", "get-list-games:success", "get-game-by-id:success"],
+        "routes": ["add-headers:enabled", "get-list-games:success", "get-game-by-id:success"]
     },
     {
         "id": "with-error-not-found-game",
-        "routes": ["get-list-games:success", "get-game-by-id:not-found"],
+        "routes": ["get-list-games:success", "get-game-by-id:not-found"]
     }
 ]

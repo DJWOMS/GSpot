@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  @apply container mx-auto px-4;
+
+  font-family: var(--font-opensans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  background-color: #1b222e;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  transition: 0.5s ease;
+  cursor: pointer;
+
+  :focus {
+    outline: none;
+  }
+}
+
+a {
+  transition: 0.5s ease;
+
+  :hover,
+  :active,
+  :focus {
+    outline: none;
+    text-decoration: none;
+  }
+}
+
+::-moz-selection {
+  background: #a782e9;
+  color: #fff;
+  text-shadow: none;
+}
+
+::selection {
+  background: #a782e9;
+  color: #fff;
+  text-shadow: none;
+}
+
+::-webkit-input-placeholder {
+  color: #dbdada;
+  opacity: 1;
+}
+
+::-moz-placeholder {
+  color: #dbdada;
+  opacity: 1;
+}
+
+:-moz-placeholder {
+  color: #dbdada;
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: #dbdada;
+  opacity: 1;
+}
+
+:focus {
+  outline: -webkit-focus-ring-color auto 0;
+}
+
+body::-webkit-scrollbar {
+  width: 16px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(167, 130, 233, 0.06);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #a782e9;
+  outline: 1px solid rgba(167, 130, 233, 0.06);
+}
+
+@media (min-width: 1310px) {
+  .container {
+    max-width: 1310px;
+  }
+}

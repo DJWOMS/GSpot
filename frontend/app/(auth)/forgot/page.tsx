@@ -1,17 +1,18 @@
 'use client'
 
-import { Form, SignGroup, SignInput, SignBtn, SignText } from '../Form'
+import Form from '../Form'
+import s from '../form.module.scss'
 
 export default function Forgot() {
     return (
         <Form onSubmit={() => console.log('hello')}>
-            <SignGroup>
-                <SignInput type="text" placeholder="Введите ваш email" />
-            </SignGroup>
+            <div className={s.signGroup}>
+                <input className={s.signInput} type="text" placeholder="Введите ваш email" />
+            </div>
 
-            <SignBtn>Продолжить</SignBtn>
+            <button className={s.signBtn}>Продолжить</button>
 
-            <SignText>На указанный email будет отправлен код для сброса пароля.</SignText>
+            <span className={s.signText}>На указанный email будет отправлен код для сброса пароля.</span>
         </Form>
     )
 }
