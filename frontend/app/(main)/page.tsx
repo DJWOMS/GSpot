@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { BestGames } from './BestGames'
-import { LatestNews } from './LatestNews'
+import { LatestNews } from 'features/news/components/LatestNews/LatestNews'
 import { OtherGames } from './OtherGames'
 import { LatestGames } from './LatestGames'
 

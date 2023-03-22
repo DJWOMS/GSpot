@@ -1,4 +1,4 @@
-import s from '../Card/styles.module.scss'
+import s from '../Card/Card.module.scss'
 import Link from 'next/link'
 import cn from 'classnames'
 import { IconHeart } from '@tabler/icons-react'

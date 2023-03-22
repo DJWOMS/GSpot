@@ -14,7 +14,7 @@ interface Props {
     hasVideo?: boolean
 }
 
-const PostItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCount, url, hasVideo }) => {
+const NewsItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCount, url, hasVideo }) => {
     const isBig = size === 'big'
 
     return (
@@ -51,4 +51,4 @@ const PostItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCo
     )
 }
 
-export default PostItem
+export default NewsItem

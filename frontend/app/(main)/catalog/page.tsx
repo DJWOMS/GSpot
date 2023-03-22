@@ -2,7 +2,7 @@ import Breadcrumbs from 'components/Breadcrumbs'
 import Section from 'components/Section'
 import Pagination from 'components/Pagination'
 import GameCard from 'features/games'
-import { Filter } from './Filter'
+import { FilterGames } from 'features/games/components/FilterGames'
 
 export default function Page() {
     return (
@@ -34,7 +34,7 @@ export default function Page() {
                         children: (
                             <section className="section section--last section--catalog">
                                 <div className={'flex'}>
-                                    <Filter />
+                                    <FilterGames />
 
                                     <div className="w-full">
                                         <div className="grid gap-x-4 grid-cols-4 grid-flow-row">

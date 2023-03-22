@@ -1,8 +1,8 @@
 import Breadcrumbs from 'components/Breadcrumbs'
 import { FC } from 'react'
-import PostItem from '../(components)/post-item/PostItem'
+import NewsItem from 'features/news/components/NewsItem/NewsItem'
 import Section from 'components/Section'
-import s from './styles.module.scss'
+import s from './page.module.scss'
 
 const Page: FC = () => {
     return (
@@ -52,7 +52,7 @@ const Page: FC = () => {
                             <div className={s.columns}>
                                 {new Array(11).fill(0).map((_: number, id: number) => (
                                     <div className="w-full" key={id}>
-                                        <PostItem
+                                        <NewsItem
                                             title={'Главные 20 CS:GO игроков of 2023 согласно to Gspot.tv'}
                                             imageSrc={'https://picsum.photos/340/240'}
                                             date={'2 часа назад'}
