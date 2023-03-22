@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from common.models import BaseAbstractUser, BaseContentType, BasePermission, BaseGroup
+from admins.managers import AdminManager
 
 
 class AdminContentType(BaseContentType):
@@ -66,6 +67,8 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
         related_name="user_set",
         related_query_name="user",
     )
+
+    objects = AdminManager()
 
     class Meta:
         db_table = "admin"
