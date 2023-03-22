@@ -57,11 +57,11 @@ const Carousel = ({ prevRef, nextRef, breakpoints, children }: CarouselProps) =>
                 onSwiper={(swiper) => setSwiper(swiper)}
                 spaceBetween={30}
                 loop={true}
-                modules={[Autoplay]}
                 allowTouchMove={false}
                 speed={400}
                 autoplay={{
-                    delay: 4000,
+                    delay: 14000,
+                    stopOnLastSlide: true,
                 }}
                 breakpoints={breakpoints}
             >

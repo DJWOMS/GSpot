@@ -4,7 +4,7 @@ import Carousel from 'components/Carousel'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import { useRef } from 'react'
 import Section from 'components/Section'
-import Card from 'components/Card'
+import CardBig from 'components/CardBig'
 
 export function BestGames() {
     const prevRef = useRef(null)
@@ -54,7 +54,7 @@ export function BestGames() {
                             }}
                         >
                             {[1, 2, 3, 4, 5].map((i) => (
-                                <Card key={i} coverImg={'https://picsum.photos/1000'} link={'#'} title={'Test'} price={100} />
+                                <CardBig key={i} coverImg={'https://picsum.photos/1000'} link={'#'} title={'Test'} price={100} />
                             ))}
                         </Carousel>
                     ),

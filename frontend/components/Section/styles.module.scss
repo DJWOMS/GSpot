@@ -1,34 +1,43 @@
 .section {
+    position: relative;
+    padding-top: 60px;
+
+    @media (min-width: 576px) {
+        padding-top: 70px;
+    }
+    @media (min-width: 768px) {
+        padding-top: 80px;
+    }
+    @media (min-width: 1200px) {
+        padding-top: 90px;
+    }
+
     &First {
         position: relative;
-        padding-top: 200px;
+        padding-top: 160px;
 
         @media (min-width: 576px) {
-            padding-top: 210px;
+            padding-top: 170px;
         }
         @media (min-width: 768px) {
-            padding-top: 220px;
+            padding-top: 180px;
         }
         @media (min-width: 1200px) {
-            padding-top: 230px;
+            padding-top: 190px;
         }
     }
 
     &Last {
         position: relative;
-        padding-top: 60px;
         padding-bottom: 60px;
 
         @media (min-width: 576px) {
-            padding-top: 70px;
             padding-bottom: 70px;
         }
         @media (min-width: 768px) {
-            padding-top: 80px;
             padding-bottom: 80px;
         }
         @media (min-width: 1200px) {
-            padding-top: 90px;
             padding-bottom: 90px;
         }
     }
@@ -190,6 +199,7 @@
             }
 
             &Single {
+                display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
@@ -233,32 +243,31 @@
             font-size: 32px;
         }
 
-        &Small {
-            padding-left: 0;
-            font-size: 26px;
+        &:before {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 2px;
+            bottom: 2px;
+            left: 0;
+            width: 3px;
+            background-color: #a782e9;
+            border-radius: 4px;
+        }
 
+        &Pre {
             &:before {
-                content: '';
-                position: absolute;
-                display: block;
-                top: 2px;
-                bottom: 2px;
-                left: 0;
-                width: 3px;
-                background-color: #a782e9;
-                border-radius: 4px;
+                background-color: #f26c2a;
             }
+        }
+        &Downloads {
+            &:before {
+                background-color: #5074e1;
+            }
+        }
 
-            &Pre {
-                &:before {
-                    background-color: #f26c2a;
-                }
-            }
-            &Downloads {
-                &:before {
-                    background-color: #5074e1;
-                }
-            }
+        &Small {
+            font-size: 26px;
 
             @media (min-width: 576px) {
                 font-size: 28px;
@@ -273,5 +282,13 @@
             text-transform: uppercase;
             line-height: 130%;
         }
+    }
+}
+
+.list {
+    @apply flex gap-3;
+
+    > div {
+        @apply w-full;
     }
 }

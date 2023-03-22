@@ -33,7 +33,7 @@ export function LatestGames() {
                                 },
                             }}
                         >
-                            <GameCard title="Test" price={100} link="/" />
+                            <GameCard title="Test" price={100} link="/" badge={'NEW'} />
                             <GameCard title="Test" price={100} link="/" />
                             <GameCard title="Test" price={100} link="/" />
                             <GameCard title="Test" price={100} link="/" />

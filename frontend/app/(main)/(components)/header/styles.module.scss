@@ -1,5 +1,6 @@
 .header {
-    position: fixed;
+    @apply sticky;
+
     top: 0;
     left: 0;
     width: 100%;
@@ -209,10 +210,8 @@
 }
 
 .actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    align-items: center;
+    @apply flex justify-between items-center;
+
     height: 70px;
     width: 120px;
 
@@ -235,10 +234,8 @@
 }
 
 .loginBtn {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    @apply flex justify-center items-center text-center;
+
     width: 44px;
     height: 44px;
     background-color: rgba(167, 130, 233, 0.03);

@@ -3,6 +3,7 @@ import { IconHeart } from '@tabler/icons-react'
 import s from './styles.module.scss'
 import { FC } from 'react'
 import cn from 'classnames'
+import CardPlatform from '../CardPlatform'
 
 interface Props {
     coverImg: string
@@ -18,14 +19,14 @@ const Card: FC<Props> = ({ coverImg, badge, link, title, sale, price }) => {
         <div className={s.card}>
             <Link className={s.cardCover} href="/#">
                 <img src={coverImg} alt="" />
-                {badge && <span className={s.cardBadgeNew}>{badge}</span>}
+                {badge && <span className={cn(s.cardBadge, s.cardBadgeNew)}>{badge}</span>}
             </Link>
 
             <ul className={s.cardPlatforms}>
-                <CardPlatformItem type="ps" />
-                <CardPlatformItem type="xbox" />
-                <CardPlatformItem type="win" />
-                <CardPlatformItem type="ap" />
+                <CardPlatform type="ps" />
+                <CardPlatform type="xbox" />
+                <CardPlatform type="win" />
+                <CardPlatform type="ap" />
             </ul>
 
             <div className={s.cardTitleWrapper}>
@@ -50,27 +51,6 @@ const Card: FC<Props> = ({ coverImg, badge, link, title, sale, price }) => {
             </div>
         </div>
     )
-}
-
-interface PlatformProps {
-    type: 'ps' | 'xbox' | 'win' | 'ap'
-}
-
-const CardPlatformItem: FC<PlatformProps> = ({ type }) => {
-    const getType = () => {
-        switch (type) {
-            case 'ps':
-                return s.cardPlatformPS
-            case 'ap':
-                return s.cardPlatformAP
-            case 'win':
-                return s.cardPlatformWN
-            case 'xbox':
-                return s.cardPlatformXB
-        }
-    }
-
-    return <div className={cn(s.cardPlatform, getType())} />
 }
 
 export default Card

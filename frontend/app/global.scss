@@ -4,6 +4,8 @@
 
 
 body {
+  @apply container mx-auto px-4;
+
   font-family: var(--font-opensans);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;

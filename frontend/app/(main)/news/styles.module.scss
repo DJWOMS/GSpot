@@ -73,7 +73,5 @@
 }
 
 .columns {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    @apply grid grid-cols-3 gap-x-4;
 }

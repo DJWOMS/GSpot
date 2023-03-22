@@ -1,0 +1,36 @@
+.platform {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    margin-right: 10px;
+
+    svg {
+        fill: #fff;
+        width: 14px;
+        height: auto;
+    }
+
+    :last-child {
+        margin-right: 0;
+    }
+}
+
+.ps {
+    background-color: #665cbe;
+}
+
+.xbox {
+    background-color: #0e7a0d;
+}
+
+.win {
+    background-color: #00aef0;
+}
+
+.ap {
+    background-color: #555;
+}
