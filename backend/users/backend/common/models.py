@@ -1,5 +1,9 @@
 import uuid
+
+from django.apps import apps
+
 from django.utils.translation import gettext_lazy as _
+
 from django.contrib.auth.models import PermissionManager, GroupManager, AbstractUser
 from django.contrib.contenttypes.models import ContentTypeManager
 from django.db import models
@@ -18,7 +22,6 @@ class BaseAbstractUser(AbstractUser):
 
 class BaseContentType(models.Model):
     service_name = models.CharField("Service Name", max_length=16)
-
     app_label = models.CharField(max_length=100)
     model = models.CharField(_("python model class name"), max_length=100)
     objects = ContentTypeManager()
@@ -104,4 +107,4 @@ class BaseGroup(models.Model):
         return self.name
 
     def natural_key(self):
-        return (self.name,)
+        return self.name,

@@ -4,6 +4,7 @@ AUTHENTICATION_BACKENDS = [
     "common.auth_backends.AdminBackend",
 ]
 
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',

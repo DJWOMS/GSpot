@@ -15,6 +15,7 @@ python-dotenv = "^1.0.0"
 django-filter = "^22.1"
 psycopg2-binary = "^2.9.5"
 drf-yasg = "^1.21.5"
+pillow = "^9.4.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.3.0"
