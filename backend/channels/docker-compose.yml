@@ -1,0 +1,105 @@
+version: "3"
+
+services:
+
+  mongodb:
+    container_name: mongodb_channels
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    networks:
+      - local_network
+
+  redis:
+    container_name: redis_channels
+    image: redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      - local_network
+
+  rabbitmq:
+    container_name: rabbitmq_channels
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    restart: always
+    env_file:
+      - .env.dev
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - local_network
+
+  channels:
+    container_name: fastapi_channels
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    command: bash entrypoint.sh
+    volumes:
+      - .:/channels
+    ports:
+      - 8000:8000
+    env_file:
+      - .env.dev
+    depends_on:
+      - mongodb
+      - redis
+      - rabbitmq
+    networks:
+      - local_network
+
+  celery_worker:
+    container_name: celery_worker_channels
+    build: .
+    command: ["poetry", "run", "celery", "-A", "app_celery", "worker", "-n", "worker_channels", "-l", "info"]
+    volumes:
+      - .:/channels
+    env_file:
+      - .env.dev
+    depends_on:
+      - channels
+      - redis
+    networks:
+      - local_network
+
+  celery_beat:
+    container_name: celery_beat_channels
+    build: .
+    command: ["poetry", "run", "celery", "-A", "app_celery", "beat", "-l", "info" ]
+    volumes:
+      - .:/channels
+    env_file:
+      - .env.dev
+    depends_on:
+      - channels
+      - redis
+      - celery_worker
+    networks:
+      - local_network
+
+  flower:
+    container_name: flower_channels
+    build: .
+    command: ["poetry", "run", "celery", "-A", "app_celery", "flower", "--port=5555", "--address=0.0.0.0"]
+    restart: always
+    ports:
+      - 5555:5555
+    env_file:
+      - .env.dev
+    depends_on:
+      - redis
+      - celery_worker
+      - celery_beat
+      - channels
+    networks:
+      - local_network
+
+volumes:
+  mongodb_data:
+
+networks:
+  local_network:
+    driver: bridge
