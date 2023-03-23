@@ -5,7 +5,12 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from base import classes
 from base.paginations import GamesResultsSetPagination
 from .filters import ProductFilter
-from .serializers import ProductSerializer, DlcSerializer, SystemRequirementSerializer
+from .serializers import (
+    ProductSerializer,
+    DlcSerializer,
+    SystemRequirementSerializer,
+    GamesListSerializer
+)
 from .models import Product, SystemRequirement
 
 
@@ -19,7 +24,7 @@ class GameViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
         'create': ProductSerializer,
         'update': ProductSerializer,
         'destroy': ProductSerializer,
-        'list': ProductSerializer,
+        'list': GamesListSerializer,
         'retrieve': ProductSerializer,
         'partial_update': ProductSerializer,
     }

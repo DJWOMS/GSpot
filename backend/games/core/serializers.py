@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from reference import serializers as ref_serializers
+from reference.serializers import GenersGameSerializer
 from .models import SystemRequirement, Product
 
 
@@ -10,6 +11,12 @@ class SystemRequirementSerializer(serializers.ModelSerializer):
     class Meta:
         model = SystemRequirement
         exclude = ('game',)
+
+
+class ShortSystemReqSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = SystemRequirement
+        fields = ('id', 'operating_system')
 
 
 class DlcSerializer(serializers.ModelSerializer):
@@ -60,3 +67,26 @@ class DlcListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'name', 'description',)
+
+
+class GamesListSerializer(serializers.ModelSerializer):
+    # price = 100
+    # discount = 0
+    # isBought = 'false'
+    # isFavorite = 'false'
+    systemRequirements = ShortSystemReqSerializers(many=True, read_only=True)
+    genres = GenersGameSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Product
+        fields = (
+            'id',
+            'name',
+            'release_date',
+            'genres',
+            'systemRequirements',
+            # 'price',
+            # 'discount',
+            # 'isBought',
+            # 'isFavorite'
+        )
