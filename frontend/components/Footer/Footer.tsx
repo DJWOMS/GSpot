@@ -10,7 +10,7 @@ import {
     IconBrandVk,
     IconBrandTwitch,
 } from '@tabler/icons-react'
-import s from './styles.module.scss'
+import s from './Footer.module.scss'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
 

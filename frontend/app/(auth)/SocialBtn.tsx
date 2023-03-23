@@ -1,5 +1,5 @@
 import { IconBrandFacebook, IconBrandGoogle, IconBrandTwitter } from '@tabler/icons-react'
-import s from './form.module.scss'
+import s from './Form.module.scss'
 import { FC } from 'react'
 import cn from 'classnames'
 

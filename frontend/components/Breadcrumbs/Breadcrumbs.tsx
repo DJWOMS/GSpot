@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import s from './styles.module.scss'
+import s from './Breadcrumbs.module.scss'
 import { FC } from 'react'
 import cn from 'classnames'
 

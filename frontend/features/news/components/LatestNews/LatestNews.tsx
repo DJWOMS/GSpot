@@ -1,5 +1,5 @@
 import Section from 'components/Section'
-import PostItem from './(components)/post-item'
+import { NewsItem } from 'features/news'
 
 export function LatestNews() {
     return (
@@ -11,7 +11,7 @@ export function LatestNews() {
                         <>
                             <div className={'flex gap-4'}>
                                 <div className="w-full">
-                                    <PostItem
+                                    <NewsItem
                                         title={'New hot race from your favorite computer games studio'}
                                         imageSrc={'https://picsum.photos/1001'}
                                         date={'3 h ago'}
@@ -23,7 +23,7 @@ export function LatestNews() {
                                 </div>
 
                                 <div className="w-full">
-                                    <PostItem
+                                    <NewsItem
                                         title={'New hot race from your favorite computer games studio'}
                                         imageSrc={'https://picsum.photos/1002'}
                                         date={'3 h ago'}
@@ -37,7 +37,7 @@ export function LatestNews() {
 
                             <div className="flex gap-4">
                                 <div className="w-full">
-                                    <PostItem
+                                    <NewsItem
                                         title={'New hot race from your favorite computer games studio'}
                                         imageSrc={'https://picsum.photos/1003'}
                                         date={'3 h ago'}
@@ -49,7 +49,7 @@ export function LatestNews() {
                                 </div>
 
                                 <div className="w-full">
-                                    <PostItem
+                                    <NewsItem
                                         title={'New hot race from your favorite computer games studio'}
                                         imageSrc={'https://picsum.photos/1004'}
                                         date={'3 h ago'}
@@ -61,7 +61,7 @@ export function LatestNews() {
                                 </div>
 
                                 <div className="w-full">
-                                    <PostItem
+                                    <NewsItem
                                         title={'New hot race from your favorite computer games studio'}
                                         imageSrc={'https://picsum.photos/1005'}
                                         date={'3 h ago'}

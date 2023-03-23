@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import s from './styles.module.scss'
+import s from './CardPlatform.module.scss'
 import cn from 'classnames'
 
 interface Props {

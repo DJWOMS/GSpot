@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { IconHeart } from '@tabler/icons-react'
-import s from './styles.module.scss'
+import s from './Card.module.scss'
 import { FC } from 'react'
 import cn from 'classnames'
 import CardPlatform from '../CardPlatform'

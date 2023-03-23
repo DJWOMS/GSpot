@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
-import s from './styles.module.scss'
+import s from './Header.module.scss'
 
 type HeaderLink = {
     href: string

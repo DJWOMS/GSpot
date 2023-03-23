@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { IconPlus } from '@tabler/icons-react'
-import s from './styles.module.scss'
+import s from './List.module.scss'
 import { FC } from 'react'
 
 interface Props {

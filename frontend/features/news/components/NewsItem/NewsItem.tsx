@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
 import { IconClockHour4, IconMessages, IconPlayerPlay } from '@tabler/icons-react'
-import s from './styles.module.scss'
+import s from './NewsItem.module.scss'
 
 interface Props {
     title: string
@@ -14,7 +14,7 @@ interface Props {
     hasVideo?: boolean
 }
 
-const PostItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCount, url, hasVideo }) => {
+const NewsItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCount, url, hasVideo }) => {
     const isBig = size === 'big'
 
     return (
@@ -51,4 +51,4 @@ const PostItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCo
     )
 }
 
-export default PostItem
+export { NewsItem }

@@ -95,7 +95,8 @@ docker run --name gspot_production_frontend -d -p 3000:3000 gspot-frontend:lates
 ```
 
 ## Contributing
-Fork this repository to your account. After making the necessary changes, create a pull request.
+Fork this repository to your account. After making the necessary changes, create a pull request.  
+More details are described in a special file `CONTRIBUTING.md`.
 
 
 ## Github Actions

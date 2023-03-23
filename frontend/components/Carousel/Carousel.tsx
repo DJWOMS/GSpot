@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper'
 import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
 import 'swiper/scss'
-import s from './styles.module.scss'
+import s from './Carousel.module.scss'
 
 interface CarouselProps {
     prevRef?: React.RefObject<HTMLElement>
