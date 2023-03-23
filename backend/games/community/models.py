@@ -10,7 +10,7 @@ class Media(models.Model):
         (PHOTO_SLIDER, 'Photo Slider'),
     ]
 
-    product = models.ForeignKey(Product, max_length=255, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     file_link = models.FileField(upload_to='product_media')
     created_at = models.DateTimeField(auto_now_add=True)
     type = models.CharField(choices=MEDIA_CHOICES, max_length=10)
