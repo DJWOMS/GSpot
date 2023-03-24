@@ -1,26 +1,13 @@
 from rest_framework import serializers
 
 from reference import serializers as ref_serializers
-from reference.serializers import GenersGameSerializer
+from reference.serializers import GenreSerializer
 from .models import SystemRequirement, Product
-
-
-class SystemRequirementSerializer(serializers.ModelSerializer):
-    """ Системные требования """
-
-    class Meta:
-        model = SystemRequirement
-        exclude = ('game',)
-
-
-class ShortSystemReqSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = SystemRequirement
-        fields = ('id', 'operating_system')
 
 
 class DlcSerializer(serializers.ModelSerializer):
     """ Детали DLC """
+
     langs = ref_serializers.ProductLanguageSerializer(many=True)
 
     class Meta:
@@ -33,6 +20,14 @@ class DlcSerializer(serializers.ModelSerializer):
             'publishers_uuid',
             'langs',
         )
+
+
+class SystemRequirementSerializer(serializers.ModelSerializer):
+    """ Системные требования """
+
+    class Meta:
+        model = SystemRequirement
+        exclude = ('game',)
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -61,21 +56,27 @@ class ProductSerializer(serializers.ModelSerializer):
         )
 
 
-class DlcListSerializer(serializers.ModelSerializer):
-    """ Детали DLC """
+class ShortSystemReqSerializers(serializers.ModelSerializer):
+    """ Сокращенные системные требования для игры """
 
     class Meta:
-        model = Product
-        fields = ('id', 'name', 'description',)
+        model = SystemRequirement
+        fields = ('id', 'operating_system')
 
 
 class GamesListSerializer(serializers.ModelSerializer):
-    # price = 100
-    # discount = 0
-    # isBought = 'false'
-    # isFavorite = 'false'
+    """Лист игр"""
+
+    # todo реализовать прайс
+    price = serializers.IntegerField(default=100)
+    # todo реализовать систему скидок
+    discount = serializers.IntegerField(default=0)
+    # todo продумать систему оценок
+    isBought = serializers.BooleanField(default=False)
+    isFavorite = serializers.BooleanField(default=False)
+
     systemRequirements = ShortSystemReqSerializers(many=True, read_only=True)
-    genres = GenersGameSerializer(many=True, read_only=True)
+    genre = GenreSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -83,10 +84,10 @@ class GamesListSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'release_date',
-            'genres',
+            'genre',
             'systemRequirements',
-            # 'price',
-            # 'discount',
-            # 'isBought',
-            # 'isFavorite'
+            'price',
+            'discount',
+            'isBought',
+            'isFavorite'
         )

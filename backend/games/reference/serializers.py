@@ -12,6 +12,7 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 class ProductLanguageSerializer(serializers.ModelSerializer):
     """Поддерживаемый язык у игры"""
+
     language_name = serializers.CharField(source='language.name')
 
     class Meta:
@@ -25,14 +26,6 @@ class ProductLanguageSerializer(serializers.ModelSerializer):
         )
 
 
-class GenreSerializer(serializers.ModelSerializer):
-    """Жанры"""
-
-    class Meta:
-        model = Genre
-        fields = ('id', 'name')
-
-
 class SubGenreSerializer(serializers.ModelSerializer):
     """Поджанры"""
 
@@ -41,9 +34,19 @@ class SubGenreSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class GenreSerializer(serializers.ModelSerializer):
+    """Жанры"""
+
+    subgenres = SubGenreSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Genre
+        fields = ('id', 'name', 'subgenres')
+
+
 class GenersGameSerializer(serializers.ModelSerializer):
-    # type = serializers.ChoiceField(choices='')
     """Жанр игры"""
+
     genre = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:

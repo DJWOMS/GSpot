@@ -144,7 +144,7 @@ class SystemRequirement(models.Model):
     game = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
-        related_name='system_requirements',
+        related_name='systemRequirements',
         limit_choices_to={'type': Product.TypeProduct.GAMES}
     )
 
