@@ -4,50 +4,58 @@ import s from './Card.module.scss'
 import { FC } from 'react'
 import cn from 'classnames'
 import CardPlatform from '../CardPlatform'
-import { GameCardInterface } from 'features/games/components/types'
+import { GameCardInterface } from 'features/games'
 
 const Card: FC<GameCardInterface> = ({ title, link, coverImg, price, sale, avalible, badge, currency = '$' }): JSX.Element => {
-    return (
-        <div className={s.card}>
-            <Link className={s.cardCover} href="/#">
-                <img src={coverImg} alt="" />
-                {badge && <span className={cn(s.cardBadge, s.cardBadgeNew)}>{badge}</span>}
-            </Link>
+  return (
+    <div className={s.card}>
+      <Link className={s.cardCover} href="/#">
+        <img src={coverImg} alt="" />
+        {badge && <span className={cn(s.cardBadge, s.cardBadgeNew)}>{badge}</span>}
+      </Link>
 
-            <ul className={s.cardPlatforms}>
-                {avalible?.map((_: any, id: number) => (
-                    <CardPlatform key={id} type={_} />
-                ))}
-            </ul>
+      <ul className={s.cardPlatforms}>
+        {avalible?.map((_: any, id: number) => (
+          <CardPlatform key={id} type={_} />
+        ))}
+      </ul>
 
-            <div className={s.cardTitleWrapper}>
-                <h3 className={s.cardTitle}>
-                    <Link className={s.cardTitleLink} href={link}>
-                        {title}
-                    </Link>
-                </h3>
+      <div className={s.cardTitleWrapper}>
+        <h3 className={s.cardTitle}>
+          <Link className={s.cardTitleLink} href={link}>
+            {title}
+          </Link>
+        </h3>
 
-                <div className={s.cardPrice}>
-                    {currency}
-                    {sale ? sale : price}
-                    {sale && (
-                        <s>
-                            {currency}
-                            {price}
-                        </s>
-                    )}
-                </div>
-            </div>
-
-            <div className={s.cardActions}>
-                <div className={cn(s.cardAction, s.cardActionBuy)}>Купить</div>
-
-                <div className={cn(s.cardAction, s.cardActionFavorite)}>
-                    <IconHeart />
-                </div>
-            </div>
+        <div className={s.cardPrice}>
+          {currency}
+          {sale ? sale : price}
+          {sale && (
+            <s>
+              {currency}
+              {price}
+            </s>
+          )}
         </div>
-    )
+      </div>
+
+      <div className={s.cardActions}>
+        <div className={cn(s.cardAction, s.cardActionBuy)}>Купить</div>
+
+        <div className={cn(s.cardAction, s.cardActionFavorite)}>
+          <IconHeart />
+        </div>
+      </div>
+
+      <div className={s.cardActions}>
+        <div className={cn(s.cardAction, s.cardActionBuy)}>Buy</div>
+
+        <div className={cn(s.cardAction, s.cardActionFavorite)}>
+          <IconHeart />
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default Card

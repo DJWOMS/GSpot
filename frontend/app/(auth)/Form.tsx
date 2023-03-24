@@ -5,21 +5,21 @@ import s from './Form.module.scss'
 import { FC } from 'react'
 
 interface FormProps {
-    onSubmit: (data: object) => void
-    children?: React.ReactNode
+  onSubmit: (data: object) => void
+  children?: React.ReactNode
 }
 
 const Form: FC<FormProps> = ({ onSubmit, children }) => {
-    return (
-        <div className={s.signContent}>
-            <form className={s.signForm} onSubmit={onSubmit}>
-                <Link className={s.signLogo} href="/">
-                    <Image src={LogoPNG} alt="Logo" />
-                </Link>
-                {children}
-            </form>
-        </div>
-    )
+  return (
+    <div className={s.signContent}>
+      <form className={s.signForm} onSubmit={onSubmit}>
+        <Link className={s.signLogo} href="/">
+          <Image src={LogoPNG} alt="Logo" />
+        </Link>
+        {children}
+      </form>
+    </div>
+  )
 }
 
 export default Form
