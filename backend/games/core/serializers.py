@@ -35,7 +35,7 @@ class ProductSerializer(serializers.ModelSerializer):
     """ Продукт """
     dlcs = DlcSerializer(many=True, read_only=False)
     langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
-    systemRequirements = SystemRequirementSerializer(many=True, read_only=False)
+    system_requirements = SystemRequirementSerializer(many=True, read_only=False)
     socials = com_serializers.SocialSerializer(many=True, read_only=False)
 
     class Meta:
@@ -54,7 +54,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'publishers_uuid',
             'dlcs',
             'langs',
-            'systemRequirements',
+            'system_requirements',
             'socials',
         )
 
