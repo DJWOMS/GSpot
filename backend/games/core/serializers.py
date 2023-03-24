@@ -94,3 +94,32 @@ class GamesListSerializer(serializers.ModelSerializer):
             'isBought',
             'isFavorite'
         )
+
+
+class GameDetailSerializer(serializers.ModelSerializer):
+    """ Полная информация о игре """
+
+    # todo реализовать прайс
+    price = serializers.IntegerField(default=100)
+    # todo реализовать систему скидок
+    discount = serializers.IntegerField(default=0)
+    # todo продумать систему оценок
+    isBought = serializers.BooleanField(default=False)
+    isFavorite = serializers.BooleanField(default=False)
+
+    system_requirements = SystemRequirementSerializer(many=True, read_only=True)
+    genre = GenreSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Product
+        fields = (
+            'id',
+            'name',
+            'release_date',
+            'genre',
+            'system_requirements',
+            'price',
+            'discount',
+            'isBought',
+            'isFavorite'
+        )
