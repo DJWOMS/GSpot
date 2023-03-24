@@ -1,12 +1,8 @@
-import Link from 'next/link'
-import { FC } from 'react'
-import styled from 'styled-components'
-
-const Page404 = styled.div`
+.page {
     display: block;
     position: relative;
-`
-const Wrap = styled.div`
+}
+.wrap {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -14,8 +10,8 @@ const Wrap = styled.div`
     width: 100%;
     min-height: 100vh;
     padding: 40px 0;
-`
-const Content = styled.div`
+}
+.content {
     background-color: #1b222e;
     display: flex;
     flex-direction: column;
@@ -31,8 +27,8 @@ const Content = styled.div`
     @media (min-width: 576px) {
         padding: 50px;
     }
-`
-const Title = styled.h1`
+}
+.title {
     position: relative;
     color: #a782e9;
     line-height: 100%;
@@ -40,8 +36,8 @@ const Title = styled.h1`
     margin-bottom: 20px;
     font-weight: 500;
     font-family: var(--font-montserrat);
-`
-const Text = styled.p`
+}
+.text {
     text-align: center;
     display: block;
     width: 100%;
@@ -49,8 +45,8 @@ const Text = styled.p`
     font-size: 14px;
     line-height: 26px;
     margin-bottom: 40px;
-`
-const LinkBtn = styled(Link)`
+}
+.link {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -69,20 +65,4 @@ const LinkBtn = styled(Link)`
         background-color: #a782e9;
         color: #fff;
     }
-`
-
-const PageNotFound: FC = () => {
-    return (
-        <Page404>
-            <Wrap>
-                <Content>
-                    <Title>404</Title>
-                    <Text>The page you are looking for not available!</Text>
-                    <LinkBtn href="/">go back</LinkBtn>
-                </Content>
-            </Wrap>
-        </Page404>
-    )
 }
-
-export default PageNotFound
