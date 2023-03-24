@@ -6,3 +6,9 @@ class MediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Media
         fields = '__all__'
+
+
+class SocialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Media
+        fields = '__all__'

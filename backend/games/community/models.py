@@ -21,3 +21,30 @@ class Media(models.Model):
     class Meta:
         verbose_name = 'Медиа'
         verbose_name_plural = 'Медиа'
+
+
+class Social(models.Model):
+    class SocialTypes(models.TextChoices):
+        FACEBOOK = 'FB', 'FaceBook'
+        VKONTAKTE = 'VK', 'VKontakte'
+        SITE = 'S', 'Site'
+        YOUTUBE = 'YT', 'YouTube'
+        TWITTER = 'TW', 'Twitter'
+        TWITCH = 'TV', 'Twitch'
+        TELEGRAM = 'TG', 'Telegram'
+
+    type = models.CharField(
+        'Социальная сеть',
+        max_length=20,
+        choices=SocialTypes.choices,
+        default=SocialTypes.SITE
+    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_socials')
+    url = models.SlugField('Ссылка')
+
+    def __str__(self):
+        return f'{self.type} {self.product.name}'
+
+    class Meta:
+        verbose_name = 'Социальная сеть'
+        verbose_name_plural = 'Социальные сети'
