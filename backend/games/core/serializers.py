@@ -78,7 +78,7 @@ class GamesListSerializer(serializers.ModelSerializer):
     isBought = serializers.BooleanField(default=False)
     isFavorite = serializers.BooleanField(default=False)
 
-    systemRequirements = ShortSystemReqSerializers(many=True, read_only=True)
+    system_requirements = ShortSystemReqSerializers(many=True, read_only=True)
     genre = GenreSerializer(many=True, read_only=True)
 
     class Meta:
@@ -88,7 +88,7 @@ class GamesListSerializer(serializers.ModelSerializer):
             'name',
             'release_date',
             'genre',
-            'systemRequirements',
+            'system_requirements',
             'price',
             'discount',
             'isBought',
