@@ -4,24 +4,24 @@ import './global.scss'
 
 // head
 export const metadata = {
-    title: 'GSpot',
-    description: 'Games market',
+  title: 'GSpot',
+  description: 'Games market',
 }
 
 // fonts
 const montserrat = localFont({
-    src: '../assets/fonts/Montserrat.ttf',
-    variable: '--font-montserrat',
+  src: '../assets/fonts/Montserrat.ttf',
+  variable: '--font-montserrat',
 })
 const openSans = localFont({
-    src: '../assets/fonts/OpenSans.ttf',
-    variable: '--font-opensans',
+  src: '../assets/fonts/OpenSans.ttf',
+  variable: '--font-opensans',
 })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-    return (
-        <html lang="ru" className={cn(montserrat.variable, openSans.variable)}>
-            <body>{children}</body>
-        </html>
-    )
+  return (
+    <html lang="ru" className={cn(montserrat.variable, openSans.variable)}>
+      <body>{children}</body>
+    </html>
+  )
 }
