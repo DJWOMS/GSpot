@@ -37,7 +37,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 class SubGenreSerializer(serializers.ModelSerializer):
     """Поджанр для игры"""
-    genre = serializers.PrimaryKeyRelatedField(queryset=Genre.objects.all())
+    genre = serializers.SlugRelatedField(queryset=Genre.objects.all(), slug_field='name')
     # products = ProductSerializer(many=True, read_only=True)
 
     class Meta:
