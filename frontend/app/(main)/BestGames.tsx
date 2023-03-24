@@ -6,7 +6,7 @@ import { useRef } from 'react'
 import Section from 'components/Section'
 import CardBig from 'components/CardBig'
 
-export function BestGames() {
+const BestGames = () => {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
 
@@ -63,3 +63,5 @@ export function BestGames() {
     />
   )
 }
+
+export default BestGames

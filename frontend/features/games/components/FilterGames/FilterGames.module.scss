@@ -146,7 +146,7 @@
 }
 
 .range {
-    @apply flex flex-row justify-start items-center border border-trans-gray text-[13px] color-white relative
+    @apply flex flex-row justify-start items-center border border-trans-gray text-[13px] text-white relative
     mb-[10px] h-[30px] px-[12px] rounded-default tracking-[.4px] bg-light;
 
     div {

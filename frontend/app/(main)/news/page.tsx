@@ -4,7 +4,7 @@ import { NewsItem } from 'features/news'
 import Section from 'components/Section'
 import s from './page.module.scss'
 
-const Page: FC = () => {
+const NewsPage: FC = () => {
   return (
     <Section
       items={[
@@ -72,4 +72,4 @@ const Page: FC = () => {
   )
 }
 
-export default Page
+export default NewsPage

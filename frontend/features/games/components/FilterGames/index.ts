@@ -1,1 +1,1 @@
-export * from './FilterGames'
+export { FilterGames } from './FilterGames'

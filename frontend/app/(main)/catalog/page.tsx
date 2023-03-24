@@ -3,7 +3,7 @@ import Section from 'components/Section'
 import Pagination from 'components/Pagination'
 import { GameCard, FilterGames } from 'features/games'
 
-export default function Page() {
+const CatalogPage = () => {
   return (
     <>
       <Section
@@ -69,3 +69,5 @@ export default function Page() {
     </>
   )
 }
+
+export default CatalogPage

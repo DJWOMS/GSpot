@@ -6,7 +6,7 @@ import cn from 'classnames'
 import CardPlatform from '../CardPlatform'
 import { GameCardInterface } from 'features/games'
 
-const Card: FC<GameCardInterface> = ({ title, link, coverImg, price, sale, avalible, badge, currency = '$' }): JSX.Element => {
+const Card: FC<GameCardInterface> = ({ title, link, coverImg, price, sale, available, badge, currency = '$' }) => {
   return (
     <div className={s.card}>
       <Link className={s.cardCover} href="/#">
@@ -15,8 +15,8 @@ const Card: FC<GameCardInterface> = ({ title, link, coverImg, price, sale, avali
       </Link>
 
       <ul className={s.cardPlatforms}>
-        {avalible?.map((_: any, id: number) => (
-          <CardPlatform key={id} type={_} />
+        {available?.map((i, id: number) => (
+          <CardPlatform key={id} type={i.type} />
         ))}
       </ul>
 
@@ -41,14 +41,6 @@ const Card: FC<GameCardInterface> = ({ title, link, coverImg, price, sale, avali
 
       <div className={s.cardActions}>
         <div className={cn(s.cardAction, s.cardActionBuy)}>Купить</div>
-
-        <div className={cn(s.cardAction, s.cardActionFavorite)}>
-          <IconHeart />
-        </div>
-      </div>
-
-      <div className={s.cardActions}>
-        <div className={cn(s.cardAction, s.cardActionBuy)}>Buy</div>
 
         <div className={cn(s.cardAction, s.cardActionFavorite)}>
           <IconHeart />

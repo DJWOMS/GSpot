@@ -5,7 +5,7 @@ export interface GameCardInterface {
   price: number
   sale?: number
   badge?: 'New' | 'Pre-order'
-  avalible?: Array<PlatformType>
+  available?: Array<PlatformType>
   currency?: 'RUB' | 'USD' | 'EUR'
 }
 
