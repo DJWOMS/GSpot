@@ -42,7 +42,7 @@ class Social(models.Model):
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
-        related_name='product_socials',
+        related_name='socials',
         limit_choices_to={'type': Product.TypeProduct.GAMES}
     )
     url = models.URLField('Ссылка')

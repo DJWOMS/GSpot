@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Media
+from .models import Media, Social
 
 
 class MediaSerializer(serializers.ModelSerializer):
@@ -10,5 +10,5 @@ class MediaSerializer(serializers.ModelSerializer):
 
 class SocialSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Media
-        fields = '__all__'
+        model = Social
+        exclude = ('product',)
