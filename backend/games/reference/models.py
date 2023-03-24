@@ -48,7 +48,7 @@ class ProductLanguage(models.Model):
 
 class Genre(models.Model):
     name = models.CharField('Жанр продукта', max_length=50, unique=True, db_index=True)
-    products = models.ManyToManyField(Product, related_name='genre', through='SubgenreProduct')
+    products = models.ManyToManyField(Product, related_name='genres', through='SubgenreProduct')
 
     def __str__(self):
         return self.name

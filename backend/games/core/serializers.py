@@ -79,7 +79,7 @@ class GamesListSerializer(serializers.ModelSerializer):
     isFavorite = serializers.BooleanField(default=False)
 
     system_requirements = ShortSystemReqSerializers(many=True, read_only=True)
-    genre = GenreSerializer(many=True, read_only=True)
+    genres = GenreSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -87,7 +87,7 @@ class GamesListSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'release_date',
-            'genre',
+            'genres',
             'system_requirements',
             'price',
             'discount',
@@ -108,7 +108,9 @@ class GameDetailSerializer(serializers.ModelSerializer):
     isFavorite = serializers.BooleanField(default=False)
 
     system_requirements = SystemRequirementSerializer(many=True, read_only=True)
-    genre = GenreSerializer(many=True, read_only=True)
+    genres = GenreSerializer(many=True, read_only=True)
+    dlcs = DlcSerializer(many=True, read_only=False)
+    langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
 
     class Meta:
         model = Product
@@ -116,10 +118,21 @@ class GameDetailSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'release_date',
-            'genre',
-            'system_requirements',
+            'genres',
             'price',
             'discount',
             'isBought',
-            'isFavorite'
+            'isFavorite',
+            'description',
+            'about',
+            'age',
+            'adult',
+            'adult',
+            'status',
+            'type',
+            'developers_uuid',
+            'publishers_uuid',
+            'dlcs',
+            'langs',
+            'system_requirements',
         )

@@ -9,7 +9,8 @@ from .serializers import (
     ProductSerializer,
     DlcSerializer,
     SystemRequirementSerializer,
-    GamesListSerializer
+    GamesListSerializer,
+    GameDetailSerializer
 )
 from .models import Product, SystemRequirement
 
@@ -25,7 +26,7 @@ class GameViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
         'update': ProductSerializer,
         'destroy': ProductSerializer,
         'list': GamesListSerializer,
-        'retrieve': ProductSerializer,
+        'retrieve': GameDetailSerializer,
         'partial_update': ProductSerializer,
     }
     permission_classes_by_action = {
