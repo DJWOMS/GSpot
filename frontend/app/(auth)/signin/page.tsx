@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Form from '../Form'
-import s from '../form.module.scss'
+import s from '../Form.module.scss'
 import cn from 'classnames'
 import SocialBtn from '../SocialBtn'
 

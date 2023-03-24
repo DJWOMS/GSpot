@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoPNG from 'assets/img/logo.png'
-import s from './form.module.scss'
+import s from './Form.module.scss'
 import { FC } from 'react'
 
 interface FormProps {

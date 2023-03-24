@@ -1,6 +1,6 @@
-import s from './catalog.module.scss'
+import s from './FilterGames.module.scss'
 
-export function Filter() {
+export function FilterGames() {
     return (
         <div className="filter-wrap">
             <button className={s.openFilter}>Открыть фильтр</button>
@@ -43,7 +43,7 @@ export function Filter() {
                         <label className={s.label}>Платформа: </label>
                         <ul className={s.checkboxes}>
                             <li className={s.checkbox}>
-                                <input id="type1" type="checkbox" name="type1" checked />
+                                <input id="type1" type="checkbox" name="type1" defaultChecked />
                                 <label htmlFor="type1">Playstation</label>
                             </li>
                             <li className={s.checkbox}>
@@ -65,7 +65,7 @@ export function Filter() {
                         <label className={s.label}>Жанры:</label>
                         <ul className={s.checkboxes}>
                             <li className={s.checkbox}>
-                                <input id="type5" type="checkbox" name="type5" checked />
+                                <input id="type5" type="checkbox" name="type5" defaultChecked />
                                 <label htmlFor="type5">Action</label>
                             </li>
                             <li className={s.checkbox}>
@@ -73,11 +73,11 @@ export function Filter() {
                                 <label htmlFor="type6">Adventure</label>
                             </li>
                             <li className={s.checkbox}>
-                                <input id="type7" type="checkbox" name="type7" checked />
+                                <input id="type7" type="checkbox" name="type7" defaultChecked />
                                 <label htmlFor="type7">Fighting</label>
                             </li>
                             <li className={s.checkbox}>
-                                <input id="type8" type="checkbox" name="type8" checked />
+                                <input id="type8" type="checkbox" name="type8" defaultChecked />
                                 <label htmlFor="type8">Flight simulation</label>
                             </li>
                             <li className={s.checkbox}>

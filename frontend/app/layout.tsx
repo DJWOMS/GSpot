@@ -10,11 +10,11 @@ export const metadata = {
 
 // fonts
 const montserrat = localFont({
-    src: '../fonts/Montserrat.ttf',
+    src: '../assets/fonts/Montserrat.ttf',
     variable: '--font-montserrat',
 })
 const openSans = localFont({
-    src: '../fonts/OpenSans.ttf',
+    src: '../assets/fonts/OpenSans.ttf',
     variable: '--font-opensans',
 })
 
