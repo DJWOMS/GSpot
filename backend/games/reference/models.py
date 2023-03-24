@@ -47,7 +47,7 @@ class ProductLanguage(models.Model):
 
 
 class Genre(models.Model):
-    name = models.CharField('Жанр продукта', max_length=50, db_index=True)
+    name = models.CharField('Жанр продукта', max_length=50, unique=True, db_index=True)
 
     class Meta:
         verbose_name = 'Жанр продукта'
