@@ -22,7 +22,7 @@ class ProductLangaugeView(viewsets.ModelViewSet):
 class GenreView(viewsets.ModelViewSet):
     serializer_class = GenreSerializer
     queryset = Genre.objects.all()
-    get_permissions = (IsAdminUser,)
+    permission_classes = (IsAdminUser,)
     lookup_field = 'name'
 
     def get_permissions(self):
