@@ -6,3 +6,7 @@ psycopg2==2.9.5
 pytz==2022.7.1
 sqlparse==0.4.3
 tzdata==2022.7
+django-filter==22.1
+drf-yasg==1.21.5
+flake8==6.0.0
+pre-commit==3.2.0
