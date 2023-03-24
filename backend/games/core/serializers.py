@@ -75,8 +75,8 @@ class GamesListSerializer(serializers.ModelSerializer):
     # todo реализовать систему скидок
     discount = serializers.IntegerField(default=0)
     # todo продумать систему оценок
-    isBought = serializers.BooleanField(default=False)
-    isFavorite = serializers.BooleanField(default=False)
+    is_bought = serializers.BooleanField(default=False)
+    is_favorite = serializers.BooleanField(default=False)
 
     system_requirements = ShortSystemReqSerializers(many=True, read_only=True)
     genres = GenreSerializer(many=True, read_only=True)
@@ -91,8 +91,8 @@ class GamesListSerializer(serializers.ModelSerializer):
             'system_requirements',
             'price',
             'discount',
-            'isBought',
-            'isFavorite'
+            'is_bought',
+            'is_favorite'
         )
 
 
@@ -104,8 +104,8 @@ class GameDetailSerializer(serializers.ModelSerializer):
     # todo реализовать систему скидок
     discount = serializers.IntegerField(default=0)
     # todo продумать систему оценок
-    isBought = serializers.BooleanField(default=False)
-    isFavorite = serializers.BooleanField(default=False)
+    is_bought = serializers.BooleanField(default=False)
+    is_favorite = serializers.BooleanField(default=False)
 
     system_requirements = SystemRequirementSerializer(many=True, read_only=True)
     genres = GenreSerializer(many=True, read_only=True)
@@ -121,8 +121,8 @@ class GameDetailSerializer(serializers.ModelSerializer):
             'genres',
             'price',
             'discount',
-            'isBought',
-            'isFavorite',
+            'is_bought',
+            'is_favorite',
             'description',
             'about',
             'age',
