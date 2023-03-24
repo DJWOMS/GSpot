@@ -1,65 +1,31 @@
 .container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 40px;
+    @apply flex flex-row justify-center items-center mt-[40px];
 
     @media (min-width: 576px) {
-        margin-top: 50px;
-        justify-content: space-between;
+        @apply mt-[50px] justify-between;
     }
 }
 
 .counter {
-    display: none;
+    @apply hidden;
 
     @media (min-width: 576px) {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(167, 130, 233, 0.03);
-        border: 1px solid rgba(167, 130, 233, 0.06);
-        height: 44px;
-        padding: 0 20px;
-        border-radius: 6px;
-        font-size: 14px;
-        color: #dbdada;
+        @apply flex flex-row justify-center items-center border border-trans-gray h-[44px] px-[20px] rounded-default
+        text-[14px] bg-light text-gray;
     }
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 44px;
-    max-width: 100%;
+    @apply flex flex-row justify-center items-center h-[44px] max-w-full;
 }
 
 .linkBtn {
-    font-size: 14px;
-    height: 44px;
-    width: 44px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(167, 130, 233, 0.03);
-    border: 1px solid rgba(167, 130, 233, 0.06);
-    border-radius: 6px;
-    color: #dbdada;
-    text-align: center;
-    position: relative;
+    @apply text-[14px] h-[44px] w-[44px] flex flex-row justify-center items-center border border-trans-gray
+    rounded-default text-center relative bg-light;
 }
 
 .item {
-    margin-right: 15px;
-
-    :last-child {
-        margin-right: 0;
-    }
+    @apply mr-[15px] last:mr-0;
 
     &:hover .linkBtn {
         color: #fff;
@@ -71,8 +37,7 @@
         cursor: default;
 
         .linkBtn {
-            color: #fff;
-            cursor: default;
+            @apply cursor-default text-white;
             border-color: rgba(167, 130, 233, 0.5);
         }
 
@@ -83,11 +48,7 @@
         }
 
         @media (min-width: 576px) {
-            margin-right: 20px;
-
-            :last-child {
-                margin-right: 0;
-            }
+            @apply mr-[20px] last:mr-0;
         }
     }
 }

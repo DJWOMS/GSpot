@@ -1,32 +1,19 @@
 .post {
-    position: relative;
-    margin-top: 30px;
-    border-radius: 6px;
-    border: 1px solid rgba(167, 130, 233, 0.06);
-    overflow: hidden;
+    @apply relative mt-[30px] rounded-default border border-trans-gray overflow-hidden;
 
     &Content {
-        display: block;
-        padding: 20px 15px;
+        @apply block px-[15px] py-[20px];
     }
 
     &Img {
-        display: block;
-        width: 100%;
-        position: relative;
-        padding: 15px 15px 0;
+        @apply block w-full relative pt-[15px] px-[15px];
 
         img {
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            transition: opacity 0.5s ease;
-            border-radius: 6px;
-            opacity: 0.8;
+            @apply w-full relative z-[1] rounded-default opacity-80 transition-opacity;
         }
 
-        :hover img {
-            opacity: 0.6;
+        &:hover img {
+            @apply opacity-60;
         }
 
         @media (min-width: 360px) {
@@ -35,145 +22,72 @@
     }
 
     &Title {
-        display: block;
-        height: 66px;
-        margin-top: 15px;
-        font-size: 22px;
-        color: #fff;
-        font-weight: 400;
-        margin-bottom: 0;
-        overflow: hidden;
+        @apply block h-[66px] mt-[15px] text-[22px] text-white font-normal mb-0 overflow-hidden;
 
         a {
-            display: block;
-            color: #fff;
-
-            :hover {
-                color: #a782e9;
-            }
+            @apply block text-white hover:text-primary;
         }
     }
 
     &Cover {
-        display: block;
-        width: 100%;
-        position: relative;
+        @apply block w-full relative;
 
         img {
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            transition: opacity 0.5s ease;
-            opacity: 0.8;
+            @apply w-full relative z-[1] transition-opacity opacity-80;
         }
 
         &:hover img {
-            opacity: 0.6;
+            @apply opacity-60;
         }
     }
 
     &Category {
-        display: inline-flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        height: 24px;
-        min-width: 74px;
-        width: auto;
-        color: #dbdada;
-        font-size: 12px;
+        @apply inline-flex flex-row justify-center items-center h-[24px] max-w-[74px] w-auto text-[12px]
+        rounded-default px-[13px] tracking-[.4px] hover:text-white text-gray;
         border: 1px solid rgba(167, 130, 233, 0.4);
         background-color: rgba(167, 130, 233, 0.15);
-        border-radius: 6px;
-        padding: 0 13px;
-        letter-spacing: 0.4px;
 
         :hover {
-            color: #fff;
             border-color: rgba(167, 130, 233, 0.6);
             background-color: rgba(167, 130, 233, 0.3);
         }
     }
 
     &Meta {
-        margin-top: 15px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 20px;
+        @apply mt-[15px] flex flex-row justify-between items-center w-full h-[20px];
     }
 
     &Date {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        font-size: 13px;
-        color: #dbdada;
+        @apply flex flex-row justify-start items-center text-[13px] text-gray;
 
         svg {
-            stroke: #a782e9;
-            width: 16px;
-            height: auto;
-            margin-right: 5px;
+            @apply stroke-primary w-[16px] h-auto mr-[5px];
         }
     }
 
     &Comments {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        font-size: 13px;
-        color: #dbdada;
+        @apply flex flex-row justify-start items-center text-[13px] text-gray;
 
         svg {
-            stroke: #a782e9;
-            width: 16px;
-            height: auto;
-            margin-right: 5px;
+            @apply text-primary w-[16px] h-auto mr-[5px];
         }
     }
 
     &Video {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        z-index: 2;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
+        @apply absolute top-[10px] left-[10px] z-[2] flex flex-row justify-center items-center w-[55px]
+        h-[55px] rounded-full m-[20px];
         border: 1px solid rgba(167, 130, 233, 0.4);
         background-color: rgba(167, 130, 233, 0.15);
-        margin: 20px;
 
         svg {
-            stroke: #a782e9;
-            width: 22px;
-            height: auto;
-            margin-left: 2px;
-            position: relative;
-            z-index: 2;
+            @apply stroke-primary w-[22px] h-auto ml-[2px] relative z-[2];
         }
+
         :before {
-            content: '';
-            position: absolute;
-            display: block;
-            z-index: 1;
-            pointer-events: none;
-            top: 5px;
-            left: 5px;
-            bottom: 5px;
-            right: 5px;
-            border-radius: 50%;
-            background-color: #1b222e;
+            @apply content-[''] absolute block z-[1] pointer-events-none top-[5px] bottom-[5px] right-[5px]
+            rounded-full bg-background;
         }
+
         :hover {
             border-color: rgba(167, 130, 233, 0.6);
             background-color: rgba(167, 130, 233, 0.3);
@@ -181,55 +95,35 @@
     }
 
     &Big {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        margin: 10px;
+        @apply relative flex flex-col m-[10px];
 
         .postImg {
-            padding: 0;
+            @apply p-0;
 
             :before {
-                content: '';
-                position: absolute;
-                display: block;
-                z-index: 2;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                top: 0;
-                pointer-events: none;
+                @apply content-[''] absolute block z-[2] inset-0 pointer-events-none;
                 background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
                 background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
                 background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
             }
 
             img {
-                border-radius: 0;
+                @apply rounded-none;
             }
         }
 
         .postContent {
             @media (min-width: 360px) {
-                padding: 20px;
+                @apply p-[20px];
             }
         }
 
         .postCover {
             @media (min-width: 768px) {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                overflow: hidden;
-                width: 100%;
-                height: 200px;
+                @apply flex flex-row justify-center items-center overflow-hidden w-full h-[200px];
 
                 img {
-                    width: auto;
-                    height: auto;
-                    min-width: 100%;
-                    min-height: 100%;
+                    @apply w-auto h-auto min-w-full min-h-full;
                 }
             }
 
@@ -253,52 +147,38 @@
 
         @media (min-width: 768px) {
             .postContent {
-                position: absolute;
-                z-index: 2;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
+                @apply absolute z-[2] bottom-0 left-0 right-0 w-full;
             }
             .postImg {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                overflow: hidden;
-                width: 100%;
-                height: 360px;
-                cursor: default;
+                @apply flex flex-row justify-center items-center overflow-hidden w-full h-[360px]
+                cursor-default;
 
                 img {
-                    width: auto;
-                    height: auto;
-                    min-width: 100%;
-                    min-height: 100%;
+                    @apply w-auto h-auto min-w-[100%] min-h-[100%];
                 }
             }
 
             :hover {
                 .postImg {
                     img {
-                        opacity: 0.6;
+                        @apply opacity-60;
                     }
                 }
             }
         }
         @media (min-width: 768px) {
             .postTitle {
-                padding-right: 30%;
+                @apply pr-[30%];
             }
         }
         @media (min-width: 992px) {
             .postTitle {
-                padding-right: 0;
+                @apply pr-0;
             }
         }
         @media (min-width: 1200px) {
             .postTitle {
-                padding-right: 33%;
+                @apply pr-[33%];
             }
         }
     }

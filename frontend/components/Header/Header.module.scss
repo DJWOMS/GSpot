@@ -234,11 +234,10 @@
 }
 
 .loginBtn {
-    @apply flex justify-center items-center text-center;
+    @apply flex justify-center items-center text-center bg-light;
 
     width: 44px;
     height: 44px;
-    background-color: rgba(167, 130, 233, 0.03);
     border: 1px solid rgba(167, 130, 233, 0.4);
     border-radius: 6px;
 
@@ -290,13 +289,14 @@
 }
 
 .form {
+    @apply bg-light;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: 44px;
     width: 220px;
-    background-color: rgba(167, 130, 233, 0.03);
     border: 1px solid rgba(167, 130, 233, 0.06);
     border-radius: 6px;
     position: relative;

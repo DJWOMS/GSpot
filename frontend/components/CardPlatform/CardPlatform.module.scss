@@ -1,21 +1,8 @@
 .platform {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    margin-right: 10px;
+    @apply flex flex-row justify-center items-center w-[26px] h-[26px] rounded-full mr-[10px] last:mr-0;
 
     svg {
-        fill: #fff;
-        width: 14px;
-        height: auto;
-    }
-
-    :last-child {
-        margin-right: 0;
+        @apply fill-white w-[14px] h-auto;
     }
 }
 

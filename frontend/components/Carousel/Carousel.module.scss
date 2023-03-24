@@ -1,42 +1,36 @@
 .container {
-    position: relative;
-    width: 100%;
-    padding-left: 15px;
-    overflow: hidden;
+    @apply relative w-full pl-[15px] overflow-hidden;
 
     img {
-        width: auto;
-        max-width: 100%;
+        @apply w-auto max-w-full;
     }
 
     .card {
-    width: 220px;
-}
+        width: 220px;
+    }
 
     .cardBig {
-    width: 270px;
-}
+        width: 270px;
+    }
 
     @media (min-width: 576px) {
         padding-left: calc((100% - 510px) / 2);
 
         .cardBig {
-        width: 280px;
-    }
+            width: 280px;
+        }
     }
 
     @media (min-width: 768px) {
-        padding-left: 0;
-        width: 690px;
-        margin: 0 auto;
+        @apply pl-0 w-[690px] mx-auto;
 
         .card {
-        width: 100%;
-    }
+            @apply w-full;
+        }
 
         .cardBig {
-        width: 100%;
-    }
+            @apply w-full;
+        }
     }
 
     @media (min-width: 992px) {

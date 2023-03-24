@@ -1,80 +1,52 @@
 .openFilter {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 44px;
-    background-color: rgba(167, 130, 233, 0.03);
+    @apply flex flex-row justify-center items-center w-full h-[44px] tracking-[0.4px] uppercase mb-[10px]
+    text-white text-[12px] rounded-default bg-light;
     border: 1px solid rgba(167, 130, 233, 0.4);
-    border-radius: 6px;
-    font-size: 12px;
-    color: #fff;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
 
     :hover {
         background-color: rgba(167, 130, 233, 0.04);
         border-color: rgba(167, 130, 233, 0.5);
 
         svg {
-            stroke: #a782e9;
+            @apply stroke-primary;
         }
     }
 
     @media (min-width: 576px) {
-        margin-bottom: 20px;
+        @apply mb-[20px];
     }
     @media (min-width: 992px) {
-        display: none;
+        @apply hidden;
     }
 }
 
 .components {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin-bottom: 10px;
-    margin-top: 20px;
+    @apply flex flex-col justify-start items-start mb-[10px] mt-[20px];
 
     @media (min-width: 576px) {
-        margin-bottom: 20px;
+        @apply mb-[20px];
     }
     @media (min-width: 992px) {
-        margin-top: 30px;
+        @apply mt-[30px];
     }
     @media (min-width: 1310px) {
-        padding-right: 10px;
+        @apply pr-[10px];
     }
 }
 
 .wrapper {
     @media (min-width: 992px) {
-        display: block !important;
+        @apply block;
     }
 }
 
 .title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: auto;
-    width: 100%;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 25px;
-    letter-spacing: 0.4px;
+    @apply flex flex-row justify-between items-center h-auto w-full text-white text-[16px] font-semibold
+    mb-[25px] tracking-[.4px];
 }
 
 .clearFilters {
-    font-size: 12px;
-    font-weight: 400;
-    color: #a782e9;
-    letter-spacing: 0;
+    @apply text-[12px] font-normal text-primary tracking-[0];
 
     :hover {
         color: #fd6060;
@@ -82,49 +54,25 @@
 }
 
 .group {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    margin-bottom: 30px;
-
-    :last-child {
-        margin-bottom: 0;
-    }
+    @apply flex flex-col justify-start items-start w-full mb-[30px] last:mb-0;
 }
 
 .label {
-    font-size: 14px;
-    line-height: 100%;
-    letter-spacing: 0.4px;
-    color: #dbdada;
-    font-weight: normal;
-    margin-bottom: 15px;
+    @apply text-[14px] tracking-[.4px] leading-[100%] font-normal mb-[15px] text-gray;
 }
 
 .selectWrap {
-    position: relative;
-    width: 100%;
+    @apply relative w-full;
 }
 
 .select {
-    width: 100%;
-    height: 44px;
-    border-radius: 6px;
-    border: 1px solid rgba(167, 130, 233, 0.06);
-    font-size: 14px;
-    color: #fff;
-    padding: 0 20px;
-    cursor: pointer;
+    @apply w-full h-[44px] rounded-default border border-trans-gray text-[14px] text-white px-[20px]
+    cursor-pointer tracking-[.4px];
     background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
     background-size: 12px auto;
-    letter-spacing: 0.4px;
 
     option {
-        padding: 0;
-        margin: 0;
-        color: #000;
+        @apply p-0 m-0 text-black;
     }
 
     :focus {
@@ -134,16 +82,8 @@
 }
 
 .input {
-    background-color: rgba(167, 130, 233, 0.03);
+    @apply rounded-default h-[44px] relative text-white text-[14px] w-full px-[20px] tracking-[.4px] bg-light;
     border: 1px solid rgba(167, 130, 233, 0.06);
-    border-radius: 6px;
-    height: 44px;
-    position: relative;
-    color: #fff;
-    font-size: 14px;
-    width: 100%;
-    padding: 0 20px;
-    letter-spacing: 0.4px;
 
     :focus {
         background-color: rgba(167, 130, 233, 0.04);
@@ -152,17 +92,11 @@
 }
 
 .checkboxes {
-    position: relative;
-    margin-top: 5px;
+    @apply relative mt-[5px];
 }
 
 .checkbox {
-    position: relative;
-    margin-bottom: 15px;
-
-    :last-child {
-        margin-bottom: 0;
-    }
+    @apply relative mb-[15px] last:mb-0;
 
     input:not(:checked),
     input:checked {
@@ -172,125 +106,61 @@
 
     input:not(:checked) + label,
     input:checked + label {
-        font-size: 14px;
-        color: #fff;
-        font-weight: normal;
-        position: relative;
-        cursor: pointer;
-        padding-left: 35px;
-        line-height: 20px;
-        letter-spacing: 0.4px;
-        margin: 0;
+        @apply text-[14px] text-white font-normal relative cursor-pointer pl-[35px] leading-[20px]
+        tracking-[.4px] m-0;
     }
 
     input:not(:checked) + label a,
     input:checked + label a {
-        color: #a782e9;
+        @apply text-primary;
     }
 
     input:not(:checked) + label a:hover,
     input:checked + label a:hover {
-        color: #a782e9;
+        @apply text-primary;
     }
 
     input:not(:checked) + label:before,
     input:checked + label:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 20px;
-        height: 20px;
-        background-color: rgba(167, 130, 233, 0.03);
-        border: 1px solid rgba(167, 130, 233, 0.06);
-        border-radius: 6px;
+        @apply content-[''] absolute left-0 top-0 w-[20px] h-[20px] border border-trans-gray rounded-default bg-light;
     }
 
     input:not(:checked) + label:after,
     input:checked + label:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 20px;
-        height: 20px;
-        text-align: center;
+        @apply content-[''] absolute left-0 top-0 w-[20px] h-[20px] text-center;
         transition: 0.5s;
         background: url('/svg/checkmark.svg') no-repeat center/16px auto;
     }
 
     input:not(:checked) + label:after {
-        opacity: 0;
-        transform: scale(0);
+        @apply opacity-0 scale-0;
     }
 
     input:checked + label:after {
-        opacity: 1;
-        transform: scale(1);
+        @apply opacity-100 scale-100;
     }
 
-    label::-moz-selection {
-        background: transparent;
-        color: #fff;
-    }
-
-    label::selection {
-        background: transparent;
-        color: #fff;
+    label::selection, label::-moz-selection {
+        @apply bg-transparent text-white;
     }
 }
 
 .range {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: rgba(167, 130, 233, 0.03);
-    border: 1px solid rgba(167, 130, 233, 0.06);
-    font-size: 13px;
-    color: #fff;
-    position: relative;
-    margin-bottom: 10px;
-    height: 30px;
-    padding: 0 12px;
-    border-radius: 6px;
-    letter-spacing: 0.4px;
+    @apply flex flex-row justify-start items-center border border-trans-gray text-[13px] color-white relative
+    mb-[10px] h-[30px] px-[12px] rounded-default tracking-[.4px] bg-light;
 
     div {
-        position: relative;
-
-        :first-child {
-            margin-right: 16px;
-
-            :after {
-                content: '–';
-                position: absolute;
-                display: block;
-                left: 100%;
-                top: 0;
-                color: #fff;
-                font-size: 14px;
-                margin-left: 4px;
-                line-height: 16px;
-            }
+        @apply relative first:mr-[16px];
+        &:first-child:after {
+            @apply content-['-'] absolute block left-full top-0 text-white text-[14px] ml-[4px] leading-4;
         }
     }
 }
 
 .applyFilter {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 44px;
-    background-color: rgba(167, 130, 233, 0.03);
+    @apply flex flex-row justify-center items-center w-full h-[44px] rounded-default text-white tracking-[.4px]
+    uppercase bg-light;
     border: 1px solid rgba(167, 130, 233, 0.4);
-    border-radius: 6px;
-    font-size: 12px;
-    color: #fff;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
 
     :hover {
         background-color: rgba(167, 130, 233, 0.04);
@@ -298,6 +168,6 @@
     }
 
     :hover svg {
-        stroke: #a782e9;
+        @apply stroke-primary;
     }
 }

@@ -129,13 +129,14 @@
             }
         }
 
+        @apply bg-light;
+
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         width: 30px;
         height: 30px;
-        background-color: rgba(167, 130, 233, 0.03);
         border: 1px solid rgba(167, 130, 233, 0.06);
         border-radius: 6px;
 
@@ -157,18 +158,18 @@
     }
 
     &View {
+        @apply bg-light text-gray;
+
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         min-width: 80px;
         height: 30px;
-        color: #dbdada;
         font-size: 13px;
         font-weight: 400;
         border-radius: 6px;
         letter-spacing: 0.4px;
-        background-color: rgba(167, 130, 233, 0.03);
         border: 1px solid rgba(167, 130, 233, 0.06);
         margin-right: auto;
 
@@ -225,9 +226,9 @@
         }
 
         span {
+            @apply text-gray font-sans;
+
             font-size: 14px;
-            color: #dbdada;
-            font-family: var(--font-opensans);
             letter-spacing: 0.4px;
         }
 
