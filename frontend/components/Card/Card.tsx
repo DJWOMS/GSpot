@@ -4,17 +4,9 @@ import s from './Card.module.scss'
 import { FC } from 'react'
 import cn from 'classnames'
 import CardPlatform from '../CardPlatform'
+import { GameCardInterface } from 'features/games/components/types'
 
-interface Props {
-    coverImg: string
-    badge?: string
-    link: string
-    title: string
-    sale?: number
-    price: number
-}
-
-const Card: FC<Props> = ({ coverImg, badge, link, title, sale, price }) => {
+const Card: FC<GameCardInterface> = ({ title, link, coverImg, price, sale, avalible, badge, currency = '$' }): JSX.Element => {
     return (
         <div className={s.card}>
             <Link className={s.cardCover} href="/#">
@@ -23,10 +15,9 @@ const Card: FC<Props> = ({ coverImg, badge, link, title, sale, price }) => {
             </Link>
 
             <ul className={s.cardPlatforms}>
-                <CardPlatform type="ps" />
-                <CardPlatform type="xbox" />
-                <CardPlatform type="win" />
-                <CardPlatform type="ap" />
+                {avalible?.map((_: any, id: number) => (
+                    <CardPlatform key={id} type={_} />
+                ))}
             </ul>
 
             <div className={s.cardTitleWrapper}>
@@ -37,13 +28,19 @@ const Card: FC<Props> = ({ coverImg, badge, link, title, sale, price }) => {
                 </h3>
 
                 <div className={s.cardPrice}>
+                    {currency}
                     {sale ? sale : price}
-                    {sale && <s>{price}</s>}
+                    {sale && (
+                        <s>
+                            {currency}
+                            {price}
+                        </s>
+                    )}
                 </div>
             </div>
 
             <div className={s.cardActions}>
-                <div className={cn(s.cardAction, s.cardActionBuy)}>Buy</div>
+                <div className={cn(s.cardAction, s.cardActionBuy)}>Купить</div>
 
                 <div className={cn(s.cardAction, s.cardActionFavorite)}>
                     <IconHeart />
