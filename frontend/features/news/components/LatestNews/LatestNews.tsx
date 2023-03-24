@@ -1,7 +1,7 @@
 import Section from 'components/Section'
 import { NewsItem } from 'features/news'
 
-export function LatestNews() {
+const LatestNews = () => {
   return (
     <Section
       items={[
@@ -79,3 +79,5 @@ export function LatestNews() {
     />
   )
 }
+
+export { LatestNews }

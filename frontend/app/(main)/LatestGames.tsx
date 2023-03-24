@@ -8,7 +8,7 @@ import { GameCard } from 'features/games'
 import { GameCardInterface } from 'features/games'
 
 const LatestGames = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<GameCardInterface[]>([])
 
   async function fetchData() {
     try {
@@ -56,17 +56,17 @@ const LatestGames = () => {
                 },
               }}
             >
-              {data.map(({ title, badge, coverImg, price, sale, avalible, currency }: GameCardInterface, id: number) => (
+              {data.map((i, id) => (
                 <GameCard
                   key={id}
-                  title={title}
+                  title={i.title}
                   link="/"
-                  badge={badge}
-                  coverImg={coverImg}
-                  price={price}
-                  sale={sale}
-                  avalible={avalible}
-                  currency={currency}
+                  badge={i.badge}
+                  coverImg={i.coverImg}
+                  price={i.price}
+                  sale={i.sale}
+                  available={i.available}
+                  currency={i.currency}
                 />
               ))}
             </Carousel>
@@ -88,4 +88,4 @@ const LatestGames = () => {
   )
 }
 
-export { LatestGames }
+export default LatestGames

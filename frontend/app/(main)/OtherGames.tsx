@@ -2,11 +2,9 @@ import List from 'components/List'
 import Section from 'components/Section'
 import { ListWrapper } from 'components/List/List'
 
-function GameItem() {
-  return <List coverImg={'https://picsum.photos/240/340'} price={1.99} title={'The Evil Within: The Assignment'} sale={4.99} />
-}
+const GameItem = () => <List coverImg={'https://picsum.photos/240/340'} price={1.99} title={'The Evil Within: The Assignment'} sale={4.99} />
 
-export function OtherGames() {
+const OtherGames = () => {
   const children = (
     <ListWrapper>
       <GameItem key={1} />
@@ -34,3 +32,5 @@ export function OtherGames() {
     />
   )
 }
+
+export default OtherGames

@@ -1,6 +1,6 @@
 import s from './FilterGames.module.scss'
 
-export function FilterGames() {
+const FilterGames = () => {
   return (
     <div className="filter-wrap">
       <button className={s.openFilter}>Открыть фильтр</button>
@@ -115,3 +115,5 @@ export function FilterGames() {
     </div>
   )
 }
+
+export { FilterGames }

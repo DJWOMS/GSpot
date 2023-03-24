@@ -3,7 +3,7 @@
 import Form from '../Form'
 import s from '../Form.module.scss'
 
-export default function Forgot() {
+const Forgot = () => {
   return (
     <Form onSubmit={() => console.log('hello')}>
       <div className={s.signGroup}>
@@ -16,3 +16,5 @@ export default function Forgot() {
     </Form>
   )
 }
+
+export default Forgot

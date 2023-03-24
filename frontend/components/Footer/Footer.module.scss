@@ -167,8 +167,8 @@
     align-items: flex-start;
 
     a {
+        @apply text-gray;
         font-size: 14px;
-        color: #dbdada;
         line-height: 26px;
         position: relative;
         padding-left: 20px;
@@ -254,15 +254,13 @@
         height: auto;
     }
     span {
+        @apply text-gray;
+
         a {
-            color: #dbdada;
-        }
-        a:hover {
-            color: #a782e9;
+            @apply text-gray hover:text-primary;
         }
         font-size: 12px;
         line-height: 20px;
-        color: #dbdada;
         text-align: right;
     }
 

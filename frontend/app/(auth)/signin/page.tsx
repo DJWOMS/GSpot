@@ -6,7 +6,7 @@ import s from '../Form.module.scss'
 import cn from 'classnames'
 import SocialBtn from '../SocialBtn'
 
-export default function Signin() {
+const Signin = () => {
   return (
     <Form onSubmit={() => console.log('hello')}>
       <div className={s.signGroup}>
@@ -45,3 +45,5 @@ export default function Signin() {
     </Form>
   )
 }
+
+export default Signin

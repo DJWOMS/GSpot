@@ -1,69 +1,45 @@
 .list {
-    position: relative;
-    display: block;
-    padding: 15px;
-    border-radius: 6px;
-    border: 1px solid rgba(167, 130, 233, 0.06);
-    margin-top: 30px;
-
-    margin-bottom: 40px;
+    @apply relative block p-[15px] rounded-default border border-trans-gray mt-[30px] mb-[40px];
 
     @media (min-width: 360px) {
-        padding: 20px;
+        @apply p-[20px];
     }
 
     @media (min-width: 768px) {
-        margin-bottom: 60px;
+        @apply mb-[60px];
     }
 
     @media (min-width: 1200px) {
-        margin-bottom: 0;
+        @apply mb-0;
     }
 
     &Item {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: stretch;
-        padding-top: 15px;
-        margin-top: 15px;
-        border-top: 1px solid rgba(167, 130, 233, 0.06);
-        position: relative;
+        @apply flex flex-row justify-between items-stretch pt-[15px] mt-[15px] border-t border-t-trans-gray
+        relative;
 
         :first-child {
-            margin-top: 0;
-            padding-top: 0;
-            border: none;
+            @apply mt-0 pt-0 border-none;
         }
 
         @media (min-width: 360px) {
-            padding-top: 20px;
-            margin-top: 20px;
+            @apply pt-[20px] mt-[20px];
 
             :first-child {
-                margin-top: 0;
-                padding-top: 0;
+                @apply mt-0 pt-0;
             }
         }
     }
 
     &Cover {
-        position: relative;
-        display: block;
-        border-radius: 6px;
-        overflow: hidden;
-        width: 90px;
+        @apply relative block rounded-default overflow-hidden w-[90px];
 
         img {
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            max-height: 150px;
+            @apply w-full relative z-[1] max-h-[150px];
             transition: 0.5s;
         }
 
         :hover img {
-            opacity: 0.6;
+            @apply opacity-60;
         }
 
         @media (min-width: 576px) {
@@ -72,10 +48,7 @@
     }
 
     &Wrap {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
+        @apply flex flex-col justify-start items-start;
         width: calc(100% - 105px);
 
         @media (min-width: 576px) {
@@ -84,81 +57,37 @@
     }
 
     &Title {
-        width: 100%;
-        margin-bottom: 10px;
-        color: #fff;
-        font-size: 16px;
-        font-weight: 400;
+        @apply w-full mb-[10px] text-white text-[16px] font-normal hover:text-primary;
         transition: 0.5s;
 
-        :hover {
-            color: #a782e9;
-        }
-
         a {
-            color: #fff;
-
-            :hover {
-                color: #a782e9;
-            }
+            @apply text-white hover:text-primary;
         }
     }
 
     &Price {
-        margin-top: auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: flex-start;
-        flex-wrap: wrap;
-        width: 100%;
+        @apply mt-auto flex flex-row justify-start items-start flex-wrap w-full;
 
         span {
-            width: 100%;
-            font-size: 24px;
-            color: #fff;
-            font-weight: 600;
-            line-height: 100%;
-            display: block;
+            @apply w-full text-[24px] text-white font-semibold leading-[100%] block;
         }
 
         s {
-            font-size: 13px;
-            color: #dbdada;
-            margin-top: 7px;
-            margin-right: 15px;
+            @apply text-[13px] mt-[7px] mr-[15px] text-gray;
         }
 
         b {
-            font-size: 13px;
+            @apply text-[13px] mt-[7px] mr-[15px] font-semibold;
             color: #fd6060;
-            margin-top: 7px;
-            margin-right: 15px;
-            font-weight: 600;
         }
     }
 
     &Buy {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 44px;
-        height: 44px;
-        border-radius: 6px;
-        background-color: #29b474;
-        position: absolute;
-        right: 0;
-        bottom: 0;
+        @apply flex flex-row justify-center items-center w-[44px] h-[44px] rounded-default bg-acid absolute
+        right-0 bottom-0 hover:bg-primary;
 
         svg {
-            stroke: #fff;
-            width: 24px;
-            height: auto;
-        }
-
-        :hover {
-            background-color: #a782e9;
+            @apply stroke-white w-[24px] h-auto;
         }
     }
 }
