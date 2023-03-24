@@ -1,6 +1,6 @@
 import { UUID } from '@defaultTypes'
 
-import INewsCategory from './INewsCategory'
+import { INewsCategory } from './INewsCategory'
 
 export interface INews {
   id: UUID

@@ -62,7 +62,6 @@ jobs:
 
   build-check:
     name: Tests - build app
-    needs: [jest-check, e2e-check]
     runs-on: ubuntu-latest
     defaults:
       run:
