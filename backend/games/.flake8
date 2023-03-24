@@ -3,4 +3,3 @@ exclude =
     venv,
     migrations
 max-line-length=100
-ignore=F401
