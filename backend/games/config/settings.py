@@ -3,7 +3,10 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-8(1s+bbm)87i9@k9e%-0x1yulcmlga+!(!^s+qpv(#1o0f!xi=')
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-8(1s+bbm)87i9@k9e%-0x1yulcmlga+!(!^s+qpv(#1o0f!xi='
+)
 
 DEBUG = os.environ.get('DEBUG', True)
 
