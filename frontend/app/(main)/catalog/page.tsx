@@ -38,23 +38,23 @@ export default function Page() {
                   <div className="w-full">
                     <div className="grid gap-x-4 grid-cols-4 grid-flow-row">
                       <div className="w-full">
-                        <GameCard title="Hello!" link="#" badge="New" price={30} sale={15} />
+                        <GameCard title="Hello!" coverImg="" link="#" badge="New" price={30} sale={15} />
                       </div>
 
                       <div className="w-full">
-                        <GameCard title="We" link="#" price={60} />
+                        <GameCard title="We" coverImg="" link="#" price={60} />
                       </div>
 
                       <div className="w-full">
-                        <GameCard title="Are" link="#" price={70} sale={45} />
+                        <GameCard title="Are" coverImg="" link="#" price={70} sale={45} />
                       </div>
 
                       <div className="w-full">
-                        <GameCard title="React" link="#" price={40} />
+                        <GameCard title="React" coverImg="" link="#" price={40} />
                       </div>
 
                       <div className="w-full">
-                        <GameCard title="Developers!" link="#" price={38} />
+                        <GameCard title="Developers!" coverImg="" link="#" price={38} />
                       </div>
                     </div>
 

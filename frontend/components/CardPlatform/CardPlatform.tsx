@@ -1,12 +1,9 @@
 import { FC } from 'react'
 import s from './CardPlatform.module.scss'
 import cn from 'classnames'
+import { PlatformType } from 'features/games/types'
 
-interface Props {
-  type: 'ps' | 'xbox' | 'win' | 'ap'
-}
-
-const CardPlatform: FC<Props> = ({ type }) => {
+const CardPlatform: FC<PlatformType> = ({ type }): JSX.Element => {
   return <div className={cn(s.platform, s[type])} />
 }
 
