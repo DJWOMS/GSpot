@@ -39,8 +39,13 @@ class Social(models.Model):
         choices=SocialTypes.choices,
         default=SocialTypes.SITE
     )
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_socials')
-    url = models.SlugField('Ссылка')
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='product_socials',
+        limit_choices_to={'type': Product.TypeProduct.GAMES}
+    )
+    url = models.URLField('Ссылка')
 
     def __str__(self):
         return f'{self.type} {self.product.name}'
