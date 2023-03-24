@@ -1,12 +1,8 @@
-body {
-    background-color: #1b2838 !important;
-}
-
 .mainBlock {
     @apply w-full pr-12 pl-12 flex flex-col items-center justify-center w-full h-screen;
 }
 
-p {
+.p {
     color: #657883;
 }
 
@@ -44,4 +40,20 @@ p {
 
 .footer {
     @apply w-full h-1/5 pb-10 pt-10 flex justify-center items-center text-center font-semibold;
+}
+
+.divBtn {
+    @apply flex flex-row gap-3 w-full justify-center mt-6;
+}
+
+.divImg {
+    @apply absolute -top-10;
+}
+
+.divH1 {
+    @apply flex flex-col h-full items-center justify-center;
+}
+
+.divDatePicker {
+    @apply flex flex-row gap-2 justify-center w-fit pt-4;
 }
