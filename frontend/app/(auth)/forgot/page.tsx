@@ -1,7 +1,7 @@
 'use client'
 
 import Form from '../Form'
-import s from '../form.module.scss'
+import s from '../Form.module.scss'
 
 export default function Forgot() {
   return (
