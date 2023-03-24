@@ -1,0 +1,82 @@
+name: Frontend Tests
+on:
+  push:
+    branches: 
+      - develop
+      - frontend
+      - main
+    paths:
+      - frontend/**
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: 
+      - develop
+      - frontend
+      - main
+    paths:
+      - frontend/**
+jobs:
+  jest-check:
+    name: Tests - unit tests with jest
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm run test:ci
+        env:
+          CI: true
+
+  e2e-check:
+    name: Tests - e2e with cypress
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          command: npm run e2e:headless
+
+  build-check:
+    name: Tests - build app
+    needs: [jest-check, e2e-check]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        run: npm install
+      - name: Build nextjs
+        run: npm build
+        env:
+          CI: true

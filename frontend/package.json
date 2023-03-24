@@ -10,8 +10,10 @@
     "prepare": "cd ../ && husky install ./frontend/.husky",
     "mocks": "mocks-server",
     "test": "jest test",
+    "test:ci": "jest --ci",
     "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
-    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\""
+    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "e2e:ci": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\""
   },
   "dependencies": {
     "@tabler/icons-react": "^2.10.0",
