@@ -56,7 +56,7 @@ class Genre(models.Model):
 
 class SubGenre(models.Model):
     name = models.CharField('Поджанр для продукта', max_length=50)
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='genre', unique=True)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='genre')
     products = models.ManyToManyField(Product, related_name='subgenre', through='SubgenreProduct')
 
     def __str__(self) -> str:
