@@ -4,10 +4,10 @@ import Card from './Card'
 describe('Card', () => {
   const props = {
     coverImg: 'https://example.com/cover.jpg',
-    badge: 'New',
     link: '/game',
     title: 'Example Game',
     sale: 10,
+    currency: '$',
     price: 50,
   }
 
@@ -15,22 +15,15 @@ describe('Card', () => {
     const { getByText, getByAltText } = render(<Card {...props} />)
 
     expect(getByAltText('')).toHaveAttribute('src', props.coverImg)
-    expect(getByText(props.badge)).toBeInTheDocument()
     expect(getByText(props.title)).toBeInTheDocument()
-    expect(getByText(props.price)).toBeInTheDocument()
-    expect(getByText(props.sale)).toBeInTheDocument()
+    expect(getByText(`${props.currency}${props.price}`)).toBeInTheDocument()
+    expect(getByText(`${props.currency}${props.sale}`)).toBeInTheDocument()
   })
 
   it('renders the card without a sale price', () => {
     const { getByText, queryByText } = render(<Card {...props} sale={undefined} />)
 
-    expect(getByText(props.price)).toBeInTheDocument()
-    expect(queryByText(props.sale)).toBeNull()
-  })
-
-  it('renders the card without a badge', () => {
-    const { queryByText } = render(<Card {...props} badge={undefined} />)
-
-    expect(queryByText(props.badge)).not.toBeInTheDocument()
+    expect(getByText(`${props.currency}${props.price}`)).toBeInTheDocument()
+    expect(queryByText(`${props.currency}${props.sale}`)).toBeNull()
   })
 })

@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Section from 'components/Section'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
@@ -11,9 +11,18 @@ const LatestGames = () => {
   const [data, setData] = useState([])
 
   async function fetchData() {
-    const res = await fetch('http://localhost:3100/api/latest-games')
-    const json = await res.json()
-    setData(json)
+    try {
+      const res = await fetch('http://localhost:3100/api/latest-games')
+
+      if (!res.ok) {
+        return
+      }
+
+      const json = await res.json()
+      setData(json)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   useEffect(() => {
