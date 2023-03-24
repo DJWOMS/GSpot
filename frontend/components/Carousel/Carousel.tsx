@@ -65,9 +65,7 @@ const Carousel = ({ prevRef, nextRef, breakpoints, children }: CarouselProps) =>
                 }}
                 breakpoints={breakpoints}
             >
-                {children.map((child, index) => (
-                    <SwiperSlide key={index}>{child}</SwiperSlide>
-                ))}
+                {children && children.map((child, index) => <SwiperSlide key={index}>{child}</SwiperSlide>)}
             </Swiper>
         </div>
     )
