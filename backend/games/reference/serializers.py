@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Language, ProductLanguage, Genre, SubGenre
+# from core.serializers import ProductSerializer
+from rest_framework.validators import UniqueTogetherValidator
 
 
 class LanguageSerializer(serializers.ModelSerializer):
@@ -37,8 +39,14 @@ class GenreSerializer(serializers.ModelSerializer):
 class SubGenreSerializer(serializers.ModelSerializer):
     """Поджанр для игры"""
 
-    genre = serializers.PrimaryKeyRelatedField(read_only=True)
+    genre = serializers.SlugRelatedField(queryset=Genre.objects.all(), slug_field='name')
 
     class Meta:
         model = SubGenre
-        fields = ('id', 'name', 'genre', 'products')
+        fields = ('id', 'name', 'genre')
+        validators = [
+            UniqueTogetherValidator(
+                queryset=SubGenre.objects.all(),
+                fields=['name', 'genre']
+            )
+        ]
