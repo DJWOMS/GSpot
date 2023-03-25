@@ -14,6 +14,7 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 class ProductLanguageSerializer(serializers.ModelSerializer):
     """Поддерживаемый язык у игры"""
+
     language_name = serializers.CharField(source='language.name')
 
     class Meta:
@@ -39,6 +40,8 @@ class SubGenreSerializer(serializers.ModelSerializer):
     """Поджанр для игры"""
     genre = serializers.SlugRelatedField(queryset=Genre.objects.all(), slug_field='name')
     # products = ProductSerializer(many=True, read_only=True)
+
+    genre = serializers.SlugRelatedField(queryset=Genre.objects.all(), slug_field='name')
 
     class Meta:
         model = SubGenre
