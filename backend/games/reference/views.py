@@ -26,7 +26,7 @@ class GenreView(viewsets.ModelViewSet):
     lookup_field = 'name'
 
     def get_permissions(self):
-        if self.action == 'list' or self.action == 'retrive':
+        if self.action == 'list' or self.action == 'retrieve':
             return (AllowAny(),)
         else:
             return super().get_permissions()
