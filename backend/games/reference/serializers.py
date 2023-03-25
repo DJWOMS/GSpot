@@ -26,6 +26,14 @@ class ProductLanguageSerializer(serializers.ModelSerializer):
         )
 
 
+class GenreSerializer(serializers.ModelSerializer):
+    """ Жанры """
+
+    class Meta:
+        model = Genre
+        exclude = ('products',)
+
+
 class SubGenreSerializer(serializers.ModelSerializer):
     """Поджанры"""
 
@@ -34,7 +42,7 @@ class SubGenreSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-class GenreSerializer(serializers.ModelSerializer):
+class GenreGamesSerializer(serializers.ModelSerializer):
     """Жанры"""
 
     subgenres = SubGenreSerializer(many=True, read_only=True)
@@ -42,13 +50,3 @@ class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ('id', 'name', 'subgenres')
-
-
-class GenersGameSerializer(serializers.ModelSerializer):
-    """Жанр игры"""
-
-    genre = serializers.PrimaryKeyRelatedField(read_only=True)
-
-    class Meta:
-        model = SubGenre
-        fields = 'genre'

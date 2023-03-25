@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from reference import serializers as ref_serializers
 from community import serializers as com_serializers
-from reference.serializers import GenreSerializer
+from reference.serializers import GenreGamesSerializer
 from .models import SystemRequirement, Product
 
 
@@ -79,7 +79,7 @@ class GamesListSerializer(serializers.ModelSerializer):
     is_favorite = serializers.BooleanField(default=False)
 
     system_requirements = ShortSystemReqSerializers(many=True, read_only=True)
-    genres = GenreSerializer(many=True, read_only=True)
+    genres = GenreGamesSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -108,7 +108,7 @@ class GameDetailSerializer(serializers.ModelSerializer):
     is_favorite = serializers.BooleanField(default=False)
 
     system_requirements = SystemRequirementSerializer(many=True, read_only=True)
-    genres = GenreSerializer(many=True, read_only=True)
+    genres = GenreGamesSerializer(many=True, read_only=True)
     dlcs = DlcSerializer(many=True, read_only=False)
     langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
 
