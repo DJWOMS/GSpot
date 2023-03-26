@@ -5,12 +5,13 @@ import { GameCard, FilterGames } from 'features/games'
 import { GameCardInterface } from 'features/games'
 
 async function getData(): Promise<GameCardInterface[]> {
-  const res = await fetch('http://127.0.0.1:3100/api/catalog-page')
+  const res = await fetch('http://localhost:3100/api/catalog-page')
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    return []
   }
   return res.json()
 }
+
 const CatalogPage = async () => {
   const data = await getData()
   return (
