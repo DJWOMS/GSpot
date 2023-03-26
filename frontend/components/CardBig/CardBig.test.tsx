@@ -8,22 +8,25 @@ describe('CardBig', () => {
     link: '/test',
     title: 'Test Game',
     price: 50,
+    currency: '$',
   }
 
   it('should render correctly', () => {
     const { getByText, getByAltText } = render(<CardBig {...props} />)
     const titleElement = getByText('Test Game')
-    const priceElement = getByText('50')
+    const currencyElement = getByText('$', { exact: false })
+    const priceElement = getByText('50', { exact: false })
 
     expect(getByAltText('')).toHaveAttribute('src', 'test-image.jpg')
+    expect(currencyElement).toBeInTheDocument()
     expect(titleElement).toBeInTheDocument()
     expect(priceElement).toBeInTheDocument()
   })
 
   it('should render a sale price when given a sale prop', () => {
     const { getByText } = render(<CardBig {...props} sale={25} />)
-    const salePriceElement = getByText('25')
-    const regularPriceElement = getByText('50')
+    const salePriceElement = getByText('25', { exact: false })
+    const regularPriceElement = getByText('50', { exact: false })
 
     expect(salePriceElement).toBeInTheDocument()
     expect(regularPriceElement.tagName).toBe('S')

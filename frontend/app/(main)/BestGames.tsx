@@ -82,7 +82,7 @@ const BestGames = () => {
                   title={i.title}
                   price={i.price}
                   sale={i.sale}
-                  available={i.available}
+                  platform={i.platform}
                 />
               ))}
             </Carousel>

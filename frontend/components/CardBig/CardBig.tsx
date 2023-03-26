@@ -6,7 +6,7 @@ import { FC } from 'react'
 import CardPlatform from 'components/CardPlatform'
 import { GameCardInterface } from 'features/games'
 
-const CardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, price, available, currency = '$' }) => {
+const CardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, price, platform, currency = '$' }) => {
   return (
     <div className={s.cardBig}>
       <Link className={s.cardCover} href="/#">
@@ -22,7 +22,7 @@ const CardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, pr
         </h3>
 
         <ul className={s.cardPlatforms}>
-          {available?.map((i, id) => (
+          {platform?.map((i, id) => (
             <CardPlatform key={id} type={i.type} />
           ))}
         </ul>
