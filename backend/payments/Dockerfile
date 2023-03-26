@@ -1,49 +1,31 @@
-###BUILDER###
-
-FROM python:3.11-alpine AS builder
+FROM python:3.11-slim 
 
 WORKDIR /payments/apps
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apk update \
-    && apk add postgresql-dev \
-    gcc python3-dev musl-dev
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends build-essential libpq-dev \
+  && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade pip
+COPY requirements.txt /tmp/requirements.txt
+COPY flake8-requirements.txt /tmp/flake8-requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt \
+    && pip install --no-cache-dir -r /tmp/flake8-requirements.txt \
+    && rm -rf /tmp/requirements.txt \
+    && useradd -U app_user \
+    && install -d -m 0755 -o app_user -g app_user /home/app/web/static
 
-COPY ./requirements.txt ./
-
-RUN pip wheel --no-cache-dir --no-deps \
-     --wheel-dir /usr/src/app/wheels \
-     -r requirements.txt
-
-
-###FINAL###
-
-FROM python:3.11-alpine 
-
-RUN mkdir -p /home/app
-
-RUN addgroup -S app && adduser -S app -G app
 
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
-RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
-RUN apk update && apk add libpq
-COPY --from=builder /usr/src/app/wheels /wheels
-COPY --from=builder /payments/apps/requirements.txt .
-RUN pip install --no-cache /wheels/*
-
 COPY ./entrypoint.sh $APP_HOME
-COPY . $APP_HOME
+USER app_user:app_user
+COPY --chown=app_user:app_user . .
+RUN chmod +x ./*.sh
 
-RUN chmod +x ./entrypoint.sh
-RUN chown -R app:app $APP_HOME
-
-USER app
-
-CMD ["sh","/home/app/web/entrypoint.sh"]
+ENTRYPOINT ["/home/app/web/entrypoint.sh"]
+CMD [ "./start.sh", "server" ]

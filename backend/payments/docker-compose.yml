@@ -4,11 +4,10 @@ services:
   payments:
     build: .
     restart: always
-    command: python manage.py runserver 0.0.0.0:8000
     env_file:
       - ./.env
     volumes:
-      - ./apps/:/usr/src/app/
+      - ./:/usr/src/app/
     ports:
       - 8000:8000
     depends_on:
@@ -21,9 +20,9 @@ services:
       - ../2. Init Database:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     env_file:
-      - ./.env.db
+      - ./.env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
@@ -31,11 +30,6 @@ services:
       retries: 5
       start_period: 10s
             
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
 
 volumes:
   postgres_data:
