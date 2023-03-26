@@ -4,18 +4,9 @@ import cn from 'classnames'
 import { IconHeart } from '@tabler/icons-react'
 import { FC } from 'react'
 import CardPlatform from 'components/CardPlatform'
+import { GameCardInterface } from 'features/games'
 
-interface Props {
-  coverImg: string
-  badge?: string
-  link: string
-  title: string
-  sale?: number
-  price: number
-  big?: boolean
-}
-
-const CardBig: FC<Props> = ({ coverImg, badge, link, title, sale, price }) => {
+const CardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, price, available, currency = '$' }) => {
   return (
     <div className={s.cardBig}>
       <Link className={s.cardCover} href="/#">
@@ -31,19 +22,18 @@ const CardBig: FC<Props> = ({ coverImg, badge, link, title, sale, price }) => {
         </h3>
 
         <ul className={s.cardPlatforms}>
-          <CardPlatform type="ps" />
-          <CardPlatform type="xbox" />
-          <CardPlatform type="win" />
-          <CardPlatform type="ap" />
+          {available?.map((i, id) => (
+            <CardPlatform key={id} type={i.type} />
+          ))}
         </ul>
 
         <div className={s.cardPrice}>
-          {sale ? sale : price}
-          {sale && <s>{price}</s>}
+          {sale ? [currency, sale] : [currency, price]}
+          {sale && <s>{[currency, price]}</s>}
         </div>
 
         <div className={s.cardActions}>
-          <div className={cn(s.cardAction, s.cardActionBuy)}>Buy</div>
+          <div className={cn(s.cardAction, s.cardActionBuy)}>Купить</div>
 
           <div className={cn(s.cardAction, s.cardActionFavorite)}>
             <IconHeart />

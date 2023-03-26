@@ -1,14 +1,35 @@
 'use client'
-
 import Carousel from 'components/Carousel'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Section from 'components/Section'
 import CardBig from 'components/CardBig'
+import { GameCardInterface } from 'features/games'
 
 const BestGames = () => {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
+
+  const [data, setData] = useState<GameCardInterface[]>([])
+
+  async function getData() {
+    try {
+      const res = await fetch('http://127.0.0.1:3100/api/best-games')
+
+      if (!res.ok) {
+        throw new Error('Failed to fetch data!')
+      }
+
+      const json = await res.json()
+      setData(json)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
 
   return (
     <Section
@@ -53,8 +74,16 @@ const BestGames = () => {
                 },
               }}
             >
-              {[1, 2, 3, 4, 5].map((i) => (
-                <CardBig key={i} coverImg={'https://picsum.photos/1000'} link={'#'} title={'Test'} price={100} />
+              {data?.map((i, id) => (
+                <CardBig
+                  key={id}
+                  coverImg={'https://picsum.photos/1000'}
+                  link={'#'}
+                  title={i.title}
+                  price={i.price}
+                  sale={i.sale}
+                  available={i.available}
+                />
               ))}
             </Carousel>
           ),
