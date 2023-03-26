@@ -23,7 +23,6 @@ class GenreView(viewsets.ModelViewSet):
     serializer_class = GenreSerializer
     queryset = Genre.objects.all()
     permission_classes = (IsAdminUser,)
-    lookup_field = 'id'
 
     def get_permissions(self):
         if self.action == 'list' or self.action == 'retrieve':
