@@ -3,15 +3,19 @@ import Section from 'components/Section'
 import Pagination from 'components/Pagination'
 import { GameCard, FilterGames } from 'features/games'
 import { GameCardInterface } from 'features/games'
+import { returnStatement } from '@babel/types'
 
 async function getData(): Promise<GameCardInterface[]> {
-  const res = await fetch('http://localhost:3100/api/catalog-page')
-  if (!res.ok) {
+  try {
+    const res = await fetch('http://localhost:3100/api/catalog-page')
+    if (!res.ok) {
+      return []
+    }
+    return res.json()
+  } catch (e) {
     return []
   }
-  return res.json()
 }
-
 const CatalogPage = async () => {
   const data = await getData()
   return (
