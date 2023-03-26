@@ -6,7 +6,7 @@
             "get-list-games:success",
             "get-game-by-id:success",
             "best-games: success",
-
+            "catalog pages:success",
             "get-list-news:success",
             "get-news-by-id:success"
         ]
