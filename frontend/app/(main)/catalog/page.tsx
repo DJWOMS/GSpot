@@ -2,8 +2,21 @@ import Breadcrumbs from 'components/Breadcrumbs'
 import Section from 'components/Section'
 import Pagination from 'components/Pagination'
 import { GameCard, FilterGames } from 'features/games'
+import { GameCardInterface } from 'features/games'
 
-const CatalogPage = () => {
+async function getData(): Promise<GameCardInterface[]> {
+  try {
+    const res = await fetch('http://localhost:3100/api/catalog-page')
+    if (!res.ok) {
+      return []
+    }
+    return res.json()
+  } catch (e) {
+    return []
+  }
+}
+const CatalogPage = async () => {
+  const data = await getData()
   return (
     <>
       <Section
@@ -37,25 +50,11 @@ const CatalogPage = () => {
 
                   <div className="w-full">
                     <div className="grid gap-x-4 grid-cols-4 grid-flow-row">
-                      <div className="w-full">
-                        <GameCard title="Hello!" coverImg="" link="#" badge="New" price={30} sale={15} />
-                      </div>
-
-                      <div className="w-full">
-                        <GameCard title="We" coverImg="" link="#" price={60} />
-                      </div>
-
-                      <div className="w-full">
-                        <GameCard title="Are" coverImg="" link="#" price={70} sale={45} />
-                      </div>
-
-                      <div className="w-full">
-                        <GameCard title="React" coverImg="" link="#" price={40} />
-                      </div>
-
-                      <div className="w-full">
-                        <GameCard title="Developers!" coverImg="" link="#" price={38} />
-                      </div>
+                      {data.map(({ title, coverImg, price, link }, id) => (
+                        <div className="w-full" key={id}>
+                          <GameCard title={title} coverImg={coverImg} link={link} badge="New" price={price} sale={15} />
+                        </div>
+                      ))}
                     </div>
 
                     <Pagination />
