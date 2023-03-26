@@ -3,7 +3,6 @@ import Section from 'components/Section'
 import Pagination from 'components/Pagination'
 import { GameCard, FilterGames } from 'features/games'
 import { GameCardInterface } from 'features/games'
-import { returnStatement } from '@babel/types'
 
 async function getData(): Promise<GameCardInterface[]> {
   try {
