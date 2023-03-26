@@ -6,7 +6,7 @@ import cn from 'classnames'
 import CardPlatform from '../CardPlatform'
 import { GameCardInterface } from 'features/games'
 
-const Card: FC<GameCardInterface> = ({ title, link, coverImg, price, sale, available, badge, currency = '$' }) => {
+const Card: FC<GameCardInterface> = ({ title, link, coverImg, price, sale, platform, badge, currency = '$' }) => {
   return (
     <div className={s.card}>
       <Link className={s.cardCover} href="/#">
@@ -15,7 +15,7 @@ const Card: FC<GameCardInterface> = ({ title, link, coverImg, price, sale, avail
       </Link>
 
       <ul className={s.cardPlatforms}>
-        {available?.map((i, id: number) => (
+        {platform?.map((i, id: number) => (
           <CardPlatform key={id} type={i.type} />
         ))}
       </ul>
