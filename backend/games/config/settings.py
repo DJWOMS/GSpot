@@ -26,11 +26,11 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
 
-    'core',
-    'finance',
-    'reference',
-    'utils',
-    'community',
+    'core.apps.CoreConfig',
+    'finance.apps.FinanceConfig',
+    'reference.apps.ReferenceConfig',
+    'utils.apps.UtilsConfig',
+    'community.apps.CommunityConfig',
 ]
 
 MIDDLEWARE = [

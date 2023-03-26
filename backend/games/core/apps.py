@@ -1,6 +1,6 @@
-from django.apps import AppConfig
+from base.apps import BaseAppConfig
 
 
-class CoreConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
+class CoreConfig(BaseAppConfig):
     name = 'core'
+    verbose_name = 'Core'

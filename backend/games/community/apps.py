@@ -1,6 +1,6 @@
-from django.apps import AppConfig
+from base.apps import BaseAppConfig
 
 
-class CommunityConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
+class CommunityConfig(BaseAppConfig):
     name = 'community'
+    verbose_name = "Community"
