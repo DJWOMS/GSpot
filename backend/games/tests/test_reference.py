@@ -26,7 +26,7 @@ class GenreAPITestCase(APITestCase):
         self.assertEqual(serializer_data, response.data)
 
     def test_get_genre_detail(self):
-        url = reverse('genre-detail', kwargs={'name': self.genre1.name})
+        url = reverse('genre-detail', kwargs={'id': self.genre1.id})
         response = self.client.get(url)
         serializer_data = GenreSerializer(self.genre1).data
         self.assertEqual(response.status_code, HTTPStatus.OK)
