@@ -6,30 +6,25 @@ import Section from 'components/Section'
 import CardBig from 'components/CardBig'
 import { GameCardInterface } from 'features/games'
 
-const BestGames = () => {
+async function getData() {
+  try {
+    const res = await fetch('http://127.0.0.1:3100/api/best-games')
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch data!')
+    }
+
+    return res.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const BestGames = async () => {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
 
-  const [data, setData] = useState<GameCardInterface[]>([])
-
-  async function getData() {
-    try {
-      const res = await fetch('http://127.0.0.1:3100/api/best-games')
-
-      if (!res.ok) {
-        throw new Error('Failed to fetch data!')
-      }
-
-      const json = await res.json()
-      setData(json)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
+  const data: Array<GameCardInterface> = await getData()
 
   return (
     <Section

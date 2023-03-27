@@ -7,6 +7,7 @@ import LatestGames from './LatestGames'
 const Home: FC = (): JSX.Element => {
   return (
     <>
+      {/* @ts-expect-error Async Server Component */}
       <BestGames />
       <LatestGames />
       <OtherGames />
