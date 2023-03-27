@@ -3,7 +3,10 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-8(1s+bbm)87i9@k9e%-0x1yulcmlga+!(!^s+qpv(#1o0f!xi=')
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-8(1s+bbm)87i9@k9e%-0x1yulcmlga+!(!^s+qpv(#1o0f!xi='
+)
 
 DEBUG = os.environ.get('DEBUG', True)
 
@@ -23,11 +26,11 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
 
-    'core',
-    'finance',
-    'reference',
-    'utils',
-    'community',
+    'core.apps.CoreConfig',
+    'finance.apps.FinanceConfig',
+    'reference.apps.ReferenceConfig',
+    'utils.apps.UtilsConfig',
+    'community.apps.CommunityConfig',
 ]
 
 MIDDLEWARE = [
@@ -39,6 +42,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'djangorestframework_camel_case.middleware.CamelCaseMiddleWare',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -121,4 +125,13 @@ CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_HOSTS', 'http://127.0.0.1:80
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseFormParser',
+        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ),
 }
