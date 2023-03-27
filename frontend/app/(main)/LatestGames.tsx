@@ -1,5 +1,3 @@
-'use client'
-
 import { useEffect, useRef, useState } from 'react'
 import Section from 'components/Section'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
@@ -7,28 +5,16 @@ import Carousel from 'components/Carousel'
 import { GameCard } from 'features/games'
 import { GameCardInterface } from 'features/games'
 
-const LatestGames = () => {
-  const [data, setData] = useState<GameCardInterface[]>([])
-
-  async function fetchData() {
-    try {
-      const res = await fetch('http://localhost:3100/api/latest-games')
-
-      if (!res.ok) {
-        return
-      }
-
-      const json = await res.json()
-      setData(json)
-    } catch (e) {
-      console.log(e)
-    }
+async function getData(): Promise<GameCardInterface[]> {
+  const res = await fetch('http://localhost:3100/api/latest-games')
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
   }
+  return res.json()
+}
 
-  useEffect(() => {
-    fetchData()
-  }, [])
-  console.log(data)
+const LatestGames = async () => {
+  const data = await getData()
 
   const prevRef = useRef(null)
   const nextRef = useRef(null)
