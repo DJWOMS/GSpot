@@ -4,6 +4,12 @@ import uuid
 from reference.models import Language
 
 
+GRADE_CHOICES = (
+    ('Like', 'Like'),
+    ('Unlike', 'Unlike'),
+)
+
+
 class Media(models.Model):
     GAME_LOGO = 'logo'
     PHOTO_SLIDER = 'slider'
@@ -58,11 +64,6 @@ class Social(models.Model):
 
 
 class Reviews(models.Model):
-    GRADE_CHOICES = (
-        ('Like', 'Like'),
-        ('Unlike', 'Unlike'),
-    )
-
     user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     game = models.ForeignKey(Product, on_delete=models.CASCADE)
     text = models.TextField()
@@ -81,11 +82,6 @@ class Reviews(models.Model):
 
 
 class RewiewAnswers(models.Model):
-    GRADE_CHOICES = (
-        ('Like', 'Like'),
-        ('Unlike', 'Unlike'),
-    )
-
     review = models.ForeignKey(Reviews, on_delete=models.CASCADE)
     text = models.TextField()
     grade = models.CharField(choices=GRADE_CHOICES, max_length=10)
