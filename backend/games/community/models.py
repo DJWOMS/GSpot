@@ -48,7 +48,7 @@ class Social(models.Model):
         limit_choices_to={'type': Product.TypeProduct.GAMES}
     )
     url = models.URLField('Ссылка')
-    
+
     def __str__(self):
         return f'{self.type} {self.product.name}'
 
@@ -71,5 +71,5 @@ class Reviews(models.Model):
         return f'Review {self.game}'
 
     class Meta:
-        verbose_name = 'Обзор'
+        verbose_name = 'Обзорq'
         verbose_name_plural = 'Обзоры'
