@@ -32,8 +32,8 @@ class GenreAPITestCase(APITestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(serializer_data, response.data)
 
-    def test_create_genre_superuser(self):
-        '''Авторизованному пользователю запрешено создавать жанры'''
+    def test_create_genre_authorized_user(self):
+        '''Authorized user forbidden create genre'''
         url = reverse('genre-list')
         data = {'name': 'New Genre'}
         response = self.authorized_client.post(url, data=data)
