@@ -1,5 +1,7 @@
 from django.db import models
 from core.models import Product
+import uuid
+from reference.models import Language
 
 
 class Media(models.Model):
@@ -21,3 +23,21 @@ class Media(models.Model):
     class Meta:
         verbose_name = 'Медиа'
         verbose_name_plural = 'Медиа'
+
+
+class Reviews(models.Model):
+    user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    game = models.CharField(max_length=255)
+    text = models.TextField()
+    grade = models.DecimalField(max_digits=3, decimal_places=1)
+    view_type = models.CharField(max_length=50)
+    can_reply = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    languages = models.ForeignKey(Language, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Review {self.game}'
+
+    class Meta:
+        verbose_name = 'Обзор'
+        verbose_name_plural = 'Обзоры'
