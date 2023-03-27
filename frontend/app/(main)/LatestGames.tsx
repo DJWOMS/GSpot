@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import Section from 'components/Section'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
