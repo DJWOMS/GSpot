@@ -1,7 +1,7 @@
 'use client'
 import Carousel from 'components/Carousel'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import Section from 'components/Section'
 import CardBig from 'components/CardBig'
 import { GameCardInterface } from 'features/games'
