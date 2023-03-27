@@ -65,7 +65,7 @@
 
         input:not(:checked) + label:after,
         input:checked + label:after {
-            @apply content-[''] absoulute left-0 top-0 w-[20px] h-[20px] text-center;
+            @apply content-[''] absolute left-0 top-0 w-[20px] h-[20px] text-center;
             transition: 0.5s;
             background: url('/img/checkmark.svg') no-repeat center/16px auto;
         }
