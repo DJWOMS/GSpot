@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Media, Reviews
-from .serializers import MediaSerializer, ReviewsSerializer
+from .models import Media, Reviews, RewiewAnswers
+from .serializers import MediaSerializer, ReviewsSerializer, ReviewAnswersSerializer
 
 
 class MediaViewSet(viewsets.ModelViewSet):
@@ -8,6 +8,11 @@ class MediaViewSet(viewsets.ModelViewSet):
     serializer_class = MediaSerializer
 
 
-class ReviewViewSet(viewsets.ModelViewSet):
+class ReviewsViewSet(viewsets.ModelViewSet):
     queryset = Reviews.objects.all()
     serializer_class = ReviewsSerializer
+
+
+class ReviewAnswersViewSet(viewsets.ModelViewSet):
+    queryset = RewiewAnswers.objects.all()
+    serializer_class = ReviewAnswersSerializer
