@@ -58,12 +58,17 @@ class Social(models.Model):
 
 
 class Reviews(models.Model):
+    GRADE_CHOICES = (
+        ('Like', 'Like'),
+        ('Unlike', 'Unlike'),
+    )
+
     user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    game = models.CharField(max_length=255)
+    game = models.ForeignKey(Product, on_delete=models.CASCADE)
     text = models.TextField()
-    grade = models.DecimalField(max_digits=3, decimal_places=1)
-    view_type = models.CharField(max_length=50)
-    can_reply = models.BooleanField(default=False)
+    grade = models.CharField(choices=GRADE_CHOICES, max_length=10)
+    view_type = models.BooleanField(default=True)
+    can_reply = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     languages = models.ForeignKey(Language, on_delete=models.CASCADE)
 
@@ -71,5 +76,24 @@ class Reviews(models.Model):
         return f'Review {self.game}'
 
     class Meta:
-        verbose_name = 'Обзорq'
-        verbose_name_plural = 'Обзоры'
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'
+
+
+class RewiewAnswers(models.Model):
+    GRADE_CHOICES = (
+        ('Like', 'Like'),
+        ('Unlike', 'Unlike'),
+    )
+
+    review = models.ForeignKey(Reviews, on_delete=models.CASCADE)
+    text = models.TextField()
+    grade = models.CharField(choices=GRADE_CHOICES, max_length=10)
+    type = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'Rewiew answer {self.id}'
+
+    class Meta:
+        verbose_name = 'Rewiew answer'
+        verbose_name_plural = 'Rewiew answers'
