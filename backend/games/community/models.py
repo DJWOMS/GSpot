@@ -81,15 +81,25 @@ class Review(models.Model):
         verbose_name_plural = 'Reviews'
 
 
-class ReviewAnswer(models.Model):
+class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     text = models.TextField()
-    grade = models.CharField(choices=GRADE_CHOICES, max_length=10)
-    type = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'Rewiew answer {self.id}'
+        return f'Comment {self.id}'
 
     class Meta:
-        verbose_name = 'Rewiew answer'
-        verbose_name_plural = 'Rewiew answers'
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+
+
+class LikeUnlike(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    like_type = models.CharField(choices=GRADE_CHOICES, max_length=10)
+
+    def __str__(self):
+        return f'{self.like_type} for Review {self.review_id}'
+
+    class Meta:
+        verbose_name = 'Like/Unlike'
+        verbose_name_plural = 'Likes/Unlikes'
