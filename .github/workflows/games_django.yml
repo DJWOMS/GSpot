@@ -20,6 +20,10 @@ jobs:
         pip install flake8
         cd backend/games
         pip install -r requirements.txt
+    - name: Start database container
+      run: |
+        cd backend/games
+        docker-compose up -d db
     - name: Test with flake8 and django tests
       run: |
         cd backend/games
