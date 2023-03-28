@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Media, Social, Review, ReviewAnswer
+from .models import Media, Social, Review, Comment, LikeUnlike
 
 
 class MediaSerializer(serializers.ModelSerializer):
@@ -20,7 +20,13 @@ class ReviewsSerializer(serializers.ModelSerializer):
         fields = ('game', 'text', 'grade')
 
 
-class ReviewAnswersSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ReviewAnswer
-        fields = ('review', 'text', 'grade')
+        model = Comment
+        fields = '__all__'
+
+
+class LikeUnslikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LikeUnlike
+        fields = '__all__'
