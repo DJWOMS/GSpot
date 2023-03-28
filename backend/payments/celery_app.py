@@ -2,7 +2,7 @@ import os
 import time
 
 from celery import Celery
-# from django.conf import settings
+
 from config import settings
 
 
@@ -18,15 +18,3 @@ app.autodiscover_tasks()
 def debug_task():
     time.sleep(10)
     print('HELLO CELERY!!!')
-
-
-
-
-
-
-
-
-
-
-
-
