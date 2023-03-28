@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Media, Social, Review, Comment, LikeUnlike
+from .models import Media, Social, Review, Comment, Reaction
 
 
 class MediaSerializer(serializers.ModelSerializer):
@@ -26,7 +26,7 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class LikeUnslikeSerializer(serializers.ModelSerializer):
+class LikeDislikeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LikeUnlike
+        model = Reaction
         fields = '__all__'

@@ -6,7 +6,7 @@ from reference.models import Language
 
 GRADE_CHOICES = (
     ('Like', 'Like'),
-    ('Unlike', 'Unlike'),
+    ('Dislike', 'Dislike'),
 )
 
 
@@ -93,7 +93,7 @@ class Comment(models.Model):
         verbose_name_plural = 'Comments'
 
 
-class LikeUnlike(models.Model):
+class Reaction(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     like_type = models.CharField(choices=GRADE_CHOICES, max_length=10)
 
@@ -101,5 +101,5 @@ class LikeUnlike(models.Model):
         return f'{self.like_type} for Review {self.review_id}'
 
     class Meta:
-        verbose_name = 'Like/Unlike'
-        verbose_name_plural = 'Likes/Unlikes'
+        verbose_name = 'Like/Dislike'
+        verbose_name_plural = 'Likes/Dislikes'
