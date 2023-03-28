@@ -10,7 +10,7 @@ from rest_framework.test import APITestCase
 
 class GenreAPITestCase(APITestCase):
 
-    def setUp(self) -> None:
+    def setUp(self):
         self.genre1 = Genre.objects.create(name='test1')
         self.genre2 = Genre.objects.create(name='test2')
         self.guest_client = Client()
@@ -26,7 +26,7 @@ class GenreAPITestCase(APITestCase):
         self.assertEqual(serializer_data, response.data)
 
     def test_get_genre_detail(self):
-        url = reverse('genre-detail', kwargs={'id': self.genre1.id})
+        url = reverse('genre-detail', kwargs={'pk': self.genre1.id})
         response = self.client.get(url)
         serializer_data = GenreSerializer(self.genre1).data
         self.assertEqual(response.status_code, HTTPStatus.OK)
