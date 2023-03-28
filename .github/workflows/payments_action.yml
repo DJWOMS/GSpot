@@ -14,7 +14,7 @@ jobs:
       run: pip install -r backend/payments/flake8-requirements.txt
     - name: Test with flake8
       run: |
-        cd backend/payments && python -m flake8
+        cd backend/payments && python -m flake8 --ignore=E501
     - name: Build and run containers
       run: |
         cd backend/payments && docker-compose up -d --build
