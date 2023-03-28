@@ -1,12 +1,16 @@
 'use client'
 import Carousel from 'components/Carousel'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
-import { useRef } from 'react'
+import { FC, useRef } from 'react'
 import Section from 'components/Section'
 import CardBig from 'components/CardBig'
 import { GameCardInterface } from 'features/games'
 
-const BestGames = (bestGamesData: Array<GameCardInterface>) => {
+interface Props {
+  games: GameCardInterface[]
+}
+
+const BestGames: FC<Props> = ({ games }) => {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
 
@@ -53,16 +57,8 @@ const BestGames = (bestGamesData: Array<GameCardInterface>) => {
                 },
               }}
             >
-              {bestGamesData?.map((i, id) => (
-                <CardBig
-                  key={id}
-                  coverImg={'https://picsum.photos/1000'}
-                  link={'#'}
-                  title={i.title}
-                  price={i.price}
-                  sale={i.sale}
-                  platform={i.platform}
-                />
+              {games.map((game, index) => (
+                <CardBig key={index} {...game} />
               ))}
             </Carousel>
           ),
