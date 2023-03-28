@@ -1,5 +1,6 @@
 from pathlib import Path
-
+import os
+import environ
 from environs import Env
 
 env = Env()
@@ -119,3 +120,14 @@ ROLLBAR = {
 }
 
 MAX_BALANCE_DIGITS = 11
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+
+CACHES = {    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://redis:6379/',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}

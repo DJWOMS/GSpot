@@ -47,3 +47,7 @@ RUN chown -R app:app $APP_HOME
 USER app
 
 CMD ["sh","/home/app/web/entrypoint.sh"]
+
+
+###CELERY + REDIS###
+
