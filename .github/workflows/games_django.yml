@@ -10,16 +10,9 @@ jobs:
     steps:
     - name: Checkout repository code
       uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.11
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip 
         pip install flake8
-        cd backend/games
-        pip install -r requirements.txt
     - name: Test with flake8
       run: |
         cd backend/games
@@ -30,4 +23,4 @@ jobs:
     - name: Launch tests
       run: |
         cd backend/games
-        docker-compose web python manage.py test
+        docker-compose exec web python manage.py test
