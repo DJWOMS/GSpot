@@ -2,16 +2,19 @@ version: "3.9"
 
 services:
   mongodb:
+    container_name: mongodb_channels
     image: mongo:latest
     ports:
       - "27017:27017"
 
   redis:
+    container_name: redis_channels
     image: redis:latest
     ports:
       - "6379:6379"
 
   rabbitmq:
+    container_name: rabbitmq_channels
     image: rabbitmq:3.11.11-management
     restart: always
     env_file:
@@ -21,6 +24,7 @@ services:
       - "15672:15672"
 
   channels:
+    container_name: fastapi_channels
     build:
       context: .
       dockerfile: ./src/Dockerfile
