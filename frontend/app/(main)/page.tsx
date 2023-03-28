@@ -26,6 +26,7 @@ const Home = async () => {
     <>
       {/* @ts-expect-error Async Server Component */}
       <BestGames bestGamesData={bestGamesData} />
+      {/* @ts-expect-error Async Server Component */}
       <LatestGames />
       <OtherGames />
       <LatestNews />
