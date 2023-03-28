@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Media, Social, Reviews, RewiewAnswers
+from .models import Media, Social, Review, ReviewAnswer
 
 
 class MediaSerializer(serializers.ModelSerializer):
@@ -16,11 +16,11 @@ class SocialSerializer(serializers.ModelSerializer):
 
 class ReviewsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Reviews
+        model = Review
         fields = ('game', 'text', 'grade')
 
 
 class ReviewAnswersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RewiewAnswers
+        model = ReviewAnswer
         fields = ('review', 'text', 'grade')

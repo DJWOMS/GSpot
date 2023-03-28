@@ -63,7 +63,7 @@ class Social(models.Model):
         verbose_name_plural = 'Социальные сети'
 
 
-class Reviews(models.Model):
+class Review(models.Model):
     user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     game = models.ForeignKey(Product, on_delete=models.CASCADE)
     text = models.TextField()
@@ -71,7 +71,7 @@ class Reviews(models.Model):
     view_type = models.BooleanField(default=True)
     can_reply = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    languages = models.ForeignKey(Language, on_delete=models.CASCADE)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Review {self.game}'
@@ -81,8 +81,8 @@ class Reviews(models.Model):
         verbose_name_plural = 'Reviews'
 
 
-class RewiewAnswers(models.Model):
-    review = models.ForeignKey(Reviews, on_delete=models.CASCADE)
+class ReviewAnswer(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
     text = models.TextField()
     grade = models.CharField(choices=GRADE_CHOICES, max_length=10)
     type = models.BooleanField(default=True)
