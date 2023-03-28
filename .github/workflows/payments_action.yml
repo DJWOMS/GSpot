@@ -11,7 +11,7 @@ jobs:
     - name: Checkout repository code
       uses: actions/checkout@v3
     - name: flake8
-      run: pip install backend/payments/flake8-requirements.txt
+      run: pip install -r backend/payments/flake8-requirements.txt
     - name: Test with flake8
       run: |
         cd backend/payments && python -m flake8
