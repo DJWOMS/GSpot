@@ -3,31 +3,20 @@ import { LatestNews } from 'features/news'
 import OtherGames from './OtherGames'
 import LatestGames from './LatestGames'
 import { GameCardInterface } from 'features/games'
-
-async function getBestGamesData(): Promise<GameCardInterface[]> {
-  try {
-    const res = await fetch('http://127.0.0.1:3100/api/best-games')
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch data!')
-    }
-
-    return await res.json()
-  } catch (error) {
-    console.log(error)
-    return []
-  }
-}
+import { fetchServerSide } from 'lib/fetchServerSide'
 
 const Home = async () => {
-  const bestGamesData: Array<GameCardInterface> = await getBestGamesData()
+  const bestGamesData = await fetchServerSide<GameCardInterface[]>({
+    path: '/best-games',
+  })
+  const latestGamesData = await fetchServerSide<GameCardInterface[]>({
+    path: '/latest-games',
+  })
 
   return (
     <>
-      {/* @ts-expect-error Async Server Component */}
-      <BestGames bestGamesData={bestGamesData} />
-      {/* @ts-expect-error Async Server Component */}
-      <LatestGames />
+      <BestGames games={bestGamesData} />
+      <LatestGames games={latestGamesData} />
       <OtherGames />
       <LatestNews />
     </>

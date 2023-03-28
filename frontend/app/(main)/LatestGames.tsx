@@ -1,23 +1,17 @@
 'use client'
 
-import { Suspense, useRef } from 'react'
+import { FC, useRef } from 'react'
 import Section from 'components/Section'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
 import { GameCard } from 'features/games'
 import { GameCardInterface } from 'features/games'
 
-async function getData(): Promise<GameCardInterface[]> {
-  const res = await fetch('http://localhost:3100/api/latest-games')
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-  return res.json()
+interface Props {
+  games: GameCardInterface[]
 }
 
-const LatestGames = async () => {
-  const data = await getData()
-
+const LatestGames: FC<Props> = ({ games }) => {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
 
@@ -44,18 +38,8 @@ const LatestGames = async () => {
                 },
               }}
             >
-              {data.map((i, id) => (
-                <GameCard
-                  key={id}
-                  title={i.title}
-                  link="/"
-                  badge={i.badge}
-                  coverImg={i.coverImg}
-                  price={i.price}
-                  sale={i.sale}
-                  platform={i.platform}
-                  currency={i.currency}
-                />
+              {games.map((game, index) => (
+                <GameCard key={index} {...game} />
               ))}
             </Carousel>
           ),
