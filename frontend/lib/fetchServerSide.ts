@@ -1,22 +1,24 @@
+import { API_URL } from 'configs'
+
 interface fetchProps<B extends BodyInit | undefined = undefined> {
   body?: B
   method?: 'POST' | 'GET' | 'PUT' | 'DELETE'
+  headers?: HeadersInit
   path: string
 }
 
-export const fetchServerSide = async <T, D extends BodyInit | undefined = undefined>({ path, ...props }: fetchProps<D>): Promise<T> => {
+export const fetchServerSide = async <T, D extends BodyInit | undefined = undefined>({ path, ...props }: fetchProps<D>): Promise<T | undefined> => {
   try {
-    const res = await fetch(`http://127.0.0.1:3100/api${path}`, {
+    const res = await fetch(`${API_URL}${path}`, {
       ...props,
     })
 
     if (!res.ok) {
-      return [] as T
+      return
     }
 
     return (await res.json()) as T
   } catch (error) {
     console.log(error)
-    return [] as T
   }
 }
