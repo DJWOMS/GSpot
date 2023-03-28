@@ -2,9 +2,6 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    CELERY_BROKER_URL: str
-    CELERY_RESULT_BACKEND: str
-
     MONGODB_URL: str
     MONGODB_TEST_DATABASE: str
 
