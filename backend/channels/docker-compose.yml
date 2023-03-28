@@ -22,6 +22,11 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
 
   channels:
     container_name: fastapi_channels
@@ -36,9 +41,12 @@ services:
     env_file:
       - .env.dev
     depends_on:
-      - mongodb
-      - redis
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_started
+      redis:
+        condition: service_started
 
   consumer:
     build:
@@ -50,7 +58,8 @@ services:
     env_file:
       - .env.dev
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
 
 volumes:
   mongodb_data:
