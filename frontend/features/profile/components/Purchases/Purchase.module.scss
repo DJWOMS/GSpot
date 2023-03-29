@@ -21,7 +21,7 @@
   &Delete {
     @apply flex flex-row content-center items-center w-[24px] h-[24px];
     svg {
-      @apply stroke-gray w-[24px] h-auto ;
+      @apply stroke-light w-[24px] h-auto ;
       transition: stroke 0.5s ease;
     }
 
