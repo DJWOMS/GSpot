@@ -1,5 +1,5 @@
 import s from './page.module.scss'
-import ProfileItem from '../../../../features/profile/components/Purchases/Purchase'
+import ProfileItem from 'features/profile/components/Purchases/Purchase'
 import Pagination from 'components/Pagination'
 import Link from 'next/link'
 import { ArrowsUpDown } from 'tabler-icons-react'
