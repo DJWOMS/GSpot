@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/scss'
@@ -60,7 +60,7 @@ const Carousel = ({ prevRef, nextRef, breakpoints, children }: CarouselProps) =>
         loop={true}
         speed={400}
         autoplay={{
-          delay: 5000,
+          delay: 4000,
           stopOnLastSlide: true,
         }}
         breakpoints={breakpoints}

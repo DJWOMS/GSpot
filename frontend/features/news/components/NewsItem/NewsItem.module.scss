@@ -43,7 +43,7 @@
 
     &Category {
         @apply inline-flex flex-row justify-center items-center h-[24px] max-w-[74px] w-auto text-[12px]
-        rounded-default px-[13px] tracking-[.4px] hover:text-white text-gray;
+        rounded-default px-[13px] tracking-[.4px] hover:text-white text-light;
         border: 1px solid rgba(167, 130, 233, 0.4);
         background-color: rgba(167, 130, 233, 0.15);
 
@@ -58,7 +58,7 @@
     }
 
     &Date {
-        @apply flex flex-row justify-start items-center text-[13px] text-gray;
+        @apply flex flex-row justify-start items-center text-[13px] text-light;
 
         svg {
             @apply stroke-primary w-[16px] h-auto mr-[5px];
@@ -66,7 +66,7 @@
     }
 
     &Comments {
-        @apply flex flex-row justify-start items-center text-[13px] text-gray;
+        @apply flex flex-row justify-start items-center text-[13px] text-light;
 
         svg {
             @apply text-primary w-[16px] h-auto mr-[5px];

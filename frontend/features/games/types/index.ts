@@ -1,6 +1,9 @@
-export interface GameCardInterface {
+export interface GameCardSimpleInterface {
   title: string
   link: string
+}
+
+export interface GameCardInterface extends GameCardSimpleInterface {
   coverImg: string
   price: number
   sale?: number

@@ -18,7 +18,7 @@ export const fetchServerSide = async <T, D extends BodyInit | undefined = undefi
       return
     }
 
-    return (await res.json()) as T
+    return await res.json()
   } catch (error) {
     console.log(error)
   }

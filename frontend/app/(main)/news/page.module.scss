@@ -2,7 +2,7 @@
     @apply flex mt-48 relative p-[20px] rounded-default border border-trans-gray mb-[10px];
 
     &Results {
-        @apply mt-[10px] text-[14px] ml-auto text-gray;
+        @apply mt-[10px] text-[14px] ml-auto text-light;
     }
 }
 
@@ -16,7 +16,7 @@
     }
 
     &Label {
-        @apply mt-[10px] text-[14px] leading-[100%] tracking-[0.4px] font-normal mb-[15px] text-gray;
+        @apply mt-[10px] text-[14px] leading-[100%] tracking-[0.4px] font-normal mb-[15px] text-light;
     }
 
     &Select {
