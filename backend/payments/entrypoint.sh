@@ -35,12 +35,17 @@ except RedisError:
 END
 }
 
-    while ! nc -z $SQL_HOST $SQL_PORT; do
-      sleep 0.1
-    done
+until postgres_ready; do
+  >&2 echo "Waiting for PostgreSQL to become available..."  
+  sleep 5  
+done
+>&2 echo "PostgreSQL is available"
 
-    echo "PostgreSQL started"
-fi
+until redis_ready; do
+  >&2 echo "Waiting for Redis to become available..."
+  sleep 5
+done
+>&2 echo "Redis is available"
 
 python manage.py collectstatic --noinput  
 python manage.py makemigrations  --noinput 
