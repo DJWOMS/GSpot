@@ -1,28 +1,16 @@
-'use client'
-
-import { FC, useRef } from 'react'
 import Section from 'components/Section'
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
 import { GameCard } from 'features/games'
 import { GameCardInterface } from 'features/games'
+import { FC } from 'react'
 
-interface Props {
-  games: GameCardInterface[]
-}
-
-const LatestGames: FC<Props> = ({ games }) => {
-  const prevRef = useRef(null)
-  const nextRef = useRef(null)
-
+const LatestGames: FC<{ games: GameCardInterface[] }> = ({ games }) => {
   return (
     <Section
       items={[
         {
           children: (
             <Carousel
-              prevRef={prevRef}
-              nextRef={nextRef}
               breakpoints={{
                 0: {
                   slidesPerView: 2,
@@ -44,16 +32,6 @@ const LatestGames: FC<Props> = ({ games }) => {
             </Carousel>
           ),
           title: 'Latest releases',
-          navigation: [
-            {
-              ref: prevRef,
-              children: <IconChevronLeft />,
-            },
-            {
-              ref: nextRef,
-              children: <IconChevronRight />,
-            },
-          ],
         },
       ]}
     />

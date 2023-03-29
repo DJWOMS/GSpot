@@ -2,18 +2,18 @@ import BestGames from './BestGames'
 import { LatestNews } from 'features/news'
 import OtherGames from './OtherGames'
 import LatestGames from './LatestGames'
-import { GameCardInterface } from 'features/games'
 import { fetchServerSide } from 'lib/fetchServerSide'
+import { GameCardInterface } from 'features/games'
 
 const Home = async () => {
-  const bestGamesData = fetchServerSide<GameCardInterface[]>({
-    path: '/best-games',
-  })
-  const latestGamesData = fetchServerSide<GameCardInterface[]>({
-    path: '/latest-games',
-  })
-
-  const [bestGames, latestGames] = await Promise.all([bestGamesData, latestGamesData])
+  const [bestGames, latestGames] = await Promise.all([
+    fetchServerSide<GameCardInterface[]>({
+      path: '/best-games',
+    }),
+    fetchServerSide<GameCardInterface[]>({
+      path: '/latest-games',
+    }),
+  ])
 
   return (
     <>

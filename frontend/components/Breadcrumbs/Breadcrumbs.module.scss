@@ -4,8 +4,8 @@
 
 
 .breadcrumb {
-    @apply text-[14px] leading-[22px] relative mr-[40px] tracking-[0.4px] text-gray
-    hover:text-gray;
+    @apply text-[14px] leading-[22px] relative mr-[40px] tracking-[0.4px] text-light
+    hover:text-light;
     transition: 0.5s;
 
     :first-child {
@@ -23,7 +23,7 @@
     }
 
     &Active {
-        @apply cursor-default mr-0 before:hidden hover:text-gray;
+        @apply cursor-default mr-0 before:hidden hover:text-light;
     }
 }
 

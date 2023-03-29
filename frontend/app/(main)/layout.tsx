@@ -1,5 +1,6 @@
 import Header from 'components/Header'
 import Footer from 'components/Footer'
+import { FC, ReactNode } from 'react'
 
 // head
 export const metadata = {
@@ -7,7 +8,7 @@ export const metadata = {
   description: 'Games market',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const RootLayout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
       <Header
@@ -23,3 +24,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </>
   )
 }
+
+export default RootLayout

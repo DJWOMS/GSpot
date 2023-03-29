@@ -10,8 +10,8 @@ module.exports = {
         primary: '#a782e9',
         'trans-gray': 'rgba(167, 130, 233, 0.06)',
         acid: '#29b474',
-        light: 'rgba(167, 130, 233, 0.03)',
-        gray: '#dbdada',
+        dark: 'rgba(167, 130, 233, 0.03)',
+        light: '#dbdada',
       },
       fontFamily: {
         sans: ['var(--font-opensans)', ...defaultTheme.fontFamily.sans],

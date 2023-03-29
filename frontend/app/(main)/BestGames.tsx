@@ -1,19 +1,10 @@
-'use client'
 import Carousel from 'components/Carousel'
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
-import { FC, useRef } from 'react'
 import Section from 'components/Section'
 import CardBig from 'components/CardBig'
 import { GameCardInterface } from 'features/games'
+import { FC } from 'react'
 
-interface Props {
-  games: GameCardInterface[]
-}
-
-const BestGames: FC<Props> = ({ games }) => {
-  const prevRef = useRef(null)
-  const nextRef = useRef(null)
-
+const BestGames: FC<{ games: GameCardInterface[] }> = ({ games }) => {
   return (
     <Section
       bg
@@ -28,20 +19,8 @@ const BestGames: FC<Props> = ({ games }) => {
             ),
             uppercase: true,
           },
-          navigation: [
-            {
-              ref: prevRef,
-              children: <IconChevronLeft />,
-            },
-            {
-              ref: nextRef,
-              children: <IconChevronRight />,
-            },
-          ],
           children: (
             <Carousel
-              prevRef={prevRef}
-              nextRef={nextRef}
               breakpoints={{
                 0: {
                   slidesPerView: 1,
