@@ -1,0 +1,132 @@
+.wrapper {
+  margin-bottom: 30px;
+}
+
+.tableResponsive{
+  @apply block w-full rounded-[6px] mt-[30px] p-[20px];
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  border: 1px solid rgba(167,130,233,0.06);
+  margin-bottom: 50px;
+}
+
+.profile {
+  @apply relative flex flex-col content-start items-start px-[20px] pt-[20px] pb-0 rounded-[6px]
+  border-trans-gray mb-[10px];
+  
+  &__user{
+    @apply flex flex-row content-start items-center mb-[30px];
+  }
+  
+  &__avatar {
+    @apply block relative w-[44px] cursor-pointer overflow-hidden rounded-[6px] mr-[15px];
+    
+    img{
+      @apply w-full;
+    }
+  }
+  
+  &__meta {
+    @apply flex flex-col content-start items-start;
+    
+    h3{
+      @apply text-white block mb-[5px] text-base font-normal leading-[130%];
+    }
+    
+    span{
+      @apply text-gray text-xs leading-[100%];
+    }
+  }
+  
+  &__tabs {
+    @apply flex flex-row justify-start items-center overflow-hidden w-[100%];
+    
+    li {
+      @apply mr-[40px];
+      
+      :last-child {
+        @apply mr-[0px];
+      }
+    }
+
+    a {
+      @apply flex flex-row justify-start items-start h-[40px] text-gray relative uppercase text-xs tracking-[0.4px];
+    
+      :hover {
+        @apply text-primary;
+      }
+    
+      :before {
+        @apply absolute bottom-0 left-0 right-0 h-[2px] block bg-primary opacity-0;
+        content: '';
+        transition: 0.5s;
+        transform: translateY(2px);
+      }
+    }
+    a.active {
+      @apply text-primary cursor-default;
+    
+      :before {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+  
+  &__logout {
+    @apply flex flex-row content-center items-center w-[44px] h-[44px] bg-light text-white absolute top-[20px] right-[20px]
+    rounded-[6px] text-xs tracking-[0.4px] uppercase;
+    border: 1px solid rgba(167,130,233,0.4);
+    transition: 0.5s;
+    
+    span {
+      @apply hidden;
+    }
+    
+    svg {
+      @apply stroke-white w-[22px] h-auto;
+      transition: stroke 0.5s;
+    }
+    :hover {
+      background-color: rgba(167,130,233,0.04);
+      border-color: rgba(167,130,233,0.5);
+      
+      svg {
+        stroke: #a782e9;
+      }
+    }
+  }
+}
+
+.profileTable {
+  width: 100%;
+  min-width: 920px;
+  background-color: #1b222e;
+
+  th {
+    font-size: 14px;
+    font-weight: 400;
+    color: #dbdada;
+    line-height: 100%;
+    padding: 20px 20px 20px 0;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid rgba(167,130,233,0.06);
+    text-align: start;
+
+    a {
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      color: #dbdada;
+
+      svg {
+        width: 20px;
+        height: auto;
+        fill: #dbdada;
+        transition: fill 0.5s ease;
+      }
+    }
+  }
+}

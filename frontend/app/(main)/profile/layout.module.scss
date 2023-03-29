@@ -5,11 +5,11 @@
     @apply absolute inset-[0] opacity-[70] pointer-events-none z-[10];
   }
 
-  &__wrap {
+  &Wrap {
     @apply flex flex-row justify-between items-center;
   }
 
-  &__title {
+  &Title {
     @apply text-white mb-0 relative pl-[30px] font-normal text-3xl leading-[110%];
     font-family: 'Montserrat', sans-serif;
     
@@ -21,8 +21,7 @@
 }
 
 .breadcrumb {
-  @apply flex flex-row content-start items-center mt-[30px];
-  
+  @apply flex flex-row justify-start items-center mt-[30px];
   a {
     @apply text-white;
 
@@ -31,11 +30,12 @@
     }
   }
 
-  &__item {
+  &Item {
     @apply flex gap-[10px] text-gray relative mr-40 text-sm leading-6;
     transition: 0.5s;
     letter-spacing: 0.4px;
-        
+    margin-right: 20px;
+    
     :first-child {
       @apply pl-[25];
     
@@ -50,7 +50,7 @@
       background: url("../../../assets/img/breadcrumb.svg") no-repeat center/14px auto;
     }
 
-    &_img {
+    &Img {
       width: 24px;
       height: 24px;
     }
@@ -60,7 +60,7 @@
       @apply text-gray;
     }
 
-    &_active{
+    &Active{
       @apply mr-0 cursor-default;
 
       :before {
@@ -73,14 +73,14 @@
   }
 }
 .profile {
-  @apply flex flex-col content-start relative rounded-[6px] mb-[10px] px-[20px] pt-[20px] pb-0;
+  @apply flex flex-col justify-start relative rounded-[6px] mb-[10px] px-[20px] pt-[20px] pb-0;
   border: 1px solid rgba(167,130,233,0.06);
     
-  &__user{
-    @apply flex flex-row content-start items-center mb-[30px];
+  &User{
+    @apply flex flex-row justify-start items-center mb-[30px];
   }
 
-  &__avatar {
+  &Avatar {
     @apply block cursor-pointer relative overflow-hidden w-[44px] rounded-[6px] mr-[15px];
     
     img{
@@ -88,8 +88,8 @@
     }
   }
 
-  &__meta {
-    @apply flex flex-col content-start items-start;
+  &Meta {
+    @apply flex flex-col justify-start items-start;
   
     h3 {
       @apply text-white block text-base font-normal mb-[5px] pl-[12px] leading-[130%];
@@ -100,8 +100,8 @@
     }
   }
 
-  &__tabs {
-    @apply flex flex-row content-start items-center overflow-hidden w-full;
+  &Tabs {
+    @apply flex flex-row justify-start items-center overflow-hidden w-full;
   
     li {
       @apply mr-[40px];
@@ -112,7 +112,7 @@
     }
   
     a {
-      @apply flex flex-row content-start items-start h-[40px] text-gray relative uppercase text-xs tracking-[0.4px];
+      @apply flex flex-row justify-start items-start h-[40px] text-gray relative uppercase text-xs tracking-[0.4px];
   
       :hover {
         @apply text-primary;
@@ -136,8 +136,8 @@
     }
   }
 
-  &__logout {
-    @apply flex content-center items-center w-[44px] h-[44px] rounded-[6px] text-white pl-[40px] absolute top-[20px] right-[20px] uppercase text-xs;
+  &Logout {
+    @apply flex justify-center items-center w-[44px] h-[44px] rounded-[6px] text-white absolute top-[20px] right-[20px] uppercase text-xs;
     background-color: rgba(167,130,233,0.03);
     border: 1px solid rgba(167,130,233,0.4);
     letter-spacing: 0.4px;
@@ -161,7 +161,7 @@
     }
   }
 
-  &__table {
+  &Table {
     @apply w-full min-w-[920px] bg-background;
     th {
       @apply text-gray;
@@ -274,19 +274,19 @@
   background-color: #1b222e;
   border: 1px solid rgba(167,130,233,0.06);
 
-  &__title {
+  &Title {
     @apply block mb-[20px] text-white text-xs;
     letter-spacing: 0.4px;
   }
 
-  &__label {
+  &Label {
     @apply text-gray mb-[20px];
     letter-spacing: 0.4px;
     font-size: 14px;
     font-weight: 400;
   }
 
-  &__input {
+  &Input {
     background-color: rgba(167,130,233,0.03);
     border: 1px solid rgba(167,130,233,0.06);
     border-radius: 6px;
@@ -305,7 +305,7 @@
     }
   }
 
-  &__btn {
+  &Btn {
     @apply flex flex-row content-center w-full h-[44px] rounded-[4px] text-white;
     background-color: #29b474;
     font-weight: 600;
@@ -339,12 +339,12 @@
     padding: 0 20px;
     margin-bottom: 20px;
     
-    &__user {
+    &User {
       margin-bottom: 0;
       margin-right: 40px;
     }
     
-    &__tabs {
+    &Tabs {
       @apply w-auto mb-0 mr-auto;
       border-bottom: none;
       a {
@@ -352,7 +352,7 @@
       }
     }
     
-    &__logout {
+    &Logout {
       @apply w-[120px];
       position: relative;
       top: auto;
@@ -370,11 +370,11 @@
 
 @media (min-width: 1200px) {
   .profile {
-    &__user {
+    &User {
       @apply mr-[100px];
     }
     
-    &__logout {
+    &Logout {
       @apply w-[114px];
     }
   }

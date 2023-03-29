@@ -1,28 +1,27 @@
+.wrapper {
+  @apply text-white;
+}
 .profile {
-  &__img {
-    @apply w-full h-auto flex flex-row content-center items-center bg-transparent rounded-[6px] overflow-hidden;
-
+  &Img {
+    @apply  py-[10px] w-full h-auto flex flex-row content-center items-center bg-transparent rounded-[6px] overflow-hidden;
+    
     img {
       @apply w-[100px] h-[20px];
     }
   }
-
-  &__price {
+  
+  &Price {
     @apply font-semibold text-sm text-white;
   }
-
-  &__status {
+  
+  &Status {
     @apply text-gray;
-
-    &_confirmed{
-      @apply text-acid;
-    }
   }
 
-  &__delete {
+  &Delete {
     @apply flex flex-row content-center items-center w-[24px] h-[24px];
     svg {
-      @apply stroke-gray w-[24px] h-auto;
+      @apply stroke-gray w-[24px] h-auto ;
       transition: stroke 0.5s ease;
     }
 
@@ -30,6 +29,10 @@
       @apply stroke-primary;
   }
   }
+}
+
+.openModal {
+  @apply text-white;
 }
 
 

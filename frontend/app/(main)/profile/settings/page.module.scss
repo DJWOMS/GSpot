@@ -1,5 +1,6 @@
 .fade{
-  @apply flex justify-around
+  @apply flex gap-x-[20px] justify-around
+  
 }
 
 .col {
@@ -10,15 +11,15 @@
     @apply bg-background border border-solid border-purple-100 border-opacity-10
     p-10 rounded-lg mt-[30];
 
-    &__title {
+    &Title {
       @apply block mb-10 text-base text-white;
     }
 
-    &__label {
+    &Label {
       @apply text-white mb-10 font-normal;
     }
 
-    &__input {
+    &Input {
       @apply bg-light border-trans-gray rounded-[6px] h-[44px] relative text-white
       text-base w-full py-0 px-2 mb-[20px];
 
@@ -27,8 +28,9 @@
       }
     }
 
-    &__btn {
-      @apply flex flex-row justify-center items-center w-full h-[44px] rounded-[6px] bg-acid text-white font-semibold text-sm tracking-[0.6px] uppercase;
+    &Btn {
+      @apply flex flex-row justify-center items-center w-full h-[44px] rounded-[6px]
+       bg-acid text-white font-semibold text-sm tracking-[0.6px] uppercase mt-[20px];
       background-color: #29b474!important;
     }
 }
