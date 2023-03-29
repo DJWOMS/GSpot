@@ -91,7 +91,7 @@ class SubgenreProduct(models.Model):
         related_name='subgenre',
         blank=True
     )
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='genre')
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='genre', default=1)
 
     class Meta:
         verbose_name = 'Связь игры с жанром/поджанром'
