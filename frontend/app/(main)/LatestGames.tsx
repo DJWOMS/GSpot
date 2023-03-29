@@ -1,19 +1,14 @@
-'use client'
-
-import { FC, useRef } from 'react'
 import Section from 'components/Section'
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
 import { GameCard } from 'features/games'
 import { GameCardInterface } from 'features/games'
+import { fetchServerSide } from 'lib/fetchServerSide'
 
-interface Props {
-  games: GameCardInterface[]
-}
-
-const LatestGames: FC<Props> = ({ games }) => {
-  const prevRef = useRef(null)
-  const nextRef = useRef(null)
+const LatestGames = async () => {
+  const latestGames =
+    (await fetchServerSide<GameCardInterface[]>({
+      path: '/latest-games',
+    })) ?? []
 
   return (
     <Section
@@ -21,8 +16,6 @@ const LatestGames: FC<Props> = ({ games }) => {
         {
           children: (
             <Carousel
-              prevRef={prevRef}
-              nextRef={nextRef}
               breakpoints={{
                 0: {
                   slidesPerView: 2,
@@ -38,22 +31,12 @@ const LatestGames: FC<Props> = ({ games }) => {
                 },
               }}
             >
-              {games.map((game, index) => (
+              {latestGames.map((game, index) => (
                 <GameCard key={index} {...game} />
               ))}
             </Carousel>
           ),
           title: 'Latest releases',
-          navigation: [
-            {
-              ref: prevRef,
-              children: <IconChevronLeft />,
-            },
-            {
-              ref: nextRef,
-              children: <IconChevronRight />,
-            },
-          ],
         },
       ]}
     />

@@ -138,7 +138,7 @@
         }
 
         &Favorite {
-            @apply w-[44px] border border-background rounded-default bg-light;
+            @apply w-[44px] border border-background rounded-default bg-dark;
 
             svg {
                 @apply stroke-primary w-[22px] h-auto;

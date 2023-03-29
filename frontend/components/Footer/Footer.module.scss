@@ -167,7 +167,7 @@
     align-items: flex-start;
 
     a {
-        @apply text-gray;
+        @apply text-light;
         font-size: 14px;
         line-height: 26px;
         position: relative;
@@ -254,10 +254,10 @@
         height: auto;
     }
     span {
-        @apply text-gray;
+        @apply text-light;
 
         a {
-            @apply text-gray hover:text-primary;
+            @apply text-light hover:text-primary;
         }
         font-size: 12px;
         line-height: 20px;

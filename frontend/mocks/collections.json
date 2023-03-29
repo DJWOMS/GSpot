@@ -5,10 +5,13 @@
             "add-headers:enabled",
             "get-list-games:success",
             "get-game-by-id:success",
-            "best-games: success",
+            "best-games:success",
             "catalog pages:success",
             "get-list-news:success",
-            "get-news-by-id:success"
+            "get-news-by-id:success",
+            "get-games-categories:success",
+            "search-games:success",
+            "latest-games:success"
         ]
     },
     {

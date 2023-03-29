@@ -11,7 +11,7 @@
 
     @media (min-width: 576px) {
         @apply flex flex-row justify-center items-center border border-trans-gray h-[44px] px-[20px] rounded-default
-        text-[14px] bg-light text-gray;
+        text-[14px] bg-dark text-light;
     }
 }
 
@@ -21,7 +21,7 @@
 
 .linkBtn {
     @apply text-[14px] h-[44px] w-[44px] flex flex-row justify-center items-center border border-trans-gray
-    rounded-default text-center relative bg-light;
+    rounded-default text-center relative bg-dark;
 }
 
 .item {

@@ -1,0 +1,77 @@
+.container {
+  @apply bg-dark flex flex-row justify-between items-center h-[44px] w-[220px] border border-trans-gray
+  rounded-default relative;
+
+  @media (min-width: 768px) {
+    width: 260px;
+  }
+  @media (min-width: 1200px) {
+    width: 426px;
+  }
+  @media (min-width: 1310px) {
+    width: 494px;
+
+    :before {
+      left: 232px;
+    }
+  }
+}
+
+.select {
+  display: none;
+
+  @media (min-width: 1200px) {
+    @apply block w-[115px] h-[44px] border-none bg-transparent text-[14px] text-white p-0 cursor-pointer;
+    background: url('/svg/arrow2.svg') no-repeat center right;
+    background-size: 12px auto;
+
+    option {
+      @apply p-0 m-0 text-black;
+    }
+  }
+  @media (min-width: 1310px) {
+    width: 150px;
+  }
+}
+
+.wrapper {
+  @apply relative cursor-default text-left shadow-md sm:text-sm;
+}
+
+.combo {
+  @apply h-[44px] outline-none rounded-l-default rounded-t-default border-none bg-transparent text-[14px] text-white px-[20px];
+
+  width: calc(100% - 50px);
+
+  @media (min-width: 1200px) {
+    width: 196px;
+  }
+  @media (min-width: 1310px) {
+    width: 232px;
+  }
+}
+
+.options {
+  @apply absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-slate-800 text-base sm:text-sm
+  overflow-x-hidden border border-gray-700;
+}
+
+.notFound {
+  @apply relative cursor-default select-none py-2 px-4 text-gray-700;
+}
+
+.option {
+  @apply relative cursor-default select-none py-2 pl-4 pr-4 text-white;
+
+  &Active {
+    @apply bg-primary;
+  }
+}
+
+.searchBtn {
+  @apply w-max p-1;
+
+  svg {
+    @apply text-white;
+  }
+}

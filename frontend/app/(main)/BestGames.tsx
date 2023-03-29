@@ -1,18 +1,14 @@
-'use client'
 import Carousel from 'components/Carousel'
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
-import { FC, useRef } from 'react'
 import Section from 'components/Section'
 import CardBig from 'components/CardBig'
 import { GameCardInterface } from 'features/games'
+import { fetchServerSide } from 'lib/fetchServerSide'
 
-interface Props {
-  games: GameCardInterface[]
-}
-
-const BestGames: FC<Props> = ({ games }) => {
-  const prevRef = useRef(null)
-  const nextRef = useRef(null)
+const BestGames = async () => {
+  const bestGames =
+    (await fetchServerSide<GameCardInterface[]>({
+      path: '/best-games',
+    })) ?? []
 
   return (
     <Section
@@ -28,20 +24,8 @@ const BestGames: FC<Props> = ({ games }) => {
             ),
             uppercase: true,
           },
-          navigation: [
-            {
-              ref: prevRef,
-              children: <IconChevronLeft />,
-            },
-            {
-              ref: nextRef,
-              children: <IconChevronRight />,
-            },
-          ],
           children: (
             <Carousel
-              prevRef={prevRef}
-              nextRef={nextRef}
               breakpoints={{
                 0: {
                   slidesPerView: 1,
@@ -57,7 +41,7 @@ const BestGames: FC<Props> = ({ games }) => {
                 },
               }}
             >
-              {games.map((game, index) => (
+              {bestGames.map((game, index) => (
                 <CardBig key={index} {...game} />
               ))}
             </Carousel>
