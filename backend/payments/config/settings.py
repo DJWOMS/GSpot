@@ -3,6 +3,8 @@ import os
 import environ
 from environs import Env
 
+import os
+
 env = Env()
 env.read_env()
 
@@ -62,7 +64,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 DATABASES = {
-    'default': env.dj_db_url('DATABASE_URL', 'postgres://...'),
+    'default': {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "PORT": os.environ.get("POSTGRES_PORT"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "NAME": os.environ.get("POSTGRES_DB"),
+    }
+    
 }
 
 
@@ -91,6 +101,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
