@@ -82,7 +82,7 @@ class Review(models.Model):
 
 
 class Comment(models.Model):
-    user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    user_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     text = models.TextField()
 
