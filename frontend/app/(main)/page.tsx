@@ -1,6 +1,5 @@
-import CardBig from 'components/CardBig'
 import CarouselSection from 'components/CarouselSection'
-import { GameCard, OtherGames, GameCardInterface } from 'features/games'
+import { GameCard, GameCardBig, OtherGames, GameCardInterface } from 'features/games'
 import { LatestNews } from 'features/news'
 import { fetchServerSide } from 'lib/fetchServerSide'
 
@@ -23,7 +22,7 @@ const Home = async () => {
           showBig
         >
           {bestGames.map((game, index) => (
-            <CardBig key={index} {...game} />
+            <GameCardBig key={index} {...game} />
           ))}
         </CarouselSection>
       )}

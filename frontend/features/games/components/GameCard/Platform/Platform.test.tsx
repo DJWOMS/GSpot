@@ -1,25 +1,25 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import CardPlatform from './CardPlatform'
+import { Platform } from './Platform'
 
 describe('CardPlatform', () => {
   test('renders the "ps" platform', () => {
-    const { container } = render(<CardPlatform type="ps" />)
+    const { container } = render(<Platform type="ps" />)
     expect(container.firstChild).toHaveClass('platform ps')
   })
 
   test('renders the "xbox" platform', () => {
-    const { container } = render(<CardPlatform type="xbox" />)
+    const { container } = render(<Platform type="xbox" />)
     expect(container.firstChild).toHaveClass('platform xbox')
   })
 
   test('renders the "win" platform', () => {
-    const { container } = render(<CardPlatform type="win" />)
+    const { container } = render(<Platform type="win" />)
     expect(container.firstChild).toHaveClass('platform win')
   })
 
   test('renders the "ap" platform', () => {
-    const { container } = render(<CardPlatform type="ap" />)
+    const { container } = render(<Platform type="ap" />)
     expect(container.firstChild).toHaveClass('platform ap')
   })
 })

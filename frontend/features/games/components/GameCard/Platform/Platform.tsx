@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import cn from 'classnames'
 import { PlatformType } from 'features/games'
-import s from './CardPlatform.module.scss'
+import s from './Platform.module.scss'
 
-const CardPlatform: FC<PlatformType> = ({ type }): JSX.Element => {
+const Platform: FC<PlatformType> = ({ type }): JSX.Element => {
   return <div className={cn(s.platform, s[type])} />
 }
 
-export default CardPlatform
+export { Platform }

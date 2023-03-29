@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { GameCardInterface } from 'features/games'
-import Card from './Card'
+import { GameCard } from './GameCard'
 
 describe('Card', () => {
   const props: GameCardInterface = {
@@ -14,7 +14,7 @@ describe('Card', () => {
   }
 
   it('renders the card with all props', () => {
-    const { getByText } = render(<Card {...props} />)
+    const { getByText } = render(<GameCard {...props} />)
 
     waitFor(() => {
       expect(getByText(props.title)).toBeVisible()
@@ -24,7 +24,7 @@ describe('Card', () => {
   })
 
   it('renders the card without a sale price', () => {
-    const { getByText, queryByText } = render(<Card {...props} sale={undefined} />)
+    const { getByText, queryByText } = render(<GameCard {...props} sale={undefined} />)
 
     expect(getByText(`${props.currency}${props.price}`)).toBeVisible()
     expect(queryByText(`${props.currency}${props.sale}`)).toBeNull()

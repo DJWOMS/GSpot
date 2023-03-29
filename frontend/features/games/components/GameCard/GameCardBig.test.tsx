@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react'
 import { GameCardInterface } from 'features/games'
-import CardBig from './CardBig'
+import { GameCardBig } from './GameCardBig'
 
-describe('CardBig', () => {
+describe('GameCardBig', () => {
   const props: GameCardInterface = {
     coverImg: 'https://example.com/cover.jpg',
     badge: 'New',
@@ -13,7 +13,7 @@ describe('CardBig', () => {
   }
 
   it('should render correctly', () => {
-    const { getByText } = render(<CardBig {...props} />)
+    const { getByText } = render(<GameCardBig {...props} />)
     const titleElement = getByText('Test Game')
     const currencyElement = getByText('RUB', { exact: false })
     const priceElement = getByText('50', { exact: false })
@@ -24,7 +24,7 @@ describe('CardBig', () => {
   })
 
   it('should render a sale price when given a sale prop', () => {
-    const { getByText } = render(<CardBig {...props} sale={25} />)
+    const { getByText } = render(<GameCardBig {...props} sale={25} />)
     const salePriceElement = getByText('25', { exact: false })
     const regularPriceElement = getByText('50', { exact: false })
 
@@ -33,14 +33,14 @@ describe('CardBig', () => {
   })
 
   it('should not render a badge when no badge prop is given', () => {
-    const { queryByText } = render(<CardBig {...props} badge={undefined} />)
+    const { queryByText } = render(<GameCardBig {...props} badge={undefined} />)
     const badgeElement = queryByText('New')
 
     expect(badgeElement).not.toBeInTheDocument()
   })
 
   it('should render with a "cardBig" class when given a big prop', () => {
-    const { container } = render(<CardBig {...props} />)
+    const { container } = render(<GameCardBig {...props} />)
     const cardElement = container.querySelector('.cardBig')
 
     expect(cardElement).toBeVisible()

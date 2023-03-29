@@ -1,13 +1,13 @@
 import { FC } from 'react'
 import { IconHeart } from '@tabler/icons-react'
 import cn from 'classnames'
-import CardPlatform from 'components/CardPlatform'
 import { GameCardInterface } from 'features/games'
 import Image from 'next/image'
 import Link from 'next/link'
-import s from '../Card/Card.module.scss'
+import s from './GameCard.module.scss'
+import { Platform } from './Platform'
 
-const CardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, price, platform, currency = '$' }) => {
+const GameCardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, price, platform, currency = '$' }) => {
   return (
     <div className={s.cardBig}>
       <Link className={s.cardCover} href="/#">
@@ -24,7 +24,7 @@ const CardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, pr
 
         <ul className={s.cardPlatforms}>
           {platform?.map((i, id) => (
-            <CardPlatform key={id} type={i.type} />
+            <Platform key={id} type={i.type} />
           ))}
         </ul>
 
@@ -45,4 +45,4 @@ const CardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, pr
   )
 }
 
-export default CardBig
+export { GameCardBig }
