@@ -35,7 +35,7 @@
     }
     
     span{
-      @apply text-gray text-xs leading-[100%];
+      @apply text-light text-xs leading-[100%];
     }
   }
   
@@ -51,7 +51,7 @@
     }
 
     a {
-      @apply flex flex-row justify-start items-start h-[40px] text-gray relative uppercase text-xs tracking-[0.4px];
+      @apply flex flex-row justify-start items-start h-[40px] text-light relative uppercase text-xs tracking-[0.4px];
     
       :hover {
         @apply text-primary;

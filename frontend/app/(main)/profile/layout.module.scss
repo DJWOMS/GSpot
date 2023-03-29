@@ -31,7 +31,7 @@
   }
 
   &Item {
-    @apply flex gap-[10px] text-gray relative mr-40 text-sm leading-6;
+    @apply flex gap-[10px] text-light relative mr-40 text-sm leading-6;
     transition: 0.5s;
     letter-spacing: 0.4px;
     margin-right: 20px;
@@ -57,7 +57,7 @@
   }
 
     :hover {
-      @apply text-gray;
+      @apply text-light;
     }
 
     &Active{
@@ -68,7 +68,7 @@
       }
 
       :hover {
-        @apply text-gray;
+        @apply text-light;
       }
   }
 }
@@ -112,7 +112,7 @@
     }
   
     a {
-      @apply flex flex-row justify-start items-start h-[40px] text-gray relative uppercase text-xs tracking-[0.4px];
+      @apply flex flex-row justify-start items-start h-[40px] text-light relative uppercase text-xs tracking-[0.4px];
   
       :hover {
         @apply text-primary;
@@ -164,7 +164,7 @@
   &Table {
     @apply w-full min-w-[920px] bg-background;
     th {
-      @apply text-gray;
+      @apply text-light;
       font-size: 14px;
       font-weight: 400;
       line-height: 100%;
@@ -173,10 +173,10 @@
       border-bottom: 1px solid rgba(167,130,233,0.06);
   
       a {
-        @apply inline-flex flex-row content-start items-center text-gray;
+        @apply inline-flex flex-row content-start items-center text-light;
   
         svg {
-          @apply w-[20px] h-auto fill-gray;
+          @apply w-[20px] h-auto fill-light;
           transition: fill 0.5s ease;
         }
   
@@ -280,7 +280,7 @@
   }
 
   &Label {
-    @apply text-gray mb-[20px];
+    @apply text-light mb-[20px];
     letter-spacing: 0.4px;
     font-size: 14px;
     font-weight: 400;
