@@ -15,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           { href: '/', title: 'Главная' },
           { href: '/catalog', title: 'Каталог' },
           { href: '/news', title: 'Новости' },
+          { href: '/profile/purchases', title: 'Профиль' },
         ]}
       />
 

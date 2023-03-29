@@ -1,5 +1,6 @@
 .footer {
-    position: relative;
+    @apply relative;
+    // position: relative;
     display: block;
     width: 100%;
     height: auto;

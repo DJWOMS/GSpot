@@ -1,0 +1,51 @@
+.fade{
+  @apply flex justify-around
+}
+
+.col {
+  @apply w-2/4 flex flex-wrap;
+}
+
+.form {
+    @apply bg-background border border-solid border-purple-100 border-opacity-10
+    p-10 rounded-lg mt-[30];
+
+    &__title {
+      @apply block mb-10 text-base text-white;
+    }
+
+    &__label {
+      @apply text-white mb-10 font-normal;
+    }
+
+    &__input {
+      @apply bg-light border-trans-gray rounded-[6px] h-[44px] relative text-white
+      text-base w-full py-0 px-2 mb-[20px];
+
+      :focus {
+        @apply bg-light border-primary;
+      }
+    }
+
+    &__btn {
+      @apply flex flex-row justify-center items-center w-full h-[44px] rounded-[6px] bg-acid text-white font-semibold text-sm tracking-[0.6px] uppercase;
+      background-color: #29b474!important;
+    }
+}
+
+.form__btn:hover {
+  @apply bg-primary text-white;
+  background: #a782e9!important;
+}
+
+.form {
+  &Select {
+      &Wrapper {
+          @apply relative w-[210px];
+      }
+      @apply w-full h-[44px] rounded-default border border-trans-gray font-[14px]
+      text-white px-[20px] cursor-pointer tracking-[0.4px];
+      background: url('/img/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
+      background-size: 12px auto;
+  }
+}

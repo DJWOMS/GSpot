@@ -1,0 +1,42 @@
+.profile {
+  &__img {
+    @apply w-full h-auto flex flex-row content-center items-center bg-transparent rounded-[6px] overflow-hidden;
+
+    img {
+      @apply w-[100px] h-[20px];
+    }
+  }
+
+  &__price {
+    @apply font-semibold text-sm text-white;
+  }
+
+  &__status {
+    @apply text-gray;
+
+    &_confirmed{
+      @apply text-acid;
+    }
+  }
+
+  &__delete {
+    @apply flex flex-row content-center items-center w-[24px] h-[24px];
+    svg {
+      @apply stroke-gray w-[24px] h-auto;
+      transition: stroke 0.5s ease;
+    }
+
+    :hover svg {
+      @apply stroke-primary;
+  }
+  }
+}
+
+
+
+
+
+  
+
+
+
