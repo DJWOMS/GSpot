@@ -23,10 +23,10 @@ class ReviewsSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ('text',)
 
 
 class LikeDislikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reaction
-        fields = '__all__'
+        fields = ('like_type',)
