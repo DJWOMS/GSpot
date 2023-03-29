@@ -16,7 +16,7 @@ interface Props {
 const SearchInput: FC<Props> = ({ onChange, result }) => {
   return (
     <Combobox>
-      <div className="relative">
+      <div className="relative w-full">
         <div className={s.wrapper}>
           <Combobox.Input placeholder={'Я ищу...'} className={s.combo} onChange={(e) => onChange(e.target.value)} />
         </div>

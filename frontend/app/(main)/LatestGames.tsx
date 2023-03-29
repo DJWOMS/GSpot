@@ -2,14 +2,9 @@ import Section from 'components/Section'
 import Carousel from 'components/Carousel'
 import { GameCard } from 'features/games'
 import { GameCardInterface } from 'features/games'
-import { fetchServerSide } from 'lib/fetchServerSide'
+import { FC } from 'react'
 
-const LatestGames = async () => {
-  const latestGames =
-    (await fetchServerSide<GameCardInterface[]>({
-      path: '/latest-games',
-    })) ?? []
-
+const LatestGames: FC<{ games: GameCardInterface[] }> = ({ games }) => {
   return (
     <Section
       items={[
@@ -31,7 +26,7 @@ const LatestGames = async () => {
                 },
               }}
             >
-              {latestGames.map((game, index) => (
+              {games.map((game, index) => (
                 <GameCard key={index} {...game} />
               ))}
             </Carousel>

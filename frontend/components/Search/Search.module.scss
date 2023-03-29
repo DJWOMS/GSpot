@@ -39,16 +39,7 @@
 }
 
 .combo {
-  @apply h-[44px] outline-none rounded-l-default rounded-t-default border-none bg-transparent text-[14px] text-white px-[20px];
-
-  width: calc(100% - 50px);
-
-  @media (min-width: 1200px) {
-    width: 196px;
-  }
-  @media (min-width: 1310px) {
-    width: 232px;
-  }
+  @apply h-[44px] w-full outline-none rounded-l-default rounded-t-default border-none bg-transparent text-[14px] text-white px-[20px];
 }
 
 .options {

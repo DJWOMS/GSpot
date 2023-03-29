@@ -2,14 +2,9 @@ import Carousel from 'components/Carousel'
 import Section from 'components/Section'
 import CardBig from 'components/CardBig'
 import { GameCardInterface } from 'features/games'
-import { fetchServerSide } from 'lib/fetchServerSide'
+import { FC } from 'react'
 
-const BestGames = async () => {
-  const bestGames =
-    (await fetchServerSide<GameCardInterface[]>({
-      path: '/best-games',
-    })) ?? []
-
+const BestGames: FC<{ games: GameCardInterface[] }> = ({ games }) => {
   return (
     <Section
       bg
@@ -41,7 +36,7 @@ const BestGames = async () => {
                 },
               }}
             >
-              {bestGames.map((game, index) => (
+              {games.map((game, index) => (
                 <CardBig key={index} {...game} />
               ))}
             </Carousel>

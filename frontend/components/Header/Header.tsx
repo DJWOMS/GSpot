@@ -15,13 +15,12 @@ type HeaderLink = {
 }
 interface HeaderProps {
   links: HeaderLink[]
-  categories: { id: number; name: string }[]
 }
 
 const scrollDelta = 10
 const scrollOffset = 140
 
-const Header: FC<HeaderProps> = ({ links, categories }) => {
+const Header: FC<HeaderProps> = ({ links }) => {
   const [hideHeader, setHideHeader] = useState(false)
   const [scrolling, setScrolling] = useState(false)
   const [previousTop, setPreviousTop] = useState(0)
@@ -100,7 +99,7 @@ const Header: FC<HeaderProps> = ({ links, categories }) => {
 
       <div className={s.wrapper}>
         <div className={s.content}>
-          <Search categories={categories} />
+          <Search />
 
           <div className={s.actions}>
             <Link className={s.actionLink} href="/favorite">

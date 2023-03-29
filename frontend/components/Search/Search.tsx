@@ -2,25 +2,14 @@
 
 import s from './Search.module.scss'
 import { IconSearch } from '@tabler/icons-react'
-import { FC, useEffect, useState } from 'react'
-import useDebounce from 'lib/useDebounce'
+import { useEffect, useState } from 'react'
+import { useDebounce } from 'hooks'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import Select from '../Select'
 import SearchInput from './SearchInput'
 
-interface ICategory {
-  id: number
-  name: string
-}
-
-interface Props {
-  categories: ICategory[]
-}
-
-const Search: FC<Props> = ({ categories }) => {
+const Search = () => {
   const [result, setResult] = useState<{ id: number; name: string }[]>([{ id: 1, name: 'Экшн' }])
   const [query, setQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<{ id: number; name: string }>({ id: 0, name: 'Все категории' })
 
   const debouncedValue = useDebounce(query, 50)
 
@@ -37,7 +26,6 @@ const Search: FC<Props> = ({ categories }) => {
   return (
     <div className={s.container}>
       <SearchInput onChange={setQuery} result={result} />
-      <Select selected={selectedCategory} setSelected={setSelectedCategory} options={[{ id: 0, name: 'Все категории' }, ...categories]} />
       <button className={s.searchBtn}>
         <IconSearch />
       </button>
