@@ -1,49 +1,34 @@
-###BUILDER###
+#Build
+FROM python:3.11-slim AS builder
 
-FROM python:3.11-alpine AS builder
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends build-essential libpq-dev \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /payments/apps
+
+COPY requirements.txt flake8-requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir -r flake8-requirements.txt
+
+# Final
+FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apk update \
-    && apk add postgresql-dev \
-    gcc python3-dev musl-dev
+RUN useradd -U app_user \
+    && mkdir -p /home/app/web/static \
+    && chown -R app_user:app_user /home/app
 
-RUN pip install --upgrade pip
+COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
+COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
-COPY ./requirements.txt ./
+WORKDIR /home/app/web
+COPY --chown=app_user:app_user . .
 
-RUN pip wheel --no-cache-dir --no-deps \
-     --wheel-dir /usr/src/app/wheels \
-     -r requirements.txt
+RUN chmod +x ./*.sh
+USER app_user:app_user
 
-
-###FINAL###
-
-FROM python:3.11-alpine 
-
-RUN mkdir -p /home/app
-
-RUN addgroup -S app && adduser -S app -G app
-
-ENV HOME=/home/app
-ENV APP_HOME=/home/app/web
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
-
-RUN apk update && apk add libpq
-COPY --from=builder /usr/src/app/wheels /wheels
-COPY --from=builder /payments/apps/requirements.txt .
-RUN pip install --no-cache /wheels/*
-
-COPY ./entrypoint.sh $APP_HOME
-COPY . $APP_HOME
-
-RUN chmod +x ./entrypoint.sh
-RUN chown -R app:app $APP_HOME
-
-USER app
-
-CMD ["sh","/home/app/web/entrypoint.sh"]
+ENTRYPOINT ["sh", "/home/app/web/entrypoint.sh"]
+CMD ["sh", "/home/app/web/start.sh", "server"]

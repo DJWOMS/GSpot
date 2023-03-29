@@ -4,7 +4,6 @@ services:
   payments:
     build: .
     restart: always
-    command: python manage.py runserver 0.0.0.0:8000
     env_file:
       - ./.env
     volumes:
@@ -19,7 +18,6 @@ services:
     image: postgres:15.2
     restart: always
     volumes:
-      - ../2. Init Database:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
@@ -32,18 +30,10 @@ services:
       retries: 5
       start_period: 10s
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-
   redis:
     restart: unless-stopped
     image: redis:7.0.5-alpine
     hostname: redis
-    expose:
-      - "6379"
     ports:
       - "6379:6379"
 

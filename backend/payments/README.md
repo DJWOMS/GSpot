@@ -18,6 +18,14 @@ TODO
 - `account_id` - id вашего магазина yookassa.
 - `shop_secret_key` - api ключ вашего магазина yookassa.
 - `rollbar_access_token` - токен ключ rollbar для логирования событий.
+- `POSTGRES_DB`
+- `POSTGRES_USER`
+- `POSTGRES_PASSWORD`
+- `POSTGRES_PORT` 
+- `POSTGRES_HOST`
+- `CELERY_FLOWER_USER`-_?
+- `CELERY_FLOWER_PASSWORD`--?
+- `CELERY_BROKER_URL`--?
 
 ## Установка и настройка flake8
 На проекте используется линтер flake8 с плагинами. Flake8 не дает возможности перечислить используемые плагины,
