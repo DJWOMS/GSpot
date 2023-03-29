@@ -82,6 +82,7 @@ class Review(models.Model):
 
 
 class Comment(models.Model):
+    user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     text = models.TextField()
 
@@ -94,6 +95,7 @@ class Comment(models.Model):
 
 
 class Reaction(models.Model):
+    user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     like_type = models.CharField(choices=GRADE_CHOICES, max_length=10)
 
