@@ -5,6 +5,7 @@ interface fetchProps<B extends BodyInit | undefined = undefined> {
   method?: 'POST' | 'GET' | 'PUT' | 'DELETE'
   headers?: HeadersInit
   path: string
+  cache?: 'no-store' | 'reload' | 'no-cache' | 'force-cache'
 }
 
 export const fetchServerSide = async <T, D extends BodyInit | undefined = undefined>({ path, ...props }: fetchProps<D>): Promise<T | undefined> => {

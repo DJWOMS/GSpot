@@ -1,5 +1,3 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import {
   IconTriangleSquareCircle,
   IconDeviceGamepad2,
@@ -10,9 +8,11 @@ import {
   IconBrandVk,
   IconBrandTwitch,
 } from '@tabler/icons-react'
-import s from './Footer.module.scss'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
+import Image from 'next/image'
+import Link from 'next/link'
+import s from './Footer.module.scss'
 
 const Footer = () => {
   return (

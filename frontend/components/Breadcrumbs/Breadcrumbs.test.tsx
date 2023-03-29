@@ -7,16 +7,16 @@ describe('Breadcrumbs', () => {
   it('renders breadcrumbs with items', () => {
     const { getByText } = render(<Breadcrumbs items={items} />)
 
-    expect(getByText('Главная')).toBeInTheDocument()
-    expect(getByText('Page 1')).toBeInTheDocument()
-    expect(getByText('Page 2')).toBeInTheDocument()
-    expect(getByText('Page 3')).toBeInTheDocument()
+    expect(getByText('Главная')).toBeVisible()
+    expect(getByText('Page 1')).toBeVisible()
+    expect(getByText('Page 2')).toBeVisible()
+    expect(getByText('Page 3')).toBeVisible()
   })
 
   it('renders breadcrumbs without items', () => {
     const { getByText } = render(<Breadcrumbs items={[]} />)
 
-    expect(getByText('Главная')).toBeInTheDocument()
+    expect(getByText('Главная')).toBeVisible()
   })
 
   it('renders last breadcrumb as active', () => {

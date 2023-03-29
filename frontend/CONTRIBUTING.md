@@ -50,3 +50,36 @@ and not
 ```
 import {AwesomeComponent} from "features/awesome-feature/components/AwesomeComponent
 ```
+
+### Write mocks
+The mock server runs right inside the next.js application. It automatically works for the development mode. To learn more about how to write new mocks, please refer to [beta next.js docs](https://beta.nextjs.org/docs/routing/route-handlers).
+
+All mocks are described in the `app/mocks` folder. Each endpoint can process `GET`, `POST`, `PUT`, `DELETE` requests. If it is necessary to use a data generator, it is described in `features/<name>/mocks`. The generation function must be declared using the `generateMock<NameOfYourInterface>` template. 
+
+An example of such usage is shown below. Describes a function that returns an object. Each element of the returned element contains a key, which is specified in the interface, and a value, which is automatically generated.
+```
+// features/games/mocks/index.ts
+import { faker } from '@faker-js/faker'
+import { GameCardInterface } from 'features/games'
+
+const generateMockGameCard = (props = {}): GameCardInterface => ({
+  title: faker.word.adjective(),
+  price: faker.datatype.number(1000),
+  ...props,
+})
+
+export { generateMockGameCard }
+```
+
+Now this function can be used to generate a server response. Below is an example for handling a GET request to `/mocks/games/list`.
+```
+// app/mocks/games/list/route.ts
+import { generateMockGameCard } from "features/games"
+import { NextResponse } from "next/server"
+
+export function GET() {
+  return NextResponse.json([...new Array(10)].map(() => generateMockGameCard()))
+}
+```
+
+A [Faker](https://fakerjs.dev) is used to automatically generate data. Check [list of availabled types](https://fakerjs.dev/api/).

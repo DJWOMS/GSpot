@@ -2,12 +2,12 @@
 
 import { FC, useEffect, useState } from 'react'
 import { IconHeart, IconShoppingCart } from '@tabler/icons-react'
-import Image from 'next/image'
-import Link from 'next/link'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
-import s from './Header.module.scss'
+import Image from 'next/image'
+import Link from 'next/link'
 import Search from '../Search/Search'
+import s from './Header.module.scss'
 
 type HeaderLink = {
   href: string
@@ -22,8 +22,8 @@ const scrollOffset = 140
 
 const Header: FC<HeaderProps> = ({ links }) => {
   const [hideHeader, setHideHeader] = useState(false)
-  const [scrolling, setScrolling] = useState(false)
-  const [previousTop, setPreviousTop] = useState(0)
+  const [, setScrolling] = useState(false)
+  const [, setPreviousTop] = useState(0)
   const [currentTop, setCurrentTop] = useState(0)
 
   useEffect(() => {

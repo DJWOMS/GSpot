@@ -1,7 +1,7 @@
-import { Listbox, Transition } from '@headlessui/react'
 import { FC, Fragment } from 'react'
-import s from './Select.module.scss'
+import { Listbox, Transition } from '@headlessui/react'
 import cn from 'classnames'
+import s from './Select.module.scss'
 
 interface Item {
   id: number

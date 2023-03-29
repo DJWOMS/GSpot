@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import { IconPlus } from '@tabler/icons-react'
-import s from './List.module.scss'
 import { FC } from 'react'
+import { IconPlus } from '@tabler/icons-react'
+import Image from 'next/image'
+import s from './List.module.scss'
 
 interface Props {
   coverImg: string
