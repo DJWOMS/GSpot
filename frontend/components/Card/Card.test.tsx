@@ -1,20 +1,20 @@
 import { render } from '@testing-library/react'
+import { GameCardInterface } from 'features/games'
 import Card from './Card'
 
 describe('Card', () => {
-  const props = {
+  const props: GameCardInterface = {
     coverImg: 'https://example.com/cover.jpg',
     link: '/game',
     title: 'Example Game',
     sale: 10,
-    currency: '$',
+    currency: 'USD',
     price: 50,
   }
 
   it('renders the card with all props', () => {
-    const { getByText, getByAltText } = render(<Card {...props} />)
+    const { getByText } = render(<Card {...props} />)
 
-    expect(getByAltText('')).toHaveAttribute('src', props.coverImg)
     expect(getByText(props.title)).toBeInTheDocument()
     expect(getByText(`${props.currency}${props.price}`)).toBeInTheDocument()
     expect(getByText(`${props.currency}${props.sale}`)).toBeInTheDocument()

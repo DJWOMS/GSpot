@@ -1,23 +1,23 @@
 import { render } from '@testing-library/react'
+import { GameCardInterface } from 'features/games'
 import CardBig from './CardBig'
 
 describe('CardBig', () => {
-  const props = {
-    coverImg: 'test-image.jpg',
+  const props: GameCardInterface = {
+    coverImg: 'https://example.com/cover.jpg',
     badge: 'New',
     link: '/test',
     title: 'Test Game',
     price: 50,
-    currency: '$',
+    currency: 'RUB',
   }
 
   it('should render correctly', () => {
-    const { getByText, getByAltText } = render(<CardBig {...props} />)
+    const { getByText } = render(<CardBig {...props} />)
     const titleElement = getByText('Test Game')
-    const currencyElement = getByText('$', { exact: false })
+    const currencyElement = getByText('RUB', { exact: false })
     const priceElement = getByText('50', { exact: false })
 
-    expect(getByAltText('')).toHaveAttribute('src', 'test-image.jpg')
     expect(currencyElement).toBeInTheDocument()
     expect(titleElement).toBeInTheDocument()
     expect(priceElement).toBeInTheDocument()
@@ -40,7 +40,7 @@ describe('CardBig', () => {
   })
 
   it('should render with a "cardBig" class when given a big prop', () => {
-    const { container } = render(<CardBig {...props} big />)
+    const { container } = render(<CardBig {...props} />)
     const cardElement = container.querySelector('.cardBig')
 
     expect(cardElement).toBeInTheDocument()

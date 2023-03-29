@@ -9,7 +9,7 @@ interface Props {
   bg?: boolean
   full?: boolean
   title?: string | React.ReactNode
-  children: React.ReactNode | React.ReactNode[]
+  children?: React.ReactNode | React.ReactNode[]
   navPrev?: MutableRefObject<null>
   navNext?: MutableRefObject<null>
   viewAll?: string
