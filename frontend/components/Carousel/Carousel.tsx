@@ -54,18 +54,20 @@ const Carousel = ({ prevRef, nextRef, breakpoints, children }: CarouselProps) =>
   return (
     <div className={s.container}>
       <Swiper
+        modules={[Autoplay]}
         onSwiper={(swiper) => setSwiper(swiper)}
         spaceBetween={30}
         loop={true}
-        allowTouchMove={false}
         speed={400}
         autoplay={{
-          delay: 14000,
+          delay: 5000,
           stopOnLastSlide: true,
         }}
         breakpoints={breakpoints}
       >
-        {children && children.map((child, index) => <SwiperSlide key={index}>{child}</SwiperSlide>)}
+        {children.map((child, index) => (
+          <SwiperSlide key={index}>{child}</SwiperSlide>
+        ))}
       </Swiper>
     </div>
   )

@@ -1,30 +1,21 @@
 import { FC, MutableRefObject } from 'react'
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import cn from 'classnames'
 import s from './Section.module.scss'
 
-type ITitle = {
-  uppercase?: boolean
-  children: React.ReactNode
-}
-
-interface Item {
-  children?: React.ReactNode
-  navigation?: {
-    ref?: MutableRefObject<null>
-    children: React.ReactNode
-  }[]
-  title?: string | ITitle
-}
-
 interface Props {
-  items: Item[]
   first?: boolean
   last?: boolean
   bg?: boolean
   full?: boolean
+  title?: string | React.ReactNode
+  children: React.ReactNode | React.ReactNode[]
+  navPrev?: MutableRefObject<null>
+  navNext?: MutableRefObject<null>
+  viewAll?: string
 }
 
-const Section: FC<Props> = ({ items, full, bg, last, first }) => {
+const Section: FC<Props> = ({ full, bg, last, first, title, children, navPrev, navNext, viewAll }) => {
   return (
     <div
       className={cn(
@@ -32,51 +23,34 @@ const Section: FC<Props> = ({ items, full, bg, last, first }) => {
         { [s.sectionBg]: bg && !full },
         { [s.sectionBgFull]: bg && full },
         { [s.sectionLast]: last },
-        { [s.sectionFirst]: first },
-        { [s.list]: items.length > 1 }
+        { [s.sectionFirst]: first }
       )}
     >
-      {items.map((i, index) => {
-        return (
-          <div key={index}>
-            {i.title ? (
-              <div className={i.navigation?.length ? s.sectionTitleWrapper : s.sectionTitleWrapperSingle}>
-                <h2
-                  className={cn(s.sectionTitle, s.sectionTitleSmall, {
-                    [s.sectionTitleUppercase]: typeof i.title !== 'string' && i.title.uppercase,
-                  })}
-                >
-                  {typeof i.title === 'string' ? i.title : i.title.children}
-                </h2>
+      <div className={s.sectionTitleWrapper}>
+        <h2 className={cn(s.sectionTitle, s.sectionTitleSmall, {})}>{title}</h2>
 
-                {i.navigation?.length === 1 && !i.navigation[0].ref ? (
-                  i.navigation[0].children
-                ) : (
-                  <div className={s.sectionNavWrapper}>
-                    <a href="#" className={s.sectionView}>
-                      View All
-                    </a>
+        <div className={s.sectionNavWrapper}>
+          {viewAll && (
+            <a href="#" className={s.sectionView}>
+              View All
+            </a>
+          )}
 
-                    {i.navigation?.length && (
-                      <>
-                        {i.navigation.map((i, index) => (
-                          <button key={index} className={s.sectionNav} ref={i.ref}>
-                            {i.children}
-                          </button>
-                        ))}
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
-            ) : (
-              ''
-            )}
+          {navPrev && (
+            <button className={s.sectionNav} ref={navPrev}>
+              <IconChevronLeft />
+            </button>
+          )}
 
-            {i.children}
-          </div>
-        )
-      })}
+          {navNext && (
+            <button className={s.sectionNav} ref={navNext}>
+              <IconChevronRight />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {children}
     </div>
   )
 }

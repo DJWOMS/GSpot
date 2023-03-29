@@ -1,26 +1,42 @@
-import { GameCardInterface } from 'features/games'
+import CardBig from 'components/CardBig'
+import CarouselSection from 'components/CarouselSection'
+import { GameCard, OtherGames, GameCardInterface } from 'features/games'
 import { LatestNews } from 'features/news'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import BestGames from './BestGames'
-import LatestGames from './LatestGames'
-import OtherGames from './OtherGames'
-
-export const revalidate = 10 // revalidate this page every 60 seconds
 
 const Home = async () => {
-  const bestGamesData = fetchServerSide<GameCardInterface[]>({
-    path: '/games/best',
-  })
-  const latestGamesData = fetchServerSide<GameCardInterface[]>({
-    path: '/games/latest',
-  })
-
-  const [bestGames, latestGames] = await Promise.all([bestGamesData, latestGamesData])
+  const [bestGames, latestGames] = await Promise.all([
+    fetchServerSide<GameCardInterface[]>({ path: '/games/best' }),
+    fetchServerSide<GameCardInterface[]>({ path: '/games/latest' }),
+  ])
 
   return (
     <>
-      <BestGames games={bestGames ?? []} />
-      <LatestGames games={latestGames ?? []} />
+      {/* best games with carousel */}
+      {bestGames && (
+        <CarouselSection
+          title={
+            <>
+              <b>Лучшие игры</b> этого месяца
+            </>
+          }
+          showBig
+        >
+          {bestGames.map((game, index) => (
+            <CardBig key={index} {...game} />
+          ))}
+        </CarouselSection>
+      )}
+
+      {/* latest games with carousel */}
+      {latestGames && (
+        <CarouselSection title="Новинки и обновления">
+          {latestGames.map((game, index) => (
+            <GameCard key={index} {...game} />
+          ))}
+        </CarouselSection>
+      )}
+
       <OtherGames />
       <LatestNews />
     </>
