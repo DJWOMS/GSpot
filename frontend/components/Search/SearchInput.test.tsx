@@ -14,7 +14,7 @@ describe('Input component', () => {
   it('renders a Combobox.Input element', () => {
     render(<Input onChange={mockOnChange} result={mockResults} />)
     const inputElement = screen.getByRole('combobox') as HTMLInputElement
-    expect(inputElement).toBeInTheDocument()
+    expect(inputElement).toBeVisible()
   })
 
   it('displays a list of options when the user types into the input', async () => {
@@ -25,7 +25,7 @@ describe('Input component', () => {
 
     const optionsElement = await screen.findByRole('listbox')
     waitFor(() => {
-      expect(optionsElement).toBeInTheDocument()
+      expect(optionsElement).toBeVisible()
     })
   })
 

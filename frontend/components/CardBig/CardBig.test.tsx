@@ -18,9 +18,9 @@ describe('CardBig', () => {
     const currencyElement = getByText('RUB', { exact: false })
     const priceElement = getByText('50', { exact: false })
 
-    expect(currencyElement).toBeInTheDocument()
-    expect(titleElement).toBeInTheDocument()
-    expect(priceElement).toBeInTheDocument()
+    expect(currencyElement).toBeVisible()
+    expect(titleElement).toBeVisible()
+    expect(priceElement).toBeVisible()
   })
 
   it('should render a sale price when given a sale prop', () => {
@@ -28,7 +28,7 @@ describe('CardBig', () => {
     const salePriceElement = getByText('25', { exact: false })
     const regularPriceElement = getByText('50', { exact: false })
 
-    expect(salePriceElement).toBeInTheDocument()
+    expect(salePriceElement).toBeVisible()
     expect(regularPriceElement.tagName).toBe('S')
   })
 
@@ -43,6 +43,6 @@ describe('CardBig', () => {
     const { container } = render(<CardBig {...props} />)
     const cardElement = container.querySelector('.cardBig')
 
-    expect(cardElement).toBeInTheDocument()
+    expect(cardElement).toBeVisible()
   })
 })

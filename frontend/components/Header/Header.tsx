@@ -22,8 +22,8 @@ const scrollOffset = 140
 
 const Header: FC<HeaderProps> = ({ links }) => {
   const [hideHeader, setHideHeader] = useState(false)
-  const [scrolling, setScrolling] = useState(false)
-  const [previousTop, setPreviousTop] = useState(0)
+  const [, setScrolling] = useState(false)
+  const [, setPreviousTop] = useState(0)
   const [currentTop, setCurrentTop] = useState(0)
 
   useEffect(() => {
