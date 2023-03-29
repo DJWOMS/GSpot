@@ -13,7 +13,7 @@ const LatestNews = () => {
                 <div className="w-full">
                   <NewsItem
                     title={'New hot race from your favorite computer games studio'}
-                    imageSrc={'https://picsum.photos/1001'}
+                    imageSrc={'https://loremflickr.com/240/320'}
                     date={'3 h ago'}
                     category={'NFS'}
                     size={'big'}
@@ -25,7 +25,7 @@ const LatestNews = () => {
                 <div className="w-full">
                   <NewsItem
                     title={'New hot race from your favorite computer games studio'}
-                    imageSrc={'https://picsum.photos/1002'}
+                    imageSrc={'https://loremflickr.com/240/320'}
                     date={'3 h ago'}
                     category={'CS:GO'}
                     size={'big'}
@@ -39,7 +39,7 @@ const LatestNews = () => {
                 <div className="w-full">
                   <NewsItem
                     title={'New hot race from your favorite computer games studio'}
-                    imageSrc={'https://picsum.photos/1003'}
+                    imageSrc={'https://loremflickr.com/240/320'}
                     date={'3 h ago'}
                     category={'Overview'}
                     size={'normal'}
@@ -51,7 +51,7 @@ const LatestNews = () => {
                 <div className="w-full">
                   <NewsItem
                     title={'New hot race from your favorite computer games studio'}
-                    imageSrc={'https://picsum.photos/1004'}
+                    imageSrc={'https://loremflickr.com/240/320'}
                     date={'3 h ago'}
                     category={'PC'}
                     size={'normal'}
@@ -63,7 +63,7 @@ const LatestNews = () => {
                 <div className="w-full">
                   <NewsItem
                     title={'New hot race from your favorite computer games studio'}
-                    imageSrc={'https://picsum.photos/1005'}
+                    imageSrc={'https://loremflickr.com/240/320'}
                     date={'3 h ago'}
                     category={'VR'}
                     size={'normal'}

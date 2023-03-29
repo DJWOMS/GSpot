@@ -1,7 +1,7 @@
-import Breadcrumbs from 'components/Breadcrumbs'
 import { FC } from 'react'
-import { NewsItem } from 'features/news'
+import Breadcrumbs from 'components/Breadcrumbs'
 import Section from 'components/Section'
+import { NewsItem } from 'features/news'
 import s from './page.module.scss'
 
 const NewsPage: FC = () => {
@@ -54,7 +54,7 @@ const NewsPage: FC = () => {
                   <div className="w-full" key={id}>
                     <NewsItem
                       title={'Главные 20 CS:GO игроков of 2023 согласно to Gspot.tv'}
-                      imageSrc={'https://picsum.photos/340/240'}
+                      imageSrc={'https://loremflickr.com/240/320'}
                       date={'2 часа назад'}
                       category={'CS:GO'}
                       size={'normal'}

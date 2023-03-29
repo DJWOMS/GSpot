@@ -1,5 +1,5 @@
-import localFont from 'next/font/local'
 import cn from 'classnames'
+import localFont from 'next/font/local'
 import './global.scss'
 
 // head

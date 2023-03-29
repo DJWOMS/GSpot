@@ -1,9 +1,9 @@
 'use client'
 
 import { FC, useRef } from 'react'
-import Section from 'components/Section'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
+import Section from 'components/Section'
 import { GameCard } from 'features/games'
 import { GameCardInterface } from 'features/games'
 

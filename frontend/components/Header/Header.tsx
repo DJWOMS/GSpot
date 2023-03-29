@@ -2,10 +2,10 @@
 
 import { FC, useEffect, useState } from 'react'
 import { IconHeart, IconSearch, IconShoppingCart } from '@tabler/icons-react'
-import Image from 'next/image'
-import Link from 'next/link'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
+import Image from 'next/image'
+import Link from 'next/link'
 import s from './Header.module.scss'
 
 type HeaderLink = {

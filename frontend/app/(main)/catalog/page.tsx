@@ -1,22 +1,15 @@
 import Breadcrumbs from 'components/Breadcrumbs'
-import Section from 'components/Section'
 import Pagination from 'components/Pagination'
+import Section from 'components/Section'
 import { GameCard, FilterGames } from 'features/games'
 import { GameCardInterface } from 'features/games'
+import { fetchServerSide } from 'lib/fetchServerSide'
 
-async function getData(): Promise<GameCardInterface[]> {
-  try {
-    const res = await fetch('http://localhost:3100/api/catalog-page')
-    if (!res.ok) {
-      return []
-    }
-    return res.json()
-  } catch (e) {
-    return []
-  }
-}
 const CatalogPage = async () => {
-  const data = await getData()
+  const data = await fetchServerSide<GameCardInterface[]>({
+    path: '/games/list',
+  })
+
   return (
     <>
       <Section
@@ -50,7 +43,7 @@ const CatalogPage = async () => {
 
                   <div className="w-full">
                     <div className="grid gap-x-4 grid-cols-4 grid-flow-row">
-                      {data.map(({ title, coverImg, price, link }, id) => (
+                      {data?.map(({ title, coverImg, price, link }, id) => (
                         <div className="w-full" key={id}>
                           <GameCard title={title} coverImg={coverImg} link={link} badge="New" price={price} sale={15} />
                         </div>

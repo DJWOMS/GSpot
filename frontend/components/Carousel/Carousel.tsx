@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper'
-import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/scss'
+import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
 import s from './Carousel.module.scss'
 
 interface CarouselProps {

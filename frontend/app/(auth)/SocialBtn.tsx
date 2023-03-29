@@ -1,7 +1,7 @@
-import { IconBrandFacebook, IconBrandGoogle, IconBrandTwitter } from '@tabler/icons-react'
-import s from './Form.module.scss'
 import { FC } from 'react'
+import { IconBrandFacebook, IconBrandGoogle, IconBrandTwitter } from '@tabler/icons-react'
 import cn from 'classnames'
+import s from './Form.module.scss'
 
 interface Props {
   type: 'facebook' | 'google' | 'twitter'

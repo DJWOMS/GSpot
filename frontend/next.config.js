@@ -12,7 +12,7 @@ const nextConfig = {
   swcMinify: true,
   // develop
   images: {
-    domains: ['picsum.photos'],
+    domains: ['loremflickr.com'],
   },
 }
 

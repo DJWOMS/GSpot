@@ -1,6 +1,6 @@
-import s from './Section.module.scss'
 import { FC, MutableRefObject } from 'react'
 import cn from 'classnames'
+import s from './Section.module.scss'
 
 type ITitle = {
   uppercase?: boolean

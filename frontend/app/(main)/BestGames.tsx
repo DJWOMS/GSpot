@@ -1,9 +1,10 @@
 'use client'
-import Carousel from 'components/Carousel'
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
+
 import { FC, useRef } from 'react'
-import Section from 'components/Section'
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import CardBig from 'components/CardBig'
+import Carousel from 'components/Carousel'
+import Section from 'components/Section'
 import { GameCardInterface } from 'features/games'
 
 interface Props {

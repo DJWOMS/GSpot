@@ -1,16 +1,17 @@
-import s from '../Card/Card.module.scss'
-import Link from 'next/link'
-import cn from 'classnames'
-import { IconHeart } from '@tabler/icons-react'
 import { FC } from 'react'
+import { IconHeart } from '@tabler/icons-react'
+import cn from 'classnames'
 import CardPlatform from 'components/CardPlatform'
 import { GameCardInterface } from 'features/games'
+import Image from 'next/image'
+import Link from 'next/link'
+import s from '../Card/Card.module.scss'
 
 const CardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, price, platform, currency = '$' }) => {
   return (
     <div className={s.cardBig}>
       <Link className={s.cardCover} href="/#">
-        <img src={coverImg} alt="" />
+        <Image src={coverImg} alt="" width={400} height={600} />
         {badge && <span className={s.cardBadgeNew}>{badge}</span>}
       </Link>
 
