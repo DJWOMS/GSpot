@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-cd $APP_HOME
+cd || $APP_HOME
 
 if [ $# -eq 0 ]; then
     echo "Usage: start.sh [PROCESS_TYPE](server)"
