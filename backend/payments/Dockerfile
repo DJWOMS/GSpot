@@ -17,18 +17,18 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN useradd -U app_user \
+RUN useradd -U app \
     && mkdir -p /home/app/web/static \
-    && chown -R app_user:app_user /home/app
+    && chown -R app:app /home/app
 
 COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
 WORKDIR /home/app/web
-COPY --chown=app_user:app_user . .
+COPY --chown=app:app . .
 
 RUN chmod +x ./*.sh
-USER app_user:app_user
+USER app:app
 
 ENTRYPOINT ["sh", "/home/app/web/entrypoint.sh"]
 CMD ["sh", "/home/app/web/start.sh", "server"]

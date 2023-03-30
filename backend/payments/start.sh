@@ -10,8 +10,7 @@ fi
 PROCESS_TYPE=$1
 
 if [ "$PROCESS_TYPE" = "server" ]; then
-    if [ "$DEBUG" = "1" ]; then
+    if [ "$DEBUG" = "1" ];  then
         python manage.py runserver 0.0.0.0:8000
     fi
-
 fi
