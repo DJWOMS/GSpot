@@ -1,237 +1,284 @@
 .details {
-  @apply relative rounded-md overflow-hidden bg-background p-5 w-full flex flex-wrap justify-start items-start flex-row border border-solid border-main-60
-}
-.detailsHead {
-  @apply relative w-full
-}
-.detailsCover {
-  @apply relative rounded-md overflow-hidden w-full block mb-[15px]
-}
-.detailsCover img {
-  @apply relative w-full z-[1] h-full
-}
-.detailsTrailer {
-  @apply flex-row rounded-md absolute bottom-5 left-5 flex z-[2] justify-center items-center h-[55px] border border-solid border-main-400 bg-main-150 text-sm tracking-[0.4px] text-white;
-  width: calc(100% - 40px)
-}
-.detailsTrailer svg {
-  @apply relative stroke-[#a782e9] w-[22px] h-auto mr-[15px] z-[3] duration-150
-}
-.detailsTrailer span {
-  @apply z-[3]
-}
-.detailsTrailer:before {
-  @apply block rounded-md absolute z-[1] pointer-events-none top-[5px] left-[5px] bottom-[5px] right-[5px] bg-background opacity-75 duration-150 content-none
-}
-.detailsTrailer:hover {
-  @apply text-white border-main-60 bg-main-300
-}
-.detailsTrailer:hover:before {
-  @apply opacity-100
-}
-.detailsWrap {
-  @apply relative w-4/5
-}
-.detailsTitle {
-  @apply relative w-full text-white mb-2.5 text-[18] font-normal
-}
-.detailsCart {
-  @apply relative h-auto mt-5 pt-5 border-t border-solid border-main-60
-}
-.detailsCartTitle {
-  @apply text-sm tracking-[0.4px] w-full block mb-2.5 text-light
-}
-.detailsActions {
-  @apply flex flex-col justify-start items-start mt-5 w-full
-}
-.detailsBuy {
-  @apply flex flex-row justify-center items-center w-full h-11 rounded-md bg-acid text-white font-semibold text-sm tracking-[.8px]
-}
-.detailsBuy:hover {
-  @apply bg-primary text-white
-}
-.detailsFavorite {
-  @apply flex flex-row justify-center items-center w-full h-11 bg-main-30 border border-solid border-main-60 rounded-md text-sm tracking-[0.4px] text-white mt-5
-}
-.detailsFavorite svg {
-  @apply stroke-[#a782e9] w-[22px] h-auto duration-150 mr-[15px]
-}
-.detailsFavorite:hover {
-  @apply bg-main-40 border-main-70 text-white
-}
-.detailsFavorite:hover svg {
-  @apply stroke-[#fd6060]
-}
-.detailsPlatforms {
-  @apply relative flex flex-row justify-start items-center mb-5
-}
-.detailsPlatforms li {
-  @apply flex flex-row justify-center items-center w-[26px] h-[26px] rounded-[50%] mr-2.5
-}
-.detailsPlatforms li svg {
-  @apply fill-white w-[26px] h-auto
-}
-.detailsPlatforms li.ps {
-  @apply bg-platform-ps
-}
-.detailsPlatforms li.xb {
-  @apply bg-platform-xb
-}
-.detailsPlatforms li.wn {
-  @apply bg-platform-wn
-}
-.detailsPlatforms li.ap {
-  @apply bg-platform-ap
-}
-.detailsPlatforms li:last-child {
-  @apply mr-0
-}
-.detailsList {
-  @apply w-full
-}
-.detailsList li {
-  @apply text-white text-sm leading-[26px]
-}
-.detailsList li span {
-  @apply text-light mr-[5px]
-}
-.detailsText {
-  @apply relative overflow-hidden w-full h-[170px] mt-5 pr-5 order-4
-}
-.detailsText p {
-  @apply leading-[26px] mb-5 text-sm text-white
-}
-.detailsText p:last-child {
-  @apply mb-0
-}
-.detailsPrice {
-  @apply flex flex-row justify-start items-start flex-wrap w-full
-}
-.detailsPrice span {
-  @apply w-full text-[26px] text-white font-semibold block
-}
-.detailsPrice s {
-  @apply text-sm text-light mt-[7px] mr-[15px]
-}
-.detailsPrice b {
-  @apply text-sm text-danger mt-[7px] mr-[15px] font-semibold
-}
-.detailsGallery {
-  @apply relative mt-5 pt-5 border-t border-solid border-main-60
-}
-.detailsCarousel {
-  @apply block relative w-full px-10
-}
-.detailsCarousel figure {
-  @apply m-0
-}
-.detailsCarousel a {
-  @apply block rounded-md overflow-hidden h-auto w-[120px]
-}
-.detailsCarousel a img {
-  @apply w-full h-auto opacity-100 delay-500
-}
-.detailsCarousel a:hover img {
-  @apply opacity-60
-}
-.detailsNav {
-  @apply flex flex-row justify-center items-center absolute z-[2] top-5 bottom-0 w-5 bg-main-30 border border-solid border-main-60 rounded-md
-}
-.detailsNav svg {
-  @apply stroke-[#dbdada] duration-150 w-[18px] h-auto
-}
-.detailsNav:hover {
-  @apply bg-main-40 border-main-70
-}
-.detailsNav:hover svg {
-  @apply stroke-[#a782e9]
-}
-@media (min-width: 576px) {
-  .detailsCarousel a {
-    @apply w-[140px]
+  @apply relative flex w-full flex-row flex-wrap items-start justify-start overflow-hidden rounded-md border border-solid border-main-60 bg-background p-5;
+
+  &Head {
+    @apply relative w-full;
+
+    @media (min-width: 768px) {
+      @apply flex flex-row items-stretch justify-between;
+    }
+
+    @media (min-width: 1200px) {
+      width: calc(100% - 210px);
+    }
+
+    @media (min-width: 1310px) {
+      width: calc(100% - 240px);
+    }
   }
-  .detailsCover {
-    @apply w-60
+
+  &Cover {
+    @apply relative mb-[15px] block w-full overflow-hidden rounded-md;
+
+    img {
+      @apply relative z-[1] h-full w-full;
+    }
+
+    @media (min-width: 576px) {
+      @apply w-60;
+    }
+
+    @media (min-width: 768px) {
+      @apply mb-0;
+    }
   }
-  .detailsBuy,
-  .detailsFavorite {
-    @apply w-60
+
+  &Trailer {
+    @apply absolute bottom-5 left-5 z-[2] flex h-[55px] flex-row items-center justify-center rounded-md border border-solid border-main-400 bg-main-150 text-sm tracking-[0.4px] text-white;
+    width: calc(100% - 40px);
+
+    svg {
+      @apply relative z-[3] mr-[15px] h-auto w-[22px] stroke-[#a782e9] duration-150;
+    }
+
+    span {
+      @apply z-[3];
+    }
+
+    :before {
+      @apply pointer-events-none absolute top-[5px] left-[5px] bottom-[5px] right-[5px] z-[1] block rounded-md bg-background opacity-75 duration-150 content-none;
+    }
+    :hover {
+      @apply border-main-60 bg-main-300 text-white;
+    }
+    :hover:before {
+      @apply opacity-100;
+    }
+  }
+
+  &Wrap {
+    @apply relative w-4/5;
+
+    @media (min-width: 768px) {
+      @apply flex flex-col items-start justify-start;
+      width: calc(100% - 260px);
+    }
+  }
+
+  &Title {
+    @apply relative mb-2.5 w-full font-normal text-white text-[18];
+
+    @media (min-width: 768px) {
+      @apply text-[22px];
+    }
+
+    @media (min-width: 1200px) {
+      @apply text-xl;
+    }
+  }
+
+  &Cart {
+    @apply relative mt-5 h-auto border-t border-solid border-main-60 pt-5;
+
+    &Title {
+      @apply mb-2.5 block w-full text-sm tracking-[0.4px] text-light;
+    }
+
+    @media (min-width: 992px) {
+      @apply order-2 mt-0 flex h-[340px] w-[220px] flex-col items-start justify-end border-t-0 border-l-[1px] border-main-60 pt-0 pl-5;
+    }
+
+    @media (min-width: 1200px) {
+      @apply w-[210px];
+    }
+
+    @media (min-width: 1310px) {
+      @apply w-60;
+    }
+  }
+
+  &Actions {
+    @apply mt-5 flex w-full flex-col items-start justify-start;
+
+    @media (min-width: 768px) {
+      @apply w-60;
+    }
+
+    @media (min-width: 992px) {
+      @apply w-full;
+    }
+  }
+
+  &Buy {
+    @apply flex h-11 w-full flex-row items-center justify-center rounded-md bg-acid text-sm font-semibold tracking-[.8px] text-white;
+
+    :hover {
+      @apply bg-primary text-white;
+    }
+
+    @media (min-width: 576px) {
+      @apply w-60;
+    }
+
+    @media (min-width: 992px) {
+      @apply w-full;
+    }
+  }
+
+  &Favorite {
+    @apply mt-5 flex h-11 w-full flex-row items-center justify-center rounded-md border border-solid border-main-60 bg-main-30 text-sm tracking-[0.4px] text-white;
+
+    svg {
+      @apply mr-[15px] h-auto w-[22px] stroke-[#a782e9] duration-150;
+    }
+
+    :hover {
+      @apply border-main-70 bg-main-40 text-white;
+    }
+
+    :hover svg {
+      @apply stroke-[#fd6060];
+    }
+
+    @media (min-width: 576px) {
+      @apply w-60;
+    }
+
+    @media (min-width: 992px) {
+      @apply w-full;
+    }
+  }
+
+  &Platforms {
+    @apply relative mb-5 flex flex-row items-center justify-start;
+
+    li:last-child {
+      @apply mr-0;
+    }
+
+    @media (min-width: 992px) {
+      @apply mb-auto;
+    }
+  }
+
+  &List {
+    @apply w-full;
+
+    li {
+      @apply text-sm leading-[26px] text-white;
+
+      span {
+        @apply mr-[5px] text-light;
+      }
+    }
+  }
+
+  &Text {
+    @apply relative order-4 mt-5 h-[170px] w-full overflow-hidden pr-5;
+
+    p {
+      @apply mb-5 text-sm leading-[26px] text-white;
+
+      :last-child {
+        @apply mb-0;
+      }
+    }
+  }
+
+  &Price {
+    @apply flex w-full flex-row flex-wrap items-start justify-start;
+
+    span {
+      @apply block w-full text-[26px] font-semibold text-white;
+    }
+
+    s {
+      @apply mt-[7px] mr-[15px] text-sm text-light;
+    }
+
+    b {
+      @apply mt-[7px] mr-[15px] text-sm font-semibold text-danger;
+    }
+  }
+
+  &Gallery {
+    @apply relative mt-5 border-t border-solid border-main-60 pt-5;
+
+    @media (min-width: 992px) {
+      @apply order-3 w-full;
+    }
+  }
+
+  &Carousel {
+    @apply relative block w-full px-10;
+
+    figure {
+      @apply m-0;
+    }
+
+    a {
+      @apply block h-auto w-[120px] overflow-hidden rounded-md;
+
+      img {
+        @apply h-auto w-full opacity-100 delay-500;
+      }
+
+      :hover img {
+        @apply opacity-60;
+      }
+
+      @media (min-width: 576px) {
+        @apply w-[140px];
+      }
+
+      @media (min-width: 768px) {
+        @apply w-full;
+      }
+    }
+  }
+
+  &Nav {
+    @apply absolute top-5 bottom-0 z-[2] flex w-5 flex-row items-center justify-center rounded-md border border-solid border-main-60 bg-main-30;
+
+    svg {
+      @apply h-auto w-[18px] stroke-[#dbdada] duration-150;
+    }
+
+    :hover {
+      @apply border-main-70 bg-main-40;
+
+      svg {
+        @apply stroke-[#a782e9];
+      }
+    }
+  }
+
+  &Content {
+    @media (min-width: 992px) {
+      @apply relative order-5 w-full;
+    }
+  }
+
+  @media (min-width: 992px) {
+    @apply flex flex-row flex-wrap items-start justify-start;
+  }
+
+  @media (min-width: 1200px) {
+    @apply flex flex-row items-start justify-start;
   }
 }
-@media (min-width: 768px) {
-  .detailsCarousel a {
-    @apply w-full
+
+.languages {
+  :hover {
+    @apply text-primary;
   }
-  .detailsCover {
-    @apply mb-0
+
+  &Table {
+    @apply h-auto w-4/5 border-collapse border-spacing-0;
+
+    td,
+    th {
+      @apply h-[35px] min-h-[35px] w-[30px] border-b-[1px] border-solid border-main-60 px-[10px];
+    }
   }
-  .detailsHead {
-    @apply flex flex-row justify-between items-stretch
-  }
-  .detailsWrap {
-    @apply flex flex-col justify-start items-start;
-    width: calc(100% - 260px);
-  }
-  .detailsActions {
-    @apply w-60
-  }
-  .detailsTitle {
-    @apply text-[22px]
-  }
-}
-@media (min-width: 992px) {
-  .details {
-    @apply flex flex-row justify-start items-start flex-wrap
-  }
-  .detailsCart {
-    @apply order-2 w-[220px] mt-0 pt-0 border-t-0 pl-5 h-[340px] border-l-[1px] border-main-60 flex flex-col justify-end items-start
-  }
-  .detailsGallery {
-    @apply order-3 w-full
-  }
-  .detailsActions {
-    @apply w-full
-  }
-  .detailsPlatforms {
-    @apply mb-auto
-  }
-  .detailsBuy,
-  .detailsFavorite {
-    @apply w-full
-  }
-  .detailsContent {
-    @apply order-5 relative w-full
-  }
-}
-@media (min-width: 1200px) {
-  .details {
-    @apply flex flex-row justify-start items-start
-  }
-  .detailsHead {
-    width: calc(100% - 210px);
-  }
-  .detailsCart {
-    @apply w-[210px]
-  }
-  .detailsTitle {
-    @apply text-xl
-  }
-}
-@media (min-width: 1310px) {
-  .detailsHead {
-    width: calc(100% - 240px);
-  }
-  .detailsCart {
-    @apply w-60
-  }
-}
-.languagesTable {
-  @apply w-4/5 border-collapse border-spacing-0 h-auto
-}
-.languagesTable td,
-.languagesTable th {
-  @apply min-h-[35px] px-[10px] w-[30px] h-[35px] border-b-[1px] border-solid border-main-60
-}
-.languages:hover {
-  @apply text-primary
 }

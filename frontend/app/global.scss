@@ -2,28 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-  @apply container mx-auto px-4 bg-background font-sans font-normal antialiased;
+  @apply container mx-auto bg-background px-4 font-sans font-normal antialiased;
 }
 
 button {
-  @apply p-0 border-none bg-transparent cursor-pointer focus:outline-none;
+  @apply cursor-pointer border-none bg-transparent p-0 focus:outline-none;
 }
 
-button, a {
+button,
+a {
   transition: 0.5s ease;
 }
 
-a:hover, a:active, a:focus {
+a:hover,
+a:active,
+a:focus {
   outline: none;
 }
 
-::-moz-selection, ::selection {
+::-moz-selection,
+::selection {
   @apply bg-primary text-white shadow-none;
 }
 
-::-moz-placeholder, ::-webkit-input-placeholder {
+::-moz-placeholder,
+::-webkit-input-placeholder {
   @apply text-light opacity-100;
 }
 

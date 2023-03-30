@@ -2,12 +2,12 @@
   display: none;
 
   @media (min-width: 1200px) {
-    @apply block w-[115px] h-[44px] border-none bg-transparent text-[14px] text-white p-0 cursor-pointer outline-none;
+    @apply block h-[44px] w-[115px] cursor-pointer border-none bg-transparent p-0 text-[14px] text-white outline-none;
     background: url('/svg/arrow2.svg') no-repeat center right;
     background-size: 12px auto;
 
     option {
-      @apply p-0 m-0 text-black;
+      @apply m-0 p-0 text-black;
     }
   }
   @media (min-width: 1310px) {
@@ -16,8 +16,8 @@
 }
 
 .options {
-  @apply absolute mt-1 max-h-60 w-full overflow-auto rounded-md border border-gray-800
-  bg-slate-800 text-base sm:text-sm overflow-x-hidden;
+  @apply absolute mt-1 max-h-60 w-full overflow-auto overflow-x-hidden rounded-md border
+  border-gray-800 bg-slate-800 text-base sm:text-sm;
 
   &::-webkit-scrollbar-track {
     @apply bg-slate-800;

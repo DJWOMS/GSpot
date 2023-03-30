@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <Section first bg>
       <div className="container">
-        <div className="flex flex-wrap -mx-4">
+        <div className="-mx-4 flex flex-wrap">
           <div className="flex-[0_0_100%]">
             <div className={s.details}>
               <div className={s.detailsHead}>

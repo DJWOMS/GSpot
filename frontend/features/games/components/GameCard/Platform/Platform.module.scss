@@ -1,23 +1,23 @@
 .platform {
-    @apply flex flex-row justify-center items-center w-[26px] h-[26px] rounded-full mr-[10px] last:mr-0;
+  @apply mr-[10px] flex h-[26px] w-[26px] flex-row items-center justify-center rounded-full last:mr-0;
 
-    svg {
-        @apply fill-white w-[14px] h-auto;
-    }
+  svg {
+    @apply h-auto w-[14px] fill-white;
+  }
 }
 
 .ps {
-    background-color: #665cbe;
+  background-color: #665cbe;
 }
 
 .xbox {
-    background-color: #0e7a0d;
+  background-color: #0e7a0d;
 }
 
 .win {
-    background-color: #00aef0;
+  background-color: #00aef0;
 }
 
 .ap {
-    background-color: #555;
+  background-color: #555;
 }
