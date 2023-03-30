@@ -1,5 +1,4 @@
 import { IconBrandXbox, IconBrandWindows, IconBrandApple, IconHeart, IconPlayerPlay } from '@tabler/icons-react'
-import cn from 'classnames'
 import Section from 'components/Section'
 import s from './page.module.scss'
 
@@ -140,9 +139,9 @@ export default function Page() {
               <div className={s.detailsContent}>
                 <div className="row-auto">
                   <div className="col-12 col-xl-4 order-xl-2">
-                    <div className="requirements">
-                      <span className="requirements__title">Minimum requirements:</span>
-                      <ul className="requirements__list">
+                    <div className={s.requirements}>
+                      <span className={s.requirementsTitle}>Minimum requirements:</span>
+                      <ul className={s.requirementsList}>
                         <li>
                           <span>OS:</span> Windows 7,Windows 8.1,Windows 10
                         </li>
@@ -168,7 +167,7 @@ export default function Page() {
                       </ul>
 
                       <span className={s.requirementsTitle}>Recommended requirements:</span>
-                      <ul className="requirements__list">
+                      <ul className={s.requirementsList}>
                         <li>
                           <span>OS:</span> Windows 7,Windows 8.1,Windows 10
                         </li>
