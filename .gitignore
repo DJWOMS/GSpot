@@ -8,6 +8,7 @@ idea
 **/migrations/**
 !**/migrations
 !**/migrations/__init__.py
+**/static/**
 
 dist
 db.sqlite3

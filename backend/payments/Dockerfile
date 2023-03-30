@@ -31,4 +31,3 @@ RUN chmod +x ./*.sh
 USER app:app
 
 ENTRYPOINT ["sh", "/home/app/web/entrypoint.sh"]
-CMD ["sh", "/home/app/web/start.sh", "server"]
