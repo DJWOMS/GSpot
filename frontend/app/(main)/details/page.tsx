@@ -1,7 +1,8 @@
-import { IconBrandXbox, IconBrandWindows, IconBrandApple, IconHeart, IconPlayerPlay, IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
+import { IconHeart, IconPlayerPlay, IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
 import cn from 'classnames'
 import Carousel from 'components/Carousel'
 import Section from 'components/Section'
+import { Platform } from 'features/games'
 import s from './page.module.scss'
 
 export default function Page() {
@@ -127,15 +128,10 @@ export default function Page() {
               <div className={s.detailsCart}>
                 <span className={s.detailsCartTitle}>Available on platforms:</span>
                 <ul className={s.detailsPlatforms}>
-                  <li className={s.xb}>
-                    <IconBrandXbox />
-                  </li>
-                  <li className={s.wn}>
-                    <IconBrandWindows />
-                  </li>
-                  <li className={s.ap}>
-                    <IconBrandApple />
-                  </li>
+                  <Platform type="ps" />
+                  <Platform type="xbox" />
+                  <Platform type="win" />
+                  <Platform type="ap" />
                 </ul>
 
                 <span className={s.detailsCartTitle}>PRICE</span>
