@@ -1,6 +1,6 @@
+import { IconX } from '@tabler/icons-react'
 import Link from 'next/link'
 import s from './Purchase.module.scss'
-import { X } from 'tabler-icons-react'
 
 const ProfileItem = () => {
   const rand = () => {
@@ -29,7 +29,7 @@ const ProfileItem = () => {
       </td>
       <td>
         <button className={s.profileDelete}>
-          <X strokeWidth={0.3} />
+          <IconX strokeWidth={0.3} />
         </button>
       </td>
     </tr>

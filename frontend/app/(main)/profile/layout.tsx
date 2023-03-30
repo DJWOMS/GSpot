@@ -1,9 +1,8 @@
 import { FC } from 'react'
-import Link from 'next/link'
-
-import s from './layout.module.scss'
-import cn from 'classnames'
 import { IconUser, IconHome2, IconArrowNarrowRight, IconDoorExit } from '@tabler/icons-react'
+import cn from 'classnames'
+import Link from 'next/link'
+import s from './layout.module.scss'
 
 const Profile: FC<any> = ({ children }) => {
   return (

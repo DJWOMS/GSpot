@@ -1,10 +1,9 @@
-import s from './page.module.scss'
-import ProfileItem from 'features/profile/components/Purchases/Purchase'
+import { IconArrowsUpDown } from '@tabler/icons-react'
 import Pagination from 'components/Pagination'
+import ProfileItem from 'features/profile/components/Purchases/Purchase'
 import Link from 'next/link'
-import { ArrowsUpDown } from 'tabler-icons-react'
+import s from './page.module.scss'
 
-const th = ['Product', 'Title', 'Platform', 'Date', 'Price', 'Status']
 const PurchasesItem = () => {
   return (
     <div className={s.wrapper}>
@@ -13,19 +12,51 @@ const PurchasesItem = () => {
           <thead>
             <tr>
               <th>№</th>
-              {th.map((i, id) => (
-                <th key={id}>
-                  <Link href="#" key={id}>
-                    {i} <ArrowsUpDown strokeWidth={0.2} size={24} />
-                  </Link>
-                </th>
-              ))}
+              <th>
+                Product
+                <Link href="#">
+                  <IconArrowsUpDown strokeWidth={0.2} size={24} />
+                </Link>
+              </th>
+              <th>
+                Title
+                <Link href="#">
+                  <IconArrowsUpDown strokeWidth={0.2} size={24} />
+                </Link>
+              </th>
+              <th>
+                Platform
+                <Link href="#">
+                  <IconArrowsUpDown strokeWidth={0.2} size={24} />
+                </Link>
+              </th>
+              <th>
+                Date
+                <Link href="#">
+                  <IconArrowsUpDown strokeWidth={0.2} size={24} />
+                </Link>
+              </th>
+              <th>
+                Price
+                <Link href="#">
+                  <IconArrowsUpDown strokeWidth={0.2} size={24} />
+                </Link>
+              </th>
+              <th>
+                Status
+                <Link href="#">
+                  <IconArrowsUpDown strokeWidth={0.2} size={24} />
+                </Link>
+              </th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {[1, 1, 1].map((_, id) => (
-              <ProfileItem key={id} />
+            {[1, 1, 1].map((purchase, id) => (
+              <ProfileItem
+                key={id}
+                //  {...purchase}
+              />
             ))}
           </tbody>
         </table>

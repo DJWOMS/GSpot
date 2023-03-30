@@ -41,13 +41,11 @@
     
       :after {
         @apply content-none h-[22px] w-[25px] absolute left-[-20px] top-0;
-        // background: url("../../../assets/img/home.svg") no-repeat center left/16px auto;
       }
     }
         
     :before {
       @apply h-[22px] w-[40px] absolute left-full top-0 opacity-80 content-none;
-      // background: url("../../../assets/img/breadcrumb.svg") no-repeat center/14px auto;
     }
 
     &Img {

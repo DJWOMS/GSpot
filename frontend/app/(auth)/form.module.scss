@@ -72,31 +72,12 @@
     }
 
     &Delimiter {
-<<<<<<< HEAD
-        font-size: 13px;
-        color: #dbdada;
-        line-height: 100%;
-    }
-
-    &Input {
-        background-color: rgba(167, 130, 233, 0.03);
-        border: 1px solid rgba(167, 130, 233, 0.06);
-        border-radius: 6px;
-        height: 44px;
-        position: relative;
-        color: #fff;
-        font-size: 14px;
-        width: 100%;
-        padding: 0 20px;
-        letter-spacing: 0.4px;
-=======
         @apply text-[13px] leading-[100%] text-light;
     }
 
     &Input {
         @apply border border-trans-gray rounded-default h-[44px] relative text-white text-[14px] w-full
         px-[20px] tracking-[0.4px] bg-dark;
->>>>>>> origin/frontend
 
         :focus {
             background-color: rgba(167, 130, 233, 0.04);
@@ -116,18 +97,7 @@
 
         input:not(:checked) + label,
         input:checked + label {
-<<<<<<< HEAD
-            font-size: 14px;
-            color: #dbdada;
-            font-weight: normal;
-            position: relative;
-            cursor: pointer;
-            padding-left: 35px;
-            line-height: 20px;
-            margin: 0;
-=======
             @apply text-[14px] font-normal relative cursor-pointer pl-[35px] leading-[20px] m-0 text-light;
->>>>>>> origin/frontend
         }
 
         input:not(:checked) + label a,
@@ -137,20 +107,8 @@
 
         input:not(:checked) + label:before,
         input:checked + label:before {
-<<<<<<< HEAD
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 20px;
-            height: 20px;
-            background-color: rgba(167, 130, 233, 0.03);
-            border: 1px solid rgba(167, 130, 233, 0.06);
-            border-radius: 6px;
-=======
             @apply content-[''] absolute left-0 top-0 w-[20px] h-[20px] rounded-default
             border border-trans-gray bg-dark;
->>>>>>> origin/frontend
         }
 
         input:not(:checked) + label:after,
@@ -177,32 +135,16 @@
         }
 
         label::-moz-selection {
-<<<<<<< HEAD
-            background: transparent;
-            color: #dbdada;
-        }
-
-        label::selection {
-            background: transparent;
-            color: #dbdada;
-=======
             @apply bg-transparent text-light;
         }
 
         label::selection {
             @apply bg-transparent text-light;
->>>>>>> origin/frontend
         }
     }
 
     &Text {
-<<<<<<< HEAD
-        margin-top: 15px;
-        font-size: 14px;
-        color: #dbdada;
-=======
         @apply mt-[15px] text-[14px] text-light;
->>>>>>> origin/frontend
 
         a {
             position: relative;
