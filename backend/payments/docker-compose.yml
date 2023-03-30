@@ -4,38 +4,51 @@ services:
   payments:
     build: .
     restart: always
-    command: python manage.py runserver 0.0.0.0:8000
     env_file:
       - ./.env
     volumes:
-      - ./apps/:/usr/src/app/
+      - ./:/usr/src/app/
     ports:
       - 8000:8000
     depends_on:
       - transactions
+      - redis
 
   transactions:
     image: postgres:15.2
     restart: always
     volumes:
-      - ../2. Init Database:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     env_file:
-      - ./.env.db
+      - ./.env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 10s
-            
-  adminer:
-    image: adminer
-    restart: always
+
+  redis:
+    restart: unless-stopped
+    image: redis:7.0.5-alpine
+    hostname: redis
     ports:
-      - 8080:8080
+      - "6379:6379"
+
+  worker:
+    build:
+      context: .
+    hostname: worker
+    entrypoint: celery
+    command: -A celery_app.app worker --loglevel=info
+    volumes:
+      - ./backend:/payments
+    links:
+      - redis
+    depends_on:
+      - redis
 
 volumes:
   postgres_data:

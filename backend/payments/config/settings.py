@@ -1,5 +1,6 @@
 from pathlib import Path
-
+import os
+import environ
 from environs import Env
 
 env = Env()
@@ -61,7 +62,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 DATABASES = {
-    'default': env.dj_db_url('DATABASE_URL', 'postgres://...'),
+    'default': {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "PORT": os.environ.get("POSTGRES_PORT"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "NAME": os.environ.get("POSTGRES_DB"),
+    }
+    
 }
 
 
@@ -91,6 +100,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 JWT_SECRET_KEY = env.str('JWT_SECRET_KEY', '')
@@ -119,3 +130,14 @@ ROLLBAR = {
 }
 
 MAX_BALANCE_DIGITS = 11
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+
+CACHES = {    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://redis:6379/',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
