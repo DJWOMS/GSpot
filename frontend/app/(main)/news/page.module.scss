@@ -1,0 +1,40 @@
+.sort {
+    @apply flex mt-48 relative p-[20px] rounded-default border border-trans-gray mb-[10px];
+
+    &Results {
+        @apply mt-[10px] text-[14px] ml-auto text-light;
+    }
+}
+
+.filter {
+    &Group {
+        @apply flex gap-5 justify-start w-auto flex-row items-center mb-0 mr-[60px];
+
+        &:last-child {
+            @apply mb-0 mr-0;
+        }
+    }
+
+    &Label {
+        @apply mt-[10px] text-[14px] leading-[100%] tracking-[0.4px] font-normal mb-[15px] text-light;
+    }
+
+    &Select {
+        &Wrapper {
+            @apply relative w-[210px];
+        }
+        @apply w-full h-[44px] rounded-default border border-trans-gray font-[14px]
+        text-white px-[20px] cursor-pointer tracking-[0.4px];
+
+        background: url('/img/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
+        background-size: 12px auto;
+    }
+}
+
+.select {
+    @apply p-0 m-0 text-black;
+}
+
+.columns {
+    @apply grid grid-cols-3 gap-x-4;
+}

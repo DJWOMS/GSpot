@@ -1,0 +1,93 @@
+.list {
+    @apply relative block p-[15px] rounded-default border border-trans-gray mt-[30px] mb-[40px];
+
+    @media (min-width: 360px) {
+        @apply p-[20px];
+    }
+
+    @media (min-width: 768px) {
+        @apply mb-[60px];
+    }
+
+    @media (min-width: 1200px) {
+        @apply mb-0;
+    }
+
+    &Item {
+        @apply flex flex-row justify-between items-stretch pt-[15px] mt-[15px] border-t border-t-trans-gray
+        relative;
+
+        :first-child {
+            @apply mt-0 pt-0 border-none;
+        }
+
+        @media (min-width: 360px) {
+            @apply pt-[20px] mt-[20px];
+
+            :first-child {
+                @apply mt-0 pt-0;
+            }
+        }
+    }
+
+    &Cover {
+        @apply relative block rounded-default overflow-hidden w-[90px];
+
+        img {
+            @apply w-full relative z-[1] max-h-[150px];
+            transition: 0.5s;
+        }
+
+        :hover img {
+            @apply opacity-60;
+        }
+
+        @media (min-width: 576px) {
+            width: 105px;
+        }
+    }
+
+    &Wrap {
+        @apply flex flex-col justify-start items-start;
+        width: calc(100% - 105px);
+
+        @media (min-width: 576px) {
+            width: calc(100% - 125px);
+        }
+    }
+
+    &Title {
+        @apply w-full mb-[10px] text-white text-[16px] font-normal hover:text-primary;
+        transition: 0.5s;
+
+        a {
+            @apply text-white hover:text-primary;
+        }
+    }
+
+    &Price {
+        @apply mt-auto flex flex-row justify-start items-start flex-wrap w-full;
+
+        span {
+            @apply w-full text-[24px] text-white font-semibold leading-[100%] block;
+        }
+
+        s {
+            @apply text-[13px] mt-[7px] mr-[15px] text-light;
+        }
+
+        b {
+            @apply text-[13px] mt-[7px] mr-[15px] font-semibold;
+            color: #fd6060;
+        }
+    }
+
+    &Buy {
+        @apply flex flex-row justify-center items-center w-[44px] h-[44px] rounded-default bg-acid absolute
+        right-0 bottom-0 hover:bg-primary;
+
+        svg {
+            @apply stroke-white w-[24px] h-auto;
+        }
+    }
+}

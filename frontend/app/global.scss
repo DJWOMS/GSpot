@@ -4,88 +4,37 @@
 
 
 body {
-  @apply container mx-auto px-4;
-
-  font-family: var(--font-opensans);
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  background-color: #1b222e;
+  @apply container mx-auto px-4 bg-background font-sans font-normal antialiased;
 }
 
 button {
-  padding: 0;
-  border: none;
-  background-color: transparent;
+  @apply p-0 border-none bg-transparent cursor-pointer focus:outline-none;
+}
+
+button, a {
   transition: 0.5s ease;
-  cursor: pointer;
-
-  :focus {
-    outline: none;
-  }
 }
 
-a {
-  transition: 0.5s ease;
-
-  :hover,
-  :active,
-  :focus {
-    outline: none;
-    text-decoration: none;
-  }
+a:hover, a:active, a:focus {
+  outline: none;
 }
 
-::-moz-selection {
-  background: #a782e9;
-  color: #fff;
-  text-shadow: none;
+::-moz-selection, ::selection {
+  @apply bg-primary text-white shadow-none;
 }
 
-::selection {
-  background: #a782e9;
-  color: #fff;
-  text-shadow: none;
-}
-
-::-webkit-input-placeholder {
-  color: #dbdada;
-  opacity: 1;
-}
-
-::-moz-placeholder {
-  color: #dbdada;
-  opacity: 1;
-}
-
-:-moz-placeholder {
-  color: #dbdada;
-  opacity: 1;
-}
-
-:-ms-input-placeholder {
-  color: #dbdada;
-  opacity: 1;
-}
-
-:focus {
-  outline: -webkit-focus-ring-color auto 0;
+::-moz-placeholder, ::-webkit-input-placeholder {
+  @apply text-light opacity-100;
 }
 
 body::-webkit-scrollbar {
-  width: 16px;
+  @apply w-4;
 }
 
 body::-webkit-scrollbar-track {
-  background: rgba(167, 130, 233, 0.06);
+  @apply bg-trans-gray;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #a782e9;
-  outline: 1px solid rgba(167, 130, 233, 0.06);
-}
-
-@media (min-width: 1310px) {
-  .container {
-    max-width: 1310px;
-  }
+  @apply bg-primary outline-1 outline-trans-gray;
 }

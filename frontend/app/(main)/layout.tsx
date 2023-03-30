@@ -1,26 +1,29 @@
-import Header from './(components)/header'
-import Footer from './(components)/footer'
+import { FC, ReactNode } from 'react'
+import Footer from 'components/Footer'
+import Header from 'components/Header'
 
 // head
 export const metadata = {
-    title: 'GSpot',
-    description: 'Games market',
+  title: 'GSpot',
+  description: 'Games market',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-    return (
-        <>
-            <Header
-                links={[
-                    { href: '/', title: 'Главная' },
-                    { href: '/catalog', title: 'Каталог' },
-                    { href: '/news', title: 'Новости' },
-                    { href: '/details', title: 'Детали' },
-                ]}
-            />
+const RootLayout: FC<{ children: ReactNode }> = ({ children }) => {
+  return (
+    <>
+      <Header
+        links={[
+          { href: '/', title: 'Главная' },
+          { href: '/catalog', title: 'Каталог' },
+          { href: '/news', title: 'Новости' },
+          { href: '/details', title: 'Детали' },
+        ]}
+      />
 
-            {children}
-            <Footer />
-        </>
-    )
+      {children}
+      <Footer />
+    </>
+  )
 }
+
+export default RootLayout

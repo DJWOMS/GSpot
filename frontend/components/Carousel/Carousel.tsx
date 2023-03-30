@@ -1,76 +1,76 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { useEffect, useState } from 'react'
 import { Autoplay } from 'swiper'
-import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/scss'
-import s from './styles.module.scss'
+import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
+import s from './Carousel.module.scss'
 
 interface CarouselProps {
-    prevRef?: React.RefObject<HTMLElement>
-    nextRef?: React.RefObject<HTMLElement>
-    breakpoints: SwiperOptions['breakpoints']
-    children: Array<React.ReactNode>
+  prevRef?: React.RefObject<HTMLElement>
+  nextRef?: React.RefObject<HTMLElement>
+  breakpoints: SwiperOptions['breakpoints']
+  children: Array<React.ReactNode>
 }
 
 const Carousel = ({ prevRef, nextRef, breakpoints, children }: CarouselProps) => {
-    const [swiper, setSwiper] = useState<SwiperType | null>(null)
+  const [swiper, setSwiper] = useState<SwiperType | null>(null)
 
-    // event: click prevButton
-    useEffect(() => {
-        const prevBtn = prevRef?.current
-        const prevSlide = () => {
-            swiper?.slidePrev()
-        }
+  // event: click prevButton
+  useEffect(() => {
+    const prevBtn = prevRef?.current
+    const prevSlide = () => {
+      swiper?.slidePrev()
+    }
 
-        if (prevBtn) {
-            prevBtn.addEventListener('click', prevSlide)
-        }
+    if (prevBtn) {
+      prevBtn.addEventListener('click', prevSlide)
+    }
 
-        return () => {
-            if (prevBtn) {
-                prevBtn.removeEventListener('click', prevSlide)
-            }
-        }
-    }, [swiper, prevRef])
+    return () => {
+      if (prevBtn) {
+        prevBtn.removeEventListener('click', prevSlide)
+      }
+    }
+  }, [swiper, prevRef])
 
-    // event: click nextButton
-    useEffect(() => {
-        const nextBtn = nextRef?.current
-        const nextSlide = () => swiper?.slideNext()
+  // event: click nextButton
+  useEffect(() => {
+    const nextBtn = nextRef?.current
+    const nextSlide = () => swiper?.slideNext()
 
-        if (nextBtn) {
-            nextBtn.addEventListener('click', nextSlide)
-        }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', nextSlide)
+    }
 
-        return () => {
-            if (nextBtn) {
-                nextBtn.removeEventListener('click', nextSlide)
-            }
-        }
-    }, [swiper, nextRef])
+    return () => {
+      if (nextBtn) {
+        nextBtn.removeEventListener('click', nextSlide)
+      }
+    }
+  }, [swiper, nextRef])
 
-    return (
-        <div className={s.container}>
-            <Swiper
-                onSwiper={(swiper) => setSwiper(swiper)}
-                spaceBetween={30}
-                loop={true}
-                allowTouchMove={false}
-                speed={400}
-                autoplay={{
-                    delay: 14000,
-                    stopOnLastSlide: true,
-                }}
-                breakpoints={breakpoints}
-            >
-                {children.map((child, index) => (
-                    <SwiperSlide key={index}>{child}</SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
-    )
+  return (
+    <div className={s.container}>
+      <Swiper
+        modules={[Autoplay]}
+        onSwiper={(swiper) => setSwiper(swiper)}
+        spaceBetween={30}
+        loop={true}
+        speed={400}
+        autoplay={{
+          delay: 4000,
+          stopOnLastSlide: true,
+        }}
+        breakpoints={breakpoints}
+      >
+        {children.map((child, index) => (
+          <SwiperSlide key={index}>{child}</SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  )
 }
 
 export default Carousel
