@@ -34,7 +34,7 @@ export default function Page() {
                     </li>
                     <li>
                       <span>Языки:</span>
-                      <table className={s.iksweb}>
+                      <table className={s.languagesTable}>
                         <tr>
                           <td></td>
                           <th>Интерфейс</th>

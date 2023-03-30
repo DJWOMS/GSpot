@@ -1,442 +1,220 @@
 .details {
-  position: relative;
-  border: 1px solid rgba(167,130,233,0.06);
-  border-radius: 6px;
-  overflow: hidden;
-  background-color: #1b222e;
-  padding: 20px;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: row;
+  @apply relative rounded-md overflow-hidden bg-background p-5 w-full flex flex-wrap justify-start items-start flex-row border border-solid border-main-60
 }
 .detailsHead {
-  position: relative;
-  width: 100%;
+  @apply relative w-full
 }
 .detailsCover {
-  position: relative;
-  display: block;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-bottom: 15px;
-  width: 100%;
+  @apply relative rounded-md overflow-hidden w-full block mb-[15px]
 }
 .detailsCover img {
-  width: 100%;
-  position: relative;
-  z-index: 1;
-  height: 100%;
+  @apply relative w-full z-[1] h-full
 }
 .detailsTrailer {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  z-index: 2;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: calc(100% - 40px);
-  height: 55px;
-  border-radius: 6px;
-  border: 1px solid rgba(167,130,233,0.4);
-  background-color: rgba(167,130,233,0.15);
-  font-size: 14px;
-  letter-spacing: 0.4px;
-  color: #fff;
-  
+  @apply flex-row rounded-md absolute bottom-5 left-5 flex z-[2] justify-center items-center h-[55px] border border-solid border-main-400 bg-main-150 text-sm tracking-[0.4px] text-white;
+  width: calc(100% - 40px)
 }
 .detailsTrailer svg {
-  stroke: #a782e9;
-  width: 22px;
-  height: auto;
-  margin-right: 15px;
-  position: relative;
-  z-index: 3;
-  transition: 0.5s;
+  @apply relative stroke-[#a782e9] w-[22px] h-auto mr-[15px] z-[3] duration-150
 }
 .detailsTrailer span {
-  z-index: 3;
+  @apply z-[3]
 }
 .detailsTrailer:before {
-  content: '';
-  position: absolute;
-  display: block;
-  z-index: 1;
-  pointer-events: none;
-  top: 5px;
-  left: 5px;
-  bottom: 5px;
-  right: 5px;
-  border-radius: 6px;
-  background-color: #1b222e;
-  opacity: 0.75;
-  transition: 0.5s;
+  @apply block rounded-md absolute z-[1] pointer-events-none top-[5px] left-[5px] bottom-[5px] right-[5px] bg-background opacity-75 duration-150 content-none
 }
 .detailsTrailer:hover {
-  border-color: rgba(167,130,233,0.6);
-  background-color: rgba(167,130,233,0.3);
-  color: #fff;
+  @apply text-white border-main-60 bg-main-300
 }
 .detailsTrailer:hover:before {
-  opacity: 1;
+  @apply opacity-100
 }
 .detailsWrap {
-  position: relative;
-  width: 80%;
+  @apply relative w-4/5
 }
 .detailsTitle {
-  position: relative;
-  width: 100%;
-  margin-bottom: 10px;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 400;
+  @apply relative w-full text-white mb-2.5 text-[18] font-normal
 }
-
-
-.iksweb td,.iksweb th {
-	min-height:35px;
-  padding: 0 10px; 
-	width: 30px;
-	height: 35px; 
-  border-bottom:1px solid rgba(167, 130, 233, 0.06);
-  
-}
-
-
 .detailsCart {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(167,130,233,0.06);
-  height: auto;
-  position: relative;
+  @apply relative h-auto mt-5 pt-5 border-t border-solid border-main-60
 }
 .detailsCartTitle {
-  font-size: 14px;
-  line-height: 100%;
-  letter-spacing: 0.4px;
-  width: 100%;
-  display: block;
-  margin-bottom: 10px;
-  color: #dbdada;
+  @apply text-sm tracking-[0.4px] w-full block mb-2.5 text-light
 }
 .detailsActions {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-top: 20px;
-  width: 100%;
+  @apply flex flex-col justify-start items-start mt-5 w-full
 }
 .detailsBuy {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 44px;
-  border-radius: 6px;
-  background-color: #29b474;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.8px;
+  @apply flex flex-row justify-center items-center w-full h-11 rounded-md bg-acid text-white font-semibold text-sm tracking-[.8px]
 }
 .detailsBuy:hover {
-  background-color: #a782e9;
-  color: #fff;
+  @apply bg-primary text-white
 }
-
 .detailsFavorite {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 44px;
-  background-color: rgba(167,130,233,0.03);
-  border: 1px solid rgba(167,130,233,0.06);
-  border-radius: 6px;
-  font-size: 14px;
-  letter-spacing: 0.4px;
-  color: #fff;
-  margin-top: 20px;
+  @apply flex flex-row justify-center items-center w-full h-11 bg-main-30 border border-solid border-main-60 rounded-md text-sm tracking-[0.4px] text-white mt-5
 }
 .detailsFavorite svg {
-  stroke: #a782e9;
-  width: 22px;
-  height: auto;
-  transition: 0.5s;
-  margin-right: 15px;
+  @apply stroke-[#a782e9] w-[22px] h-auto duration-150 mr-[15px]
 }
 .detailsFavorite:hover {
-  background-color: rgba(167,130,233,0.04);
-  border-color: rgba(167,130,233,0.07);
-  color: #fff;
+  @apply bg-main-40 border-main-70 text-white
 }
 .detailsFavorite:hover svg {
-  stroke: #fd6060;
+  @apply stroke-[#fd6060]
 }
-
 .detailsPlatforms {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 20px;
+  @apply relative flex flex-row justify-start items-center mb-5
 }
 .detailsPlatforms li {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  margin-right: 10px;
+  @apply flex flex-row justify-center items-center w-[26px] h-[26px] rounded-[50%] mr-2.5
 }
 .detailsPlatforms li svg {
-  fill: #fff;
-  width: 26px;
-  height: auto;
+  @apply fill-white w-[26px] h-auto
 }
 .detailsPlatforms li.ps {
-  background-color: #665cbe;
+  @apply bg-platform-ps
 }
 .detailsPlatforms li.xb {
-  background-color: #0e7a0d;
+  @apply bg-platform-xb
 }
 .detailsPlatforms li.wn {
-  background-color: #00aef0;
+  @apply bg-platform-wn
 }
 .detailsPlatforms li.ap {
-  background-color: #555;
+  @apply bg-platform-ap
 }
 .detailsPlatforms li:last-child {
-  margin-right: 0;
+  @apply mr-0
 }
 .detailsList {
-  width: 100%;
+  @apply w-full
 }
 .detailsList li {
-  color: #fff;
-  font-size: 14px;
-  line-height: 26px;
+  @apply text-white text-sm leading-[26px]
 }
 .detailsList li span {
-  color: #dbdada;
-  margin-right: 5px;
+  @apply text-light mr-[5px]
 }
-
 .detailsText {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 170px;
-  margin-top: 20px;
-  padding-right: 20px;
-  order: 4;
+  @apply relative overflow-hidden w-full h-[170px] mt-5 pr-5 order-4
 }
 .detailsText p {
-  color: #fff;
-  font-size: 14px;
-  line-height: 26px;
-  margin-bottom: 20px;
+  @apply leading-[26px] mb-5 text-sm text-white
 }
 .detailsText p:last-child {
-  margin-bottom: 0;
+  @apply mb-0
 }
 .detailsPrice {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  width: 100%;
+  @apply flex flex-row justify-start items-start flex-wrap w-full
 }
 .detailsPrice span {
-  width: 100%;
-  font-size: 26px;
-  color: #fff;
-  font-weight: 600;
-  line-height: 100%;
-  display: block;
+  @apply w-full text-[26px] text-white font-semibold block
 }
 .detailsPrice s {
-  font-size: 14px;
-  color: #dbdada;
-  margin-top: 7px;
-  margin-right: 15px;
+  @apply text-sm text-light mt-[7px] mr-[15px]
 }
 .detailsPrice b {
-  font-size: 14px;
-  color: #fd6060;
-  margin-top: 7px;
-  margin-right: 15px;
-  font-weight: 600;
+  @apply text-sm text-danger mt-[7px] mr-[15px] font-semibold
 }
 .detailsGallery {
-  position: relative;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(167,130,233,0.06);
+  @apply relative mt-5 pt-5 border-t border-solid border-main-60
 }
 .detailsCarousel {
-  display: block;
-  position: relative;
-  width: 100%;
-  padding: 0 40px;
+  @apply block relative w-full px-10
 }
 .detailsCarousel figure {
-  margin: 0;
+  @apply m-0
 }
 .detailsCarousel a {
-  display: block;
-  border-radius: 6px;
-  overflow: hidden;
-  height: auto;
-  width: 120px;
+  @apply block rounded-md overflow-hidden h-auto w-[120px]
 }
 .detailsCarousel a img {
-  width: 100%;
-  height: auto;
-  opacity: 1;
-  transition: opacity 0.5s;
+  @apply w-full h-auto opacity-100 delay-500
 }
 .detailsCarousel a:hover img {
-  opacity: 0.6;
+  @apply opacity-60
 }
 .detailsNav {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  z-index: 2;
-  top: 20px;
-  bottom: 0;
-  width: 20px;
-  background-color: rgba(167,130,233,0.03);
-  border: 1px solid rgba(167,130,233,0.06);
-  border-radius: 6px;
+  @apply flex flex-row justify-center items-center absolute z-[2] top-5 bottom-0 w-5 bg-main-30 border border-solid border-main-60 rounded-md
 }
 .detailsNav svg {
-  stroke: #dbdada;
-  transition: 0.5s;
-  width: 18px;
-  height: auto;
+  @apply stroke-[#dbdada] duration-150 w-[18px] h-auto
 }
-
 .detailsNav:hover {
-  background-color: rgba(167,130,233,0.04);
-  border-color: rgba(167,130,233,0.07);
+  @apply bg-main-40 border-main-70
 }
 .detailsNav:hover svg {
-  stroke: #a782e9;
+  @apply stroke-[#a782e9]
 }
 @media (min-width: 576px) {
   .detailsCarousel a {
-    width: 140px;
+    @apply w-[140px]
   }
   .detailsCover {
-    width: 240px;
+    @apply w-60
   }
   .detailsBuy,
   .detailsFavorite {
-    width: 240px;
+    @apply w-60
   }
 }
 @media (min-width: 768px) {
   .detailsCarousel a {
-    width: 100%;
+    @apply w-full
   }
   .detailsCover {
-    margin-bottom: 0;
+    @apply mb-0
   }
   .detailsHead {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: stretch;
+    @apply flex flex-row justify-between items-stretch
   }
   .detailsWrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    @apply flex flex-col justify-start items-start;
     width: calc(100% - 260px);
   }
   .detailsActions {
-    width: 240px;
+    @apply w-60
   }
   .detailsTitle {
-    font-size: 22px;
+    @apply text-[22px]
   }
 }
 @media (min-width: 992px) {
   .details {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    @apply flex flex-row justify-start items-start flex-wrap
   }
-
   .detailsCart {
-    order: 2;
-    width: 220px;
-    margin-top: 0;
-    padding-top: 0;
-    border-top: none;
-    padding-left: 20px;
-    border-left: 1px solid rgba(167,130,233,0.06);
-    height: 340px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
+    @apply order-2 w-[220px] mt-0 pt-0 border-t-0 pl-5 h-[340px] border-l-[1px] border-main-60 flex flex-col justify-end items-start
   }
   .detailsGallery {
-    order: 3;
-    width: 100%;
+    @apply order-3 w-full
   }
   .detailsActions {
-    width: 100%;
+    @apply w-full
   }
   .detailsPlatforms {
-    margin-bottom: auto;
+    @apply mb-auto
   }
   .detailsBuy,
   .detailsFavorite {
-    width: 100%;
+    @apply w-full
   }
   .detailsContent {
-    order: 5;
-    position: relative;
-    width: 100%;
+    @apply order-5 relative w-full
   }
 }
 @media (min-width: 1200px) {
   .details {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
+    @apply flex flex-row justify-start items-start
   }
- 
   .detailsHead {
     width: calc(100% - 210px);
   }
   .detailsCart {
-    width: 210px;
+    @apply w-[210px]
   }
   .detailsTitle {
-    font-size: 24px;
+    @apply text-xl
   }
 }
 @media (min-width: 1310px) {
@@ -444,18 +222,16 @@
     width: calc(100% - 240px);
   }
   .detailsCart {
-    width: 240px;
+    @apply w-60
   }
- 
 }
-.iksweb {
-	width: 80%;
-	border-collapse:collapse;
-	border-spacing:0;
-	height: auto; 
-  // border: 1px solid rgba(167, 130, 233, 0.06);
-  }
+.languagesTable {
+  @apply w-4/5 border-collapse border-spacing-0 h-auto
+}
+.languagesTable td,
+.languagesTable th {
+  @apply min-h-[35px] px-[10px] w-[30px] h-[35px] border-b-[1px] border-solid border-main-60
+}
 .languages:hover {
-  color: #a782e9;
-   
+  @apply text-primary
 }
