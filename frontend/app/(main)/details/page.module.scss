@@ -212,10 +212,6 @@
   &Carousel {
     @apply relative block w-full px-10;
 
-    figure {
-      @apply m-0;
-    }
-
     a {
       @apply block h-auto w-[120px] overflow-hidden rounded-md;
 
@@ -266,6 +262,13 @@
   @media (min-width: 1200px) {
     @apply flex flex-row items-start justify-start;
   }
+}
+
+.left {
+  @apply left-0;
+}
+.right {
+  @apply right-0;
 }
 
 .languages {

@@ -1,10 +1,12 @@
-import { IconBrandXbox, IconBrandWindows, IconBrandApple, IconHeart, IconPlayerPlay } from '@tabler/icons-react'
+import { IconBrandXbox, IconBrandWindows, IconBrandApple, IconHeart, IconPlayerPlay, IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
+import cn from 'classnames'
+import Carousel from 'components/Carousel'
 import Section from 'components/Section'
 import s from './page.module.scss'
 
 export default function Page() {
   return (
-    <Section first bg>
+    <Section>
       <div className="container">
         <div className="-mx-4 flex flex-wrap">
           <div className="flex-[0_0_100%]">
@@ -34,36 +36,38 @@ export default function Page() {
                     <li>
                       <span>Языки:</span>
                       <table className={s.languagesTable}>
-                        <tr>
-                          <td></td>
-                          <th>Интерфейс</th>
-                          <th>Озвучка</th>
-                          <th>Субтитры</th>
-                        </tr>
-                        <tr>
-                          <th>русский</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th>английский </th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th>aрмянский </th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <th>aбхазский</th>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </tr>
+                        <tbody>
+                          <tr>
+                            <td></td>
+                            <th>Интерфейс</th>
+                            <th>Озвучка</th>
+                            <th>Субтитры</th>
+                          </tr>
+                          <tr>
+                            <th>русский</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th>английский </th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th>aрмянский </th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th>aбхазский</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
                       </table>
                       <a className={s.languages} href="">
                         Посмотреть все поддерживаемые языки
@@ -73,24 +77,39 @@ export default function Page() {
                   </ul>
                 </div>
               </div>
+
               <div className={s.detailsGallery}>
-                <div className={s.detailsCarousel} id="detailsCarousel">
-                  <a href="img/details/1-1.jpg"></a>
-                  <img src="https://picsum.photos/1020" alt="" />
-                  <a href="img/details/2-2.jpg"></a>
-                  <img src="https://picsum.photos/1022" alt="" />
-                  <a href="img/details/3-3.jpg"></a>
-                  <img src="https://picsum.photos/1023" alt="" />
-                  <a href="img/details/4-4.jpg"></a>
-                  <img src="https://picsum.photos/1024" alt="" />
-                  <a href="img/details/5-5.jpg"></a>
-                  <img src="https://picsum.photos/1025" alt="" />
-                  <a href="img/details/6-6.jpg"></a>
+                <div className={s.detailsCarousel}>
+                  <Carousel
+                    breakpoints={{
+                      0: {
+                        slidesPerView: 2,
+                      },
+                      576: {
+                        slidesPerView: 2,
+                      },
+                      768: {
+                        slidesPerView: 3,
+                      },
+                      1200: {
+                        slidesPerView: 5,
+                      },
+                    }}
+                  >
+                    {[...new Array(10)].map((_, index) => (
+                      <img key={index} src="https://picsum.photos/1020" alt="" />
+                    ))}
+                  </Carousel>
                 </div>
 
-                <button className="detailsNav detailsNav_prev" data-nav="#detailsCarousel" type="button"></button>
-                <button className="detailsNav detailsNav--next" data-nav="#detailsCarousel" type="button"></button>
+                <button className={cn(s.detailsNav, s.left)} type="button">
+                  <IconArrowLeft />
+                </button>
+                <button className={cn(s.detailsNav, s.right)} type="button">
+                  <IconArrowRight />
+                </button>
               </div>
+
               <div className={s.detailsText}>
                 <p>
                   There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected
