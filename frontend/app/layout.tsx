@@ -1,5 +1,5 @@
-import localFont from 'next/font/local'
 import cn from 'classnames'
+import localFont from 'next/font/local'
 import './global.scss'
 
 // head
@@ -12,10 +12,12 @@ export const metadata = {
 const montserrat = localFont({
   src: '../assets/fonts/Montserrat.ttf',
   variable: '--font-montserrat',
+  preload: true,
 })
 const openSans = localFont({
   src: '../assets/fonts/OpenSans.ttf',
   variable: '--font-opensans',
+  preload: true,
 })
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

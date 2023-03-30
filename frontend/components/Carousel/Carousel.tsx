@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { useEffect, useState } from 'react'
 import { Autoplay } from 'swiper'
-import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/scss'
+import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
 import s from './Carousel.module.scss'
 
 interface CarouselProps {
@@ -54,18 +54,20 @@ const Carousel = ({ prevRef, nextRef, breakpoints, children }: CarouselProps) =>
   return (
     <div className={s.container}>
       <Swiper
+        modules={[Autoplay]}
         onSwiper={(swiper) => setSwiper(swiper)}
         spaceBetween={30}
         loop={true}
-        allowTouchMove={false}
         speed={400}
         autoplay={{
-          delay: 14000,
+          delay: 4000,
           stopOnLastSlide: true,
         }}
         breakpoints={breakpoints}
       >
-        {children && children.map((child, index) => <SwiperSlide key={index}>{child}</SwiperSlide>)}
+        {children.map((child, index) => (
+          <SwiperSlide key={index}>{child}</SwiperSlide>
+        ))}
       </Swiper>
     </div>
   )

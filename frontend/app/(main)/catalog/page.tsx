@@ -1,70 +1,43 @@
-import Breadcrumbs from 'components/Breadcrumbs'
-import Section from 'components/Section'
 import Pagination from 'components/Pagination'
+import Section from 'components/Section'
 import { GameCard, FilterGames } from 'features/games'
 import { GameCardInterface } from 'features/games'
+import { fetchServerSide } from 'lib/fetchServerSide'
 
-async function getData(): Promise<GameCardInterface[]> {
-  try {
-    const res = await fetch('http://localhost:3100/api/catalog-page')
-    if (!res.ok) {
-      return []
-    }
-    return res.json()
-  } catch (e) {
-    return []
-  }
-}
 const CatalogPage = async () => {
-  const data = await getData()
+  const data = await fetchServerSide<GameCardInterface[]>({
+    path: '/games/list',
+  })
+
   return (
     <>
       <Section
-        first
-        last
-        items={[
-          {
-            title: {
-              children: (
-                <>
-                  Каталог <span>(35430 игр)</span>
-                </>
-              ),
-            },
-          },
-        ]}
+        title={
+          <>
+            Каталог <span>(35430 игр)</span>
+          </>
+        }
       />
-      <Section
-        last
-        items={[
-          {
-            navigation: [
-              {
-                children: <Breadcrumbs items={[{ name: 'Каталог' }]} />,
-              },
-            ],
-            children: (
-              <section className="section section--last section--catalog">
-                <div className={'flex'}>
-                  <FilterGames />
 
-                  <div className="w-full">
-                    <div className="grid gap-x-4 grid-cols-4 grid-flow-row">
-                      {data.map(({ title, coverImg, price, link }, id) => (
-                        <div className="w-full" key={id}>
-                          <GameCard title={title} coverImg={coverImg} link={link} badge="New" price={price} sale={15} />
-                        </div>
-                      ))}
-                    </div>
+      <Section last>
+        <section className="section section--last section--catalog">
+          <div className={'flex'}>
+            <FilterGames />
 
-                    <Pagination />
+            <div className="w-full">
+              <div className="grid gap-x-4 grid-cols-4 grid-flow-row">
+                {data?.map(({ title, coverImg, price, link }, id) => (
+                  <div className="w-full" key={id}>
+                    <GameCard title={title} coverImg={coverImg} link={link} badge="New" price={price} sale={15} />
                   </div>
-                </div>
-              </section>
-            ),
-          },
-        ]}
-      />
+                ))}
+              </div>
+
+              <Pagination />
+            </div>
+          </div>
+        </section>
+      </Section>
     </>
   )
 }

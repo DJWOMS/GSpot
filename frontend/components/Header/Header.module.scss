@@ -234,7 +234,7 @@
 }
 
 .loginBtn {
-    @apply flex justify-center items-center text-center bg-light;
+    @apply flex justify-center items-center text-center bg-dark;
 
     width: 44px;
     height: 44px;
@@ -288,8 +288,8 @@
     }
 }
 
-.form {
-    @apply bg-light;
+.container {
+    @apply bg-dark;
 
     display: flex;
     flex-direction: row;

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import Image from 'next/image'
 import { IconClockHour4, IconMessages, IconPlayerPlay } from '@tabler/icons-react'
+import Image from 'next/image'
 import s from './NewsItem.module.scss'
 
 interface Props {

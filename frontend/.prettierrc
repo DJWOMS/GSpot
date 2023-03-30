@@ -4,7 +4,7 @@
     "tabWidth": 2,
     "singleQuote": true,
     "trailingComma": "es5",
-    "jsxBracketSameLine": false,
     "parser": "typescript",
-    "semi": false
+    "semi": false,
+    "importOrder": ["^react(.*)", "<THIRD_PARTY_MODULES>", "@/(.*)", "^[./]"]
 }

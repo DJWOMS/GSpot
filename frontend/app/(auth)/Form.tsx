@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import LogoPNG from 'assets/img/logo.png'
-import s from './Form.module.scss'
 import { FC } from 'react'
+import LogoPNG from 'assets/img/logo.png'
+import Image from 'next/image'
+import Link from 'next/link'
+import s from './Form.module.scss'
 
 interface FormProps {
   onSubmit: (data: object) => void
