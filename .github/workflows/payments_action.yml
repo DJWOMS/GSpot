@@ -17,4 +17,4 @@ jobs:
         cd backend/payments && python -m flake8 --ignore=E501
     - name: Build and run containers
       run: |
-        cd backend/payments && docker-compose up -d --build
+        cd backend/payments && docker-compose up -d --build --env-file ./.env.example
