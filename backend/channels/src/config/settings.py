@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     RABBITMQ_TEST_QUEUE: str
 
     class Config:
-        env_file = './.env'
+        env_file = './.env.dev'
 
 
 settings = Settings()

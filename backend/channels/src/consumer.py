@@ -1,30 +1,26 @@
 import asyncio
 import json
 import aio_pika
-from .settings import settings
-from typing import Literal
-from pydantic import BaseModel
+from config import RABBIT_URL, settings
 
-RABBIT_URL = f'amqp://{settings.RABBITMQ_DEFAULT_USER}:{settings.RABBITMQ_DEFAULT_PASS}' \
-             f'@{settings.RABBITMQ_LOCAL_HOST_NAME}:{settings.RABBITMQ_LOCAL_PORT}/'
-
-
-class AioMessage(BaseModel):
-    type: Literal['email', 'notification']
+from pika import schemas as pika_schemas
 
 
 async def process_message(
         message: aio_pika.abc.AbstractIncomingMessage,
 ) -> None:
     async with message.process():
-        body = json.loads(message.body)
-        message = AioMessage.parse_obj(body)
+        body = json.loads(message.body.decode())
+        message = pika_schemas.AioMessage.parse_obj(body)
         if message.type == 'email':
             # Email task here
             return
-        else:
+        elif message.type == 'notification':
             # Save notifications task here
             return
+        else:
+            # Print test message
+            print(body)
 
 
 async def main() -> None:
@@ -34,15 +30,13 @@ async def main() -> None:
 
     async with connection:
         channel = await connection.channel()
-
-        await channel.set_qos(prefetch_count=10)
-
+        await channel.set_qos(prefetch_count=10)  # Max number of parallel tasks
         queue = await channel.declare_queue(queue_name, auto_delete=True)
 
-        await queue.consume(process_message)
+        await queue.consume(process_message)  # Callback for perform message if received
 
         try:
-            await asyncio.Future()
+            await asyncio.Future()  # Wait until terminate worker
         finally:
             await connection.close()
 
