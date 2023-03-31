@@ -1,10 +1,16 @@
 import { IconArrowsUpDown } from '@tabler/icons-react'
 import Pagination from 'components/Pagination'
-import ProfileItem from 'features/profile/components/Purchases/Purchase'
+import { GameCardInterface } from 'features/games'
+import { Purchase } from 'features/profile'
+import { fetchServerSide } from 'lib/fetchServerSide'
 import Link from 'next/link'
 import s from './page.module.scss'
 
-const PurchasesItem = () => {
+const PurchasesItem = async () => {
+  const purhases = await fetchServerSide<GameCardInterface[]>({
+    path: '/profile',
+  })
+
   return (
     <div className={s.wrapper}>
       <div className={s.tableResponsive}>
@@ -51,14 +57,7 @@ const PurchasesItem = () => {
               <th></th>
             </tr>
           </thead>
-          <tbody>
-            {[1, 1, 1].map((purchase, id) => (
-              <ProfileItem
-                key={id}
-                //  {...purchase}
-              />
-            ))}
-          </tbody>
+          <tbody>{purhases && purhases.map((purchase) => <Purchase key={purchase.title} {...purchase} />)}</tbody>
         </table>
       </div>
       <Pagination />

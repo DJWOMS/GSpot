@@ -8,21 +8,7 @@ const Profile: FC<any> = ({ children }) => {
   return (
     <div>
       <section className={s.section}>
-        <div className="container">
-          <div className={s.sectionWrap}>
-            <h2 className={s.sectionTitle}>Профиль</h2>
-            <ul className={s.breadcrumb}>
-              <li className={s.breadcrumbItem}>
-                <IconHome2 color="#a782e9" />
-                <Link href="#">Домой</Link>
-              </li>
-              <li className={cn(s.breadcrumbItem, s.breadcrumbItemActive)}>
-                <IconArrowNarrowRight color="#a782e9" />
-                Профиль
-              </li>
-            </ul>
-          </div>
-        </div>
+        <h2 className={s.sectionTitle}>Профиль</h2>
       </section>
       <section className={s.section}>
         <div className="container">
