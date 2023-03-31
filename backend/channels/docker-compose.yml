@@ -47,6 +47,7 @@ services:
     restart: always
     volumes:
       - ./pika:/app
+      - ./src/config/settings.py:/app/settings.py
     env_file:
       - .env.dev
     depends_on:

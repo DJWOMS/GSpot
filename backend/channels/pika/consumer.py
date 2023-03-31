@@ -1,13 +1,36 @@
 import asyncio
+import json
 import aio_pika
+from .settings import settings
+from typing import Literal
+from pydantic import BaseModel
 
-RABBIT_URL = f'amqp://user:password@rabbitmq:5672/'
+RABBIT_URL = f'amqp://{settings.RABBITMQ_DEFAULT_USER}:{settings.RABBITMQ_DEFAULT_PASS}' \
+             f'@{settings.RABBITMQ_LOCAL_HOST_NAME}:{settings.RABBITMQ_LOCAL_PORT}/'
+
+
+class AioMessage(BaseModel):
+    type: Literal['email', 'notification']
+
+
+async def process_message(
+        message: aio_pika.abc.AbstractIncomingMessage,
+) -> None:
+    async with message.process():
+        body = json.loads(message.body)
+        message = AioMessage.parse_obj(body)
+        if message.type == 'email':
+            # Email task here
+            return
+        else:
+            # Save notifications task here
+            return
 
 
 async def main() -> None:
     connection = await aio_pika.connect_robust(RABBIT_URL)
 
-    queue_name = 'test_queue'
+    queue_name = settings.RABBITMQ_TEST_QUEUE
 
     async with connection:
         channel = await connection.channel()
@@ -16,13 +39,12 @@ async def main() -> None:
 
         queue = await channel.declare_queue(queue_name, auto_delete=True)
 
-        async with queue.iterator() as queue_iter:
-            async for message in queue_iter:
-                async with message.process():
-                    print(message.body)
+        await queue.consume(process_message)
 
-                    if queue.name in message.body.decode():
-                        break
+        try:
+            await asyncio.Future()
+        finally:
+            await connection.close()
 
 
 if __name__ == "__main__":
