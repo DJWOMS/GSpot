@@ -1,6 +1,6 @@
-from pathlib import Path
 import os
-import environ
+from pathlib import Path
+
 from environs import Env
 
 env = Env()
@@ -63,14 +63,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": os.environ.get("POSTGRES_HOST"),
-        "PORT": os.environ.get("POSTGRES_PORT"),
-        "USER": os.environ.get("POSTGRES_USER"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-        "NAME": os.environ.get("POSTGRES_DB"),
-    }
-    
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': os.environ.get('POSTGRES_PORT'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'NAME': os.environ.get('POSTGRES_DB'),
+    },
 }
 
 
@@ -133,11 +132,12 @@ MAX_BALANCE_DIGITS = 11
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 
-CACHES = {    'default': {
+CACHES = {
+    'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
         'LOCATION': 'redis://redis:6379/',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
+        },
+    },
 }
