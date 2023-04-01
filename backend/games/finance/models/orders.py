@@ -56,17 +56,8 @@ class OrderOffer(models.Model):
     price_amount = AmountField("Price Amount")
     sale_discount = models.PositiveSmallIntegerField("Total Discount (%)")
     products = models.ManyToManyField(
-        OrderOfferProduct, through="OrderOfferProducts", related_name="offers"
+        OrderOfferProduct, related_name="offers"
     )
 
     class Meta:
         db_table = "order_offer"
-
-
-class OrderOfferProducts(models.Model):
-    offer = models.ForeignKey(OrderOffer, on_delete=models.CASCADE)
-    product = models.ForeignKey(OrderOfferProduct, on_delete=models.PROTECT)
-
-    class Meta:
-        db_table = "order_offer_products"
-        unique_together = ("offer", "product")
