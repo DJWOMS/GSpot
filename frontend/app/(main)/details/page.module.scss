@@ -8,7 +8,7 @@
       @apply flex flex-row items-stretch justify-between;
     }
 
-    @media (min-width: 1200px) {
+    @media (min-width: 1026px) {
       width: calc(100% - 210px);
     }
 
@@ -48,9 +48,11 @@
     :before {
       @apply pointer-events-none absolute top-[5px] left-[5px] bottom-[5px] right-[5px] z-[1] block rounded-md bg-background opacity-75 duration-150 content-none;
     }
+
     :hover {
       @apply border-main-60 bg-main-300 text-white;
     }
+
     :hover:before {
       @apply opacity-100;
     }
@@ -88,7 +90,7 @@
       @apply order-2 mt-0 flex h-[340px] w-[220px] flex-col items-start justify-end border-t-0 border-l-[1px] border-main-60 pt-0 pl-5;
     }
 
-    @media (min-width: 1200px) {
+    @media (min-width: 993px) {
       @apply w-[210px];
     }
 
@@ -162,7 +164,7 @@
   }
 
   &List {
-    @apply w-full;
+    @apply w-3/5;
 
     li {
       @apply text-sm leading-[26px] text-white;
@@ -174,7 +176,7 @@
   }
 
   &Text {
-    @apply relative order-4 mt-5 h-[170px] w-full overflow-hidden pr-5;
+    @apply relative order-4 mt-5 max-h-max w-full overflow-hidden border border-solid border-main-60 p-4;
 
     p {
       @apply mb-5 text-sm leading-[26px] text-white;
@@ -267,6 +269,7 @@
 .left {
   @apply left-0;
 }
+
 .right {
   @apply right-0;
 }
@@ -277,11 +280,65 @@
   }
 
   &Table {
-    @apply h-auto w-4/5 border-collapse border-spacing-0;
+    @apply h-auto w-full border-collapse border-spacing-0;
 
     td,
     th {
       @apply h-[35px] min-h-[35px] w-[30px] border-b-[1px] border-solid border-main-60 px-[10px];
+      @media (max-width: 480px) {
+        @apply h-[4vh] pl-0  text-[3.1vw];
+      }
+      @media (max-width: 768px) {
+        @apply text-[2.2vw];
+      }
+    }
+  }
+}
+
+.requirements {
+  @apply relative mt-5 w-full   rounded-md border border-solid border-main-60 p-5;
+
+  button {
+    @apply mr-7 mb-4 border-none text-white outline-none;
+    :hover {
+      @apply text-primary;
+    }
+  }
+  &Windows {
+    :active {
+      color: aqua;
+    }
+  }
+  &Linux {
+    @apply hidden;
+  }
+  &Apple {
+    @apply hidden;
+  }
+
+  &Title {
+    @apply block text-sm font-semibold leading-6 text-white;
+  }
+
+  &List {
+    @apply mb-5 w-full;
+
+    li {
+      @apply text-sm leading-6 text-white;
+
+      span {
+        @apply mr-1 text-light;
+      }
+    }
+
+    :last-child {
+      @apply mb-0;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .requirements {
+      @apply mt-16;
     }
   }
 }
