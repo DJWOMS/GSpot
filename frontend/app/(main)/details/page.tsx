@@ -2,10 +2,19 @@ import { IconHeart, IconPlayerPlay, IconArrowLeft, IconArrowRight } from '@table
 import cn from 'classnames'
 import Carousel from 'components/Carousel'
 import Section from 'components/Section'
-import { Languages, Platform, Requirements } from 'features/games'
+import { GameDetailsInterface, Languages, Platform, Requirements } from 'features/games'
+import { fetchServerSide } from 'lib/fetchServerSide'
+import { notFound } from 'next/navigation'
 import s from './page.module.scss'
 
-export default function Page() {
+const Page = async () => {
+  const details = await fetchServerSide<GameDetailsInterface>({
+    path: '/games/details',
+    cache: 'no-cache',
+  })
+  if (!details) {
+    notFound()
+  }
   return (
     <Section>
       <div className="container">
@@ -22,7 +31,7 @@ export default function Page() {
                 </div>
 
                 <div className={s.detailsWrap}>
-                  <h3 className={s.detailsTitle}>BioShock Infinite Complete Edition</h3>
+                  <h3 className={s.detailsTitle}>{details.title}</h3>
 
                   <ul className={s.detailsList}>
                     <li>
@@ -124,3 +133,4 @@ export default function Page() {
     </Section>
   )
 }
+export default Page

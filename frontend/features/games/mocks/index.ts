@@ -15,4 +15,8 @@ const generateMockGameCard = (props = {}): GameCardInterface => ({
   ...generateMockGameCardSimple(props),
 })
 
-export { generateMockGameCard, generateMockGameCardSimple }
+const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
+  ...generateMockGameCard(props),
+})
+
+export { generateMockGameCard, generateMockGameCardSimple, generateMockGameDetails }

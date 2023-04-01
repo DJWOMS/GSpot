@@ -11,6 +11,7 @@ export interface GameCardInterface extends GameCardSimpleInterface {
   platform?: Array<PlatformType>
   currency?: 'RUB' | 'USD' | 'EUR'
 }
+export type GameDetailsInterface = GameCardInterface
 
 export interface PlatformType {
   type: 'ps' | 'xbox' | 'win' | 'ap'
