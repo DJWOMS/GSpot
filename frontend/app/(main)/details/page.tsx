@@ -2,7 +2,7 @@ import { IconHeart, IconPlayerPlay, IconArrowLeft, IconArrowRight } from '@table
 import cn from 'classnames'
 import Carousel from 'components/Carousel'
 import Section from 'components/Section'
-import { Platform } from 'features/games'
+import { Languages, Platform, Requirements } from 'features/games'
 import s from './page.module.scss'
 
 export default function Page() {
@@ -36,44 +36,7 @@ export default function Page() {
                     </li>
                     <li>
                       <span>Языки:</span>
-                      <table className={s.languagesTable}>
-                        <tbody>
-                          <tr>
-                            <td></td>
-                            <th>Интерфейс</th>
-                            <th>Озвучка</th>
-                            <th>Субтитры</th>
-                          </tr>
-                          <tr>
-                            <th>русский</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <th>английский </th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <th>aрмянский </th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <th>aбхазский</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <a className={s.languages} href="">
-                        Посмотреть все поддерживаемые языки
-                        <span>(24)</span>
-                      </a>
+                      <Languages />
                     </li>
                   </ul>
                 </div>
@@ -152,173 +115,7 @@ export default function Page() {
               </div>
 
               <div className={s.detailsContent}>
-                <div className="row-auto">
-                  <div className="max-w-full flex-[0_0_100%]">
-                    <div className={s.requirements}>
-                      <button>Windows</button>
-                      <button>Linux</button>
-                      <button>Apple</button>
-                      <div className={s.requirementsWindows}>
-                        <span className={s.requirementsTitle}>Minimum requirements:</span>
-                        <ul className={s.requirementsList}>
-                          <li>
-                            <span>OS:</span> Windows 7,Windows 8.1,Windows 10
-                          </li>
-                          <li>
-                            <span>Processor:</span> Intel Core i5-2400s @ 2.5 GHz or AMD FX-6350 @ 3.9 GHz
-                          </li>
-                          <li>
-                            <span>Memory:</span> 6 GB RAM
-                          </li>
-                          <li>
-                            <span>Graphics:</span> NVIDIA GeForce GTX 660 or AMD R9 270 (2048 MB VRAM with Shader Model 5.0)
-                          </li>
-                          <li>
-                            <span>Disk Space:</span> 42 GB available space
-                          </li>
-                          <li>Architecture: Requires a 64-bit processor and OS</li>
-                          <li>
-                            <span>API:</span> DirectX 11
-                          </li>
-                          <li>
-                            <span>Miscellaneous:</span> Video Preset: Lowest (720p)
-                          </li>
-                        </ul>
-                        <span className={s.requirementsTitle}>Recommended requirements:</span>
-                        <ul className={s.requirementsList}>
-                          <li>
-                            <span>OS:</span> Windows 7,Windows 8.1,Windows 10
-                          </li>
-                          <li>
-                            <span>Processor:</span> Intel Core i5-2400s @ 2.5 GHz or AMD FX-6350 @ 3.9 GHz
-                          </li>
-                          <li>
-                            <span>Memory:</span> 6 GB RAM
-                          </li>
-                          <li>
-                            <span>Graphics:</span> NVIDIA GeForce GTX 660 or AMD R9 270 (2048 MB VRAM with Shader Model 5.0)
-                          </li>
-                          <li>
-                            <span>Disk Space:</span> 42 GB available space
-                          </li>
-                          <li>Architecture: Requires a 64-bit processor and OS</li>
-                          <li>
-                            <span>API:</span> DirectX 11
-                          </li>
-                          <li>
-                            <span>Miscellaneous:</span> Video Preset: Lowest (720p)
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className={s.requirementsLinux}>
-                        <span className={s.requirementsTitle}>Minimum requirements:</span>
-                        <ul className={s.requirementsList}>
-                          <li>
-                            <span>OS:</span> Ubuntu Unity , Ubuntu Budgie , Nitrux
-                          </li>
-                          <li>
-                            <span>Processor:</span> Intel Core i5-2400s @ 2.5 GHz or AMD FX-6350 @ 3.9 GHz
-                          </li>
-                          <li>
-                            <span>Memory:</span> 6 GB RAM
-                          </li>
-                          <li>
-                            <span>Graphics:</span> NVIDIA GeForce GTX 660 or AMD R9 270 (2048 MB VRAM with Shader Model 5.0)
-                          </li>
-                          <li>
-                            <span>Disk Space:</span> 42 GB available space
-                          </li>
-                          <li>Architecture: Requires a 64-bit processor and OS</li>
-                          <li>
-                            <span>API:</span> DirectX 11
-                          </li>
-                          <li>
-                            <span>Miscellaneous:</span> Video Preset: Lowest (720p)
-                          </li>
-                        </ul>
-                        <span className={s.requirementsTitle}>Recommended requirements:</span>
-                        <ul className={s.requirementsList}>
-                          <li>
-                            <span>OS:</span> Ubuntu Unity , Ubuntu Budgie , Nitrux
-                          </li>
-                          <li>
-                            <span>Processor:</span> Intel Core i5-2400s @ 2.5 GHz or AMD FX-6350 @ 3.9 GHz
-                          </li>
-                          <li>
-                            <span>Memory:</span> 6 GB RAM
-                          </li>
-                          <li>
-                            <span>Graphics:</span> NVIDIA GeForce GTX 660 or AMD R9 270 (2048 MB VRAM with Shader Model 5.0)
-                          </li>
-                          <li>
-                            <span>Disk Space:</span> 42 GB available space
-                          </li>
-                          <li>Architecture: Requires a 64-bit processor and OS</li>
-                          <li>
-                            <span>API:</span> DirectX 11
-                          </li>
-                          <li>
-                            <span>Miscellaneous:</span> Video Preset: Lowest (720p)
-                          </li>
-                        </ul>
-                      </div>
-
-                      <div className={s.requirementsApple}>
-                        <span className={s.requirementsTitle}>Minimum requirements:</span>
-                        <ul className={s.requirementsList}>
-                          <li>
-                            <span>OS:</span> macOS: 10.6.8 - 13.2.1
-                          </li>
-                          <li>
-                            <span>Processor:</span> Intel Core i5-2400s @ 2.5 GHz or AMD FX-6350 @ 3.9 GHz
-                          </li>
-                          <li>
-                            <span>Memory:</span> 6 GB RAM
-                          </li>
-                          <li>
-                            <span>Graphics:</span> NVIDIA GeForce GTX 660 or AMD R9 270 (2048 MB VRAM with Shader Model 5.0)
-                          </li>
-                          <li>
-                            <span>Disk Space:</span> 42 GB available space
-                          </li>
-                          <li>Architecture: Requires a 64-bit processor and OS</li>
-                          <li>
-                            <span>API:</span> DirectX 11
-                          </li>
-                          <li>
-                            <span>Miscellaneous:</span> Video Preset: Lowest (720p)
-                          </li>
-                        </ul>
-                        <span className={s.requirementsTitle}>Recommended requirements:</span>
-                        <ul className={s.requirementsList}>
-                          <li>
-                            <span>OS:</span> Windows 7,Windows 8.1,Windows 10
-                          </li>
-                          <li>
-                            <span>Processor:</span> Intel Core i5-2400s @ 2.5 GHz or AMD FX-6350 @ 3.9 GHz
-                          </li>
-                          <li>
-                            <span>Memory:</span> 6 GB RAM
-                          </li>
-                          <li>
-                            <span>Graphics:</span> NVIDIA GeForce GTX 660 or AMD R9 270 (2048 MB VRAM with Shader Model 5.0)
-                          </li>
-                          <li>
-                            <span>Disk Space:</span> 42 GB available space
-                          </li>
-                          <li>Architecture: Requires a 64-bit processor and OS</li>
-                          <li>
-                            <span>API:</span> DirectX 11
-                          </li>
-                          <li>
-                            <span>Miscellaneous:</span> Video Preset: Lowest (720p)
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Requirements />
               </div>
             </div>
           </div>

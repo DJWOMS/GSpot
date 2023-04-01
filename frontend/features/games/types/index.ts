@@ -15,3 +15,12 @@ export interface GameCardInterface extends GameCardSimpleInterface {
 export interface PlatformType {
   type: 'ps' | 'xbox' | 'win' | 'ap'
 }
+
+export interface RequirementListType {
+  [key: string]: string
+}
+
+export interface RequirementType {
+  title: string
+  list: RequirementListType
+}
