@@ -12,9 +12,11 @@ const Page = async () => {
     path: '/games/details',
     cache: 'no-cache',
   })
+
   if (!details) {
     notFound()
   }
+
   return (
     <Section>
       <div className="container">
@@ -45,7 +47,7 @@ const Page = async () => {
                     </li>
                     <li>
                       <span>Языки:</span>
-                      <Languages />
+                      <Languages>{details.languages}</Languages>
                     </li>
                   </ul>
                 </div>
@@ -84,17 +86,9 @@ const Page = async () => {
               </div>
 
               <div className={s.detailsText}>
-                <p>
-                  There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected
-                  humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to
-                  be sure there isnt anything embarrassing hidden in the middle of text.
-                </p>
-                <p>
-                  All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator
-                  on the Internet. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first
-                  true generator on the Internet. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making
-                  this the first true generator on the Internet.
-                </p>
+                {details.description.split('\n').map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
               </div>
 
               <div className={s.detailsCart}>
@@ -124,7 +118,7 @@ const Page = async () => {
               </div>
 
               <div className={s.detailsContent}>
-                <Requirements />
+                <Requirements>{details.requirements}</Requirements>
               </div>
             </div>
           </div>

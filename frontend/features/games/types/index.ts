@@ -11,17 +11,29 @@ export interface GameCardInterface extends GameCardSimpleInterface {
   platform?: Array<PlatformType>
   currency?: 'RUB' | 'USD' | 'EUR'
 }
-export type GameDetailsInterface = GameCardInterface
+
+export interface GameDetailsInterface extends GameCardInterface {
+  description: string
+  languages: LanguageInterface[]
+  requirements: RequirementInterface[]
+}
+
+export interface LanguageInterface {
+  languageName: string
+  interfaces: boolean
+  subtitles: boolean
+  voice: boolean
+}
+
+export interface RequirementInterface {
+  operatingSystem: string
+  deviceProcessor: string
+  deviceMemory: string
+  deviceStorage: string
+  deviceGraphics: string
+  typeRequirements: string
+}
 
 export interface PlatformType {
   type: 'ps' | 'xbox' | 'win' | 'ap'
-}
-
-export interface RequirementListType {
-  [key: string]: string
-}
-
-export interface RequirementType {
-  title: string
-  list: RequirementListType
 }

@@ -1,47 +1,34 @@
-import s from './Languages.module.scss'
+import { FC } from 'react'
+import { LanguageInterface } from 'features/games'
+import { Language } from './Language'
 
-const Languages = () => {
+type LanguagesProps = {
+  children: LanguageInterface[]
+}
+
+const Languages: FC<LanguagesProps> = ({ children }) => {
   return (
-    <>
-      <table className={s.languagesTable}>
-        <tbody>
-          <tr>
-            <td></td>
-            <th>Интерфейс</th>
-            <th>Озвучка</th>
-            <th>Субтитры</th>
-          </tr>
-          <tr>
-            <th>русский</th>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th>английский </th>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th>aрмянский </th>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th>aбхазский</th>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-      <a className={s.languages} href="">
-        Посмотреть все поддерживаемые языки
-        <span>(24)</span>
-      </a>
-    </>
+    <table className="text-center text-sm">
+      <thead className="text-xs uppercase">
+        <tr>
+          <th scope="col">Язык</th>
+          <th scope="col" className="px-6 py-3">
+            Интерфейс
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Озвучка
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Субтитры
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {children.map((language) => (
+          <Language key={language.languageName} {...language} />
+        ))}
+      </tbody>
+    </table>
   )
 }
 
