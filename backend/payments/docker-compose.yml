@@ -2,7 +2,9 @@ version: '3.7'
 
 services:
   payments:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfiles/payments.Dockerfile
     restart: always
     env_file:
       - ./.env
@@ -12,12 +14,13 @@ services:
         source: ./
         target: /home/app/web
     ports:
-      - 8000:8000
+      - "8000:8000"
+      - "8080:8080"
     depends_on:
-      - transactions
+      - payments_db
       - redis
 
-  transactions:
+  payments_db:
     image: postgres:15.2
     restart: always
     volumes:
@@ -43,15 +46,36 @@ services:
   worker:
     build:
       context: .
+      dockerfile: Dockerfiles/payments.Dockerfile
     hostname: worker
-    entrypoint: celery
-    command: -A celery_app.app worker --loglevel=info
+    entrypoint: celery -A celery_app.app worker --loglevel=info
+    env_file:
+      - ./.env
     volumes:
-      - ./backend:/payments
+      - ./:/home/app/web
     links:
       - redis
     depends_on:
       - redis
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfiles/ngnix.Dockerfile
+    volumes:
+      - ./static/:/static/
+    ports:
+      - "1337:80"
+    depends_on:
+      - payments
+
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfiles/node.Dockerfile
+    restart: always
+    links:
+      - payments
 
 volumes:
   postgres_data:

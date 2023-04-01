@@ -16,5 +16,4 @@ app.autodiscover_tasks()
 # CHEK
 @app.task()
 def debug_task():
-    time.sleep(10)
     print('HELLO CELERY!!!')

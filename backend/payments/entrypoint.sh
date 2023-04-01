@@ -50,7 +50,6 @@ done
 python manage.py collectstatic --noinput  
 python manage.py makemigrations  --noinput 
 python manage.py migrate
-python manage.py runserver 0.0.0.0:8000 &
-lt --subdomain "${SUBDOMAIN}" --port 8000
+gunicorn config.wsgi:application --bind :8000 --bind :8080 -k gevent --workers=2
 
 exec "$@"
