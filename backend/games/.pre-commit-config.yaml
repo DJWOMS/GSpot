@@ -3,4 +3,4 @@ repos:
     rev: v2.4.0
     hooks:
     -   id: flake8
-        args: [--config, backend/games/.flake8, "--ignore=W503"]
+        args: [--config, backend/games/.flake8]

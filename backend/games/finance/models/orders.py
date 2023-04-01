@@ -2,7 +2,15 @@ from django.db import models
 
 from base.model_fields import get_field_from_choices, AmountField
 
-from base.choices import CurrencyChoices, OrderStatusChoices
+from base.choices import CurrencyChoices, BaseTextChoices
+
+
+class OrderStatusChoices(BaseTextChoices):
+    WAITING_PAYMENT = "WAITING_PAYMENT", "Waiting Payment"
+    COMPLETED = "COMPLETED", "Completed"
+    CANCELED = "CANCELED", "Canceled"
+    REFUND_REQUESTED = "REFUND_REQUESTED", "Refund Requested"
+    REFUNDED = "REFUNDED", "Refunded"
 
 
 class Order(models.Model):

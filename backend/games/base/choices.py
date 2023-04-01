@@ -12,11 +12,3 @@ class CurrencyChoices(BaseTextChoices):
     USD = "USD", "Usd"
     KZT = "KZT", "Kzt"
     EUR = "EUR", "Eur"
-
-
-class OrderStatusChoices(BaseTextChoices):
-    WAITING_PAYMENT = "WAITING_PAYMENT", "Waiting Payment"
-    COMPLETED = "COMPLETED", "Completed"
-    CANCELED = "CANCELED", "Canceled"
-    REFUND_REQUESTED = "REFUND_REQUESTED", "Refund Requested"
-    REFUNDED = "REFUNDED", "Refunded"
