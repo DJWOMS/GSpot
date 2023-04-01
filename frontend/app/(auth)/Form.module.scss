@@ -1,130 +1,130 @@
 .sign {
-    &Content {
-        @apply flex flex-row justify-center items-center w-full min-h-screen py-[40px];
+  &Content {
+    @apply flex min-h-screen w-full flex-row items-center justify-center py-[40px];
+  }
+
+  &Form {
+    @apply relative flex w-full max-w-[400px] flex-col items-center justify-center rounded-default
+        border border-trans-gray bg-background px-[20px] py-[40px] sm:p-[50px];
+  }
+
+  &Logo {
+    @apply mb-[40px] block transition-none sm:mb-[50px];
+
+    img {
+      @apply h-full w-full;
+    }
+  }
+
+  &Group {
+    @apply relative mb-[20px] w-full;
+  }
+
+  &Btn {
+    @apply my-[15px] flex h-[44px] w-full flex-col items-center justify-center rounded-default bg-acid
+        text-[13px] font-semibold uppercase tracking-[0.6px] text-white hover:bg-primary hover:text-white;
+  }
+
+  &Delimiter {
+    @apply text-[13px] leading-[100%] text-light;
+  }
+
+  &Input {
+    @apply relative h-[44px] w-full rounded-default border border-trans-gray bg-dark px-[20px]
+        text-[14px] tracking-[0.4px] text-white;
+
+    :focus {
+      background-color: rgba(167, 130, 233, 0.04);
+      border-color: rgba(167, 130, 233, 0.5);
+    }
+  }
+
+  &Checkbox {
+    @apply w-full text-left;
+
+    input:not(:checked),
+    input:checked {
+      @apply absolute -left-[9999px];
     }
 
-    &Form {
-        @apply bg-background flex flex-col justify-center items-center border border-trans-gray rounded-default
-        px-[20px] py-[40px] relative w-full max-w-[400px] sm:p-[50px];
+    input:not(:checked) + label,
+    input:checked + label {
+      @apply relative m-0 cursor-pointer pl-[35px] text-[14px] font-normal leading-[20px] text-light;
     }
 
-    &Logo {
-        @apply block mb-[40px] transition-none sm:mb-[50px];
-
-        img {
-            @apply w-full h-full;
-        }
+    input:not(:checked) + label a,
+    input:checked + label a {
+      @apply text-primary;
     }
 
-    &Group {
-        @apply relative mb-[20px] w-full;
+    input:not(:checked) + label:before,
+    input:checked + label:before {
+      @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border
+            border-trans-gray bg-dark content-[''];
     }
 
-    &Btn {
-        @apply flex flex-col justify-center items-center w-full h-[44px] rounded-default bg-acid text-white
-        font-semibold text-[13px] tracking-[0.6px] my-[15px] uppercase hover:bg-primary hover:text-white;
+    input:not(:checked) + label:after,
+    input:checked + label:after {
+      @apply absolute left-0 top-0 h-[20px] w-[20px] text-center content-[''];
+      transition: 0.5s;
+      background: url('/img/checkmark.svg') no-repeat center/16px auto;
     }
 
-    &Delimiter {
-        @apply text-[13px] leading-[100%] text-light;
+    input:not(:checked) + label:after {
+      @apply scale-0 opacity-0;
     }
 
-    &Input {
-        @apply border border-trans-gray rounded-default h-[44px] relative text-white text-[14px] w-full
-        px-[20px] tracking-[0.4px] bg-dark;
-
-        :focus {
-            background-color: rgba(167, 130, 233, 0.04);
-            border-color: rgba(167, 130, 233, 0.5);
-        }
+    input:checked + label:after {
+      @apply scale-[1] opacity-[1];
     }
 
-    &Checkbox {
-        @apply w-full text-left;
-
-        input:not(:checked),
-        input:checked {
-            @apply absolute -left-[9999px];
-        }
-
-        input:not(:checked) + label,
-        input:checked + label {
-            @apply text-[14px] font-normal relative cursor-pointer pl-[35px] leading-[20px] m-0 text-light;
-        }
-
-        input:not(:checked) + label a,
-        input:checked + label a {
-            @apply text-primary;
-        }
-
-        input:not(:checked) + label:before,
-        input:checked + label:before {
-            @apply content-[''] absolute left-0 top-0 w-[20px] h-[20px] rounded-default
-            border border-trans-gray bg-dark;
-        }
-
-        input:not(:checked) + label:after,
-        input:checked + label:after {
-            @apply content-[''] absolute left-0 top-0 w-[20px] h-[20px] text-center;
-            transition: 0.5s;
-            background: url('/img/checkmark.svg') no-repeat center/16px auto;
-        }
-
-        input:not(:checked) + label:after {
-            @apply opacity-0 scale-0;
-        }
-
-        input:checked + label:after {
-            @apply opacity-[1] scale-[1];
-        }
-
-        label::-moz-selection {
-            @apply bg-transparent text-light;
-        }
-
-        label::selection {
-            @apply bg-transparent text-light;
-        }
+    label::-moz-selection {
+      @apply bg-transparent text-light;
     }
 
-    &Text {
-        @apply mt-[15px] text-[14px] text-light;
+    label::selection {
+      @apply bg-transparent text-light;
+    }
+  }
 
-        a {
-            @apply relative text-primary hover:underline;
-        }
+  &Text {
+    @apply mt-[15px] text-[14px] text-light;
+
+    a {
+      @apply relative text-primary hover:underline;
+    }
+  }
+
+  &Socials {
+    @apply my-[15px] flex w-full flex-row items-center justify-between;
+  }
+
+  &Social {
+    @apply flex h-[44px] flex-row items-center justify-center rounded-default bg-black;
+    width: calc(33% - 10px);
+
+    svg {
+      @apply h-auto stroke-white;
+      transition: 0.5s ease;
+      transition-property: stroke, fill;
     }
 
-    &Socials {
-        @apply flex flex-row justify-between items-center w-full my-[15px];
+    &:hover {
+      @apply bg-white;
+
+      svg {
+        @apply stroke-black;
+      }
     }
 
-    &Social {
-        @apply flex flex-row justify-center items-center h-[44px] rounded-default bg-black;
-        width: calc(33% - 10px);
-
-        svg {
-            @apply h-auto stroke-white;
-            transition: 0.5s ease;
-            transition-property: stroke, fill;
-        }
-
-        &:hover {
-            @apply bg-white;
-
-            svg {
-                @apply stroke-black;
-            }
-        }
-
-        &FB {
-            background-color: #3b5999;
-        }
-        &GL {
-            background-color: #df4a32;
-        }
-        &TW {
-            background-color: #1da1f2;
-        }
+    &FB {
+      background-color: #3b5999;
     }
+    &GL {
+      background-color: #df4a32;
+    }
+    &TW {
+      background-color: #1da1f2;
+    }
+  }
 }

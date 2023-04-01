@@ -1,226 +1,226 @@
 .card {
-    @apply relative block mt-[30px] rounded-default overflow-hidden bg-background;
+  @apply relative mt-[30px] block overflow-hidden rounded-default bg-background;
 
-    &Cover {
-        @apply relative block;
+  &Cover {
+    @apply relative block;
 
-        img {
-            @apply w-full relative max-h-[300px] z-[1];
-            transition: 0.5s;
-        }
-
-        &:hover img {
-            opacity: 0.6;
-        }
-
-        @media (min-width: 360px) {
-            width: 165px;
-        }
-
-        @media (min-width: 576px) {
-            @apply w-full;
-        }
+    img {
+      @apply relative z-[1] max-h-[300px] w-full;
+      transition: 0.5s;
     }
 
-    &Catalog {
-        @media (min-width: 360px) {
-            @apply flex flex-row justify-start items-start flex-wrap border-r border-trans-gray;
-        }
-
-        @media (min-width: 576px) {
-            @apply flex-col border-r-0;
-        }
+    &:hover img {
+      opacity: 0.6;
     }
 
-    &Badge {
-        @apply absolute bottom-[20px] left-[15px] flex flex-row justify-center items-center text-white rounded-default
-        h-[24px] px-[13px] font-mont text-[12px] font-medium z-[2] pointer-events-none;
-
-        &New {
-            @apply bg-primary;
-        }
-
-        &Preorder {
-            background-color: #f26c2a;
-        }
+    @media (min-width: 360px) {
+      width: 165px;
     }
 
-    &Platforms {
-        @apply absolute flex flex-row justify-start items-center top-[20px] left-[15px] z-[2] pointer-events-none;
+    @media (min-width: 576px) {
+      @apply w-full;
+    }
+  }
 
-        @media (min-width: 360px) {
-            @apply top-[15px] left-[15px];
-        }
-
-        @media (min-width: 576px) {
-            @apply top-[20px] left-[20px];
-        }
+  &Catalog {
+    @media (min-width: 360px) {
+      @apply flex flex-row flex-wrap items-start justify-start border-r border-trans-gray;
     }
 
-    &Title {
-        @apply overflow-hidden whitespace-nowrap text-ellipsis break-words w-full mb-[15px] text-white
-        text-base font-normal hover:text-primary;
-        transition: 0.5s;
+    @media (min-width: 576px) {
+      @apply flex-col border-r-0;
+    }
+  }
 
-        &Wrapper {
-            @apply relative flex flex-col justify-center items-start p-[15px] border-x border-x-trans-gray
-            w-full;
+  &Badge {
+    @apply pointer-events-none absolute bottom-[20px] left-[15px] z-[2] flex h-[24px] flex-row items-center
+        justify-center rounded-default px-[13px] font-mont text-[12px] font-medium text-white;
 
-            :last-child {
-                @apply border-b border-b-trans-gray rounded-b-default rounded-l-default;
-            }
-
-            @media (min-width: 360px) {
-                width: calc(100% - 165px);
-                @apply p-[15px] border-x-0 border-t border-t-trans-gray;
-
-                .cardTitle {
-                    @apply whitespace-normal;
-                }
-
-                :last-child {
-                    @apply rounded-b-default rounded-r-default absolute bottom-0 top-0 right-0 justify-start;
-                }
-            }
-
-            @media (min-width: 576px) {
-                @apply w-full p-[20px] border-x border-x-trans-gray border-t-0;
-
-                .cardTitle {
-                    @apply whitespace-nowrap;
-                }
-
-                :last-child {
-                    @apply relative top-auto bottom-auto right-auto rounded-b-default rounded-l-default;
-                }
-            }
-        }
-
-        &Link {
-            @apply text-white hover:text-primary;
-        }
+    &New {
+      @apply bg-primary;
     }
 
-    &Price {
-        @apply flex flex-row justify-start items-end font-semibold text-[16px] text-white tracking-[0.5px]
-        leading-[100%];
-
-        s {
-            @apply text-[12px] ml-[10px] font-normal leading-[100%];
-        }
+    &Preorder {
+      background-color: #f26c2a;
     }
+  }
+
+  &Platforms {
+    @apply pointer-events-none absolute top-[20px] left-[15px] z-[2] flex flex-row items-center justify-start;
+
+    @media (min-width: 360px) {
+      @apply top-[15px] left-[15px];
+    }
+
+    @media (min-width: 576px) {
+      @apply top-[20px] left-[20px];
+    }
+  }
+
+  &Title {
+    @apply mb-[15px] w-full overflow-hidden text-ellipsis whitespace-nowrap break-words text-base
+        font-normal text-white hover:text-primary;
+    transition: 0.5s;
 
     &Wrapper {
-        @apply relative w-full;
-    }
+      @apply relative flex w-full flex-col items-start justify-center border-x border-x-trans-gray
+            p-[15px];
 
-    &Actions {
-        @apply flex flex-row justify-between items-center px-[15px] pb-[15px] w-full border-x border-b
-        border-x-trans-gray border-b-trans-gray rounded-b-default rounded-l-default;
+      :last-child {
+        @apply rounded-b-default rounded-l-default border-b border-b-trans-gray;
+      }
 
-        @media (min-width: 360px) {
-            @apply absolute bottom-0 right-0 px-[15px] pb-[15px] border-x-0 rounded-none;
-        }
-
-        @media (min-width: 576px) {
-            @apply relative bottom-auto right-auto w-full px-[20px] pb-[20px] border-x border-x-trans-gray
-            rounded-b-default rounded-l-default;
-        }
-    }
-
-    &Action {
-        @apply flex flex-row justify-center items-center h-[44px] hover:cursor-pointer;
-
-        &Buy {
-            @apply rounded-default bg-acid text-white font-semibold text-[14px] tracking-[0.8px] leading-4
-            hover:bg-primary hover:text-white;
-            width: calc(100% - 59px);
-        }
-
-        &Favorite {
-            @apply w-[44px] border border-background rounded-default bg-dark;
-
-            svg {
-                @apply stroke-primary w-[22px] h-auto;
-                transition: 0.5s;
-            }
-
-            &:hover {
-                background-color: rgba(167, 130, 233, 0.04);
-                border-color: rgba(167, 130, 233, 0.07);
-
-                svg {
-                    stroke: #fd6060;
-                }
-            }
-        }
-    }
-
-    &Big {
-        @apply gap-4 p-[15px] border border-trans-gray;
-        gap: 1rem;
-
-        .cardCover {
-            @apply rounded-default overflow-hidden;
-        }
+      @media (min-width: 360px) {
+        width: calc(100% - 165px);
+        @apply border-x-0 border-t border-t-trans-gray p-[15px];
 
         .cardTitle {
-            @apply py-[15px] border-none;
-
-            h3 {
-                @apply text-[18px] mb-0;
-            }
+          @apply whitespace-normal;
         }
 
-        .cardActions {
-            @apply p-0 mt-[20px] border-none;
+        :last-child {
+          @apply absolute bottom-0 top-0 right-0 justify-start rounded-b-default rounded-r-default;
+        }
+      }
+
+      @media (min-width: 576px) {
+        @apply w-full border-x border-t-0 border-x-trans-gray p-[20px];
+
+        .cardTitle {
+          @apply whitespace-nowrap;
         }
 
-        .cardPlatforms {
-            @apply relative top-auto left-auto mt-[20px];
+        :last-child {
+          @apply relative top-auto bottom-auto right-auto rounded-b-default rounded-l-default;
         }
-
-        @media (min-width: 360px) {
-            @apply p-[20px];
-        }
-
-        @media (min-width: 768px) {
-            @apply flex flex-row justify-between items-stretch;
-
-            .cardTitle {
-                @apply h-auto w-full p-0;
-
-                h3 {
-                    @apply text-[22px];
-                }
-            }
-            .cardCover {
-                @apply w-[230px];
-            }
-            .cardWrap {
-                @apply flex flex-col justify-start items-start;
-                width: calc(100% - 250px);
-            }
-            .cardPrice {
-                @apply mt-auto;
-            }
-            .cardActionBuy {
-                @apply w-[160px];
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .cardCover {
-                @apply w-[240px];
-            }
-            .cardWrap {
-                width: calc(100% - 260px);
-            }
-            .cardTitle {
-                h3 {
-                    @apply whitespace-normal;
-                }
-            }
-        }
+      }
     }
+
+    &Link {
+      @apply text-white hover:text-primary;
+    }
+  }
+
+  &Price {
+    @apply flex flex-row items-end justify-start text-[16px] font-semibold leading-[100%] tracking-[0.5px]
+        text-white;
+
+    s {
+      @apply ml-[10px] text-[12px] font-normal leading-[100%];
+    }
+  }
+
+  &Wrapper {
+    @apply relative w-full;
+  }
+
+  &Actions {
+    @apply flex w-full flex-row items-center justify-between rounded-b-default rounded-l-default border-x border-b
+        border-x-trans-gray border-b-trans-gray px-[15px] pb-[15px];
+
+    @media (min-width: 360px) {
+      @apply absolute bottom-0 right-0 rounded-none border-x-0 px-[15px] pb-[15px];
+    }
+
+    @media (min-width: 576px) {
+      @apply relative bottom-auto right-auto w-full rounded-b-default rounded-l-default border-x border-x-trans-gray
+            px-[20px] pb-[20px];
+    }
+  }
+
+  &Action {
+    @apply flex h-[44px] flex-row items-center justify-center hover:cursor-pointer;
+
+    &Buy {
+      @apply rounded-default bg-acid text-[14px] font-semibold leading-4 tracking-[0.8px] text-white
+            hover:bg-primary hover:text-white;
+      width: calc(100% - 59px);
+    }
+
+    &Favorite {
+      @apply w-[44px] rounded-default border border-background bg-dark;
+
+      svg {
+        @apply h-auto w-[22px] stroke-primary;
+        transition: 0.5s;
+      }
+
+      &:hover {
+        background-color: rgba(167, 130, 233, 0.04);
+        border-color: rgba(167, 130, 233, 0.07);
+
+        svg {
+          stroke: #fd6060;
+        }
+      }
+    }
+  }
+
+  &Big {
+    @apply gap-4 border border-trans-gray p-[15px];
+    gap: 1rem;
+
+    .cardCover {
+      @apply overflow-hidden rounded-default;
+    }
+
+    .cardTitle {
+      @apply border-none py-[15px];
+
+      h3 {
+        @apply mb-0 text-[18px];
+      }
+    }
+
+    .cardActions {
+      @apply mt-[20px] border-none p-0;
+    }
+
+    .cardPlatforms {
+      @apply relative top-auto left-auto mt-[20px];
+    }
+
+    @media (min-width: 360px) {
+      @apply p-[20px];
+    }
+
+    @media (min-width: 768px) {
+      @apply flex flex-row items-stretch justify-between;
+
+      .cardTitle {
+        @apply h-auto w-full p-0;
+
+        h3 {
+          @apply text-[22px];
+        }
+      }
+      .cardCover {
+        @apply w-[230px];
+      }
+      .cardWrap {
+        @apply flex flex-col items-start justify-start;
+        width: calc(100% - 250px);
+      }
+      .cardPrice {
+        @apply mt-auto;
+      }
+      .cardActionBuy {
+        @apply w-[160px];
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .cardCover {
+        @apply w-[240px];
+      }
+      .cardWrap {
+        width: calc(100% - 260px);
+      }
+      .cardTitle {
+        h3 {
+          @apply whitespace-normal;
+        }
+      }
+    }
+  }
 }

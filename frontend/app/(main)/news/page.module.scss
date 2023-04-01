@@ -1,40 +1,40 @@
 .sort {
-    @apply flex mt-48 relative p-[20px] rounded-default border border-trans-gray mb-[10px];
+  @apply relative mt-48 mb-[10px] flex rounded-default border border-trans-gray p-[20px];
 
-    &Results {
-        @apply mt-[10px] text-[14px] ml-auto text-light;
-    }
+  &Results {
+    @apply mt-[10px] ml-auto text-[14px] text-light;
+  }
 }
 
 .filter {
-    &Group {
-        @apply flex gap-5 justify-start w-auto flex-row items-center mb-0 mr-[60px];
+  &Group {
+    @apply mb-0 mr-[60px] flex w-auto flex-row items-center justify-start gap-5;
 
-        &:last-child {
-            @apply mb-0 mr-0;
-        }
+    &:last-child {
+      @apply mb-0 mr-0;
     }
+  }
 
-    &Label {
-        @apply mt-[10px] text-[14px] leading-[100%] tracking-[0.4px] font-normal mb-[15px] text-light;
+  &Label {
+    @apply mt-[10px] mb-[15px] text-[14px] font-normal leading-[100%] tracking-[0.4px] text-light;
+  }
+
+  &Select {
+    &Wrapper {
+      @apply relative w-[210px];
     }
+    @apply h-[44px] w-full cursor-pointer rounded-default border border-trans-gray
+        px-[20px] font-[14px] tracking-[0.4px] text-white;
 
-    &Select {
-        &Wrapper {
-            @apply relative w-[210px];
-        }
-        @apply w-full h-[44px] rounded-default border border-trans-gray font-[14px]
-        text-white px-[20px] cursor-pointer tracking-[0.4px];
-
-        background: url('/img/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
-        background-size: 12px auto;
-    }
+    background: url('/img/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
+    background-size: 12px auto;
+  }
 }
 
 .select {
-    @apply p-0 m-0 text-black;
+  @apply m-0 p-0 text-black;
 }
 
 .columns {
-    @apply grid grid-cols-3 gap-x-4;
+  @apply grid grid-cols-3 gap-x-4;
 }

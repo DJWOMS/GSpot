@@ -1,186 +1,185 @@
 .post {
-    @apply relative mt-[30px] rounded-default border border-trans-gray overflow-hidden;
+  @apply relative mt-[30px] overflow-hidden rounded-default border border-trans-gray;
 
-    &Content {
-        @apply block px-[15px] py-[20px];
+  &Content {
+    @apply block px-[15px] py-[20px];
+  }
+
+  &Img {
+    @apply relative block w-full px-[15px] pt-[15px];
+
+    img {
+      @apply relative z-[1] w-full rounded-default opacity-80 transition-opacity;
     }
 
-    &Img {
-        @apply block w-full relative pt-[15px] px-[15px];
+    &:hover img {
+      @apply opacity-60;
+    }
+
+    @media (min-width: 360px) {
+      padding: 20px 20px 0;
+    }
+  }
+
+  &Title {
+    @apply mt-[15px] mb-0 block h-[66px] overflow-hidden text-[22px] font-normal text-white;
+
+    a {
+      @apply block text-white hover:text-primary;
+    }
+  }
+
+  &Cover {
+    @apply relative block w-full;
+
+    img {
+      @apply relative z-[1] w-full opacity-80 transition-opacity;
+    }
+
+    &:hover img {
+      @apply opacity-60;
+    }
+  }
+
+  &Category {
+    @apply inline-flex h-[24px] w-auto max-w-[74px] flex-row items-center justify-center rounded-default
+        px-[13px] text-[12px] tracking-[.4px] text-light hover:text-white;
+    border: 1px solid rgba(167, 130, 233, 0.4);
+    background-color: rgba(167, 130, 233, 0.15);
+
+    :hover {
+      border-color: rgba(167, 130, 233, 0.6);
+      background-color: rgba(167, 130, 233, 0.3);
+    }
+  }
+
+  &Meta {
+    @apply mt-[15px] flex h-[20px] w-full flex-row items-center justify-between;
+  }
+
+  &Date {
+    @apply flex flex-row items-center justify-start text-[13px] text-light;
+
+    svg {
+      @apply mr-[5px] h-auto w-[16px] stroke-primary;
+    }
+  }
+
+  &Comments {
+    @apply flex flex-row items-center justify-start text-[13px] text-light;
+
+    svg {
+      @apply mr-[5px] h-auto w-[16px] text-primary;
+    }
+  }
+
+  &Video {
+    @apply absolute top-[10px] left-[10px] z-[2] m-[20px] flex h-[55px] w-[55px] flex-row
+        items-center justify-center rounded-full;
+    border: 1px solid rgba(167, 130, 233, 0.4);
+    background-color: rgba(167, 130, 233, 0.15);
+
+    svg {
+      @apply relative z-[2] ml-[2px] h-auto w-[22px] stroke-primary;
+    }
+
+    :before {
+      @apply pointer-events-none absolute top-[5px] bottom-[5px] right-[5px] z-[1] block rounded-full
+            bg-background content-[''];
+    }
+
+    :hover {
+      border-color: rgba(167, 130, 233, 0.6);
+      background-color: rgba(167, 130, 233, 0.3);
+    }
+  }
+
+  &Big {
+    @apply relative m-[10px] flex flex-col;
+
+    .postImg {
+      @apply p-0;
+
+      :before {
+        @apply pointer-events-none absolute inset-0 z-[2] block content-[''];
+        background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+        background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+      }
+
+      img {
+        @apply rounded-none;
+      }
+    }
+
+    .postContent {
+      @media (min-width: 360px) {
+        @apply p-[20px];
+      }
+    }
+
+    .postCover {
+      @media (min-width: 768px) {
+        @apply flex h-[200px] w-full flex-row items-center justify-center overflow-hidden;
 
         img {
-            @apply w-full relative z-[1] rounded-default opacity-80 transition-opacity;
+          @apply h-auto min-h-full w-auto min-w-full;
         }
+      }
 
-        &:hover img {
-            @apply opacity-60;
-        }
+      @media (min-width: 992px) {
+        height: 275px;
+      }
 
-        @media (min-width: 360px) {
-            padding: 20px 20px 0;
-        }
+      @media (min-width: 1200px) {
+        height: 212px;
+      }
     }
 
-    &Title {
-        @apply block h-[66px] mt-[15px] text-[22px] text-white font-normal mb-0 overflow-hidden;
+    .postVideo {
+      margin: 0;
 
-        a {
-            @apply block text-white hover:text-primary;
-        }
+      @media (min-width: 360px) {
+        left: 15px;
+        top: 15px;
+      }
     }
 
-    &Cover {
-        @apply block w-full relative;
+    @media (min-width: 768px) {
+      .postContent {
+        @apply absolute bottom-0 left-0 right-0 z-[2] w-full;
+      }
+      .postImg {
+        @apply flex h-[360px] w-full cursor-default flex-row items-center justify-center
+                overflow-hidden;
 
         img {
-            @apply w-full relative z-[1] transition-opacity opacity-80;
+          @apply h-auto min-h-[100%] w-auto min-w-[100%];
         }
+      }
 
-        &:hover img {
-            @apply opacity-60;
-        }
-    }
-
-    &Category {
-        @apply inline-flex flex-row justify-center items-center h-[24px] max-w-[74px] w-auto text-[12px]
-        rounded-default px-[13px] tracking-[.4px] hover:text-white text-light;
-        border: 1px solid rgba(167, 130, 233, 0.4);
-        background-color: rgba(167, 130, 233, 0.15);
-
-        :hover {
-            border-color: rgba(167, 130, 233, 0.6);
-            background-color: rgba(167, 130, 233, 0.3);
-        }
-    }
-
-    &Meta {
-        @apply mt-[15px] flex flex-row justify-between items-center w-full h-[20px];
-    }
-
-    &Date {
-        @apply flex flex-row justify-start items-center text-[13px] text-light;
-
-        svg {
-            @apply stroke-primary w-[16px] h-auto mr-[5px];
-        }
-    }
-
-    &Comments {
-        @apply flex flex-row justify-start items-center text-[13px] text-light;
-
-        svg {
-            @apply text-primary w-[16px] h-auto mr-[5px];
-        }
-    }
-
-    &Video {
-        @apply absolute top-[10px] left-[10px] z-[2] flex flex-row justify-center items-center w-[55px]
-        h-[55px] rounded-full m-[20px];
-        border: 1px solid rgba(167, 130, 233, 0.4);
-        background-color: rgba(167, 130, 233, 0.15);
-
-        svg {
-            @apply stroke-primary w-[22px] h-auto ml-[2px] relative z-[2];
-        }
-
-        :before {
-            @apply content-[''] absolute block z-[1] pointer-events-none top-[5px] bottom-[5px] right-[5px]
-            rounded-full bg-background;
-        }
-
-        :hover {
-            border-color: rgba(167, 130, 233, 0.6);
-            background-color: rgba(167, 130, 233, 0.3);
-        }
-    }
-
-    &Big {
-        @apply relative flex flex-col m-[10px];
-
+      :hover {
         .postImg {
-            @apply p-0;
-
-            :before {
-                @apply content-[''] absolute block z-[2] inset-0 pointer-events-none;
-                background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
-                background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
-                background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
-            }
-
-            img {
-                @apply rounded-none;
-            }
+          img {
+            @apply opacity-60;
+          }
         }
-
-        .postContent {
-            @media (min-width: 360px) {
-                @apply p-[20px];
-            }
-        }
-
-        .postCover {
-            @media (min-width: 768px) {
-                @apply flex flex-row justify-center items-center overflow-hidden w-full h-[200px];
-
-                img {
-                    @apply w-auto h-auto min-w-full min-h-full;
-                }
-            }
-
-            @media (min-width: 992px) {
-                height: 275px;
-            }
-
-            @media (min-width: 1200px) {
-                height: 212px;
-            }
-        }
-
-        .postVideo {
-            margin: 0;
-
-            @media (min-width: 360px) {
-                left: 15px;
-                top: 15px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .postContent {
-                @apply absolute z-[2] bottom-0 left-0 right-0 w-full;
-            }
-            .postImg {
-                @apply flex flex-row justify-center items-center overflow-hidden w-full h-[360px]
-                cursor-default;
-
-                img {
-                    @apply w-auto h-auto min-w-[100%] min-h-[100%];
-                }
-            }
-
-            :hover {
-                .postImg {
-                    img {
-                        @apply opacity-60;
-                    }
-                }
-            }
-        }
-        @media (min-width: 768px) {
-            .postTitle {
-                @apply pr-[30%];
-            }
-        }
-        @media (min-width: 992px) {
-            .postTitle {
-                @apply pr-0;
-            }
-        }
-        @media (min-width: 1200px) {
-            .postTitle {
-                @apply pr-[33%];
-            }
-        }
+      }
     }
-
+    @media (min-width: 768px) {
+      .postTitle {
+        @apply pr-[30%];
+      }
+    }
+    @media (min-width: 992px) {
+      .postTitle {
+        @apply pr-0;
+      }
+    }
+    @media (min-width: 1200px) {
+      .postTitle {
+        @apply pr-[33%];
+      }
+    }
+  }
 }

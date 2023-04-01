@@ -1,6 +1,6 @@
 .container {
-  @apply bg-dark flex flex-row justify-between items-center h-[44px] w-[220px] border border-trans-gray
-  rounded-default relative;
+  @apply relative flex h-[44px] w-[220px] flex-row items-center justify-between rounded-default border
+  border-trans-gray bg-dark;
 
   @media (min-width: 768px) {
     width: 260px;
@@ -21,12 +21,12 @@
   display: none;
 
   @media (min-width: 1200px) {
-    @apply block w-[115px] h-[44px] border-none bg-transparent text-[14px] text-white p-0 cursor-pointer;
+    @apply block h-[44px] w-[115px] cursor-pointer border-none bg-transparent p-0 text-[14px] text-white;
     background: url('/svg/arrow2.svg') no-repeat center right;
     background-size: 12px auto;
 
     option {
-      @apply p-0 m-0 text-black;
+      @apply m-0 p-0 text-black;
     }
   }
   @media (min-width: 1310px) {
@@ -39,12 +39,12 @@
 }
 
 .combo {
-  @apply h-[44px] w-full outline-none rounded-l-default rounded-t-default border-none bg-transparent text-[14px] text-white px-[20px];
+  @apply h-[44px] w-full rounded-l-default rounded-t-default border-none bg-transparent px-[20px] text-[14px] text-white outline-none;
 }
 
 .options {
-  @apply absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-slate-800 text-base sm:text-sm
-  overflow-x-hidden border border-gray-700;
+  @apply absolute mt-1 max-h-60 w-full overflow-auto overflow-x-hidden rounded-md border border-gray-700
+  bg-slate-800 text-base sm:text-sm;
 }
 
 .notFound {

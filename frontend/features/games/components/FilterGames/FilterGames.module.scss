@@ -1,173 +1,174 @@
 .openFilter {
-    @apply flex flex-row justify-center items-center w-full h-[44px] tracking-[0.4px] uppercase mb-[10px]
-    text-white text-[12px] rounded-default bg-dark;
-    border: 1px solid rgba(167, 130, 233, 0.4);
+  @apply mb-[10px] flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-dark
+    text-[12px] uppercase tracking-[0.4px] text-white;
+  border: 1px solid rgba(167, 130, 233, 0.4);
 
-    :hover {
-        background-color: rgba(167, 130, 233, 0.04);
-        border-color: rgba(167, 130, 233, 0.5);
+  :hover {
+    background-color: rgba(167, 130, 233, 0.04);
+    border-color: rgba(167, 130, 233, 0.5);
 
-        svg {
-            @apply stroke-primary;
-        }
+    svg {
+      @apply stroke-primary;
     }
+  }
 
-    @media (min-width: 576px) {
-        @apply mb-[20px];
-    }
-    @media (min-width: 992px) {
-        @apply hidden;
-    }
+  @media (min-width: 576px) {
+    @apply mb-[20px];
+  }
+  @media (min-width: 992px) {
+    @apply hidden;
+  }
 }
 
 .components {
-    @apply flex flex-col justify-start items-start mb-[10px] mt-[20px];
+  @apply mb-[10px] mt-[20px] flex flex-col items-start justify-start;
 
-    @media (min-width: 576px) {
-        @apply mb-[20px];
-    }
-    @media (min-width: 992px) {
-        @apply mt-[30px];
-    }
-    @media (min-width: 1310px) {
-        @apply pr-[10px];
-    }
+  @media (min-width: 576px) {
+    @apply mb-[20px];
+  }
+  @media (min-width: 992px) {
+    @apply mt-[30px];
+  }
+  @media (min-width: 1310px) {
+    @apply pr-[10px];
+  }
 }
 
 .wrapper {
-    @media (min-width: 992px) {
-        @apply block;
-    }
+  @media (min-width: 992px) {
+    @apply block;
+  }
 }
 
 .title {
-    @apply flex flex-row justify-between items-center h-auto w-full text-white text-[16px] font-semibold
-    mb-[25px] tracking-[.4px];
+  @apply mb-[25px] flex h-auto w-full flex-row items-center justify-between text-[16px] font-semibold
+    tracking-[.4px] text-white;
 }
 
 .clearFilters {
-    @apply text-[12px] font-normal text-primary tracking-[0];
+  @apply text-[12px] font-normal tracking-[0] text-primary;
 
-    :hover {
-        color: #fd6060;
-    }
+  :hover {
+    color: #fd6060;
+  }
 }
 
 .group {
-    @apply flex flex-col justify-start items-start w-full mb-[30px] last:mb-0;
+  @apply mb-[30px] flex w-full flex-col items-start justify-start last:mb-0;
 }
 
 .label {
-    @apply text-[14px] tracking-[.4px] leading-[100%] font-normal mb-[15px] text-light;
+  @apply mb-[15px] text-[14px] font-normal leading-[100%] tracking-[.4px] text-light;
 }
 
 .selectWrap {
-    @apply relative w-full;
+  @apply relative w-full;
 }
 
 .select {
-    @apply w-full h-[44px] rounded-default border border-trans-gray text-[14px] text-white px-[20px]
-    cursor-pointer tracking-[.4px];
-    background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
-    background-size: 12px auto;
+  @apply h-[44px] w-full cursor-pointer rounded-default border border-trans-gray px-[20px] text-[14px]
+    tracking-[.4px] text-white;
+  background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
+  background-size: 12px auto;
 
-    option {
-        @apply p-0 m-0 text-black;
-    }
+  option {
+    @apply m-0 p-0 text-black;
+  }
 
-    :focus {
-        background-color: rgba(167, 130, 233, 0.04);
-        border-color: rgba(167, 130, 233, 0.5);
-    }
+  :focus {
+    background-color: rgba(167, 130, 233, 0.04);
+    border-color: rgba(167, 130, 233, 0.5);
+  }
 }
 
 .input {
-    @apply rounded-default h-[44px] relative text-white text-[14px] w-full px-[20px] tracking-[.4px] bg-dark;
-    border: 1px solid rgba(167, 130, 233, 0.06);
+  @apply relative h-[44px] w-full rounded-default bg-dark px-[20px] text-[14px] tracking-[.4px] text-white;
+  border: 1px solid rgba(167, 130, 233, 0.06);
 
-    :focus {
-        background-color: rgba(167, 130, 233, 0.04);
-        border-color: rgba(167, 130, 233, 0.5);
-    }
+  :focus {
+    background-color: rgba(167, 130, 233, 0.04);
+    border-color: rgba(167, 130, 233, 0.5);
+  }
 }
 
 .checkboxes {
-    @apply relative mt-[5px];
+  @apply relative mt-[5px];
 }
 
 .checkbox {
-    @apply relative mb-[15px] last:mb-0;
+  @apply relative mb-[15px] last:mb-0;
 
-    input:not(:checked),
-    input:checked {
-        position: absolute;
-        left: -9999px;
-    }
+  input:not(:checked),
+  input:checked {
+    position: absolute;
+    left: -9999px;
+  }
 
-    input:not(:checked) + label,
-    input:checked + label {
-        @apply text-[14px] text-white font-normal relative cursor-pointer pl-[35px] leading-[20px]
-        tracking-[.4px] m-0;
-    }
+  input:not(:checked) + label,
+  input:checked + label {
+    @apply relative m-0 cursor-pointer pl-[35px] text-[14px] font-normal leading-[20px]
+        tracking-[.4px] text-white;
+  }
 
-    input:not(:checked) + label a,
-    input:checked + label a {
-        @apply text-primary;
-    }
+  input:not(:checked) + label a,
+  input:checked + label a {
+    @apply text-primary;
+  }
 
-    input:not(:checked) + label a:hover,
-    input:checked + label a:hover {
-        @apply text-primary;
-    }
+  input:not(:checked) + label a:hover,
+  input:checked + label a:hover {
+    @apply text-primary;
+  }
 
-    input:not(:checked) + label:before,
-    input:checked + label:before {
-        @apply content-[''] absolute left-0 top-0 w-[20px] h-[20px] border border-trans-gray rounded-default bg-dark;
-    }
+  input:not(:checked) + label:before,
+  input:checked + label:before {
+    @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border border-trans-gray bg-dark content-[''];
+  }
 
-    input:not(:checked) + label:after,
-    input:checked + label:after {
-        @apply content-[''] absolute left-0 top-0 w-[20px] h-[20px] text-center;
-        transition: 0.5s;
-        background: url('/svg/checkmark.svg') no-repeat center/16px auto;
-    }
+  input:not(:checked) + label:after,
+  input:checked + label:after {
+    @apply absolute left-0 top-0 h-[20px] w-[20px] text-center content-[''];
+    transition: 0.5s;
+    background: url('/svg/checkmark.svg') no-repeat center/16px auto;
+  }
 
-    input:not(:checked) + label:after {
-        @apply opacity-0 scale-0;
-    }
+  input:not(:checked) + label:after {
+    @apply scale-0 opacity-0;
+  }
 
-    input:checked + label:after {
-        @apply opacity-100 scale-100;
-    }
+  input:checked + label:after {
+    @apply scale-100 opacity-100;
+  }
 
-    label::selection, label::-moz-selection {
-        @apply bg-transparent text-white;
-    }
+  label::selection,
+  label::-moz-selection {
+    @apply bg-transparent text-white;
+  }
 }
 
 .range {
-    @apply flex flex-row justify-start items-center border border-trans-gray text-[13px] text-white relative
-    mb-[10px] h-[30px] px-[12px] rounded-default tracking-[.4px] bg-dark;
+  @apply relative mb-[10px] flex h-[30px] flex-row items-center justify-start rounded-default border
+    border-trans-gray bg-dark px-[12px] text-[13px] tracking-[.4px] text-white;
 
-    div {
-        @apply relative first:mr-[16px];
-        &:first-child:after {
-            @apply content-['-'] absolute block left-full top-0 text-white text-[14px] ml-[4px] leading-4;
-        }
+  div {
+    @apply relative first:mr-[16px];
+    &:first-child:after {
+      @apply absolute left-full top-0 ml-[4px] block text-[14px] leading-4 text-white content-['-'];
     }
+  }
 }
 
 .applyFilter {
-    @apply flex flex-row justify-center items-center w-full h-[44px] rounded-default text-white tracking-[.4px]
-    uppercase bg-dark;
-    border: 1px solid rgba(167, 130, 233, 0.4);
+  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-dark uppercase
+    tracking-[.4px] text-white;
+  border: 1px solid rgba(167, 130, 233, 0.4);
 
-    :hover {
-        background-color: rgba(167, 130, 233, 0.04);
-        border-color: rgba(167, 130, 233, 0.5);
-    }
+  :hover {
+    background-color: rgba(167, 130, 233, 0.04);
+    border-color: rgba(167, 130, 233, 0.5);
+  }
 
-    :hover svg {
-        @apply stroke-primary;
-    }
+  :hover svg {
+    @apply stroke-primary;
+  }
 }

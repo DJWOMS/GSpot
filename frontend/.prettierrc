@@ -4,7 +4,10 @@
     "tabWidth": 2,
     "singleQuote": true,
     "trailingComma": "es5",
-    "parser": "typescript",
     "semi": false,
+    "plugins": [
+        "@trivago/prettier-plugin-sort-imports",
+        "prettier-plugin-tailwindcss"
+    ],
     "importOrder": ["^react(.*)", "<THIRD_PARTY_MODULES>", "@/(.*)", "^[./]"]
 }
