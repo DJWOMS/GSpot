@@ -45,15 +45,15 @@
       @apply z-[3];
     }
 
-    :before {
+    &:before {
       @apply pointer-events-none absolute top-[5px] left-[5px] bottom-[5px] right-[5px] z-[1] block rounded-md bg-background opacity-75 duration-150 content-none;
     }
 
-    :hover {
+    &:hover {
       @apply border-main-60 bg-main-300 text-white;
     }
 
-    :hover:before {
+    &:hover:before {
       @apply opacity-100;
     }
   }
@@ -114,7 +114,7 @@
   &Buy {
     @apply flex h-11 w-full flex-row items-center justify-center rounded-md bg-acid text-sm font-semibold tracking-[.8px] text-white;
 
-    :hover {
+    &:hover {
       @apply bg-primary text-white;
     }
 
@@ -134,11 +134,11 @@
       @apply mr-[15px] h-auto w-[22px] stroke-[#a782e9] duration-150;
     }
 
-    :hover {
+    &:hover {
       @apply border-main-70 bg-main-40 text-white;
     }
 
-    :hover svg {
+    &:hover svg {
       @apply stroke-[#fd6060];
     }
 
@@ -181,7 +181,7 @@
     p {
       @apply mb-5 text-sm leading-[26px] text-white;
 
-      :last-child {
+      &:last-child {
         @apply mb-0;
       }
     }
@@ -212,7 +212,7 @@
   }
 
   &Carousel {
-    @apply relative block w-full px-10;
+    @apply relative block w-full;
 
     a {
       @apply block h-auto w-[120px] overflow-hidden rounded-md;
@@ -221,7 +221,7 @@
         @apply h-auto w-full opacity-100 delay-500;
       }
 
-      :hover img {
+      &:hover img {
         @apply opacity-60;
       }
 
@@ -231,22 +231,6 @@
 
       @media (min-width: 768px) {
         @apply w-full;
-      }
-    }
-  }
-
-  &Nav {
-    @apply absolute top-5 bottom-0 z-[2] flex w-5 flex-row items-center justify-center rounded-md border border-solid border-main-60 bg-main-30;
-
-    svg {
-      @apply h-auto w-[18px] stroke-[#dbdada] duration-150;
-    }
-
-    :hover {
-      @apply border-main-70 bg-main-40;
-
-      svg {
-        @apply stroke-[#a782e9];
       }
     }
   }
@@ -264,12 +248,4 @@
   @media (min-width: 1200px) {
     @apply flex flex-row items-start justify-start;
   }
-}
-
-.left {
-  @apply left-0;
-}
-
-.right {
-  @apply right-0;
 }

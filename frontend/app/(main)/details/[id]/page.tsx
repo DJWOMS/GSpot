@@ -1,5 +1,4 @@
-import { IconHeart, IconPlayerPlay, IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
-import cn from 'classnames'
+import { IconHeart, IconPlayerPlay } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
 import Section from 'components/Section'
 import { GameDetailsInterface, Languages, Platform, Requirements } from 'features/games'
@@ -9,7 +8,7 @@ import s from './page.module.scss'
 
 const Page = async () => {
   const details = await fetchServerSide<GameDetailsInterface>({
-    path: '/games/details',
+    path: '/games/details/id',
     cache: 'no-cache',
   })
 
@@ -71,18 +70,11 @@ const Page = async () => {
                       },
                     }}
                   >
-                    {[...new Array(10)].map((_, index) => (
+                    {[...new Array(12)].map((_, index) => (
                       <img key={index} src="https://picsum.photos/1020" alt="" />
                     ))}
                   </Carousel>
                 </div>
-
-                <button className={cn(s.detailsNav, s.left)} type="button">
-                  <IconArrowLeft />
-                </button>
-                <button className={cn(s.detailsNav, s.right)} type="button">
-                  <IconArrowRight />
-                </button>
               </div>
 
               <div className={s.detailsText}>
