@@ -27,7 +27,6 @@ COPY --from=builder /usr/local/bin/ /usr/local/bin/
 WORKDIR /home/app/web
 COPY --chown=app:app . .
 
-RUN chmod +x ./*.sh
-USER app:app
+EXPOSE 8000
 
-ENTRYPOINT ["sh", "/home/app/web/entrypoint.sh"]
+CMD ["sh", "./Dockerfiles/scripts/entrypoint.sh"]

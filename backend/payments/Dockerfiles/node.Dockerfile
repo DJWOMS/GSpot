@@ -1,6 +1,6 @@
 FROM node:19-alpine 
 
 RUN npm install -g localtunnel
-COPY ./tunnel/tunnel.sh /tunnel/tunnel.sh
+COPY ./Dockerfiles/scripts/node.sh node.sh
 
-ENTRYPOINT ["sh", "/tunnel/tunnel.sh"]
+CMD ["sh", "node.sh"]

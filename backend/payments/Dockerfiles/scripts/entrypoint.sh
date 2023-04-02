@@ -50,6 +50,6 @@ done
 python manage.py collectstatic --noinput  
 python manage.py makemigrations  --noinput 
 python manage.py migrate
-gunicorn config.wsgi:application --bind :8000 --bind :8080 -k gevent --workers=2
+gunicorn config.wsgi:application --bind :8000 -k gevent
 
 exec "$@"

@@ -9,13 +9,11 @@ services:
     env_file:
       - ./.env
     volumes:
-      - ./:/usr/src/app
       - type: bind
         source: ./
         target: /home/app/web
     ports:
       - "8000:8000"
-      - "8080:8080"
     depends_on:
       - payments_db
       - redis
@@ -44,11 +42,12 @@ services:
       - "6379:6379"
 
   worker:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfiles/payments.Dockerfile
     hostname: worker
-    entrypoint: celery -A celery_app.app worker --loglevel=info
+    command: celery -A config worker --loglevel=info
     env_file:
       - ./.env
     volumes:
@@ -70,10 +69,10 @@ services:
       - payments
 
   node:
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfiles/node.Dockerfile
-    restart: always
     links:
       - payments
 
