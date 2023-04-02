@@ -1,150 +1,160 @@
 .section {
-    position: relative;
-    padding-top: 60px;
+    @apply relative pt-[60px];
+
+ 
 
     @media (min-width: 576px) {
-        padding-top: 70px;
+        @apply pt-[70px];
+
+        
     }
     @media (min-width: 768px) {
-        padding-top: 80px;
+        @apply pt-[80px];
+
+        
     }
     @media (min-width: 1200px) {
-        padding-top: 90px;
+        @apply pt-[90px];
+
+        
     }
 
     &First {
-        position: relative;
-        padding-top: 160px;
+        @apply relative pt-[160px];
+        
+        
 
         @media (min-width: 576px) {
-            padding-top: 170px;
+            @apply pt-[170px];
+
+            
         }
         @media (min-width: 768px) {
-            padding-top: 180px;
+            @apply pt-[180px];
+
+            
         }
         @media (min-width: 1200px) {
-            padding-top: 190px;
+            @apply pt-[190px];
+
+            
         }
     }
 
     &Last {
-        position: relative;
-        padding-bottom: 60px;
+        @apply relative pb-[60px];
+        
+       
 
         @media (min-width: 576px) {
-            padding-bottom: 70px;
+            @apply pb-[70px];
+            
+            
         }
         @media (min-width: 768px) {
-            padding-bottom: 80px;
+            @apply pb-[80px];
+
+            
         }
         @media (min-width: 1200px) {
-            padding-bottom: 90px;
+            @apply pb-[90px];
+
+            ;
         }
     }
 
     &Bg {
-        overflow: hidden;
+        @apply overflow-hidden;
+        
+        
 
         .container {
-            position: relative;
-            z-index: 2;
+            @apply relative z-[2] ;
+
+            
         }
 
         &Full {
-            overflow: hidden;
+            @apply overflow-hidden;
+            
 
             &::before {
-                content: '';
-                position: absolute;
-                display: block;
-                z-index: 1;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                pointer-events: none;
+                @apply content-[''] absolute block z-[1] top-[0] left-[0] right-[0] bottom-[0]
+                pointer-events-none;
+
+                
                 background-color: rgba(27, 34, 46, 0.7);
             }
 
             .container {
-                position: relative;
-                z-index: 2;
+                @apply relative z-[2]; 
+
+               
             }
         }
     }
 
     &Head {
-        overflow: hidden;
+        @apply overflow-hidden;
+        
+       
 
         &::before {
-            content: '';
-            position: absolute;
-            display: block;
-            z-index: 1;
-            top: 140px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
+            @apply content-[''] absolute block z-[1] top-[140px] left-[0] right-[0]
+             bottom-[0] pointer-events-none;
+
+            ;
             background-color: rgba(27, 34, 46, 0.7);
         }
 
         .container {
-            position: relative;
-            z-index: 2;
+            @apply relative z-[2];
+
+           
         }
     }
 
     &Category {
-        padding-top: 40px;
+        @apply pt-[40px];
+
+        
     }
 
     &Wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
+        @apply flex flex-col justify-start items-start;
+
+        
 
         @media (min-width: 768px) {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
+            @apply flex-row justify-between items-center;
+
+            
         }
     }
 
     &Nav {
         &Wrapper {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-            width: 100%;
-            margin-top: 20px;
-            gap: 10px;
+            @apply flex flex-row justify-start items-center w-[100%] mt-[20px] gap-[10px];
+
+          
 
             @media (min-width: 768px) {
-                margin-top: 0;
-                width: auto;
-                gap: 15px;
+                @apply mt-[0] w-auto gap-[15px];
+
+               
             }
         }
 
-        @apply bg-light;
+        @apply bg-light flex flex-row justify-center w-[30px] h-[30px] rounded-[6px];
 
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 30px;
-        height: 30px;
-        border: 1px solid rgba(167, 130, 233, 0.06);
-        border-radius: 6px;
+        
 
         svg {
-            stroke: #dbdada;
+            @apply stroke-[#dbdada] w-[18px] h-[auto];
+
+            
             transition: 0.5s;
-            width: 18px;
-            height: auto;
+            
         }
 
         &:hover {
@@ -152,7 +162,9 @@
             border-color: rgba(167, 130, 233, 0.07);
 
             svg {
-                stroke: #a782e9;
+                @apply stroke-[#a782e9];
+
+                
             }
         }
     }
@@ -160,18 +172,12 @@
     &View {
         @apply bg-light text-gray;
 
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        min-width: 80px;
-        height: 30px;
-        font-size: 13px;
-        font-weight: 400;
-        border-radius: 6px;
-        letter-spacing: 0.4px;
+        @apply  flex flex-row justify-center items-center min-w-[80px] h-[30px] text-[13px]
+        font-[400] rounded-[6px] tracking-[0.4px] mr-[auto];
+
+        
         border: 1px solid rgba(167, 130, 233, 0.06);
-        margin-right: auto;
+        
 
         &:hover {
             background-color: rgba(167, 130, 233, 0.04);
@@ -180,108 +186,125 @@
         }
 
         @media (min-width: 768px) {
-            margin-right: 0;
+            @apply mr-[0];
+             
+            
         }
     }
 
     &Title {
         &Wrapper {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
+            @apply relative flex flex-col justify-start items-start;
+
+            // position: relative;
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: flex-start;
+            // align-items: flex-start;
 
             @media (min-width: 768px) {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 5px;
+                @apply flex-row justify-between items-center mb-[5px];
+
+                // flex-direction: row;
+                // justify-content: space-between;
+                // align-items: center;
+                // margin-bottom: 5px;
             }
 
             &Single {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
+                @apply flex flex-row justify-between items-center;
+
+                // display: flex;
+                // flex-direction: row;
+                // justify-content: space-between;
+                // align-items: center;
 
                 .sectionNavWrapper {
-                margin-top: 0;
-                width: auto;
+                @apply mt-[0] w-[auto];
+                    
+                // margin-top: 0;
+                // width: auto;
             }
             }
         }
 
-
-        color: #fff;
-        font-weight: 400;
-        font-size: 28px;
-        line-height: 110%;
-        margin-bottom: 0;
-        position: relative;
-        padding-left: 30px;
+        @apply text-[#fff] font-[400] text-[28px] leading-[110%] mb-[0] relative 
+        pl-[30px];
+        
+       
         font-family: var(--font-montserrat);
         b {
-            font-weight: 500;
+            @apply font-[500] ;
+            
+            
         }
 
         span {
-            @apply text-gray font-sans;
+            @apply text-gray font-sans text-[14px] tracking-[0.4px];
 
-            font-size: 14px;
-            letter-spacing: 0.4px;
+            
         }
 
         @media (min-width: 576px) {
-            font-size: 30px;
+            @apply text-[30px];
+            
+            
         }
 
         @media (min-width: 768px) {
             &:before {
-                top: 3px;
-                bottom: 3px;
+                @apply top-[3px] bottom-[3px];
+                
+               
             }
-            font-size: 32px;
+            @apply text-[32px];
+
+            
         }
 
         &:before {
-            content: '';
-            position: absolute;
-            display: block;
-            top: 2px;
-            bottom: 2px;
-            left: 0;
-            width: 3px;
-            background-color: #a782e9;
-            border-radius: 4px;
+            @apply content-[''] absolute block top-[2px] bottom-[2px] left-[0] w-[3px]
+            bg-[#a782e9] rounded-[4px];
+
+      
         }
 
         &Pre {
             &:before {
-                background-color: #f26c2a;
+                @apply bg-[#f26c2a];
+
+               
             }
         }
         &Downloads {
             &:before {
-                background-color: #5074e1;
+                @apply bg-[#5074e1];
+
+                
             }
         }
 
         &Small {
-            font-size: 26px;
+            @apply text-[26px];
+
+            
 
             @media (min-width: 576px) {
-                font-size: 28px;
+                @apply text-[28px];
+
+                
             }
             @media (min-width: 768px) {
-                font-size: 28px;
+                @apply text-[28px];
+
+                
             }
         }
 
         &Uppercase {
-            font-weight: 300;
-            text-transform: uppercase;
-            line-height: 130%;
+            @apply font-[300] uppercase leading-[130%];
+
+            
         }
     }
 }
