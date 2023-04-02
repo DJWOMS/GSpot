@@ -11,10 +11,16 @@ jobs:
     - name: Checkout repository code
       uses: actions/checkout@v3
     - name: Install dependencies
-      run: pip install flake8
+      run: |
+        pip install flake8
     - name: Test with flake8
       run: |
-        cd backend/games && python -m flake8
+        cd backend/games
+        python -m flake8
     - name: Build and run containers
       run: |
         cd backend/games && docker-compose up -d --build
+    - name: Launch tests
+      run: |
+        cd backend/games
+        docker-compose exec -T web python manage.py test

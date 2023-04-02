@@ -1,5 +1,13 @@
 from django.db import models
 from core.models import Product
+import uuid
+from reference.models import Language
+
+
+GRADE_CHOICES = (
+    ('Like', 'Like'),
+    ('Dislike', 'Dislike'),
+)
 
 
 class Media(models.Model):
@@ -53,3 +61,47 @@ class Social(models.Model):
     class Meta:
         verbose_name = 'Социальная сеть'
         verbose_name_plural = 'Социальные сети'
+
+
+class Review(models.Model):
+    user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    game = models.ForeignKey(Product, on_delete=models.CASCADE)
+    text = models.TextField()
+    grade = models.CharField(choices=GRADE_CHOICES, max_length=10)
+    view_type = models.BooleanField(default=True)
+    can_reply = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Review {self.game}'
+
+    class Meta:
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'
+
+
+class Comment(models.Model):
+    user_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    text = models.TextField()
+
+    def __str__(self):
+        return f'Comment {self.id}'
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+
+
+class Reaction(models.Model):
+    user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    like_type = models.CharField(choices=GRADE_CHOICES, max_length=10)
+
+    def __str__(self):
+        return f'{self.like_type} for Review {self.review_id}'
+
+    class Meta:
+        verbose_name = 'Like/Dislike'
+        verbose_name_plural = 'Likes/Dislikes'
