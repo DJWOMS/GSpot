@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     EMAIL_HOST_PASSWORD: str
 
     class Config:
-        env_file = '../.env.dev'
+        env_file = './.env.dev'
 
 
 settings = Settings()
