@@ -139,34 +139,15 @@
     &Wrapper {
       @apply relative flex flex-col items-start justify-start;
 
-      // position: relative;
-      // display: flex;
-      // flex-direction: column;
-      // justify-content: flex-start;
-      // align-items: flex-start;
-
       @media (min-width: 768px) {
         @apply mb-[5px] flex-row items-center justify-between;
-
-        // flex-direction: row;
-        // justify-content: space-between;
-        // align-items: center;
-        // margin-bottom: 5px;
       }
 
       &Single {
         @apply flex flex-row items-center justify-between;
 
-        // display: flex;
-        // flex-direction: row;
-        // justify-content: space-between;
-        // align-items: center;
-
         .sectionNavWrapper {
           @apply mt-[0] w-[auto];
-
-          // margin-top: 0;
-          // width: auto;
         }
       }
     }
