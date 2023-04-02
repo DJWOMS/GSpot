@@ -1,68 +1,42 @@
 .page {
-  display: block;
-  position: relative;
+    @apply block relative;
+    
+   
 }
 .wrap {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 100vh;
-  padding: 40px 0;
+    @apply flex flex-row justify-center items-center w-[100px] min-h-screen p-[40px-0];
+
+   
 }
 .content {
-  background-color: #1b222e;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid rgba(167, 130, 233, 0.06);
-  border-radius: 6px;
-  padding: 40px 20px;
-  position: relative;
-  width: 100%;
-  max-width: 400px;
+    @apply bg-[#1b222e] flex-col justify-center items-center rounded-[6px] p-[40px-20px] relative w-[100%] max-w-[400px];
+    border: 1px solid rgba(167, 130, 233, 0.06);
+    
 
-  @media (min-width: 576px) {
-    padding: 50px;
-  }
+    @media (min-width: 576px) {
+        @apply p-[50px];
+        
+        
+    }
 }
 .title {
-  position: relative;
-  color: #a782e9;
-  line-height: 100%;
-  font-size: 120px;
-  margin-bottom: 20px;
-  font-weight: 500;
-  font-family: var(--font-montserrat);
+    @apply relative text-[#a782e9] leading-[100%] text-[120px] mb-[20px] font-medium font-[montserrat];
+
+    
 }
 .text {
-  text-align: center;
-  display: block;
-  width: 100%;
-  color: #fff;
-  font-size: 14px;
-  line-height: 26px;
-  margin-bottom: 40px;
+    @apply text-center block w-[100%] text-[#fff] text-[14px] leading-[26px] mb-[40px] ;
+
+ 
 }
 .link {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 140px;
-  height: 44px;
-  border-radius: 6px;
-  background-color: #29b474;
-  color: #fff;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
+    @apply flex flex-row justify-center items-center w-[140px] h-[44px] rounded-[6px] bg-[#29b474] text-[#fff] font-[600] text-[13px] tracking-[0.6px] uppercase;
 
-  :hover {
-    background-color: #a782e9;
-    color: #fff;
-  }
+    
+
+    :hover {
+        @apply bg-[#a782e9] text-[#fff] ;
+        
+        
+    }
 }
