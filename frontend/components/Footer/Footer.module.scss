@@ -30,7 +30,6 @@
             
         }
     }
-  }
 }
 
 .container {
@@ -86,9 +85,13 @@
         ;
     }
 
-  &3 {
-    @media (max-width: 768px) {
-      flex-direction: column;
+    &1 {
+        @media (min-width: 768px) {
+            width: calc(33.333333% - 15px);
+        }
+        @media (min-width: 1200px) {
+            width: calc(20% - 20px);
+        }
     }
 
     &2 {
@@ -120,7 +123,6 @@
             width: calc(40% - 20px);
         }
     }
-  }
 }
 
 .title {
@@ -149,7 +151,7 @@
     
 
     a {
-        @apply text-gray text-[14px] leading-[26px] relative pl-[20px] tracking-[0.4px] opacity-[0.8];
+        @apply text-light text-[14px] leading-[26px] relative pl-[20px] tracking-[0.4px] opacity-[0.8];
         
        
         :hover {
@@ -167,7 +169,6 @@
             transition: 0.5s;
         }
     }
-  }
 
     &Double {
         @media (max-width: 768px) {
@@ -181,7 +182,6 @@
             
         }
     }
-  }
 }
 
 .contacts {
@@ -225,19 +225,15 @@
         
     }
     span {
-        @apply text-gray;
+        @apply text-light;
 
         a {
-            @apply text-gray hover:text-primary;
+            @apply text-light hover:text-primary;
         }
         @apply text-[12px] leading-[20px] text-right;
         
       
     }
-    font-size: 12px;
-    line-height: 20px;
-    text-align: right;
-  }
 
     @media (min-width: 576px) {
         @apply mt-[70px];

@@ -18,7 +18,6 @@
 
         
     }
-  }
 
     &First {
         @apply relative pt-[160px];
@@ -41,7 +40,6 @@
             
         }
     }
-  }
 
     &Last {
         @apply relative pb-[60px];
@@ -95,7 +93,6 @@
             }
         }
     }
-  }
 
     &Head {
         @apply overflow-hidden;
@@ -122,9 +119,7 @@
 
         
     }
-  }
 
-  &Nav {
     &Wrapper {
         @apply flex flex-col justify-start items-start;
 
@@ -162,33 +157,9 @@
             
         }
 
-      svg {
-        stroke: #a782e9;
-      }
-    }
-  }
-
-  &View {
-    @apply bg-dark text-light;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    min-width: 80px;
-    height: 30px;
-    font-size: 13px;
-    font-weight: 400;
-    border-radius: 6px;
-    letter-spacing: 0.4px;
-    border: 1px solid rgba(167, 130, 233, 0.06);
-    margin-right: auto;
-
-    &:hover {
-      background-color: rgba(167, 130, 233, 0.04);
-      border-color: rgba(167, 130, 233, 0.07);
-      color: #a782e9;
-    }
+        &:hover {
+            background-color: rgba(167, 130, 233, 0.04);
+            border-color: rgba(167, 130, 233, 0.07);
 
             svg {
                 @apply stroke-[#a782e9];
@@ -197,22 +168,9 @@
             }
         }
     }
-  }
 
-  &Title {
-    &Wrapper {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-
-      @media (min-width: 768px) {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 5px;
-      }
+    &View {
+        @apply bg-light text-light;
 
         @apply  flex flex-row justify-center items-center min-w-[80px] h-[30px] text-[13px]
         font-[400] rounded-[6px] tracking-[0.4px] mr-[auto];
@@ -232,7 +190,6 @@
              
             
         }
-      }
     }
 
     &Title {
@@ -283,7 +240,7 @@
         }
 
         span {
-            @apply text-gray font-sans text-[14px] tracking-[0.4px];
+            @apply text-light font-sans text-[14px] tracking-[0.4px];
 
             
         }
@@ -350,13 +307,12 @@
             
         }
     }
-  }
 }
 
 .list {
-  @apply flex gap-3;
+    @apply flex gap-3;
 
-  > div {
-    @apply w-full;
-  }
+    > div {
+        @apply w-full;
+    }
 }

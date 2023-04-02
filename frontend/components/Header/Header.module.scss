@@ -100,22 +100,12 @@
             }
         }
     }
-    &:last-child {
-      top: 20px;
-      width: 8px;
-    }
-  }
 
     @media (min-width: 1200px) {
         @apply hidden ;
 
         
     }
-  }
-
-  @media (min-width: 1200px) {
-    display: none;
-  }
 }
 
 .nav {
@@ -129,6 +119,16 @@
        
     }
 
+    @media (min-width: 576px) {
+        padding-left: calc((100% - 510px) / 2);
+        padding-top: 20px;
+    }
+    @media (min-width: 768px) {
+        padding-left: calc((100% - 690px) / 2);
+    }
+    @media (min-width: 992px) {
+        padding-left: calc((100% - 930px) / 2);
+    }
     @media (min-width: 1200px) {
         @apply flex-row items-center top-[auto] left-[auto] bottom-[auto] relative h-[70px]
         p-[0] w-[auto] z-[2] bg-[transparent] mr-[auto] ml-[30px];
@@ -182,7 +182,6 @@
             }
         }
     }
-  }
 }
 
 .actions {
@@ -234,7 +233,9 @@
 
        
     }
-  }
+    :hover {
+        background-color: rgba(167, 130, 233, 0.04);
+        border-color: rgba(167, 130, 233, 0.5);
 
         svg {
             @apply stroke-[#a782e9];
@@ -280,27 +281,6 @@
 
         
     }
-    span {
-      display: block;
-      font-size: 12px;
-      color: #fff;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      transition: 0.5s;
-    }
-    :hover span {
-      color: #a782e9;
-    }
-  }
-  @media (min-width: 768px) {
-    width: 120px;
-  }
-  @media (min-width: 1200px) {
-    width: 114px;
-  }
-  @media (min-width: 1310px) {
-    width: 130px;
-  }
 }
 
 .form {
@@ -334,7 +314,6 @@
            
         }
     }
-  }
 }
 
 .select {
