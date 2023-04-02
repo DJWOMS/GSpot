@@ -1,318 +1,236 @@
 .section {
-    @apply relative pt-[60px];
+  @apply relative pt-[60px];
 
- 
+  @media (min-width: 576px) {
+    @apply pt-[70px];
+  }
+  @media (min-width: 768px) {
+    @apply pt-[80px];
+  }
+  @media (min-width: 1200px) {
+    @apply pt-[90px];
+  }
+
+  &First {
+    @apply relative pt-[160px];
 
     @media (min-width: 576px) {
-        @apply pt-[70px];
-
-        
+      @apply pt-[170px];
     }
     @media (min-width: 768px) {
-        @apply pt-[80px];
-
-        
+      @apply pt-[180px];
     }
     @media (min-width: 1200px) {
-        @apply pt-[90px];
+      @apply pt-[190px];
+    }
+  }
 
-        
+  &Last {
+    @apply relative pb-[60px];
+
+    @media (min-width: 576px) {
+      @apply pb-[70px];
+    }
+    @media (min-width: 768px) {
+      @apply pb-[80px];
+    }
+    @media (min-width: 1200px) {
+      @apply pb-[90px];
+    }
+  }
+
+  &Bg {
+    @apply overflow-hidden;
+
+    .container {
+      @apply relative z-[2];
     }
 
-    &First {
-        @apply relative pt-[160px];
-        
-        
+    &Full {
+      @apply overflow-hidden;
 
-        @media (min-width: 576px) {
-            @apply pt-[170px];
+      &::before {
+        @apply pointer-events-none absolute top-[0] left-[0] right-[0] bottom-[0] z-[1] block
+                content-[''];
 
-            
-        }
-        @media (min-width: 768px) {
-            @apply pt-[180px];
+        background-color: rgba(27, 34, 46, 0.7);
+      }
 
-            
-        }
-        @media (min-width: 1200px) {
-            @apply pt-[190px];
+      .container {
+        @apply relative z-[2];
+      }
+    }
+  }
 
-            
-        }
+  &Head {
+    @apply overflow-hidden;
+
+    &::before {
+      @apply pointer-events-none absolute top-[140px] left-[0] right-[0] bottom-[0] z-[1]
+             block content-[''];
+
+      background-color: rgba(27, 34, 46, 0.7);
     }
 
-    &Last {
-        @apply relative pb-[60px];
-        
-       
-
-        @media (min-width: 576px) {
-            @apply pb-[70px];
-            
-            
-        }
-        @media (min-width: 768px) {
-            @apply pb-[80px];
-
-            
-        }
-        @media (min-width: 1200px) {
-            @apply pb-[90px];
-
-            ;
-        }
+    .container {
+      @apply relative z-[2];
     }
+  }
 
-    &Bg {
-        @apply overflow-hidden;
-        
-        
+  &Category {
+    @apply pt-[40px];
+  }
 
-        .container {
-            @apply relative z-[2] ;
+  &Wrapper {
+    @apply flex flex-col items-start justify-start;
 
-            
-        }
-
-        &Full {
-            @apply overflow-hidden;
-            
-
-            &::before {
-                @apply content-[''] absolute block z-[1] top-[0] left-[0] right-[0] bottom-[0]
-                pointer-events-none;
-
-                
-                background-color: rgba(27, 34, 46, 0.7);
-            }
-
-            .container {
-                @apply relative z-[2]; 
-
-               
-            }
-        }
+    @media (min-width: 768px) {
+      @apply flex-row items-center justify-between;
     }
+  }
 
-    &Head {
-        @apply overflow-hidden;
-        
-       
-
-        &::before {
-            @apply content-[''] absolute block z-[1] top-[140px] left-[0] right-[0]
-             bottom-[0] pointer-events-none;
-
-            ;
-            background-color: rgba(27, 34, 46, 0.7);
-        }
-
-        .container {
-            @apply relative z-[2];
-
-           
-        }
-    }
-
-    &Category {
-        @apply pt-[40px];
-
-        
-    }
-
+  &Nav {
     &Wrapper {
-        @apply flex flex-col justify-start items-start;
+      @apply mt-[20px] flex w-[100%] flex-row items-center justify-start gap-[10px];
 
-        
-
-        @media (min-width: 768px) {
-            @apply flex-row justify-between items-center;
-
-            
-        }
+      @media (min-width: 768px) {
+        @apply mt-[0] w-auto gap-[15px];
+      }
     }
 
-    &Nav {
-        &Wrapper {
-            @apply flex flex-row justify-start items-center w-[100%] mt-[20px] gap-[10px];
+    @apply flex h-[30px] w-[30px] flex-row justify-center rounded-[6px] bg-light;
 
-          
+    svg {
+      @apply h-[auto] w-[18px] stroke-[#dbdada];
 
-            @media (min-width: 768px) {
-                @apply mt-[0] w-auto gap-[15px];
-
-               
-            }
-        }
-
-        @apply bg-light flex flex-row justify-center w-[30px] h-[30px] rounded-[6px];
-
-        
-
-        svg {
-            @apply stroke-[#dbdada] w-[18px] h-[auto];
-
-            
-            transition: 0.5s;
-            
-        }
-
-        &:hover {
-            background-color: rgba(167, 130, 233, 0.04);
-            border-color: rgba(167, 130, 233, 0.07);
-
-            svg {
-                @apply stroke-[#a782e9];
-
-                
-            }
-        }
+      transition: 0.5s;
     }
 
-    &View {
-        @apply bg-light text-light;
+    &:hover {
+      background-color: rgba(167, 130, 233, 0.04);
+      border-color: rgba(167, 130, 233, 0.07);
 
-        @apply  flex flex-row justify-center items-center min-w-[80px] h-[30px] text-[13px]
-        font-[400] rounded-[6px] tracking-[0.4px] mr-[auto];
+      svg {
+        @apply stroke-[#a782e9];
+      }
+    }
+  }
 
-        
-        border: 1px solid rgba(167, 130, 233, 0.06);
-        
+  &View {
+    @apply bg-light text-light;
 
-        &:hover {
-            background-color: rgba(167, 130, 233, 0.04);
-            border-color: rgba(167, 130, 233, 0.07);
-            color: #a782e9;
-        }
+    @apply mr-[auto] flex h-[30px] min-w-[80px] flex-row items-center justify-center
+        rounded-[6px] text-[13px] font-[400] tracking-[0.4px];
 
-        @media (min-width: 768px) {
-            @apply mr-[0];
-             
-            
-        }
+    border: 1px solid rgba(167, 130, 233, 0.06);
+
+    &:hover {
+      background-color: rgba(167, 130, 233, 0.04);
+      border-color: rgba(167, 130, 233, 0.07);
+      color: #a782e9;
     }
 
-    &Title {
-        &Wrapper {
-            @apply relative flex flex-col justify-start items-start;
-
-            // position: relative;
-            // display: flex;
-            // flex-direction: column;
-            // justify-content: flex-start;
-            // align-items: flex-start;
-
-            @media (min-width: 768px) {
-                @apply flex-row justify-between items-center mb-[5px];
-
-                // flex-direction: row;
-                // justify-content: space-between;
-                // align-items: center;
-                // margin-bottom: 5px;
-            }
-
-            &Single {
-                @apply flex flex-row justify-between items-center;
-
-                // display: flex;
-                // flex-direction: row;
-                // justify-content: space-between;
-                // align-items: center;
-
-                .sectionNavWrapper {
-                @apply mt-[0] w-[auto];
-                    
-                // margin-top: 0;
-                // width: auto;
-            }
-            }
-        }
-
-        @apply text-[#fff] font-[400] text-[28px] leading-[110%] mb-[0] relative 
-        pl-[30px];
-        
-       
-        font-family: var(--font-montserrat);
-        b {
-            @apply font-[500] ;
-            
-            
-        }
-
-        span {
-            @apply text-light font-sans text-[14px] tracking-[0.4px];
-
-            
-        }
-
-        @media (min-width: 576px) {
-            @apply text-[30px];
-            
-            
-        }
-
-        @media (min-width: 768px) {
-            &:before {
-                @apply top-[3px] bottom-[3px];
-                
-               
-            }
-            @apply text-[32px];
-
-            
-        }
-
-        &:before {
-            @apply content-[''] absolute block top-[2px] bottom-[2px] left-[0] w-[3px]
-            bg-[#a782e9] rounded-[4px];
-
-      
-        }
-
-        &Pre {
-            &:before {
-                @apply bg-[#f26c2a];
-
-               
-            }
-        }
-        &Downloads {
-            &:before {
-                @apply bg-[#5074e1];
-
-                
-            }
-        }
-
-        &Small {
-            @apply text-[26px];
-
-            
-
-            @media (min-width: 576px) {
-                @apply text-[28px];
-
-                
-            }
-            @media (min-width: 768px) {
-                @apply text-[28px];
-
-                
-            }
-        }
-
-        &Uppercase {
-            @apply font-[300] uppercase leading-[130%];
-
-            
-        }
+    @media (min-width: 768px) {
+      @apply mr-[0];
     }
+  }
+
+  &Title {
+    &Wrapper {
+      @apply relative flex flex-col items-start justify-start;
+
+      // position: relative;
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: flex-start;
+      // align-items: flex-start;
+
+      @media (min-width: 768px) {
+        @apply mb-[5px] flex-row items-center justify-between;
+
+        // flex-direction: row;
+        // justify-content: space-between;
+        // align-items: center;
+        // margin-bottom: 5px;
+      }
+
+      &Single {
+        @apply flex flex-row items-center justify-between;
+
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: space-between;
+        // align-items: center;
+
+        .sectionNavWrapper {
+          @apply mt-[0] w-[auto];
+
+          // margin-top: 0;
+          // width: auto;
+        }
+      }
+    }
+
+    @apply relative mb-[0] pl-[30px] text-[28px] font-[400] leading-[110%] 
+        text-[#fff];
+
+    font-family: var(--font-montserrat);
+    b {
+      @apply font-[500];
+    }
+
+    span {
+      @apply font-sans text-[14px] tracking-[0.4px] text-light;
+    }
+
+    @media (min-width: 576px) {
+      @apply text-[30px];
+    }
+
+    @media (min-width: 768px) {
+      &:before {
+        @apply top-[3px] bottom-[3px];
+      }
+      @apply text-[32px];
+    }
+
+    &:before {
+      @apply absolute top-[2px] bottom-[2px] left-[0] block w-[3px] rounded-[4px]
+            bg-[#a782e9] content-[''];
+    }
+
+    &Pre {
+      &:before {
+        @apply bg-[#f26c2a];
+      }
+    }
+    &Downloads {
+      &:before {
+        @apply bg-[#5074e1];
+      }
+    }
+
+    &Small {
+      @apply text-[26px];
+
+      @media (min-width: 576px) {
+        @apply text-[28px];
+      }
+      @media (min-width: 768px) {
+        @apply text-[28px];
+      }
+    }
+
+    &Uppercase {
+      @apply font-[300] uppercase leading-[130%];
+    }
+  }
 }
 
 .list {
-    @apply flex gap-3;
+  @apply flex gap-3;
 
-    > div {
-        @apply w-full;
-    }
+  > div {
+    @apply w-full;
+  }
 }
