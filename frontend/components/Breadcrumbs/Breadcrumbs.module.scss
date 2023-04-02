@@ -1,32 +1,31 @@
 .components {
-    @apply flex flex-row justify-start items-center mt-[30px] md:mt-0;
+  @apply mt-[30px] flex flex-row items-center justify-start md:mt-0;
 }
 
-
 .breadcrumb {
-    @apply text-[14px] leading-[22px] relative mr-[40px] tracking-[0.4px] text-light
+  @apply relative mr-[40px] text-[14px] leading-[22px] tracking-[0.4px] text-light
     hover:text-light;
-    transition: 0.5s;
+  transition: 0.5s;
 
-    :first-child {
-        @apply pl-[25px];
+  :first-child {
+    @apply pl-[25px];
 
-        :after {
-            @apply content-[''] absolute left-0 top-0 h-[22px] w-[25px];
-            background: url('/svg/home.svg') no-repeat center left/16px auto;
-        }
+    :after {
+      @apply absolute left-0 top-0 h-[22px] w-[25px] content-[''];
+      background: url('/svg/home.svg') no-repeat center left/16px auto;
     }
+  }
 
-    :before {
-        @apply content-[''] absolute left-full top-0 h-[22px] w-[40px] opacity-[0.8];
-        background: url('/svg/breadcrumb.svg') no-repeat center/14px auto;
-    }
+  :before {
+    @apply absolute left-full top-0 h-[22px] w-[40px] opacity-[0.8] content-[''];
+    background: url('/svg/breadcrumb.svg') no-repeat center/14px auto;
+  }
 
-    &Active {
-        @apply cursor-default mr-0 before:hidden hover:text-light;
-    }
+  &Active {
+    @apply mr-0 cursor-default before:hidden hover:text-light;
+  }
 }
 
 .linkBtn {
-    @apply text-white hover:text-primary;
+  @apply text-white hover:text-primary;
 }

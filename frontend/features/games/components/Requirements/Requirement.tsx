@@ -1,0 +1,27 @@
+import { FC } from 'react'
+import { RequirementInterface } from 'features/games/types'
+import s from './Requirement.module.scss'
+
+const Requirement: FC<RequirementInterface> = ({ typeRequirements, deviceProcessor, deviceMemory, deviceStorage, deviceGraphics }) => {
+  return (
+    <div>
+      <span className={s.title}>{typeRequirements}:</span>
+      <ul className={s.list}>
+        <li>
+          <span>Processor:</span> {deviceProcessor}
+        </li>
+        <li>
+          <span>Memory:</span> {deviceMemory}
+        </li>
+        <li>
+          <span>Storage:</span> {deviceStorage}
+        </li>
+        <li>
+          <span>Graphics:</span> {deviceGraphics}
+        </li>
+      </ul>
+    </div>
+  )
+}
+
+export { Requirement }

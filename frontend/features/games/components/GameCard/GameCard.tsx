@@ -10,7 +10,7 @@ import { Platform } from './Platform'
 const GameCard: FC<GameCardInterface> = ({ badge, title, link, price, coverImg, sale, platform, currency }) => {
   return (
     <div className={s.card}>
-      <Link className={s.cardCover} href="/#">
+      <Link className={s.cardCover} href="/details/id">
         <Image src={coverImg} width={400} height={600} alt="" />
         {badge && <span className={cn(s.cardBadge, s.cardBadgeNew)}>{badge}</span>}
       </Link>

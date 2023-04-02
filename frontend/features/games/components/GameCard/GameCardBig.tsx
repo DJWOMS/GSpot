@@ -10,7 +10,7 @@ import { Platform } from './Platform'
 const GameCardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, price, platform, currency = '$' }) => {
   return (
     <div className={s.cardBig}>
-      <Link className={s.cardCover} href="/#">
+      <Link className={s.cardCover} href="/details/id">
         <Image src={coverImg} alt="" width={400} height={600} />
         {badge && <span className={s.cardBadgeNew}>{badge}</span>}
       </Link>

@@ -12,33 +12,33 @@ const CheckAge = () => {
 
   return (
     <div className={styles.mainBlock}>
-      <div className={cn(styles.divStyle, 'lg:p-44 lg:pb-10 pb-10 p-2')}>
-        <div className={cn('md:h-1/3 h-1/4 lg:w-1/4 w-2/4', styles.divImg)}>
+      <div className={cn(styles.divStyle, 'p-2 pb-10 lg:p-44 lg:pb-10')}>
+        <div className={cn('h-1/4 w-2/4 md:h-1/3 lg:w-1/4', styles.divImg)}>
           <Image alt="Game image" src="https://loremflickr.com/320/240" className={styles.styleImg} />
         </div>
-        <div className={cn(styles.divH1, 'lg:w-4/5 w-11/12')}>
-          <h1 className={cn(styles.styleH1, 'md:text-xl text-xs lg:pt-4 pt-10')}>
+        <div className={cn(styles.divH1, 'w-11/12 lg:w-4/5')}>
+          <h1 className={cn(styles.styleH1, 'pt-10 text-xs md:text-xl lg:pt-4')}>
             ВНИМАНИЕ: ИГРА МОЖЕТ СОДЕРЖАТЬ КОНТЕНТ, НЕ ПОДХОДЯЩИЙ ДЛЯ ВСЕХ ВОЗРАСТОВ ИЛИ ДЛЯ ПРОСМОТРА НА РАБОТЕ.
           </h1>
-          <form className={cn(styles.styleForm, 'md:text-xl text-xs')}>
+          <form className={cn(styles.styleForm, 'text-xs md:text-xl')}>
             <p className={styles.p}>Пожалуйста, укажите дату своего рождения:</p>
 
             <div className={styles.divDatePicker}>
               <DatePicker
-                className={cn(styles.bday, 'lg:w-10 w-8 lg:text-xl text-xs')}
+                className={cn(styles.bday, 'w-8 text-xs lg:w-10 lg:text-xl')}
                 selected={startDay}
                 onChange={(date: Date) => setStartDay(date)}
                 dateFormat="dd"
               />
               <DatePicker
-                className={cn(styles.bday, 'lg:w-24 w-14')}
+                className={cn(styles.bday, 'w-14 lg:w-24')}
                 selected={starMonth}
                 onChange={(date: Date) => setStarMonth(date)}
                 showMonthYearPicker
                 dateFormat="MMMM"
               />
               <DatePicker
-                className={cn(styles.bday, 'lg:w-20 w-10')}
+                className={cn(styles.bday, 'w-10 lg:w-20')}
                 selected={startYear}
                 onChange={(date: Date) => setStartYear(date)}
                 showYearPicker
@@ -47,13 +47,13 @@ const CheckAge = () => {
             </div>
           </form>
           <div className={styles.divBtn}>
-            <button className={cn(styles.btn, 'lg:text-xl text-xs')}>Открыть страницу</button>
-            <button className={cn(styles.btn, 'lg:text-xl text-xs')}>Отмена</button>
+            <button className={cn(styles.btn, 'text-xs lg:text-xl')}>Открыть страницу</button>
+            <button className={cn(styles.btn, 'text-xs lg:text-xl')}>Отмена</button>
           </div>
         </div>
       </div>
       <footer className={styles.footer}>
-        <p className={cn(styles.p, 'md:text-xl text-xs')}>Эта информация предназначена исключительно для проверки и не будет сохранена.</p>
+        <p className={cn(styles.p, 'text-xs md:text-xl')}>Эта информация предназначена исключительно для проверки и не будет сохранена.</p>
       </footer>
     </div>
   )
