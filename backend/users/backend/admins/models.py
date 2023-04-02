@@ -9,7 +9,7 @@ class Country(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
 
-    class Meta(BaseContentType.Meta):
+    class Meta:
         db_table = "country"
         verbose_name = _("country")
         verbose_name_plural = _("countries")
@@ -79,7 +79,3 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
 
     class Meta:
         db_table = "admin"
-
-
-class Country(models.Model):
-    name = models.CharField(max_length=255)

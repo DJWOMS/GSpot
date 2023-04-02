@@ -51,7 +51,8 @@ class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
         'Company',
         on_delete=models.CASCADE,
         verbose_name=_('Company'),
-        related_name='all_user_this_company'
+        related_name='all_user_this_company',
+        null=True
     )
 
     def __str__(self):
