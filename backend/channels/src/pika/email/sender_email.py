@@ -2,12 +2,11 @@ from pathlib import Path
 
 from fastapi_mail import ConnectionConfig, MessageSchema, FastMail, MessageType
 
-from channels.schemas.mailing import EmailConfirm
-from channels.src.config import settings
+from schemas.mailing import EmailConfirm
+from config import settings
 
 
 class Sender:
-
     def __init__(self):
         self.__conf = ConnectionConfig(
             MAIL_USERNAME=settings.EMAIL_HOST_USER,

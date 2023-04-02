@@ -11,4 +11,7 @@ COPY pyproject.toml poetry.lock ./
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-root
 
-CMD ["python", "/app/consumer.py"]
+RUN mkdir /app
+WORKDIR /app
+
+CMD ["python", "consumer.py"]
