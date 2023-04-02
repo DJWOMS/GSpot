@@ -69,3 +69,7 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
 
     class Meta:
         db_table = "admin"
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=255)

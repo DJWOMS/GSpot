@@ -3,6 +3,9 @@
 set -euo pipefail
 
 python manage.py collectstatic --no-input
+python manage.py makemigrations admins
+python manage.py makemigrations customers
+python manage.py makemigrations developers
 python manage.py migrate
 if [[ "$DJANGO_ENV" = "PRODUCTION" ]]; then
   gunicorn -b 0.0.0.0:8000 \

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'admins.apps.AdminAppConfig',
     'developers.apps.DeveloperAppConfig',
     'customers.apps.CustomerAppConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -85,9 +86,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL = 'admins.Admin'
+# AUTH_USER_MODEL = 'admins.Admin'
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
+# https://docs.djangoprojectAUTH_USER_MODEL.com/en/4.1/howto/static-files/
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
