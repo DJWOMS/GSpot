@@ -2,8 +2,8 @@ import asyncio
 import json
 import aio_pika
 from config import RABBIT_URL, settings
-
-from pika import schemas as pika_schemas
+from pika.tasks import send_email
+from schemas.pika import AioMessage
 
 
 async def process_message(
@@ -11,9 +11,9 @@ async def process_message(
 ) -> None:
     async with message.process():
         body = json.loads(message.body.decode())
-        message = pika_schemas.AioMessage.parse_obj(body)
+        message = AioMessage.parse_obj(body)
         if message.type == 'email':
-            # Email task here
+            await send_email(body)
             return
         elif message.type == 'notification':
             # Save notifications task here

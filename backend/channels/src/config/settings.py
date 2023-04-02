@@ -15,6 +15,11 @@ class Settings(BaseSettings):
     RABBITMQ_LOCAL_PORT: int
     RABBITMQ_TEST_QUEUE: str
 
+    EMAIL_HOST: str
+    EMAIL_PORT: int
+    EMAIL_HOST_USER: str
+    EMAIL_HOST_PASSWORD: str
+
     class Config:
         env_file = './.env.dev'
 
