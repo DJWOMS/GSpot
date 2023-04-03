@@ -1,13 +1,12 @@
 # GSpot Payments
 
-REST API сервис для работы с финансами интернет магазина видеоигр GSpot
+REST API service for working with finance online video game store GSpot
 
-
-## Как запустить local-версию
+## How to run local-version
 
 TODO
 
-## Переменные окружения
+## Environment variables
 
 Образ Django считывает настройки из переменных окружения:
 - `SECRET_KEY` - соль для генерации хэшей. Значение может быть произвольной строкой
@@ -65,31 +64,31 @@ git commit --no-verify
 pre-commit autoupdate
 ```
 
-### Запуск Docker  контейнера
+### Run Docker container
 
-Создания образа:
+Создания образа:__
 $ docker-compose build
  
-Запуск нескольких контейнеров одновременно:
+Запуск нескольких контейнеров одновременно:__
 $ docker-compose up
 
-Две предыдущие команды можно обьединить в одну:
+Две предыдущие команды можно обьединить в одну:__
 $ docker-compose up --build -d
     -d: запустит контейнеры в фоновом режиме
 
-Остановка всех запущенных контейнеров:
+Остановка всех запущенных контейнеров:__
 $ docker-compose down
 
-Удаление всех остановленных контейнеров:
+Удаление всех остановленных контейнеров:__
 $ docker container prune
 
-Миграция БД:
+Миграция БД:__
 $ docker-compose exec web python manage.py makemigrations
 $ docker-compose exec web python manage.py migrate
 
-Работа с контейнерами:
+Работа с контейнерами:__
 $ docker ps                            ## показывает список запущенных контейнеров
-$ docker ps -a                         ## показывает список запущенных и остановленных контейнеров
+$ docker ps -a                         ## показывает список запущенных и остановленных контейнеров__
 $ docker restart <Container ID>        ## перезапускает контейнер
 $ docker stop <Container ID>           ## останавливает контейнер
 $ docker rmi <Container ID>            ## удаляет контейнер
