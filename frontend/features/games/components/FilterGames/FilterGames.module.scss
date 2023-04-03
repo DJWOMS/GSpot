@@ -1,11 +1,9 @@
 .openFilter {
-  @apply mb-[10px] flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-dark
-    text-[12px] uppercase tracking-[0.4px] text-white;
-  border: 1px solid rgba(167, 130, 233, 0.4);
+  @apply mb-[10px] flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-main-30
+    text-[12px] uppercase tracking-default text-white border border-main-40;
 
   :hover {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
+    @apply bg-main-40 border border-mai-50;
 
     svg {
       @apply stroke-primary;
@@ -41,15 +39,15 @@
 }
 
 .title {
-  @apply mb-[25px] flex h-auto w-full flex-row items-center justify-between text-[16px] font-semibold
-    tracking-[.4px] text-white;
+  @apply mb-[25px] flex h-auto w-full flex-row items-center justify-between text-base font-semibold
+    tracking-default text-white;
 }
 
 .clearFilters {
-  @apply text-[12px] font-normal tracking-[0] text-primary;
+  @apply text-[12px] font-normal tracking-[0px] text-primary;
 
   :hover {
-    color: #fd6060;
+    @apply text-danger;
   }
 }
 
@@ -58,7 +56,7 @@
 }
 
 .label {
-  @apply mb-[15px] text-[14px] font-normal leading-[100%] tracking-[.4px] text-light;
+  @apply mb-[15px] text-sm font-normal leading-[100%] tracking-default text-light;
 }
 
 .selectWrap {
@@ -66,8 +64,8 @@
 }
 
 .select {
-  @apply h-[44px] w-full cursor-pointer rounded-default border border-trans-gray px-[20px] text-[14px]
-    tracking-[.4px] text-white;
+  @apply h-[44px] w-full cursor-pointer rounded-default border border-trans-gray px-[20px] text-sm
+    tracking-default text-white;
   background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
   background-size: 12px auto;
 
@@ -82,7 +80,7 @@
 }
 
 .input {
-  @apply relative h-[44px] w-full rounded-default bg-dark px-[20px] text-[14px] tracking-[.4px] text-white;
+  @apply relative h-[44px] w-full rounded-default bg-main-30 px-[20px] text-sm tracking-default text-white;
   border: 1px solid rgba(167, 130, 233, 0.06);
 
   :focus {
@@ -106,8 +104,8 @@
 
   input:not(:checked) + label,
   input:checked + label {
-    @apply relative m-0 cursor-pointer pl-[35px] text-[14px] font-normal leading-[20px]
-        tracking-[.4px] text-white;
+    @apply relative m-0 cursor-pointer pl-[35px] text-sm font-normal leading-[20px]
+        tracking-default text-white;
   }
 
   input:not(:checked) + label a,
@@ -122,7 +120,7 @@
 
   input:not(:checked) + label:before,
   input:checked + label:before {
-    @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border border-trans-gray bg-dark content-[''];
+    @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border border-trans-gray bg-main-30 content-[''];
   }
 
   input:not(:checked) + label:after,
@@ -148,19 +146,19 @@
 
 .range {
   @apply relative mb-[10px] flex h-[30px] flex-row items-center justify-start rounded-default border
-    border-trans-gray bg-dark px-[12px] text-[13px] tracking-[.4px] text-white;
+    border-trans-gray bg-main-30 px-[12px] text-[13px] tracking-default text-white;
 
   div {
     @apply relative first:mr-[16px];
     &:first-child:after {
-      @apply absolute left-full top-0 ml-[4px] block text-[14px] leading-4 text-white content-['-'];
+      @apply absolute left-full top-0 ml-[4px] block text-sm leading-4 text-white content-['-'];
     }
   }
 }
 
 .applyFilter {
-  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-dark uppercase
-    tracking-[.4px] text-white;
+  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-main-30 uppercase
+    tracking-default text-white;
   border: 1px solid rgba(167, 130, 233, 0.4);
 
   :hover {

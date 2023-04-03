@@ -19,7 +19,6 @@ module.exports = {
           400: 'rgba(167,130,233,0.4)',
           500: 'rgba(167,130,233,0.5)',
         },
-
         platform: {
           xb: '#0e7a0d',
           ps: '#665cbe',
@@ -28,9 +27,7 @@ module.exports = {
         },
         danger: '#fd6060',
         primary: '#a782e9',
-        'trans-gray': 'rgba(167, 130, 233, 0.06)',
         acid: '#29b474',
-        dark: 'rgba(167, 130, 233, 0.03)',
         light: '#dbdada',
       },
       fontFamily: {
@@ -39,6 +36,9 @@ module.exports = {
       },
       borderRadius: {
         default: '6px',
+      },
+      tracking: {
+        default: '.4px',
       },
     },
   },

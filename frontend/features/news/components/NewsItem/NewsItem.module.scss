@@ -43,7 +43,7 @@
 
   &Category {
     @apply inline-flex h-[24px] w-auto max-w-[74px] flex-row items-center justify-center rounded-default
-        px-[13px] text-[12px] tracking-[.4px] text-light hover:text-white;
+        px-[13px] text-[12px] tracking-default text-light hover:text-white;
     border: 1px solid rgba(167, 130, 233, 0.4);
     background-color: rgba(167, 130, 233, 0.15);
 
@@ -154,7 +154,7 @@
                 overflow-hidden;
 
         img {
-          @apply h-auto min-h-[100%] w-auto min-w-[100%];
+          @apply h-auto min-h-full w-auto min-w-full;
         }
       }
 

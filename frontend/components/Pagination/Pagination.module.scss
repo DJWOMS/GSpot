@@ -10,8 +10,8 @@
   @apply hidden;
 
   @media (min-width: 576px) {
-    @apply flex h-[44px] flex-row items-center justify-center rounded-default border border-trans-gray bg-dark
-        px-[20px] text-[14px] text-light;
+    @apply flex h-[44px] flex-row items-center justify-center rounded-default border border-main-60 bg-main-30
+        px-[20px] text-sm text-light;
   }
 }
 
@@ -21,7 +21,7 @@
 
 .linkBtn {
   @apply relative flex h-[44px] w-[44px] flex-row items-center justify-center rounded-default border
-    border-trans-gray bg-dark text-center text-[14px];
+    border-main-60 bg-main-30 text-center text-sm;
 }
 
 .item {

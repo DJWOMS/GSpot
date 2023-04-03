@@ -36,9 +36,9 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  @apply bg-trans-gray;
+  @apply bg-main-60;
 }
 
 body::-webkit-scrollbar-thumb {
-  @apply bg-primary outline-1 outline-trans-gray;
+  @apply bg-primary outline-1 outline-main-60;
 }

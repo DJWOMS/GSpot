@@ -1,8 +1,8 @@
 .sort {
-  @apply relative mt-48 mb-[10px] flex rounded-default border border-trans-gray p-[20px];
+  @apply relative mt-48 mb-[10px] flex rounded-default border border-main-60 p-[20px];
 
   &Results {
-    @apply mt-[10px] ml-auto text-[14px] text-light;
+    @apply mt-[10px] ml-auto text-sm text-light;
   }
 }
 
@@ -16,15 +16,15 @@
   }
 
   &Label {
-    @apply mt-[10px] mb-[15px] text-[14px] font-normal leading-[100%] tracking-[0.4px] text-light;
+    @apply mt-[10px] mb-[15px] text-sm font-normal leading-[100%] tracking-default text-light;
   }
 
   &Select {
     &Wrapper {
       @apply relative w-[210px];
     }
-    @apply h-[44px] w-full cursor-pointer rounded-default border border-trans-gray
-        px-[20px] font-[14px] tracking-[0.4px] text-white;
+    @apply h-[44px] w-full cursor-pointer rounded-default border border-main-60
+        px-[20px] font-[14px] tracking-default text-white;
 
     background: url('/img/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
     background-size: 12px auto;

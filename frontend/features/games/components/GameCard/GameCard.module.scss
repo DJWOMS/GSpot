@@ -102,7 +102,7 @@
   }
 
   &Price {
-    @apply flex flex-row items-end justify-start text-[16px] font-semibold leading-[100%] tracking-[0.5px]
+    @apply flex flex-row items-end justify-start text-base font-semibold leading-[100%] tracking-[0.5px]
         text-white;
 
     s {
@@ -132,13 +132,13 @@
     @apply flex h-[44px] flex-row items-center justify-center hover:cursor-pointer;
 
     &Buy {
-      @apply rounded-default bg-acid text-[14px] font-semibold leading-4 tracking-[0.8px] text-white
+      @apply rounded-default bg-acid text-sm font-semibold leading-4 tracking-[0.8px] text-white
             hover:bg-primary hover:text-white;
       width: calc(100% - 59px);
     }
 
     &Favorite {
-      @apply w-[44px] rounded-default border border-background bg-dark;
+      @apply w-[44px] rounded-default border border-background bg-main-30;
 
       svg {
         @apply h-auto w-[22px] stroke-primary;

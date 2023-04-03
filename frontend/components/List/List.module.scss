@@ -1,5 +1,5 @@
 .list {
-  @apply relative mt-[30px] mb-[40px] block rounded-default border border-trans-gray p-[15px];
+  @apply relative mt-[30px] mb-[40px] block rounded-default border border-main-60 p-[15px];
 
   @media (min-width: 360px) {
     @apply p-[20px];
@@ -14,7 +14,7 @@
   }
 
   &Item {
-    @apply relative mt-[15px] flex flex-row items-stretch justify-between border-t border-t-trans-gray
+    @apply relative mt-[15px] flex flex-row items-stretch justify-between border-t border-t-main-60
         pt-[15px];
 
     :first-child {
@@ -57,7 +57,7 @@
   }
 
   &Title {
-    @apply mb-[10px] w-full text-[16px] font-normal text-white hover:text-primary;
+    @apply mb-[10px] w-full text-base font-normal text-white hover:text-primary;
     transition: 0.5s;
 
     a {
