@@ -37,7 +37,7 @@ module.exports = {
       borderRadius: {
         default: '6px',
       },
-      tracking: {
+      letterSpacing: {
         default: '.4px',
       },
     },

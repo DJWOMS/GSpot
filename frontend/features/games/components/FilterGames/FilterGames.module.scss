@@ -1,9 +1,9 @@
 .openFilter {
-  @apply mb-[10px] flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-main-30
-    text-[12px] uppercase tracking-default text-white border border-main-40;
+  @apply tracking-default mb-[10px] flex h-[44px] w-full flex-row items-center justify-center rounded-default
+    border border-main-40 bg-main-30 text-[12px] uppercase text-white;
 
   :hover {
-    @apply bg-main-40 border border-mai-50;
+    @apply border-main-50 border bg-main-40;
 
     svg {
       @apply stroke-primary;
@@ -39,8 +39,8 @@
 }
 
 .title {
-  @apply mb-[25px] flex h-auto w-full flex-row items-center justify-between text-base font-semibold
-    tracking-default text-white;
+  @apply tracking-default mb-[25px] flex h-auto w-full flex-row items-center justify-between text-base
+    font-semibold text-white;
 }
 
 .clearFilters {
@@ -56,7 +56,7 @@
 }
 
 .label {
-  @apply mb-[15px] text-sm font-normal leading-[100%] tracking-default text-light;
+  @apply tracking-default mb-[15px] text-sm font-normal leading-[100%] text-light;
 }
 
 .selectWrap {
@@ -64,8 +64,8 @@
 }
 
 .select {
-  @apply h-[44px] w-full cursor-pointer rounded-default border border-trans-gray px-[20px] text-sm
-    tracking-default text-white;
+  @apply border-main-60 tracking-default h-[44px] w-full cursor-pointer rounded-default border px-[20px]
+    text-sm text-white;
   background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
   background-size: 12px auto;
 
@@ -80,7 +80,7 @@
 }
 
 .input {
-  @apply relative h-[44px] w-full rounded-default bg-main-30 px-[20px] text-sm tracking-default text-white;
+  @apply tracking-default relative h-[44px] w-full rounded-default bg-main-30 px-[20px] text-sm text-white;
   border: 1px solid rgba(167, 130, 233, 0.06);
 
   :focus {
@@ -104,8 +104,8 @@
 
   input:not(:checked) + label,
   input:checked + label {
-    @apply relative m-0 cursor-pointer pl-[35px] text-sm font-normal leading-[20px]
-        tracking-default text-white;
+    @apply tracking-default relative m-0 cursor-pointer pl-[35px] text-sm font-normal
+        leading-[20px] text-white;
   }
 
   input:not(:checked) + label a,
@@ -120,7 +120,7 @@
 
   input:not(:checked) + label:before,
   input:checked + label:before {
-    @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border border-trans-gray bg-main-30 content-[''];
+    @apply border-main-60 absolute left-0 top-0 h-[20px] w-[20px] rounded-default border bg-main-30 content-[''];
   }
 
   input:not(:checked) + label:after,
@@ -145,8 +145,8 @@
 }
 
 .range {
-  @apply relative mb-[10px] flex h-[30px] flex-row items-center justify-start rounded-default border
-    border-trans-gray bg-main-30 px-[12px] text-[13px] tracking-default text-white;
+  @apply border-main-60 tracking-default relative mb-[10px] flex h-[30px] flex-row items-center justify-start
+    rounded-default border bg-main-30 px-[12px] text-[13px] text-white;
 
   div {
     @apply relative first:mr-[16px];
@@ -157,8 +157,8 @@
 }
 
 .applyFilter {
-  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-main-30 uppercase
-    tracking-default text-white;
+  @apply tracking-default flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-main-30
+    uppercase text-white;
   border: 1px solid rgba(167, 130, 233, 0.4);
 
   :hover {

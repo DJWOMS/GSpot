@@ -1,5 +1,5 @@
 .list {
-  @apply relative mt-[30px] mb-[40px] block rounded-default border border-main-60 p-[15px];
+  @apply relative mb-[40px] mt-[30px] block rounded-default border border-main-60 p-[15px];
 
   @media (min-width: 360px) {
     @apply p-[20px];
@@ -73,17 +73,17 @@
     }
 
     s {
-      @apply mt-[7px] mr-[15px] text-[13px] text-light;
+      @apply mr-[15px] mt-[7px] text-[13px] text-light;
     }
 
     b {
-      @apply mt-[7px] mr-[15px] text-[13px] font-semibold;
+      @apply mr-[15px] mt-[7px] text-[13px] font-semibold;
       color: #fd6060;
     }
   }
 
   &Buy {
-    @apply absolute right-0 bottom-0 flex h-[44px] w-[44px] flex-row items-center justify-center
+    @apply absolute bottom-0 right-0 flex h-[44px] w-[44px] flex-row items-center justify-center
         rounded-default bg-acid hover:bg-primary;
 
     svg {

@@ -24,7 +24,7 @@
 
   &Catalog {
     @media (min-width: 360px) {
-      @apply flex flex-row flex-wrap items-start justify-start border-r border-trans-gray;
+      @apply border-main-60 flex flex-row flex-wrap items-start justify-start border-r;
     }
 
     @media (min-width: 576px) {
@@ -46,14 +46,14 @@
   }
 
   &Platforms {
-    @apply pointer-events-none absolute top-[20px] left-[15px] z-[2] flex flex-row items-center justify-start;
+    @apply pointer-events-none absolute left-[15px] top-[20px] z-[2] flex flex-row items-center justify-start;
 
     @media (min-width: 360px) {
-      @apply top-[15px] left-[15px];
+      @apply left-[15px] top-[15px];
     }
 
     @media (min-width: 576px) {
-      @apply top-[20px] left-[20px];
+      @apply left-[20px] top-[20px];
     }
   }
 
@@ -63,35 +63,35 @@
     transition: 0.5s;
 
     &Wrapper {
-      @apply relative flex w-full flex-col items-start justify-center border-x border-x-trans-gray
+      @apply border-x-main-60 relative flex w-full flex-col items-start justify-center border-x
             p-[15px];
 
       :last-child {
-        @apply rounded-b-default rounded-l-default border-b border-b-trans-gray;
+        @apply border-b-main-60 rounded-b-default rounded-l-default border-b;
       }
 
       @media (min-width: 360px) {
         width: calc(100% - 165px);
-        @apply border-x-0 border-t border-t-trans-gray p-[15px];
+        @apply border-t-main-60 border-x-0 border-t p-[15px];
 
         .cardTitle {
           @apply whitespace-normal;
         }
 
         :last-child {
-          @apply absolute bottom-0 top-0 right-0 justify-start rounded-b-default rounded-r-default;
+          @apply absolute bottom-0 right-0 top-0 justify-start rounded-b-default rounded-r-default;
         }
       }
 
       @media (min-width: 576px) {
-        @apply w-full border-x border-t-0 border-x-trans-gray p-[20px];
+        @apply border-x-main-60 w-full border-x border-t-0 p-[20px];
 
         .cardTitle {
           @apply whitespace-nowrap;
         }
 
         :last-child {
-          @apply relative top-auto bottom-auto right-auto rounded-b-default rounded-l-default;
+          @apply relative bottom-auto right-auto top-auto rounded-b-default rounded-l-default;
         }
       }
     }
@@ -115,15 +115,15 @@
   }
 
   &Actions {
-    @apply flex w-full flex-row items-center justify-between rounded-b-default rounded-l-default border-x border-b
-        border-x-trans-gray border-b-trans-gray px-[15px] pb-[15px];
+    @apply border-x-main-60 border-b-main-60 flex w-full flex-row items-center justify-between rounded-b-default rounded-l-default
+        border-x border-b px-[15px] pb-[15px];
 
     @media (min-width: 360px) {
       @apply absolute bottom-0 right-0 rounded-none border-x-0 px-[15px] pb-[15px];
     }
 
     @media (min-width: 576px) {
-      @apply relative bottom-auto right-auto w-full rounded-b-default rounded-l-default border-x border-x-trans-gray
+      @apply border-x-main-60 relative bottom-auto right-auto w-full rounded-b-default rounded-l-default border-x
             px-[20px] pb-[20px];
     }
   }
@@ -157,7 +157,7 @@
   }
 
   &Big {
-    @apply gap-4 border border-trans-gray p-[15px];
+    @apply border-main-60 gap-4 border p-[15px];
     gap: 1rem;
 
     .cardCover {
@@ -177,7 +177,7 @@
     }
 
     .cardPlatforms {
-      @apply relative top-auto left-auto mt-[20px];
+      @apply relative left-auto top-auto mt-[20px];
     }
 
     @media (min-width: 360px) {

@@ -1,5 +1,5 @@
 .header {
-  @apply top-0 left-0 z-[99] w-full bg-background;
+  @apply left-0 top-0 z-[99] w-full bg-background;
 
   transition: 0.5s, margin 0s;
 
@@ -74,7 +74,7 @@
 }
 
 .nav {
-  @apply fixed top-[71px] bottom-0 -left-full z-[100] flex w-full flex-col items-start justify-start bg-background px-[15px] pt-[20px] pb-[15px];
+  @apply fixed -left-full bottom-0 top-[71px] z-[100] flex w-full flex-col items-start justify-start bg-background px-[15px] pb-[15px] pt-[20px];
 
   &Open {
     @apply left-0;
@@ -91,11 +91,11 @@
     padding-left: calc((100% - 930px) / 2);
   }
   @media (min-width: 1200px) {
-    @apply relative top-auto left-auto bottom-auto z-[2] mr-auto ml-[30px]
+    @apply relative bottom-auto left-auto top-auto z-[2] ml-[30px] mr-auto
         h-[70px] w-auto flex-row items-center bg-transparent p-0;
 
     :before {
-      @apply pointer-events-none absolute top-[24px] bottom-[24px] left-[-29px] block w-px bg-main-60
+      @apply pointer-events-none absolute bottom-[24px] left-[-29px] top-[24px] block w-px bg-main-60
             content-none;
     }
   }
@@ -113,7 +113,7 @@
   }
 
   &Link {
-    @apply inline-flex h-[22px] flex-row items-center justify-start text-[12px] uppercase leading-[22px] tracking-default text-white;
+    @apply tracking-default inline-flex h-[22px] flex-row items-center justify-start text-[12px] uppercase leading-[22px] text-white;
 
     svg {
       @apply ml-[4px] h-auto w-[10px] stroke-light;
@@ -179,7 +179,7 @@
       @apply hidden;
     }
     span {
-      @apply block text-xs uppercase tracking-default text-white;
+      @apply tracking-default block text-xs uppercase text-white;
 
       transition: 0.5s;
     }
@@ -208,7 +208,7 @@
     @apply w-[426px];
 
     :before {
-      @apply pointer-events-none absolute top-[10px] bottom-[10px] left-[196px] block w-px bg-main-60 content-[''];
+      @apply pointer-events-none absolute bottom-[10px] left-[196px] top-[10px] block w-px bg-main-60 content-[''];
     }
   }
   @media (min-width: 1310px) {
@@ -240,7 +240,7 @@
 }
 
 .input {
-  @apply h-[44px] rounded-t-default rounded-l-default bg-transparent p-[20px] text-sm text-white;
+  @apply h-[44px] rounded-l-default rounded-t-default bg-transparent p-[20px] text-sm text-white;
   width: calc(100% - 50px);
 
   @media (min-width: 1200px) {
@@ -255,7 +255,7 @@
   @apply relative flex h-[44px] w-[50px] flex-row items-center justify-start;
 
   :before {
-    @apply pointer-events-none absolute top-[10px] bottom-[10px] left-0 block w-px bg-main-60 content-none;
+    @apply pointer-events-none absolute bottom-[10px] left-0 top-[10px] block w-px bg-main-60 content-none;
   }
   svg {
     @apply h-auto w-[18px] stroke-primary;
@@ -276,7 +276,7 @@
 
   @media (min-width: 576px) {
     span {
-      @apply ml-[10px] block text-xs uppercase tracking-default text-white;
+      @apply tracking-default ml-[10px] block text-xs uppercase text-white;
     }
     :hover span {
       @apply text-primary;

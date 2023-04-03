@@ -5,7 +5,7 @@
   @apply flex min-h-screen w-[100px] flex-row items-center justify-center py-[40px];
 }
 .content {
-  @apply relative w-full max-w-[400px] flex-col items-center justify-center rounded-default bg-background py-[40px] px-[20px];
+  @apply relative w-full max-w-[400px] flex-col items-center justify-center rounded-default bg-background px-[20px] py-[40px];
   border: 1px solid rgba(167, 130, 233, 0.06);
 
   @media (min-width: 576px) {
