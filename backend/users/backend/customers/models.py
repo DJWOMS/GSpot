@@ -19,7 +19,7 @@ class CustomerUser(BaseAbstractUser):
     # image = models.ImageField(  # Где храним?
     #     verbose_name='Фото',
     #     upload_to='media/users')
-    country = models.ForeignKey('Country', verbose_name='Страна',
+    country = models.ForeignKey(Country, verbose_name='Страна',
                                 on_delete=models.SET_NULL,
                                 null=True)
 
