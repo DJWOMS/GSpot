@@ -1,34 +1,51 @@
-import json
-
+import rollbar
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
-from .serializers import CreatePaymentSerializer
-from .services.create_payment import create_payment
-from .services.payment_acceptance import payment_acceptance
+from apps.external_payments.schemas import YookassaPaymentInfo, PaymentCreateDataClass
+from . import serializers
+from .services.balance_change import request_balance_deposit_url
+from .services.payment_commission import calculate_payment_with_commission
 
 
-class CreatePaymentView(CreateAPIView):
-    serializer_class = CreatePaymentSerializer
+class CalculatePaymentCommissionView(CreateAPIView):
+    serializer_class = serializers.PaymentCommissionSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = CreatePaymentSerializer(data=request.POST)
+        serializer = self.serializer_class(data=request.POST)
+        serializer.is_valid(raise_exception=True)
+        try:
+            commission_data = YookassaPaymentInfo(**serializer.validated_data)
+        except KeyError as error:
+            rollbar.report_message(
+                f'Schemas and serializers got different structure. Got next error: {str(error)}'
+                'error',
+            )
+            return
 
-        if serializer.is_valid():
-            serialized_data = serializer.validated_data
-        else:
-            return Response(400)
+        amount_with_commission = calculate_payment_with_commission(
+            commission_data,
+        )
+        return Response({'amount with commission': amount_with_commission})
 
-        confirmation_url = create_payment(serialized_data)
+
+class BalanceIncreaseView(CreateAPIView):
+    serializer_class = serializers.BalanceIncreaseSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.POST)
+        serializer.is_valid(raise_exception=True)
+        try:
+            payment_data = PaymentCreateDataClass(
+                **serializer.validated_data,
+            )
+        except KeyError as error:
+            rollbar.report_message(
+                f'Schemas and serializers got different structure. Got next error: {str(error)}',
+                'error',
+            )
+            return
+
+        confirmation_url = request_balance_deposit_url(payment_data)
 
         return Response({'confirmation_url': confirmation_url}, 200)
-
-
-class CreatePaymentAcceptanceView(CreateAPIView):
-
-    def post(self, request, *args, **kwargs):
-        response = json.loads(request.body)
-
-        if payment_acceptance(response):
-            return Response(200)
-        return Response(404)

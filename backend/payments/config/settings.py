@@ -1,4 +1,6 @@
 import os
+from datetime import timedelta
+from decimal import Decimal
 from pathlib import Path
 
 from environs import Env
@@ -27,6 +29,7 @@ INSTALLED_APPS = [
     # local
     'apps.payment_accounts',
     'apps.transactions',
+    'apps.external_payments',
 ]
 
 MIDDLEWARE = [
@@ -122,15 +125,13 @@ SPECTACULAR_SETTINGS = {
 }
 
 ROLLBAR = {
-    'access_token': env.str('rollbar_access_token'),
+    'access_token': env.str('ROLLBAR_ACCESS_TOKEN'),
     'environment': 'development' if DEBUG else 'production',
     'code_version': '1.0',
     'root': BASE_DIR,
 }
 
-MAX_BALANCE_DIGITS = 11
-
-CELERY_BROKER_URL = env.str('REDIS') + '0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
 
 CACHES = {
     'default': {
@@ -141,3 +142,10 @@ CACHES = {
         },
     },
 }
+
+# Business Settings
+DEFAULT_CURRENCY = 'RUB'
+MAX_BALANCE_DIGITS = 11
+MAX_COMMISSION_VALUE = Decimal(100)
+PERIOD_FOR_MYSELF_TASK = timedelta(days=1)
+PERIOD_FOR_GIFT_TASK = timedelta(days=7)

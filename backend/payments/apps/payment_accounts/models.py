@@ -18,7 +18,7 @@ def is_amount_positive(method):
 
 
 class Account(models.Model):
-    user_uid = models.UUIDField(unique=True, editable=False, db_index=True)
+    user_uuid = models.UUIDField(unique=True, editable=False, db_index=True)
     balance = models.DecimalField(
         decimal_places=2,
         max_digits=settings.MAX_BALANCE_DIGITS,
@@ -58,7 +58,7 @@ class Account(models.Model):
         return account
 
     def __str__(self) -> str:
-        return f'User id: {self.user_uid}'
+        return f'User id: {self.user_uuid}'
 
 
 class BalanceChange(models.Model):
@@ -76,6 +76,7 @@ class BalanceChange(models.Model):
         validators=[MinValueValidator(0, message='Should be positive value')],
         decimal_places=2,
         editable=False,
+        default=0,
     )
     date_time_creation = models.DateTimeField(
         auto_now_add=True,
