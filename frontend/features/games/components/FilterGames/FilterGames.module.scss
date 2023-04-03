@@ -3,7 +3,7 @@
     text-[12px] uppercase tracking-[0.4px] text-white;
   border: 1px solid rgba(167, 130, 233, 0.4);
 
-  :hover {
+  &:hover {
     background-color: rgba(167, 130, 233, 0.04);
     border-color: rgba(167, 130, 233, 0.5);
 
@@ -48,102 +48,13 @@
 .clearFilters {
   @apply text-[12px] font-normal tracking-[0] text-primary;
 
-  :hover {
+  &:hover {
     color: #fd6060;
   }
 }
 
-.group {
-  @apply mb-[30px] flex w-full flex-col items-start justify-start last:mb-0;
-}
-
-.label {
-  @apply mb-[15px] text-[14px] font-normal leading-[100%] tracking-[.4px] text-light;
-}
-
 .selectWrap {
   @apply relative w-full;
-}
-
-.select {
-  @apply h-[44px] w-full cursor-pointer rounded-default border border-trans-gray px-[20px] text-[14px]
-    tracking-[.4px] text-white;
-  background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
-  background-size: 12px auto;
-
-  option {
-    @apply m-0 p-0 text-black;
-  }
-
-  :focus {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
-  }
-}
-
-.input {
-  @apply relative h-[44px] w-full rounded-default bg-dark px-[20px] text-[14px] tracking-[.4px] text-white;
-  border: 1px solid rgba(167, 130, 233, 0.06);
-
-  :focus {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
-  }
-}
-
-.checkboxes {
-  @apply relative mt-[5px];
-}
-
-.checkbox {
-  @apply relative mb-[15px] last:mb-0;
-
-  input:not(:checked),
-  input:checked {
-    position: absolute;
-    left: -9999px;
-  }
-
-  input:not(:checked) + label,
-  input:checked + label {
-    @apply relative m-0 cursor-pointer pl-[35px] text-[14px] font-normal leading-[20px]
-        tracking-[.4px] text-white;
-  }
-
-  input:not(:checked) + label a,
-  input:checked + label a {
-    @apply text-primary;
-  }
-
-  input:not(:checked) + label a:hover,
-  input:checked + label a:hover {
-    @apply text-primary;
-  }
-
-  input:not(:checked) + label:before,
-  input:checked + label:before {
-    @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border border-trans-gray bg-dark content-[''];
-  }
-
-  input:not(:checked) + label:after,
-  input:checked + label:after {
-    @apply absolute left-0 top-0 h-[20px] w-[20px] text-center content-[''];
-    transition: 0.5s;
-    background: url('/svg/checkmark.svg') no-repeat center/16px auto;
-  }
-
-  input:not(:checked) + label:after {
-    @apply scale-0 opacity-0;
-  }
-
-  input:checked + label:after {
-    @apply scale-100 opacity-100;
-  }
-
-  label::selection,
-  label::-moz-selection {
-    @apply bg-transparent text-white;
-  }
 }
 
 .range {
@@ -159,16 +70,16 @@
 }
 
 .applyFilter {
-  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-dark uppercase
+  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-dark
     tracking-[.4px] text-white;
   border: 1px solid rgba(167, 130, 233, 0.4);
 
-  :hover {
+  &:hover {
     background-color: rgba(167, 130, 233, 0.04);
     border-color: rgba(167, 130, 233, 0.5);
   }
 
-  :hover svg {
+  &:hover svg {
     @apply stroke-primary;
   }
 }

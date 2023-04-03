@@ -1,0 +1,15 @@
+.select {
+  @apply h-[44px] w-full cursor-pointer rounded-default border border-trans-gray px-[20px] text-[14px]
+      tracking-[.4px] text-white;
+  background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
+  background-size: 12px auto;
+
+  option {
+    @apply m-0 p-0 text-black;
+  }
+
+  &:focus {
+    background-color: rgba(167, 130, 233, 0.04);
+    border-color: rgba(167, 130, 233, 0.5);
+  }
+}

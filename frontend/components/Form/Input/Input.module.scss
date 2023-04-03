@@ -1,0 +1,9 @@
+.input {
+  @apply relative h-[44px] w-full rounded-default bg-dark px-[20px] text-[14px] tracking-[.4px] text-white;
+  border: 1px solid rgba(167, 130, 233, 0.06);
+
+  &:focus {
+    background-color: rgba(167, 130, 233, 0.04);
+    border-color: rgba(167, 130, 233, 0.5);
+  }
+}

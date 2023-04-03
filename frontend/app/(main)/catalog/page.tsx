@@ -20,23 +20,23 @@ const CatalogPage = async () => {
       />
 
       <Section last>
-        <section className="section section--last section--catalog">
-          <div className={'flex'}>
+        <div className="grid gap-x-8 lg:grid-cols-12">
+          <div className="lg:col-span-3">
             <FilterGames />
-
-            <div className="w-full">
-              <div className="grid grid-flow-row grid-cols-4 gap-x-4">
-                {data?.map(({ title, coverImg, price, link }, id) => (
-                  <div className="w-full" key={id}>
-                    <GameCard title={title} coverImg={coverImg} link={link} badge="New" price={price} sale={15} />
-                  </div>
-                ))}
-              </div>
-
-              <Pagination />
-            </div>
           </div>
-        </section>
+
+          <div className="lg:col-span-9">
+            <div className="grid grid-cols-1 gap-x-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {data?.map(({ title, coverImg, price, link }, id) => (
+                <div className="w-full" key={id}>
+                  <GameCard title={title} coverImg={coverImg} link={link} badge="New" price={price} sale={15} />
+                </div>
+              ))}
+            </div>
+
+            <Pagination />
+          </div>
+        </div>
       </Section>
     </>
   )
