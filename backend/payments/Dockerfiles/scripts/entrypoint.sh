@@ -28,7 +28,7 @@ import sys
 from redis import Redis
 from redis import RedisError
 try:
-    redis = Redis.from_url("${CELERY_BROKER_URL}", db=0)
+    redis = Redis.from_url("${REDIS}", db=0)
     redis.ping()
 except RedisError:
     sys.exit(-1)
