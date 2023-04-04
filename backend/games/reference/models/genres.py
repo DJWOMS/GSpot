@@ -10,6 +10,7 @@ class Genre(models.Model):
         return self.name
 
     class Meta:
+        db_table = 'genre'
         constraints = [
             models.UniqueConstraint(
                 fields=['name'],
@@ -27,6 +28,7 @@ class SubGenre(models.Model):
         return self.name
 
     class Meta:
+        db_table = 'sub_genre'
         constraints = [
             models.UniqueConstraint(
                 fields=['name', 'genre'],
@@ -46,6 +48,7 @@ class SubgenreProduct(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='genre', default=1)
 
     class Meta:
+        db_table = 'sub_genre_product'
         constraints = [
             models.UniqueConstraint(
                 fields=['product', 'subgenre', 'genre'],
