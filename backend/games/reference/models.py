@@ -89,7 +89,7 @@ class SubgenreProduct(models.Model):
         SubGenre,
         on_delete=models.CASCADE,
         related_name='subgenre',
-        blank=True,
+        blank=True
     )
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='genre')
 
