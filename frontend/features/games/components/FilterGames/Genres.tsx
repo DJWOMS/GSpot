@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import { CheckBox, Group, Label } from 'components/Form'
+import { useFilter } from 'features/games/store'
 
 const mocks = [
   {
@@ -28,11 +28,9 @@ const mocks = [
   },
 ]
 
-interface GenresProps {
-  onChange: (data: Record<string, boolean>) => void
-}
+const Genres = () => {
+  const toggleFilter = useFilter((state) => state.toggleFilter)
 
-const Genres: FC<GenresProps> = ({ onChange }) => {
   return (
     <Group>
       <Label>Жанры:</Label>
@@ -41,7 +39,7 @@ const Genres: FC<GenresProps> = ({ onChange }) => {
         <CheckBox
           label={name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            onChange({ [slug]: e.target.checked })
+            toggleFilter('genres', slug, e.target.checked)
           }}
           key={index}
         />

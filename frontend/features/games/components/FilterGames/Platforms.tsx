@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import { CheckBox, Group, Label } from 'components/Form'
+import { useFilter } from 'features/games/store'
 
 const mocks = [
   {
@@ -20,11 +20,9 @@ const mocks = [
   },
 ]
 
-interface PlatformsProps {
-  onChange: (data: Record<string, boolean>) => void
-}
+const Platforms = () => {
+  const toggleFilter = useFilter((state) => state.toggleFilter)
 
-const Platforms: FC<PlatformsProps> = ({ onChange }) => {
   return (
     <Group>
       <Label>Платформа: </Label>
@@ -33,7 +31,7 @@ const Platforms: FC<PlatformsProps> = ({ onChange }) => {
         <CheckBox
           label={name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            onChange({ [slug]: e.target.checked })
+            toggleFilter('platforms', slug, e.target.checked)
           }}
           key={index}
         />

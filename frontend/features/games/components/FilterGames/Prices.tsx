@@ -1,23 +1,21 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { Group, Label } from 'components/Form'
+import { useFilter } from 'features/games/store'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import s from './FilterGames.module.scss'
 
 type Prices = Array<number>
 
-interface PricesProps {
-  onChange: (data: Prices) => void
-}
-
-const Prices: FC<PricesProps> = ({ onChange }) => {
+const Prices = () => {
+  const setFilter = useFilter((state) => state.setFilter)
   const [priceRange, setPriceRange] = useState<Prices>([100, 500])
 
   const handlePriceChange = (_value: number | Prices) => {
     const value = _value as Prices
 
     setPriceRange(value)
-    onChange(value)
+    setFilter('prices', value)
   }
 
   return (

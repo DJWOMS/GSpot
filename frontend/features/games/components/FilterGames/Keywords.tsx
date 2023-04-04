@@ -1,17 +1,14 @@
-import { FC } from 'react'
 import { Group, Input, Label } from 'components/Form'
+import { useFilter } from 'features/games/store'
 
-interface KeywordsProps {
-  onChange: (data: string) => void
-}
-
-const Keywords: FC<KeywordsProps> = ({ onChange }) => {
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)
+const Keywords = () => {
+  const { value, setFilter } = useFilter((state) => ({ value: state.keywords, setFilter: state.setFilter }))
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => setFilter('keywords', e.target.value)
 
   return (
     <Group>
       <Label>Ключевые слова: </Label>
-      <Input type="text" placeholder="Keyword" onChange={onChangeInput} />
+      <Input type="text" placeholder="Keyword" defaultValue={value} onChange={onChangeInput} />
     </Group>
   )
 }

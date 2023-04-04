@@ -1,9 +1,5 @@
-import { FC } from 'react'
 import { Group, Label, Select } from 'components/Form'
-
-interface SortByProps {
-  onChange: (data: string) => void
-}
+import { useFilter } from 'features/games/store'
 
 const mocks = [
   {
@@ -20,9 +16,10 @@ const mocks = [
   },
 ]
 
-const SortBy: FC<SortByProps> = ({ onChange }) => {
+const SortBy = () => {
+  const setFilter = useFilter((state) => state.setFilter)
   const onChangeSection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange(e.currentTarget.value)
+    setFilter('sortby', e.currentTarget.value)
   }
 
   return (
