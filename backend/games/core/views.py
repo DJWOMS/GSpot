@@ -16,8 +16,6 @@ from .models import Product, SystemRequirement
 
 
 class GameViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
-    """ CRUD продукта """
-
     pagination_class = GamesResultsSetPagination
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductFilter
@@ -43,7 +41,6 @@ class GameViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
 
 
 class DlcViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
-    """ CRUD дополнений """
     serializer_classes_by_action = {
         'create': DlcSerializer,
         'update': DlcSerializer,
@@ -66,7 +63,6 @@ class DlcViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
 
 
 class SystemRequirementViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
-    """ CRUD системных требований """
     serializer_classes_by_action = {
         'create': SystemRequirementSerializer,
         'update': SystemRequirementSerializer,
