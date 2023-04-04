@@ -47,34 +47,22 @@ class ProductLanguage(models.Model):
 
 
 class Genre(models.Model):
-    name = models.CharField('Жанр продукта', max_length=50, unique=True, db_index=True)
-    products = models.ManyToManyField(Product, related_name='genres', through='SubgenreProduct')
+    name = models.CharField('Genre', max_length=50, unique=True, db_index=True)
+    products = models.ManyToManyField(Product, related_name='genres', through='GenreProduct')
 
     def __str__(self):
         return self.name
 
-    class Meta:
-        verbose_name = 'Жанр продукта'
-        verbose_name_plural = 'Жанры продуктов'
-        constraints = [
-            models.UniqueConstraint(
-                fields=['name'],
-                name='unique_genre'
-            )
-        ]
-
 
 class SubGenre(models.Model):
-    name = models.CharField('Поджанр для продукта', max_length=50)
+    name = models.CharField('Subgenre', max_length=50)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='subgenres')
-    products = models.ManyToManyField(Product, related_name='subgenre', through='SubgenreProduct')
+    products = models.ManyToManyField(Product, related_name='subgenres', through='SubgenreProduct')
 
     def __str__(self) -> str:
         return self.name
 
     class Meta:
-        verbose_name = 'Поджанр продукта'
-        verbose_name_plural = 'Поджанры продукта'
         constraints = [
             models.UniqueConstraint(
                 fields=['name', 'genre'],
@@ -84,21 +72,10 @@ class SubGenre(models.Model):
 
 
 class SubgenreProduct(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
-    subgenre = models.ForeignKey(
-        SubGenre,
-        on_delete=models.CASCADE,
-        related_name='subgenre',
-        blank=True
-    )
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='genre', default=1)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    subgenre = models.ForeignKey(SubGenre, on_delete=models.CASCADE)
 
-    class Meta:
-        verbose_name = 'Связь игры с жанром/поджанром'
-        verbose_name_plural = 'Связи игры с жанром/поджанром'
-        constraints = [
-            models.UniqueConstraint(
-                fields=['product', 'subgenre', 'genre'],
-                name='unique_genre_game'
-            )
-        ]
+
+class GenreProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
