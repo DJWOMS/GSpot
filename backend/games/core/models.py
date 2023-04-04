@@ -88,14 +88,12 @@ class GameDlcLink(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-
     game = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name='dlc_link',
         limit_choices_to={'type': Product.TypeProduct.GAMES}
     )
-
     dlc = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
@@ -133,45 +131,38 @@ class SystemRequirement(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-
     operating_system = models.CharField(
         'ОС',
         max_length=2,
         choices=OS.choices,
         help_text='Укажите ОС'
     )
-
     game = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name='system_requirements',
         limit_choices_to={'type': Product.TypeProduct.GAMES}
     )
-
     device_processor = models.CharField(
         'Процессор',
         max_length=100,
         help_text='Укажите процессор'
     )
-
     device_memory = models.CharField(
         'Количество ОЗУ',
         max_length=100,
         help_text='Укажите количество ОЗУ'
     )
-
     device_storage = models.CharField(
         'Количество памяти на Диске',
         max_length=100,
         help_text='Укажите количество памяти на Диске'
     )
-
     device_graphics = models.CharField(
         'Модель видеокарты и количество памяти',
         max_length=100,
         help_text='Укажите модель видеокарты и количество памяти'
     )
-
     type_requirements = models.CharField(
         'Тип системных требований',
         max_length=2,
