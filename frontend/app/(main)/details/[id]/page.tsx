@@ -20,7 +20,7 @@ const Page = async () => {
     <Section>
       <div className="container">
         <div className="-mx-41">
-          <div className="flex-[0_0_100%]">
+          <div className="flex-1">
             <div className={s.details}>
               <div className={s.detailsHead}>
                 <div className={s.detailsCover}>

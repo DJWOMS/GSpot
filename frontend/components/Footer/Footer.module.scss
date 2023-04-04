@@ -1,5 +1,5 @@
 .footer {
-  @apply relative block h-auto w-full border-t border-trans-gray pt-[60px];
+  @apply relative block h-auto w-full border-t border-main-60 pt-[60px];
 
   @media (min-width: 1200px) {
     @apply pt-[90px];
@@ -12,16 +12,16 @@
   }
 
   &Link {
-    @apply text-[16px] leading-[30px] text-[#fff];
+    @apply text-base leading-[30px] text-white;
 
     :hover {
-      @apply text-[#a782e9];
+      @apply text-primary;
     }
   }
 }
 
 .container {
-  @apply m-auto w-full pr-[15px] pl-[15px];
+  @apply m-auto w-full pl-[15px] pr-[15px];
 
   @media (min-width: 576px) {
     @apply max-w-[540px];
@@ -45,14 +45,14 @@
     @apply flex flex-row flex-wrap items-start justify-between;
 
     @media (min-width: 768px) {
-      @apply flex flex-row flex-wrap items-start justify-between p-[0-1vw];
+      @apply flex flex-row flex-wrap items-start justify-between p-[1vw];
     }
   }
 
   @apply relative mb-[40px] flex w-full flex-row flex-wrap items-start justify-start;
 
   @media (min-width: 1200px) {
-    @apply mb-[0];
+    @apply mb-0;
   }
 
   &1 {
@@ -83,7 +83,7 @@
     }
 
     @media (min-width: 768px) {
-      @apply w-[100%];
+      @apply w-full;
     }
     @media (min-width: 1200px) {
       width: calc(40% - 20px);
@@ -93,13 +93,13 @@
 
 .title {
   svg {
-    @apply relative z-[2] h-[auto] w-[22px] bg-[#1b222e] stroke-[#a782e9];
+    @apply relative z-[2] h-auto w-[22px] bg-background stroke-primary;
   }
   span {
-    @apply relative z-[2] bg-[#1b222e] p-[0-10px] text-[16px] tracking-[0.4px] text-[#fff];
+    @apply p-[10px] tracking-default text-white relative z-[2] bg-background text-base;
   }
   :before {
-    @apply absolute left-[0] right-[0] top-[50%] z-[1] block h-[1px] bg-[trans-gray] content-[''];
+    @apply absolute left-0 right-0 top-1/2 z-[1] block h-px bg-main-60 content-[''];
   }
 
   @apply relative flex w-full flex-row items-center justify-start;
@@ -109,13 +109,13 @@
   @apply mt-5 flex flex-col items-start justify-start;
 
   a {
-    @apply relative pl-[20px] text-[14px] leading-[26px] tracking-[0.4px] text-light opacity-[0.8];
+    @apply tracking-default relative pl-[20px] text-sm leading-[26px] text-light opacity-80;
 
     :hover {
-      @apply opacity-[1];
+      @apply opacity-100;
     }
     :before {
-      @apply absolute top-[0] bottom-[0] left-[0] block w-[10px] opacity-[0.5] content-[''];
+      @apply absolute bottom-0 left-0 top-0 block w-[10px] opacity-50 content-[''];
 
       background: url('/svg/arrow.svg') no-repeat left center;
       background-size: 10px auto;
@@ -127,11 +127,11 @@
   &Double {
     @media (max-width: 768px) {
       :last-child {
-        @apply mt-[0];
+        @apply mt-0;
       }
     }
     @media (min-width: 768px) {
-      @apply w-[50%];
+      @apply w-1/2;
     }
   }
 }
@@ -139,7 +139,7 @@
 .contacts {
   @apply mt-[40px] flex flex-col items-start justify-start;
   @media (min-width: 768px) {
-    @apply absolute bottom-0 right-0 mt-[0] items-end;
+    @apply absolute bottom-0 right-0 mt-0 items-end;
   }
 }
 
@@ -147,21 +147,21 @@
   @apply mt-[40px] flex flex-row items-center justify-start;
 
   a {
-    @apply mr-[20px] h-[24px] w-[20px] text-[white];
+    @apply mr-[20px] h-[24px] w-[20px] text-white;
   }
   a:last-child {
-    @apply mr-[0px];
+    @apply mr-0;
   }
   a:hover {
-    @apply text-[#a782e9];
+    @apply text-primary;
   }
 }
 
 .wrapper {
-  @apply mt-[60px] flex h-[90px] w-[100%] flex-row items-center justify-between border-t border-trans-gray;
+  @apply mt-[60px] flex h-[90px] w-full flex-row items-center justify-between border-t border-main-60;
 
   a {
-    @apply h-[auto] w-[130px];
+    @apply h-auto w-[130px];
   }
   span {
     @apply text-light;
@@ -187,6 +187,6 @@
   @apply block h-auto w-[120px];
 
   img {
-    @apply h-[100%] w-[100%];
+    @apply h-full w-full;
   }
 }

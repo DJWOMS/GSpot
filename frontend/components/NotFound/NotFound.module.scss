@@ -2,10 +2,10 @@
   @apply relative block;
 }
 .wrap {
-  @apply flex min-h-screen w-[100px] flex-row items-center justify-center p-[40px-0];
+  @apply flex min-h-screen w-[100px] flex-row items-center justify-center py-[40px];
 }
 .content {
-  @apply relative w-[100%] max-w-[400px] flex-col items-center justify-center rounded-[6px] bg-[#1b222e] p-[40px-20px];
+  @apply relative w-full max-w-[400px] flex-col items-center justify-center rounded-default bg-background px-[20px] py-[40px];
   border: 1px solid rgba(167, 130, 233, 0.06);
 
   @media (min-width: 576px) {
@@ -13,15 +13,15 @@
   }
 }
 .title {
-  @apply relative mb-[20px] font-[montserrat] text-[120px] font-medium leading-[100%] text-[#a782e9];
+  @apply relative mb-[20px] font-[montserrat] text-[120px] font-medium leading-[100%] text-primary;
 }
 .text {
-  @apply mb-[40px] block w-[100%] text-center text-[14px] leading-[26px] text-[#fff];
+  @apply mb-[40px] block w-full text-center text-sm leading-[26px] text-white;
 }
 .link {
-  @apply flex h-[44px] w-[140px] flex-row items-center justify-center rounded-[6px] bg-[#29b474] text-[13px] font-[600] uppercase tracking-[0.6px] text-[#fff];
+  @apply flex h-[44px] w-[140px] flex-row items-center justify-center rounded-default bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
 
   :hover {
-    @apply bg-[#a782e9] text-[#fff];
+    @apply bg-primary text-white;
   }
 }

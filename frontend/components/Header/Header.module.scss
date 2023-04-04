@@ -1,5 +1,5 @@
 .header {
-  @apply top-0 left-0 z-[99] w-[100%] bg-[#1b222e];
+  @apply left-0 top-0 z-[99] w-full bg-background;
 
   transition: 0.5s, margin 0s;
 
@@ -9,25 +9,25 @@
 }
 
 .wrapper {
-  @apply border-b border-trans-gray;
+  @apply border-b border-main-60;
 }
 
 .content {
-  @apply relative flex h-[70px] w-[100%] flex-row items-center justify-between;
+  @apply relative flex h-[70px] w-full flex-row items-center justify-between;
 }
 
 .logo {
   @apply ml-[30px] block h-auto;
 
   img {
-    @apply h-[auto] w-[120px];
+    @apply h-auto w-[120px];
   }
 
   @media (min-width: 360px) {
     @apply ml-[40px];
   }
   @media (min-width: 1200px) {
-    @apply ml-[0px] w-[196px];
+    @apply ml-0 w-[196px];
   }
 
   @media (min-width: 1310px) {
@@ -39,7 +39,7 @@
   @apply absolute left-0 top-[24px] block h-[22px] w-[24px];
 
   span {
-    @apply absolute left-0 h-[2px] w-[24px] rounded-[3px] bg-[#fff] opacity-[1];
+    @apply absolute left-0 h-[2px] w-[24px] rounded-[3px] bg-white opacity-100;
 
     transition: 0.5s;
 
@@ -74,7 +74,7 @@
 }
 
 .nav {
-  @apply fixed top-[71px] bottom-0 left-[-100%] z-[100] flex w-[100%] flex-col items-start justify-start bg-[#1b222e] p-[20px-15px-15px];
+  @apply fixed -left-full bottom-0 top-[71px] z-[100] flex w-full flex-col items-start justify-start bg-background px-[15px] pb-[15px] pt-[20px];
 
   &Open {
     @apply left-0;
@@ -91,11 +91,11 @@
     padding-left: calc((100% - 930px) / 2);
   }
   @media (min-width: 1200px) {
-    @apply relative top-[auto] left-[auto] bottom-[auto] z-[2] mr-[auto] ml-[30px]
-        h-[70px] w-[auto] flex-row items-center bg-[transparent] p-[0];
+    @apply relative bottom-auto left-auto top-auto z-[2] ml-[30px] mr-auto
+        h-[70px] w-auto flex-row items-center bg-transparent p-0;
 
     :before {
-      @apply pointer-events-none absolute top-[24px] bottom-[24px] left-[-29px] block w-[1px] bg-trans-gray
+      @apply pointer-events-none absolute bottom-[24px] left-[-29px] top-[24px] block w-px bg-main-60
             content-none;
     }
   }
@@ -104,28 +104,28 @@
     @apply relative mb-[20px];
 
     @media (min-width: 1200px) {
-      @apply mb-[0] mr-[60px] flex h-[70px] flex-row items-center justify-start;
+      @apply mb-0 mr-[60px] flex h-[70px] flex-row items-center justify-start;
 
       :last-child {
-        @apply mr-[0];
+        @apply mr-0;
       }
     }
   }
 
   &Link {
-    @apply inline-flex h-[22px] flex-row items-center justify-start text-[12px] uppercase leading-[22px] tracking-[0.4px] text-[#fff];
+    @apply tracking-default inline-flex h-[22px] flex-row items-center justify-start text-[12px] uppercase leading-[22px] text-white;
 
     svg {
-      @apply ml-[4px] h-[auto] w-[10px] stroke-[#dbdada];
+      @apply ml-[4px] h-auto w-[10px] stroke-light;
 
       transition: stroke 0.5s ease;
     }
 
     :hover {
-      @apply text-[#a782e9];
+      @apply text-primary;
 
       svg {
-        @apply text-[#a782e9];
+        @apply text-primary;
       }
     }
   }
@@ -153,10 +153,10 @@
 }
 
 .loginBtn {
-  @apply flex h-[44px] w-[44px] items-center justify-center rounded-[6px] bg-light text-center;
+  @apply flex h-[44px] w-[44px] items-center justify-center rounded-default bg-light text-center;
 
   svg {
-    @apply h-[auto] w-[22px] stroke-[#fff];
+    @apply h-auto w-[22px] stroke-white;
 
     transition: 0.5s;
   }
@@ -168,7 +168,7 @@
     border-color: rgba(167, 130, 233, 0.5);
 
     svg {
-      @apply stroke-[#a782e9];
+      @apply stroke-primary;
     }
   }
 
@@ -179,12 +179,12 @@
       @apply hidden;
     }
     span {
-      @apply block text-[12px] uppercase tracking-[0.4px] text-[#fff];
+      @apply tracking-default block text-xs uppercase text-white;
 
       transition: 0.5s;
     }
     :hover span {
-      @apply text-[#a782e9];
+      @apply text-primary;
     }
   }
   @media (min-width: 768px) {
@@ -199,7 +199,7 @@
 }
 
 .form {
-  @apply relative flex h-[44px] w-[220px] flex-row items-center justify-between rounded-[6px] border border-trans-gray bg-light;
+  @apply relative flex h-[44px] w-[220px] flex-row items-center justify-between rounded-default border border-main-60 bg-light;
 
   @media (min-width: 768px) {
     @apply w-[260px];
@@ -208,7 +208,7 @@
     @apply w-[426px];
 
     :before {
-      @apply pointer-events-none absolute top-[10px] bottom-[10px] left-[196px] block w-[1px] bg-trans-gray content-[''];
+      @apply pointer-events-none absolute bottom-[10px] left-[196px] top-[10px] block w-px bg-main-60 content-[''];
     }
   }
   @media (min-width: 1310px) {
@@ -224,14 +224,14 @@
   @apply hidden;
 
   @media (min-width: 1200px) {
-    @apply block h-[44px] w-[115px] cursor-pointer border-none bg-[transparent] p-[0]
-         text-[14px] text-[#fff];
+    @apply block h-[44px] w-[115px] cursor-pointer border-none bg-transparent p-0
+         text-sm text-white;
 
     background: url('/svg/arrow2.svg') no-repeat center right;
     background-size: 12px auto;
 
     option {
-      @apply m-[0] p-[0] text-[#000];
+      @apply m-0 p-0 text-black;
     }
   }
   @media (min-width: 1310px) {
@@ -240,7 +240,8 @@
 }
 
 .input {
-  @apply h-[44px] w-[100%-50px] rounded-[6px-0-0-6px] bg-transparent p-[20px] text-[14px] text-[#fff];
+  @apply h-[44px] rounded-l-default rounded-t-default bg-transparent p-[20px] text-sm text-white;
+  width: calc(100% - 50px);
 
   @media (min-width: 1200px) {
     @apply w-[196px];
@@ -254,10 +255,10 @@
   @apply relative flex h-[44px] w-[50px] flex-row items-center justify-start;
 
   :before {
-    @apply pointer-events-none absolute top-[10px] bottom-[10px] left-0 block w-[1px] bg-trans-gray content-none;
+    @apply pointer-events-none absolute bottom-[10px] left-0 top-[10px] block w-px bg-main-60 content-none;
   }
   svg {
-    @apply h-[auto] w-[18px] stroke-[#a782e9];
+    @apply h-auto w-[18px] stroke-primary;
   }
 }
 
@@ -265,7 +266,7 @@
   @apply flex flex-row items-center justify-start;
 
   svg {
-    @apply h-[auto] w-[22px] stroke-[#a782e9];
+    @apply h-auto w-[22px] stroke-primary;
 
     transition: stroke 0.5s;
   }
@@ -275,10 +276,10 @@
 
   @media (min-width: 576px) {
     span {
-      @apply ml-[10px] block text-[12px] uppercase tracking-[0.4px] text-[#fff];
+      @apply tracking-default ml-[10px] block text-xs uppercase text-white;
     }
     :hover span {
-      @apply text-[#a782e9];
+      @apply text-primary;
     }
   }
 }
