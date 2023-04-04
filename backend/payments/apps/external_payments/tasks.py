@@ -1,4 +1,4 @@
-from celery_app import app
+from config.celery import app
 
 
 @app.task

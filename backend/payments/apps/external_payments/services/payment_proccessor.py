@@ -92,40 +92,13 @@ def decrease_user_balance(*, account_pk: int, amount: Decimal):
 
 class InvoiceExecution:
     def __init__(self, invoice_instance: Invoice):
-        self.invoice_object = invoice_instance
+        self.invoice_instance = invoice_instance
         self.invoice_success_status = False
 
     def process_invoice(self):
-        try:
-            transactions_list = self.get_transactions_list()
-        except BrokenInvoiceError as error:
-            rollbar.report_message(
-                str(error),
-                'error',
-            )
-            self.invoice_success_status = False
-            return
-        for invoice_transaction in transactions_list:
+        for invoice_transaction in self.invoice_instance.transactions.all():
             self.process_transaction(invoice_transaction)
         self.invoice_success_status = True
-
-    def get_transactions_list(self) -> list[Transaction] | None:
-        transactions_list = []
-        for transaction_id in self.invoice_object.transactions:
-            invoice_transaction = parse_model_instance(
-                django_model=Transaction,
-                error_message=f"Can't get transaction instance for transaction_id {transaction_id}",
-                pk=transaction_id,
-            )
-            if invoice_transaction is None:
-                raise BrokenInvoiceError(
-                    (
-                        f'Got not existing transaction  id {transaction_id}'
-                        f' while parsing invoice {self.invoice_object.pk}'
-                    ),
-                )
-            transactions_list.append(invoice_transaction)
-        return transactions_list
 
     def process_transaction(self, invoice_transaction: Transaction) -> None:
         invoice_transaction.is_frozen = True
