@@ -16,15 +16,15 @@
   }
 
   &Label {
-    @apply tracking-default mb-[15px] mt-[10px] text-sm font-normal leading-[100%] text-light;
+    @apply mb-[15px] mt-[10px] text-sm font-normal leading-[100%] tracking-default text-light;
   }
 
   &Select {
     &Wrapper {
       @apply relative w-[210px];
     }
-    @apply tracking-default h-[44px] w-full cursor-pointer rounded-default border
-        border-main-60 px-[20px] font-[14px] text-white;
+    @apply h-[44px] w-full cursor-pointer rounded-default border border-main-60
+        px-[20px] font-[14px] tracking-default text-white;
 
     background: url('/img/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
     background-size: 12px auto;

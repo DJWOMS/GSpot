@@ -34,7 +34,7 @@
   }
 
   &Trailer {
-    @apply tracking-default absolute bottom-5 left-5 z-[2] flex h-[55px] flex-row items-center justify-center rounded-md border border-solid border-main-400 bg-main-150 text-sm text-white;
+    @apply absolute bottom-5 left-5 z-[2] flex h-[55px] flex-row items-center justify-center rounded-md border border-solid border-main-400 bg-main-150 text-sm tracking-default text-white;
     width: calc(100% - 40px);
 
     svg {
@@ -83,7 +83,7 @@
     @apply relative mt-5 h-auto border-t border-solid border-main-60 pt-5;
 
     &Title {
-      @apply tracking-default mb-2.5 block w-full text-sm text-light;
+      @apply mb-2.5 block w-full text-sm tracking-default text-light;
     }
 
     @media (min-width: 992px) {
@@ -128,7 +128,7 @@
   }
 
   &Favorite {
-    @apply tracking-default mt-5 flex h-11 w-full flex-row items-center justify-center rounded-md border border-solid border-main-60 bg-main-30 text-sm text-white;
+    @apply mt-5 flex h-11 w-full flex-row items-center justify-center rounded-md border border-solid border-main-60 bg-main-30 text-sm tracking-default text-white;
 
     svg {
       @apply mr-[15px] h-auto w-[22px] stroke-primary duration-150;

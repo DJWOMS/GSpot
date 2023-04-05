@@ -119,8 +119,8 @@
   &View {
     @apply bg-light text-light;
 
-    @apply tracking-default mr-auto flex h-[30px] min-w-[80px] flex-row items-center
-        justify-center rounded-default text-[13px] font-normal;
+    @apply mr-auto flex h-[30px] min-w-[80px] flex-row items-center justify-center
+        rounded-default text-[13px] font-normal tracking-default;
 
     border: 1px solid rgba(167, 130, 233, 0.06);
 
@@ -161,7 +161,7 @@
     }
 
     span {
-      @apply tracking-default font-sans text-sm text-light;
+      @apply font-sans text-sm tracking-default text-light;
     }
 
     @media (min-width: 576px) {

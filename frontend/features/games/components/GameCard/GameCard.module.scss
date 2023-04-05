@@ -24,7 +24,7 @@
 
   &Catalog {
     @media (min-width: 360px) {
-      @apply border-main-60 flex flex-row flex-wrap items-start justify-start border-r;
+      @apply flex flex-row flex-wrap items-start justify-start border-r border-main-60;
     }
 
     @media (min-width: 576px) {
@@ -63,16 +63,16 @@
     transition: 0.5s;
 
     &Wrapper {
-      @apply border-x-main-60 relative flex w-full flex-col items-start justify-center border-x
+      @apply relative flex w-full flex-col items-start justify-center border-x border-x-main-60
             p-[15px];
 
       :last-child {
-        @apply border-b-main-60 rounded-b-default rounded-l-default border-b;
+        @apply rounded-b-default rounded-l-default border-b border-b-main-60;
       }
 
       @media (min-width: 360px) {
         width: calc(100% - 165px);
-        @apply border-t-main-60 border-x-0 border-t p-[15px];
+        @apply border-x-0 border-t border-t-main-60 p-[15px];
 
         .cardTitle {
           @apply whitespace-normal;
@@ -84,7 +84,7 @@
       }
 
       @media (min-width: 576px) {
-        @apply border-x-main-60 w-full border-x border-t-0 p-[20px];
+        @apply w-full border-x border-t-0 border-x-main-60 p-[20px];
 
         .cardTitle {
           @apply whitespace-nowrap;
@@ -115,15 +115,15 @@
   }
 
   &Actions {
-    @apply border-x-main-60 border-b-main-60 flex w-full flex-row items-center justify-between rounded-b-default rounded-l-default
-        border-x border-b px-[15px] pb-[15px];
+    @apply flex w-full flex-row items-center justify-between rounded-b-default rounded-l-default border-x border-b
+        border-x-main-60 border-b-main-60 px-[15px] pb-[15px];
 
     @media (min-width: 360px) {
       @apply absolute bottom-0 right-0 rounded-none border-x-0 px-[15px] pb-[15px];
     }
 
     @media (min-width: 576px) {
-      @apply border-x-main-60 relative bottom-auto right-auto w-full rounded-b-default rounded-l-default border-x
+      @apply relative bottom-auto right-auto w-full rounded-b-default rounded-l-default border-x border-x-main-60
             px-[20px] pb-[20px];
     }
   }
@@ -157,7 +157,7 @@
   }
 
   &Big {
-    @apply border-main-60 gap-4 border p-[15px];
+    @apply gap-4 border border-main-60 p-[15px];
     gap: 1rem;
 
     .cardCover {

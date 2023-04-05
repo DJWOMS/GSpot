@@ -1,5 +1,5 @@
 .post {
-  @apply border-main-60 relative mt-[30px] overflow-hidden rounded-default border;
+  @apply relative mt-[30px] overflow-hidden rounded-default border border-main-60;
 
   &Content {
     @apply block px-[15px] py-[20px];
@@ -42,8 +42,8 @@
   }
 
   &Category {
-    @apply tracking-default inline-flex h-[24px] w-auto max-w-[74px] flex-row items-center justify-center
-        rounded-default px-[13px] text-[12px] text-light hover:text-white;
+    @apply inline-flex h-[24px] w-auto max-w-[74px] flex-row items-center justify-center rounded-default
+        px-[13px] text-[12px] tracking-default text-light hover:text-white;
     border: 1px solid rgba(167, 130, 233, 0.4);
     background-color: rgba(167, 130, 233, 0.15);
 

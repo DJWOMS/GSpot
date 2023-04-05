@@ -96,7 +96,7 @@
     @apply relative z-[2] h-auto w-[22px] bg-background stroke-primary;
   }
   span {
-    @apply p-[10px] tracking-default text-white relative z-[2] bg-background text-base;
+    @apply relative z-[2] bg-background p-[10px] text-base tracking-default text-white;
   }
   :before {
     @apply absolute left-0 right-0 top-1/2 z-[1] block h-px bg-main-60 content-[''];
@@ -109,7 +109,7 @@
   @apply mt-5 flex flex-col items-start justify-start;
 
   a {
-    @apply tracking-default relative pl-[20px] text-sm leading-[26px] text-light opacity-80;
+    @apply relative pl-[20px] text-sm leading-[26px] tracking-default text-light opacity-80;
 
     :hover {
       @apply opacity-100;
