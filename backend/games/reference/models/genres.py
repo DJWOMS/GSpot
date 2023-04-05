@@ -9,6 +9,9 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'genre'
+
 
 class SubGenre(models.Model):
     name = models.CharField('Subgenre', max_length=50)
@@ -19,6 +22,7 @@ class SubGenre(models.Model):
         return self.name
 
     class Meta:
+        db_table = 'subgenre'
         constraints = [
             models.UniqueConstraint(
                 fields=['name', 'genre'],
