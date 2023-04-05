@@ -8,10 +8,15 @@ interface fetchProps<B extends BodyInit | undefined = undefined> {
   cache?: 'no-store' | 'reload' | 'no-cache' | 'force-cache'
 }
 
-export const fetchServerSide = async <T, D extends BodyInit | undefined = undefined>({ path, ...props }: fetchProps<D>): Promise<T | undefined> => {
+export const fetchServerSide = async <T, D extends BodyInit | undefined = undefined>({
+  path,
+  cache = 'no-cache',
+  ...props
+}: fetchProps<D>): Promise<T | undefined> => {
   try {
     const res = await fetch(`${API_URL}${path}`, {
       ...props,
+      cache,
     })
 
     if (!res.ok) {

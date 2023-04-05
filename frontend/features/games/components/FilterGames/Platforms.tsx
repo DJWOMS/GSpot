@@ -5,9 +5,34 @@ import { FormPlatformType } from 'features/games'
 import { useFilter } from 'features/games/store'
 import { fetchServerSide } from 'lib/fetchServerSide'
 
-const Platforms = () => {
-  const [platforms, setPlatforms] = useState<FormPlatformType[] | null>(null)
+interface FormPlatformTypeState extends FormPlatformType {
+  selected: boolean
+}
 
+const Platforms = () => {
+  const [platforms, setPlatforms] = useState<FormPlatformTypeState[] | null>(null)
+  const togglePlatform = (selectedSlug: string) =>
+    setPlatforms((platforms) =>
+      platforms !== null
+        ? platforms.map((platform) => ({
+            ...platform,
+            selected: platform.slug === selectedSlug ? !platform.selected : platform.selected,
+          }))
+        : platforms
+    )
+
+  const getFilter = useFilter((state) => state.getFilter)
+  const setFilter = useFilter((state) => state.setFilter)
+
+  // update genres if changed
+  useEffect(() => {
+    setFilter(
+      'platforms',
+      platforms?.filter(({ selected }) => selected).map(({ slug }) => slug)
+    )
+  }, [platforms, setFilter])
+
+  // get list of platforms from api and set {selected: true} for selected (from url query params)
   useEffect(() => {
     const loadData = async () => {
       const response = await fetchServerSide<FormPlatformType[]>({
@@ -15,14 +40,18 @@ const Platforms = () => {
       })
 
       if (response) {
-        setPlatforms(response)
+        const selectedPlatforms = getFilter('platforms')
+        setPlatforms(
+          response.map((platform) => ({
+            ...platform,
+            selected: selectedPlatforms.includes(platform.slug),
+          }))
+        )
       }
     }
 
     loadData()
-  }, [])
-
-  const toggleFilter = useFilter((state) => state.toggleFilter)
+  }, [getFilter])
 
   return (
     <Group>
@@ -31,14 +60,8 @@ const Platforms = () => {
       {platforms === null ? (
         <SkeletonListCheckBoxes count={4} />
       ) : (
-        platforms.map(({ slug, name }, index) => (
-          <CheckBox
-            label={name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              toggleFilter('platforms', slug, e.target.checked)
-            }}
-            key={index}
-          />
+        platforms.map(({ slug, name, selected }, index) => (
+          <CheckBox label={name} defaultChecked={selected} onChange={() => togglePlatform(slug)} key={index} />
         ))
       )}
     </Group>

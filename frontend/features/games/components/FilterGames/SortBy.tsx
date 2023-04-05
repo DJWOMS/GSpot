@@ -5,8 +5,13 @@ import { FormSortByType } from 'features/games'
 import { useFilter } from 'features/games/store'
 import { fetchServerSide } from 'lib/fetchServerSide'
 
+interface FormSortByTypeState extends FormSortByType {
+  selected: boolean
+}
+
 const SortBy = () => {
-  const [sorts, setSorts] = useState<FormSortByType[] | null>(null)
+  const [sorts, setSorts] = useState<FormSortByTypeState[] | null>(null)
+  const { getFilter, setFilter } = useFilter((state) => ({ getFilter: state.getFilter, setFilter: state.setFilter }))
 
   useEffect(() => {
     const loadData = async () => {
@@ -15,14 +20,14 @@ const SortBy = () => {
       })
 
       if (response) {
-        setSorts(response)
+        const selectedSortBy = getFilter('sortby')
+        setSorts(response.map((sort) => ({ ...sort, selected: sort.value === selectedSortBy })))
       }
     }
 
     loadData()
-  }, [])
+  }, [getFilter])
 
-  const setFilter = useFilter((state) => state.setFilter)
   const onChangeSection = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilter('sortby', e.currentTarget.value)
   }
@@ -31,7 +36,11 @@ const SortBy = () => {
     <Group>
       <Label>Сортировать: </Label>
 
-      {sorts === null ? <SkeletonSelect /> : <Select onChange={onChangeSection} options={sorts} />}
+      {sorts === null ? (
+        <SkeletonSelect />
+      ) : (
+        <Select defaultValue={sorts?.find(({ selected }) => selected)?.value} onChange={onChangeSection} options={sorts} />
+      )}
     </Group>
   )
 }

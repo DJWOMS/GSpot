@@ -1,22 +1,11 @@
 .openFilter {
-  @apply mb-[10px] flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-dark
-    text-[12px] uppercase tracking-[0.4px] text-white;
+  @apply mb-[10px] block h-[44px] w-full flex-row items-center justify-center rounded-default
+    bg-dark tracking-[0.4px] text-white lg:hidden;
   border: 1px solid rgba(167, 130, 233, 0.4);
 
   &:hover {
     background-color: rgba(167, 130, 233, 0.04);
     border-color: rgba(167, 130, 233, 0.5);
-
-    svg {
-      @apply stroke-primary;
-    }
-  }
-
-  @media (min-width: 576px) {
-    @apply mb-[20px];
-  }
-  @media (min-width: 992px) {
-    @apply hidden;
   }
 }
 
@@ -35,7 +24,9 @@
 }
 
 .wrapper {
-  @media (min-width: 992px) {
+  @apply hidden lg:block;
+
+  &.open {
     @apply block;
   }
 }
@@ -43,30 +34,6 @@
 .title {
   @apply mb-[25px] flex h-auto w-full flex-row items-center justify-between text-[16px] font-semibold
     tracking-[.4px] text-white;
-}
-
-.clearFilters {
-  @apply text-[12px] font-normal tracking-[0] text-primary;
-
-  &:hover {
-    color: #fd6060;
-  }
-}
-
-.selectWrap {
-  @apply relative w-full;
-}
-
-.range {
-  @apply relative mb-[10px] flex h-[30px] flex-row items-center justify-start rounded-default border
-    border-trans-gray bg-dark px-[12px] text-[13px] tracking-[.4px] text-white;
-
-  div {
-    @apply relative first:mr-[16px];
-    &:first-child:after {
-      @apply absolute left-full top-0 ml-[4px] block text-[14px] leading-4 text-white content-['-'];
-    }
-  }
 }
 
 .applyFilter {

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
 import { Group, Label } from 'components/Form'
 import { SkeletonInput } from 'components/Skeleton'
+import { Range } from 'components/Slider'
 import { FormPriceType } from 'features/games'
 import { useFilter } from 'features/games/store'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import Slider from 'rc-slider'
-import 'rc-slider/assets/index.css'
-import s from './FilterGames.module.scss'
+import s from './Prices.module.scss'
 
 const Prices = () => {
-  const [prices, setPrices] = useState<FormPriceType[] | null>(null)
+  const [defaultPrices, setDefaultPrices] = useState<FormPriceType[] | null>(null)
+  const [prices, setPrices] = useState<FormPriceType[]>([])
+
+  const { getFilter, setFilter } = useFilter((state) => ({ getFilter: state.getFilter, setFilter: state.setFilter }))
 
   useEffect(() => {
     const loadData = async () => {
@@ -18,14 +20,15 @@ const Prices = () => {
       })
 
       if (response) {
-        setPrices(response)
+        const selectedPrices = getFilter('prices')
+
+        setPrices(selectedPrices.length > 0 ? selectedPrices : response)
+        setDefaultPrices(response)
       }
     }
 
     loadData()
-  }, [])
-
-  const setFilter = useFilter((state) => state.setFilter)
+  }, [getFilter])
 
   const handlePriceChange = (_value: number | FormPriceType[]) => {
     const value = _value as FormPriceType[]
@@ -38,7 +41,7 @@ const Prices = () => {
     <Group>
       <Label>Цена: </Label>
 
-      {prices === null ? (
+      {defaultPrices === null ? (
         <>
           <SkeletonInput size="28" />
           <SkeletonInput />
@@ -50,7 +53,7 @@ const Prices = () => {
             <div id="filter__range-end">{prices[1]}</div>
           </div>
 
-          <Slider range min={0} max={1000} defaultValue={[100, 500]} value={prices} onChange={handlePriceChange} />
+          <Range min={0} max={1000} defaultValue={[100, 500]} value={prices} onChange={handlePriceChange} />
         </>
       )}
     </Group>

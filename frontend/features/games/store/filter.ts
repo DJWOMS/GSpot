@@ -11,27 +11,33 @@ interface FilterState {
 interface FilterStore extends FilterState {
   setFilters: (queryParams: URLSearchParams) => void
   getFilters: () => FilterState
+  getFilter: (key: keyof FilterState) => any
   setFilter: (key: keyof FilterState, value: any) => void
-  toggleFilter: (key: keyof FilterState, subkey: string, value: boolean) => void
+  clearFilters: () => void
 }
 
-const useFilter = create<FilterStore>((set, get) => ({
+const initial = {
   keywords: '',
   sortby: '',
   prices: [],
   platforms: [],
   genres: [],
+}
+
+const useFilter = create<FilterStore>((set, get) => ({
+  ...initial,
   setFilters: (queryParams) =>
     set({
       keywords: queryParams.get('keywords') ?? '',
       sortby: queryParams.get('sortby') ?? '',
+      prices: queryParams.getAll('prices').map((price) => parseInt(price)) ?? [],
       platforms: queryParams.getAll('platforms') ?? [],
       genres: queryParams.getAll('genres') ?? [],
     }),
   setFilter: (key, value) =>
-    set(() => ({
+    set({
       [key]: value,
-    })),
+    }),
   getFilters: () => {
     const { keywords, sortby, prices, platforms, genres } = get()
     return {
@@ -42,10 +48,10 @@ const useFilter = create<FilterStore>((set, get) => ({
       genres,
     }
   },
-  toggleFilter: (key, subkey, value) =>
-    set((state) => ({
-      [key]: [...(Array.isArray(state[key]) ? state[key] : []), ...(value ? [subkey] : []).filter((k: string) => k !== '')],
-    })),
+  getFilter: (key) => {
+    return get()[key]
+  },
+  clearFilters: () => set(initial),
 }))
 
 export { useFilter }

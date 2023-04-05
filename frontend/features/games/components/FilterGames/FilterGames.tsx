@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import cn from 'classnames'
 import { Group } from 'components/Form'
 import { useFilter } from 'features/games/store'
 import { useRouter, useSearchParams } from 'next/navigation'
-import qs from 'qs'
+import queryString from 'query-string'
 import s from './FilterGames.module.scss'
 import { Genres } from './Genres'
 import { Keywords } from './Keywords'
@@ -16,26 +17,30 @@ const FilterGames = () => {
   const queryParams = useSearchParams()
 
   // set filter values
-  const { getFilters, setFilters } = useFilter((state) => ({ getFilters: state.getFilters, setFilters: state.setFilters }))
+  const getFilters = useFilter((state) => state.getFilters)
+  const setFilters = useFilter((state) => state.setFilters)
+
   useEffect(() => {
     setFilters(queryParams)
   }, [queryParams, setFilters])
 
   // update router if needed
   const router = useRouter()
-  const onSubmitForm = () => {
-    router.push(`/catalog?${qs.stringify(getFilters(), { skipNulls: true })}`)
-  }
+
+  const onSubmitForm = () => router.push(`/catalog?${queryString.stringify(getFilters(), { skipNull: true })}`)
+
+  const [openMobileFilter, setOpenMobileFilter] = useState(false)
+  const toggleMobileFilter = () => setOpenMobileFilter((state) => !state)
 
   return (
     <>
-      <button className={s.openFilter}>Открыть фильтр</button>
+      <button className={s.openFilter} onClick={toggleMobileFilter}>
+        {!openMobileFilter ? 'Открыть фильтр' : 'Скрыть фильтр'}
+      </button>
 
-      <div className={s.wrapper}>
+      <div className={cn(s.wrapper, { [s.open]: openMobileFilter })}>
         <div onSubmit={onSubmitForm} className={s.components}>
-          <h4 className={s.title}>
-            Фильтры <button className={s.clearFilters}>Очистить</button>
-          </h4>
+          <h4 className={s.title}>Фильтры</h4>
 
           <Keywords />
           <SortBy />
