@@ -3,32 +3,26 @@ from core.models import Product
 
 
 class Genre(models.Model):
-    name = models.CharField(max_length=50, unique=True, db_index=True)
-    products = models.ManyToManyField(Product, related_name='genres', through='SubgenreProduct')
+    name = models.CharField('Genre', max_length=50, unique=True, db_index=True)
+    products = models.ManyToManyField(Product, related_name='genres', through='GenreProduct')
 
     def __str__(self):
         return self.name
 
     class Meta:
         db_table = 'genre'
-        constraints = [
-            models.UniqueConstraint(
-                fields=['name'],
-                name='unique_genre'
-            )
-        ]
 
 
 class SubGenre(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField('Subgenre', max_length=50)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='subgenres')
-    products = models.ManyToManyField(Product, related_name='subgenre', through='SubgenreProduct')
+    products = models.ManyToManyField(Product, related_name='subgenres', through='SubgenreProduct')
 
     def __str__(self) -> str:
         return self.name
 
     class Meta:
-        db_table = 'sub_genre'
+        db_table = 'subgenre'
         constraints = [
             models.UniqueConstraint(
                 fields=['name', 'genre'],
@@ -38,20 +32,10 @@ class SubGenre(models.Model):
 
 
 class SubgenreProduct(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
-    subgenre = models.ForeignKey(
-        SubGenre,
-        on_delete=models.CASCADE,
-        related_name='subgenre',
-        blank=True
-    )
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='genre', default=1)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    subgenre = models.ForeignKey(SubGenre, on_delete=models.CASCADE)
 
-    class Meta:
-        db_table = 'sub_genre_product'
-        constraints = [
-            models.UniqueConstraint(
-                fields=['product', 'subgenre', 'genre'],
-                name='unique_genre_game'
-            )
-        ]
+
+class GenreProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
