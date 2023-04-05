@@ -1,22 +1,27 @@
+import { useState, useEffect } from 'react'
 import { Group, Label, Select } from 'components/Form'
+import { SkeletonSelect } from 'components/Skeleton'
+import { FormSortByType } from 'features/games'
 import { useFilter } from 'features/games/store'
-
-const mocks = [
-  {
-    value: '0',
-    option: 'По интересам',
-  },
-  {
-    value: '1',
-    option: 'От новых к старым',
-  },
-  {
-    value: '2',
-    option: 'От старых к новым',
-  },
-]
+import { fetchServerSide } from 'lib/fetchServerSide'
 
 const SortBy = () => {
+  const [sorts, setSorts] = useState<FormSortByType[] | null>(null)
+
+  useEffect(() => {
+    const loadData = async () => {
+      const response = await fetchServerSide<FormSortByType[]>({
+        path: '/games/filters/sorts',
+      })
+
+      if (response) {
+        setSorts(response)
+      }
+    }
+
+    loadData()
+  }, [])
+
   const setFilter = useFilter((state) => state.setFilter)
   const onChangeSection = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilter('sortby', e.currentTarget.value)
@@ -26,7 +31,7 @@ const SortBy = () => {
     <Group>
       <Label>Сортировать: </Label>
 
-      <Select onChange={onChangeSection} options={mocks} />
+      {sorts === null ? <SkeletonSelect /> : <Select onChange={onChangeSection} options={sorts} />}
     </Group>
   )
 }
