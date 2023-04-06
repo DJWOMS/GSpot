@@ -4,6 +4,9 @@ import { GameCard, FilterGames, GameCardInterface } from 'features/games'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './page.module.scss'
 
+// revalidate data every 60sec
+export const revalidate = 60
+
 const CatalogPage = async ({ searchParams }: { searchParams: URLSearchParams }) => {
   const data = await fetchServerSide<GameCardInterface[]>({
     path: `/games/list?${new URLSearchParams(searchParams)}`,
