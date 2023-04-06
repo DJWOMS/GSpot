@@ -1,5 +1,5 @@
 import { GameCardInterface } from 'features/games'
-import { CheckoutGameCard } from 'features/games/components/CheckoutGameCard/CheckoutGameCard'
+import { CheckoutGameCard } from 'features/games'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import Link from 'next/link'
 import s from './page.module.scss'
