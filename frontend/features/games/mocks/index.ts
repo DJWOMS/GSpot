@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { GameCardInterface, GameCardSimpleInterface, GameDetailsInterface } from 'features/games'
+import { GameCardInterface, GameCardSimpleInterface, GameDetailsInterface, GamingCards } from 'features/games'
 
 const generateMockGameCardSimple = (props = {}): GameCardSimpleInterface => ({
   title: faker.word.adjective(),
@@ -24,7 +24,6 @@ const generateRequirement = (props = {}) => ({
   typeRequirements: faker.lorem.paragraph(),
   ...props,
 })
-
 const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
   description: faker.lorem.paragraphs(5),
   languages: [
@@ -43,4 +42,11 @@ const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
   ...generateMockGameCard(props),
 })
 
-export { generateMockGameCard, generateMockGameCardSimple, generateMockGameDetails }
+const generateMockGamingCards = (props = {}): GamingCards => ({
+  title: faker.lorem.words(),
+  coverImg: faker.image.abstract(),
+  price: faker.datatype.number(1000),
+  sale: faker.datatype.number(500),
+  ...props,
+})
+export { generateMockGameCard, generateMockGameCardSimple, generateMockGameDetails, generateMockGamingCards }

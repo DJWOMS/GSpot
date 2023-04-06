@@ -17,14 +17,14 @@
     @apply relative mt-[15px] flex flex-row items-stretch justify-between border-t border-t-main-60
         pt-[15px];
 
-    :first-child {
+    &:first-child {
       @apply mt-0 border-none pt-0;
     }
 
     @media (min-width: 360px) {
       @apply mt-[20px] pt-[20px];
 
-      :first-child {
+      &:first-child {
         @apply mt-0 pt-0;
       }
     }
@@ -38,7 +38,7 @@
       transition: 0.5s;
     }
 
-    :hover img {
+    &:hover img {
       @apply opacity-60;
     }
 

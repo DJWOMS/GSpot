@@ -33,6 +33,12 @@ export interface RequirementInterface {
   deviceGraphics: string
   typeRequirements: string
 }
+export interface GamingCards {
+  coverImg: string
+  title: string
+  price: number
+  sale?: number
+}
 
 export interface PlatformType {
   type: 'ps' | 'xbox' | 'win' | 'ap'
