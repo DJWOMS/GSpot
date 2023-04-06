@@ -5,6 +5,8 @@ from fastapi_mail import ConnectionConfig, MessageSchema, FastMail, MessageType
 from schemas.mailing import EmailConfirm
 from config import settings
 
+from src.schemas.mailing import MassageMail
+
 
 class Sender:
     def __init__(self):
@@ -31,31 +33,28 @@ class Sender:
         await fm.send_message(message, template_name=template_name)
 
     @staticmethod
-    def get_data_by_type(type_msg, body):
+    def get_data_by_type(type_msg, body) -> MassageMail:
         match type_msg:
             case 'test_queue':
                 serializer = EmailConfirm(**body).dict()
-                return {
+                massage_data = {
                     'subject': 'Confirm Email',
                     'template_name': 'confirm_email.html',
                     'recipients': [serializer.pop('confirm_email')],
                     'template_body': serializer
                 }
+                return MassageMail(**massage_data)
 
     async def send_email(self, type_msg, body):
-        data = self.get_data_by_type(
+        massage_data = self.get_data_by_type(
             type_msg=type_msg,
             body=body
         )
-        subject = data.get('subject')
-        recipients = data.get('recipients')
-        template_name = data.get('template_name')
-        template_body = data.get('template_body')
         await self.__send(
-            subject=subject,
-            recipients=recipients,
-            template_name=template_name,
-            template_body=template_body,
+            subject=massage_data.subject,
+            recipients=massage_data.recipients,
+            template_name=massage_data.template_name,
+            template_body=massage_data.template_body,
         )
 
 
