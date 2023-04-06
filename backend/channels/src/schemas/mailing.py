@@ -16,8 +16,8 @@ class MassageMail(BaseModel):
 
     @validator("template_name")
     def mast_be_html_extends(self, v):
-        if v.split('.')[1] == 'html':
+        if v.split('.')[-1] == 'html':
             return v
         else:
-            raise ValueError('passwords do not match')
+            raise ValueError('invalid template format. Supports only .html')
 
