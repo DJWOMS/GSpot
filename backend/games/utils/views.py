@@ -1,4 +1,5 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
+from rest_framework.response import Response
 
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -15,7 +16,7 @@ from reference.serializers import GenreSerializer, SubGenreSerializer
 from utils.serializers import MinMaxPriceSerializer
 
 
-class GetOperatingSystemViewSet(viewsets.ReadOnlyModelViewSet):
+class GetOperatingSystemListView(generics.ListAPIView):
     """List of operating systems"""
 
     serializer_class = OperatingSystemSerializer
@@ -23,7 +24,12 @@ class GetOperatingSystemViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = [DjangoFilterBackend]
 
     def get_queryset(self):
-        return [choice[1] for choice in SystemRequirement.OS.choices]
+        return SystemRequirement.objects.values('operating_system').distinct()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        platforms = [req['operating_system'] for req in queryset]
+        return Response(platforms)
 
 
 class GetGenreViewSet(viewsets.ReadOnlyModelViewSet):
@@ -32,6 +38,7 @@ class GetGenreViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GenreSerializer
     pagination_class = GamesResultsSetPagination
     filter_backends = [DjangoFilterBackend]
+
     queryset = Genre.objects.all()
 
 
@@ -41,13 +48,20 @@ class GetSubGenreViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = SubGenreSerializer
     pagination_class = GamesResultsSetPagination
     filter_backends = [DjangoFilterBackend]
+
     queryset = SubGenre.objects.all()
 
 
-class GetMinMaxPriceViewSet(viewsets.ReadOnlyModelViewSet):
-    """Min and Max price of product"""
+class GetMinMaxPriceApiView(generics.GenericAPIView):
+    """Returns the minimum and maximum price for a product"""
 
     serializer_class = MinMaxPriceSerializer
     pagination_class = GamesResultsSetPagination
     filter_backends = [DjangoFilterBackend]
-    queryset = Price.objects.all()
+
+    def get_serializer(self, *args, **kwargs):
+        return MinMaxPriceSerializer(*args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        serializer = self.get_serializer()
+        return Response(serializer.data)
