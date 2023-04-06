@@ -8,7 +8,6 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import queryString from 'query-string'
 import s from './FilterGames.module.scss'
 import { Genres } from './Genres'
-import { Keywords } from './Keywords'
 import { Platforms } from './Platforms'
 import { Prices } from './Prices'
 import { SortBy } from './SortBy'
@@ -42,7 +41,6 @@ const FilterGames = () => {
         <div onSubmit={onSubmitForm} className={s.components}>
           <h4 className={s.title}>Фильтры</h4>
 
-          <Keywords />
           <SortBy />
           <Prices />
           <Platforms />

@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 
 interface FilterState {
-  keywords: string
   sortby: string
   prices: number[]
   platforms: string[]
@@ -17,7 +16,6 @@ interface FilterStore extends FilterState {
 }
 
 const initial = {
-  keywords: '',
   sortby: '',
   prices: [],
   platforms: [],
@@ -28,7 +26,6 @@ const useFilter = create<FilterStore>((set, get) => ({
   ...initial,
   setFilters: (queryParams) =>
     set({
-      keywords: queryParams.get('keywords') ?? '',
       sortby: queryParams.get('sortby') ?? '',
       prices: queryParams.getAll('prices').map((price) => parseInt(price)) ?? [],
       platforms: queryParams.getAll('platforms') ?? [],
@@ -39,9 +36,8 @@ const useFilter = create<FilterStore>((set, get) => ({
       [key]: value,
     }),
   getFilters: () => {
-    const { keywords, sortby, prices, platforms, genres } = get()
+    const { sortby, prices, platforms, genres } = get()
     return {
-      keywords,
       sortby,
       platforms,
       prices,
