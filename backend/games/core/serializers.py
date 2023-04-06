@@ -30,9 +30,8 @@ class SystemRequirementSerializer(serializers.ModelSerializer):
 class OperatingSystemSerializer(serializers.Serializer):
     """ Операционные системы """
 
-    operating_system = serializers.ChoiceField(choices=SystemRequirement.OS.choices)
-
     class Meta:
+        model = SystemRequirement
         fields = ('operating_system',)
 
 
