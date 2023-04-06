@@ -7,7 +7,7 @@ class Settings(BaseSettings):
 
     REDIS_HOST: str
     REDIS_PORT: int
-    REDIS_TEST_DATABASE_INDEX: int
+    REDIS_DATABASE: str
 
     RABBITMQ_DEFAULT_USER: str
     RABBITMQ_DEFAULT_PASS: str

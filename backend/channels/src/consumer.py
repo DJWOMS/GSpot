@@ -13,8 +13,7 @@ async def process_message(
         body = json.loads(message.body.decode())
         message = AioMessage.parse_obj(body)
         if message.type == 'email':
-            await send_email(body)
-            return
+            return await send_email(body)
         elif message.type == 'notification':
             # Save notifications task here
             return

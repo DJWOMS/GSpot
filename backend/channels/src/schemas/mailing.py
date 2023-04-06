@@ -12,12 +12,10 @@ class MassageMail(BaseModel):
     subject: str
     template_name: str
     recipients: List[EmailStr]
-    template_body: dict[HttpUrl | Any]
+    template_body: dict
 
-    @validator("template_name")
-    def mast_be_html_extends(self, v):
-        if v.split('.')[-1] == 'html':
-            return v
-        else:
-            raise ValueError('invalid template format. Supports only .html')
-
+    @validator('template_name')
+    def validate_template_name(cls, template_name: str) -> str:
+        if not template_name.endswith('.html'):
+            raise ValueError('Template name must end with .html')
+        return template_name

@@ -2,10 +2,8 @@ from pathlib import Path
 
 from fastapi_mail import ConnectionConfig, MessageSchema, FastMail, MessageType
 
-from schemas.mailing import EmailConfirm
+from schemas.mailing import EmailConfirm, MassageMail
 from config import settings
-
-from src.schemas.mailing import MassageMail
 
 
 class Sender:
@@ -36,14 +34,14 @@ class Sender:
     def get_data_by_type(type_msg, body) -> MassageMail:
         match type_msg:
             case 'test_queue':
-                serializer = EmailConfirm(**body).dict()
+                serializer = EmailConfirm.parse_obj(body)
                 massage_data = {
                     'subject': 'Confirm Email',
                     'template_name': 'confirm_email.html',
-                    'recipients': [serializer.pop('confirm_email')],
-                    'template_body': serializer
+                    'recipients': [serializer.confirm_email],
+                    'template_body': serializer.dict()
                 }
-                return MassageMail(**massage_data)
+                return MassageMail.parse_obj(massage_data)
 
     async def send_email(self, type_msg, body):
         massage_data = self.get_data_by_type(
