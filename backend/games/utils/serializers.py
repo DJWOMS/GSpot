@@ -1,7 +1,10 @@
 from rest_framework import serializers
+
 from django.db.models import Min, Max
 
 from finance.models.offer import Price
+
+from reference.models.genres import SubGenre
 
 
 class MinMaxPriceSerializer(serializers.ModelSerializer):
@@ -17,3 +20,9 @@ class MinMaxPriceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Price
         fields = ("min_price", "max_price")
+
+
+class SubGenreByGenreIdSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubGenre
+        fields = ('id', 'name', 'genre')
