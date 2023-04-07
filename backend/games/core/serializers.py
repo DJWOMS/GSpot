@@ -28,7 +28,7 @@ class SystemRequirementSerializer(serializers.ModelSerializer):
 
 
 class OperatingSystemSerializer(serializers.Serializer):
-    """ Операционные системы """
+    """ Operating System Serializer """
 
     class Meta:
         model = SystemRequirement
