@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket
 
 from connectors import rabbit_connection, websocket_manager
 from schemas import pika as pika_schemas
@@ -26,10 +26,4 @@ async def process():
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket_manager.connect(websocket)
-    try:
-        while True:
-            data = await websocket.receive_text()
-            await websocket_manager.broadcast(f"Client {websocket.client.host} says: {data}")
-    except WebSocketDisconnect:
-        websocket_manager.disconnect(websocket)
-        await websocket_manager.broadcast(f"Client {websocket.client.host} left the chat")
+
