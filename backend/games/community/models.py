@@ -27,8 +27,7 @@ class Media(models.Model):
         return f'{self.product}'
 
     class Meta:
-        verbose_name = 'Медиа'
-        verbose_name_plural = 'Медиа'
+        db_table = 'media'
 
 
 class Social(models.Model):
@@ -42,7 +41,6 @@ class Social(models.Model):
         TELEGRAM = 'TG', 'Telegram'
 
     type = models.CharField(
-        'Социальная сеть',
         max_length=20,
         choices=SocialTypes.choices,
         default=SocialTypes.SITE
@@ -53,14 +51,13 @@ class Social(models.Model):
         related_name='socials',
         limit_choices_to={'type': Product.TypeProduct.GAMES}
     )
-    url = models.URLField('Ссылка')
+    url = models.URLField()
 
     def __str__(self):
         return f'{self.type} {self.product.name}'
 
     class Meta:
-        verbose_name = 'Социальная сеть'
-        verbose_name_plural = 'Социальные сети'
+        db_table = 'social'
 
 
 class Review(models.Model):
