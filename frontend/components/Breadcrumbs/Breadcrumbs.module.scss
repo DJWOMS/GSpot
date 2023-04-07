@@ -3,7 +3,7 @@
 }
 
 .breadcrumb {
-  @apply tracking-default relative mr-[40px] text-sm leading-[22px] text-light
+  @apply relative mr-[40px] text-sm leading-[22px] tracking-default text-light
     hover:text-light;
   transition: 0.5s;
 

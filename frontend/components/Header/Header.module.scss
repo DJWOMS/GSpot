@@ -113,7 +113,7 @@
   }
 
   &Link {
-    @apply tracking-default inline-flex h-[22px] flex-row items-center justify-start text-[12px] uppercase leading-[22px] text-white;
+    @apply inline-flex h-[22px] flex-row items-center justify-start text-[12px] uppercase leading-[22px] tracking-default text-white;
 
     svg {
       @apply ml-[4px] h-auto w-[10px] stroke-light;
@@ -179,7 +179,7 @@
       @apply hidden;
     }
     span {
-      @apply tracking-default block text-xs uppercase text-white;
+      @apply block text-xs uppercase tracking-default text-white;
 
       transition: 0.5s;
     }
@@ -276,7 +276,7 @@
 
   @media (min-width: 576px) {
     span {
-      @apply tracking-default ml-[10px] block text-xs uppercase text-white;
+      @apply ml-[10px] block text-xs uppercase tracking-default text-white;
     }
     :hover span {
       @apply text-primary;
