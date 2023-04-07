@@ -1,5 +1,5 @@
 .select {
-  @apply h-[44px] w-full cursor-pointer appearance-none rounded-default border border-trans-gray px-[20px]
+  @apply h-[44px] w-full cursor-pointer appearance-none rounded-default border border-main-60 px-[20px]
       text-[14px] tracking-[.4px] text-white;
 
   background: url('/svg/arrow2.svg') no-repeat center right 15px rgba(167, 130, 233, 0.03);

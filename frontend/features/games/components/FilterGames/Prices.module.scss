@@ -1,6 +1,6 @@
 .range {
   @apply relative mb-[10px] flex h-[30px] flex-row items-center justify-start rounded-default border
-      border-trans-gray bg-dark px-[12px] text-[13px] tracking-[.4px] text-white;
+  border-main-60 bg-main-30 px-[12px] text-[13px] tracking-[.4px] text-white;
 
   div {
     @apply relative first:mr-[16px];

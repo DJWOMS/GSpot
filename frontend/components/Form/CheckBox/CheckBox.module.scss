@@ -25,7 +25,7 @@
 
   input:not(:checked) + label:before,
   input:checked + label:before {
-    @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border border-trans-gray bg-dark content-[''];
+    @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border border-main-60 bg-main-30 content-[''];
   }
 
   input:not(:checked) + label:after,

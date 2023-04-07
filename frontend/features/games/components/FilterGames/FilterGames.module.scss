@@ -1,6 +1,6 @@
 .openFilter {
   @apply mb-[10px] block h-[44px] w-full flex-row items-center justify-center rounded-default
-    bg-dark tracking-[0.4px] text-white lg:hidden;
+    bg-main-30 tracking-[0.4px] text-white lg:hidden;
   border: 1px solid rgba(167, 130, 233, 0.4);
 
   &:hover {
@@ -32,12 +32,12 @@
 }
 
 .title {
-  @apply tracking-default mb-[25px] flex h-auto w-full flex-row items-center justify-between text-base
-    font-semibold text-white;
+  @apply mb-[25px] flex h-auto w-full flex-row items-center justify-between text-base font-semibold
+    tracking-default text-white;
 }
 
 .applyFilter {
-  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-dark
+  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-main-30
     tracking-[.4px] text-white;
 
   border: 1px solid rgba(167, 130, 233, 0.4);
