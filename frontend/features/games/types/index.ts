@@ -2,15 +2,17 @@ export interface GameCardSimpleInterface {
   title: string
   link: string
 }
+
 export interface GameListInterface extends GameCardSimpleInterface {
   coverImg: string
   price: number
   sale?: number
   currency?: 'RUB' | 'USD' | 'EUR'
 }
+
 export interface GameCardInterface extends GameListInterface {
-  badge?: 'New' | 'Pre-order'
-  platform?: Array<PlatformType>
+  badge: 'New' | 'Pre-order'
+  platforms: PlatformType[]
 }
 
 export interface GameDetailsInterface extends GameCardInterface {
@@ -34,6 +36,7 @@ export interface RequirementInterface {
   deviceGraphics: string
   typeRequirements: string
 }
+
 export interface PlatformType {
   type: 'ps' | 'xbox' | 'win' | 'ap'
 }

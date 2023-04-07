@@ -7,35 +7,42 @@ import Link from 'next/link'
 import s from './GameCard.module.scss'
 import { Platform } from './Platform'
 
-const GameCardBig: FC<GameCardInterface> = ({ coverImg, badge, link, title, sale, price, platform, currency = '$' }) => {
+const GameCardBig: FC<GameCardInterface> = ({ coverImg, link, title, sale, price, platforms, currency = '$' }) => {
   return (
-    <div className={s.cardBig}>
+    <div className={cn(s.card, s.cardBig)}>
       <Link className={s.cardCover} href="/details/id">
-        <Image src={coverImg} alt="" width={400} height={600} />
-        {badge && <span className={s.cardBadgeNew}>{badge}</span>}
+        <Image src={coverImg} alt="" width={240} height={340} />
       </Link>
 
-      <div className={s.cardWrapper}>
-        <h3 className={s.cardTitle}>
-          <Link className={s.cardTitleLink} href={link}>
-            {title}
-          </Link>
-        </h3>
+      <div className={s.cardWrap}>
+        <div className={s.cardTitle}>
+          <h3>
+            <Link href={link}>{title}</Link>
+          </h3>
+        </div>
+
+        <ul className={s.cardList}>
+          <li>
+            <span>Release date:</span> 30.11.2018
+          </li>
+          <li>
+            <span>Genres:</span> Simulation, Action, Sci-fi
+          </li>
+        </ul>
 
         <ul className={s.cardPlatforms}>
-          {platform?.map((i, id) => (
-            <Platform key={id} type={i.type} />
+          {platforms.map((platform, id) => (
+            <Platform key={id} {...platform} />
           ))}
         </ul>
 
         <div className={s.cardPrice}>
-          {sale ? [currency, sale] : [currency, price]}
+          <span>{sale ? [currency, sale] : [currency, price]}</span>
           {sale && <s>{[currency, price]}</s>}
         </div>
 
         <div className={s.cardActions}>
           <div className={cn(s.cardAction, s.cardActionBuy)}>Купить</div>
-
           <div className={cn(s.cardAction, s.cardActionFavorite)}>
             <IconHeart />
           </div>

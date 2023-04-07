@@ -8,13 +8,16 @@ const generateMockGameCardSimple = (props = {}): GameCardSimpleInterface => ({
 })
 
 const generateMockGameList = (props = {}): GameListInterface => ({
-  coverImg: faker.image.abstract(),
+  coverImg: faker.image.abstract(240, 340),
   price: faker.datatype.number(1000),
   sale: faker.datatype.number(500),
   currency: 'RUB',
   ...generateMockGameCardSimple(props),
 })
+
 const generateMockGameCard = (props = {}): GameCardInterface => ({
+  badge: 'New',
+  platforms: [{ type: 'ap' }, { type: 'win' }],
   ...generateMockGameList(props),
 })
 
