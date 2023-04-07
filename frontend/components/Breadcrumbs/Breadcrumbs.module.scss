@@ -3,7 +3,7 @@
 }
 
 .breadcrumb {
-  @apply relative mr-[40px] text-[14px] leading-[22px] tracking-[0.4px] text-light
+  @apply tracking-default relative mr-[40px] text-sm leading-[22px] text-light
     hover:text-light;
   transition: 0.5s;
 
@@ -17,7 +17,7 @@
   }
 
   :before {
-    @apply absolute left-full top-0 h-[22px] w-[40px] opacity-[0.8] content-[''];
+    @apply absolute left-full top-0 h-[22px] w-[40px] opacity-80 content-[''];
     background: url('/svg/breadcrumb.svg') no-repeat center/14px auto;
   }
 

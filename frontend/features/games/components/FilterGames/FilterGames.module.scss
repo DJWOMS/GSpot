@@ -32,13 +32,14 @@
 }
 
 .title {
-  @apply mb-[25px] flex h-auto w-full flex-row items-center justify-between text-[16px] font-semibold
-    tracking-[.4px] text-white;
+  @apply tracking-default mb-[25px] flex h-auto w-full flex-row items-center justify-between text-base
+    font-semibold text-white;
 }
 
 .applyFilter {
   @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-dark
     tracking-[.4px] text-white;
+
   border: 1px solid rgba(167, 130, 233, 0.4);
 
   &:hover {

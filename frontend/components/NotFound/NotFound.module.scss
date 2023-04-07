@@ -1,68 +1,27 @@
 .page {
-  display: block;
-  position: relative;
+  @apply relative block;
 }
 .wrap {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 100vh;
-  padding: 40px 0;
+  @apply flex min-h-screen w-[100px] flex-row items-center justify-center py-[40px];
 }
 .content {
-  background-color: #1b222e;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @apply relative w-full max-w-[400px] flex-col items-center justify-center rounded-default bg-background px-[20px] py-[40px];
   border: 1px solid rgba(167, 130, 233, 0.06);
-  border-radius: 6px;
-  padding: 40px 20px;
-  position: relative;
-  width: 100%;
-  max-width: 400px;
 
   @media (min-width: 576px) {
-    padding: 50px;
+    @apply p-[50px];
   }
 }
 .title {
-  position: relative;
-  color: #a782e9;
-  line-height: 100%;
-  font-size: 120px;
-  margin-bottom: 20px;
-  font-weight: 500;
-  font-family: var(--font-montserrat);
+  @apply relative mb-[20px] font-[montserrat] text-[120px] font-medium leading-[100%] text-primary;
 }
 .text {
-  text-align: center;
-  display: block;
-  width: 100%;
-  color: #fff;
-  font-size: 14px;
-  line-height: 26px;
-  margin-bottom: 40px;
+  @apply mb-[40px] block w-full text-center text-sm leading-[26px] text-white;
 }
 .link {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 140px;
-  height: 44px;
-  border-radius: 6px;
-  background-color: #29b474;
-  color: #fff;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
+  @apply flex h-[44px] w-[140px] flex-row items-center justify-center rounded-default bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
 
   :hover {
-    background-color: #a782e9;
-    color: #fff;
+    @apply bg-primary text-white;
   }
 }
