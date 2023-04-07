@@ -5,7 +5,7 @@ import cn from 'classnames'
 import { Group } from 'components/Form'
 import { useFilter } from 'features/games/store'
 import { useRouter, useSearchParams } from 'next/navigation'
-import queryString from 'query-string'
+import qs from 'qs'
 import s from './FilterGames.module.scss'
 import { Genres } from './Genres'
 import { Platforms } from './Platforms'
@@ -26,8 +26,13 @@ const FilterGames = () => {
   // update router if needed
   const router = useRouter()
 
-  const onSubmitForm = () => router.push(`/catalog?${queryString.stringify(getFilters(), { skipNull: true })}`)
-
+  const onSubmitForm = () =>
+    router.push(
+      `/catalog?${qs.stringify(getFilters(), {
+        arrayFormat: 'repeat',
+        skipNulls: true,
+      })}`
+    )
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const toggleMobileFilter = () => setOpenMobileFilter((state) => !state)
 
