@@ -6,7 +6,6 @@ from utils.views import (
     GetOperatingSystemListView,
     GetGenreListView,
     GetMinMaxPriceListView,
-    GetSubGenreListView,
 )
 
 urlpatterns = [
@@ -15,9 +14,4 @@ urlpatterns = [
         "filters/platforms", GetOperatingSystemListView.as_view(), name="all_platforms"
     ),
     path("filters/prices", GetMinMaxPriceListView.as_view(), name="min_max_price"),
-    path(
-        "filters/genres/<int:genre_id>/subgenres/",
-        GetSubGenreListView.as_view(),
-        name="subgenre",
-    ),
 ]

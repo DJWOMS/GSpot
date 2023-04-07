@@ -9,7 +9,7 @@ from core.serializers import OperatingSystemSerializer
 from base.paginations import GamesResultsSetPagination
 
 from reference.models.genres import Genre, SubGenre
-from reference.serializers import GenreSerializer
+from reference.serializers import GenreGamesSerializer
 
 from .serializers import MinMaxPriceSerializer, GenreSubSerializer
 
@@ -34,10 +34,34 @@ class GetOperatingSystemListView(generics.ListAPIView):
 class GetGenreListView(generics.ListAPIView):
     """List of genres"""
 
-    serializer_class = GenreSerializer
-    pagination_class = GamesResultsSetPagination
+    serializer_class = GenreGamesSerializer
     filter_backends = [DjangoFilterBackend]
-    queryset = Genre.objects.all()
+    queryset = Genre.objects.prefetch_related('subgenres')
+
+    def get_serializer(self, *args, **kwargs):
+        serializer_class = self.get_serializer_class()
+
+        queryset = kwargs.get('queryset') or self.filter_queryset(self.get_queryset())
+
+        # Check if any subgenres exist for the queryset
+        subgenres_exist = any(genre.subgenres.exists() for genre in queryset)
+
+        if not subgenres_exist:
+            # If no subgenres exist, use an empty QuerySet for the SubGenreSerializer
+            kwargs['context'] = self.get_serializer_context()
+            kwargs['subgenres_queryset'] = SubGenre.objects.none()
+
+        return serializer_class(*args, **kwargs)
+
+    def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
+
+        # Filter by subgenres
+        subgenre_ids = self.request.query_params.getlist('subgenre')
+        if subgenre_ids:
+            queryset = queryset.filter(subgenres__id__in=subgenre_ids).distinct()
+
+        return queryset
 
 
 class GetSubGenreListView(generics.ListAPIView):
