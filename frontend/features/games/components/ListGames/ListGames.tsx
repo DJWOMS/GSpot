@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { GameCardInterface } from 'features/games/types'
+import { GameListInterface } from 'features/games'
 import { ListGame } from './ListGame'
 import s from './ListGames.module.scss'
 
 interface ListGamesProps {
-  children: GameCardInterface[]
+  children: GameListInterface[]
 }
 
 export const ListGames: FC<ListGamesProps> = ({ children }) => {

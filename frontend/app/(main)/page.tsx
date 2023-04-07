@@ -1,6 +1,6 @@
 import CarouselSection from 'components/CarouselSection'
 import Section from 'components/Section'
-import { GameCard, GameCardBig, GameCardInterface, ListGames } from 'features/games'
+import { GameCard, GameCardBig, GameCardInterface, ListGames, GameListInterface } from 'features/games'
 import { LatestNews } from 'features/news'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import { Key } from 'tabler-icons-react'
@@ -10,9 +10,9 @@ const Home = async () => {
   const [bestGames, latestGames, otherGames, giftGames, subscriptionsGames] = await Promise.all([
     fetchServerSide<GameCardInterface[]>({ path: '/games/best' }),
     fetchServerSide<GameCardInterface[]>({ path: '/games/latest' }),
-    fetchServerSide<GameCardInterface[]>({ path: '/games/other?key=a', cache: 'no-cache' }),
-    fetchServerSide<GameCardInterface[]>({ path: '/games/other?key=b', cache: 'no-cache' }),
-    fetchServerSide<GameCardInterface[]>({ path: '/games/other?key=c', cache: 'no-cache' }),
+    fetchServerSide<GameListInterface[]>({ path: '/games/other?key=a', cache: 'no-cache' }),
+    fetchServerSide<GameListInterface[]>({ path: '/games/other?key=b', cache: 'no-cache' }),
+    fetchServerSide<GameListInterface[]>({ path: '/games/other?key=c', cache: 'no-cache' }),
   ])
 
   return (

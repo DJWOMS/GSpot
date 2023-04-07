@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { IconPlus } from '@tabler/icons-react'
-import { GameCardInterface } from 'features/games/types'
+import { GameListInterface } from 'features/games'
 import Image from 'next/image'
 import s from './ListGame.module.scss'
 
-const ListGame: FC<GameCardInterface> = ({ title, price, sale, coverImg }) => {
+const ListGame: FC<GameListInterface> = ({ title, price, sale, coverImg }) => {
   return (
     <div className={s.item}>
       <div className={s.cover}>
