@@ -22,7 +22,7 @@ class MinMaxPriceSerializer(serializers.ModelSerializer):
         fields = ("min_price", "max_price")
 
 
-class SubGenreByGenreIdSerializer(serializers.ModelSerializer):
+class GenreSubSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubGenre
         fields = ('id', 'name', 'genre')

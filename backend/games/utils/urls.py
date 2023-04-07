@@ -9,11 +9,7 @@ from utils.views import (
     GetSubGenreListView,
 )
 
-
-api_router = DefaultRouter()
-
 urlpatterns = [
-    path("", include(api_router.urls)),
     path("filters/genres", GetGenreListView.as_view(), name="all_genres"),
     path(
         "filters/platforms", GetOperatingSystemListView.as_view(), name="all_platforms"

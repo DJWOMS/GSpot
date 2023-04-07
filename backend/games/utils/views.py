@@ -11,7 +11,7 @@ from base.paginations import GamesResultsSetPagination
 from reference.models.genres import Genre, SubGenre
 from reference.serializers import GenreSerializer
 
-from .serializers import MinMaxPriceSerializer, SubGenreByGenreIdSerializer
+from .serializers import MinMaxPriceSerializer, GenreSubSerializer
 
 
 class GetOperatingSystemListView(generics.ListAPIView):
@@ -42,7 +42,7 @@ class GetGenreListView(generics.ListAPIView):
 class GetSubGenreListView(generics.ListAPIView):
     """List of all sub-genres"""
 
-    serializer_class = SubGenreByGenreIdSerializer
+    serializer_class = GenreSubSerializer
     pagination_class = GamesResultsSetPagination
     filter_backends = [DjangoFilterBackend]
 
