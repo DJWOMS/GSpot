@@ -22,11 +22,12 @@ class GetOperatingSystemListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend]
 
     def get_queryset(self):
-        return SystemRequirement.objects.values('operating_system').distinct()
+        return SystemRequirement.objects.values_list('operating_system', flat=True).distinct()
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        platforms = [req['operating_system'] for req in queryset]
+        os_names = dict(SystemRequirement.OS.choices)
+        platforms = [os_names[os] for os in queryset]
         return Response(platforms)
 
 
@@ -62,5 +63,6 @@ class GetMinMaxPriceListView(generics.GenericAPIView):
         return MinMaxPriceSerializer(*args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        serializer = self.get_serializer()
+        serializer = self.get_serializer(data={})
+        serializer.is_valid(raise_exception=True)
         return Response(serializer.data)
