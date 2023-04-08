@@ -40,20 +40,16 @@ class GetGenreListView(generics.ListAPIView):
 
         queryset = kwargs.get('queryset') or self.filter_queryset(self.get_queryset())
 
-        # Check if any subgenres exist for the queryset
-        subgenres_exist = any(genre.subgenres.exists() for genre in queryset)
+        subgenres = SubGenre.objects.filter(genre__in=queryset).order_by('genre_id', 'name')
 
-        if not subgenres_exist:
-            # If no subgenres exist, use an empty QuerySet for the SubGenreSerializer
-            kwargs['context'] = self.get_serializer_context()
-            kwargs['subgenres_queryset'] = SubGenre.objects.none()
+        kwargs['context'] = self.get_serializer_context()
+        kwargs['context']['subgenres'] = subgenres
 
         return serializer_class(*args, **kwargs)
 
     def filter_queryset(self, queryset):
         queryset = super().filter_queryset(queryset)
 
-        # Filter by subgenres
         subgenre_ids = self.request.query_params.getlist('subgenre')
         if subgenre_ids:
             queryset = queryset.filter(subgenres__id__in=subgenre_ids).distinct()
