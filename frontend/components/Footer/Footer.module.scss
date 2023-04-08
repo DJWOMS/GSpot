@@ -14,7 +14,7 @@
   &Link {
     @apply text-base leading-[30px] text-white;
 
-    :hover {
+    &:hover {
       @apply text-primary;
     }
   }
@@ -98,7 +98,7 @@
   span {
     @apply relative z-[2] bg-background p-[10px] text-base tracking-default text-white;
   }
-  :before {
+  &:before {
     @apply absolute left-0 right-0 top-1/2 z-[1] block h-px bg-main-60 content-[''];
   }
 
@@ -111,10 +111,10 @@
   a {
     @apply relative pl-[20px] text-sm leading-[26px] tracking-default text-light opacity-80;
 
-    :hover {
+    &:hover {
       @apply opacity-100;
     }
-    :before {
+    &:before {
       @apply absolute bottom-0 left-0 top-0 block w-[10px] opacity-50 content-[''];
 
       background: url('/svg/arrow.svg') no-repeat left center;
@@ -126,7 +126,7 @@
 
   &Double {
     @media (max-width: 768px) {
-      :last-child {
+      &:last-child {
         @apply mt-0;
       }
     }

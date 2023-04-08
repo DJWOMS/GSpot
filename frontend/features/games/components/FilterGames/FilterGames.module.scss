@@ -2,7 +2,7 @@
   @apply mb-[10px] flex h-[44px] w-full flex-row items-center justify-center rounded-default border
     border-main-40 bg-main-30 text-[12px] uppercase tracking-default text-white;
 
-  :hover {
+  &:hover {
     @apply border border-main-50 bg-main-40;
 
     svg {
@@ -46,7 +46,7 @@
 .clearFilters {
   @apply text-[12px] font-normal tracking-[0px] text-primary;
 
-  :hover {
+  &:hover {
     @apply text-danger;
   }
 }
@@ -73,7 +73,7 @@
     @apply m-0 p-0 text-black;
   }
 
-  :focus {
+  &:focus {
     background-color: rgba(167, 130, 233, 0.04);
     border-color: rgba(167, 130, 233, 0.5);
   }
@@ -83,7 +83,7 @@
   @apply relative h-[44px] w-full rounded-default bg-main-30 px-[20px] text-sm tracking-default text-white;
   border: 1px solid rgba(167, 130, 233, 0.06);
 
-  :focus {
+  &:focus {
     background-color: rgba(167, 130, 233, 0.04);
     border-color: rgba(167, 130, 233, 0.5);
   }
@@ -161,12 +161,12 @@
     tracking-default text-white;
   border: 1px solid rgba(167, 130, 233, 0.4);
 
-  :hover {
+  &:hover {
     background-color: rgba(167, 130, 233, 0.04);
     border-color: rgba(167, 130, 233, 0.5);
   }
 
-  :hover svg {
+  &:hover svg {
     @apply stroke-primary;
   }
 }

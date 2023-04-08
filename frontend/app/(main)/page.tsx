@@ -1,9 +1,9 @@
 import CarouselSection from 'components/CarouselSection'
+import { Container } from 'components/Container'
 import Section from 'components/Section'
 import { GameCard, GameCardBig, GameCardInterface, ListGames, GameListInterface } from 'features/games'
 import { LatestNews } from 'features/news'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import { Key } from 'tabler-icons-react'
 import s from './page.module.scss'
 
 const Home = async () => {
@@ -41,23 +41,28 @@ const Home = async () => {
           ))}
         </CarouselSection>
       )}
-      <div className={s.sections}>
-        {otherGames && (
-          <Section title="Игры">
-            <ListGames>{otherGames}</ListGames>
-          </Section>
-        )}
-        {giftGames && (
-          <Section title="Наборы в подарок">
-            <ListGames>{giftGames}</ListGames>
-          </Section>
-        )}
-        {subscriptionsGames && (
-          <Section title="Подписки">
-            <ListGames>{subscriptionsGames}</ListGames>
-          </Section>
-        )}
-      </div>
+
+      <Container>
+        <div className={s.sections}>
+          {otherGames && (
+            <Section title="Игры">
+              <ListGames>{otherGames}</ListGames>
+            </Section>
+          )}
+
+          {giftGames && (
+            <Section title="Наборы в подарок">
+              <ListGames>{giftGames}</ListGames>
+            </Section>
+          )}
+
+          {subscriptionsGames && (
+            <Section title="Подписки">
+              <ListGames>{subscriptionsGames}</ListGames>
+            </Section>
+          )}
+        </div>
+      </Container>
 
       <LatestNews />
     </>
