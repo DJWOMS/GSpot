@@ -95,7 +95,8 @@
   }
 
   &Big {
-    @apply relative m-[10px] flex flex-col;
+    @extend .post;
+    @apply relative flex flex-col;
 
     .postImg {
       @apply p-0;
