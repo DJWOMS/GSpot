@@ -1,9 +1,12 @@
 import enum
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from decimal import Decimal
 from uuid import UUID
 
+from dataclasses_json import config, dataclass_json
 from django.conf import settings
+
+from apps.base.schemas import URL
 
 
 class PaymentResponseStatuses(enum.Enum):
@@ -13,11 +16,12 @@ class PaymentResponseStatuses(enum.Enum):
     refund_succeeded = 'refund.succeeded'
 
 
-class YookassaPaymentTypes(enum.Enum):
+class PaymentTypes(enum.Enum):
     bank_card = 'bank_card'
     yoo_money = 'yoo_money'
     sberbank = 'sberbank'
     qiwi = 'qiwi'
+    from_balance = 'from_balance'
 
 
 @dataclass
@@ -26,45 +30,58 @@ class AmountDataClass:
     currency: str = settings.DEFAULT_CURRENCY
 
 
+# RESPONSE PAYMENT SCHEMAS
+@dataclass
+class PaymentMethodDataResponse:
+    type_: PaymentTypes
+
+
+@dataclass_json
 @dataclass
 class YookassaPaymentResponseObject:
-    id: UUID
+    id_: UUID = field(metadata=config(field_name='id'))
     income_amount: AmountDataClass
+    amount: AmountDataClass
     description: str
     metadata: dict
+    payment_method: PaymentMethodDataResponse
 
 
+@dataclass_json
 @dataclass
 class YookassaPaymentResponse:
     event: PaymentResponseStatuses
-    object: YookassaPaymentResponseObject
+    object_: YookassaPaymentResponseObject = field(
+        metadata=config(field_name='object'),
+    )
 
 
-@dataclass
-class PaymentMethodData:
-    type: YookassaPaymentTypes
-
-
+# CREATE PAYMENT SCHEMAS
+@dataclass_json
 @dataclass
 class ConfirmationDataClass:
-    type: str
-    return_url: str
+    confirmation_type: str = field(metadata=config(field_name='type'))
+    return_url: URL
 
 
+@dataclass_json
+@dataclass
+class PaymentMethodDataCreate:
+    payment_type: PaymentTypes = field(
+        metadata=config(field_name='type'),
+    )
+
+
+@dataclass_json
 @dataclass
 class YookassaPaymentCreate:
     amount: AmountDataClass
-    payment_method_data: PaymentMethodData
+    payment_method_data: PaymentMethodDataCreate
     confirmation: ConfirmationDataClass
     metadata: dict
     capture: bool = True
     refundable: bool = False
     description: str | None = None
-
-
-class PaymentTypes(enum.Enum):
-    from_balance = 'from_balance'
-    yookassa_payments: YookassaPaymentTypes
 
 
 @dataclass
@@ -76,4 +93,4 @@ class YookassaPaymentInfo:
 @dataclass
 class PaymentCreateDataClass(YookassaPaymentInfo):
     user_uuid: UUID
-    return_url: str
+    return_url: URL

@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import uuid
 
-from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from marshmallow.fields import Decimal
 
+from apps.base.fields import MoneyField
 from apps.payment_accounts.models import Account
 from apps.transactions.exceptions import DuplicateError
 
@@ -18,9 +18,7 @@ class TransferHistory(models.Model):
     account_to = models.ForeignKey(
         Account, on_delete=models.PROTECT, related_name='history_accounts_to',
     )
-    amount = models.DecimalField(
-        decimal_places=2,
-        max_digits=settings.MAX_BALANCE_DIGITS,
+    amount = MoneyField(
         validators=[MinValueValidator(0, message='Should be positive value')],
         editable=False,
     )
@@ -55,23 +53,29 @@ class Transaction(models.Model):
     MAX_ITEM_PRICE = 10000  # in case of mistake
 
     account_from = models.ForeignKey(
-        Account, on_delete=models.PROTECT,
+        Account,
+        on_delete=models.PROTECT,
         related_name='transactions_account_from',
     )
     account_to = models.ForeignKey(
-        Account, on_delete=models.PROTECT,
+        Account,
+        on_delete=models.PROTECT,
         related_name='transactions_account_to',
     )
-    item_price = models.DecimalField(
-        decimal_places=2,
-        max_digits=settings.MAX_BALANCE_DIGITS,
-        validators=[
+    developer_account = models.ForeignKey(
+        Account,
+        on_delete=models.PROTECT,
+        related_name='transactions',
+        null=True,
+    )
+    item_price = MoneyField(
+        validators=(
             MinValueValidator(0, message='Should be positive value'),
             MaxValueValidator(
                 MAX_ITEM_PRICE,
                 message=f'Should be not greater than {MAX_ITEM_PRICE}',
             ),
-        ],
+        ),
     )
     item_uuid = models.UUIDField(editable=False, db_index=True)
     is_frozen = models.BooleanField(default=False)

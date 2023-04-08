@@ -1,8 +1,11 @@
 from environs import Env
 from yookassa import Configuration
 
+from apps.base.schemas import URL
 from apps.external_payments.schemas import PaymentCreateDataClass
-from apps.external_payments.services.create_payment import get_yookassa_payment_url
+from apps.external_payments.services.create_payment import \
+    get_yookassa_payment_url
+
 from ..models import Account, BalanceChange
 
 env = Env()
@@ -11,7 +14,9 @@ Configuration.account_id = env.int('SHOP_ACCOUNT_ID')
 Configuration.secret_key = env.str('SHOP_SECRET_KEY')
 
 
-def request_balance_deposit_url(payment_data: PaymentCreateDataClass) -> str:
+def request_balance_deposit_url(
+        payment_data: PaymentCreateDataClass,
+) -> URL:
     user_account, _ = Account.objects.get_or_create(
         user_uuid=payment_data.user_uuid,
     )
