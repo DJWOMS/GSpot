@@ -7,8 +7,6 @@ from .models import SystemRequirement, Product
 
 
 class DlcSerializer(serializers.ModelSerializer):
-    """ Детали DLC """
-
     langs = ref_serializers.ProductLanguageSerializer(many=True)
 
     class Meta:
@@ -24,15 +22,12 @@ class DlcSerializer(serializers.ModelSerializer):
 
 
 class SystemRequirementSerializer(serializers.ModelSerializer):
-    """ Системные требования """
-
     class Meta:
         model = SystemRequirement
         exclude = ('game',)
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    """ Продукт """
     dlcs = DlcSerializer(many=True, read_only=False)
     langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
     system_requirements = SystemRequirementSerializer(many=True, read_only=False)
@@ -60,16 +55,12 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ShortSystemReqSerializers(serializers.ModelSerializer):
-    """ Сокращенные системные требования для игры """
-
     class Meta:
         model = SystemRequirement
         fields = ('id', 'operating_system')
 
 
 class GamesListSerializer(serializers.ModelSerializer):
-    """Лист игр"""
-
     # todo реализовать прайс
     price = serializers.IntegerField(default=100)
     # todo реализовать систему скидок
@@ -97,8 +88,6 @@ class GamesListSerializer(serializers.ModelSerializer):
 
 
 class GameDetailSerializer(serializers.ModelSerializer):
-    """ Полная информация о игре """
-
     # todo реализовать прайс
     price = serializers.IntegerField(default=100)
     # todo реализовать систему скидок
