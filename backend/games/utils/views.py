@@ -6,19 +6,16 @@ from django_filters.rest_framework import DjangoFilterBackend
 from core.models import SystemRequirement
 from core.serializers import OperatingSystemSerializer
 
-from base.paginations import GamesResultsSetPagination
-
 from reference.models.genres import Genre, SubGenre
 from reference.serializers import GenreGamesSerializer
 
-from .serializers import MinMaxPriceSerializer, GenreSubSerializer
+from .serializers import MinMaxPriceSerializer
 
 
 class GetOperatingSystemListView(generics.ListAPIView):
     """List of operating systems"""
 
     serializer_class = OperatingSystemSerializer
-    pagination_class = GamesResultsSetPagination
     filter_backends = [DjangoFilterBackend]
 
     def get_queryset(self):
@@ -64,23 +61,10 @@ class GetGenreListView(generics.ListAPIView):
         return queryset
 
 
-class GetSubGenreListView(generics.ListAPIView):
-    """List of all sub-genres"""
-
-    serializer_class = GenreSubSerializer
-    pagination_class = GamesResultsSetPagination
-    filter_backends = [DjangoFilterBackend]
-
-    def get_queryset(self):
-        genre_id = self.kwargs['genre_id']
-        return SubGenre.objects.filter(genre_id=genre_id)
-
-
 class GetMinMaxPriceListView(generics.GenericAPIView):
     """Returns the minimum and maximum price for a product"""
 
     serializer_class = MinMaxPriceSerializer
-    pagination_class = GamesResultsSetPagination
     filter_backends = [DjangoFilterBackend]
 
     def get_serializer(self, *args, **kwargs):

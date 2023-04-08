@@ -1,12 +1,11 @@
-from django.urls import path, include
-
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
 from utils.views import (
     GetOperatingSystemListView,
     GetGenreListView,
     GetMinMaxPriceListView,
 )
+
 
 urlpatterns = [
     path("filters/genres", GetGenreListView.as_view(), name="all_genres"),
