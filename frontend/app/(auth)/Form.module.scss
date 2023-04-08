@@ -30,10 +30,10 @@
   }
 
   &Input {
-    @apply tracking-default relative h-[44px] w-full rounded-default border border-main-60 bg-main-30
-        px-[20px] text-sm text-white;
+    @apply relative h-[44px] w-full rounded-default border border-main-60 bg-main-30 px-[20px]
+        text-sm tracking-default text-white;
 
-    :focus {
+    &:focus {
       background-color: rgba(167, 130, 233, 0.04);
       border-color: rgba(167, 130, 233, 0.5);
     }

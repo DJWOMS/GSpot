@@ -13,7 +13,7 @@
     }
   }
 
-  :last-child {
+  &:last-child {
     @apply mb-0;
   }
 }

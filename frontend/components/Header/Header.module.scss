@@ -94,7 +94,7 @@
     @apply relative bottom-auto left-auto top-auto z-[2] ml-[30px] mr-auto
         h-[70px] w-auto flex-row items-center bg-transparent p-0;
 
-    :before {
+    &:before {
       @apply pointer-events-none absolute bottom-[24px] left-[-29px] top-[24px] block w-px bg-main-60
             content-none;
     }
@@ -106,22 +106,22 @@
     @media (min-width: 1200px) {
       @apply mb-0 mr-[60px] flex h-[70px] flex-row items-center justify-start;
 
-      :last-child {
+      &:last-child {
         @apply mr-0;
       }
     }
   }
 
   &Link {
-    @apply tracking-default inline-flex h-[22px] flex-row items-center justify-start text-[12px] uppercase leading-[22px] text-white;
+    @apply inline-flex h-[22px] flex-row items-center justify-start text-[12px] uppercase leading-[22px] tracking-default text-white;
 
     svg {
-      @apply ml-[4px] h-auto w-[10px] stroke-light;
+      @apply ml-[4px] h-auto w-[10px] stroke-primary;
 
       transition: stroke 0.5s ease;
     }
 
-    :hover {
+    &:hover {
       @apply text-primary;
 
       svg {
@@ -134,7 +134,7 @@
 .actions {
   @apply flex h-[70px] w-[120px] items-center justify-between;
 
-  :has(> :last-child:nth-child(2)) {
+  &:has(> &:last-child:nth-child(2)) {
     @apply justify-between;
   }
 
@@ -153,7 +153,7 @@
 }
 
 .loginBtn {
-  @apply flex h-[44px] w-[44px] items-center justify-center rounded-default bg-light text-center;
+  @apply flex h-[44px] w-[44px] items-center justify-center rounded-default bg-main-30 text-center;
 
   svg {
     @apply h-auto w-[22px] stroke-white;
@@ -163,7 +163,7 @@
   span {
     @apply hidden;
   }
-  :hover {
+  &:hover {
     background-color: rgba(167, 130, 233, 0.04);
     border-color: rgba(167, 130, 233, 0.5);
 
@@ -179,11 +179,11 @@
       @apply hidden;
     }
     span {
-      @apply tracking-default block text-xs uppercase text-white;
+      @apply block text-xs uppercase tracking-default text-white;
 
       transition: 0.5s;
     }
-    :hover span {
+    &:hover span {
       @apply text-primary;
     }
   }
@@ -207,14 +207,14 @@
   @media (min-width: 1200px) {
     @apply w-[426px];
 
-    :before {
+    &:before {
       @apply pointer-events-none absolute bottom-[10px] left-[196px] top-[10px] block w-px bg-main-60 content-[''];
     }
   }
   @media (min-width: 1310px) {
     @apply w-[494px];
 
-    :before {
+    &:before {
       @apply left-[232px];
     }
   }
@@ -254,7 +254,7 @@
 .searchBtn {
   @apply relative flex h-[44px] w-[50px] flex-row items-center justify-start;
 
-  :before {
+  &:before {
     @apply pointer-events-none absolute bottom-[10px] left-0 top-[10px] block w-px bg-main-60 content-none;
   }
   svg {
@@ -276,9 +276,9 @@
 
   @media (min-width: 576px) {
     span {
-      @apply tracking-default ml-[10px] block text-xs uppercase text-white;
+      @apply ml-[10px] block text-xs uppercase tracking-default text-white;
     }
-    :hover span {
+    &:hover span {
       @apply text-primary;
     }
   }

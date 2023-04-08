@@ -1,11 +1,11 @@
 .card {
-  @apply relative mt-[30px] block overflow-hidden rounded-default bg-background;
+  @apply relative mt-7 block overflow-hidden rounded-default bg-background;
 
   &Cover {
     @apply relative block;
 
     img {
-      @apply relative z-[1] max-h-[300px] w-full;
+      @apply relative z-[1] w-full;
       transition: 0.5s;
     }
 
@@ -13,28 +13,14 @@
       opacity: 0.6;
     }
 
-    @media (min-width: 360px) {
-      width: 165px;
-    }
-
     @media (min-width: 576px) {
       @apply w-full;
     }
   }
 
-  &Catalog {
-    @media (min-width: 360px) {
-      @apply border-main-60 flex flex-row flex-wrap items-start justify-start border-r;
-    }
-
-    @media (min-width: 576px) {
-      @apply flex-col border-r-0;
-    }
-  }
-
   &Badge {
-    @apply pointer-events-none absolute bottom-[20px] left-[15px] z-[2] flex h-[24px] flex-row items-center
-        justify-center rounded-default px-[13px] font-mont text-[12px] font-medium text-white;
+    @apply pointer-events-none absolute bottom-5 left-4 z-[2] flex h-6 flex-row items-center
+        justify-center rounded-default px-[13px] font-mont text-xs font-medium text-white;
 
     &New {
       @apply bg-primary;
@@ -46,7 +32,7 @@
   }
 
   &Platforms {
-    @apply pointer-events-none absolute left-[15px] top-[20px] z-[2] flex flex-row items-center justify-start;
+    @apply pointer-events-none absolute left-4 top-5 z-[2] flex flex-row items-center justify-start;
 
     @media (min-width: 360px) {
       @apply left-[15px] top-[15px];
@@ -58,72 +44,80 @@
   }
 
   &Title {
-    @apply mb-[15px] w-full overflow-hidden text-ellipsis whitespace-nowrap break-words text-base
-        font-normal text-white hover:text-primary;
-    transition: 0.5s;
+    @apply relative flex w-full flex-col items-start justify-center border-x border-main-60 p-4;
 
-    &Wrapper {
-      @apply border-x-main-60 relative flex w-full flex-col items-start justify-center border-x
-            p-[15px];
+    h3 {
+      @apply mb-[15px] w-full overflow-hidden text-ellipsis whitespace-nowrap break-words text-base font-normal text-white;
+      transition: 0.5s;
 
-      :last-child {
-        @apply border-b-main-60 rounded-b-default rounded-l-default border-b;
-      }
-
-      @media (min-width: 360px) {
-        width: calc(100% - 165px);
-        @apply border-t-main-60 border-x-0 border-t p-[15px];
-
-        .cardTitle {
-          @apply whitespace-normal;
-        }
-
-        :last-child {
-          @apply absolute bottom-0 right-0 top-0 justify-start rounded-b-default rounded-r-default;
+      a {
+        @apply text-white;
+        &:hover {
+          @apply text-primary;
         }
       }
 
-      @media (min-width: 576px) {
-        @apply border-x-main-60 w-full border-x border-t-0 p-[20px];
-
-        .cardTitle {
-          @apply whitespace-nowrap;
-        }
-
-        :last-child {
-          @apply relative bottom-auto right-auto top-auto rounded-b-default rounded-l-default;
-        }
+      &:hover {
+        @apply text-primary;
       }
     }
 
-    &Link {
-      @apply text-white hover:text-primary;
+    span {
+      @apply flex flex-row items-end justify-start text-base font-semibold leading-none tracking-[0.5px] text-white;
+
+      s {
+        @apply ml-[10px] text-xs font-normal leading-none text-[#dbdada];
+      }
+    }
+
+    &:last-child {
+      border-bottom: 1px solid rgba(167, 130, 233, 0.06);
+      border-radius: 0 0 6px 6px;
+    }
+  }
+
+  &List {
+    @apply w-full;
+
+    li {
+      @apply text-sm leading-6 text-white;
+
+      span {
+        @apply mr-1 text-[#dbdada];
+      }
     }
   }
 
   &Price {
-    @apply flex flex-row items-end justify-start text-base font-semibold leading-[100%] tracking-[0.5px]
-        text-white;
+    @apply mt-5 flex flex-row flex-wrap items-start justify-start;
+
+    span {
+      @apply block w-full text-[26px] font-semibold leading-none text-white;
+    }
 
     s {
-      @apply ml-[10px] text-[12px] font-normal leading-[100%];
+      @apply mt-[7px] mr-[15px] text-sm font-normal text-[#dbdada];
+    }
+
+    b {
+      @apply mt-[7px] mr-[15px] text-sm font-semibold text-danger;
     }
   }
 
-  &Wrapper {
+  &Wrap {
     @apply relative w-full;
   }
 
   &Actions {
-    @apply border-x-main-60 border-b-main-60 flex w-full flex-row items-center justify-between rounded-b-default rounded-l-default
-        border-x border-b px-[15px] pb-[15px];
+    @apply flex w-full flex-row items-center justify-between rounded-b-default rounded-l-default border-x border-b
+        border-x-main-60 border-b-main-60 px-[15px] pb-[15px];
 
     @media (min-width: 360px) {
       @apply absolute bottom-0 right-0 rounded-none border-x-0 px-[15px] pb-[15px];
     }
 
     @media (min-width: 576px) {
-      @apply border-x-main-60 relative bottom-auto right-auto w-full rounded-b-default rounded-l-default border-x
+      @apply relative bottom-auto right-auto w-full rounded-b-default rounded-l-default border-x border-x-main-60
             px-[20px] pb-[20px];
     }
   }
@@ -157,7 +151,7 @@
   }
 
   &Big {
-    @apply border-main-60 gap-4 border p-[15px];
+    @apply border border-main-60 p-[15px];
     gap: 1rem;
 
     .cardCover {
@@ -200,6 +194,9 @@
       .cardWrap {
         @apply flex flex-col items-start justify-start;
         width: calc(100% - 250px);
+      }
+      .cardList {
+        @apply mt-[10px];
       }
       .cardPrice {
         @apply mt-auto;
