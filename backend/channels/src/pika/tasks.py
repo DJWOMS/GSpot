@@ -1,10 +1,8 @@
-import json
-from aio_pika.abc import AbstractIncomingMessage
 from .email import sender
 
 
-async def send_email(message: AbstractIncomingMessage) -> None:
+async def send_email(message: dict) -> None:
     await sender.send_email(
-        type_msg=message.routing_key,
-        body=json.loads(message.body)
+        type_msg='test_queue',
+        body=message
     )
