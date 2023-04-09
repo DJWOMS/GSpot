@@ -21,7 +21,7 @@
 .link {
   @apply flex h-[44px] w-[140px] flex-row items-center justify-center rounded-default bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
 
-  :hover {
+  &:hover {
     @apply bg-primary text-white;
   }
 }

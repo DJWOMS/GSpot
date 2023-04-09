@@ -3,20 +3,20 @@
 }
 
 .breadcrumb {
-  @apply tracking-default relative mr-[40px] text-sm leading-[22px] text-light
+  @apply relative mr-[40px] text-sm leading-[22px] tracking-default text-light
     hover:text-light;
   transition: 0.5s;
 
-  :first-child {
+  &:first-child {
     @apply pl-[25px];
 
-    :after {
+    &:after {
       @apply absolute left-0 top-0 h-[22px] w-[25px] content-[''];
       background: url('/svg/home.svg') no-repeat center left/16px auto;
     }
   }
 
-  :before {
+  &:before {
     @apply absolute left-full top-0 h-[22px] w-[40px] opacity-80 content-[''];
     background: url('/svg/breadcrumb.svg') no-repeat center/14px auto;
   }

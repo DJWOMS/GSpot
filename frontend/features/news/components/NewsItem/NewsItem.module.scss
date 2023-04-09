@@ -1,5 +1,5 @@
 .post {
-  @apply border-main-60 relative mt-[30px] overflow-hidden rounded-default border;
+  @apply relative mt-[30px] overflow-hidden rounded-default border border-main-60;
 
   &Content {
     @apply block px-[15px] py-[20px];
@@ -42,12 +42,12 @@
   }
 
   &Category {
-    @apply tracking-default inline-flex h-[24px] w-auto max-w-[74px] flex-row items-center justify-center
-        rounded-default px-[13px] text-[12px] text-light hover:text-white;
+    @apply inline-flex h-[24px] w-auto max-w-[74px] flex-row items-center justify-center rounded-default
+        px-[13px] text-[12px] tracking-default text-light hover:text-white;
     border: 1px solid rgba(167, 130, 233, 0.4);
     background-color: rgba(167, 130, 233, 0.15);
 
-    :hover {
+    &:hover {
       border-color: rgba(167, 130, 233, 0.6);
       background-color: rgba(167, 130, 233, 0.3);
     }
@@ -83,24 +83,25 @@
       @apply relative z-[2] ml-[2px] h-auto w-[22px] stroke-primary;
     }
 
-    :before {
+    &:before {
       @apply pointer-events-none absolute bottom-[5px] right-[5px] top-[5px] z-[1] block rounded-full
             bg-background content-[''];
     }
 
-    :hover {
+    &:hover {
       border-color: rgba(167, 130, 233, 0.6);
       background-color: rgba(167, 130, 233, 0.3);
     }
   }
 
   &Big {
-    @apply relative m-[10px] flex flex-col;
+    @extend .post;
+    @apply relative flex flex-col;
 
     .postImg {
       @apply p-0;
 
-      :before {
+      &:before {
         @apply pointer-events-none absolute inset-0 z-[2] block content-[''];
         background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
         background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
@@ -158,7 +159,7 @@
         }
       }
 
-      :hover {
+      &:hover {
         .postImg {
           img {
             @apply opacity-60;
