@@ -1,4 +1,10 @@
 repos:
+- repo: https://github.com/pre-commit/mirrors-isort
+  rev: "v5.9.3"
+  hooks:
+  - id: isort
+    args: [--profile=black]
+    
 - repo: https://github.com/pycqa/flake8.git
   rev: 6.0.0
   hooks:
