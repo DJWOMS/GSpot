@@ -4,4 +4,4 @@ const Input = ({ ...props }) => {
   return <input className={s.input} {...props} />
 }
 
-export { Input }
+export default Input

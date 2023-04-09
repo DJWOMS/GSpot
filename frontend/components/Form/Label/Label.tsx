@@ -13,4 +13,4 @@ const Label: FC<LabelProps> = ({ children, ...props }) => {
   )
 }
 
-export { Label }
+export default Label

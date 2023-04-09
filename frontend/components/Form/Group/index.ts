@@ -1,1 +1,1 @@
-export { Group } from './Group'
+export { default } from './Group'

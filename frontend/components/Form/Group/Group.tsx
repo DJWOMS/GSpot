@@ -9,4 +9,4 @@ const Group: FC<GroupProps> = ({ children }) => {
   return <div className={s.group}>{children}</div>
 }
 
-export { Group }
+export default Group

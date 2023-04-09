@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { forwardRef, ForwardRefRenderFunction } from 'react'
 import s from './Select.module.scss'
 
 type SelectOption = {
@@ -6,13 +6,17 @@ type SelectOption = {
   option: string
 }
 
-interface SelectProps extends React.HTMLAttributes<HTMLSelectElement> {
+interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options: SelectOption[]
 }
 
-const Select: FC<SelectProps> = ({ options, ...props }) => {
+const Select: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = ({ options, ...props }, ref) => {
   return (
-    <select className={s.select} {...props}>
+    <select className={s.select} ref={ref} {...props}>
+      <option value="" disabled selected>
+        Выберите вариант
+      </option>
+
       {options.map(({ value, option }) => (
         <option value={value} key={value}>
           {option}
@@ -22,4 +26,4 @@ const Select: FC<SelectProps> = ({ options, ...props }) => {
   )
 }
 
-export { Select }
+export default forwardRef(Select)

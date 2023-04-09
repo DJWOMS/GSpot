@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import cn from 'classnames'
 import { Group } from 'components/Form'
-import { useFilter } from 'features/games/store'
 import { useRouter, useSearchParams } from 'next/navigation'
 import qs from 'qs'
 import s from './FilterGames.module.scss'
@@ -12,27 +12,30 @@ import { Platforms } from './Platforms'
 import { Prices } from './Prices'
 import { SortBy } from './SortBy'
 
+interface FilterValues {
+  sortby: string | null
+  prices: string[] | null
+  platforms: string[]
+  genres: string[]
+}
+
 const FilterGames = () => {
   const queryParams = useSearchParams()
-
-  // set filter values
-  const getFilters = useFilter((state) => state.getFilters)
-  const setFilters = useFilter((state) => state.setFilters)
-
-  useEffect(() => {
-    setFilters(queryParams)
-  }, [queryParams, setFilters])
+  const form = useForm<FilterValues>({
+    defaultValues: {
+      sortby: queryParams.get('sortby'),
+      prices: queryParams.getAll('prices'),
+      genres: queryParams.getAll('genres'),
+      platforms: queryParams.getAll('platforms'),
+    },
+  })
 
   // update router if needed
   const router = useRouter()
 
-  const onSubmitForm = () =>
-    router.push(
-      `/catalog?${qs.stringify(getFilters(), {
-        arrayFormat: 'repeat',
-        skipNulls: true,
-      })}`
-    )
+  const onSubmitForm: SubmitHandler<FilterValues> = ({ sortby, prices, platforms, genres }) =>
+    router.push(`/catalog?${qs.stringify({ sortby, prices, platforms, genres }, { arrayFormat: 'repeat', skipNulls: true })}`)
+
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const toggleMobileFilter = () => setOpenMobileFilter((state) => !state)
 
@@ -43,20 +46,22 @@ const FilterGames = () => {
       </button>
 
       <div className={cn(s.wrapper, { [s.open]: openMobileFilter })}>
-        <div onSubmit={onSubmitForm} className={s.components}>
-          <h4 className={s.title}>Фильтры</h4>
+        <FormProvider {...form}>
+          <form onSubmit={form.handleSubmit(onSubmitForm)} className={s.components}>
+            <h4 className={s.title}>Фильтры</h4>
 
-          <SortBy />
-          <Prices />
-          <Platforms />
-          <Genres />
+            <SortBy />
+            <Prices />
+            <Platforms />
+            <Genres />
 
-          <Group>
-            <button className={s.applyFilter} onClick={onSubmitForm}>
-              Применить фильтр
-            </button>
-          </Group>
-        </div>
+            <Group>
+              <button className={s.applyFilter} type="submit">
+                Применить фильтр
+              </button>
+            </Group>
+          </form>
+        </FormProvider>
       </div>
     </>
   )

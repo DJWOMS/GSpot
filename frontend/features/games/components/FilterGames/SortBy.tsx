@@ -1,46 +1,37 @@
 import { useState, useEffect } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { Group, Label, Select } from 'components/Form'
 import { SkeletonSelect } from 'components/Skeleton'
-import { FormSortByType } from 'features/games'
-import { useFilter } from 'features/games/store'
 import { fetchServerSide } from 'lib/fetchServerSide'
 
-interface FormSortByTypeState extends FormSortByType {
-  selected: boolean
+type SortByState = {
+  value: string
+  option: string
 }
 
 const SortBy = () => {
-  const [sorts, setSorts] = useState<FormSortByTypeState[] | null>(null)
-  const { getFilter, setFilter } = useFilter((state) => ({ getFilter: state.getFilter, setFilter: state.setFilter }))
+  const { register } = useFormContext()
+  const [sorts, setSorts] = useState<SortByState[] | null>(null)
 
   useEffect(() => {
     const loadData = async () => {
-      const response = await fetchServerSide<FormSortByType[]>({
+      const response = await fetchServerSide<SortByState[]>({
         path: '/games/filters/sorts',
       })
 
       if (response) {
-        const selectedSortBy = getFilter('sortby')
-        setSorts(response.map((sort) => ({ ...sort, selected: sort.value === selectedSortBy })))
+        setSorts(response)
       }
     }
 
     loadData()
-  }, [getFilter])
-
-  const onChangeSection = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilter('sortby', e.currentTarget.value)
-  }
+  }, [])
 
   return (
     <Group>
       <Label>Сортировать: </Label>
 
-      {sorts === null ? (
-        <SkeletonSelect />
-      ) : (
-        <Select defaultValue={sorts?.find(({ selected }) => selected)?.value} onChange={onChangeSection} options={sorts} />
-      )}
+      {sorts === null ? <SkeletonSelect /> : <Select options={sorts} {...register('sortby')} />}
     </Group>
   )
 }
