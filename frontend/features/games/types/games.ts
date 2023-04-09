@@ -3,13 +3,16 @@ export interface GameCardSimpleInterface {
   link: string
 }
 
-export interface GameCardInterface extends GameCardSimpleInterface {
+export interface GameListInterface extends GameCardSimpleInterface {
   coverImg: string
   price: number
   sale?: number
-  badge?: 'New' | 'Pre-order'
-  platform?: Array<PlatformType>
   currency?: 'RUB' | 'USD' | 'EUR'
+}
+
+export interface GameCardInterface extends GameListInterface {
+  badge?: 'New' | 'Pre-order'
+  platforms: PlatformType[]
 }
 
 export interface GameDetailsInterface extends GameCardInterface {

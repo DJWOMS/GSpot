@@ -98,10 +98,10 @@
       }
     }
 
-    @apply flex h-[30px] w-[30px] flex-row justify-center rounded-default bg-light;
+    @apply flex h-[30px] w-[30px] flex-row items-center justify-center rounded-default bg-main-30;
 
     svg {
-      @apply h-auto w-[18px] stroke-acid;
+      @apply h-auto w-[18px] stroke-[#dbdada];
 
       transition: 0.5s;
     }

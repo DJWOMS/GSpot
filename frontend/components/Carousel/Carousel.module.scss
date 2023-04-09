@@ -1,5 +1,5 @@
 .container {
-  @apply relative w-full overflow-hidden pl-[15px];
+  @apply overflow-hidden;
 
   img {
     @apply w-auto max-w-full;
@@ -14,16 +14,12 @@
   }
 
   @media (min-width: 576px) {
-    padding-left: calc((100% - 510px) / 2);
-
     .cardBig {
       width: 280px;
     }
   }
 
   @media (min-width: 768px) {
-    @apply mx-auto w-[690px] pl-0;
-
     .card {
       @apply w-full;
     }
@@ -31,18 +27,6 @@
     .cardBig {
       @apply w-full;
     }
-  }
-
-  @media (min-width: 992px) {
-    width: 930px;
-  }
-
-  @media (min-width: 1200px) {
-    width: 1110px;
-  }
-
-  @media (min-width: 1310px) {
-    width: 1280px;
   }
 
   .swiper-wrapper {

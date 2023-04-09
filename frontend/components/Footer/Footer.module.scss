@@ -14,29 +14,9 @@
   &Link {
     @apply text-base leading-[30px] text-white;
 
-    :hover {
+    &:hover {
       @apply text-primary;
     }
-  }
-}
-
-.container {
-  @apply m-auto w-full pl-[15px] pr-[15px];
-
-  @media (min-width: 576px) {
-    @apply max-w-[540px];
-  }
-  @media (min-width: 768px) {
-    @apply max-w-[720px];
-  }
-  @media (min-width: 992px) {
-    @apply max-w-[960px];
-  }
-  @media (min-width: 1200px) {
-    @apply max-w-[1140px];
-  }
-  @media (min-width: 1310px) {
-    @apply max-w-[1310px];
   }
 }
 
@@ -45,7 +25,7 @@
     @apply flex flex-row flex-wrap items-start justify-between;
 
     @media (min-width: 768px) {
-      @apply flex flex-row flex-wrap items-start justify-between p-[1vw];
+      @apply flex flex-row flex-wrap items-start justify-between;
     }
   }
 
@@ -98,7 +78,7 @@
   span {
     @apply relative z-[2] bg-background p-[10px] text-base tracking-default text-white;
   }
-  :before {
+  &:before {
     @apply absolute left-0 right-0 top-1/2 z-[1] block h-px bg-main-60 content-[''];
   }
 
@@ -111,10 +91,10 @@
   a {
     @apply relative pl-[20px] text-sm leading-[26px] tracking-default text-light opacity-80;
 
-    :hover {
+    &:hover {
       @apply opacity-100;
     }
-    :before {
+    &:before {
       @apply absolute bottom-0 left-0 top-0 block w-[10px] opacity-50 content-[''];
 
       background: url('/svg/arrow.svg') no-repeat left center;
@@ -126,7 +106,7 @@
 
   &Double {
     @media (max-width: 768px) {
-      :last-child {
+      &:last-child {
         @apply mt-0;
       }
     }
