@@ -1,8 +1,7 @@
-from rest_enumfield import EnumField
-from rest_framework import serializers
-
 from apps.base.fields import MoneySerializerField
 from apps.external_payments.schemas import PaymentTypes
+from rest_enumfield import EnumField
+from rest_framework import serializers
 
 
 class ItemPaymentData(serializers.Serializer):
