@@ -1,15 +1,13 @@
-from yookassa import Payment
-
 from apps.base.schemas import URL
+from yookassa import Payment
 
 from .. import schemas
 
 
 def get_yookassa_payment_url(
-        payment_data: schemas.PaymentCreateDataClass,
-        metadata: dict,
+    payment_data: schemas.PaymentCreateDataClass,
+    metadata: dict,
 ) -> URL:
-
     yookassa_payment_info = schemas.YookassaPaymentCreate(
         amount=schemas.AmountDataClass(
             value=payment_data.payment_amount,

@@ -1,13 +1,15 @@
 from decimal import Decimal
 
 import rollbar
-
 from apps.base import utils
-from apps.external_payments.schemas import (PaymentResponseStatuses,
-                                            YookassaPaymentResponse)
+from apps.external_payments.schemas import (
+    PaymentResponseStatuses,
+    YookassaPaymentResponse,
+)
 from apps.payment_accounts.models import Account, BalanceChange
-from apps.payment_accounts.services.payment_commission import \
-    calculate_payment_without_commission
+from apps.payment_accounts.services.payment_commission import (
+    calculate_payment_without_commission,
+)
 from apps.transactions.models import Invoice
 
 from . import invoice_execution as pay_proc
@@ -64,9 +66,7 @@ class PaymentAcceptance(YookassaIncomePayment):
     def parse_user_account(self):
         return utils.parse_model_instance(
             django_model=Account,
-            error_message=(
-                f"Can't get user account instance for user id {self.account_id}"
-            ),
+            error_message=(f"Can't get user account instance for user id {self.account_id}"),
             pk=self.account_id,
         )
 
@@ -79,9 +79,7 @@ class IncomeBalanceHandler(YookassaIncomePayment):
     def _parse_balance_object(self) -> BalanceChange | None:
         return utils.parse_model_instance(
             django_model=BalanceChange,
-            error_message=(
-                f"Can't get payment instance for payment id {self.payment_body.id_}"
-            ),
+            error_message=(f"Can't get payment instance for payment id {self.payment_body.id_}"),
             pk=int(self.payment_body.metadata['balance_change_id']),
         )
 
@@ -154,9 +152,10 @@ class IncomeInvoiceHandler(YookassaIncomePayment):
 
 
 def execute_invoice_operations(
-        *, invoice_instance: Invoice,
-        payer_account: Account,
-        decrease_amount: Decimal,
+    *,
+    invoice_instance: Invoice,
+    payer_account: Account,
+    decrease_amount: Decimal,
 ):
     invoice_executioner = pay_proc.InvoiceExecution(invoice_instance)
     invoice_executioner.process_invoice_transactions()

@@ -2,11 +2,10 @@ from __future__ import annotations
 
 from decimal import Decimal
 
+from apps.base.fields import MoneyField
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.shortcuts import get_object_or_404
-
-from apps.base.fields import MoneyField
 
 
 def is_amount_positive(method):
@@ -15,6 +14,7 @@ def is_amount_positive(method):
         if amount < 0:
             raise ValueError('Should be positive value')
         return method(cls, *args, **kwargs)
+
     return wrapper
 
 

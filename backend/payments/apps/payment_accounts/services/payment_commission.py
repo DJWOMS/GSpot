@@ -17,8 +17,8 @@ def get_commission_percent(payment_type: PaymentTypes) -> Decimal:
 
 
 def calculate_payment_with_commission(
-        payment_type: PaymentTypes,
-        payment_amount: Decimal,
+    payment_type: PaymentTypes,
+    payment_amount: Decimal,
 ) -> Decimal:
     commission = get_commission_percent(payment_type)
     return (payment_amount * (1 / (1 - commission / 100))).quantize(
@@ -28,8 +28,8 @@ def calculate_payment_with_commission(
 
 
 def calculate_payment_without_commission(
-        payment_type: PaymentTypes,
-        payment_amount: Decimal,
+    payment_type: PaymentTypes,
+    payment_amount: Decimal,
 ) -> Decimal:
     commission = get_commission_percent(payment_type)
     return (payment_amount * ((100 - commission) / 100)).quantize(

@@ -1,10 +1,8 @@
 import rollbar
+from apps.external_payments.schemas import PaymentCreateDataClass, YookassaPaymentInfo
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
-
-from apps.external_payments.schemas import (PaymentCreateDataClass,
-                                            YookassaPaymentInfo)
 
 from . import serializers
 from .services.balance_change import request_balance_deposit_url

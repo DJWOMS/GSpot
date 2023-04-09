@@ -3,10 +3,9 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from uuid import UUID
 
+from apps.base.schemas import URL
 from dataclasses_json import config, dataclass_json
 from django.conf import settings
-
-from apps.base.schemas import URL
 
 
 class PaymentResponseStatuses(enum.Enum):

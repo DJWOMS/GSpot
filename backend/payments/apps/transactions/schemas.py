@@ -22,7 +22,4 @@ class IncomeData:
     return_url: URL
 
     def total_price(self):
-        return sum(
-            item_payment_data.price for item_payment_data
-            in self.items_payment_data
-        )
+        return sum(item_payment_data.price for item_payment_data in self.items_payment_data)

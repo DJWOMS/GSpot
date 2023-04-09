@@ -1,8 +1,7 @@
 from datetime import datetime
 
-from django.conf import settings
-
 from apps.transactions.models import Invoice, Transaction, TransactionHistory
+from django.conf import settings
 
 from ..exceptions import ExtraTransactionHistoriesError
 from ..tasks import get_item_for_self_user, gift_item_to_other_user
@@ -33,7 +32,7 @@ class InvoiceExecution:
 
     @staticmethod
     def get_transaction_execution_date_time(
-            invoice_transaction: Transaction,
+        invoice_transaction: Transaction,
     ) -> datetime:
         transactions_history = invoice_transaction.transactions_history.all()
         if len(transactions_history) > 1:

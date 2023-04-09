@@ -79,7 +79,7 @@ Subsequently, all indexed files will be checked with `Flake8` before committing.
 
 To check with `Flake8` the files indexed for the commit run:
 ```shell
-pre-commit run  
+pre-commit run --all-files
 ```
 If it's necessary to skip using `pre-commit hook`, the commit should run with the `-n` or `--no-verify` flag:
 ```shell
