@@ -48,7 +48,6 @@ done
 >&2 echo "Redis is available"
 
 python manage.py collectstatic --noinput  
-python manage.py makemigrations  --noinput 
 python manage.py migrate
 gunicorn config.wsgi:application --bind :8000 -k gevent
 
