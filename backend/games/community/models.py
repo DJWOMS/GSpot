@@ -1,27 +1,20 @@
 from django.db import models
+from base.model_fields import get_field_from_choices
 from core.models import Product
 import uuid
 from reference.models import Language
-
-
-GRADE_CHOICES = (
-    ('Like', 'Like'),
-    ('Dislike', 'Dislike'),
-)
+from base.choices import BaseTextChoices, GradeChoices, TypeProduct
 
 
 class Media(models.Model):
-    GAME_LOGO = 'logo'
-    PHOTO_SLIDER = 'slider'
-    MEDIA_CHOICES = [
-        (GAME_LOGO, 'Game Logo'),
-        (PHOTO_SLIDER, 'Photo Slider'),
-    ]
+    class MediaFileType(BaseTextChoices):
+        GAME_LOGO = 'GAME_LOGO', 'Game Logo'
+        PHOTO_SLIDER = 'PHOTO_SLIDER', 'Photo Slider'
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     file_link = models.FileField(upload_to='product_media')
     created_at = models.DateTimeField(auto_now_add=True)
-    type = models.CharField(choices=MEDIA_CHOICES, max_length=10)
+    type = get_field_from_choices('Media_file', GradeChoices)
 
     def __str__(self):
         return f'{self.product}'
@@ -31,25 +24,21 @@ class Media(models.Model):
 
 
 class Social(models.Model):
-    class SocialTypes(models.TextChoices):
-        FACEBOOK = 'FB', 'FaceBook'
-        VKONTAKTE = 'VK', 'VKontakte'
-        SITE = 'S', 'Site'
-        YOUTUBE = 'YT', 'YouTube'
-        TWITTER = 'TW', 'Twitter'
-        TWITCH = 'TV', 'Twitch'
-        TELEGRAM = 'TG', 'Telegram'
+    class SocialMediaTypes(BaseTextChoices):
+        FACEBOOK = 'FACEBOOK', 'FaceBook'
+        VKONTAKTE = 'VKONTAKTE', 'VKontakte'
+        SITE = 'SITE', 'Site'
+        YOUTUBE = 'YOUTUBE', 'YouTube'
+        TWITTER = 'TWITTER', 'Twitter'
+        TWITCH = 'TWITCH', 'Twitch'
+        TELEGRAM = 'TELEGRAM', 'Telegram'
 
-    type = models.CharField(
-        max_length=20,
-        choices=SocialTypes.choices,
-        default=SocialTypes.SITE
-    )
+    type = get_field_from_choices('Social_media', GradeChoices, default=SocialMediaTypes.SITE)
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name='socials',
-        limit_choices_to={'type': Product.TypeProduct.GAMES}
+        limit_choices_to={'type': TypeProduct.GAMES}
     )
     url = models.URLField()
 
@@ -64,7 +53,7 @@ class Review(models.Model):
     user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     game = models.ForeignKey(Product, on_delete=models.CASCADE)
     text = models.TextField()
-    grade = models.CharField(choices=GRADE_CHOICES, max_length=10)
+    grade = get_field_from_choices('Grade', GradeChoices)
     view_type = models.BooleanField(default=True)
     can_reply = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -94,7 +83,7 @@ class Comment(models.Model):
 class Reaction(models.Model):
     user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
-    like_type = models.CharField(choices=GRADE_CHOICES, max_length=10)
+    like_type = get_field_from_choices('Grade', GradeChoices)
 
     def __str__(self):
         return f'{self.like_type} for Review {self.review_id}'

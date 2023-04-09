@@ -2,6 +2,7 @@ import random
 import uuid
 
 from django.core.management.base import BaseCommand
+from backend.games.base.choices import TypeProduct
 
 from core.models import Product, GameDlcLink
 
@@ -28,7 +29,7 @@ class Command(BaseCommand):
                 age=random.choice(ages),
                 adult=f'Adult_descriptions {i}',
                 status=random.choice(statuses),
-                type=Product.TypeProduct.GAMES
+                type=TypeProduct.GAMES
             )
 
             for j in range(random.randint(1, 5)):
@@ -41,7 +42,7 @@ class Command(BaseCommand):
                     age=random.choice(ages),
                     adult=f'Adult_descriptions {i}',
                     status=random.choice(statuses),
-                    type=Product.TypeProduct.DLC
+                    type=TypeProduct.DLC
                 )
 
                 GameDlcLink.objects.create(game=product, dlc=dlc)

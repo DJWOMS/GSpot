@@ -12,3 +12,13 @@ class CurrencyChoices(BaseTextChoices):
     USD = "USD", "Usd"
     KZT = "KZT", "Kzt"
     EUR = "EUR", "Eur"
+
+
+class GradeChoices(BaseTextChoices):
+    LIKE = 'LIKE', 'Like'
+    DISLIKE = 'DISLIKE', 'Dislike'
+
+
+class TypeProduct(BaseTextChoices):
+    GAMES = 'GAMES', 'Games'
+    DLC = 'DLC', 'Additions'
