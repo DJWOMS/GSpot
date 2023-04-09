@@ -4,6 +4,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from environs import Env
+from yookassa import Configuration
 
 env = Env()
 env.read_env()
@@ -131,12 +132,12 @@ ROLLBAR = {
     'root': BASE_DIR,
 }
 
-CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = env.str('REDIS') + '0'
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': env.str('REDIS'),
+        'LOCATION': env.str('REDIS') + '0',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         },
@@ -149,3 +150,6 @@ MAX_BALANCE_DIGITS = 11
 MAX_COMMISSION_VALUE = Decimal(100)
 PERIOD_FOR_MYSELF_TASK = timedelta(days=1)
 PERIOD_FOR_GIFT_TASK = timedelta(days=7)
+
+Configuration.account_id = env.int('SHOP_ACCOUNT_ID')
+Configuration.secret_key = env.str('SHOP_SECRET_KEY')

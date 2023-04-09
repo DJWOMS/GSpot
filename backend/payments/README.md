@@ -8,7 +8,7 @@ Django image reads settings from environment variables, default settings for tes
 - `SECRET_KEY` - salt for hash generation. The value can be an arbitrary string.
 - `DEBUG` - configuring Django to enable debug mode.
 - `ALLOWED_HOSTS` - list of allowed hosts.
-- `SHOP_ACOUNT_ID` - id of your [yookassa](https://yookassa.ru/yooid/signin/step/login?origin=Checkout&returnUrl=https%3A%2F%2Fyookassa.ru%2Fmy%3Fget-auth%3Dyes) store.
+- `SHOP_AСCOUNT_ID` - id of your [yookassa](https://yookassa.ru/yooid/signin/step/login?origin=Checkout&returnUrl=https%3A%2F%2Fyookassa.ru%2Fmy%3Fget-auth%3Dyes) store.
 - `SHOP_SECRET_KEY` - api key of your [yookassa](https://yookassa.ru/yooid/signin/step/login?origin=Checkout&returnUrl=https%3A%2F%2Fyookassa.ru%2Fmy%3Fget-auth%3Dyes) store.
 - `ROLLBAR_ACCESS_TOKEN` - token [rollbar](https://rollbar.com/) for logging events.
 - `POSTGRES_DB` - db of postgres.

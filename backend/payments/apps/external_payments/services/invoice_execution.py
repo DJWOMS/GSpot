@@ -5,6 +5,7 @@ from django.conf import settings
 from apps.transactions.models import Invoice, Transaction, TransactionHistory
 
 from ..exceptions import ExtraTransactionHistoriesError
+from ..tasks import get_item_for_self_user, gift_item_to_other_user
 
 
 class InvoiceExecution:
@@ -21,18 +22,14 @@ class InvoiceExecution:
         invoice_transaction.is_frozen = True
         invoice_transaction.save()
 
-        # task_execution_datetime = self.get_transaction_execution_date_time(
-        #     invoice_transaction,
-        # )
+        task_execution_datetime = self.get_transaction_execution_date_time(
+            invoice_transaction,
+        )
 
         if invoice_transaction.account_to != invoice_transaction.account_from:
-            # This part is not working has to be done
-            # get_item_for_self_user.apply_async(eta=task_execution_datetime)
-            pass
+            get_item_for_self_user.apply_async(eta=task_execution_datetime)
         else:
-            # This part is not working has to be done
-            # gift_item_to_other_user.apply_async(eta=task_execution_datetime)
-            pass
+            gift_item_to_other_user.apply_async(eta=task_execution_datetime)
 
     @staticmethod
     def get_transaction_execution_date_time(

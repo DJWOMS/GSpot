@@ -41,4 +41,3 @@ make.bat
 
 doc-dev
 .vscode/*
-/backend/payments/payment_response_example.py

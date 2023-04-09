@@ -26,7 +26,7 @@ class PaymentAcceptance(YookassaIncomePayment):
     def __init__(self, yookassa_response: YookassaPaymentResponse):
         super().__init__(yookassa_response)
 
-        self.balance_handler: BalanceChangeHandler | None = None
+        self.balance_handler: IncomeBalanceHandler | None = None
         self.income_invoice_handler: IncomeInvoiceHandler | None = None
         self.payer_account = self.parse_user_account()
 
@@ -42,7 +42,7 @@ class PaymentAcceptance(YookassaIncomePayment):
             ),
             'info',
         )
-        self.balance_handler = BalanceChangeHandler(
+        self.balance_handler = IncomeBalanceHandler(
             self.yookassa_response,
         )
         self.balance_handler.change_user_balance()
@@ -71,7 +71,7 @@ class PaymentAcceptance(YookassaIncomePayment):
         )
 
 
-class BalanceChangeHandler(YookassaIncomePayment):
+class IncomeBalanceHandler(YookassaIncomePayment):
     def __init__(self, yookassa_response: YookassaPaymentResponse):
         super().__init__(yookassa_response)
         self.balance_change_object = self._parse_balance_object()
