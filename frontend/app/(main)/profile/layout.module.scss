@@ -1,82 +1,58 @@
-.section {
-  @apply relative pt-20 pb-[100] z-[2];
-    
-  :before {
-    @apply absolute inset-[0] opacity-[70] pointer-events-none z-[10];
-  }
-
-  &Wrap {
-    @apply flex flex-row justify-between items-center;
-  }
-
-  &Title {
-    @apply text-white mb-0 relative pl-[30px] font-normal text-3xl leading-[110%];
-    font-family: 'Montserrat', sans-serif;
-    
-    :before {
-      @apply w-[3px] bg-primary rounded-[4px] content-none absolute block top-[2px] bottom-[2px] left-0;
-      content: '';
-    }
-  }
-}
-
 .profile {
-  @apply flex flex-col justify-start relative rounded-[6px] mb-[10px] px-[20px] pt-[20px] pb-0;
-  border: 1px solid rgba(167,130,233,0.06);
-    
-  &User{
-    @apply flex flex-row justify-start items-center mb-[30px];
+  @apply relative mb-[10px] flex flex-col items-start justify-start rounded-[6px] border border-solid border-main-60 px-[20px] pb-0;
+
+  &User {
+    @apply mb-[30px] flex flex-row items-center justify-start;
   }
 
   &Avatar {
-    @apply block cursor-pointer relative overflow-hidden w-[44px] rounded-[6px] mr-[15px];
-    
-    img{
+    @apply relative mr-[15px] block w-[44px] cursor-pointer overflow-hidden rounded-[6px];
+
+    img {
       @apply w-full;
     }
   }
 
   &Meta {
-    @apply flex flex-col justify-start items-start;
-  
+    @apply flex flex-col items-start justify-start;
+
     h3 {
-      @apply text-white block text-base font-normal mb-[5px] pl-[12px] leading-[130%];
+      @apply mb-[5px] block pl-[12px] text-base font-normal leading-[130%] text-white;
     }
-  
+
     span {
-      @apply text-white text-base scale-[.8] leading-[100%] leading-[100%]; 
+      @apply scale-[.8] text-base leading-[100%] text-white;
     }
   }
 
   &Tabs {
-    @apply flex flex-row justify-start items-center overflow-hidden w-full;
-  
+    @apply flex w-full flex-row items-center justify-start overflow-hidden;
+
     li {
-      @apply mr-[40px];
-  
-      last-child {
+      @apply mr-10;
+
+      &:last-child {
         @apply mr-0;
       }
     }
-  
+
     a {
-      @apply flex flex-row justify-start items-start h-[40px] text-light relative uppercase text-xs tracking-[0.4px];
-  
-      :hover {
+      @apply relative flex h-[40px] flex-row items-start justify-start text-xs uppercase tracking-[0.4px] text-light;
+
+      &:hover {
         @apply text-primary;
       }
-  
-      :before {
-        @apply absolute bottom-0 left-0 right-0 h-[2px] block bg-primary opacity-0;
-        content: '';
+
+      &:before {
+        @apply absolute bottom-0 left-0 right-0 block h-[2px] bg-primary opacity-0 content-[''];
         transition: 0.5s;
         transform: translateY(2px);
       }
-  
-      .active {
-        @apply text-primary cursor-default;
-  
-        :before {
+
+      &.active {
+        @apply cursor-default text-primary;
+
+        &:before {
           @apply opacity-100;
           transform: translateY(0);
         }
@@ -85,251 +61,70 @@
   }
 
   &Logout {
-    @apply flex justify-center items-center w-[44px] h-[44px] rounded-[6px] text-white absolute top-[20px] right-[20px] uppercase text-xs;
-    background-color: rgba(167,130,233,0.03);
-    border: 1px solid rgba(167,130,233,0.4);
-    letter-spacing: 0.4px;
+    @apply absolute top-[20px] right-[20px] flex h-[44px] w-[44px] items-center justify-center rounded-[6px] border border-solid border-main-400
+    bg-main-30 text-xs uppercase tracking-[0.4px] text-white;
+
     transition: 0.5s;
-  
+
     span {
       @apply hidden;
     }
-      
+
     svg {
-      @apply stroke-white w-[22px] h-auto;
+      @apply h-auto w-[22px] stroke-white;
       transition: stroke 0.5s;
     }
-  
-    :hover {
-      background-color: rgba(167,130,233,0.04);
-      border-color: rgba(167,130,233,0.5);
+
+    &:hover {
+      @apply border-main-500 bg-main-40;
+
       svg {
         @apply stroke-primary;
       }
     }
   }
 
-  &Table {
-    @apply w-full min-w-[920px] bg-background;
-    th {
-      @apply text-light;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 100%;
-      padding: 20px 20px 20px 0;
-      letter-spacing: 0.4px;
-      border-bottom: 1px solid rgba(167,130,233,0.06);
-  
-      a {
-        @apply inline-flex flex-row content-start items-center text-light;
-  
-        svg {
-          @apply w-[20px] h-auto fill-light;
-          transition: fill 0.5s ease;
-        }
-  
-        :hover {
-          @apply text-white;
-  
-          svg {
-            @apply fill-primary;
-          }
-        }
-      }
-  
-    
-      a.active {
-        @apply text-white;
-        svg {
-          @apply w-[16px] fill-primary;
-        }
-      }
-    }
-    th:last-child {
-      @apply w-[24px];
-      padding: 10px 20px 20px;
-    }
-    th:first-child {
-      @apply w-[80px] p-[20px];
-    }
-    th:nth-child(2) {
-      @apply w-[100px];
-    }
-    td {
-      @apply text-white;
-      font-size: 16px;
-      font-weight: 400;
-      padding: 10px 20px 10px 0;
-  
-      a {
-        @apply text-white;
-        font-size: 14px;
-        border-bottom: 2px dotted #a782e9;
-  
-        :hover {
-          @apply text-primary;
-        }
-      }
-  
-      :last-child {
-        @apply w-[24px];
-        padding: 10px 20px;
-      }
-  
-      :first-child {
-        @apply w-[80px];
-        padding: 10px 20px;
-      }
-      :nth-child(2) {
-        @apply w-[100px];
-        width: 100px;
-      }
-    }
-  
-    tbody {
-      tr:first-child td {
-        @apply pt-[20px] pr-[20px] pb-[20px] pl-0;
-      }
-      tr:first-child {
-        td {
-          :last-child {
-            @apply pt-[20px] pr-[20px] pb-[10px] pl-[20px];
-          }
-  
-          :first-child {
-            @apply pt-[20px] pr-[20px] pb-[10px] pl-[20px];
-          }
-        }
-      } 
-      tr:last-child{
-        td {
-          @apply pt-[10px] pr-[20px] pb-[20px] pl-[0px];
-  
-          :last-child {
-            @apply pt-[10px] pr-[20px] pb-[20px] pl-[20px];
-          }
-          :first-child {
-            @apply pt-[10px] pr-[20px] pb-[20px] pl-[20px];
-          }
-        }
-      }
-    }
-  }
-}
+  @media (min-width: 768px) {
+    @apply mb-5 h-[70px] flex-row items-center justify-between px-5;
 
-.form {
-  @apply bg-background p-[20px] rounded-[6px] mt-[30px];
-  background-color: #1b222e;
-  border: 1px solid rgba(167,130,233,0.06);
-
-  &Title {
-    @apply block mb-[20px] text-white text-xs;
-    letter-spacing: 0.4px;
-  }
-
-  &Label {
-    @apply text-light mb-[20px];
-    letter-spacing: 0.4px;
-    font-size: 14px;
-    font-weight: 400;
-  }
-
-  &Input {
-    background-color: rgba(167,130,233,0.03);
-    border: 1px solid rgba(167,130,233,0.06);
-    border-radius: 6px;
-    height: 44px;
-    position: relative;
-    color: #fff;
-    font-size: 14px;
-    width: 100%;
-    padding: 0 20px;
-    letter-spacing: 0.4px;
-    margin-bottom: 20px;
-  
-    :focus {
-      background-color: rgba(167,130,233,0.04);
-      border-color: rgba(167,130,233,0.5);
-    }
-  }
-
-  &Btn {
-    @apply flex flex-row content-center w-full h-[44px] rounded-[4px] text-white;
-    background-color: #29b474;
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-
-    :hover {
-      background-color: #a782e9;
-      color: #fff;
-    }
-  }
-}
-
-.select {
-  @apply p-0 m-0 rounded-[0px];
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    box-shadow: none;
-    transition: 0.5s ease;
-}
-
-@media (min-width: 768px) {
-  .profile {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-    padding: 0 20px;
-    margin-bottom: 20px;
-    
     &User {
-      margin-bottom: 0;
-      margin-right: 40px;
+      @apply mb-0 mr-10;
     }
-    
+
     &Tabs {
-      @apply w-auto mb-0 mr-auto;
-      border-bottom: none;
+      @apply mb-0 mr-auto w-auto border-b-0;
+
       a {
-        @apply items-center h-[70px];
+        @apply h-[70px] items-center;
       }
     }
-    
+
     &Logout {
-      @apply w-[120px];
-      position: relative;
-      top: auto;
-      right: auto;
-      
+      @apply relative top-auto right-auto w-[120px];
+
       svg {
         @apply hidden;
       }
+
       span {
         @apply block;
       }
     }
   }
-}
 
-@media (min-width: 1200px) {
-  .profile {
+  @media (min-width: 1200px) {
     &User {
       @apply mr-[100px];
     }
-    
+
     &Logout {
       @apply w-[114px];
     }
   }
-}
 
-@media (min-width: 1310px) {
-  .profile__logout {
-    @apply w-[130px];
+  @media (min-width: 1310px) {
+    &Logout {
+      @apply w-[130px];
+    }
   }
 }

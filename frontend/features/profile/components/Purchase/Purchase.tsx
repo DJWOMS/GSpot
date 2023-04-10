@@ -1,33 +1,35 @@
 import { FC } from 'react'
 import { IconX } from '@tabler/icons-react'
 import { GameCardInterface } from 'features/games'
+import Image from 'next/image'
 import Link from 'next/link'
 import s from './Purchase.module.scss'
 
-const Purchase: FC<GameCardInterface> = ({ title, link, coverImg, price, sale, currency }) => {
+const Purchase: FC<GameCardInterface> = ({ title, link, coverImg, price, currency }) => {
   return (
-    <tr className={s.wrapper}>
+    <tr className={s.purchase}>
       <td>
-        <Link href="#modal-info" className={s.openModal}>
-          8420
-        </Link>
+        <Link href={link}>8420</Link>
       </td>
       <td>
-        <div className={s.profileImg}>
-          <img src={coverImg} alt="image" style={{ height: '120px' }} />
+        <div className={s.purchaseImage}>
+          <Image src={coverImg} width={240} height={340} alt="image" />
         </div>
       </td>
       <td>{title}</td>
       <td>XBOX</td>
       <td>Aug 22, 2021</td>
       <td>
-        <span className={s.profilePrice}>${price}</span>
+        <span className={s.purchasePrice}>
+          {currency}
+          {price}
+        </span>
       </td>
       <td>
-        <span className={s.profileStatus}>Not confirmed</span>
+        <span className={s.purchaseStatus}>Not confirmed</span>
       </td>
       <td>
-        <button className={s.profileDelete}>
+        <button className={s.purchaseDelete}>
           <IconX strokeWidth={0.3} />
         </button>
       </td>

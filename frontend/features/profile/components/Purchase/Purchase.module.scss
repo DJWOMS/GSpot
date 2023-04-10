@@ -1,36 +1,30 @@
-.wrapper {
-  @apply text-white;
-}
-.profile {
-  &Img {
-    @apply  py-[10px] w-full h-auto flex flex-row content-center items-center bg-transparent rounded-[6px] overflow-hidden;
-    
+.purchase {
+  &Image {
+    @apply flex h-auto w-full flex-row items-center justify-center overflow-hidden rounded-[6px] bg-transparent py-[10px];
+
     img {
-      @apply w-[100px] h-[20px];
+      @apply h-auto w-[100px];
     }
   }
-  
+
   &Price {
-    @apply font-semibold text-sm text-white;
+    @apply text-sm font-semibold text-white;
   }
-  
+
   &Status {
     @apply text-light;
   }
 
   &Delete {
-    @apply flex flex-row content-center items-center w-[24px] h-[24px];
+    @apply flex h-[24px] w-[24px] flex-row items-center justify-center;
+
     svg {
-      @apply stroke-light w-[24px] h-auto ;
+      @apply h-auto w-[24px] stroke-light;
       transition: stroke 0.5s ease;
     }
 
     :hover svg {
       @apply stroke-primary;
+    }
   }
-  }
-}
-
-.openModal {
-  @apply text-white;
 }
