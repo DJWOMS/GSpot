@@ -1,4 +1,4 @@
-# GSpot Frontend
+yy# GSpot Frontend
 
 [Next.js Documentation](https://nextjs.org/docs/getting-started).  
 [Next.js Beta Documentation](https://beta.nextjs.org/docs/getting-started).  
