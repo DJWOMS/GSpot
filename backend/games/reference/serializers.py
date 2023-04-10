@@ -33,6 +33,18 @@ class SubGenreSerializer(serializers.ModelSerializer):
         model = SubGenre
         fields = ('id', 'name')
 
+    def to_representation(self, instance):
+        # Get subgenres from context
+        subgenres = self.context.get('subgenres', [])
+
+        # Filter subgenres that belong to the current instance
+        subgenres = [subgenre for subgenre in subgenres if subgenre.genre_id == instance.genre_id]
+
+        # Serialize subgenres and add them to the representation
+        data = super().to_representation(instance)
+        data['subgenres'] = SubGenreSerializer(subgenres, many=True).data
+        return data
+
 
 class GenreGamesSerializer(serializers.ModelSerializer):
     subgenres = SubGenreSerializer(many=True, read_only=True)
