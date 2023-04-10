@@ -1,12 +1,6 @@
 .openFilter {
   @apply mb-[10px] block h-[44px] w-full flex-row items-center justify-center rounded-default
-    bg-main-30 tracking-[0.4px] text-white lg:hidden;
-  border: 1px solid rgba(167, 130, 233, 0.4);
-
-  &:hover {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
-  }
+    border border-solid border-main-400 bg-main-30 tracking-[0.4px] text-white hover:border-main-500 hover:bg-main-40 lg:hidden;
 }
 
 .components {
@@ -45,15 +39,8 @@
 }
 
 .applyFilter {
-  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-main-30
-    tracking-[.4px] text-white;
-
-  border: 1px solid rgba(167, 130, 233, 0.4);
-
-  &:hover {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
-  }
+  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default border
+    border-solid border-main-400 bg-main-30 tracking-[.4px] text-white hover:border-main-500 hover:bg-main-40;
 
   &:hover svg {
     @apply stroke-primary;

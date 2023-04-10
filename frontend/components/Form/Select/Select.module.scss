@@ -10,7 +10,6 @@
   }
 
   &:focus {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
+    @apply border-main-500 bg-main-40;
   }
 }
