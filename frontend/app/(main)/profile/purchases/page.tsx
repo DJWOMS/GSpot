@@ -1,11 +1,10 @@
 import Pagination from 'components/Pagination'
-import { GameCardInterface } from 'features/games'
-import { Purchase } from 'features/profile'
+import { Purchase, PurchaseCardInterface } from 'features/profile'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './page.module.scss'
 
 const PurchasesItem = async () => {
-  const purhases = await fetchServerSide<GameCardInterface[]>({
+  const purhases = await fetchServerSide<PurchaseCardInterface[]>({
     path: '/profile/purchases',
   })
 

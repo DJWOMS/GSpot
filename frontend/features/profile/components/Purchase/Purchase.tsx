@@ -1,15 +1,15 @@
 import { FC } from 'react'
 import { IconX } from '@tabler/icons-react'
-import { GameCardInterface } from 'features/games'
+import { PurchaseCardInterface } from 'features/profile'
 import Image from 'next/image'
 import Link from 'next/link'
 import s from './Purchase.module.scss'
 
-const Purchase: FC<GameCardInterface> = ({ title, link, coverImg, price, currency }) => {
+const Purchase: FC<PurchaseCardInterface> = ({ id, title, link, platform, date, coverImg, price, status, currency }) => {
   return (
     <tr className={s.purchase}>
       <td>
-        <Link href={link}>8420</Link>
+        <Link href={link}>{id}</Link>
       </td>
       <td>
         <div className={s.purchaseImage}>
@@ -17,8 +17,8 @@ const Purchase: FC<GameCardInterface> = ({ title, link, coverImg, price, currenc
         </div>
       </td>
       <td>{title}</td>
-      <td>XBOX</td>
-      <td>Aug 22, 2021</td>
+      <td>{platform.type}</td>
+      <td>{date}</td>
       <td>
         <span className={s.purchasePrice}>
           {currency}
@@ -26,7 +26,7 @@ const Purchase: FC<GameCardInterface> = ({ title, link, coverImg, price, currenc
         </span>
       </td>
       <td>
-        <span className={s.purchaseStatus}>Not confirmed</span>
+        <span className={s.purchaseStatus}>{status}</span>
       </td>
       <td>
         <button className={s.purchaseDelete}>

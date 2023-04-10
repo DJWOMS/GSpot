@@ -1,6 +1,6 @@
-import { generateMockGameCard } from 'features/profile'
+import { generateMockPurchaseCard } from 'features/profile'
 import { NextResponse } from 'next/server'
 
 export function GET() {
-  return NextResponse.json([...new Array(3)].map(() => generateMockGameCard()))
+  return NextResponse.json([...new Array(10)].map(() => generateMockPurchaseCard()))
 }
