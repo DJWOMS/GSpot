@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from 'react'
 import { IconHeart, IconShoppingCart } from '@tabler/icons-react'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
+import { Container } from 'components/Container'
 import Image from 'next/image'
 import Link from 'next/link'
 import Search from '../Search/Search'
@@ -67,52 +68,56 @@ const Header: FC<HeaderProps> = ({ links }) => {
   return (
     <header className={cn(s.header, { [s.headerHide]: hideHeader })}>
       <div className={s.wrapper}>
-        <div className={s.content}>
-          <button className={cn(s.menu, { [s.menuOpen]: openHeader })} onClick={toggleOpen}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+        <Container>
+          <div className={s.content}>
+            <button className={cn(s.menu, { [s.menuOpen]: openHeader })} onClick={toggleOpen}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
 
-          <Link className={s.logo} href="/">
-            <Image src={LogoPNG} alt="Logo" loading="eager" />
-          </Link>
+            <Link className={s.logo} href="/">
+              <Image src={LogoPNG} alt="Logo" loading="eager" />
+            </Link>
 
-          <ul className={cn(s.nav, { [s.navOpen]: openHeader })}>
-            {links.map(({ href, title }, index) => (
-              <li className={s.navItem} onClick={() => setOpenHeader(false)} key={index}>
-                <Link className={s.navLink} href={href}>
-                  {title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+            <ul className={cn(s.nav, { [s.navOpen]: openHeader })}>
+              {links.map(({ href, title }, index) => (
+                <li className={s.navItem} onClick={() => setOpenHeader(false)} key={index}>
+                  <Link className={s.navLink} href={href}>
+                    {title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
 
-          <div className={s.actions}>
-            <span />
-            <a className={s.loginBtn} href="/signin">
-              <span>Авторизация</span>
-            </a>
+            <div className={s.actions}>
+              <span />
+              <a className={s.loginBtn} href="/signin">
+                <span>Авторизация</span>
+              </a>
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
 
       <div className={s.wrapper}>
-        <div className={s.content}>
-          <Search />
+        <Container>
+          <div className={s.content}>
+            <Search />
 
-          <div className={s.actions}>
-            <Link className={s.actionLink} href="/favorite">
-              <IconHeart />
-              <span>Favorites</span>
-            </Link>
+            <div className={s.actions}>
+              <Link className={s.actionLink} href="/favorite">
+                <IconHeart />
+                <span>Favorites</span>
+              </Link>
 
-            <Link className={s.actionLink} href="/cart">
-              <IconShoppingCart />
-              <span>$00.00</span>
-            </Link>
+              <Link className={s.actionLink} href="/checkout">
+                <IconShoppingCart />
+                <span>$00.00</span>
+              </Link>
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
     </header>
   )

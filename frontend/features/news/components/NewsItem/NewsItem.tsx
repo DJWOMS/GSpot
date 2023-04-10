@@ -20,7 +20,7 @@ const NewsItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCo
   return (
     <div className={isBig ? s.postBig : s.post}>
       <a href={url} className={isBig ? s.postImg : s.postCover}>
-        <Image width={isBig ? 1000 : 500} height={isBig ? 1000 : 500} src={imageSrc} alt="Logo" loading="eager" />
+        <Image width={640} height={400} src={imageSrc} alt="Logo" loading="eager" />
       </a>
 
       {hasVideo && (

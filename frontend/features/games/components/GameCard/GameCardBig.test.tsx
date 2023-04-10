@@ -10,6 +10,11 @@ describe('GameCardBig', () => {
     title: 'Test Game',
     price: 50,
     currency: 'RUB',
+    platforms: [
+      {
+        type: 'ap',
+      },
+    ],
   }
 
   it('should render correctly', () => {

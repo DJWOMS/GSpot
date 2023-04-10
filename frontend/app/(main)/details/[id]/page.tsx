@@ -3,6 +3,7 @@ import Carousel from 'components/Carousel'
 import Section from 'components/Section'
 import { GameDetailsInterface, Languages, Platform, Requirements } from 'features/games'
 import { fetchServerSide } from 'lib/fetchServerSide'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import s from './page.module.scss'
 
@@ -20,12 +21,13 @@ const Page = async () => {
     <Section>
       <div className="container">
         <div className="-mx-41">
-          <div className="flex-[0_0_100%]">
+          <div className="flex-1">
             <div className={s.details}>
               <div className={s.detailsHead}>
                 <div className={s.detailsCover}>
-                  <img src="https://picsum.photos/1021" alt="" />
-                  <a href="http://www.youtube.com/watch?v=0O2aH4XLbto" className={s.detailsTrailer}>
+                  <Image src={details.coverImg} width={240} height={340} alt="" />
+
+                  <a href="..." className={s.detailsTrailer}>
                     <IconPlayerPlay />
                     <span>Watch trailer</span>
                   </a>

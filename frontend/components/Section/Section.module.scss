@@ -50,7 +50,7 @@
       @apply overflow-hidden;
 
       &::before {
-        @apply pointer-events-none absolute top-[0] left-[0] right-[0] bottom-[0] z-[1] block
+        @apply pointer-events-none absolute bottom-0 left-0 right-0 top-0 z-[1] block
                 content-[''];
 
         background-color: rgba(27, 34, 46, 0.7);
@@ -66,7 +66,7 @@
     @apply overflow-hidden;
 
     &::before {
-      @apply pointer-events-none absolute top-[140px] left-[0] right-[0] bottom-[0] z-[1]
+      @apply pointer-events-none absolute bottom-0 left-0 right-0 top-[140px] z-[1]
              block content-[''];
 
       background-color: rgba(27, 34, 46, 0.7);
@@ -91,17 +91,17 @@
 
   &Nav {
     &Wrapper {
-      @apply mt-[20px] flex w-[100%] flex-row items-center justify-start gap-[10px];
+      @apply mt-[20px] flex w-full flex-row items-center justify-start gap-[10px];
 
       @media (min-width: 768px) {
-        @apply mt-[0] w-auto gap-[15px];
+        @apply mt-0 w-auto gap-[15px];
       }
     }
 
-    @apply flex h-[30px] w-[30px] flex-row justify-center rounded-[6px] bg-light;
+    @apply flex h-[30px] w-[30px] flex-row items-center justify-center rounded-default bg-main-30;
 
     svg {
-      @apply h-[auto] w-[18px] stroke-[#dbdada];
+      @apply h-auto w-[18px] stroke-[#dbdada];
 
       transition: 0.5s;
     }
@@ -111,7 +111,7 @@
       border-color: rgba(167, 130, 233, 0.07);
 
       svg {
-        @apply stroke-[#a782e9];
+        @apply stroke-primary;
       }
     }
   }
@@ -119,8 +119,8 @@
   &View {
     @apply bg-light text-light;
 
-    @apply mr-[auto] flex h-[30px] min-w-[80px] flex-row items-center justify-center
-        rounded-[6px] text-[13px] font-[400] tracking-[0.4px];
+    @apply mr-auto flex h-[30px] min-w-[80px] flex-row items-center justify-center
+        rounded-default text-[13px] font-normal tracking-default;
 
     border: 1px solid rgba(167, 130, 233, 0.06);
 
@@ -131,7 +131,7 @@
     }
 
     @media (min-width: 768px) {
-      @apply mr-[0];
+      @apply mr-0;
     }
   }
 
@@ -147,21 +147,21 @@
         @apply flex flex-row items-center justify-between;
 
         .sectionNavWrapper {
-          @apply mt-[0] w-[auto];
+          @apply mt-0 w-auto;
         }
       }
     }
 
-    @apply relative mb-[0] pl-[30px] text-[28px] font-[400] leading-[110%] 
-        text-[#fff];
+    @apply relative mb-0 pl-[30px] text-[28px] font-normal leading-[110%]
+        text-white;
 
     font-family: var(--font-montserrat);
     b {
-      @apply font-[500];
+      @apply font-medium;
     }
 
     span {
-      @apply font-sans text-[14px] tracking-[0.4px] text-light;
+      @apply font-sans text-sm tracking-default text-light;
     }
 
     @media (min-width: 576px) {
@@ -170,14 +170,14 @@
 
     @media (min-width: 768px) {
       &:before {
-        @apply top-[3px] bottom-[3px];
+        @apply bottom-[3px] top-[3px];
       }
       @apply text-[32px];
     }
 
     &:before {
-      @apply absolute top-[2px] bottom-[2px] left-[0] block w-[3px] rounded-[4px]
-            bg-[#a782e9] content-[''];
+      @apply absolute bottom-[2px] left-0 top-[2px] block w-[3px] rounded-[4px]
+            bg-primary content-[''];
     }
 
     &Pre {
@@ -203,7 +203,7 @@
     }
 
     &Uppercase {
-      @apply font-[300] uppercase leading-[130%];
+      @apply font-light uppercase leading-[130%];
     }
   }
 }

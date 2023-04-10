@@ -5,7 +5,7 @@
 
   &Form {
     @apply relative flex w-full max-w-[400px] flex-col items-center justify-center rounded-default
-        border border-trans-gray bg-background px-[20px] py-[40px] sm:p-[50px];
+        border border-main-60 bg-background px-[20px] py-[40px] sm:p-[50px];
   }
 
   &Logo {
@@ -30,10 +30,10 @@
   }
 
   &Input {
-    @apply relative h-[44px] w-full rounded-default border border-trans-gray bg-dark px-[20px]
-        text-[14px] tracking-[0.4px] text-white;
+    @apply relative h-[44px] w-full rounded-default border border-main-60 bg-main-30 px-[20px]
+        text-sm tracking-default text-white;
 
-    :focus {
+    &:focus {
       background-color: rgba(167, 130, 233, 0.04);
       border-color: rgba(167, 130, 233, 0.5);
     }
@@ -49,7 +49,7 @@
 
     input:not(:checked) + label,
     input:checked + label {
-      @apply relative m-0 cursor-pointer pl-[35px] text-[14px] font-normal leading-[20px] text-light;
+      @apply relative m-0 cursor-pointer pl-[35px] text-sm font-normal leading-[20px] text-light;
     }
 
     input:not(:checked) + label a,
@@ -60,7 +60,7 @@
     input:not(:checked) + label:before,
     input:checked + label:before {
       @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border
-            border-trans-gray bg-dark content-[''];
+            border-main-60 bg-main-30 content-[''];
     }
 
     input:not(:checked) + label:after,
@@ -75,7 +75,7 @@
     }
 
     input:checked + label:after {
-      @apply scale-[1] opacity-[1];
+      @apply scale-100 opacity-100;
     }
 
     label::-moz-selection {
@@ -88,7 +88,7 @@
   }
 
   &Text {
-    @apply mt-[15px] text-[14px] text-light;
+    @apply mt-[15px] text-sm text-light;
 
     a {
       @apply relative text-primary hover:underline;

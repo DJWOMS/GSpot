@@ -1,9 +1,10 @@
 import { FC, MutableRefObject } from 'react'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import cn from 'classnames'
+import { Container } from 'components/Container'
 import s from './Section.module.scss'
 
-interface Props {
+interface SectionProps {
   first?: boolean
   last?: boolean
   bg?: boolean
@@ -15,7 +16,7 @@ interface Props {
   viewAll?: string
 }
 
-const Section: FC<Props> = ({ full, bg, last, first, title, children, navPrev, navNext, viewAll }) => {
+const Section: FC<SectionProps> = ({ full, bg, last, first, title, children, navPrev, navNext, viewAll }) => {
   return (
     <div
       className={cn(
@@ -26,31 +27,33 @@ const Section: FC<Props> = ({ full, bg, last, first, title, children, navPrev, n
         { [s.sectionFirst]: first }
       )}
     >
-      <div className={s.sectionTitleWrapper}>
-        <h2 className={cn(s.sectionTitle, s.sectionTitleSmall, {})}>{title}</h2>
+      <Container>
+        <div className={s.sectionTitleWrapper}>
+          <h2 className={cn(s.sectionTitle, s.sectionTitleSmall, {})}>{title}</h2>
 
-        <div className={s.sectionNavWrapper}>
-          {viewAll && (
-            <a href="#" className={s.sectionView}>
-              View All
-            </a>
-          )}
+          <div className={s.sectionNavWrapper}>
+            {viewAll && (
+              <a href="#" className={s.sectionView}>
+                View All
+              </a>
+            )}
 
-          {navPrev && (
-            <button className={s.sectionNav} ref={navPrev}>
-              <IconChevronLeft />
-            </button>
-          )}
+            {navPrev && (
+              <button className={s.sectionNav} ref={navPrev}>
+                <IconChevronLeft />
+              </button>
+            )}
 
-          {navNext && (
-            <button className={s.sectionNav} ref={navNext}>
-              <IconChevronRight />
-            </button>
-          )}
+            {navNext && (
+              <button className={s.sectionNav} ref={navNext}>
+                <IconChevronRight />
+              </button>
+            )}
+          </div>
         </div>
-      </div>
 
-      {children}
+        {children}
+      </Container>
     </div>
   )
 }

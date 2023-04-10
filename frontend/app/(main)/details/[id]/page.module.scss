@@ -34,11 +34,11 @@
   }
 
   &Trailer {
-    @apply absolute bottom-5 left-5 z-[2] flex h-[55px] flex-row items-center justify-center rounded-md border border-solid border-main-400 bg-main-150 text-sm tracking-[0.4px] text-white;
+    @apply absolute bottom-5 left-5 z-[2] flex h-[55px] flex-row items-center justify-center rounded-md border border-solid border-main-400 bg-main-150 text-sm tracking-default text-white;
     width: calc(100% - 40px);
 
     svg {
-      @apply relative z-[3] mr-[15px] h-auto w-[22px] stroke-[#a782e9] duration-150;
+      @apply relative z-[3] mr-[15px] h-auto w-[22px] stroke-primary duration-150;
     }
 
     span {
@@ -46,7 +46,7 @@
     }
 
     &:before {
-      @apply pointer-events-none absolute top-[5px] left-[5px] bottom-[5px] right-[5px] z-[1] block rounded-md bg-background opacity-75 duration-150 content-none;
+      @apply pointer-events-none absolute bottom-[5px] left-[5px] right-[5px] top-[5px] z-[1] block rounded-md bg-background opacity-75 duration-150 content-none;
     }
 
     &:hover {
@@ -68,7 +68,7 @@
   }
 
   &Title {
-    @apply relative mb-2.5 w-full font-normal text-white text-[18];
+    @apply relative mb-2.5 w-full text-lg font-normal text-white;
 
     @media (min-width: 768px) {
       @apply text-[22px];
@@ -83,11 +83,11 @@
     @apply relative mt-5 h-auto border-t border-solid border-main-60 pt-5;
 
     &Title {
-      @apply mb-2.5 block w-full text-sm tracking-[0.4px] text-light;
+      @apply mb-2.5 block w-full text-sm tracking-default text-light;
     }
 
     @media (min-width: 992px) {
-      @apply order-2 mt-0 flex h-[340px] w-[220px] flex-col items-start justify-end border-t-0 border-l-[1px] border-main-60 pt-0 pl-5;
+      @apply order-2 mt-0 flex h-[340px] w-[220px] flex-col items-start justify-end border-l border-t-0 border-main-60 pl-5 pt-0;
     }
 
     @media (min-width: 993px) {
@@ -128,10 +128,10 @@
   }
 
   &Favorite {
-    @apply mt-5 flex h-11 w-full flex-row items-center justify-center rounded-md border border-solid border-main-60 bg-main-30 text-sm tracking-[0.4px] text-white;
+    @apply mt-5 flex h-11 w-full flex-row items-center justify-center rounded-md border border-solid border-main-60 bg-main-30 text-sm tracking-default text-white;
 
     svg {
-      @apply mr-[15px] h-auto w-[22px] stroke-[#a782e9] duration-150;
+      @apply mr-[15px] h-auto w-[22px] stroke-primary duration-150;
     }
 
     &:hover {
@@ -139,7 +139,7 @@
     }
 
     &:hover svg {
-      @apply stroke-[#fd6060];
+      @apply stroke-danger;
     }
 
     @media (min-width: 576px) {
@@ -195,11 +195,11 @@
     }
 
     s {
-      @apply mt-[7px] mr-[15px] text-sm text-light;
+      @apply mr-[15px] mt-[7px] text-sm text-light;
     }
 
     b {
-      @apply mt-[7px] mr-[15px] text-sm font-semibold text-danger;
+      @apply mr-[15px] mt-[7px] text-sm font-semibold text-danger;
     }
   }
 
