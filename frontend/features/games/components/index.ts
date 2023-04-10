@@ -1,5 +1,4 @@
 export * from './GameCard'
-export * from './CheckoutGameCard'
 export * from './FilterGames'
 export * from './ListGames'
 export * from './Requirements'
