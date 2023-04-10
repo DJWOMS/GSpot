@@ -1,150 +1,109 @@
 .section {
-  position: relative;
-  padding-top: 60px;
+  @apply relative pt-[60px];
 
   @media (min-width: 576px) {
-    padding-top: 70px;
+    @apply pt-[70px];
   }
   @media (min-width: 768px) {
-    padding-top: 80px;
+    @apply pt-[80px];
   }
   @media (min-width: 1200px) {
-    padding-top: 90px;
+    @apply pt-[90px];
   }
 
   &First {
-    position: relative;
-    padding-top: 160px;
+    @apply relative pt-[160px];
 
     @media (min-width: 576px) {
-      padding-top: 170px;
+      @apply pt-[170px];
     }
     @media (min-width: 768px) {
-      padding-top: 180px;
+      @apply pt-[180px];
     }
     @media (min-width: 1200px) {
-      padding-top: 190px;
+      @apply pt-[190px];
     }
   }
 
   &Last {
-    position: relative;
-    padding-bottom: 60px;
+    @apply relative pb-[60px];
 
     @media (min-width: 576px) {
-      padding-bottom: 70px;
+      @apply pb-[70px];
     }
     @media (min-width: 768px) {
-      padding-bottom: 80px;
+      @apply pb-[80px];
     }
     @media (min-width: 1200px) {
-      padding-bottom: 90px;
+      @apply pb-[90px];
     }
   }
 
   &Bg {
-    overflow: hidden;
+    @apply overflow-hidden;
 
     .container {
-      position: relative;
-      z-index: 2;
+      @apply relative z-[2];
     }
 
     &Full {
-      overflow: hidden;
+      @apply overflow-hidden;
 
       &::before {
-        content: '';
-        position: absolute;
-        display: block;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        pointer-events: none;
+        @apply pointer-events-none absolute bottom-0 left-0 right-0 top-0 z-[1] block
+                content-[''];
+
         background-color: rgba(27, 34, 46, 0.7);
       }
 
       .container {
-        position: relative;
-        z-index: 2;
+        @apply relative z-[2];
       }
     }
   }
 
   &Head {
-    overflow: hidden;
+    @apply overflow-hidden;
 
     &::before {
-      content: '';
-      position: absolute;
-      display: block;
-      z-index: 1;
-      top: 140px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
+      @apply pointer-events-none absolute bottom-0 left-0 right-0 top-[140px] z-[1]
+             block content-[''];
+
       background-color: rgba(27, 34, 46, 0.7);
     }
 
     .container {
-      position: relative;
-      z-index: 2;
+      @apply relative z-[2];
     }
   }
 
   &Category {
-    padding-top: 40px;
+    @apply pt-[40px];
   }
 
   &Wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    @apply flex flex-col items-start justify-start;
 
     @media (min-width: 768px) {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
+      @apply flex-row items-center justify-between;
     }
   }
 
   &Nav {
     &Wrapper {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
-      width: 100%;
-      margin-top: 20px;
-      gap: 10px;
+      @apply mt-[20px] flex w-full flex-row items-center justify-start gap-[10px];
 
       @media (min-width: 768px) {
-        margin-top: 0;
-        width: auto;
-        gap: 15px;
+        @apply mt-0 w-auto gap-[15px];
       }
     }
 
-    @apply bg-dark;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    border: 1px solid rgba(167, 130, 233, 0.06);
-    border-radius: 6px;
+    @apply flex h-[30px] w-[30px] flex-row items-center justify-center rounded-default bg-main-30;
 
     svg {
-      stroke: #dbdada;
+      @apply h-auto w-[18px] stroke-[#dbdada];
+
       transition: 0.5s;
-      width: 18px;
-      height: auto;
     }
 
     &:hover {
@@ -152,26 +111,18 @@
       border-color: rgba(167, 130, 233, 0.07);
 
       svg {
-        stroke: #a782e9;
+        @apply stroke-primary;
       }
     }
   }
 
   &View {
-    @apply bg-dark text-light;
+    @apply bg-light text-light;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    min-width: 80px;
-    height: 30px;
-    font-size: 13px;
-    font-weight: 400;
-    border-radius: 6px;
-    letter-spacing: 0.4px;
+    @apply mr-auto flex h-[30px] min-w-[80px] flex-row items-center justify-center
+        rounded-default text-[13px] font-normal tracking-default;
+
     border: 1px solid rgba(167, 130, 233, 0.06);
-    margin-right: auto;
 
     &:hover {
       background-color: rgba(167, 130, 233, 0.04);
@@ -180,107 +131,79 @@
     }
 
     @media (min-width: 768px) {
-      margin-right: 0;
+      @apply mr-0;
     }
   }
 
   &Title {
     &Wrapper {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
+      @apply relative flex flex-col items-start justify-start;
 
       @media (min-width: 768px) {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 5px;
+        @apply mb-[5px] flex-row items-center justify-between;
       }
 
       &Single {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        @apply flex flex-row items-center justify-between;
 
         .sectionNavWrapper {
-          margin-top: 0;
-          width: auto;
+          @apply mt-0 w-auto;
         }
       }
     }
 
-    color: #fff;
-    font-weight: 400;
-    font-size: 28px;
-    line-height: 110%;
-    margin-bottom: 0;
-    position: relative;
-    padding-left: 30px;
+    @apply relative mb-0 pl-[30px] text-[28px] font-normal leading-[110%]
+        text-white;
+
     font-family: var(--font-montserrat);
     b {
-      font-weight: 500;
+      @apply font-medium;
     }
 
     span {
-      @apply font-sans text-light;
-
-      font-size: 14px;
-      letter-spacing: 0.4px;
+      @apply font-sans text-sm tracking-default text-light;
     }
 
     @media (min-width: 576px) {
-      font-size: 30px;
+      @apply text-[30px];
     }
 
     @media (min-width: 768px) {
       &:before {
-        top: 3px;
-        bottom: 3px;
+        @apply bottom-[3px] top-[3px];
       }
-      font-size: 32px;
+      @apply text-[32px];
     }
 
     &:before {
-      content: '';
-      position: absolute;
-      display: block;
-      top: 2px;
-      bottom: 2px;
-      left: 0;
-      width: 3px;
-      background-color: #a782e9;
-      border-radius: 4px;
+      @apply absolute bottom-[2px] left-0 top-[2px] block w-[3px] rounded-[4px]
+            bg-primary content-[''];
     }
 
     &Pre {
       &:before {
-        background-color: #f26c2a;
+        @apply bg-[#f26c2a];
       }
     }
     &Downloads {
       &:before {
-        background-color: #5074e1;
+        @apply bg-[#5074e1];
       }
     }
 
     &Small {
-      font-size: 26px;
+      @apply text-[26px];
 
       @media (min-width: 576px) {
-        font-size: 28px;
+        @apply text-[28px];
       }
       @media (min-width: 768px) {
-        font-size: 28px;
+        @apply text-[28px];
       }
     }
 
     &Uppercase {
-      font-weight: 300;
-      text-transform: uppercase;
-      line-height: 130%;
+      @apply font-light uppercase leading-[130%];
     }
   }
 }

@@ -11,6 +11,12 @@ describe('Card', () => {
     sale: 10,
     currency: 'USD',
     price: 50,
+    badge: 'New',
+    platforms: [
+      {
+        type: 'ap',
+      },
+    ],
   }
 
   it('renders the card with all props', () => {
