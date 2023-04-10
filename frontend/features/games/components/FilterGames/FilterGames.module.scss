@@ -1,21 +1,6 @@
 .openFilter {
-  @apply mb-[10px] flex h-[44px] w-full flex-row items-center justify-center rounded-default border
-    border-main-40 bg-main-30 text-[12px] uppercase tracking-default text-white;
-
-  &:hover {
-    @apply border border-main-50 bg-main-40;
-
-    svg {
-      @apply stroke-primary;
-    }
-  }
-
-  @media (min-width: 576px) {
-    @apply mb-[20px];
-  }
-  @media (min-width: 992px) {
-    @apply hidden;
-  }
+  @apply mb-[10px] block h-[44px] w-full flex-row items-center justify-center rounded-default
+    border border-solid border-main-400 bg-main-30 tracking-[0.4px] text-white hover:border-main-500 hover:bg-main-40 lg:hidden;
 }
 
 .components {
@@ -33,7 +18,9 @@
 }
 
 .wrapper {
-  @media (min-width: 992px) {
+  @apply hidden lg:block;
+
+  &.open {
     @apply block;
   }
 }
@@ -46,125 +33,14 @@
 .clearFilters {
   @apply text-[12px] font-normal tracking-[0px] text-primary;
 
-  &:hover {
+  :hover {
     @apply text-danger;
   }
 }
 
-.group {
-  @apply mb-[30px] flex w-full flex-col items-start justify-start last:mb-0;
-}
-
-.label {
-  @apply mb-[15px] text-sm font-normal leading-[100%] tracking-default text-light;
-}
-
-.selectWrap {
-  @apply relative w-full;
-}
-
-.select {
-  @apply h-[44px] w-full cursor-pointer rounded-default border border-main-60 px-[20px] text-sm
-    tracking-default text-white;
-  background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
-  background-size: 12px auto;
-
-  option {
-    @apply m-0 p-0 text-black;
-  }
-
-  &:focus {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
-  }
-}
-
-.input {
-  @apply relative h-[44px] w-full rounded-default bg-main-30 px-[20px] text-sm tracking-default text-white;
-  border: 1px solid rgba(167, 130, 233, 0.06);
-
-  &:focus {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
-  }
-}
-
-.checkboxes {
-  @apply relative mt-[5px];
-}
-
-.checkbox {
-  @apply relative mb-[15px] last:mb-0;
-
-  input:not(:checked),
-  input:checked {
-    position: absolute;
-    left: -9999px;
-  }
-
-  input:not(:checked) + label,
-  input:checked + label {
-    @apply relative m-0 cursor-pointer pl-[35px] text-sm font-normal leading-[20px]
-        tracking-default text-white;
-  }
-
-  input:not(:checked) + label a,
-  input:checked + label a {
-    @apply text-primary;
-  }
-
-  input:not(:checked) + label a:hover,
-  input:checked + label a:hover {
-    @apply text-primary;
-  }
-
-  input:not(:checked) + label:before,
-  input:checked + label:before {
-    @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border border-main-60 bg-main-30 content-[''];
-  }
-
-  input:not(:checked) + label:after,
-  input:checked + label:after {
-    @apply absolute left-0 top-0 h-[20px] w-[20px] text-center content-[''];
-    transition: 0.5s;
-    background: url('/svg/checkmark.svg') no-repeat center/16px auto;
-  }
-
-  input:not(:checked) + label:after {
-    @apply scale-0 opacity-0;
-  }
-
-  input:checked + label:after {
-    @apply scale-100 opacity-100;
-  }
-
-  label::selection,
-  label::-moz-selection {
-    @apply bg-transparent text-white;
-  }
-}
-
-.range {
-  @apply relative mb-[10px] flex h-[30px] flex-row items-center justify-start rounded-default border
-    border-main-60 bg-main-30 px-[12px] text-[13px] tracking-default text-white;
-
-  div {
-    @apply relative first:mr-[16px];
-    &:first-child:after {
-      @apply absolute left-full top-0 ml-[4px] block text-sm leading-4 text-white content-['-'];
-    }
-  }
-}
-
 .applyFilter {
-  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-main-30 uppercase
-    tracking-default text-white;
-  border: 1px solid rgba(167, 130, 233, 0.4);
-
-  &:hover {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
-  }
+  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default border
+    border-solid border-main-400 bg-main-30 tracking-[.4px] text-white hover:border-main-500 hover:bg-main-40;
 
   &:hover svg {
     @apply stroke-primary;
