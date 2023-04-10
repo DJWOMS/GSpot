@@ -11,3 +11,13 @@ export interface PurchaseCardInterface {
   link: string
   currency: string
 }
+
+export interface CheckoutGameCardInterface {
+  id: number
+  title: string
+  coverImg: string
+  link: string
+  platform: PlatformType
+  price: number
+  currency: string
+}
