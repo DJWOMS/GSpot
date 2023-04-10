@@ -17,6 +17,7 @@ interface FilterValues {
   prices: number[] | null
   platforms: string[]
   genres: string[]
+  subgenres: string[]
 }
 
 const initalFilterState: FilterValues = {
@@ -24,6 +25,7 @@ const initalFilterState: FilterValues = {
   prices: null,
   platforms: [],
   genres: [],
+  subgenres: [],
 }
 
 const FilterGames = () => {
@@ -32,16 +34,22 @@ const FilterGames = () => {
     defaultValues: {
       sortby: queryParams.get('sortby'),
       prices: queryParams.getAll('prices').map((p) => parseInt(p)),
-      genres: queryParams.getAll('genres'),
       platforms: queryParams.getAll('platforms'),
+      genres: queryParams.getAll('genres'),
+      subgenres: queryParams.getAll('subgenres'),
     },
   })
 
   // update router if needed
   const router = useRouter()
 
-  const onSubmitForm: SubmitHandler<FilterValues> = ({ sortby, prices, platforms, genres }) =>
-    router.push(`/catalog?${qs.stringify({ sortby, prices, platforms, genres }, { arrayFormat: 'repeat', skipNulls: true })}`)
+  const onSubmitForm: SubmitHandler<FilterValues> = (data) =>
+    router.push(
+      `/catalog?${qs.stringify(data, {
+        arrayFormat: 'repeat',
+        skipNulls: true,
+      })}`
+    )
 
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const toggleMobileFilter = () => setOpenMobileFilter((state) => !state)
