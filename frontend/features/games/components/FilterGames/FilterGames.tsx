@@ -14,9 +14,16 @@ import { SortBy } from './SortBy'
 
 interface FilterValues {
   sortby: string | null
-  prices: string[] | null
+  prices: number[] | null
   platforms: string[]
   genres: string[]
+}
+
+const initalFilterState: FilterValues = {
+  sortby: null,
+  prices: null,
+  platforms: [],
+  genres: [],
 }
 
 const FilterGames = () => {
@@ -24,7 +31,7 @@ const FilterGames = () => {
   const form = useForm<FilterValues>({
     defaultValues: {
       sortby: queryParams.get('sortby'),
-      prices: queryParams.getAll('prices'),
+      prices: queryParams.getAll('prices').map((p) => parseInt(p)),
       genres: queryParams.getAll('genres'),
       platforms: queryParams.getAll('platforms'),
     },
@@ -48,7 +55,12 @@ const FilterGames = () => {
       <div className={cn(s.wrapper, { [s.open]: openMobileFilter })}>
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmitForm)} className={s.components}>
-            <h4 className={s.title}>Фильтры</h4>
+            <h4 className={s.title}>
+              Фильтры
+              <button className={s.clearFilters} onClick={() => form.reset(initalFilterState)} type="button">
+                Сбросить
+              </button>
+            </h4>
 
             <SortBy />
             <Prices />

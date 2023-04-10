@@ -36,6 +36,14 @@
     tracking-default text-white;
 }
 
+.clearFilters {
+  @apply text-[12px] font-normal tracking-[0px] text-primary;
+
+  :hover {
+    @apply text-danger;
+  }
+}
+
 .applyFilter {
   @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default bg-main-30
     tracking-[.4px] text-white;
