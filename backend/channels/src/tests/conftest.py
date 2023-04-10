@@ -4,8 +4,8 @@ from fastapi.testclient import TestClient
 from pymongo import MongoClient
 from pymongo.database import Database
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
-import redis
-import redis.asyncio as redis_asyncio
+import redis_consumer
+import redis_consumer.asyncio as redis_asyncio
 import pika
 import aio_pika
 from main import app

@@ -61,5 +61,19 @@ services:
       rabbitmq:
         condition: service_healthy
 
+  redis_consumer:
+    build:
+      context: .
+      dockerfile: ./src/Dockerfile
+    command: python redis_consumer.py
+    restart: always
+    volumes:
+      - ./src:/app
+    env_file:
+      - .env.dev
+    depends_on:
+      - redis
+      - channels
+
 volumes:
   mongodb_data:

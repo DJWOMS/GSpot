@@ -1,6 +1,6 @@
 import pytest
-from redis import Redis
-from redis.asyncio import Redis as RedisAsyncio
+from redis_consumer import Redis
+from redis_consumer.asyncio import Redis as RedisAsyncio
 
 
 @pytest.mark.usefixtures("redis_test_client")
