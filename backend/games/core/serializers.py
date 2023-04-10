@@ -27,6 +27,14 @@ class SystemRequirementSerializer(serializers.ModelSerializer):
         exclude = ('game',)
 
 
+class OperatingSystemSerializer(serializers.Serializer):
+    """ Operating System Serializer """
+
+    class Meta:
+        model = SystemRequirement
+        fields = ('operating_system',)
+
+
 class ProductSerializer(serializers.ModelSerializer):
     dlcs = DlcSerializer(many=True, read_only=False)
     langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
