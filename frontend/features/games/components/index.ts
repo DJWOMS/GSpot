@@ -1,6 +1,6 @@
 export * from './GameCard'
 export * from './CheckoutGameCard'
 export * from './FilterGames'
-export * from './OtherGames'
+export * from './ListGames'
 export * from './Requirements'
 export * from './Languages'

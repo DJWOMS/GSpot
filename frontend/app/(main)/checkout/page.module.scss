@@ -1,18 +1,18 @@
 .checkout {
-    &Wrapper {
-        @apply container mx-auto py-16 text-white 
-    }
-    &Input {
-        @apply mt-4 w-full appearance-none rounded border-2 border-gray-700 bg-gray-700 py-2 px-4 leading-tight text-white focus:border-gray-500 focus:bg-gray-600 focus:outline-none
-    }
-&Cover {
-  @apply overflow-hidden rounded-lg bg-gray-800 shadow-lg mx-auto w-full max-w-2xl
-}
+  &Wrapper {
+    @apply container mx-auto py-16 text-white;
+  }
+  &Input {
+    @apply mt-4 w-full appearance-none rounded border-2 border-gray-700 bg-gray-700 py-2 px-4 leading-tight text-white focus:border-gray-500 focus:bg-gray-600 focus:outline-none;
+  }
+  &Cover {
+    @apply mx-auto w-full max-w-2xl overflow-hidden rounded-lg bg-gray-800 shadow-lg;
+  }
   &Text {
     @apply mb-2 text-xl font-bold;
   }
   &Button {
-    @apply flex h-11 w-40 mx-auto flex-row items-center justify-center rounded-md bg-acid text-sm font-semibold tracking-[.8px] text-white;
+    @apply mx-auto flex h-11 w-40 flex-row items-center justify-center rounded-md bg-acid text-sm font-semibold tracking-[.8px] text-white;
 
     &:hover {
       @apply bg-primary text-white;

@@ -40,11 +40,11 @@ const NewsPage: FC = () => {
         </div>
 
         <div className={s.columns}>
-          {new Array(11).fill(0).map((_: number, id: number) => (
-            <div className="w-full" key={id}>
+          {[...new Array(11)].map((_, index) => (
+            <div className="w-full" key={index}>
               <NewsItem
                 title={'Главные 20 CS:GO игроков of 2023 согласно to Gspot.tv'}
-                imageSrc={'https://loremflickr.com/240/320'}
+                imageSrc={'https://loremflickr.com/640/400'}
                 date={'2 часа назад'}
                 category={'CS:GO'}
                 size={'normal'}

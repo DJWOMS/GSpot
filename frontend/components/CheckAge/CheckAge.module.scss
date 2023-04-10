@@ -1,5 +1,5 @@
 .mainBlock {
-  @apply flex h-screen w-full w-full flex-col items-center justify-center pr-12 pl-12;
+  @apply flex h-screen w-full w-full flex-col items-center justify-center pl-12 pr-12;
 }
 
 .p {
@@ -7,7 +7,7 @@
 }
 
 .divStyle {
-  @apply static relative mt-28 flex h-4/5 flex-row justify-center border border-solid pt-20 pb-20;
+  @apply static relative mt-28 flex h-4/5 flex-row justify-center border border-solid pb-20 pt-20;
   border-color: #657883;
 }
 

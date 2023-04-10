@@ -1,11 +1,10 @@
 .card {
-    @apply bg-gray-700 rounded-md py-1 my-2;
+  @apply my-2 rounded-md bg-gray-700 py-1;
 
-    &Cover {
-        @apply mx-4 my-3 flex justify-between;
-    }
-    &Sale {
-        @apply ml-1 text-red-600;
-    }
+  &Cover {
+    @apply mx-4 my-3 flex justify-between;
+  }
+  &Sale {
+    @apply ml-1 text-red-600;
+  }
 }
-

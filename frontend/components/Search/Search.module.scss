@@ -1,6 +1,6 @@
 .container {
   @apply relative flex h-[44px] w-[220px] flex-row items-center justify-between rounded-default border
-  border-trans-gray bg-dark;
+  border-main-60 bg-main-30;
 
   @media (min-width: 768px) {
     width: 260px;
@@ -11,7 +11,7 @@
   @media (min-width: 1310px) {
     width: 494px;
 
-    :before {
+    &:before {
       left: 232px;
     }
   }
@@ -21,7 +21,7 @@
   display: none;
 
   @media (min-width: 1200px) {
-    @apply block h-[44px] w-[115px] cursor-pointer border-none bg-transparent p-0 text-[14px] text-white;
+    @apply block h-[44px] w-[115px] cursor-pointer border-none bg-transparent p-0 text-sm text-white;
     background: url('/svg/arrow2.svg') no-repeat center right;
     background-size: 12px auto;
 
@@ -39,7 +39,7 @@
 }
 
 .combo {
-  @apply h-[44px] w-full rounded-l-default rounded-t-default border-none bg-transparent px-[20px] text-[14px] text-white outline-none;
+  @apply h-[44px] w-full rounded-l-default rounded-t-default border-none bg-transparent px-[20px] text-sm text-white outline-none;
 }
 
 .options {
@@ -48,7 +48,7 @@
 }
 
 .notFound {
-  @apply relative cursor-default select-none py-2 px-4 text-light;
+  @apply relative cursor-default select-none px-4 py-2 text-light;
 }
 
 .option {
