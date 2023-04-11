@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: users-service-db
+    image: postgres:14-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - ../.env
+    ports:
+      - "5432:5432"
+    networks:
+      - db
+
+  web_users:
+    depends_on:
+      - db
+    networks:
+      - db
+
+volumes:
+  pgdata:
+networks:
+  db:
