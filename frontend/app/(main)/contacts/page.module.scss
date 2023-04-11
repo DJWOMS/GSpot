@@ -20,10 +20,15 @@
 
   &Btn {
     @apply flex h-11 w-36 flex-row items-center justify-center
-    rounded-md bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
-
+    rounded-md  bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
     &:hover {
       @apply bg-primary text-white;
+    }
+    &:disabled {
+      @apply bg-amber-700;
+    }
+    @media (max-width: 768px) {
+      @apply w-full;
     }
   }
 }

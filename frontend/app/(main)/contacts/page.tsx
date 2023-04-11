@@ -1,21 +1,58 @@
+'use client'
+
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { Input } from 'components/Form'
 import Section from 'components/Section'
 import Link from 'next/link'
 import s from './page.module.scss'
 
-const ContactsPage = () => {
+interface IFormInputs {
+  name: string
+  email: string
+  subject: string
+  message: string
+}
+const ContactsPage = (disabled: any) => {
+  const {
+    register,
+    formState: { errors },
+    reset,
+    handleSubmit,
+  } = useForm<IFormInputs>()
+  const onSubmit: SubmitHandler<IFormInputs> = (data) => {
+    alert(JSON.stringify(data))
+    reset()
+  }
+  const finalClassName = s.formBtn + (disabled ? ' ' + s.disabled : '')
+
   return (
     <div>
       <Section title="Contacts" />
       <div className={s.row}>
         <div className={s.contactsForm}>
           <Section title="Contacts form" />
-          <form action="#" className={s.form}>
-            <Input type="text" placeholder="Name" />
-            <Input type="email" placeholder="Email" />
-            <Input type="text" placeholder="Subject" />
-            <textarea className={s.formTextarea} placeholder="Type your message..."></textarea>
-            <button type="button" className={s.formBtn}>
+          <form onSubmit={handleSubmit(onSubmit)} action="#" className={s.form}>
+            <Input type="text" placeholder="Name" {...register('name', { required: true, minLength: 2 })} />
+            <Input
+              type="email"
+              placeholder="Email"
+              {...register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value:
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: 'Please enter a valid email',
+                },
+              })}
+            />{' '}
+            {errors.email && <span role="alert">{errors.email.message}</span>}
+            <Input type="text" placeholder="Subject" {...register('subject', { required: true, minLength: 2 })} />
+            <textarea
+              className={s.formTextarea}
+              placeholder="Type your message..."
+              {...register('message', { required: true, minLength: 2 })}
+            ></textarea>
+            <button className={finalClassName} type="submit">
               Send
             </button>
           </form>
