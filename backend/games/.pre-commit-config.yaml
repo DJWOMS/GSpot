@@ -4,4 +4,3 @@ repos:
     hooks:
     -   id: flake8
         args: [--config, backend/games/.flake8]
-        exclude: (^.*migrations.*$)

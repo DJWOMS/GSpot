@@ -5,9 +5,7 @@ idea
 *.egg-info/
 .installed.cfg
 *.egg
-**/migrations/**
-!**/migrations
-!**/migrations/__init__.py
+
 static/
 
 dist
