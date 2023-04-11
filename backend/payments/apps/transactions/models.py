@@ -1,23 +1,27 @@
 from __future__ import annotations
 
-from django.conf import settings
-from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db import models
+import uuid
 
+from apps.base.fields import MoneyField
 from apps.payment_accounts.models import Account
 from apps.transactions.exceptions import DuplicateError
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+from marshmallow.fields import Decimal
 
 
 class TransferHistory(models.Model):
     account_from = models.ForeignKey(
-        Account, on_delete=models.PROTECT, related_name='history_accounts_from',
+        Account,
+        on_delete=models.PROTECT,
+        related_name='history_accounts_from',
     )
     account_to = models.ForeignKey(
-        Account, on_delete=models.PROTECT, related_name='history_accounts_to',
+        Account,
+        on_delete=models.PROTECT,
+        related_name='history_accounts_to',
     )
-    amount = models.DecimalField(
-        decimal_places=2,
-        max_digits=settings.MAX_BALANCE_DIGITS,
+    amount = MoneyField(
         validators=[MinValueValidator(0, message='Should be positive value')],
         editable=False,
     )
@@ -52,23 +56,31 @@ class Transaction(models.Model):
     MAX_ITEM_PRICE = 10000  # in case of mistake
 
     account_from = models.ForeignKey(
-        Account, on_delete=models.PROTECT, related_name='transactions_account_from',
+        Account,
+        on_delete=models.PROTECT,
+        related_name='transactions_account_from',
     )
     account_to = models.ForeignKey(
-        Account, on_delete=models.PROTECT, related_name='transactions_account_to',
+        Account,
+        on_delete=models.PROTECT,
+        related_name='transactions_account_to',
     )
-    item_price = models.DecimalField(
-        decimal_places=2,
-        max_digits=settings.MAX_BALANCE_DIGITS,
-        validators=[
+    developer_account = models.ForeignKey(
+        Account,
+        on_delete=models.PROTECT,
+        related_name='transactions',
+        null=True,
+    )
+    item_price = MoneyField(
+        validators=(
             MinValueValidator(0, message='Should be positive value'),
             MaxValueValidator(
                 MAX_ITEM_PRICE,
                 message=f'Should be not greater than {MAX_ITEM_PRICE}',
             ),
-        ],
+        ),
     )
-    item_uid = models.UUIDField(editable=False, db_index=True)
+    item_uuid = models.UUIDField(editable=False, db_index=True)
     is_frozen = models.BooleanField(default=False)
     is_accepted = models.BooleanField(default=False)
 
@@ -76,7 +88,7 @@ class Transaction(models.Model):
         return (
             f'Account from: {self.account_from} -> '
             f'Account to: {self.account_to} '
-            f'Item_uid: {self.item_uid}'
+            f'Item_uid: {self.item_uuid}'
         )
 
 
@@ -96,7 +108,10 @@ class TransactionHistory(models.Model):
         editable=False,
         db_index=True,
     )
-    operation_type = models.CharField(max_length=50, choices=TransactionType.choices)
+    operation_type = models.CharField(
+        max_length=50,
+        choices=TransactionType.choices,
+    )
 
     def __str__(self) -> str:
         return (
@@ -106,3 +121,21 @@ class TransactionHistory(models.Model):
 
     class Meta:
         ordering = ['-date_time_creation']
+
+
+class Invoice(models.Model):
+    invoice_id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+    )
+    transactions = models.ManyToManyField(Transaction)
+
+    @property
+    def total_price(self) -> Decimal:
+        return sum(
+            self.transactions.all().values_list('item_price', flat=True),
+        )
+
+    def __str__(self):
+        return f'{self.invoice_id}'

@@ -1,7 +1,10 @@
-from pathlib import Path
 import os
-import environ
+from datetime import timedelta
+from decimal import Decimal
+from pathlib import Path
+
 from environs import Env
+from yookassa import Configuration
 
 env = Env()
 env.read_env()
@@ -18,15 +21,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # 3rd party
     'django_extensions',
     'drf_spectacular',
     'rest_framework',
-
     # local
     'apps.payment_accounts',
     'apps.transactions',
+    'apps.external_payments',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +64,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 DATABASES = {
-    'default': env.dj_db_url('DATABASE_URL', 'postgres://...'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': env.str('POSTGRES_HOST'),
+        'PORT': env.str('POSTGRES_PORT'),
+        'USER': env.str('POSTGRES_USER'),
+        'PASSWORD': env.str('POSTGRES_PASSWORD'),
+        'NAME': env.str('POSTGRES_DB'),
+    },
 }
 
 
@@ -90,7 +99,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -113,21 +124,30 @@ SPECTACULAR_SETTINGS = {
 }
 
 ROLLBAR = {
-    'access_token': env.str('rollbar_access_token'),
+    'access_token': env.str('ROLLBAR_ACCESS_TOKEN'),
     'environment': 'development' if DEBUG else 'production',
     'code_version': '1.0',
     'root': BASE_DIR,
 }
 
-MAX_BALANCE_DIGITS = 11
+CELERY_BROKER_URL = env.str('REDIS') + '0'
 
-CELERY_BROKER_URL = 'redis://redis:6379/0'
-
-CACHES = {    'default': {
+CACHES = {
+    'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://redis:6379/',
+        'LOCATION': env.str('REDIS') + '0',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
+        },
+    },
 }
+
+# Business Settings
+DEFAULT_CURRENCY = 'RUB'
+MAX_BALANCE_DIGITS = 11
+MAX_COMMISSION_VALUE = Decimal(100)
+PERIOD_FOR_MYSELF_TASK = timedelta(days=1)
+PERIOD_FOR_GIFT_TASK = timedelta(days=7)
+
+Configuration.account_id = env.int('SHOP_ACCOUNT_ID')
+Configuration.secret_key = env.str('SHOP_SECRET_KEY')
