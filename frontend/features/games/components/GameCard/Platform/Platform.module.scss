@@ -7,17 +7,17 @@
 }
 
 .ps {
-  background-color: #665cbe;
+  @apply bg-platform-ps;
 }
 
 .xbox {
-  background-color: #0e7a0d;
+  @apply bg-platform-xb;
 }
 
 .win {
-  background-color: #00aef0;
+  @apply bg-platform-wn;
 }
 
 .ap {
-  background-color: #555;
+  @apply bg-platform-ap;
 }

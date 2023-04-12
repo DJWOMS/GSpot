@@ -13,13 +13,13 @@
   }
 }
 .title {
-  @apply relative mb-[20px] font-[montserrat] text-[120px] font-medium leading-[100%] text-primary;
+  @apply relative mb-5 font-[montserrat] text-[120px] font-medium leading-none text-primary;
 }
 .text {
-  @apply mb-[40px] block w-full text-center text-sm leading-[26px] text-white;
+  @apply mb-10 block w-full text-center text-sm leading-[26px] text-white;
 }
 .link {
-  @apply flex h-[44px] w-[140px] flex-row items-center justify-center rounded-default bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
+  @apply flex h-11 w-[140px] flex-row items-center justify-center rounded-default bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
 
   &:hover {
     @apply bg-primary text-white;

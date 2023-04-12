@@ -140,8 +140,7 @@
       }
 
       &:hover {
-        background-color: rgba(167, 130, 233, 0.04);
-        border-color: rgba(167, 130, 233, 0.07);
+        @apply border-main-70 bg-main-40;
 
         svg {
           stroke: #fd6060;
@@ -151,8 +150,7 @@
   }
 
   &Big {
-    @apply border border-main-60 p-[15px];
-    gap: 1rem;
+    @apply gap-4 border border-main-60 p-[15px];
 
     .cardCover {
       @apply overflow-hidden rounded-default;
@@ -167,15 +165,15 @@
     }
 
     .cardActions {
-      @apply mt-[20px] border-none p-0;
+      @apply mt-5 border-none p-0;
     }
 
     .cardPlatforms {
-      @apply relative left-auto top-auto mt-[20px];
+      @apply relative left-auto top-auto mt-5;
     }
 
     @media (min-width: 360px) {
-      @apply p-[20px];
+      @apply p-5;
     }
 
     @media (min-width: 768px) {

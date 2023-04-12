@@ -76,10 +76,7 @@ npm start
 Starts the application in production mode.
 
 ### Mocks Server
-```
-npm run mocks
-```
-Starts the mocks server for fake data.
+We are using the server's built-in next.js functions. More details can be found in the [`CONTRIBUTING.md`](repo/blob/master/CONTRIBUTING.md) file.
 
 
 ### Server Deployment
@@ -96,7 +93,7 @@ docker run --name gspot_production_frontend -d -p 3000:3000 gspot-frontend:lates
 
 ## Contributing
 Fork this repository to your account. After making the necessary changes, create a pull request.  
-More details are described in a special file `CONTRIBUTING.md`.
+More details are described in a special file [`CONTRIBUTING.md`](repo/blob/master/CONTRIBUTING.md).
 
 
 ## Github Actions

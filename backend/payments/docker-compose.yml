@@ -1,0 +1,80 @@
+version: '3.7'
+
+services:
+  payments:
+    build:
+      context: .
+      dockerfile: Dockerfiles/payments.Dockerfile
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - type: bind
+        source: ./
+        target: /home/app/web
+    ports:
+      - "8000:8000"
+    depends_on:
+      - payments_db
+      - redis
+
+  payments_db:
+    image: postgres:15.2
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    env_file:
+      - ./.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  redis:
+    restart: unless-stopped
+    image: redis:7.0.5-alpine
+    hostname: redis
+    ports:
+      - "6379:6379"
+
+  worker:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfiles/payments.Dockerfile
+    hostname: worker
+    command: celery -A config worker --loglevel=info
+    env_file:
+      - ./.env
+    volumes:
+      - ./:/home/app/web
+    links:
+      - redis
+    depends_on:
+      - redis
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfiles/ngnix.Dockerfile
+    volumes:
+      - ./static/:/static/
+    ports:
+      - "1337:80"
+    depends_on:
+      - payments
+
+  node:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfiles/node.Dockerfile
+    links:
+      - payments
+
+volumes:
+  postgres_data:
