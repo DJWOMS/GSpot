@@ -1,12 +1,5 @@
 name: Frontend Tests
 on:
-  push:
-    branches: 
-      - develop
-      - frontend
-      - main
-    paths:
-      - frontend/**
   pull_request:
     types: [opened, synchronize, reopened]
     branches: 
