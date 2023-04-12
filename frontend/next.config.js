@@ -1,9 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-        appDir: true,
-    },
-    output: 'standalone',
+  experimental: {
+    appDir: true,
+    scrollRestoration: true,
+  },
+  output: 'standalone',
+  compiler: {
+    // Enables the styled-components SWC transform
+    styledComponents: true,
+  },
+  swcMinify: true,
+  // develop
+  images: {
+    domains: ['loremflickr.com'],
+  },
 }
 
 module.exports = nextConfig

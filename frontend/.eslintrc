@@ -21,5 +21,12 @@
         "@typescript-eslint"
     ],
     "rules": {
-    }
+        "no-unexpected-multiline": "off",
+        "react/jsx-key": "error",
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-var-requires": "off"
+    },
+    "ignorePatterns": [
+        "**/*.scss"
+    ]
 }

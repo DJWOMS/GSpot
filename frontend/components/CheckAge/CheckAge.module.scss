@@ -1,0 +1,59 @@
+.mainBlock {
+  @apply flex h-screen w-full flex-col items-center justify-center pl-12 pr-12;
+}
+
+.p {
+  color: #657883;
+}
+
+.divStyle {
+  @apply relative mt-28 flex h-4/5 flex-row justify-center border border-solid pb-20 pt-20;
+  border-color: #657883;
+}
+
+.styleH1 {
+  @apply flex flex-wrap items-center justify-center pb-6 text-center font-semibold text-white;
+}
+
+.styleForm {
+  @apply flex w-full flex-col items-center justify-center rounded-md p-4 text-center font-semibold;
+  background-color: #323e4c;
+  color: #aab8cd;
+}
+
+.styleImg {
+  @apply h-full w-full;
+  box-shadow: rgba(17, 17, 26, 0.444) 0px 8px 24px, rgba(17, 17, 26, 0.564) 0px 16px 56px, rgba(17, 17, 26, 0.63) 0px 10px 30px;
+}
+
+.btn {
+  @apply p-2 font-semibold;
+  background-color: #25596ead;
+  color: #5c98c2;
+}
+
+.bday {
+  @apply text-center;
+  background-color: #25596ead;
+  color: #5c98c2;
+}
+
+.footer {
+  @apply flex h-1/5 w-full items-center justify-center pb-10 pt-10 text-center font-semibold;
+}
+
+.divBtn {
+  @apply mt-6 flex w-full flex-row justify-center gap-3;
+}
+
+.divImg {
+  @apply absolute -top-10;
+}
+
+.divH1 {
+  @apply flex h-full flex-col items-center justify-center;
+}
+
+.divDatePicker {
+  @apply flex w-fit flex-row justify-center gap-2 pt-4;
+}

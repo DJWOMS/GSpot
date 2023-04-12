@@ -1,0 +1,1 @@
+export { FilterGames } from './FilterGames'

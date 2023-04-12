@@ -1,0 +1,68 @@
+.container {
+  @apply relative flex h-[44px] w-[220px] flex-row items-center justify-between rounded-default border
+  border-main-60 bg-main-30;
+
+  @media (min-width: 768px) {
+    width: 260px;
+  }
+  @media (min-width: 1200px) {
+    width: 426px;
+  }
+  @media (min-width: 1310px) {
+    width: 494px;
+
+    &:before {
+      left: 232px;
+    }
+  }
+}
+
+.select {
+  display: none;
+
+  @media (min-width: 1200px) {
+    @apply block h-[44px] w-[115px] cursor-pointer border-none bg-transparent p-0 text-sm text-white;
+    background: url('/svg/arrow2.svg') no-repeat center right;
+    background-size: 12px auto;
+
+    option {
+      @apply m-0 p-0 text-black;
+    }
+  }
+  @media (min-width: 1310px) {
+    width: 150px;
+  }
+}
+
+.wrapper {
+  @apply relative cursor-default text-left shadow-md sm:text-sm;
+}
+
+.combo {
+  @apply h-[44px] w-full rounded-l-default rounded-t-default border-none bg-transparent px-[20px] text-sm text-white outline-none;
+}
+
+.options {
+  @apply absolute mt-1 max-h-60 w-full overflow-auto overflow-x-hidden rounded-md border border-gray-700
+  bg-slate-800 text-base sm:text-sm;
+}
+
+.notFound {
+  @apply relative cursor-default select-none px-4 py-2 text-light;
+}
+
+.option {
+  @apply relative cursor-default select-none py-2 pl-4 pr-4 text-white;
+
+  &Active {
+    @apply bg-primary;
+  }
+}
+
+.searchBtn {
+  @apply w-max p-1;
+
+  svg {
+    @apply text-white;
+  }
+}
