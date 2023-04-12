@@ -4,16 +4,17 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 on:
-  push:
+  workflow_run:
+    workflows: ["jest-check", "e2e-check", "build-check"]
     branches:
-    - main
-    - develop
-    paths:
-    - frontend/**
+      - main
+      - develop
+    types:
+      - completed
+
 jobs:
   deploy-dev:
     name: 'Develop deploy'
-    needs: [build-check]
     if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     defaults:
@@ -42,7 +43,6 @@ jobs:
 
   deploy-prod:
     name: 'Deploy to production'
-    needs: [build-check]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     defaults:
