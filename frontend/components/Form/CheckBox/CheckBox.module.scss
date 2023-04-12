@@ -1,0 +1,50 @@
+.checkbox {
+  @apply relative mb-[15px] last:mb-0;
+
+  input:not(:checked),
+  input:checked {
+    position: absolute;
+    left: -9999px;
+  }
+
+  input:not(:checked) + label,
+  input:checked + label {
+    @apply relative m-0 cursor-pointer pl-[35px] text-[14px] font-normal leading-[20px]
+          tracking-[.4px] text-white;
+  }
+
+  input:not(:checked) + label a,
+  input:checked + label a {
+    @apply text-primary;
+  }
+
+  input:not(:checked) + label a:hover,
+  input:checked + label a:hover {
+    @apply text-primary;
+  }
+
+  input:not(:checked) + label:before,
+  input:checked + label:before {
+    @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border border-main-60 bg-main-30 content-[''];
+  }
+
+  input:not(:checked) + label:after,
+  input:checked + label:after {
+    @apply absolute left-0 top-0 h-[20px] w-[20px] text-center content-[''];
+    transition: 0.5s;
+    background: url('/svg/checkmark.svg') no-repeat center/16px auto;
+  }
+
+  input:not(:checked) + label:after {
+    @apply scale-0 opacity-0;
+  }
+
+  input:checked + label:after {
+    @apply scale-100 opacity-100;
+  }
+
+  label::selection,
+  label::-moz-selection {
+    @apply bg-transparent text-white;
+  }
+}

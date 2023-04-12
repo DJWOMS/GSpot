@@ -1,0 +1,76 @@
+.item {
+  @apply relative mt-[15px] flex flex-row items-stretch justify-between border-t border-t-main-60
+      pt-[15px];
+
+  &:first-child {
+    @apply mt-0 border-none pt-0;
+  }
+
+  @media (min-width: 360px) {
+    @apply mt-5 pt-5;
+
+    &:first-child {
+      @apply mt-0 pt-0;
+    }
+  }
+}
+
+.cover {
+  @apply relative block w-[90px] overflow-hidden rounded-default;
+
+  img {
+    @apply relative z-[1] max-h-[150px] w-full;
+    transition: 0.5s;
+  }
+
+  &:hover img {
+    @apply opacity-60;
+  }
+
+  @media (min-width: 576px) {
+    width: 105px;
+  }
+}
+
+.wrap {
+  @apply flex flex-col items-start justify-start;
+  width: calc(100% - 105px);
+
+  @media (min-width: 576px) {
+    width: calc(100% - 125px);
+  }
+}
+
+.title {
+  @apply mb-[10px] w-full text-base font-normal text-white hover:text-primary;
+  transition: 0.5s;
+
+  a {
+    @apply text-white hover:text-primary;
+  }
+}
+
+.price {
+  @apply mt-auto flex w-full flex-row flex-wrap items-start justify-start;
+
+  span {
+    @apply block w-full text-[24px] font-semibold leading-[100%] text-white;
+  }
+
+  s {
+    @apply mr-[15px] mt-[7px] text-[13px] text-light;
+  }
+
+  b {
+    @apply mr-[15px] mt-[7px] text-[13px] font-semibold text-danger;
+  }
+}
+
+.buy {
+  @apply absolute bottom-0 right-0 flex h-[44px] w-[44px] flex-row items-center justify-center
+      rounded-default bg-acid hover:bg-primary;
+
+  svg {
+    @apply h-auto w-[24px] stroke-white;
+  }
+}
