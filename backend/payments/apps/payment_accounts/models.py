@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from apps.base.fields import MoneyField
+from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models, transaction
 from django.shortcuts import get_object_or_404
@@ -14,13 +14,14 @@ def is_amount_positive(method):
         if amount < 0:
             raise ValueError('Should be positive value')
         return method(cls, *args, **kwargs)
-
     return wrapper
 
 
 class Account(models.Model):
-    user_uuid = models.UUIDField(unique=True, editable=False, db_index=True)
-    balance = MoneyField(
+    user_uid = models.UUIDField(unique=True, editable=False, db_index=True)
+    balance = models.DecimalField(
+        decimal_places=2,
+        max_digits=settings.MAX_BALANCE_DIGITS,
         validators=[MinValueValidator(0, message='Insufficient Funds')],
         default=0,
     )
@@ -57,7 +58,7 @@ class Account(models.Model):
         return account
 
     def __str__(self) -> str:
-        return f'User id: {self.user_uuid}'
+        return f'User id: {self.user_uid}'
 
 
 class BalanceChange(models.Model):
@@ -70,10 +71,11 @@ class BalanceChange(models.Model):
         on_delete=models.PROTECT,
         related_name='balance_changes',
     )
-    amount = MoneyField(
+    amount = models.DecimalField(
+        max_digits=settings.MAX_BALANCE_DIGITS,
         validators=[MinValueValidator(0, message='Should be positive value')],
+        decimal_places=2,
         editable=False,
-        default=0,
     )
     date_time_creation = models.DateTimeField(
         auto_now_add=True,

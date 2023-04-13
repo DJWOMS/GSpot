@@ -1,68 +1,34 @@
-import rollbar
-from apps.external_payments.schemas import PaymentCreateDataClass, YookassaPaymentInfo
-from rest_framework import status
-from rest_framework import generics
+import json
+
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
-from . import serializers
-from .models import Account
-import uuid
-
-from .services.balance_change import request_balance_deposit_url
-from .services.payment_commission import calculate_payment_with_commission
+from .serializers import CreatePaymentSerializer
+from .services.create_payment import create_payment
+from .services.payment_acceptance import payment_acceptance
 
 
-class CalculatePaymentCommissionView(CreateAPIView):
-    serializer_class = serializers.PaymentCommissionSerializer
+class CreatePaymentView(CreateAPIView):
+    serializer_class = CreatePaymentSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        try:
-            commission_data = YookassaPaymentInfo(**serializer.validated_data)
-        except KeyError as error:
-            rollbar.report_message(
-                f'Schemas and serializers got different structure. Got next error: {str(error)}'
-                'error',
-            )
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        serializer = CreatePaymentSerializer(data=request.POST)
 
-        amount_with_commission = calculate_payment_with_commission(
-            commission_data.payment_type,
-            commission_data.payment_amount,
-        )
-        return Response({'amount with commission': amount_with_commission})
+        if serializer.is_valid():
+            serialized_data = serializer.validated_data
+        else:
+            return Response(400)
+
+        confirmation_url = create_payment(serialized_data)
+
+        return Response({'confirmation_url': confirmation_url}, 200)
 
 
-class BalanceIncreaseView(CreateAPIView):
-    serializer_class = serializers.BalanceIncreaseSerializer
+class CreatePaymentAcceptanceView(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        try:
-            payment_data = PaymentCreateDataClass(
-                **serializer.validated_data,
-            )
-        except KeyError as error:
-            rollbar.report_message(
-                f'Schemas and serializers got different structure. Got next error: {str(error)}',
-                'error',
-            )
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        response = json.loads(request.body)
 
-        confirmation_url = request_balance_deposit_url(payment_data)
-
-        return Response(
-            {'confirmation_url': confirmation_url},
-            status=status.HTTP_201_CREATED,
-        )
-
-
-class AccountOwnerAPIView(generics.RetrieveUpdateAPIView):
-    serializer_class = AccountOwnerSerializer
-    lookup_field = 'user_uuid'
-
-    def get_queryset(self):
-        default_owner_uuid = uuid.UUID("333")
-        return Account.objects.filter(user_uuid=default_owner_uuid)
+        if payment_acceptance(response):
+            return Response(200)
+        return Response(404)
