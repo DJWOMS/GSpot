@@ -18,6 +18,9 @@
       @apply border-main-500 bg-main-40;
     }
   }
+  &Password {
+    @apply text-[#cc4646];
+  }
 
   &Select {
     @apply mb-5 w-full cursor-pointer rounded-md border border-solid border-main-60 py-0 px-5 text-sm tracking-[0.4px] text-white;
@@ -60,6 +63,13 @@
 
     &:hover {
       @apply bg-primary text-white;
+    }
+
+    &:disabled {
+      @apply opacity-[0.3];
+      &:hover {
+        @apply bg-acid;
+      }
     }
   }
 }
