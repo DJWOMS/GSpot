@@ -20,7 +20,7 @@ const FavoritesPage = async () => {
             <div className={s.columns10}>
               <div className={s.list}>
                 {favorites?.map((game, id) => (
-                  <GameCard {...game} key={id} />
+                  <GameCard actionType={'delete'} {...game} key={id} />
                 ))}
               </div>
 

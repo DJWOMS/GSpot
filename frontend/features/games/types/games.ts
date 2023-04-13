@@ -13,6 +13,7 @@ export interface GameListInterface extends GameCardSimpleInterface {
 export interface GameCardInterface extends GameListInterface {
   badge?: 'New' | 'Pre-order'
   platforms: PlatformType[]
+  actionType?: 'favorite' | 'delete'
 }
 
 export interface GameDetailsInterface extends GameCardInterface {
