@@ -5,7 +5,7 @@ env:
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 on:
   workflow_run:
-    workflows: ["jest-check", "e2e-check", "build-check"]
+    workflows: [Frontend Tests]
     branches:
       - main
       - develop
