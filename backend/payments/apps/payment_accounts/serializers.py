@@ -3,6 +3,8 @@ from django.conf import settings
 from django.core.validators import MinValueValidator
 from rest_enumfield import EnumField
 from rest_framework import serializers
+from django.contrib.auth.models import User
+from .models import Account
 
 
 class PaymentCommissionSerializer(serializers.Serializer):
@@ -23,3 +25,16 @@ class BalanceIncreaseSerializer(serializers.Serializer):
     )
     payment_type = EnumField(choices=PaymentTypes)
     return_url = serializers.URLField()
+
+
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ['user_uuid', 'balance']
+
+
+class AccountOwnerSerializer(AccountSerializer):
+    owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+
+    class Meta(AccountSerializer.Meta):
+        fields = AccountSerializer.Meta.fields + ['owner']

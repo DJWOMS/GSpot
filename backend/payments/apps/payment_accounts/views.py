@@ -1,10 +1,13 @@
 import rollbar
 from apps.external_payments.schemas import PaymentCreateDataClass, YookassaPaymentInfo
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework import generics
 from rest_framework.response import Response
 
 from . import serializers
+from .models import Account
+import uuid
+
 from .services.balance_change import request_balance_deposit_url
 from .services.payment_commission import calculate_payment_with_commission
 
@@ -54,3 +57,12 @@ class BalanceIncreaseView(CreateAPIView):
             {'confirmation_url': confirmation_url},
             status=status.HTTP_201_CREATED,
         )
+
+
+class AccountOwnerAPIView(generics.RetrieveUpdateAPIView):
+    serializer_class = AccountOwnerSerializer
+    lookup_field = 'user_uuid'
+
+    def get_queryset(self):
+        default_owner_uuid = uuid.UUID("333")
+        return Account.objects.filter(user_uuid=default_owner_uuid)
