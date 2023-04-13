@@ -14,7 +14,7 @@ on:
 
 jobs:
   deploy-dev:
-    name: 'Develop deploy'
+    name: Develop deploy
     if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     defaults:
@@ -29,7 +29,6 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
@@ -42,7 +41,7 @@ jobs:
           echo "PREVIEW_URL=$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)" >> $GITHUB_OUTPUT
 
   deploy-prod:
-    name: 'Deploy to production'
+    name: Deploy to production
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     defaults:
@@ -57,7 +56,6 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
