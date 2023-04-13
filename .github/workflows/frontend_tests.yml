@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-cache
-          path: .next
+          path: frontend/.next
 
   jest:
     name: Unit tests with jest
