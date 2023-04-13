@@ -30,7 +30,7 @@ const Footer = () => {
               <a href="#Catalog">Каталог</a>
               <a href="#News">Новости</a>
               <a href="#FAQ">Центр помощи</a>
-              <a href="#Contacts">Контакты</a>
+              <a href="/contacts">Контакты</a>
             </nav>
           </div>
 

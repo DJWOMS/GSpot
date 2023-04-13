@@ -95,9 +95,6 @@ const Header: FC<HeaderProps> = ({ links }) => {
               <a className={s.loginBtn} href="/signin">
                 <span>Авторизация</span>
               </a>
-              <a className={s.loginBtn} href="/contacts">
-                <span>contacts</span>
-              </a>
             </div>
           </div>
         </Container>

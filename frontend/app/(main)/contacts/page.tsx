@@ -1,98 +1,108 @@
 'use client'
 
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FC } from 'react'
+import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { Input } from 'components/Form'
 import Section from 'components/Section'
 import Link from 'next/link'
 import s from './page.module.scss'
 
-export interface IFormInputs {
+interface FormProps {
   name: string
   email: string
   subject: string
   message: string
 }
 
-const ContactsPage = () => {
+const ContactsPage: FC<FormProps> = () => {
   const {
-    register,
+    control,
     formState: { errors },
+    reset,
     handleSubmit,
-  } = useForm<IFormInputs>()
-  const onSubmit: SubmitHandler<IFormInputs> = (data, e) => {
-    e?.preventDefault()
+  } = useForm<FormProps>()
+
+  const onSubmit: SubmitHandler<FormProps> = (data) => {
+    alert(JSON.stringify(data))
     console.log(data)
-    // alert(JSON.stringify(data))
-    //reset()
+    reset({ name: '', email: '', message: '', subject: '' })
   }
-  //const finalClassName = s.formBtn + (disabled ? ' ' + s.disabled : '')
-  //{...register('name', { required: false, minLength: 2 })}
-  //{...register('email', {
-  //                   required: 'Email is required',
-  //                   pattern: {
-  //                     value:
-  //                       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  //                     message: 'Please enter a valid email',
-  //                   },
-  //                 })}
+
+  const rules = {
+    required: true,
+    minLength: { value: 2, message: 'Please, enter more than 2 characters!' },
+  }
+  const rulesForEmail = {
+    required: true,
+    pattern: { value: /[^@]+@[^.]+\..+/, message: 'Е-mail is invalid!' },
+  }
+
+  const disabled = !!errors.name || !!errors.email || !!errors.message || !!errors.subject
+
+  const linkMap =
+    'https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&amp;hl=en&amp;t=v&amp;hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom'
+
   return (
-    <div>
-      <Section title="Contacts" />
-      <Section>
-        <div className={s.row}>
-          <div className={s.contactsForm}>
-            <Section title="Contacts form" />
-            <form onSubmit={handleSubmit(onSubmit)} action="#" className={s.form}>
-              <div>
-                <div>
-                  {' '}
-                  <Input type="text" id="name" placeholder="Name" aria-invalid={errors.name ? 'true' : 'false'} />
-                </div>
-                <div>
-                  {' '}
-                  <Input type="email" placeholder="Email" />
-                  {errors?.email && <span>{errors.email.message}</span>}
-                </div>
-                <div>
-                  <Input type="text" placeholder="Subject" />
-                </div>
-                <div>
-                  <textarea className={s.formTextarea} placeholder="Type your message..."></textarea>
-                </div>
-                <button className={s.formBtn} type="submit">
-                  Send
-                </button>
-              </div>
-            </form>
-          </div>
-          <div>
-            <Section title="Info" />
-            <div className={s.contactsInfo}>
-              <p className={s.contacts}>
-                {' '}
-                It is a long fact that a reader will be distracted by the readable content of a page when looking at its layout.
-              </p>
-              <ul>
-                <li className={s.contactsList}>
-                  <Link href="tel:+18092345678">+1 809 234-56-78</Link>
-                </li>
-                <li className={s.contactsList}>
-                  <Link href="mailto:support@gg.template">support@gg.template</Link>
-                </li>
-                <li className={s.contactsList}>
-                  <Link
-                    href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&amp;hl=en&amp;t=v&amp;hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom"
-                    className="open-map"
-                  >
-                    221B Baker St, Marylebone, London
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+    <Section title="Contacts">
+      <div className={s.row}>
+        <div className={s.contactsForm}>
+          <Section title="Contacts form" />
+          <form className={s.form} action="#" onSubmit={handleSubmit(onSubmit)}>
+            <Controller name="name" control={control} rules={rules} render={({ field }) => <Input {...field} type="text" placeholder="Name" />} />
+            {errors.name ? <p className={s.errorMessage}>{errors.name.message}</p> : <p className={s.emptyBlock}></p>}
+
+            <Controller
+              name="email"
+              control={control}
+              rules={rulesForEmail}
+              render={({ field }) => <Input {...field} type="text" placeholder="Email" />}
+            />
+            {errors.email ? <p className={s.errorMessage}>{errors.email.message}</p> : <p className={s.emptyBlock}></p>}
+
+            <Controller
+              name="subject"
+              control={control}
+              rules={rules}
+              render={({ field }) => <Input {...field} type="text" placeholder="Subject" />}
+            />
+            {errors.subject ? <p className={s.errorMessage}>{errors.subject.message}</p> : <p className={s.emptyBlock}></p>}
+
+            <Controller
+              name="message"
+              control={control}
+              rules={rules}
+              render={({ field }) => <textarea className={s.formTextarea} {...field} placeholder="Type your message..." />}
+            />
+            {errors.message ? <p className={s.errorMessage}>{errors.message.message}</p> : <p className={s.emptyBlock}></p>}
+
+            <button className={s.formBtn} disabled={disabled}>
+              Send
+            </button>
+          </form>
         </div>
-      </Section>
-    </div>
+        <Section title="Info">
+          <div className={s.contactsInfo}>
+            <p className={s.contacts}>
+              It is a long fact that a reader will be distracted by the readable content of a page when looking at its layout.
+            </p>
+
+            <ul>
+              <li className={s.contactsList}>
+                <Link href="tel:+18092345678">+1 809 234-56-78</Link>
+              </li>
+
+              <li className={s.contactsList}>
+                <Link href="mailto:support@gg.template">support@gg.template</Link>
+              </li>
+
+              <li className={s.contactsList}>
+                <Link href={linkMap}>221B Baker St, Marylebone, London</Link>
+              </li>
+            </ul>
+          </div>
+        </Section>
+      </div>
+    </Section>
   )
 }
 
