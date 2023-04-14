@@ -13,7 +13,7 @@ env:
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 defaults:
   run:
-    working-directory: './frontend'
+    working-directory: frontend
 jobs:
   deploy-dev:
     name: Develop deploy
@@ -22,13 +22,10 @@ jobs:
     environment:
       name: Develop
       url: ${{ steps.deploy.outputs.PREVIEW_URL }}
-    defaults:
-      run:
-        working-directory: './frontend'
     steps:
       - uses: actions/checkout@v3
         with:
-          path: './frontend'
+          path: frontend
       - uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -52,13 +49,10 @@ jobs:
     environment:
       name: Production
       url: ${{ steps.deploy.outputs.PRODUCTION_URL }}
-    defaults:
-      run:
-        working-directory: './frontend'
     steps:
       - uses: actions/checkout@v3
         with:
-          path: './frontend'
+          path: frontend
       - uses: actions/setup-node@v3
         with:
           node-version: 18
