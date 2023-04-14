@@ -64,4 +64,5 @@ jobs:
         with:
           build: npm run build
           start: npm run start
+          working-directory: frontend
           wait-on: http://localhost:3000
