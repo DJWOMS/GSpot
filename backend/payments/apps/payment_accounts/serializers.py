@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from .models import Account
 
 
-
 class PaymentCommissionSerializer(serializers.Serializer):
     payment_amount = serializers.DecimalField(
         decimal_places=2,
