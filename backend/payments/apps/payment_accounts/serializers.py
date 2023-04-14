@@ -35,5 +35,6 @@ class AccountSerializer(serializers.ModelSerializer):
 
 class AccountOwnerSerializer(AccountSerializer):
     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    
     class Meta(AccountSerializer.Meta):
         fields = AccountSerializer.Meta.fields + ['owner']
