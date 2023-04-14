@@ -1,4 +1,4 @@
-ROM node:18-alpine
+FROM node:18-alpine
 
 # Set /app as the working directory
 WORKDIR /app
