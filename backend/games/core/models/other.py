@@ -4,6 +4,7 @@ from base.model_fields import get_field_from_choices
 
 from .product import Product
 from base.choices import BaseTextChoices, TypeProduct
+from simple_history.models import HistoricalRecords
 
 
 class SystemRequirement(models.Model):
@@ -31,6 +32,7 @@ class SystemRequirement(models.Model):
     device_storage = models.CharField('Storage', max_length=100)
     device_graphics = models.CharField('Graphics', max_length=100)
     type_requirements = get_field_from_choices('System requirement', TypeRequirementsChoices)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.type_requirements
