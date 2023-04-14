@@ -64,5 +64,5 @@ class AccountOwnerAPIView(generics.RetrieveUpdateAPIView):
     lookup_field = 'user_uuid'
 
     def get_queryset(self):
-        default_owner_uuid = uuid.UUID("333")
+        default_owner_uuid = uuid.UUID('333')
         return Account.objects.filter(user_uuid=default_owner_uuid)
