@@ -24,7 +24,6 @@ const ContactsPage: FC<FormProps> = () => {
 
   const onSubmit: SubmitHandler<FormProps> = (data) => {
     alert(JSON.stringify(data))
-    console.log(data)
     reset({ name: '', email: '', message: '', subject: '' })
   }
 
