@@ -11,8 +11,8 @@ defaults:
   run:
     working-directory: frontend
 jobs:
-  build:
-    name: Build app
+  lint:
+    name: Lint checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -25,8 +25,8 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - name: Install dependencies
         run: npm ci
-      - name: Build nextjs
-        run: npm run build
+      - name: Run tests
+        run: npm run lint
 
   jest:
     name: Unit tests with jest
