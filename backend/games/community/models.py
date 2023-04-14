@@ -33,7 +33,7 @@ class Social(models.Model):
         TWITCH = 'TWITCH', 'Twitch'
         TELEGRAM = 'TELEGRAM', 'Telegram'
 
-    type = get_field_from_choices('Social_media', GradeChoices, default=SocialMediaTypes.SITE)
+    type = get_field_from_choices('Social_media', SocialMediaTypes, default=SocialMediaTypes.SITE)
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,

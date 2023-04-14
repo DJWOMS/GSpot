@@ -2,7 +2,7 @@ import random
 import uuid
 
 from django.core.management.base import BaseCommand
-from backend.games.base.choices import TypeProduct
+from base.choices import TypeProduct
 
 from core.models import Product, GameDlcLink
 

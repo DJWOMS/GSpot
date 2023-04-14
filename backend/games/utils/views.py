@@ -23,7 +23,7 @@ class GetOperatingSystemListView(generics.ListAPIView):
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        os_names = dict(SystemRequirement.OS.choices)
+        os_names = dict(SystemRequirement.OSChoices.choices)
         platforms = [os_names[os] for os in queryset]
         return Response(platforms)
 
