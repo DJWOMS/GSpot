@@ -10,11 +10,11 @@ from django.core.management import call_command
 class Command(BaseCommand):
     def handle(self, *args, **options):
         if not Product.objects.exists():
-            call_command('python manage.py fill_products')
+            call_command('fill_products', 4)
         if not Language.objects.exists():
-            call_command('python manage.py fill_languages')
+            call_command('fill_languages')
         if Review.objects.filter(text__contains='Test').exists():
-            self.stdout.write('Test data already exists')
+            self.stdout.write('Test data for Reviews already exists')
             return
 
         # Create test data
@@ -25,7 +25,7 @@ class Command(BaseCommand):
         products = Product.objects.all()
 
         min_quantity = 3
-        max_quantity = 5
+        max_quantity = 4
 
         for product in products:
             num_reviews = random.randint(min_quantity, max_quantity)
