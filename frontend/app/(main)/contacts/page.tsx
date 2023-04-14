@@ -1,6 +1,5 @@
 'use client'
 
-import { FC } from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { Input } from 'components/Form'
 import Section from 'components/Section'
@@ -14,7 +13,7 @@ interface FormProps {
   message: string
 }
 
-const ContactsPage: FC<FormProps> = () => {
+const ContactsPage = () => {
   const {
     control,
     formState: { errors },
