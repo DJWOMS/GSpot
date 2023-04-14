@@ -1,5 +1,3 @@
-const API_URL = process.env.API_URL || (process.env.VERCEL_URL ? `${process.env.VERCEL_URL}/mocks` : null)
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -11,10 +9,6 @@ const nextConfig = {
   images: {
     domains: ['loremflickr.com'],
     unoptimized: true,
-  },
-  env: {
-    API_URL,
-    NEXT_PUBLIC_API_URL: API_URL,
   },
 }
 
