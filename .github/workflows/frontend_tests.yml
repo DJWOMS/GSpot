@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          path: frontend
       - name: Setup node
         uses: actions/setup-node@v3
         with:
@@ -36,8 +34,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          path: frontend
       - name: Setup node
         uses: actions/setup-node@v3
         with:
@@ -55,8 +51,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          path: frontend
       - name: Setup node
         uses: actions/setup-node@v3
         with:
