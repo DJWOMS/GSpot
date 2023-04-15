@@ -5,6 +5,9 @@ from core.models import Product
 class Language(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         db_table = 'language'
 

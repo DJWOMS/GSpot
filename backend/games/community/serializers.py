@@ -32,6 +32,7 @@ class ReactionSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     comments = serializers.SerializerMethodField()
     reactions = serializers.SerializerMethodField()
+    language = serializers.StringRelatedField()
 
     class Meta:
         model = Review
