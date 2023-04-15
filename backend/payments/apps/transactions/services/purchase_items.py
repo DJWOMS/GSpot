@@ -5,7 +5,7 @@ from apps.external_payments.services.create_payment import get_yookassa_payment_
 from apps.payment_accounts.models import Account, BalanceChange
 from django.core.exceptions import ValidationError
 
-from ..models import Invoice, Transaction, TransactionHistory
+from ..models import Invoice, ItemPurchase, TransactionHistory
 from ..schemas import IncomeData, ItemPaymentData
 
 
@@ -69,7 +69,7 @@ class InvoiceCreator:
         self.invoice_id = self.create_invoice_instance()
 
     def create_invoice_instance(self) -> int:
-        list_of_transaction: list[Transaction] = []
+        list_of_transaction: list[ItemPurchase] = []
         for item_payment_data in self.income_data.items_payment_data:
             transaction = self.create_transaction_instance(
                 self.payer_account,
@@ -86,11 +86,11 @@ class InvoiceCreator:
     def create_transaction_instance(
         payer_account: Account,
         item_payment_data: ItemPaymentData,
-    ) -> Transaction:
+    ) -> ItemPurchase:
         account_to, _ = Account.objects.get_or_create(
             user_uuid=item_payment_data.owner_uuid,
         )
-        transaction = Transaction.objects.create(
+        transaction = ItemPurchase.objects.create(
             account_from=payer_account,
             account_to=account_to,
             item_price=item_payment_data.price,
