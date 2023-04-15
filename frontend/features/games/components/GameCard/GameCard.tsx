@@ -41,10 +41,12 @@ const GameCard: FC<GameCardInterface> = ({ badge, title, link, price, coverImg, 
       <div className={s.cardActions}>
         <div className={cn(s.cardAction, s.cardActionBuy)}>Купить</div>
 
-        <div className={cn(s.cardAction, s.cardActionFavorite)}>
-          {actionType === 'favorite' && <IconHeart />}
-          {actionType === 'delete' && <IconBrandBitbucket />}
-        </div>
+        {actionType && (
+          <div className={cn(s.cardAction, s.cardActionFavorite)}>
+            {actionType === 'favorite' && <IconHeart />}
+            {actionType === 'delete' && <IconBrandBitbucket />}
+          </div>
+        )}
       </div>
     </div>
   )

@@ -1,11 +1,12 @@
 import s from 'app/(main)/catalog/page.module.scss'
 import Pagination from 'components/Pagination'
 import Section from 'components/Section'
-import { FilterGames, GameCard, GameCardInterface } from 'features/games'
+import { FilterGames, GameCard } from 'features/games'
+import { FavoriteGameCardInterface } from 'features/profile'
 import { fetchServerSide } from 'lib/fetchServerSide'
 
 const FavoritesPage = async () => {
-  const favorites = await fetchServerSide<GameCardInterface[]>({
+  const favorites = await fetchServerSide<FavoriteGameCardInterface[]>({
     path: '/profile/favorites',
   })
   return (
@@ -19,8 +20,8 @@ const FavoritesPage = async () => {
 
             <div className={s.columns10}>
               <div className={s.list}>
-                {favorites?.map((game, id) => (
-                  <GameCard actionType={'delete'} {...game} key={id} />
+                {favorites?.map((game) => (
+                  <GameCard {...game} key={game.id} />
                 ))}
               </div>
 

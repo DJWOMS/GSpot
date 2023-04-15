@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
-import { PurchaseCardInterface, CheckoutGameCardInterface } from '../types'
+import { generateMockGameCard } from 'features/games'
+import { PurchaseCardInterface, CheckoutGameCardInterface, FavoriteGameCardInterface } from '../types'
 
 export const generateMockPurchaseCard = (props = {}): PurchaseCardInterface => ({
   id: faker.datatype.number({ min: 0, max: 100 }),
@@ -26,4 +27,10 @@ export const generateMockCheckoutGameCard = (props = {}): CheckoutGameCardInterf
   price: faker.datatype.number(),
   currency: 'rub',
   ...props,
+})
+
+export const generateMockFavoriteGameCard = (props = {}): FavoriteGameCardInterface => ({
+  id: faker.datatype.number(),
+  ...generateMockGameCard(props),
+  actionType: 'delete',
 })

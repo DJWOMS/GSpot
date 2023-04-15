@@ -32,7 +32,7 @@ const CatalogPage = async ({ searchParams }: { searchParams: URLSearchParams }) 
           <div className={s.columns10}>
             <div className={s.list}>
               {games?.map((game, id) => (
-                <GameCard actionType={'favorite'} {...game} key={id} />
+                <GameCard {...game} key={id} />
               ))}
             </div>
 

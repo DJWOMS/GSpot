@@ -1,4 +1,4 @@
-import { PlatformType } from 'features/games'
+import { GameCardInterface, PlatformType } from 'features/games'
 
 export interface PurchaseCardInterface {
   id: number
@@ -20,4 +20,9 @@ export interface CheckoutGameCardInterface {
   platform: PlatformType
   price: number
   currency: string
+}
+
+export interface FavoriteGameCardInterface extends GameCardInterface {
+  id: number
+  actionType: 'delete'
 }
