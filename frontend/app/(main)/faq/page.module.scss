@@ -1,0 +1,122 @@
+.filter {
+  @apply mb-[10px] mt-5 flex flex-col  items-start justify-start;
+
+  &Title {
+    @apply flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    letter-spacing: 0.4px;
+  }
+  &Group {
+    @apply mb-[30px] flex w-full flex-col items-start justify-start;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+.filterLabel {
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0.4px;
+  color: #dbdada;
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+
+.filterInput {
+  background-color: rgba(167, 130, 233, 0.03);
+  border: 1px solid rgba(167, 130, 233, 0.06);
+  border-radius: 6px;
+  height: 44px;
+  position: relative;
+  color: #fff;
+  font-size: 14px;
+  width: 100%;
+  padding: 0 20px;
+  letter-spacing: 0.4px;
+}
+.filterInput:focus {
+  background-color: rgba(167, 130, 233, 0.04);
+  border-color: rgba(167, 130, 233, 0.5);
+}
+
+@media (min-width: 576px) {
+  .filter {
+    margin-bottom: 20px;
+  }
+}
+@media (min-width: 992px) {
+  .filter {
+    margin-top: 30px;
+  }
+}
+.rowCatalog {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.col12 {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.col .faq {
+  @apply relative mt-[30px] p-5;
+  border: 1px solid rgba(167, 130, 233, 0.06);
+  margin-top: 30px;
+  border-radius: 6px;
+  width: 100%;
+
+  &Title {
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    width: 100%;
+    border-bottom: 1px solid rgba(167, 130, 233, 0.06);
+    letter-spacing: 0.4px;
+  }
+  &list li {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    color: #fff;
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 30px;
+  }
+  .faq__list li:before {
+    content: '';
+    position: absolute;
+    color: #a782e9;
+    left: 0;
+    width: 16px;
+    top: 0;
+    bottom: 0;
+    background: no-repeat center left/100% auto;
+  }
+  .faq__list li a {
+    color: #dbdada;
+  }
+  .faq__list li a:hover {
+    color: #a782e9;
+  }
+  .faq__list li:last-child {
+    margin-bottom: 0;
+  }
+}

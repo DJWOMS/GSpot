@@ -16,6 +16,7 @@ const RootLayout: FC<{ children: ReactNode }> = ({ children }) => {
           { href: '/', title: 'Главная' },
           { href: '/catalog', title: 'Каталог' },
           { href: '/news', title: 'Новости' },
+          { href: '/faq', title: 'Вопросы' },
         ]}
       />
 
