@@ -47,12 +47,3 @@ class ReviewSerializer(serializers.ModelSerializer):
         likes = reactions.filter(like_type='Like').count()
         dislikes = reactions.filter(like_type='Dislike').count()
         return {'like': likes, 'dislike': dislikes}
-
-
-class ReviewSerializerWithComments(ReviewSerializer):
-    comments = serializers.SerializerMethodField()
-
-    def get_comments(self, review):
-        comments = Comment.objects.filter(review=review)
-        serializer = CommentSerializer(comments, many=True)
-        return serializer.data
