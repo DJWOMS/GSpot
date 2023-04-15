@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import cn from 'classnames'
 import localFont from 'next/font/local'
 import './global.scss'
@@ -23,7 +24,10 @@ const openSans = localFont({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={cn(montserrat.variable, openSans.variable)}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
