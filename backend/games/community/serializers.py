@@ -20,8 +20,7 @@ class SocialSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = '__all__'
-
+        exclude = ['review',]
 
 class ReactionSerializer(serializers.ModelSerializer):
     class Meta:
