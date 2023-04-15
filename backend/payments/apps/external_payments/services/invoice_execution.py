@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from apps.transactions.models import Invoice, Transaction, TransactionHistory
+from apps.transactions.models import Invoice, ItemPurchase, TransactionHistory
 from django.conf import settings
 
 from ..exceptions import ExtraTransactionHistoriesError
@@ -17,7 +17,7 @@ class InvoiceExecution:
             self.process_transaction(invoice_transaction)
         self.invoice_success_status = True
 
-    def process_transaction(self, invoice_transaction: Transaction) -> None:
+    def process_transaction(self, invoice_transaction: ItemPurchase) -> None:
         invoice_transaction.is_frozen = True
         invoice_transaction.save()
 
@@ -32,14 +32,14 @@ class InvoiceExecution:
 
     @staticmethod
     def get_transaction_execution_date_time(
-        invoice_transaction: Transaction,
+        invoice_transaction: ItemPurchase,
     ) -> datetime:
         transactions_history = invoice_transaction.transactions_history.all()
         if len(transactions_history) > 1:
             # need to do something about this
             raise ExtraTransactionHistoriesError(
                 (
-                    f'For new transaction {invoice_transaction.pk} '
+                    f'For new ItemPurchase {invoice_transaction.pk} '
                     f'found more than 1 TransactionHistory instances'
                 ),
             )
