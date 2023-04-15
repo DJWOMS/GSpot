@@ -52,7 +52,7 @@ class TransferHistory(models.Model):
         ordering = ['-date_time_creation']
 
 
-class Transaction(models.Model):
+class ItemPurchase(models.Model):
     MAX_ITEM_PRICE = 10000  # in case of mistake
 
     account_from = models.ForeignKey(
@@ -98,7 +98,7 @@ class TransactionHistory(models.Model):
         COMPLETED = ('CD', 'COMPLETED')
 
     transaction_id = models.ForeignKey(
-        Transaction,
+        ItemPurchase,
         on_delete=models.PROTECT,
         related_name='transactions_history',
         editable=False,
@@ -129,7 +129,7 @@ class Invoice(models.Model):
         default=uuid.uuid4,
         editable=False,
     )
-    transactions = models.ManyToManyField(Transaction)
+    item_purchase = models.ManyToManyField(ItemPurchase)
 
     @property
     def total_price(self) -> Decimal:
