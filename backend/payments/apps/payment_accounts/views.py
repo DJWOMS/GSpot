@@ -1,25 +1,13 @@
 import rollbar
-from apps.external_payments.schemas import (PaymentCreateDataClass,
-                                            YookassaPaymentInfo)
 from rest_framework import generics, status
 from rest_framework.response import Response
 
+from apps.external_payments.schemas import (PaymentCreateDataClass,
+                                            YookassaPaymentInfo)
+
 from . import serializers
-from .models import Account
 from .services.balance_change import request_balance_deposit_url
 from .services.payment_commission import calculate_payment_with_commission
-
-USERS_UUIDS = [
-    '111',
-]
-
-DEVELOPERS_UUIDS = [
-    '222',
-]
-
-OWNERS_UUIDS = [
-    '333',
-]
 
 
 class CalculatePaymentCommissionView(generics.CreateAPIView):
@@ -70,15 +58,5 @@ class BalanceIncreaseView(generics.CreateAPIView):
 
 
 class UserAccountAPIView(generics.CreateAPIView):
-    queryset = Account.objects.filter(user_uuid__in=USERS_UUIDS)
     serializer_class = serializers.AccountSerializer
 
-
-class DeveloperAccountAPIView(generics.CreateAPIView):
-    queryset = Account.objects.filter(user_uuid__in=DEVELOPERS_UUIDS)
-    serializer_class = serializers.AccountSerializer
-
-
-class OwnerAccountAPIView(generics.CreateAPIView):
-    queryset = Account.objects.filter(user_uuid__in=OWNERS_UUIDS)
-    serializer_class = serializers.AccountSerializer
