@@ -7,13 +7,15 @@
 }
 
 ///Contacts Form
-
+.contactsForm {
+  @apply col-span-2;
+}
 .form {
   @apply mt-[30px] rounded-lg border border-solid border-main-60
   border-opacity-10 bg-background p-5;
 
   input {
-    @apply placeholder-white;
+    @apply flex flex-col gap-[10] placeholder-white;
   }
 
   &Textarea {
@@ -41,21 +43,18 @@
 .errorMessage {
   @apply h-5 align-middle text-xs text-danger;
 }
-.emptyBlock {
-  @apply h-5;
-}
 
 //Contacts info
 
-.contactsInfo {
-  @apply mt-5 text-base leading-6 text-white;
-}
-.contactsForm {
-  @apply col-span-2;
-}
 .contacts {
-  @apply mb-8 duration-500 first:mt-8;
+  @apply mt-8 text-base leading-6 text-white;
+  p {
+    @apply duration-500;
+  }
 }
-.contactsList {
-  @apply mt-3 font-mont;
+.list {
+  @apply mt-10 font-mont;
+  li {
+    @apply mb-3;
+  }
 }
