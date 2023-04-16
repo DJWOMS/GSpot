@@ -59,4 +59,3 @@ class BalanceIncreaseView(generics.CreateAPIView):
 
 class UserAccountAPIView(generics.CreateAPIView):
     serializer_class = serializers.AccountSerializer
-
