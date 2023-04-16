@@ -1,79 +1,65 @@
 version: "3.9"
 
 services:
-  mongodb:
-    container_name: mongodb_channels
-    image: mongo:latest
-    ports:
-      - "27017:27017"
 
   redis:
-    container_name: redis_channels
+    container_name: 'redis'
     image: redis:latest
     ports:
       - "6379:6379"
 
-  rabbitmq:
-    container_name: rabbitmq_channels
-    image: rabbitmq:3.11.11-management
-    restart: always
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+#    volumes:
+#      - ./mongo-volume:/data/db
+    command: mongod --bind_ip 0.0.0.0
     env_file:
       - .env.dev
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    healthcheck:
-      test: ["CMD", "rabbitmqctl", "status"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-
-  channels:
-    container_name: fastapi_channels
-    build:
-      context: .
-      dockerfile: ./src/Dockerfile
-    restart: always
-    volumes:
-      - ./src:/app
-    ports:
-      - "8000:8000"
-    env_file:
-      - .env.dev
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-      mongodb:
-        condition: service_started
-      redis:
-        condition: service_started
+    networks:
+      - rabbitmq_net
 
   consumer:
+    container_name: 'channels_consumer'
     build:
-      context: .
-      dockerfile: ./src/pika/Dockerfile
+      context: ./src/broker
+      dockerfile: Dockerfile
     restart: always
-    volumes:
-      - ./src:/app
     env_file:
       - .env.dev
+    volumes:
+      - ./src/broker:/app
+    command: >
+      sh -c "python main.py"
+    networks:
+      - rabbitmq_net
     depends_on:
-      rabbitmq:
-        condition: service_healthy
+      - mongodb
 
-  redis_consumer:
-    build:
-      context: .
-      dockerfile: ./src/Dockerfile
-    command: python redis_consumer.py
-    restart: always
-    volumes:
-      - ./src:/app
-    env_file:
-      - .env.dev
-    depends_on:
-      - redis
-      - channels
+networks:
+  rabbitmq_net:
+    external: true
+
+#  channels:
+#    container_name: fastapi_channels
+#    build:
+#      context: .
+#      dockerfile: ./src/Dockerfile
+#    restart: always
+##    volumes:
+##      - ./src:/app
+#    ports:
+#      - "8000:8000"
+#    env_file:
+#      - .env.dev
+#    depends_on:
+#      rabbitmq:
+#        condition: service_healthy
+#      mongodb:
+#        condition: service_started
+#      redis:
+#        condition: service_started
 
 volumes:
   mongodb_data:
