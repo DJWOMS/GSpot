@@ -1,15 +1,16 @@
-from apps.base.schemas import URL
-from apps.external_payments.schemas import PaymentCreateDataClass
-from apps.external_payments.services.create_payment import get_yookassa_payment_url
+import apps.payment_accounts.schemas
+from apps.base.schemas import URL, PaymentServices
+from apps.external_payments.services.payment_serivces.yookassa_payment import \
+    YookassaPayment
 
 from ..models import Account, BalanceChange
 
 
 def request_balance_deposit_url(
-    payment_data: PaymentCreateDataClass,
+        balance_increase_data: apps.payment_accounts.schemas.BalanceIncreaseData,
 ) -> URL:
     user_account, _ = Account.objects.get_or_create(
-        user_uuid=payment_data.user_uuid,
+        user_uuid=balance_increase_data.user_uuid,
     )
 
     balance_change = BalanceChange.objects.create(
@@ -17,8 +18,13 @@ def request_balance_deposit_url(
         is_accepted=False,
         operation_type='DEPOSIT',
     )
-    metadata = {
-        'account_id': user_account.pk,
-        'balance_change_id': balance_change.pk,
-    }
-    return get_yookassa_payment_url(payment_data, metadata)
+
+    if balance_increase_data.payment_service == PaymentServices.yookassa:
+        payment_data = YookassaPayment.create_balance_increase_data(
+            balance_increase_data,
+            user_account,
+            balance_change,
+        )
+        return YookassaPayment().request_balance_deposit_url(
+            payment_data,
+        )

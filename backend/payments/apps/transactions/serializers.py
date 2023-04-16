@@ -1,7 +1,7 @@
-from apps.base.fields import MoneySerializerField
-from apps.external_payments.schemas import PaymentTypes
-from rest_enumfield import EnumField
 from rest_framework import serializers
+
+from apps.base.fields import MoneySerializerField
+from apps.base.serializer import PaymentServiceSerializer
 
 
 class ItemPaymentData(serializers.Serializer):
@@ -11,8 +11,7 @@ class ItemPaymentData(serializers.Serializer):
     price = MoneySerializerField()
 
 
-class PurchaseItemsSerializer(serializers.Serializer):
+class PurchaseItemsSerializer(PaymentServiceSerializer):
     user_uuid = serializers.UUIDField()
-    payment_type = EnumField(choices=PaymentTypes)
     items_payment_data = ItemPaymentData(many=True)
     return_url = serializers.URLField()

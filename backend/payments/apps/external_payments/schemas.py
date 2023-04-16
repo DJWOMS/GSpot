@@ -3,24 +3,17 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from uuid import UUID
 
-from apps.base.schemas import URL
 from dataclasses_json import config, dataclass_json
 from django.conf import settings
 
+from apps.base.schemas import URL, PaymentTypes
 
-class PaymentResponseStatuses(enum.Enum):
+
+class YookassaPaymentStatuses(enum.Enum):
     succeeded = 'payment.succeeded'
     canceled = 'payment.canceled'
     waiting_for_capture = 'payment.waiting_for_capture'
     refund_succeeded = 'refund.succeeded'
-
-
-class PaymentTypes(enum.Enum):
-    bank_card = 'bank_card'
-    yoo_money = 'yoo_money'
-    sberbank = 'sberbank'
-    qiwi = 'qiwi'
-    from_balance = 'from_balance'
 
 
 @dataclass
@@ -37,7 +30,7 @@ class PaymentMethodDataResponse:
 
 @dataclass_json
 @dataclass
-class YookassaPaymentResponseObject:
+class YookassaPaymentBody:
     id_: UUID = field(metadata=config(field_name='id'))
     income_amount: AmountDataClass
     amount: AmountDataClass
@@ -49,8 +42,8 @@ class YookassaPaymentResponseObject:
 @dataclass_json
 @dataclass
 class YookassaPaymentResponse:
-    event: PaymentResponseStatuses
-    object_: YookassaPaymentResponseObject = field(
+    event: YookassaPaymentStatuses
+    object_: YookassaPaymentBody = field(
         metadata=config(field_name='object'),
     )
 
@@ -81,15 +74,3 @@ class YookassaPaymentCreate:
     capture: bool = True
     refundable: bool = False
     description: str | None = None
-
-
-@dataclass
-class YookassaPaymentInfo:
-    payment_type: PaymentTypes
-    payment_amount: Decimal
-
-
-@dataclass
-class PaymentCreateDataClass(YookassaPaymentInfo):
-    user_uuid: UUID
-    return_url: URL
