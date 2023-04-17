@@ -5,9 +5,6 @@ class MongoManager:
     client: AsyncIOMotorClient = None
     db: AsyncIOMotorDatabase = None
 
-    def __init__(self):
-        self.url = 'mongodb://Channels:password@mongodb:27017/GSpot?authSource=admin'
-
     async def connect(self, url):
         self.client = AsyncIOMotorClient(url, maxPoolSize=10, minPoolSize=10)
 
