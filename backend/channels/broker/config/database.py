@@ -11,7 +11,7 @@ class DatabaseConfig(BaseSettings):
 
     @property
     def url(self):
-        return f'mongodb://{self.user}:{self.password}@{self.host}/{self.db}?authSource=admin'
+        return f'mongodb://{self.user}:{self.password}@{self.host}:{self.port}/{self.db}?authSource=admin'
 
 
 db_config = DatabaseConfig()

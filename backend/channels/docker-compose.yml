@@ -14,11 +14,12 @@ services:
     ports:
       - "27017:27017"
 #    volumes:
-#      - ./mongo-volume:/data/db
-    command: mongod --bind_ip 0.0.0.0
+#      - /data/mongodb:/data/db
+#    command: mongod --bind_ip 0.0.0.0
     env_file:
       - .env.dev
     networks:
+      - mongodb_net
       - rabbitmq_net
 
   consumer:
@@ -34,11 +35,13 @@ services:
     command: >
       sh -c "python main.py"
     networks:
+      - mongodb_net
       - rabbitmq_net
     depends_on:
       - mongodb
 
 networks:
+  mongodb_net:
   rabbitmq_net:
     external: true
 
