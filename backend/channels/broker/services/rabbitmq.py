@@ -1,5 +1,4 @@
 import asyncio
-
 import aio_pika
 from aio_pika.abc import AbstractRobustConnection, AbstractRobustChannel
 from dataclasses import dataclass

@@ -12,13 +12,14 @@ class EmailConsumer(RabbitMQConsumer):
     queue_name = 'email'
 
     def __int__(self, queue: Queue, db_client: AsyncIOMotorClient):
+        self.db_client = db_client
         super().__init__(
             queue=queue,
             db_client=db_client
         )
 
     async def process_message(self, orig_message: IncomingMessage):
-        print(orig_message)
+        # await self.db_client.do_insert(orig_message)
         logger.info(orig_message.body)
 
 

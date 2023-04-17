@@ -21,7 +21,7 @@ async def main(consumer_classes) -> None:
             for consumer_class in consumer_classes:
                 queue = await _prepare_consumed_queue(channel, consumer_class.queue_name)
                 consumer = consumer_class(queue=queue, db_client=db.client)
-                await rabbit_connection.publish('xz', 'email')
+                await rabbit_connection.publish('test', 'email')
                 await consumer.consume()
 
     finally:
