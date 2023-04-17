@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { UserDataInterface } from 'features/profile'
+import { fetchServerSide } from 'lib/fetchServerSide'
 import Profile from './Profile'
 import s from './page.module.scss'
 
@@ -13,7 +15,7 @@ interface InputTypes {
 
 const Settings = () => {
   const [pass, setPass] = useState<string | null>()
-
+  // useEffect(()=> {},[])
   const {
     register,
     formState: { errors, isValid },
@@ -51,6 +53,7 @@ const Settings = () => {
 
   return (
     <div className={s.row}>
+      {/* @ts-expect-error Async Server Component */}
       <Profile />
       <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitPasword)}>
         <h4 className={s.formTitle}>Поменять пароль</h4>

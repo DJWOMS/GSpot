@@ -1,4 +1,7 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { UserDataInterface } from 'features/profile'
+import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './page.module.scss'
 
 interface InputTypes {
@@ -7,9 +10,19 @@ interface InputTypes {
   firstName: string
   lastName: string
 }
-
 const Profile = () => {
-  //   const [pass, setPass] = useState<string | null>()
+  useEffect(() => {
+    const loadData = async () => {
+      const response = await fetchServerSide<UserDataInterface[]>({
+        path: '/profile/settings',
+      })
+      console.log(response, 'response')
+      // if (response) {
+      // setState(response)
+      // }
+    }
+    loadData()
+  }, [])
 
   const {
     register,

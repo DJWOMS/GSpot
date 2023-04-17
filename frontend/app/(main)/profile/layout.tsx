@@ -8,7 +8,7 @@ interface ProfileProps {
   children: React.ReactNode
 }
 
-const Profile: FC<ProfileProps> = ({ children }) => {
+const Profile: (props: ProfileProps) => Promise<JSX.Element> = async ({ children }) => {
   return (
     <div>
       <Section title="Профиль" />
