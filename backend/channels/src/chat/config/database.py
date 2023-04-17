@@ -1,0 +1,2 @@
+class DatabaseConfig:
+    port: str

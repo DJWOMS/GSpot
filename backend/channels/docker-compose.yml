@@ -3,12 +3,13 @@ version: "3.9"
 services:
 
   redis:
-    container_name: 'redis'
+    container_name: redis
     image: redis:latest
     ports:
       - "6379:6379"
 
   mongodb:
+    container_name: channels_db
     image: mongo
     ports:
       - "27017:27017"
@@ -21,7 +22,7 @@ services:
       - rabbitmq_net
 
   consumer:
-    container_name: 'channels_consumer'
+    container_name: channels_consumer
     build:
       context: ./src/broker
       dockerfile: Dockerfile

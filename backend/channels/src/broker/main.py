@@ -5,11 +5,13 @@ from consumers.prepare_queue import _prepare_consumed_queue
 from publisher import publish
 from services.rabbitmq import rabbit_connection
 from services.database import db
+from config.database import db_config
+from config.rabbitmq import rabbitmq_config
 
 
 async def main(consumer_classes) -> None:
-    await rabbit_connection.connect("amqp://channels:BMfxN8drrYcIqXZMrpWTpDT0nMcOagMduLX0bjr4jwudpN@rabbitmq:5672/")
-    await db.connect()
+    await rabbit_connection.connect(rabbitmq_config.url)
+    await db.connect(db_config.url)
     try:
         async with rabbit_connection.channel as channel:
             await channel.set_qos(prefetch_count=100)

@@ -25,7 +25,6 @@ class RabbitManager:
         try:
             self.connection = await aio_pika.connect_robust(url)
             self.channel = await self.connection.channel(publisher_confirms=False)
-            print(self.channel)
         except Exception as e:
             print(e)
             await self._clear()
