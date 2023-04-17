@@ -1,17 +1,14 @@
 import uuid
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from base.choices import BaseTextChoices, TypeProductChoices
+from base.model_fields import get_field_from_choices
 
 
 class Product(models.Model):
-    class StatusProduct(models.TextChoices):
-        MODERATION = 'M', _('MODERATION')
-        PUBLISH = 'P', _('PUBLISH')
-        CLOSE = 'C', _('CLOSE')
-
-    class TypeProduct(models.TextChoices):
-        GAMES = 'G', _('GAMES')
-        DLC = 'D', _('ADDITIONS')
+    class StatusProductChoices(BaseTextChoices):
+        MODERATION = 'MODERATION', 'Moderation'
+        PUBLISH = 'PUBLISH', 'Publish'
+        CLOSE = 'CLOSE', 'Close'
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
@@ -22,12 +19,10 @@ class Product(models.Model):
     about = models.TextField()
     age = models.IntegerField(blank=True, null=True)
     adult = models.TextField(blank=True, null=True)
-    status = models.CharField(
-        max_length=2,
-        choices=StatusProduct.choices,
-        default=StatusProduct.MODERATION
+    status = get_field_from_choices(
+        'Status product', StatusProductChoices, default=StatusProductChoices.MODERATION
     )
-    type = models.CharField(max_length=2, choices=TypeProduct.choices)
+    type = get_field_from_choices('Type product', TypeProductChoices)
     dlcs = models.ManyToManyField('self', through="GameDlcLink", blank=True)
 
     def __str__(self):
@@ -43,13 +38,13 @@ class GameDlcLink(models.Model):
         Product,
         on_delete=models.CASCADE,
         related_name='dlc_link',
-        limit_choices_to={'type': Product.TypeProduct.GAMES}
+        limit_choices_to={'type': TypeProductChoices.GAMES}
     )
     dlc = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name='game_link',
-        limit_choices_to={'type': Product.TypeProduct.DLC}
+        limit_choices_to={'type': TypeProductChoices.DLC}
     )
 
     class Meta:

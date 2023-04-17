@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from base.choices import TypeProductChoices
 
 from base import classes
 from base.paginations import GamesResultsSetPagination
@@ -37,7 +38,7 @@ class GameViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
     }
 
     def get_queryset(self):
-        return Product.objects.filter(type=Product.TypeProduct.GAMES)
+        return Product.objects.filter(type=TypeProductChoices.GAMES)
 
 
 class DlcViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
@@ -59,7 +60,7 @@ class DlcViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
     }
 
     def get_queryset(self):
-        return Product.objects.filter(type=Product.TypeProduct.DLC)
+        return Product.objects.filter(type=TypeProductChoices.DLC)
 
 
 class SystemRequirementViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
