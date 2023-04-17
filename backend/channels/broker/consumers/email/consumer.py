@@ -14,12 +14,11 @@ class EmailConsumer(RabbitMQConsumer):
     def __int__(self, queue: Queue, db_client: AsyncIOMotorClient):
         super().__init__(
             queue=queue,
-            # db_client=db_client
+            db_client=db_client
         )
 
     async def process_message(self, orig_message: IncomingMessage):
         print(orig_message)
         logger.info(orig_message.body)
-
 
 

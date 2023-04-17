@@ -1,3 +1,5 @@
+import asyncio
+
 import aio_pika
 from aio_pika.abc import AbstractRobustConnection, AbstractRobustChannel
 from dataclasses import dataclass
@@ -23,7 +25,8 @@ class RabbitManager:
 
     async def connect(self, url) -> None:
         try:
-            self.connection = await aio_pika.connect_robust(url)
+            loop = asyncio.get_event_loop()
+            self.connection = await aio_pika.connect_robust(url=url, loop=loop)
             self.channel = await self.connection.channel(publisher_confirms=False)
         except Exception as e:
             print(e)
@@ -31,6 +34,18 @@ class RabbitManager:
 
     async def disconnect(self) -> None:
         await self._clear()
+
+    async def publish(self, message: str, routing_key):
+        exchange = await self.channel.declare_exchange('GSpot', durable=True)
+        ready_queue = await self.channel.declare_queue(routing_key, durable=True)
+        await ready_queue.bind(exchange, routing_key)
+        await exchange.publish(
+            aio_pika.Message(
+                body=message.encode(),
+                delivery_mode=aio_pika.DeliveryMode.PERSISTENT
+            ),
+            routing_key
+        )
 
 
 rabbit_connection = RabbitManager()

@@ -12,12 +12,12 @@ class MongoManager:
         self.client.close()
 
     async def ping_server(self):
-        # Replace the placeholder with your Atlas connection string
         try:
-            self.client.admin.command('ping')
+            self.client.GSpot.command('ping')
             print("Pinged your deployment. You successfully connected to MongoDB!")
         except Exception as e:
             print(e)
+
 
 db = MongoManager()
 

@@ -20,9 +20,10 @@ async def main(consumer_classes) -> None:
             #     await _prepare_dead_letter_queue(channel)
             for consumer_class in consumer_classes:
                 queue = await _prepare_consumed_queue(channel, consumer_class.queue_name)
-                consumer = consumer_class(queue)
+                consumer = consumer_class(queue=queue, db_client=db.client)
+                await rabbit_connection.publish('xz', 'email')
                 await consumer.consume()
-                await asyncio.wait([publish(channel) for _ in range(100)])
+
     finally:
         await rabbit_connection.disconnect()
         await db.disconnect()
