@@ -264,3 +264,17 @@
     right: 15px;
   }
 }
+
+.links {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+
+  @media (min-width: 576px) {
+    margin-top: 20px;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { IconClockHour4 } from '@tabler/icons-react'
-import Image from 'next/image'
+
+// import Image from 'next/image'
 
 type ArticleContentProps = {
   s: {
@@ -19,7 +20,7 @@ const ArticleContent: FC<ArticleContentProps> = ({ s }) => {
         11.02.2020, 04:19
       </span>
       <h1>In CS:GO weakened SG553 and added a new map to the competitive map (H1)</h1>
-      <Image src={'https://loremflickr.com/687/376'} alt="" />
+      <img src={'https://loremflickr.com/687/376'} alt="" />
       <p>
         It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using `&apos;`Content here, content

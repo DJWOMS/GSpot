@@ -1,0 +1,33 @@
+.link {
+  margin-top: 20px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 15px;
+  height: 30px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  svg {
+    fill: #fff;
+    margin-right: 10px;
+    margin-top: 1px;
+    height: 16px;
+  }
+  &:hover {
+    background-color: #a782e9;
+    color: #fff;
+  }
+}
+
+.facebook {
+  background-color: #3b5998;
+}
+.twitter {
+  background-color: #55acee;
+}
+.vkontakte {
+  background-color: #4c6c91;
+}
