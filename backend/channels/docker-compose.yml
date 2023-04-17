@@ -24,13 +24,13 @@ services:
   consumer:
     container_name: channels_consumer
     build:
-      context: ./src/broker
+      context: broker
       dockerfile: Dockerfile
     restart: always
     env_file:
       - .env.dev
     volumes:
-      - ./src/broker:/app
+      - ./broker:/app
     command: >
       sh -c "python main.py"
     networks:
