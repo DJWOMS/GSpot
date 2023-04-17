@@ -2,7 +2,6 @@ import uuid
 from django.db import models
 from base.choices import BaseTextChoices, TypeProduct
 from base.model_fields import get_field_from_choices
-from simple_history.models import HistoricalRecords
 
 
 class Product(models.Model):
@@ -25,7 +24,6 @@ class Product(models.Model):
     )
     type = get_field_from_choices('Type product', TypeProduct)
     dlcs = models.ManyToManyField('self', through="GameDlcLink", blank=True)
-    history = HistoricalRecords()
 
     def __str__(self):
         return self.name

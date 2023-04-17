@@ -4,7 +4,6 @@ from core.models import Product
 import uuid
 from reference.models import Language
 from base.choices import BaseTextChoices, GradeChoices, TypeProduct
-from simple_history.models import HistoricalRecords
 
 
 class Media(models.Model):
@@ -16,7 +15,6 @@ class Media(models.Model):
     file_link = models.FileField(upload_to='product_media')
     created_at = models.DateTimeField(auto_now_add=True)
     type = get_field_from_choices('Media_file', MediaFileType)
-    history = HistoricalRecords()
 
     def __str__(self):
         return f'{self.product}'
@@ -43,7 +41,6 @@ class Social(models.Model):
         limit_choices_to={'type': TypeProduct.GAMES}
     )
     url = models.URLField()
-    history = HistoricalRecords()
 
     def __str__(self):
         return f'{self.type} {self.product.name}'
@@ -61,7 +58,6 @@ class Review(models.Model):
     can_reply = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    history = HistoricalRecords()
 
     def __str__(self):
         return f'Review {self.game}'
@@ -75,7 +71,6 @@ class Comment(models.Model):
     user_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     text = models.TextField()
-    history = HistoricalRecords()
 
     def __str__(self):
         return f'Comment {self.id}'
@@ -89,7 +84,6 @@ class Reaction(models.Model):
     user_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     like_type = get_field_from_choices('Grade', GradeChoices)
-    history = HistoricalRecords()
 
     def __str__(self):
         return f'{self.like_type} for Review {self.review_id}'

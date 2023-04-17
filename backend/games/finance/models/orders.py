@@ -3,7 +3,6 @@ from django.db import models
 from base.model_fields import get_field_from_choices, AmountField
 
 from base.choices import CurrencyChoices, BaseTextChoices
-from simple_history.models import HistoricalRecords
 
 
 class OrderStatusChoices(BaseTextChoices):
@@ -24,7 +23,6 @@ class Order(models.Model):
     payment_id = models.CharField("Payment Id", max_length=128, null=True)
     is_paid = models.BooleanField("Is Paid", default=False)
     gift_recipient = models.UUIDField("Recipient UUID")
-    history = HistoricalRecords()
 
     class Meta:
         db_table = "order"
@@ -36,7 +34,6 @@ class OrderStatus(models.Model):
         "Status", OrderStatusChoices, default=OrderStatusChoices.WAITING_PAYMENT
     )
     from_dttm = models.DateTimeField("From dttm", auto_now_add=True)
-    history = HistoricalRecords()
 
     class Meta:
         db_table = "order_status"
@@ -45,7 +42,6 @@ class OrderStatus(models.Model):
 
 class OrderOfferProduct(models.Model):
     product_id = models.UUIDField("Product UUID", primary_key=True)
-    history = HistoricalRecords()
 
     class Meta:
         db_table = "order_offer_product"
@@ -62,7 +58,6 @@ class OrderOffer(models.Model):
     products = models.ManyToManyField(
         OrderOfferProduct, related_name="offers"
     )
-    history = HistoricalRecords()
 
     class Meta:
         db_table = "order_offer"
