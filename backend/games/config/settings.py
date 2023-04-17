@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'reference.apps.ReferenceConfig',
     'utils.apps.UtilsConfig',
     'community.apps.CommunityConfig',
+    'simple_history',
 ]
 
 MIDDLEWARE = [
@@ -43,6 +44,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'djangorestframework_camel_case.middleware.CamelCaseMiddleWare',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
