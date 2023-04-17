@@ -3,7 +3,7 @@ from django.db import models
 from base.model_fields import get_field_from_choices
 
 from .product import Product
-from base.choices import BaseTextChoices, TypeProduct
+from base.choices import BaseTextChoices, TypeProductChoices
 
 
 class SystemRequirement(models.Model):
@@ -24,7 +24,7 @@ class SystemRequirement(models.Model):
         Product,
         on_delete=models.CASCADE,
         related_name='system_requirements',
-        limit_choices_to={'type': TypeProduct.GAMES}
+        limit_choices_to={'type': TypeProductChoices.GAMES}
     )
     device_processor = models.CharField('Processor', max_length=100)
     device_memory = models.CharField('Memory', max_length=100)

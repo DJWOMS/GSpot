@@ -3,18 +3,18 @@ from base.model_fields import get_field_from_choices
 from core.models import Product
 import uuid
 from reference.models import Language
-from base.choices import BaseTextChoices, GradeChoices, TypeProduct
+from base.choices import BaseTextChoices, GradeChoices, TypeProductChoices
 
 
 class Media(models.Model):
-    class MediaFileType(BaseTextChoices):
+    class MediaFileTypeChoices(BaseTextChoices):
         GAME_LOGO = 'GAME_LOGO', 'Game Logo'
         PHOTO_SLIDER = 'PHOTO_SLIDER', 'Photo Slider'
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     file_link = models.FileField(upload_to='product_media')
     created_at = models.DateTimeField(auto_now_add=True)
-    type = get_field_from_choices('Media_file', MediaFileType)
+    type = get_field_from_choices('Media_file', MediaFileTypeChoices)
 
     def __str__(self):
         return f'{self.product}'
@@ -24,7 +24,7 @@ class Media(models.Model):
 
 
 class Social(models.Model):
-    class SocialMediaTypes(BaseTextChoices):
+    class SocialMediaTypesChoices(BaseTextChoices):
         FACEBOOK = 'FACEBOOK', 'FaceBook'
         VKONTAKTE = 'VKONTAKTE', 'VKontakte'
         SITE = 'SITE', 'Site'
@@ -33,12 +33,16 @@ class Social(models.Model):
         TWITCH = 'TWITCH', 'Twitch'
         TELEGRAM = 'TELEGRAM', 'Telegram'
 
-    type = get_field_from_choices('Social_media', SocialMediaTypes, default=SocialMediaTypes.SITE)
+    type = get_field_from_choices(
+        'Social_media',
+        SocialMediaTypesChoices,
+        default=SocialMediaTypesChoices.SITE
+    )
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name='socials',
-        limit_choices_to={'type': TypeProduct.GAMES}
+        limit_choices_to={'type': TypeProductChoices.GAMES}
     )
     url = models.URLField()
 

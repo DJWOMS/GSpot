@@ -1,11 +1,11 @@
 import uuid
 from django.db import models
-from base.choices import BaseTextChoices, TypeProduct
+from base.choices import BaseTextChoices, TypeProductChoices
 from base.model_fields import get_field_from_choices
 
 
 class Product(models.Model):
-    class StatusProduct(BaseTextChoices):
+    class StatusProductChoices(BaseTextChoices):
         MODERATION = 'MODERATION', 'Moderation'
         PUBLISH = 'PUBLISH', 'Publish'
         CLOSE = 'CLOSE', 'Close'
@@ -20,9 +20,9 @@ class Product(models.Model):
     age = models.IntegerField(blank=True, null=True)
     adult = models.TextField(blank=True, null=True)
     status = get_field_from_choices(
-        'Status product', StatusProduct, default=StatusProduct.MODERATION
+        'Status product', StatusProductChoices, default=StatusProductChoices.MODERATION
     )
-    type = get_field_from_choices('Type product', TypeProduct)
+    type = get_field_from_choices('Type product', TypeProductChoices)
     dlcs = models.ManyToManyField('self', through="GameDlcLink", blank=True)
 
     def __str__(self):
@@ -38,13 +38,13 @@ class GameDlcLink(models.Model):
         Product,
         on_delete=models.CASCADE,
         related_name='dlc_link',
-        limit_choices_to={'type': TypeProduct.GAMES}
+        limit_choices_to={'type': TypeProductChoices.GAMES}
     )
     dlc = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name='game_link',
-        limit_choices_to={'type': TypeProduct.DLC}
+        limit_choices_to={'type': TypeProductChoices.DLC}
     )
 
     class Meta:

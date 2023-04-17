@@ -19,6 +19,6 @@ class GradeChoices(BaseTextChoices):
     DISLIKE = 'DISLIKE', 'Dislike'
 
 
-class TypeProduct(BaseTextChoices):
+class TypeProductChoices(BaseTextChoices):
     GAMES = 'GAMES', 'Games'
     DLC = 'DLC', 'Additions'
