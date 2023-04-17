@@ -2,7 +2,6 @@ import asyncio
 from consumers.email.consumer import EmailConsumer
 from consumers.notifications.consumer import NotificationConsumer
 from consumers.prepare_queue import _prepare_consumed_queue
-from publisher import publish
 from services.rabbitmq import rabbit_connection
 from services.database import db
 from config.database import db_config
