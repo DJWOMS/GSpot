@@ -8,7 +8,7 @@ const generateMockGameCardSimple = (props = {}): GameCardSimpleInterface => ({
 })
 
 const generateMockGameList = (props = {}): GameListInterface => ({
-  coverImg: faker.image.abstract(240, 340),
+  coverImg: faker.image.imageUrl(240, 340, 'pc-games', true),
   price: faker.datatype.number(1000),
   sale: faker.datatype.number(500),
   currency: 'RUB',
@@ -30,6 +30,7 @@ const generateRequirement = (props = {}) => ({
   typeRequirements: faker.lorem.paragraph(),
   ...props,
 })
+
 const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
   description: faker.lorem.paragraphs(5),
   languages: [

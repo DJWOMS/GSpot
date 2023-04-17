@@ -5,14 +5,10 @@ const nextConfig = {
     scrollRestoration: true,
   },
   output: 'standalone',
-  compiler: {
-    // Enables the styled-components SWC transform
-    styledComponents: true,
-  },
   swcMinify: true,
-  // develop
   images: {
     domains: ['loremflickr.com'],
+    unoptimized: true,
   },
 }
 
