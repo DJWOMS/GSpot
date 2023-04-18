@@ -157,14 +157,14 @@ class YookassaResponseParser:
         account_id = int(self.payment_body.metadata['account_id'])
         return utils.parse_model_instance(
             django_model=Account,
-            error_message=(f"Can't get user account instance for user id {account_id}"),
+            error_message=f"Can't get user account instance for user id {account_id}",
             pk=account_id,
         )
 
     def _parse_balance_object(self) -> BalanceChange | None:
         return utils.parse_model_instance(
             django_model=BalanceChange,
-            error_message=(f"Can't get payment instance for payment id {self.payment_body.id_}"),
+            error_message=f"Can't get payment instance for payment id {self.payment_body.id_}",
             pk=int(self.payment_body.metadata['balance_change_id']),
         )
 
