@@ -8,9 +8,9 @@ interface Props {
 }
 
 const SocialBtn: FC<Props> = ({ type }) => {
-  const props = getBtnProps(type)
+  const { cn: className, icon } = getBtnProps(type)
 
-  return <button className={cn(s.signSocial, props.cn)}>{props.icon}</button>
+  return <button className={cn(s.signSocial, className)}>{icon}</button>
 }
 
 const getBtnProps = (color: Props['type']) => {
