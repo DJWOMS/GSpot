@@ -35,9 +35,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third party apps
+    'drf_yasg',
     'django_filters',
     'rest_framework',
-    'drf_yasg',
+    'djoser',
+    'rest_framework_simplejwt',
     # Local apps
     'admins.apps.AdminAppConfig',
     'developers.apps.DeveloperAppConfig',
@@ -93,3 +95,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

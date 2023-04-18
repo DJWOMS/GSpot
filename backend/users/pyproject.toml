@@ -16,6 +16,8 @@ django-filter = "^22.1"
 psycopg2-binary = "^2.9.5"
 drf-yasg = "^1.21.5"
 pillow = "^9.4.0"
+djoser = "^2.1.0"
+djangorestframework-simplejwt = "^5.2.2"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.3.0"
