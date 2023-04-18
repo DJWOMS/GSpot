@@ -1,9 +1,8 @@
 import rollbar
+from apps.base.schemas import PaymentServices
 from dacite import MissingValueError, from_dict
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
-
-from apps.base.schemas import PaymentServices
 
 from .schemas import YookassaPaymentResponse
 from .serializers import YookassaPaymentAcceptanceSerializer

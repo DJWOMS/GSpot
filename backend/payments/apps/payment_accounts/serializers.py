@@ -1,8 +1,7 @@
-from django.core.validators import MinValueValidator
-from rest_framework import serializers
-
 from apps.base.fields import MoneySerializerField
 from apps.base.serializer import PaymentServiceSerializer
+from django.core.validators import MinValueValidator
+from rest_framework import serializers
 
 
 class PaymentCommissionSerializer(PaymentServiceSerializer):

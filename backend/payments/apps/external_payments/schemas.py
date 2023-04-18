@@ -3,10 +3,9 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from uuid import UUID
 
+from apps.base.schemas import URL, PaymentTypes
 from dataclasses_json import config, dataclass_json
 from django.conf import settings
-
-from apps.base.schemas import URL, PaymentTypes
 
 
 class YookassaPaymentStatuses(enum.Enum):

@@ -1,7 +1,6 @@
-from rest_framework import serializers
-
 from apps.base.fields import MoneySerializerField
 from apps.base.serializer import PaymentServiceSerializer
+from rest_framework import serializers
 
 
 class ItemPaymentData(serializers.Serializer):
