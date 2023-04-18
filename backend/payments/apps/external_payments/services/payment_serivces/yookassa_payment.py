@@ -144,8 +144,8 @@ class YookassaResponseParser:
             income_amount=self.payment_body.income_amount.value,
         )
         if (
-            'invoice_id' not in self.payment_body.metadata or
-                self.payment_event == schemas.YookassaPaymentStatuses.canceled
+            'invoice_id' not in self.payment_body.metadata
+            or self.payment_event == schemas.YookassaPaymentStatuses.canceled
         ):
             return response_data
 

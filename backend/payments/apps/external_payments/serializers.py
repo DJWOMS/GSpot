@@ -1,7 +1,6 @@
+from apps.base.fields import MoneySerializerField
 from rest_enumfield import EnumField
 from rest_framework import serializers
-
-from apps.base.fields import MoneySerializerField
 
 from ..base.schemas import PaymentTypes
 from .schemas import YookassaPaymentStatuses
@@ -19,6 +18,7 @@ class BaseSerializer(serializers.Serializer):
         given postfix.
         e.g. field name is `id` and postfix is `_yookassa`: id -> id_yookassa
         """
+
         def generate_new_key():
             builtin_names = ('id', 'type', 'object')
             if key in builtin_names:

@@ -1,24 +1,25 @@
-from django.core.exceptions import ValidationError
-
 from apps.base.schemas import URL, PaymentServices
-from apps.external_payments.services.invoice_execution import \
-    execute_invoice_operations
-from apps.external_payments.services.payment_serivces.yookassa_payment import \
-    YookassaPayment
+from apps.external_payments.services.invoice_execution import execute_invoice_operations
+from apps.external_payments.services.payment_serivces.yookassa_payment import (
+    YookassaPayment,
+)
 from apps.payment_accounts.models import Account, BalanceChange
+from django.core.exceptions import ValidationError
 
 from ..models import Invoice, Transaction, TransactionHistory
 from ..schemas import ItemPaymentData, PurchaseItemsData
 
 
 def request_purchase_items(
-        purchase_items_data: PurchaseItemsData,
+    purchase_items_data: PurchaseItemsData,
 ) -> URL | str:
     user_account, _ = Account.objects.get_or_create(
         user_uuid=purchase_items_data.user_uuid,
     )
-    if purchase_items_data.payment_service == PaymentServices.from_balance \
-            and not is_enough_funds(user_account, purchase_items_data):
+    if purchase_items_data.payment_service == PaymentServices.from_balance and not is_enough_funds(
+        user_account,
+        purchase_items_data,
+    ):
         return 'Not enough funds on balance'
 
     invoice_creator = InvoiceCreator(purchase_items_data, user_account)
@@ -81,8 +82,8 @@ class InvoiceCreator:
 
     @staticmethod
     def create_transaction_instance(
-            payer_account: Account,
-            item_payment_data: ItemPaymentData,
+        payer_account: Account,
+        item_payment_data: ItemPaymentData,
     ) -> Transaction:
         account_to, _ = Account.objects.get_or_create(
             user_uuid=item_payment_data.owner_uuid,
