@@ -11,16 +11,17 @@ interface InputTypes {
   oldPassword: string
   newPassword: string
   confirmPassword: string
+  change?: string
 }
 
 const Settings = () => {
   const [pass, setPass] = useState<string | null>()
-  // useEffect(()=> {},[])
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
     reset,
+    setValue,
   } = useForm<InputTypes>({
     mode: 'onBlur',
   })
@@ -36,12 +37,25 @@ const Settings = () => {
     )
   }
 
-  const onSubmitPasword = (data: any) => {
+  const onSubmitPasword = async (data: any) => {
     if (data.newPassword === data.confirmPassword) {
       const res = validatePassword(data.newPassword)
       if (res) {
         setPass(null)
-        alert(JSON.stringify(data))
+        // alert(JSON.stringify(data))
+
+        const response = await fetchServerSide<InputTypes>({
+          path: '/profile/settings/password',
+          method: 'POST',
+          body: data,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        alert(response)
+        if (response) {
+          setValue('change', response.change)
+        }
       } else {
         setPass('пароль слишком легкий')
       }
@@ -53,7 +67,6 @@ const Settings = () => {
 
   return (
     <div className={s.row}>
-      {/* @ts-expect-error Async Server Component */}
       <Profile />
       <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitPasword)}>
         <h4 className={s.formTitle}>Поменять пароль</h4>

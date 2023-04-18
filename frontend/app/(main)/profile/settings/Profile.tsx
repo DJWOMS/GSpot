@@ -5,37 +5,54 @@ import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './page.module.scss'
 
 interface InputTypes {
-  userName: string
+  nickName: string
   email: string
   firstName: string
   lastName: string
 }
 const Profile = () => {
-  useEffect(() => {
-    const loadData = async () => {
-      const response = await fetchServerSide<UserDataInterface[]>({
-        path: '/profile/settings',
-      })
-      console.log(response, 'response')
-      // if (response) {
-      // setState(response)
-      // }
-    }
-    loadData()
-  }, [])
-
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
     reset,
+    setValue,
   } = useForm<InputTypes>({
     mode: 'onBlur',
   })
 
-  const onSubmitUser = (data: any) => {
-    alert(JSON.stringify(data))
-    reset()
+  useEffect(() => {
+    const loadData = async () => {
+      const response = await fetchServerSide<UserDataInterface>({
+        path: '/profile/settings',
+      })
+      if (response) {
+        setValue('nickName', response.nickName)
+        setValue('email', response.email)
+        setValue('firstName', response.firstName)
+        setValue('lastName', response.lastName)
+      }
+    }
+    loadData()
+  }, [])
+
+  const onSubmitUser = async (data: any) => {
+    // alert(JSON.stringify(data))
+    const response = await fetchServerSide<UserDataInterface>({
+      path: '/profile/settings',
+      method: 'POST',
+      body: data,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response) {
+      setValue('nickName', response.nickName)
+      setValue('email', response.email)
+      setValue('firstName', response.firstName)
+      setValue('lastName', response.lastName)
+    }
+    // reset()
   }
 
   return (
@@ -44,11 +61,11 @@ const Profile = () => {
 
       <div className={s.col}>
         <div>
-          <label className={s.formLabel} htmlFor="username">
+          <label className={s.formLabel} htmlFor="nickName">
             Ник
           </label>
           <input
-            {...register('userName', {
+            {...register('nickName', {
               required: true,
               minLength: {
                 value: 3,
@@ -58,7 +75,7 @@ const Profile = () => {
             className={s.formInput}
             placeholder="Doe"
           />
-          {errors?.userName && <span style={{ color: 'red' }}>{errors?.userName?.message || 'поле не заполненно'}</span>}
+          {errors?.nickName && <span style={{ color: 'red' }}>{errors?.nickName?.message || 'поле не заполненно'}</span>}
         </div>
         <div>
           <label className={s.formLabel} htmlFor="email">
