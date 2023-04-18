@@ -1,7 +1,7 @@
+from decimal import Decimal
 from typing import TypeVar
 
 import rollbar
-from _decimal import Decimal
 from apps.payment_accounts.models import Account, BalanceChange
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist

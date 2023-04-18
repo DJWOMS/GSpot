@@ -1,10 +1,10 @@
 import rollbar
-from apps.external_payments.schemas import PaymentCreateDataClass, YookassaPaymentInfo
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
 from . import serializers
+from .schemas import BalanceIncreaseData, CommissionCalculationInfo
 from .services.balance_change import request_balance_deposit_url
 from .services.payment_commission import calculate_payment_with_commission
 
@@ -16,7 +16,7 @@ class CalculatePaymentCommissionView(CreateAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
-            commission_data = YookassaPaymentInfo(**serializer.validated_data)
+            commission_data = CommissionCalculationInfo(**serializer.validated_data)
         except KeyError as error:
             rollbar.report_message(
                 f'Schemas and serializers got different structure. Got next error: {str(error)}'
@@ -38,7 +38,7 @@ class BalanceIncreaseView(CreateAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
-            payment_data = PaymentCreateDataClass(
+            balance_increase_data = BalanceIncreaseData(
                 **serializer.validated_data,
             )
         except KeyError as error:
@@ -48,7 +48,7 @@ class BalanceIncreaseView(CreateAPIView):
             )
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        confirmation_url = request_balance_deposit_url(payment_data)
+        confirmation_url = request_balance_deposit_url(balance_increase_data)
 
         return Response(
             {'confirmation_url': confirmation_url},
