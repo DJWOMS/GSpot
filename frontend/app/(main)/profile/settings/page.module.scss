@@ -82,3 +82,11 @@
   @extend .row;
   @apply gap-3 gap-x-5;
 }
+
+.errorMessage {
+  @apply text-[#ff7777];
+}
+
+.saved {
+  @apply text-[#60b643];
+}

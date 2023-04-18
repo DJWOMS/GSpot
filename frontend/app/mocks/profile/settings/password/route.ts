@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
 
 const mockData = {
-  change: 'password change',
+  change: 'password changed',
 }
 
-export function POST() {
+export async function POST() {
   return NextResponse.json(mockData)
 }

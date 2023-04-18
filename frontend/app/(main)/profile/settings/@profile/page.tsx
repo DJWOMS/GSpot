@@ -1,8 +1,11 @@
-import { useEffect } from 'react'
+'use client'
+
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 import { UserDataInterface } from 'features/profile'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from './page.module.scss'
+import s from '../page.module.scss'
 
 interface InputTypes {
   nickName: string
@@ -11,11 +14,11 @@ interface InputTypes {
   lastName: string
 }
 const Profile = () => {
+  const [saved, setSaved] = useState(false)
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-    reset,
     setValue,
   } = useForm<InputTypes>({
     mode: 'onBlur',
@@ -37,23 +40,15 @@ const Profile = () => {
   }, [])
 
   const onSubmitUser = async (data: any) => {
-    // alert(JSON.stringify(data))
+    setSaved(false)
     const response = await fetchServerSide<UserDataInterface>({
       path: '/profile/settings',
       method: 'POST',
-      body: data,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      body: JSON.stringify(data) as string,
     })
-    if (response) {
-      setValue('nickName', response.nickName)
-      setValue('email', response.email)
-      setValue('firstName', response.firstName)
-      setValue('lastName', response.lastName)
-    }
-    // reset()
+    if (response) setSaved(true)
   }
+  const errorMassage = 'Минимум 3 символовa'
 
   return (
     <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitUser)}>
@@ -69,13 +64,13 @@ const Profile = () => {
               required: true,
               minLength: {
                 value: 3,
-                message: 'Минимум 3 символовa',
+                message: errorMassage,
               },
             })}
             className={s.formInput}
             placeholder="Doe"
           />
-          {errors?.nickName && <span style={{ color: 'red' }}>{errors?.nickName?.message || 'поле не заполненно'}</span>}
+          <ErrorMessage errors={errors} name="nickName" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
         <div>
           <label className={s.formLabel} htmlFor="email">
@@ -86,17 +81,17 @@ const Profile = () => {
               required: true,
               minLength: {
                 value: 3,
-                message: 'Минимум 3 символовa',
+                message: errorMassage,
               },
             })}
             className={s.formInput}
             placeholder="email@email.com"
           />
-          {errors?.email && <span style={{ color: 'red' }}>{errors?.email?.message || 'поле не заполненно'}</span>}
+          <ErrorMessage errors={errors} name="email" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
 
         <div>
-          <label className={s.formLabel} htmlFor="firstname">
+          <label className={s.formLabel} htmlFor="firstName">
             Имя
           </label>
           <input
@@ -104,17 +99,17 @@ const Profile = () => {
               required: true,
               minLength: {
                 value: 3,
-                message: 'Минимум 3 символовa',
+                message: errorMassage,
               },
             })}
             className={s.formInput}
             placeholder="John"
           />
-          {errors?.firstName && <span style={{ color: 'red' }}>{errors?.firstName?.message || 'поле не заполненно'}</span>}
+          <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
 
         <div>
-          <label className={s.formLabel} htmlFor="lastname">
+          <label className={s.formLabel} htmlFor="lastName">
             Фaмилия
           </label>
           <input
@@ -122,15 +117,16 @@ const Profile = () => {
               required: true,
               minLength: {
                 value: 3,
-                message: 'Минимум 3 символовa',
+                message: errorMassage,
               },
             })}
             className={s.formInput}
             placeholder="Doe"
           />
-          {errors?.lastName && <span style={{ color: 'red' }}>{errors?.lastName?.message || 'поле не заполненно'}</span>}
+          <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
       </div>
+      {saved && <p className={s.saved}>Сохраненно</p>}
       <input className={s.formBtn} type="submit" value="сохранить" disabled={!isValid} />
     </form>
   )
