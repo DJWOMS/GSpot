@@ -27,6 +27,5 @@ class PaymentCommission(models.Model):
         validators=[MinValueValidator(0, message='indicate the amount of commission')],
     )
 
-
     def __str__(self):
         return f'Type of payment: {self.payment_type}' f'Commission amount: {self.commission}'

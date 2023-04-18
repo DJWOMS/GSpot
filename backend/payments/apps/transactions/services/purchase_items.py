@@ -6,10 +6,8 @@ from apps.external_payments.services.payment_serivces.yookassa_payment import (
 from apps.payment_accounts.models import Account, BalanceChange
 from django.core.exceptions import ValidationError
 
-from ..models import Invoice, Transaction, TransactionHistory
-from ..schemas import ItemPaymentData, PurchaseItemsData
 from ..models import Invoice, ItemPurchase, ItemPurchaseHistory
-from ..schemas import IncomeData, ItemPaymentData
+from ..schemas import ItemPaymentData, PurchaseItemsData
 
 
 def request_purchase_items(
