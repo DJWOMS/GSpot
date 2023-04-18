@@ -4,20 +4,15 @@ from finance.models.offer import Offer
 
 
 class Cart(models.Model):
-    CHOICES = (
-        ("True", True),
-        ("False", False),
-    )
-
-    created_by = models.UUIDField('UUID creator', unique=True)
-    is_gift = models.CharField(choices=CHOICES, max_length=10)
+    created_by = models.UUIDField(unique=True)
+    is_gift = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'cart'
 
 
 class CartOffer(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='offers')
     offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
 
     class Meta:
