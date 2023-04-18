@@ -111,7 +111,7 @@ const Header: FC<HeaderProps> = ({ links }) => {
                 <span>Favorites</span>
               </Link>
 
-              <Link className={s.actionLink} href="/cart">
+              <Link className={s.actionLink} href="/profile/checkout">
                 <IconShoppingCart />
                 <span>$00.00</span>
               </Link>

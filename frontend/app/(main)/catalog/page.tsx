@@ -1,12 +1,16 @@
 import Pagination from 'components/Pagination'
 import Section from 'components/Section'
-import { GameCard, FilterGames } from 'features/games'
-import { GameCardInterface } from 'features/games'
+import { GameCard, FilterGames, GameCardInterface } from 'features/games'
 import { fetchServerSide } from 'lib/fetchServerSide'
+import s from './page.module.scss'
 
-const CatalogPage = async () => {
+// revalidate data every 60sec
+export const revalidate = 60
+
+const CatalogPage = async ({ searchParams }: { searchParams: URLSearchParams }) => {
   const games = await fetchServerSide<GameCardInterface[]>({
-    path: '/games/list',
+    path: `/games/list?${new URLSearchParams(searchParams)}`,
+    cache: 'no-cache',
   })
 
   return (
@@ -20,23 +24,21 @@ const CatalogPage = async () => {
       />
 
       <Section last>
-        <section className="section section--last section--catalog">
-          <div className={'flex'}>
+        <div className={s.row}>
+          <div className={s.columns2}>
             <FilterGames />
-
-            <div className="w-full">
-              <div className="grid grid-flow-row grid-cols-4 gap-x-4">
-                {games?.map((game, index) => (
-                  <div className="w-full" key={index}>
-                    <GameCard {...game} />
-                  </div>
-                ))}
-              </div>
-
-              <Pagination />
-            </div>
           </div>
-        </section>
+
+          <div className={s.columns10}>
+            <div className={s.list}>
+              {games?.map((game, id) => (
+                <GameCard {...game} key={id} />
+              ))}
+            </div>
+
+            <Pagination />
+          </div>
+        </div>
       </Section>
     </>
   )

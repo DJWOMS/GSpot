@@ -107,8 +107,7 @@
     }
 
     &:hover {
-      background-color: rgba(167, 130, 233, 0.04);
-      border-color: rgba(167, 130, 233, 0.07);
+      @apply border-main-70 bg-main-40;
 
       svg {
         @apply stroke-primary;
@@ -120,14 +119,10 @@
     @apply bg-light text-light;
 
     @apply mr-auto flex h-[30px] min-w-[80px] flex-row items-center justify-center
-        rounded-default text-[13px] font-normal tracking-default;
-
-    border: 1px solid rgba(167, 130, 233, 0.06);
+        rounded-default border border-solid border-main-60 text-[13px] font-normal tracking-default;
 
     &:hover {
-      background-color: rgba(167, 130, 233, 0.04);
-      border-color: rgba(167, 130, 233, 0.07);
-      color: #a782e9;
+      @apply border-main-70 bg-main-40 text-primary;
     }
 
     @media (min-width: 768px) {
@@ -152,10 +147,9 @@
       }
     }
 
-    @apply relative mb-0 pl-[30px] text-[28px] font-normal leading-[110%]
-        text-white;
+    @apply relative mb-0 pl-[30px] font-mont text-[28px] font-normal
+        leading-[110%] text-white;
 
-    font-family: var(--font-montserrat);
     b {
       @apply font-medium;
     }

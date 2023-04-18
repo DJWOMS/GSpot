@@ -1,0 +1,20 @@
+name: CI/CD for payments
+on:
+  push:
+    branches: [ "main", "payments" ]
+  pull_request:
+    branches: [ "main", "payments" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v3
+    - name: flake8
+      run: pip install -r backend/payments/flake8-requirements.txt
+    - name: Test with flake8
+      run: |
+        cd backend/payments && python -m flake8 --ignore=E501
+    - name: Build and run containers
+      run: |
+        cd backend/payments && docker-compose up -d --build --env-file ./.env.example

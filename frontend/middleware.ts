@@ -1,7 +1,7 @@
 import { DEBUG } from 'configs'
 import { NextRequest, NextResponse } from 'next/server'
 
-// Limit the middleware to paths starting with `/api/`
+// Limit the middleware to paths starting with `/mocks/`
 export const config = {
   matcher: '/mocks/:function*',
 }
