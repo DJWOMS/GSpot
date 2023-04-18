@@ -1,30 +1,31 @@
-from apps.base.schemas import URL
-from apps.external_payments.schemas import PaymentCreateDataClass, PaymentTypes
-from apps.external_payments.services.accept_payment import execute_invoice_operations
-from apps.external_payments.services.create_payment import get_yookassa_payment_url
+from apps.base.schemas import URL, PaymentServices
+from apps.external_payments.services.invoice_execution import execute_invoice_operations
+from apps.external_payments.services.payment_serivces.yookassa_payment import (
+    YookassaPayment,
+)
 from apps.payment_accounts.models import Account, BalanceChange
 from django.core.exceptions import ValidationError
 
 from ..models import Invoice, Transaction, TransactionHistory
-from ..schemas import IncomeData, ItemPaymentData
+from ..schemas import ItemPaymentData, PurchaseItemsData
 
 
 def request_purchase_items(
-    income_data: IncomeData,
+    purchase_items_data: PurchaseItemsData,
 ) -> URL | str:
     user_account, _ = Account.objects.get_or_create(
-        user_uuid=income_data.user_uuid,
+        user_uuid=purchase_items_data.user_uuid,
     )
-    if income_data.payment_type == PaymentTypes.from_balance and not is_enough_funds(
+    if purchase_items_data.payment_service == PaymentServices.from_balance and not is_enough_funds(
         user_account,
-        income_data,
+        purchase_items_data,
     ):
         return 'Not enough funds on balance'
 
-    invoice_creator = InvoiceCreator(income_data, user_account)
+    invoice_creator = InvoiceCreator(purchase_items_data, user_account)
     invoice_instance = invoice_creator.invoice_instance
 
-    if income_data.payment_type == PaymentTypes.from_balance:
+    if purchase_items_data.payment_service == PaymentServices.from_balance:
         try:
             execute_invoice_operations(
                 invoice_instance=invoice_instance,
@@ -41,27 +42,24 @@ def request_purchase_items(
         operation_type='DEPOSIT',
     )
 
-    metadata = {
-        'account_id': user_account.pk,
-        'balance_change_id': balance_change.pk,
-        'invoice_id': str(invoice_instance.invoice_id),
-    }
-
-    payment_data = PaymentCreateDataClass(
-        user_uuid=income_data.user_uuid,
-        payment_amount=invoice_instance.total_price,
-        payment_type=income_data.payment_type,
-        return_url=income_data.return_url,
-    )
-    return get_yookassa_payment_url(payment_data, metadata)
+    if purchase_items_data.payment_service == PaymentServices.yookassa:
+        payment_data = YookassaPayment.create_purchase_items_data(
+            purchase_items_data,
+            user_account,
+            balance_change,
+            invoice_instance,
+        )
+        return YookassaPayment().request_balance_deposit_url(
+            payment_data,
+        )
 
 
-def is_enough_funds(user_account: Account, income_data: IncomeData):
+def is_enough_funds(user_account: Account, income_data: PurchaseItemsData):
     return user_account.balance >= income_data.total_price()
 
 
 class InvoiceCreator:
-    def __init__(self, income_data: IncomeData, payer_account: Account):
+    def __init__(self, income_data: PurchaseItemsData, payer_account: Account):
         self.income_data = income_data
         self.payer_account = payer_account
         self.invoice_instance: None | Invoice = None
