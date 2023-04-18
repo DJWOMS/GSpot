@@ -30,4 +30,4 @@ class BalanceIncreaseSerializer(serializers.Serializer):
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['user_uuid', 'balance']
+        fields = ['user_uuid']
