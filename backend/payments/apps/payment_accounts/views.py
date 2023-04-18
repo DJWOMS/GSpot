@@ -14,7 +14,7 @@ from .services.balance_change import request_balance_deposit_url
 from .services.payment_commission import calculate_payment_with_commission
 
 
-class CalculatePaymentCommissionView(generics.CreateAPIView):
+class CalculatePaymentCommissionView(CreateAPIView):
     serializer_class = serializers.PaymentCommissionSerializer
 
     def post(self, request, *args, **kwargs):
@@ -36,7 +36,7 @@ class CalculatePaymentCommissionView(generics.CreateAPIView):
         return Response({'amount with commission': amount_with_commission})
 
 
-class BalanceIncreaseView(generics.CreateAPIView):
+class BalanceIncreaseView(CreateAPIView):
     serializer_class = serializers.BalanceIncreaseSerializer
 
     def post(self, request, *args, **kwargs):
@@ -61,5 +61,5 @@ class BalanceIncreaseView(generics.CreateAPIView):
         )
 
 
-class UserAccountAPIView(generics.CreateAPIView):
+class UserAccountAPIView(CreateAPIView):
     serializer_class = serializers.AccountSerializer
