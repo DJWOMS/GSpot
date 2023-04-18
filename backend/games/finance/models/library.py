@@ -4,9 +4,9 @@ from core.models import Product
 
 class Library(models.Model):
     user = models.UUIDField('User', unique=True)
-    games_count = models.PositiveBigIntegerField(default=0)
-    dlc_count = models.PositiveBigIntegerField(default=0)
-    total_product_count = models.PositiveBigIntegerField(default=0)
+    games_count = models.PositiveBigIntegerField('Games counter', default=0)
+    dlc_count = models.PositiveBigIntegerField('DLC counter', default=0)
+    total_product_count = models.PositiveBigIntegerField('Total product counter', default=0)
     products = models.ManyToManyField(Product, related_name='library', through='LibraryProduct')
 
     class Meta:
