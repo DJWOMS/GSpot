@@ -1,31 +1,37 @@
 from dataclasses import asdict
 
 import rollbar
-from yookassa import Payment
-
-import apps.payment_accounts.schemas
 from apps.base import utils
 from apps.base.classes import AbstractPaymentClass
 from apps.base.schemas import URL, ResponseParsedData
 from apps.external_payments import schemas
 from apps.payment_accounts.models import Account, BalanceChange
-from apps.payment_accounts.services.payment_commission import \
-    calculate_payment_without_commission
+from apps.payment_accounts.schemas import BalanceIncreaseData, YookassaRequestPayment
+from apps.payment_accounts.services.payment_commission import (
+    calculate_payment_without_commission,
+)
 from apps.transactions.models import Invoice
 from apps.transactions.schemas import PurchaseItemsData
+from environs import Env
+from yookassa import Configuration, Payment
+
+env = Env()
+env.read_env()
+Configuration.account_id = env.int('SHOP_ACCOUNT_ID')
+Configuration.secret_key = env.str('SHOP_SECRET_KEY')
 
 
 class YookassaPayment(AbstractPaymentClass):
     def __init__(
-            self,
-            yookassa_response: schemas.YookassaPaymentResponse | None = None,
+        self,
+        yookassa_response: schemas.YookassaPaymentResponse | None = None,
     ):
         self.yookassa_response = yookassa_response
         self.invoice_validator: InvoiceValidator | None = None
 
     def request_balance_deposit_url(
-            self,
-            payment_data: apps.payment_accounts.schemas.YookassaRequestPayment,
+        self,
+        payment_data: YookassaRequestPayment,
     ) -> URL:
         yookassa_payment_info = schemas.YookassaPaymentCreate(
             amount=schemas.AmountDataClass(
@@ -48,33 +54,33 @@ class YookassaPayment(AbstractPaymentClass):
 
     @staticmethod
     def create_balance_increase_data(
-            balance_increase_data: apps.payment_accounts.schemas.BalanceIncreaseData,
-            user_account: Account,
-            balance_change: BalanceChange,
-    ) -> apps.payment_accounts.schemas.YookassaRequestPayment:
+        balance_increase_data: BalanceIncreaseData,
+        user_account: Account,
+        balance_change: BalanceChange,
+    ) -> YookassaRequestPayment:
         metadata = {
             'account_id': user_account.pk,
             'balance_change_id': balance_change.pk,
         }
-        return apps.payment_accounts.schemas.YookassaRequestPayment(
+        return YookassaRequestPayment(
             **asdict(balance_increase_data),
             metadata=metadata,
         )
 
     @staticmethod
     def create_purchase_items_data(
-            purchase_items_data: PurchaseItemsData,
-            user_account: Account,
-            balance_change: BalanceChange,
-            invoice_instance: Invoice,
-    ) -> apps.payment_accounts.schemas.YookassaRequestPayment:
+        purchase_items_data: PurchaseItemsData,
+        user_account: Account,
+        balance_change: BalanceChange,
+        invoice_instance: Invoice,
+    ) -> YookassaRequestPayment:
         metadata = {
             'account_id': user_account.pk,
             'balance_change_id': balance_change.pk,
             'invoice_id': str(invoice_instance.invoice_id),
         }
 
-        return apps.payment_accounts.schemas.YookassaRequestPayment(
+        return YookassaRequestPayment(
             payment_amount=invoice_instance.total_price,
             payment_service=purchase_items_data.payment_service,
             payment_type=purchase_items_data.payment_type,
@@ -114,8 +120,8 @@ class YookassaPayment(AbstractPaymentClass):
 
 class YookassaResponseParser:
     def __init__(
-            self,
-            yookassa_response: schemas.YookassaPaymentResponse | None = None,
+        self,
+        yookassa_response: schemas.YookassaPaymentResponse | None = None,
     ):
         self.yookassa_response = yookassa_response
         self.payment_body = yookassa_response.object_
@@ -137,8 +143,10 @@ class YookassaResponseParser:
             balance_object=balance_change_object,
             income_amount=self.payment_body.income_amount.value,
         )
-        if 'invoice_id' not in self.payment_body.metadata \
-                or self.payment_event == schemas.YookassaPaymentStatuses.canceled:
+        if (
+            'invoice_id' not in self.payment_body.metadata
+            or self.payment_event == schemas.YookassaPaymentStatuses.canceled
+        ):
             return response_data
 
         invoice = self._parse_invoice_object(payment_body)
@@ -149,24 +157,20 @@ class YookassaResponseParser:
         account_id = int(self.payment_body.metadata['account_id'])
         return utils.parse_model_instance(
             django_model=Account,
-            error_message=(
-                f"Can't get user account instance for user id {account_id}"
-            ),
+            error_message=(f"Can't get user account instance for user id {account_id}"),
             pk=account_id,
         )
 
     def _parse_balance_object(self) -> BalanceChange | None:
         return utils.parse_model_instance(
             django_model=BalanceChange,
-            error_message=(
-                f"Can't get payment instance for payment id {self.payment_body.id_}"
-            ),
+            error_message=(f"Can't get payment instance for payment id {self.payment_body.id_}"),
             pk=int(self.payment_body.metadata['balance_change_id']),
         )
 
     @staticmethod
     def _parse_invoice_object(
-            payment_body: schemas.YookassaPaymentBody,
+        payment_body: schemas.YookassaPaymentBody,
     ) -> Invoice:
         return utils.parse_model_instance(
             django_model=Invoice,

@@ -1,11 +1,10 @@
 from datetime import datetime
-
-from _decimal import Decimal
-from django.conf import settings
+from decimal import Decimal
 
 from apps.base import utils
 from apps.payment_accounts.models import Account
 from apps.transactions.models import Invoice, Transaction, TransactionHistory
+from django.conf import settings
 
 from ..exceptions import ExtraTransactionHistoriesError
 from ..tasks import get_item_for_self_user, gift_item_to_other_user
@@ -36,7 +35,7 @@ class InvoiceExecution:
 
     @staticmethod
     def get_transaction_execution_date_time(
-            invoice_transaction: Transaction,
+        invoice_transaction: Transaction,
     ) -> datetime:
         transactions_history = invoice_transaction.transactions_history.all()
         if len(transactions_history) > 1:
@@ -57,9 +56,10 @@ class InvoiceExecution:
 
 
 def execute_invoice_operations(
-        *, invoice_instance: Invoice,
-        payer_account: Account,
-        decrease_amount: Decimal,
+    *,
+    invoice_instance: Invoice,
+    payer_account: Account,
+    decrease_amount: Decimal,
 ):
     invoice_executioner = InvoiceExecution(invoice_instance)
     invoice_executioner.process_invoice_transactions()

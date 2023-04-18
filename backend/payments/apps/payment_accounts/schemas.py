@@ -1,7 +1,6 @@
 from dataclasses import dataclass
+from decimal import Decimal
 from uuid import UUID
-
-from _decimal import Decimal
 
 from apps.base.schemas import URL, PaymentServiceInfo
 
