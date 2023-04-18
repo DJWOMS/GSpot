@@ -26,7 +26,7 @@ class PaymentCommission(models.Model):
         default=0,
         validators=[MinValueValidator(0, message='indicate the amount of commission')],
     )
-    date_time_creation = models.DateTimeField(auto_now_add=True, editable=False, db_index=True)
+
 
     def __str__(self):
         return f'Type of payment: {self.payment_type}' f'Commission amount: {self.commission}'
