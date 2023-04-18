@@ -1,23 +1,23 @@
 import rollbar
-from rest_framework import generics, status
+
+from rest_framework import status
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
-from apps.external_payments.schemas import (PaymentCreateDataClass,
-                                            YookassaPaymentInfo)
-
 from . import serializers
+from .schemas import BalanceIncreaseData, CommissionCalculationInfo
 from .services.balance_change import request_balance_deposit_url
 from .services.payment_commission import calculate_payment_with_commission
 
 
-class CalculatePaymentCommissionView(generics.CreateAPIView):
+class CalculatePaymentCommissionView(CreateAPIView):
     serializer_class = serializers.PaymentCommissionSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
-            commission_data = YookassaPaymentInfo(**serializer.validated_data)
+            commission_data = CommissionCalculationInfo(**serializer.validated_data)
         except KeyError as error:
             rollbar.report_message(
                 f'Schemas and serializers got different structure. Got next error: {str(error)}'
@@ -32,14 +32,14 @@ class CalculatePaymentCommissionView(generics.CreateAPIView):
         return Response({'amount with commission': amount_with_commission})
 
 
-class BalanceIncreaseView(generics.CreateAPIView):
+class BalanceIncreaseView(CreateAPIView):
     serializer_class = serializers.BalanceIncreaseSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
-            payment_data = PaymentCreateDataClass(
+            balance_increase_data = BalanceIncreaseData(
                 **serializer.validated_data,
             )
         except KeyError as error:
@@ -49,7 +49,7 @@ class BalanceIncreaseView(generics.CreateAPIView):
             )
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        confirmation_url = request_balance_deposit_url(payment_data)
+        confirmation_url = request_balance_deposit_url(balance_increase_data)
 
         return Response(
             {'confirmation_url': confirmation_url},
@@ -57,5 +57,5 @@ class BalanceIncreaseView(generics.CreateAPIView):
         )
 
 
-class UserAccountAPIView(generics.CreateAPIView):
+class UserAccountAPIView(CreateAPIView):
     serializer_class = serializers.AccountSerializer

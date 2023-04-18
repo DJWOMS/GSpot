@@ -1,5 +1,8 @@
 from datetime import datetime
+from decimal import Decimal
 
+from apps.base import utils
+from apps.payment_accounts.models import Account
 from apps.transactions.models import Invoice, Transaction, TransactionHistory
 from django.conf import settings
 
@@ -50,3 +53,20 @@ class InvoiceExecution:
         else:
             execution_date_time = settings.PERIOD_FOR_GIFT_TASK
         return transaction_history.date_time_creation + execution_date_time
+
+
+def execute_invoice_operations(
+    *,
+    invoice_instance: Invoice,
+    payer_account: Account,
+    decrease_amount: Decimal,
+):
+    invoice_executioner = InvoiceExecution(invoice_instance)
+    invoice_executioner.process_invoice_transactions()
+    if invoice_executioner.invoice_success_status is True:
+        # TO BE DONE: it has to put money on our shop account
+        # And developer account
+        utils.decrease_user_balance(
+            account=payer_account,
+            amount=decrease_amount,
+        )
