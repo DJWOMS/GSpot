@@ -12,8 +12,8 @@ class Cart(models.Model):
 
 
 class CartOffer(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='offers')
-    offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_offers')
+    offer = models.ForeignKey(Offer, on_delete=models.CASCADE, related_name='cart_offers')
 
     class Meta:
         db_table = 'cart_offer'
