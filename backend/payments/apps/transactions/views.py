@@ -1,5 +1,5 @@
 import rollbar
-from apps.transactions.schemas import IncomeData
+from apps.transactions.schemas import PurchaseItemsData
 from dacite import MissingValueError, from_dict
 from rest_framework import status, viewsets
 from rest_framework.response import Response
@@ -16,7 +16,7 @@ class PurchaseItemView(viewsets.GenericViewSet):
         serializer.is_valid(raise_exception=True)
         try:
             income_data = from_dict(
-                IncomeData,
+                PurchaseItemsData,
                 serializer.validated_data,
             )
         except MissingValueError as error:

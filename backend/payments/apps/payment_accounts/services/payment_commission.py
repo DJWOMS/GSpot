@@ -1,6 +1,6 @@
 from decimal import ROUND_HALF_DOWN, Decimal
 
-from apps.external_payments.schemas import PaymentTypes
+from apps.base.schemas import PaymentTypes
 
 TWO_PLACES = Decimal(10) ** -2
 
