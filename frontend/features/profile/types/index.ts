@@ -23,7 +23,8 @@ export interface CheckoutGameCardInterface {
 }
 
 export interface UserDataInterface {
-  nickName: string
+  status: number
+  username: string
   email: string
   firstName: string
   lastName: string

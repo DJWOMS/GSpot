@@ -18,12 +18,23 @@ const Password = () => {
   const [saved, setSaved] = useState(false)
   const {
     register,
-    formState: { errors, isValid },
     handleSubmit,
     reset,
-    setValue,
+    setError,
+    formState: { errors, isValid },
   } = useForm<InputTypes>({
-    mode: 'onBlur',
+    // defaultValues: async () => fetch('/profile/settings/password'),
+    // defaultValues: async () => {
+    //   const response = await fetch('/profile/settings/password');
+    //   const data = await response.json();
+    //   return {
+    //     oldPassword: data.oldPassword,
+    //     newPassword: data.newPassword,
+    //     confirmPassword: data.confirmPassword,
+    //     change: data.change,
+    //   };
+    // },
+    // mode: 'onBlur',
   })
 
   function validatePassword(password: string): boolean {
@@ -49,7 +60,6 @@ const Password = () => {
           body: JSON.stringify(data) as string,
         })
         if (response) {
-          setValue('change', response.change)
           setSaved(true)
         }
       } else {
@@ -57,6 +67,7 @@ const Password = () => {
       }
     } else {
       setPass('пароли не совпадают')
+      // setError('change', { message: 'пароли не совпадают' })
     }
     reset()
   }
@@ -66,6 +77,7 @@ const Password = () => {
   return (
     <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitPasword)}>
       <h4 className={s.formTitle}>Поменять пароль</h4>
+      {/* {errors.change && <p>{errors.change.message}</p>} */}
       <p className={s.formPassword}>{pass}</p>
 
       <div className={s.col}>

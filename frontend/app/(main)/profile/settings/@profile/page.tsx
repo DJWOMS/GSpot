@@ -8,7 +8,7 @@ import { fetchServerSide } from 'lib/fetchServerSide'
 import s from '../page.module.scss'
 
 interface InputTypes {
-  nickName: string
+  username: string
   email: string
   firstName: string
   lastName: string
@@ -21,6 +21,16 @@ const Profile = () => {
     handleSubmit,
     setValue,
   } = useForm<InputTypes>({
+    // async defaultValues() {
+    //   const response = await fetch('/profile/settings')
+    //   const data = await response.json()
+    //   return {
+    //     username: data.username,
+    //     email: data.email,
+    //     firstName: data.firstName,
+    //     lastName: data.lastName,
+    //   }
+    // },
     mode: 'onBlur',
   })
 
@@ -30,7 +40,7 @@ const Profile = () => {
         path: '/profile/settings',
       })
       if (response) {
-        setValue('nickName', response.nickName)
+        setValue('username', response.username)
         setValue('email', response.email)
         setValue('firstName', response.firstName)
         setValue('lastName', response.lastName)
@@ -46,7 +56,10 @@ const Profile = () => {
       method: 'POST',
       body: JSON.stringify(data) as string,
     })
-    if (response) setSaved(true)
+    if (response) {
+      if (response.status === 400) console.log('пользователь существует')
+      if (response.status === 201) setSaved(true)
+    }
   }
   const errorMassage = 'Минимум 3 символовa'
 
@@ -56,11 +69,11 @@ const Profile = () => {
 
       <div className={s.col}>
         <div>
-          <label className={s.formLabel} htmlFor="nickName">
+          <label className={s.formLabel} htmlFor="username">
             Ник
           </label>
           <input
-            {...register('nickName', {
+            {...register('username', {
               required: true,
               minLength: {
                 value: 3,
@@ -70,7 +83,7 @@ const Profile = () => {
             className={s.formInput}
             placeholder="Doe"
           />
-          <ErrorMessage errors={errors} name="nickName" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+          <ErrorMessage errors={errors} name="username" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
         <div>
           <label className={s.formLabel} htmlFor="email">

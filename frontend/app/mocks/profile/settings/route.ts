@@ -2,7 +2,7 @@ import { generateMockPurchaseCard, UserDataInterface } from 'features/profile'
 import { NextRequest, NextResponse } from 'next/server'
 
 let mockData = {
-  nickName: 'Jon(0)_(^)',
+  username: 'Jon(0)_(^)',
   email: 'Jon@gmail.com',
   firstName: 'John',
   lastName: 'Smith',
@@ -14,6 +14,9 @@ export function GET() {
 
 export async function POST(req: Request) {
   const data = await req.json()
-  mockData = data
-  return NextResponse.json(mockData)
+  if (data.username !== 'busyname') {
+    mockData = data
+    return NextResponse.json({ status: 201 })
+  }
+  return NextResponse.json({ status: 400 })
 }

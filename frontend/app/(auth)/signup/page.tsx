@@ -10,7 +10,7 @@ const Signup = () => {
   return (
     <Form onSubmit={() => console.log('hello')}>
       <div className={s.signGroup}>
-        <input className={s.signInput} type="text" placeholder="Введите nickName" />
+        <input className={s.signInput} type="text" placeholder="Введите username" />
       </div>
 
       <div className={s.signGroup}>
