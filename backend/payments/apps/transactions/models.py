@@ -58,17 +58,17 @@ class ItemPurchase(models.Model):
     account_from = models.ForeignKey(
         Account,
         on_delete=models.PROTECT,
-        related_name='item_purchase_from',
+        related_name='item_purchase_account_from',
     )
     account_to = models.ForeignKey(
         Account,
         on_delete=models.PROTECT,
-        related_name='item_purchase_to',
+        related_name='item_purchase_account_to',
     )
     developer_id = models.ForeignKey(
         Account,
         on_delete=models.PROTECT,
-        related_name='item_purchases',
+        related_name='developer_info',
         null=True,
     )
     item_price = MoneyField(

@@ -61,7 +61,7 @@ class Account(models.Model):
 
 
 class BalanceChange(models.Model):
-    class ItemPurchaseTypes(models.TextChoices):
+    class ItemPurchaseType(models.TextChoices):
         WITHDRAW = ('WD', 'WITHDRAW')
         DEPOSIT = ('DT', 'DEPOSIT')
 
@@ -81,7 +81,7 @@ class BalanceChange(models.Model):
         db_index=True,
     )
     is_accepted = models.BooleanField(default=False)
-    operation_type = models.CharField(max_length=20, choices=ItemPurchaseTypes.choices)
+    operation_type = models.CharField(max_length=20, choices=ItemPurchaseType.choices)
 
     def __str__(self) -> str:
         return (
