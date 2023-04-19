@@ -4,12 +4,10 @@ import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { Input } from 'components/Form'
 import Section from 'components/Section'
-import { API_URL, LINK_TO_GOOGLE_MAPS } from 'configs'
+import { LINK_TO_GOOGLE_MAPS } from 'configs'
 import { ContactsFormInterface } from 'features/contacts'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import { error } from 'next/dist/build/output/log'
 import Link from 'next/link'
-import { NextResponse } from 'next/server'
 import s from './page.module.scss'
 
 interface FormProps {
@@ -17,44 +15,27 @@ interface FormProps {
   email: string
   subject: string
   message: string
-  singleErrorInput: string
 }
-const sendContacts = async (data: Promise<ContactsFormInterface>) => {
-  const res = await fetchServerSide<ContactsFormInterface[], string>({
-    path: '/contacts',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data) as string,
-  })
-  return <ContactsPage />
-}
-
-// const contacts = await fetchServerSide<ContactsFormInterface[]>({
-//  path: '/contacts',
-//  method: 'POST',
-//  data: data.message,
-// })
-// alert(JSON.stringify(res))
-
-// return <ContactsPage />
-//}
 
 const ContactsPage = () => {
-  const { register, control, reset, handleSubmit } = useForm<FormProps>()
   const {
+    register,
+    control,
+    reset,
+    handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: async () => await fetch('/api/contacts'),
-  })
+  } = useForm<FormProps>()
+
   const onSubmit: SubmitHandler<FormProps> = async (data) => {
     const response = await fetchServerSide<ContactsFormInterface>({
-      path: '/profile/settings',
+      path: '/contacts',
       method: 'POST',
       body: JSON.stringify(data),
     })
-    if (response) reset()
+    if (response) {
+      alert(JSON.stringify('Спасибо! Ваши данные успешно отправлены!'))
+      reset()
+    }
   }
 
   const rules = {
@@ -66,7 +47,7 @@ const ContactsPage = () => {
     pattern: { value: /[^@]+@[^.]+\..+/, message: 'Е-mail is invalid!' },
   }
 
-  //const disabled = !!errors.name || !!errors.email || !!errors.message || !!errors.subject
+  const disabled = !!errors.name || !!errors.email || !!errors.message || !!errors.subject
 
   return (
     <Section title="Contacts">
@@ -74,14 +55,8 @@ const ContactsPage = () => {
         <div className={s.contactsForm}>
           <Section title="Contacts form" />
           <form className={s.form} action="#" onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              name="singleErrorInput"
-              control={control}
-              rules={rules}
-              render={({ field }) => <Input {...field} type="text" placeholder="Name" />}
-            />
-            {/* <p className={s.errorMessage}>{errors.name && errors.name.message}</p>*/}
-            <ErrorMessage errors={errors} name="singleErrorInput" render={({ message }) => <p>{message}</p>} />
+            <Controller name="name" control={control} rules={rules} render={({ field }) => <Input {...field} type="text" placeholder="Name" />} />
+            <ErrorMessage errors={errors} name="name" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
 
             <Controller
               name="email"
@@ -89,9 +64,7 @@ const ContactsPage = () => {
               rules={rulesForEmail}
               render={({ field }) => <Input {...field} type="text" placeholder="Email" />}
             />
-
-            <ErrorMessage name="email" errors={errors} render={({ message }) => <p>{message}</p>} />
-            {/*   <p className={s.errorMessage}>{errors.email && errors.email.message}</p>*/}
+            <ErrorMessage name="email" errors={errors} render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
 
             <Controller
               name="subject"
@@ -99,14 +72,14 @@ const ContactsPage = () => {
               rules={rules}
               render={({ field }) => <Input {...field} type="text" placeholder="Subject" />}
             />
-            <ErrorMessage name="subject" errors={errors} render={({ message }) => <p>{message}</p>} />
-            {/*<p className={s.errorMessage}>{errors.subject && errors.subject.message}</p>*/}
+            <ErrorMessage name="subject" errors={errors} render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+
             <textarea className={s.formTextarea} placeholder="Type your message..." {...register('message', rules)}></textarea>
+            <ErrorMessage errors={errors} name="message" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
 
-            <ErrorMessage errors={errors} name="message" render={({ message }) => <p>{message}</p>} />
-            {/*<p className={s.errorMessage}>{errors.message && errors.message.message}</p>*/}
-
-            <button className={s.formBtn}>Send</button>
+            <button className={s.formBtn} disabled={disabled}>
+              Send
+            </button>
           </form>
         </div>
         <Section title="Info">

@@ -15,7 +15,7 @@
   border-opacity-10 bg-background p-5;
 
   input {
-    @apply flex flex-col gap-[10] placeholder-white;
+    @apply mb-5 flex flex-col gap-[10] placeholder-white;
   }
 
   &Textarea {
@@ -24,8 +24,8 @@
   }
 
   &Btn {
-    @apply flex h-11 w-36 flex-row items-center justify-center
-    rounded-md  bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
+    @apply flex h-11 w-full flex-row items-center justify-center rounded-md
+    bg-acid  text-[13px] font-semibold uppercase tracking-[0.6px] text-white md:w-36;
 
     &:hover {
       @apply bg-primary text-white;
