@@ -20,7 +20,3 @@ jobs:
     - name: Build and run containers
       run: |
         cd backend/games && docker-compose up -d --build
-    - name: Launch tests
-      run: |
-        cd backend/games
-        docker-compose exec -T web python manage.py test

@@ -13,7 +13,7 @@ class Command(BaseCommand):
         '''Fill in test data in social model'''
 
         count = options['count']
-        social_type = Social.SocialTypes
+        social_type = Social.SocialMediaTypesChoices
         products = Product.objects.all()
         zip_iterator = zip(range(count), products)
         social_count = 0
