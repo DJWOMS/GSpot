@@ -1,12 +1,15 @@
 'use client'
 
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 import { Input } from 'components/Form'
 import Section from 'components/Section'
-import { LINK_TO_GOOGLE_MAPS } from 'configs'
+import { API_URL, LINK_TO_GOOGLE_MAPS } from 'configs'
 import { ContactsFormInterface } from 'features/contacts'
 import { fetchServerSide } from 'lib/fetchServerSide'
+import { error } from 'next/dist/build/output/log'
 import Link from 'next/link'
+import { NextResponse } from 'next/server'
 import s from './page.module.scss'
 
 interface FormProps {
@@ -14,28 +17,44 @@ interface FormProps {
   email: string
   subject: string
   message: string
+  singleErrorInput: string
 }
-const sendContacts = async () => {
-  const contacts = await fetchServerSide<ContactsFormInterface[]>({
+const sendContacts = async (data: Promise<ContactsFormInterface>) => {
+  const res = await fetchServerSide<ContactsFormInterface[], string>({
     path: '/contacts',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data) as string,
   })
-  alert(JSON.stringify(contacts))
-  console.log(contacts)
   return <ContactsPage />
 }
 
-const ContactsPage = () => {
-  const {
-    register,
-    control,
-    formState: { errors },
-    reset,
-    handleSubmit,
-  } = useForm<FormProps>()
+// const contacts = await fetchServerSide<ContactsFormInterface[]>({
+//  path: '/contacts',
+//  method: 'POST',
+//  data: data.message,
+// })
+// alert(JSON.stringify(res))
 
-  const onSubmit: SubmitHandler<FormProps> = (data) => {
-    console.log(data)
-    reset()
+// return <ContactsPage />
+//}
+
+const ContactsPage = () => {
+  const { register, control, reset, handleSubmit } = useForm<FormProps>()
+  const {
+    formState: { errors },
+  } = useForm({
+    defaultValues: async () => await fetch('/api/contacts'),
+  })
+  const onSubmit: SubmitHandler<FormProps> = async (data) => {
+    const response = await fetchServerSide<ContactsFormInterface>({
+      path: '/profile/settings',
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+    if (response) reset()
   }
 
   const rules = {
@@ -47,7 +66,7 @@ const ContactsPage = () => {
     pattern: { value: /[^@]+@[^.]+\..+/, message: 'Е-mail is invalid!' },
   }
 
-  const disabled = !!errors.name || !!errors.email || !!errors.message || !!errors.subject
+  //const disabled = !!errors.name || !!errors.email || !!errors.message || !!errors.subject
 
   return (
     <Section title="Contacts">
@@ -55,8 +74,14 @@ const ContactsPage = () => {
         <div className={s.contactsForm}>
           <Section title="Contacts form" />
           <form className={s.form} action="#" onSubmit={handleSubmit(onSubmit)}>
-            <Controller name="name" control={control} rules={rules} render={({ field }) => <Input {...field} type="text" placeholder="Name" />} />
-            <p className={s.errorMessage}>{errors.name && errors.name.message}</p>
+            <Controller
+              name="singleErrorInput"
+              control={control}
+              rules={rules}
+              render={({ field }) => <Input {...field} type="text" placeholder="Name" />}
+            />
+            {/* <p className={s.errorMessage}>{errors.name && errors.name.message}</p>*/}
+            <ErrorMessage errors={errors} name="singleErrorInput" render={({ message }) => <p>{message}</p>} />
 
             <Controller
               name="email"
@@ -64,7 +89,9 @@ const ContactsPage = () => {
               rules={rulesForEmail}
               render={({ field }) => <Input {...field} type="text" placeholder="Email" />}
             />
-            <p className={s.errorMessage}>{errors.email && errors.email.message}</p>
+
+            <ErrorMessage name="email" errors={errors} render={({ message }) => <p>{message}</p>} />
+            {/*   <p className={s.errorMessage}>{errors.email && errors.email.message}</p>*/}
 
             <Controller
               name="subject"
@@ -72,13 +99,14 @@ const ContactsPage = () => {
               rules={rules}
               render={({ field }) => <Input {...field} type="text" placeholder="Subject" />}
             />
-            <p className={s.errorMessage}>{errors.subject && errors.subject.message}</p>
+            <ErrorMessage name="subject" errors={errors} render={({ message }) => <p>{message}</p>} />
+            {/*<p className={s.errorMessage}>{errors.subject && errors.subject.message}</p>*/}
             <textarea className={s.formTextarea} placeholder="Type your message..." {...register('message', rules)}></textarea>
-            <p className={s.errorMessage}>{errors.message && errors.message.message}</p>
 
-            <button className={s.formBtn} onClick={sendContacts} disabled={disabled}>
-              Send
-            </button>
+            <ErrorMessage errors={errors} name="message" render={({ message }) => <p>{message}</p>} />
+            {/*<p className={s.errorMessage}>{errors.message && errors.message.message}</p>*/}
+
+            <button className={s.formBtn}>Send</button>
           </form>
         </div>
         <Section title="Info">

@@ -32,11 +32,7 @@
     }
 
     &:disabled {
-      @apply opacity-30;
-    }
-
-    @media (max-width: 768px) {
-      @apply w-full;
+      @apply opacity-30 md:w-full;
     }
   }
 }
