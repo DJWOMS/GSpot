@@ -41,4 +41,4 @@ const getBtnProps = (color: Props['type']) => {
   }
 }
 
-export default SocialLink
+export { SocialLink }

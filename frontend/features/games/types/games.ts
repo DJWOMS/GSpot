@@ -10,6 +10,12 @@ export interface GameListInterface extends GameCardSimpleInterface {
   currency?: 'RUB' | 'USD' | 'EUR'
 }
 
+export interface RandomGameInterface extends GameCardSimpleInterface {
+  coverImg: string
+  price: number
+  sale?: number
+}
+
 export interface GameCardInterface extends GameListInterface {
   badge?: 'New' | 'Pre-order'
   platforms: PlatformType[]

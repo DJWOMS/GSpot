@@ -90,4 +90,4 @@ const ArticleContent: FC<ArticleContentProps> = ({ s }) => {
   )
 }
 
-export default ArticleContent
+export { ArticleContent }
