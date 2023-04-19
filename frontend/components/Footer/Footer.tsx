@@ -27,9 +27,9 @@ const Footer = () => {
             </div>
             <nav className={s.list}>
               <a href="#About">О нас</a>
-              <a href="#Catalog">Каталог</a>
-              <a href="#News">Новости</a>
-              <a href="#FAQ">Центр помощи</a>
+              <Link href="/catalog">Каталог</Link>
+              <Link href="/news">Новости</Link>
+              <Link href="/faq">Вопросы</Link>
               <a href="#Contacts">Контакты</a>
             </nav>
           </div>

@@ -1,122 +1,129 @@
+.row {
+  @apply flex flex-wrap;
+}
+
+.navColumn {
+  @apply relative w-full max-w-full flex-[0_0_100%] px-[15px];
+}
+
 .filter {
-  @apply mb-[10px] mt-5 flex flex-col  items-start justify-start;
+  @apply mb-[10px] mt-5 flex w-full flex-col items-start justify-start;
 
   &Title {
-    @apply flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: auto;
-    width: 100%;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 25px;
-    letter-spacing: 0.4px;
+    @apply mb-[25px] flex h-auto w-full flex-row items-center justify-between text-base font-semibold tracking-default text-white;
   }
+
   &Group {
     @apply mb-[30px] flex w-full flex-col items-start justify-start;
+
     &:last-child {
-      margin-bottom: 0;
+      @apply mb-0;
     }
   }
-}
-.filterLabel {
-  font-size: 14px;
-  line-height: 100%;
-  letter-spacing: 0.4px;
-  color: #dbdada;
-  font-weight: normal;
-  margin-bottom: 15px;
+
+  &Input {
+    @apply relative h-11 w-full rounded-md border border-solid border-main-60 bg-main-30 px-5 py-0 text-sm tracking-default text-white;
+
+    &:focus {
+      @apply border-main-50 bg-main-40;
+    }
+  }
+
+  &Label {
+    @apply mb-[15px] text-sm leading-[100%] tracking-default text-light;
+  }
+
+  &Nav a {
+    @apply relative text-sm leading-[14px] text-white;
+  }
+
+  &Nav a:before {
+    @apply pointer-events-none absolute left-0 top-1/2 mt-[-3] block h-[6px] w-[6px] rounded-[50%] bg-primary opacity-0 transition-[0.5s] content-[''];
+  }
+
+  &Nav a:hover,
+  &Nav a.active {
+    @apply text-primary;
+  }
+
+  &Nav a.active {
+    @apply pl-[15px];
+  }
+
+  &Nav a.active:before {
+    @apply opacity-100;
+  }
+
+  &Nav li {
+    @apply mb-[15px];
+  }
+
+  &Nav li:last-child {
+    @apply mb-0;
+  }
 }
 
-.filterInput {
-  background-color: rgba(167, 130, 233, 0.03);
-  border: 1px solid rgba(167, 130, 233, 0.06);
-  border-radius: 6px;
-  height: 44px;
-  position: relative;
-  color: #fff;
-  font-size: 14px;
-  width: 100%;
-  padding: 0 20px;
-  letter-spacing: 0.4px;
+.info {
+  @apply relative w-full px-[15px];
+
+  &Faq {
+    @apply relative w-full max-w-full flex-[0_0_100%] px-[15px];
+  }
 }
-.filterInput:focus {
-  background-color: rgba(167, 130, 233, 0.04);
-  border-color: rgba(167, 130, 233, 0.5);
+
+.faq {
+  @apply relative mt-[30px] w-full rounded-md border border-solid border-main-60 p-5;
+
+  &Title {
+    @apply mb-5 block w-full border-b border-solid border-main-60 pb-5 text-base font-normal tracking-default text-white;
+  }
+
+  &List li {
+    @apply relative mb-[15px] flex flex-row items-center justify-start pl-[30px] text-sm leading-[26px] text-white;
+    a {
+      @apply text-white;
+    }
+
+    a:hover {
+      @apply text-primary;
+    }
+
+    li:last-child {
+      @apply mb-0;
+    }
+  }
 }
 
 @media (min-width: 576px) {
   .filter {
-    margin-bottom: 20px;
+    @apply mb-5;
   }
 }
-@media (min-width: 992px) {
-  .filter {
-    margin-top: 30px;
-  }
-}
-.rowCatalog {
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-}
-.col12 {
-  position: relative;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-}
-.col .faq {
-  @apply relative mt-[30px] p-5;
-  border: 1px solid rgba(167, 130, 233, 0.06);
-  margin-top: 30px;
-  border-radius: 6px;
-  width: 100%;
 
-  &Title {
-    display: block;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 400;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    width: 100%;
-    border-bottom: 1px solid rgba(167, 130, 233, 0.06);
-    letter-spacing: 0.4px;
+@media (min-width: 992px) {
+  .navColumn {
+    @apply max-w-[25%] flex-[0_0_25%];
   }
-  &list li {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    color: #fff;
-    font-size: 14px;
-    line-height: 26px;
-    margin-bottom: 15px;
-    position: relative;
-    padding-left: 30px;
+
+  .filter {
+    @apply mt-[30px];
   }
-  .faq__list li:before {
-    content: '';
-    position: absolute;
-    color: #a782e9;
-    left: 0;
-    width: 16px;
-    top: 0;
-    bottom: 0;
-    background: no-repeat center left/100% auto;
+
+  .info {
+    @apply max-w-[75%] flex-[0_0_75%];
+
+    &Faq {
+      @apply max-w-[50%] flex-[0_0_50%];
+    }
   }
-  .faq__list li a {
-    color: #dbdada;
+}
+
+@media (min-width: 1200px) {
+  .info {
+    @apply max-w-[80%] flex-[0_0_80%];
   }
-  .faq__list li a:hover {
-    color: #a782e9;
-  }
-  .faq__list li:last-child {
-    margin-bottom: 0;
+
+  .navColumn {
+    @apply max-w-[20%] flex-[0_0_20%];
   }
 }
