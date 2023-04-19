@@ -18,7 +18,6 @@ const generateMockGameList = (props = {}): GameListInterface => ({
 const generateMockGameCard = (props = {}): GameCardInterface => ({
   badge: 'New',
   platforms: [{ type: 'ap' }, { type: 'win' }],
-  actionType: 'favorite',
   ...generateMockGameList(props),
 })
 

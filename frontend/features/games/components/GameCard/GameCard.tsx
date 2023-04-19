@@ -1,5 +1,6 @@
 import { FC } from 'react'
-import { IconBrandBitbucket, IconHeart } from '@tabler/icons-react'
+import { IconHeart } from '@tabler/icons-react'
+import { IconTrash } from '@tabler/icons-react'
 import cn from 'classnames'
 import { GameCardInterface } from 'features/games'
 import Image from 'next/image'
@@ -7,7 +8,7 @@ import Link from 'next/link'
 import s from './GameCard.module.scss'
 import { Platform } from './Platform'
 
-const GameCard: FC<GameCardInterface> = ({ badge, title, link, price, coverImg, sale, platforms, currency, actionType }) => {
+const GameCard: FC<GameCardInterface & { favorite: boolean }> = ({ badge, title, link, price, coverImg, sale, platforms, currency, favorite }) => {
   return (
     <div className={s.card}>
       <Link className={s.cardCover} href="/details/id">
@@ -40,13 +41,7 @@ const GameCard: FC<GameCardInterface> = ({ badge, title, link, price, coverImg, 
 
       <div className={s.cardActions}>
         <div className={cn(s.cardAction, s.cardActionBuy)}>Купить</div>
-
-        {actionType && (
-          <div className={cn(s.cardAction, s.cardActionFavorite)}>
-            {actionType === 'favorite' && <IconHeart />}
-            {actionType === 'delete' && <IconBrandBitbucket />}
-          </div>
-        )}
+        <div className={cn(s.cardAction, s.cardActionFavorite)}>{favorite ? <IconTrash /> : <IconHeart />}</div>
       </div>
     </div>
   )
