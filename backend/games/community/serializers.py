@@ -35,7 +35,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = '__all__'
+        exclude = ('game', )
 
     def get_reactions(self, obj):
         reactions = Reaction.objects.filter(review=obj)
