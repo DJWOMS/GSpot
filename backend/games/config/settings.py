@@ -25,13 +25,14 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
+    'simple_history',
 
     'core.apps.CoreConfig',
     'finance.apps.FinanceConfig',
     'reference.apps.ReferenceConfig',
     'utils.apps.UtilsConfig',
     'community.apps.CommunityConfig',
-    'simple_history',
+
 ]
 
 MIDDLEWARE = [
