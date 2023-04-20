@@ -1,15 +1,16 @@
 import Section from 'components/Section'
 import { GameCardInterface } from 'features/games'
-import { ArticleContent } from 'features/news/components/ArticleContent'
-import { Comments } from 'features/news/components/Comments'
-import { RandomGamesList } from 'features/news/components/RandomGamesList'
-import { SocialLink } from 'features/news/components/SocialLink'
-import { Subscribe } from 'features/news/components/Subscribe'
+import { ArticleContent } from 'features/news'
+import { Comments } from 'features/news'
+import { RandomGamesList } from 'features/news'
+import { SocialLink } from 'features/news'
+import { Subscribe } from 'features/news'
+import { RelatedNews } from 'features/news'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './page.module.scss'
 
 const Page = async () => {
-  const randomGames = await fetchServerSide<GameCardInterface[]>({ path: '/games/random' })
+  const randomGames = await fetchServerSide<GameCardInterface[]>({ path: '/games/random', cache: 'no-cache' })
 
   return (
     <Section>
@@ -38,6 +39,8 @@ const Page = async () => {
           </div>
         </div>
       </div>
+
+      <RelatedNews />
     </Section>
   )
 }
