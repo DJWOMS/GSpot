@@ -52,23 +52,23 @@ class TransferHistory(models.Model):
         ordering = ['-date_time_creation']
 
 
-class Transaction(models.Model):
+class ItemPurchase(models.Model):
     MAX_ITEM_PRICE = 10000  # in case of mistake
 
     account_from = models.ForeignKey(
         Account,
         on_delete=models.PROTECT,
-        related_name='transactions_account_from',
+        related_name='item_purchase_account_from',
     )
     account_to = models.ForeignKey(
         Account,
         on_delete=models.PROTECT,
-        related_name='transactions_account_to',
+        related_name='item_purchase_account_to',
     )
-    developer_account = models.ForeignKey(
+    developer_id = models.ForeignKey(
         Account,
         on_delete=models.PROTECT,
-        related_name='transactions',
+        related_name='developer_info',
         null=True,
     )
     item_price = MoneyField(
@@ -92,15 +92,15 @@ class Transaction(models.Model):
         )
 
 
-class TransactionHistory(models.Model):
-    class TransactionType(models.TextChoices):
+class ItemPurchaseHistory(models.Model):
+    class ItemPurchaseType(models.TextChoices):
         CREATED = ('CT', 'CREATED')
         COMPLETED = ('CD', 'COMPLETED')
 
-    transaction_id = models.ForeignKey(
-        Transaction,
+    item_purchase_id = models.ForeignKey(
+        ItemPurchase,
         on_delete=models.PROTECT,
-        related_name='transactions_history',
+        related_name='item_purchases_history',
         editable=False,
     )
     date_time_creation = models.DateTimeField(
@@ -110,12 +110,12 @@ class TransactionHistory(models.Model):
     )
     operation_type = models.CharField(
         max_length=50,
-        choices=TransactionType.choices,
+        choices=ItemPurchaseType.choices,
     )
 
     def __str__(self) -> str:
         return (
-            f'Transaction_id: {self.transaction_id}'
+            f'Item_purchase_id: {self.item_purchase_id}'
             f'Date time of creation: {self.date_time_creation}'
         )
 
@@ -129,12 +129,12 @@ class Invoice(models.Model):
         default=uuid.uuid4,
         editable=False,
     )
-    transactions = models.ManyToManyField(Transaction)
+    item_purchases = models.ManyToManyField(ItemPurchase)
 
     @property
     def total_price(self) -> Decimal:
         return sum(
-            self.transactions.all().values_list('item_price', flat=True),
+            self.item_purchases.all().values_list('item_price', flat=True),
         )
 
     def __str__(self):
