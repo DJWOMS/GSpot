@@ -1,0 +1,254 @@
+.comments {
+  margin-top: 50px;
+  padding-top: 50px;
+  border-top: 1px solid rgba(167, 130, 233, 0.06);
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 30px;
+
+  h4 {
+    color: #fff;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 100%;
+    margin-bottom: 0;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  span {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #a782e9;
+    font-size: 12px;
+    color: #dbdada;
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: 0.4px;
+    font-weight: 600;
+    margin-left: 15px;
+  }
+}
+
+.input {
+  background-color: rgba(167, 130, 233, 0.03);
+  border: 1px solid rgba(167, 130, 233, 0.06);
+  border-radius: 6px;
+  height: 150px;
+  position: relative;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  width: 100%;
+  padding: 15px 20px;
+  resize: none;
+  margin-bottom: 20px;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 44px;
+  border-radius: 6px;
+  background-color: #29b474 !important;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.item {
+  margin-bottom: 30px;
+  display: block;
+}
+
+.author {
+  display: block;
+  position: relative;
+  padding-left: 55px;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  border-radius: 6px;
+}
+
+.name {
+  display: block;
+  font-size: 16px;
+  color: #fff;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  margin-bottom: 5px;
+}
+
+.time {
+  display: block;
+  font-size: 11px;
+  color: #dbdada;
+  line-height: 100%;
+  font-weight: 400;
+}
+
+.text {
+  display: block;
+  margin-bottom: 0;
+  color: #dbdada;
+  font-size: 14px;
+  line-height: 26px;
+  background-color: #1b222e;
+  padding: 20px;
+  position: relative;
+  border-top: 1px solid rgba(167, 130, 233, 0.06);
+  border-left: 1px solid rgba(167, 130, 233, 0.06);
+  border-right: 1px solid rgba(167, 130, 233, 0.06);
+  border-radius: 6px 6px 0 0;
+
+  span {
+    display: block;
+    margin-bottom: 20px;
+    padding: 20px;
+    position: relative;
+    min-height: 80px;
+    border-radius: 6px;
+    color: #dbdada;
+    background-color: rgba(167, 130, 233, 0.03);
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px 20px;
+  border: 1px solid rgba(167, 130, 233, 0.06);
+  position: relative;
+  border-radius: 0 0 6px 6px;
+
+  button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 20px;
+    height: 22px;
+  }
+
+  button span {
+    font-size: 11px;
+    color: #dbdada;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    transition: 0.5s;
+  }
+
+  button svg {
+    width: 16px;
+    height: auto;
+    stroke: #dbdada;
+    margin-right: 5px;
+    transition: 0.5s;
+  }
+
+  button:hover span {
+    color: #a782e9;
+  }
+
+  button:hover svg {
+    stroke: #a782e9;
+  }
+
+  button:last-child {
+    margin-right: 0;
+  }
+}
+
+.rate {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  margin-top: -15px;
+
+  button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #dbdada;
+    font-size: 14px;
+    margin-right: 31px;
+    position: relative;
+    height: 30px;
+    letter-spacing: 0.4px;
+  }
+
+  button svg {
+    width: 16px;
+    height: auto;
+    opacity: 0.8;
+    transition: 0.5s;
+  }
+
+  button:last-child {
+    margin-right: 0;
+  }
+
+  button:last-child svg {
+    margin-left: 7px;
+    stroke: #fd6060;
+  }
+
+  button:first-child svg {
+    margin-right: 7px;
+    stroke: #29b474;
+  }
+
+  button:first-child:before {
+    content: '';
+    position: absolute;
+    display: block;
+    left: 100%;
+    margin-left: 15px;
+    width: 1px;
+    height: 15px;
+    background-color: rgba(167, 130, 233, 0.06);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  button:hover {
+    color: #fff;
+  }
+
+  button:hover svg {
+    opacity: 1;
+  }
+}
+
+.details {
+  padding-top: 0;
+  border-top: none;
+}

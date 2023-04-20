@@ -1,6 +1,7 @@
 import Section from 'components/Section'
 import { GameCardInterface } from 'features/games'
 import { ArticleContent } from 'features/news/components/ArticleContent'
+import { Comments } from 'features/news/components/Comments'
 import { RandomGamesList } from 'features/news/components/RandomGamesList'
 import { SocialLink } from 'features/news/components/SocialLink'
 import { Subscribe } from 'features/news/components/Subscribe'
@@ -22,6 +23,7 @@ const Page = async () => {
                 <SocialLink type="twitter" />
                 <SocialLink type="vk" />
               </div>
+              <Comments />
             </div>
             <div className={s.colRight}>
               <div className={s.sidebar}>
