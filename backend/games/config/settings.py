@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     'reference.apps.ReferenceConfig',
     'utils.apps.UtilsConfig',
     'community.apps.CommunityConfig',
-
 ]
 
 MIDDLEWARE = [
