@@ -1,34 +1,35 @@
 .article {
-  position: relative;
-  padding: 20px;
+  @apply relative p-5;
+
   border-radius: 6px;
   border: 1px solid rgba(167, 130, 233, 0.06);
   background-color: #1b222e;
 }
 
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  @apply -mx-4 flex flex-wrap;
 }
 
 .colLeft {
-  position: relative;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  flex: 0 0 66.666667%;
-  max-width: 66.666667%;
+  @apply relative w-full px-4;
+
+  flex: 0 0 100%;
+  max-width: 100%;
+  @media (min-width: 1200px) {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
 }
 
 .colRight {
-  flex: 0 0 33.333333%;
-  max-width: 33.333333%;
-  position: relative;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  @apply relative w-full px-4;
+
+  flex: 0 0 100%;
+  max-width: 100%;
+  @media (min-width: 1200px) {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
 }
 
 .sidebar {
@@ -46,12 +47,9 @@
 }
 
 .colSmall {
+  @apply relative w-full px-4;
   flex: 0 0 100%;
   max-width: 100%;
-  position: relative;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
 }
 
 .articleContent {
@@ -314,13 +312,12 @@
 }
 
 .links {
+  cursor: pointer;
+  @apply row flex w-full flex-wrap;
+
   margin-top: 10px;
-  display: flex;
-  flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  flex-wrap: wrap;
-  width: 100%;
 
   @media (min-width: 576px) {
     margin-top: 20px;

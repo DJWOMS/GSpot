@@ -1,16 +1,13 @@
 .comments {
-  margin-top: 50px;
-  padding-top: 50px;
+  @apply mt-12 pt-12;
   border-top: 1px solid rgba(167, 130, 233, 0.06);
 }
 
 .title {
-  display: flex;
-  flex-direction: row;
+  @apply mb-8 flex;
+
   justify-content: flex-start;
   align-items: flex-start;
-  margin-bottom: 30px;
-
   h4 {
     color: #fff;
     font-weight: 400;
