@@ -5,7 +5,6 @@ import { ErrorMessage } from '@hookform/error-message'
 import { Input } from 'components/Form'
 import Section from 'components/Section'
 import { LINK_TO_GOOGLE_MAPS } from 'configs'
-import { ContactsFormInterface } from 'features/contacts'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import Link from 'next/link'
 import s from './page.module.scss'
@@ -27,7 +26,7 @@ const ContactsPage = () => {
   } = useForm<FormProps>()
 
   const onSubmit: SubmitHandler<FormProps> = async (data) => {
-    const response = await fetchServerSide<ContactsFormInterface>({
+    const response = await fetchServerSide({
       path: '/contacts',
       method: 'POST',
       body: JSON.stringify(data),
@@ -39,11 +38,11 @@ const ContactsPage = () => {
   }
 
   const rules = {
-    required: true,
+    required: 'The field is required',
     minLength: { value: 2, message: 'Please, enter more than 2 characters!' },
   }
   const rulesForEmail = {
-    required: true,
+    required: 'The field is required',
     pattern: { value: /[^@]+@[^.]+\..+/, message: 'Е-mail is invalid!' },
   }
 

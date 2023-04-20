@@ -32,7 +32,7 @@
     }
 
     &:disabled {
-      @apply opacity-30 md:w-full;
+      @apply opacity-30;
     }
   }
 }
