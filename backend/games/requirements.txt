@@ -11,3 +11,4 @@ drf-yasg==1.21.5
 flake8==6.0.0
 pre-commit==3.2.0
 djangorestframework-camel-case
+django-simple-history==3.3.0
