@@ -40,3 +40,6 @@ export interface RequirementInterface {
 export interface PlatformType {
   type: 'ps' | 'xbox' | 'win' | 'ap'
 }
+export interface FaqInterface {
+  description: string
+}

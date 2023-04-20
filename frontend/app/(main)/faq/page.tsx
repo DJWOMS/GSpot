@@ -1,8 +1,18 @@
-import { IconFile } from '@tabler/icons-react'
 import Section from 'components/Section'
+import { FaqInterface } from 'features/games'
+import { fetchServerSide } from 'lib/fetchServerSide'
+import { notFound } from 'next/navigation'
 import s from './page.module.scss'
 
-const Page = () => {
+const Page = async () => {
+  const faq = await fetchServerSide<FaqInterface>({
+    path: '/games/faq',
+    cache: 'no-cache',
+  })
+
+  if (!faq) {
+    notFound()
+  }
   return (
     <>
       <Section title="FAQ" />
@@ -39,15 +49,6 @@ const Page = () => {
                       <li>
                         <a href="#">Platforms</a>
                       </li>
-                      <li>
-                        <a href="#">Discounts</a>
-                      </li>
-                      <li>
-                        <a href="#">Payment</a>
-                      </li>
-                      <li>
-                        <a href="#">Delete account</a>
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -61,42 +62,41 @@ const Page = () => {
                     <h3 className={s.faqTitle}>GG.template</h3>
                     <ul className={s.faqList}>
                       <li>
-                        <a href="#">Many desktop publishing packages and web page?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">Various versions have evolved over the years?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">The point of using Lorem Ipsum?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">The generated Lorem Ipsum?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">All the Lorem Ipsum generators on the Internet?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                     </ul>
                   </div>
                 </div>
-
                 <div className={s.infoFaq}>
                   <div className={s.faq}>
                     <h3 className={s.faqTitle}>Profile</h3>
                     <ul className={s.faqList}>
                       <li>
-                        <a href="#">Many desktop publishing packages and web page?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">Various versions have evolved over the years?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">The point of using Lorem Ipsum?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">The generated Lorem Ipsum?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">All the Lorem Ipsum generators on the Internet?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                     </ul>
                   </div>
@@ -107,19 +107,19 @@ const Page = () => {
                     <h3 className={s.faqTitle}>Categories</h3>
                     <ul className={s.faqList}>
                       <li>
-                        <a href="#">Many desktop publishing packages and web page?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">Various versions have evolved over the years?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">The point of using Lorem Ipsum?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">The generated Lorem Ipsum?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">All the Lorem Ipsum generators on the Internet?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                     </ul>
                   </div>
@@ -130,19 +130,19 @@ const Page = () => {
                     <h3 className={s.faqTitle}>Platforms</h3>
                     <ul className={s.faqList}>
                       <li>
-                        <a href="#">Many desktop publishing packages and web page?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">Various versions have evolved over the years?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">The point of using Lorem Ipsum?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">The generated Lorem Ipsum?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                       <li>
-                        <a href="#">All the Lorem Ipsum generators on the Internet?</a>
+                        <a href="#">{faq.description}</a>
                       </li>
                     </ul>
                   </div>
