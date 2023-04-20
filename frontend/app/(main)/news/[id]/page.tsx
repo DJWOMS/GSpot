@@ -3,6 +3,7 @@ import { GameCardInterface } from 'features/games'
 import { ArticleContent } from 'features/news/components/ArticleContent'
 import { RandomGamesList } from 'features/news/components/RandomGamesList'
 import { SocialLink } from 'features/news/components/SocialLink'
+import { Subscribe } from 'features/news/components/Subscribe'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './page.module.scss'
 
@@ -26,6 +27,9 @@ const Page = async () => {
               <div className={s.sidebar}>
                 <div className={s.row}>
                   <div className={s.colSmall}>{randomGames && <RandomGamesList>{randomGames}</RandomGamesList>}</div>
+                  <div className={s.colSmall}>
+                    <Subscribe />
+                  </div>
                 </div>
               </div>
             </div>
