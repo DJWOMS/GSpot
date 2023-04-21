@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
+import { Input } from 'components/Form'
+import { SkeletonInput } from 'components/Skeleton'
 import { UserDataInterface } from 'features/profile'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from '../page.module.scss'
@@ -15,130 +17,145 @@ interface InputTypes {
 }
 const Profile = () => {
   const [saved, setSaved] = useState(false)
+  const [error, setError] = useState<false | string>(false)
   const {
-    register,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isLoading },
     handleSubmit,
-    setValue,
+    control,
   } = useForm<InputTypes>({
-    // async defaultValues() {
-    //   const response = await fetch('/profile/settings')
-    //   const data = await response.json()
-    //   return {
-    //     username: data.username,
-    //     email: data.email,
-    //     firstName: data.firstName,
-    //     lastName: data.lastName,
-    //   }
-    // },
-    mode: 'onBlur',
-  })
-
-  useEffect(() => {
-    const loadData = async () => {
-      const response = await fetchServerSide<UserDataInterface>({
+    defaultValues: async () => {
+      const data = await fetchServerSide<UserDataInterface | undefined>({
         path: '/profile/settings',
       })
-      if (response) {
-        setValue('username', response.username)
-        setValue('email', response.email)
-        setValue('firstName', response.firstName)
-        setValue('lastName', response.lastName)
+      if (data) {
+        return {
+          username: data.username,
+          email: data.email,
+          firstName: data.firstName,
+          lastName: data.lastName,
+        }
       }
-    }
-    loadData()
-  }, [])
-
+      return {
+        username: '',
+        email: '',
+        firstName: '',
+        lastName: '',
+      }
+    },
+    mode: 'onBlur',
+  })
   const onSubmitUser = async (data: any) => {
     setSaved(false)
+    setError(false)
     const response = await fetchServerSide<UserDataInterface>({
       path: '/profile/settings',
       method: 'POST',
       body: JSON.stringify(data) as string,
     })
     if (response) {
-      if (response.status === 400) console.log('пользователь существует')
-      if (response.status === 201) setSaved(true)
+      if (response.status === 400) setError('пользователь существует')
+      if (response.status === 201) {
+        setSaved(true)
+        setTimeout(() => setSaved(false), 3000)
+      }
     }
   }
-  const errorMassage = 'Минимум 3 символовa'
+  const errorMessage = 'Минимум 3 символовa'
 
   return (
     <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitUser)}>
       <h4 className={s.formTitle}>Настройки профиля</h4>
-
       <div className={s.col}>
         <div>
           <label className={s.formLabel} htmlFor="username">
             Ник
           </label>
-          <input
-            {...register('username', {
-              required: true,
-              minLength: {
-                value: 3,
-                message: errorMassage,
-              },
-            })}
-            className={s.formInput}
-            placeholder="Doe"
-          />
+          {isLoading ? (
+            <SkeletonInput height="44px" />
+          ) : (
+            <Controller
+              name="username"
+              control={control}
+              rules={{
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: errorMessage,
+                },
+              }}
+              render={({ field }) => <Input {...field} type="text" placeholder="Doe" />}
+            />
+          )}
           <ErrorMessage errors={errors} name="username" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
         <div>
           <label className={s.formLabel} htmlFor="email">
             Email
           </label>
-          <input
-            {...register('email', {
-              required: true,
-              minLength: {
-                value: 3,
-                message: errorMassage,
-              },
-            })}
-            className={s.formInput}
-            placeholder="email@email.com"
-          />
+          {isLoading ? (
+            <SkeletonInput height="44px" />
+          ) : (
+            <Controller
+              name="email"
+              control={control}
+              rules={{
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: errorMessage,
+                },
+              }}
+              render={({ field }) => <Input {...field} type="text" placeholder="email@email.com" />}
+            />
+          )}
           <ErrorMessage errors={errors} name="email" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
-
         <div>
           <label className={s.formLabel} htmlFor="firstName">
             Имя
           </label>
-          <input
-            {...register('firstName', {
-              required: true,
-              minLength: {
-                value: 3,
-                message: errorMassage,
-              },
-            })}
-            className={s.formInput}
-            placeholder="John"
-          />
+          {isLoading ? (
+            <SkeletonInput height="44px" />
+          ) : (
+            <Controller
+              name="firstName"
+              control={control}
+              rules={{
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: errorMessage,
+                },
+              }}
+              render={({ field }) => <Input {...field} type="text" placeholder="John" />}
+            />
+          )}
           <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
-
         <div>
           <label className={s.formLabel} htmlFor="lastName">
             Фaмилия
           </label>
-          <input
-            {...register('lastName', {
-              required: true,
-              minLength: {
-                value: 3,
-                message: errorMassage,
-              },
-            })}
-            className={s.formInput}
-            placeholder="Doe"
-          />
+          {isLoading ? (
+            <SkeletonInput height="44px" />
+          ) : (
+            <Controller
+              name="lastName"
+              control={control}
+              rules={{
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: errorMessage,
+                },
+              }}
+              render={({ field }) => <Input {...field} type="text" placeholder="Doe" />}
+            />
+          )}
           <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
       </div>
+      {error && <p className={s.errorMessage}>{error}</p>}
       {saved && <p className={s.saved}>Сохраненно</p>}
       <input className={s.formBtn} type="submit" value="сохранить" disabled={!isValid} />
     </form>

@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
+import { Input } from 'components/Form'
+import { SkeletonInput } from 'components/Skeleton'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from '../page.module.scss'
 
@@ -10,31 +12,22 @@ interface InputTypes {
   oldPassword: string
   newPassword: string
   confirmPassword: string
-  change?: string
 }
 
 const Password = () => {
-  const [pass, setPass] = useState<string | null>()
   const [saved, setSaved] = useState(false)
   const {
-    register,
     handleSubmit,
     reset,
-    setError,
-    formState: { errors, isValid },
+    control,
+    formState: { errors, isValid, isLoading },
   } = useForm<InputTypes>({
-    // defaultValues: async () => fetch('/profile/settings/password'),
-    // defaultValues: async () => {
-    //   const response = await fetch('/profile/settings/password');
-    //   const data = await response.json();
-    //   return {
-    //     oldPassword: data.oldPassword,
-    //     newPassword: data.newPassword,
-    //     confirmPassword: data.confirmPassword,
-    //     change: data.change,
-    //   };
-    // },
-    // mode: 'onBlur',
+    mode: 'onBlur',
+    defaultValues: {
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    },
   })
 
   function validatePassword(password: string): boolean {
@@ -50,24 +43,14 @@ const Password = () => {
 
   const onSubmitPasword = async (data: any) => {
     setSaved(false)
-    if (data.newPassword === data.confirmPassword) {
-      const res = validatePassword(data.newPassword)
-      if (res) {
-        setPass(null)
-        const response = await fetchServerSide<InputTypes>({
-          path: '/profile/settings/password',
-          method: 'POST',
-          body: JSON.stringify(data) as string,
-        })
-        if (response) {
-          setSaved(true)
-        }
-      } else {
-        setPass('пароль слишком легкий')
-      }
-    } else {
-      setPass('пароли не совпадают')
-      // setError('change', { message: 'пароли не совпадают' })
+    const response = await fetchServerSide<InputTypes>({
+      path: '/profile/settings/password',
+      method: 'POST',
+      body: JSON.stringify(data) as string,
+    })
+    if (response) {
+      setSaved(true)
+      setTimeout(() => setSaved(false), 3000)
     }
     reset()
   }
@@ -77,57 +60,73 @@ const Password = () => {
   return (
     <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitPasword)}>
       <h4 className={s.formTitle}>Поменять пароль</h4>
-      {/* {errors.change && <p>{errors.change.message}</p>} */}
-      <p className={s.formPassword}>{pass}</p>
-
       <div className={s.col}>
         <div>
           <label className={s.formLabel} htmlFor="oldPassword">
             Старый пароль
           </label>
-          <input
-            {...register('oldPassword', {
-              required: errorMessage,
-            })}
-            id="oldpass"
-            type="password"
-            className={s.formInput}
-            placeholder="*** *** ***"
-          />
+          {isLoading ? (
+            <SkeletonInput height="44px" />
+          ) : (
+            <Controller
+              name="oldPassword"
+              control={control}
+              rules={{
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: errorMessage,
+                },
+              }}
+              render={({ field }) => <Input {...field} id="oldPassword" type="password" placeholder="*** *** ***" />}
+            />
+          )}
           <ErrorMessage errors={errors} name="oldPassword" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
         <div>
           <label className={s.formLabel} htmlFor="newPassword">
             Новый пароль
           </label>
-          <input
-            {...register('newPassword', {
-              required: errorMessage,
-            })}
-            id="oldpass"
-            type="password"
-            className={s.formInput}
-            placeholder="*** *** ***"
-          />
+          {isLoading ? (
+            <SkeletonInput height="44px" />
+          ) : (
+            <Controller
+              name="newPassword"
+              control={control}
+              rules={{
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: errorMessage,
+                },
+                validate: (value) => validatePassword(value) || 'пароль слишком легкий',
+              }}
+              render={({ field }) => <Input {...field} id="newPassword" type="password" placeholder="*** *** ***" />}
+            />
+          )}
           <ErrorMessage errors={errors} name="newPassword" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
         <div>
           <label className={s.formLabel} htmlFor="confirmPassword">
             Подтвердить Новый пароль
           </label>
-          <input
-            {...register('confirmPassword', {
-              required: errorMessage,
-              minLength: {
-                value: 3,
-                message: errorMessage,
-              },
-            })}
-            id="oldpass"
-            type="password"
-            className={s.formInput}
-            placeholder="*** *** ***"
-          />
+          {isLoading ? (
+            <SkeletonInput height="44px" />
+          ) : (
+            <Controller
+              name="confirmPassword"
+              control={control}
+              rules={{
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: errorMessage,
+                },
+                validate: (value, formValues) => value === formValues.newPassword || 'пароли не совпадают',
+              }}
+              render={({ field }) => <Input {...field} id="confirmPassword" type="password" placeholder="*** *** ***" />}
+            />
+          )}
           <ErrorMessage errors={errors} name="confirmPassword" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
         </div>
       </div>

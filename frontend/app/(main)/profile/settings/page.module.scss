@@ -7,11 +7,11 @@
   }
 
   &Label {
-    @apply mb-[10px] text-sm font-normal tracking-[0.4px] text-[#dbdada];
+    @apply mb-[12px] text-sm font-normal tracking-[0.4px] text-[#dbdada];
   }
 
   &Input {
-    @apply relative my-2 h-11 w-full rounded-md border border-solid border-main-60
+    @apply relative h-11 w-full rounded-md border border-solid border-main-60
       bg-main-30 py-0 px-5 text-sm tracking-[0.4px] text-white;
 
     &:focus {
@@ -84,9 +84,9 @@
 }
 
 .errorMessage {
-  @apply text-[#ff7777];
+  @apply text-danger;
 }
 
 .saved {
-  @apply text-[#60b643];
+  @apply text-acid;
 }
