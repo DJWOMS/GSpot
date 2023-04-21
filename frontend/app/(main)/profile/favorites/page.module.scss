@@ -1,5 +1,6 @@
 .columns10 {
   @apply lg:col-span-12 xl:col-span-12;
+  @apply relative pt-[60px] sm:pt-[70px] md:pt-[80px] lg:pt-[90px];
 }
 
 .list {
