@@ -2,8 +2,8 @@ from datetime import datetime
 from decimal import Decimal
 
 from apps.base import utils
+from apps.item_purchases.models import Invoice, ItemPurchase, ItemPurchaseHistory
 from apps.payment_accounts.models import Account
-from apps.transactions.models import Invoice, ItemPurchase, ItemPurchaseHistory
 from django.conf import settings
 
 from ..exceptions import ExtraTransactionHistoriesError

@@ -5,13 +5,13 @@ from apps.base import utils
 from apps.base.classes import AbstractPaymentClass
 from apps.base.schemas import URL, ResponseParsedData
 from apps.external_payments import schemas
+from apps.item_purchases.models import Invoice
+from apps.item_purchases.schemas import PurchaseItemsData
 from apps.payment_accounts.models import Account, BalanceChange
 from apps.payment_accounts.schemas import BalanceIncreaseData, YookassaRequestPayment
 from apps.payment_accounts.services.payment_commission import (
     calculate_payment_without_commission,
 )
-from apps.transactions.models import Invoice
-from apps.transactions.schemas import PurchaseItemsData
 from environs import Env
 from yookassa import Configuration, Payment
 

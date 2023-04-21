@@ -4,8 +4,8 @@ import uuid
 from decimal import Decimal
 
 from apps.base.fields import MoneyField
+from apps.item_purchases.exceptions import DuplicateError
 from apps.payment_accounts.models import Account
-from apps.transactions.exceptions import DuplicateError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 

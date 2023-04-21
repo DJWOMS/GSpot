@@ -69,14 +69,14 @@ class InvoiceCreator:
     def create_invoice_instance(self) -> int:
         list_of_transaction: list[ItemPurchase] = []
         for item_payment_data in self.income_data.items_payment_data:
-            transaction = self.create_transaction_instance(
+            item_purchase = self.create_transaction_instance(
                 self.payer_account,
                 item_payment_data,
             )
-            list_of_transaction.append(transaction)
+            list_of_transaction.append(item_purchase)
 
         invoice = Invoice.objects.create()
-        invoice.transactions.add(*list_of_transaction)
+        invoice.item_purchases.add(*list_of_transaction)
         self.invoice_instance = invoice
         return invoice.pk
 
@@ -88,14 +88,14 @@ class InvoiceCreator:
         account_to, _ = Account.objects.get_or_create(
             user_uuid=item_payment_data.owner_uuid,
         )
-        transaction = ItemPurchase.objects.create(
+        item_purchase = ItemPurchase.objects.create(
             account_from=payer_account,
             account_to=account_to,
             item_price=item_payment_data.price,
             item_uuid=item_payment_data.item_uuid,
         )
         ItemPurchaseHistory.objects.create(
-            transaction_id=transaction,
+            item_purchase_id=item_purchase,
             operation_type='CREATED',
         )
-        return transaction
+        return item_purchase

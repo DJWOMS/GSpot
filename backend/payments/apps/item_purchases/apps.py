@@ -3,5 +3,5 @@ from django.apps import AppConfig
 
 class TransactionsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.transactions'
+    name = 'apps.item_purchases'
     verbose_name = 'Транзакции'
