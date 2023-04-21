@@ -22,6 +22,3 @@ class ConnectionManager:
 
 
 manager = ConnectionManager()
-
-
-
