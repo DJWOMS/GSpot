@@ -1,19 +1,27 @@
-from fastapi import FastAPI, WebSocket
-from starlette.websockets import WebSocketDisconnect
+from fastapi import (
+    FastAPI,
+    WebSocket,
+    Depends,
+    WebSocketDisconnect,
+)
 
-from chanaels_socet import manager
+from src import manager, get_token
+
 
 app = FastAPI()
 
 
-@app.websocket("/ws/{client_id}")
-async def websocket_endpoint(websocket: WebSocket, client_id: int):
+@app.websocket("/ws")
+async def websocket_endpoint(
+        websocket: WebSocket,
+        token: str = Depends(get_token),
+):
     await manager.connect(websocket)
     try:
         while True:
             data = await websocket.receive_text()
             await manager.send_personal_message(f"You wrote: {data}", websocket)
-            await manager.broadcast(f"Client #{client_id} says: {data}")
+            await manager.broadcast(f"Client #{token} says: {data}")
     except WebSocketDisconnect:
         manager.disconnect(websocket)
-        await manager.broadcast(f"Client #{client_id} left the chat")
+        await manager.broadcast(f"Client #{token} left the chat")

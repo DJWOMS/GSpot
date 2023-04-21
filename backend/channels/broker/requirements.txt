@@ -9,3 +9,4 @@ pydantic==1.10.7
 pymongo==4.3.3
 typing_extensions==4.5.0
 yarl==1.8.2
+aiohttp==3.8.4
