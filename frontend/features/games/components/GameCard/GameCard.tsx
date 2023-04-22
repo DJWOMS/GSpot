@@ -1,5 +1,7 @@
+'use client'
+
 import { FC } from 'react'
-import { IconHeart } from '@tabler/icons-react'
+import { IconHeart, IconTrash } from '@tabler/icons-react'
 import cn from 'classnames'
 import { GameCardInterface } from 'features/games'
 import Image from 'next/image'
@@ -7,7 +9,10 @@ import Link from 'next/link'
 import s from './GameCard.module.scss'
 import { Platform } from './Platform'
 
-const GameCard: FC<GameCardInterface> = ({ badge, title, link, price, coverImg, sale, platforms, currency }) => {
+interface GameCardProps extends GameCardInterface {
+  onDelete?: () => void
+}
+const GameCard: FC<GameCardProps> = ({ badge, title, link, price, coverImg, sale, platforms, currency, onDelete }) => {
   return (
     <div className={s.card}>
       <Link className={s.cardCover} href="/details/id">
@@ -40,10 +45,7 @@ const GameCard: FC<GameCardInterface> = ({ badge, title, link, price, coverImg, 
 
       <div className={s.cardActions}>
         <div className={cn(s.cardAction, s.cardActionBuy)}>Купить</div>
-
-        <div className={cn(s.cardAction, s.cardActionFavorite)}>
-          <IconHeart />
-        </div>
+        <div className={cn(s.cardAction, s.cardActionFavorite)}>{onDelete ? <IconTrash onClick={onDelete} /> : <IconHeart />}</div>
       </div>
     </div>
   )
