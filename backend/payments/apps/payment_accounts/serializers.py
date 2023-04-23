@@ -18,6 +18,8 @@ class BalanceIncreaseSerializer(PaymentCommissionSerializer):
 
 
 class AccountSerializer(serializers.ModelSerializer):
+    user_uuid = serializers.UUIDField()
+
     class Meta:
         model = Account
         fields = ['user_uuid']
