@@ -14,6 +14,69 @@ class DeveloperPermissionMixin(PermissionsMixin):
         abstract = True
 
 
+class CompanyContact(models.Model):
+    contact = models.ForeignKey('Contact', on_delete=models.CASCADE, related_name='contacts')
+    company = models.ForeignKey('Company', on_delete=models.CASCADE, related_name='companys')
+
+    def __str__(self):
+        return f'{self.contact__type__name} - {self.company__title}'
+
+
+class Contact(models.Model):
+    type = models.ForeignKey('ContactType', on_delete=models.CASCADE, verbose_name=_('type contact'))
+    value = models.CharField(max_length=150, verbose_name=_('value contact'))
+
+    def __str__(self):
+        return f'{self.type__name}-{self.value}'
+
+    class Meta:
+        verbose_name = _('Company contact')
+        verbose_name_plural = _('Company contacts')
+
+
+class ContactType(models.Model):
+    name = models.CharField(max_length=100, verbose_name=_('name contact'))
+    icon = models.ImageField(verbose_name=_('icon contact'), null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('Contact')
+        verbose_name_plural = _('Contacts')
+
+
+class DeveloperContentType(BaseContentType):
+    class Meta(BaseContentType.Meta):
+        db_table = "developer_content_type"
+        verbose_name = _("developer content type")
+        verbose_name_plural = _("developer content types")
+
+
+class DeveloperPermission(BasePermission):
+    content_type = models.ForeignKey(
+        'DeveloperContentType',
+        models.CASCADE,
+        verbose_name=_("content type"),
+    )
+
+    class Meta(BasePermission.Meta):
+        db_table = "developer_permission"
+        verbose_name = _("developer permission")
+        verbose_name_plural = _("developer permissions")
+
+
+class DeveloperGroup(BaseGroup):
+    permissions = models.ManyToManyField(
+        DeveloperPermission, verbose_name=_("permissions"), blank=True, related_query_name="group"
+    )
+
+    class Meta(BaseGroup.Meta):
+        db_table = "developer_group"
+        verbose_name = _("developer group")
+        verbose_name_plural = _("developer groups")
+
+
 class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, verbose_name=_('User country'))
     phone = models.CharField(max_length=12, verbose_name=_('User phone-number'))
@@ -88,38 +151,6 @@ class Company(models.Model):
         verbose_name_plural = _('Company')
 
 
-class CompanyContact(models.Model):
-    contact = models.ForeignKey('Contact', on_delete=models.CASCADE, related_name='contacts')
-    company = models.ForeignKey('Company', on_delete=models.CASCADE, related_name='companys')
-
-    def __str__(self):
-        return f'{self.contact__type__name} - {self.company__title}'
-
-
-class Contact(models.Model):
-    type = models.ForeignKey('ContactType', on_delete=models.CASCADE, verbose_name=_('type contact'))
-    value = models.CharField(max_length=150, verbose_name=_('value contact'))
-
-    def __str__(self):
-        return f'{self.type__name}-{self.value}'
-
-    class Meta:
-        verbose_name = _('Company contact')
-        verbose_name_plural = _('Company contacts')
-
-
-class ContactType(models.Model):
-    name = models.CharField(max_length=100, verbose_name=_('name contact'))
-    icon = models.ImageField(verbose_name=_('icon contact'), null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('Contact')
-        verbose_name_plural = _('Contacts')
-
-
 class Friend(models.Model):
     user = models.ForeignKey(
         CompanyUser,
@@ -137,34 +168,3 @@ class Friend(models.Model):
 
     def __str__(self):
         return f'{self.user} - {self.friend}'
-
-
-class DeveloperContentType(BaseContentType):
-    class Meta(BaseContentType.Meta):
-        db_table = "developer_content_type"
-        verbose_name = _("developer content type")
-        verbose_name_plural = _("developer content types")
-
-
-class DeveloperPermission(BasePermission):
-    content_type = models.ForeignKey(
-        'DeveloperContentType',
-        models.CASCADE,
-        verbose_name=_("content type"),
-    )
-
-    class Meta(BasePermission.Meta):
-        db_table = "developer_permission"
-        verbose_name = _("developer permission")
-        verbose_name_plural = _("developer permissions")
-
-
-class DeveloperGroup(BaseGroup):
-    permissions = models.ManyToManyField(
-        DeveloperPermission, verbose_name=_("permissions"), blank=True, related_query_name="group"
-    )
-
-    class Meta(BaseGroup.Meta):
-        db_table = "developer_group"
-        verbose_name = _("developer group")
-        verbose_name_plural = _("developer groups")
