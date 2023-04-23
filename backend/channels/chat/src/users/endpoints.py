@@ -5,7 +5,8 @@ from fastapi import (
     WebSocketDisconnect,
 )
 
-from src import manager, get_token
+from services.websocket import manager
+from channels.chat.middlewares import get_token
 
 
 app = FastAPI()
