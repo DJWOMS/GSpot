@@ -1,4 +1,5 @@
 import rollbar
+
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
@@ -54,3 +55,7 @@ class BalanceIncreaseView(CreateAPIView):
             {'confirmation_url': confirmation_url},
             status=status.HTTP_201_CREATED,
         )
+
+
+class UserAccountAPIView(CreateAPIView):
+    serializer_class = serializers.AccountSerializer
