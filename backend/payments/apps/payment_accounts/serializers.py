@@ -22,4 +22,4 @@ class AccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ['user_uuid']
+        fields = ('user_uuid',)
