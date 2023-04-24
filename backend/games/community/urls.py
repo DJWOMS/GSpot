@@ -1,9 +1,8 @@
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
 
-
-router = routers.DefaultRouter()
+from .views import GameReviewListView, GameReviewCommentListView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('review/<uuid:game_uuid>/', GameReviewListView.as_view(), name='review'),
+    path('comments/<int:review_id>/', GameReviewCommentListView.as_view(), name='review-comments')
 ]
