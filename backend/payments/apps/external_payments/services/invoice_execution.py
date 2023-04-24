@@ -24,7 +24,7 @@ class InvoiceExecution:
         invoice_item_purchase.is_frozen = True
         invoice_item_purchase.save()
 
-        task_execution_datetime = self.get_transaction_execution_date_time(
+        task_execution_datetime = self.get_item_purchase_execution_date_time(
             invoice_item_purchase,
         )
 
@@ -34,7 +34,7 @@ class InvoiceExecution:
             gift_item_to_other_user.apply_async(eta=task_execution_datetime)
 
     @staticmethod
-    def get_transaction_execution_date_time(
+    def get_item_purchase_execution_date_time(
         invoice_item_purchase: ItemPurchase,
     ) -> datetime:
         item_purchases_history = invoice_item_purchase.item_purchases_history.all()
@@ -62,7 +62,7 @@ def execute_invoice_operations(
     decrease_amount: Decimal,
 ):
     invoice_executioner = InvoiceExecution(invoice_instance)
-    invoice_executioner.process_invoice_transactions()
+    invoice_executioner.process_invoice_item_purchase()
     if invoice_executioner.invoice_success_status is True:
         # TO BE DONE: it has to put money on our shop account
         # And developer account
