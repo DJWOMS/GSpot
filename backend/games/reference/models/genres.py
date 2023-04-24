@@ -38,7 +38,25 @@ class SubgenreProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     subgenre = models.ForeignKey(SubGenre, on_delete=models.CASCADE)
 
+    class Meta:
+        db_table = 'subgenre_product'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['product', 'subgenre'],
+                name='unique_subgenre_product'
+            )
+        ]
+
 
 class GenreProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'genre_product'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['product', 'genre'],
+                name='unique_genre_product'
+            )
+        ]
