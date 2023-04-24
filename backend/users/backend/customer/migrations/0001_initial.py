@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('admins', '0001_initial'),
+        ('administrator', '0001_initial'),
         ('auth', '0012_alter_user_first_name_max_length'),
     ]
 
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('email', models.EmailField(db_index=True, max_length=254, unique=True, verbose_name='email address')),
                 ('phone_number', models.CharField(blank=True, max_length=15, null=True, verbose_name='Номер телефона')),
-                ('country', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='admins.country', verbose_name='Страна')),
+                ('country', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='administrator.country', verbose_name='Страна')),
             ],
             options={
                 'db_table': 'customer',
@@ -46,14 +46,14 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('status', models.TextField(choices=[('REQUESTED', 'requested'), ('ACCEPTED', 'accepted'), ('REJECTED', 'rejected')], default='REQUESTED')),
-                ('receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='receiver', to='customers.customeruser')),
-                ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sender', to='customers.customeruser')),
+                ('receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='receiver', to='customer.customeruser')),
+                ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sender', to='customer.customeruser')),
             ],
         ),
         migrations.AddField(
             model_name='customeruser',
             name='friends',
-            field=models.ManyToManyField(through='customers.FriendShipRequest', to='customers.customeruser'),
+            field=models.ManyToManyField(through='customer.FriendShipRequest', to='customer.customeruser'),
         ),
         migrations.AddField(
             model_name='customeruser',

@@ -1,6 +1,6 @@
-from common.apps import BaseAppConfig
+from base.apps import BaseAppConfig
 
 
 class DeveloperAppConfig(BaseAppConfig):
-    name = "developers"
+    name = "developer"
     verbose_name = "Developer"

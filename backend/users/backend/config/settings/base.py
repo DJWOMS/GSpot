@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'djoser',
     'rest_framework_simplejwt',
     # Local apps
-    'admins.apps.AdminAppConfig',
-    'developers.apps.DeveloperAppConfig',
-    'customers.apps.CustomerAppConfig',
+    'administrator.apps.AdministratorAppConfig',
+    'developer.apps.DeveloperAppConfig',
+    'customer.apps.CustomerAppConfig',
+	'common.apps.CommonAppConfig',
 
 ]
 

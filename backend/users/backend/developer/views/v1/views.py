@@ -3,9 +3,9 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.response import Response
 
-from .models import CompanyUser, Company
-from .permissions import IsAdminOrOwnerCompany
-from .serializers import CompanySerializer, CompanyEmployeeSerializer, CompanyUserSerializer
+from developer.models import CompanyUser, Company
+from developer.permissions import IsAdminOrOwnerCompany
+from developer.serializers.serializers import CompanySerializer, CompanyEmployeeSerializer, CompanyUserSerializer
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
