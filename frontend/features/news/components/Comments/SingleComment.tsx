@@ -3,9 +3,14 @@ import { IconThumbUp } from '@tabler/icons-react'
 import { IconThumbDown } from '@tabler/icons-react'
 import { IconArrowForwardUp } from '@tabler/icons-react'
 import { IconMessageForward } from '@tabler/icons-react'
+import { CommentInterface } from 'features/news/types'
 import s from './Comments.module.scss'
 
-const SingleComment: FC = () => {
+type SingleCommentType = {
+  children: CommentInterface
+}
+
+const SingleComment: FC<SingleCommentType> = ({ children }) => {
   return (
     <li className={s.item}>
       <div className={s.author}>

@@ -1,8 +1,13 @@
 import { FC } from 'react'
+import { CommentInterface } from 'features/news/types'
 import s from './Comments.module.scss'
 import { SingleComment } from './SingleComment'
 
-const Comments: FC = () => {
+type CommentsType = {
+  children: CommentInterface[]
+}
+
+const Comments: FC<CommentsType> = ({ children }) => {
   return (
     <div className={s.comments}>
       <div className={s.title}>
@@ -11,7 +16,9 @@ const Comments: FC = () => {
       </div>
 
       <ul className={s.list}>
-        <SingleComment />
+        {children.map((data, index) => (
+          <SingleComment key={index}>{data}</SingleComment>
+        ))}
       </ul>
 
       <form action="#" className="form">
