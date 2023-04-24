@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('admins', '0001_initial'),
+        ('administrator', '0001_initial'),
     ]
 
     operations = [
@@ -53,8 +53,8 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('is_superuser', models.BooleanField(default=False)),
                 ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
-                ('company', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='all_user_this_company', to='developers.company', verbose_name='Company')),
-                ('country', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='admins.country', verbose_name='User country')),
+                ('company', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='all_user_this_company', to='developer.company', verbose_name='Company')),
+                ('country', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='administrator.country', verbose_name='User country')),
             ],
             options={
                 'verbose_name': 'Company user',
@@ -100,8 +100,8 @@ class Migration(migrations.Migration):
             name='Friend',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('friend', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='friend', to='developers.companyuser', verbose_name='friend')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user', to='developers.companyuser', verbose_name='user')),
+                ('friend', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='friend', to='developer.companyuser', verbose_name='friend')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user', to='developer.companyuser', verbose_name='user')),
             ],
         ),
         migrations.CreateModel(
@@ -110,7 +110,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=255, verbose_name='name')),
                 ('codename', models.CharField(max_length=100, verbose_name='codename')),
-                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='developers.developercontenttype', verbose_name='content type')),
+                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='developer.developercontenttype', verbose_name='content type')),
             ],
             options={
                 'verbose_name': 'developer permission',
@@ -129,7 +129,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=150, unique=True, verbose_name='name')),
-                ('permissions', models.ManyToManyField(blank=True, related_query_name='group', to='developers.developerpermission', verbose_name='permissions')),
+                ('permissions', models.ManyToManyField(blank=True, related_query_name='group', to='developer.developerpermission', verbose_name='permissions')),
             ],
             options={
                 'verbose_name': 'developer group',
@@ -146,7 +146,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('value', models.CharField(max_length=150, verbose_name='value contact')),
-                ('type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='developers.contacttype', verbose_name='type contact')),
+                ('type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='developer.contacttype', verbose_name='type contact')),
             ],
             options={
                 'verbose_name': 'Company contact',
@@ -156,24 +156,24 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='companyuser',
             name='groups',
-            field=models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='developers.developergroup', verbose_name='groups'),
+            field=models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='developer.developergroup', verbose_name='groups'),
         ),
         migrations.AddField(
             model_name='companyuser',
             name='user_permissions',
-            field=models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='developers.developerpermission', verbose_name='user permissions'),
+            field=models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='developer.developerpermission', verbose_name='user permissions'),
         ),
         migrations.CreateModel(
             name='CompanyContact',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='companys', to='developers.company')),
-                ('contact', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='contacts', to='developers.contact')),
+                ('company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='companys', to='developer.company')),
+                ('contact', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='contacts', to='developer.contact')),
             ],
         ),
         migrations.AddField(
             model_name='company',
             name='created_by',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, related_name='company_owner', to='developers.companyuser', verbose_name='Company owner'),
+            field=models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, related_name='company_owner', to='developer.companyuser', verbose_name='Company owner'),
         ),
     ]

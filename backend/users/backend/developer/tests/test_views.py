@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from rest_framework.reverse import reverse
 
-from admins.models import Admin
+from administrators.models import Admin
 from developers.models import Company, CompanyUser
 
 User = get_user_model()

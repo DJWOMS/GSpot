@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 
-from admins.models import AdminPermission
+from administrator.models import AdminPermission
 
 User = get_user_model()
 

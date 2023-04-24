@@ -2,5 +2,5 @@ from common.apps import BaseAppConfig
 
 
 class CustomerAppConfig(BaseAppConfig):
-    name = "customers"
+    name = "customer"
     verbose_name = "Customer"

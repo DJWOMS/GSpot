@@ -1,4 +1,4 @@
-AUTH_USER_MODEL = 'admins.Admin'
+AUTH_USER_MODEL = 'administrator.Admin'
 
 AUTHENTICATION_BACKENDS = [
     "common.auth_backends.AdminBackend",
