@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from developer.models import CompanyUser, Company
 from developer.permissions import IsAdminOrOwnerCompany
-from developer.serializers import CompanySerializer, CompanyEmployeeSerializer, CompanyUserSerializer
+from developer.serializers.serializers import CompanySerializer, CompanyEmployeeSerializer, CompanyUserSerializer
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
