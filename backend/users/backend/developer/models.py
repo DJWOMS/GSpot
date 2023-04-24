@@ -6,7 +6,7 @@ from django.db import models
 from base.models import BaseAbstractUser, BaseContentType, BasePermission, BaseGroup
 from django.utils.translation import gettext_lazy as _
 
-from administrator.models import Country
+from common.models import Country
 
 
 class DeveloperPermissionMixin(PermissionsMixin):

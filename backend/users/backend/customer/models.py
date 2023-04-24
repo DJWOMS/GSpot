@@ -1,6 +1,6 @@
 from django.db import models
 
-from administrator.models import Country
+from common.models import Country
 from base.models import BaseAbstractUser
 
 

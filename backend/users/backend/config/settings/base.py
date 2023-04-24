@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'administrator.apps.AdministratorAppConfig',
     'developer.apps.DeveloperAppConfig',
     'customer.apps.CustomerAppConfig',
+	'common.apps.CommonAppConfig',
 
 ]
 
