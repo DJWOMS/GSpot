@@ -123,4 +123,41 @@ Here's a quick comparison of the two approaches:
 
 As you can see, there are trade-offs to consider when deciding between using `useEffect` and Server side loading. If performance is a top priority, Server side may be the better choice, while `useEffect` may be more appropriate for certain use cases or when SEO is a top priority.
 
+Here you can see small simple example how it looks like inside Next.JS application:
+```typescript jsx
+import { useEffect, useState, FC } from 'react';
+import User from './UserComponent'
+
+const fetchData = async (itemId: number) => {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${itemId}`)
+    return res.json()
+}
+
+const UserPage: FC<any> = async ({params: {id}}) => {
+    let itemId: number | undefined
+    try {
+        itemId = Number(id)
+    } catch {
+        return <div>You should use only numbers in id param</div>
+    }
+    // In this case we have data already when page loaded
+    const user = await fetchData(itemId)
+    
+    // In this case when page loads we have clientUser with value = undefined
+    const [clientUser, setClientUser] = useState<any>()
+    
+    useEffect(() => {
+        // After page and all JS loaded we start to fetch data
+        fetchData(itemId).then(r => {
+            setClientUser(r.data)
+        })
+    }, [])
+    
+    return <div>
+        <User {...user} />
+        {clientUser && <User {...clientUser} />}
+    </div>
+}
+```
+
 ###### _Note: The data provided in the tables is not based on actual measurements and should not be relied upon as accurate. They are merely meant to serve as a hypothetical example for the purpose of demonstrating the advantages and disadvantages of different approaches. Actual performance may vary based on a variety of factors, including network conditions, hardware, software, and other variables. It is always recommended to conduct real-world testing and analysis to determine the best approach for your specific use case._
