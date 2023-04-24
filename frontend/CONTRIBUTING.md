@@ -94,11 +94,11 @@ By bundling these smaller items, you can reduce the number of HTTP requests made
 
 Here's a quick comparison of network performance for a webpage with 10 small items versus a webpage with the same 10 items bundled into a single larger file:
 
-|   | 10 Small Items  | Bundled into One  |
-|---|---|---|
-|  Load Time | 5 seconds  | 2 seconds  |
-| Requests  | 10  | 1  |
-| Size  |  1MB | 500KB  |
+|           | 10 Small Items | Bundled into One |
+|-----------|----------------|------------------|
+| Load Time | 5 seconds      | 2 seconds        |
+| Requests  | 10             | 1                |
+| Size      | 1MB            | 500KB            |
 
 As you can see, bundling small items can cut the load time in half and reduce the number of requests by a factor of 10, resulting in a much faster and more efficient website.
 
