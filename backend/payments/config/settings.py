@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # local
     'apps.payment_accounts',
-    'apps.transactions',
+    'apps.item_purchases',
     'apps.external_payments',
 ]
 

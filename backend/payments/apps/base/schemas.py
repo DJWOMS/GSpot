@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import NewType
 
+from apps.item_purchases.models import Invoice
 from apps.payment_accounts.models import Account, BalanceChange
-from apps.transactions.models import Invoice
 
 URL = NewType('URLField', str)
 

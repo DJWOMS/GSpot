@@ -1,5 +1,5 @@
 import rollbar
-from apps.transactions.schemas import PurchaseItemsData
+from apps.item_purchases.schemas import PurchaseItemsData
 from dacite import MissingValueError, from_dict
 from rest_framework import status, viewsets
 from rest_framework.response import Response
