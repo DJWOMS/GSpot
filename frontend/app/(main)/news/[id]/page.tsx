@@ -1,8 +1,8 @@
 import Section from 'components/Section'
 import { GameCardInterface } from 'features/games'
+import { ListGames } from 'features/games'
 import { ArticleContent } from 'features/news'
 import { Comments } from 'features/news'
-import { RandomGamesList } from 'features/news'
 import { SocialLink } from 'features/news'
 import { Subscribe } from 'features/news'
 import { RelatedNews } from 'features/news'
@@ -29,7 +29,7 @@ const Page = async () => {
             <div className={s.colRight}>
               <div className={s.sidebar}>
                 <div className={s.row}>
-                  <div className={s.colSmall}>{randomGames && <RandomGamesList>{randomGames}</RandomGamesList>}</div>
+                  <div className={s.colSmall}>{randomGames && <ListGames>{randomGames}</ListGames>}</div>
                   <div className={s.colSmall}>
                     <Subscribe />
                   </div>
