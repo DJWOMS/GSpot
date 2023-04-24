@@ -21,3 +21,11 @@ export interface CheckoutGameCardInterface {
   price: number
   currency: string
 }
+
+export interface UserDataInterface {
+  status: number
+  username: string
+  email: string
+  firstName: string
+  lastName: string
+}
