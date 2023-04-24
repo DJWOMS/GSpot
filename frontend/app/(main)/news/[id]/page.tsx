@@ -18,7 +18,7 @@ const Page = async () => {
         <div className={s.article}>
           <div className={s.row}>
             <div className={s.colLeft}>
-              <ArticleContent s={s} />
+              <ArticleContent />
               <div className={s.links}>
                 <SocialLink type="facebook" />
                 <SocialLink type="twitter" />

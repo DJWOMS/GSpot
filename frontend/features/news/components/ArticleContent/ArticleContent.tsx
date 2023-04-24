@@ -1,15 +1,10 @@
 import React, { FC } from 'react'
 import { IconClockHour4 } from '@tabler/icons-react'
+import s from './ArticleContent.module.scss'
 
 // import Image from 'next/image'
 
-type ArticleContentProps = {
-  s: {
-    readonly [key: string]: string
-  }
-}
-
-const ArticleContent: FC<ArticleContentProps> = ({ s }) => {
+const ArticleContent: FC = () => {
   return (
     <div className={s.articleContent}>
       <a href="#" className={s.articleCategory}>

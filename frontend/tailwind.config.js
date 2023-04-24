@@ -4,6 +4,12 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './features/**/*.{ts,tsx}'],
   theme: {
+    screens: {
+      sm: '576px',
+      md: '768px',
+      lg: '1200px',
+      xl: '1310px',
+    },
     extend: {
       colors: {
         background: '#1b222e',

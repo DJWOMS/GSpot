@@ -1,33 +1,20 @@
 .link {
-  margin-top: 20px;
-  margin-right: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0 15px;
-  height: 30px;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 14px;
+  @apply mt-5 mr-5 flex h-[30px] flex-row items-center justify-start rounded py-0 px-[15px] text-sm text-white;
+
   svg {
-    fill: #fff;
-    margin-right: 10px;
-    margin-top: 1px;
-    height: 16px;
+    @apply mr-[10px] mt-[1px] h-[16px] text-white;
   }
   &:hover {
-    background-color: #a782e9;
-    color: #fff;
+    @apply bg-primary text-white;
   }
 }
 
 .facebook {
-  background-color: #3b5998;
+  @apply bg-[#3b5998];
 }
 .twitter {
-  background-color: #55acee;
+  @apply bg-[#55acee];
 }
 .vkontakte {
-  background-color: #4c6c91;
+  @apply bg-[#4c6c91];
 }

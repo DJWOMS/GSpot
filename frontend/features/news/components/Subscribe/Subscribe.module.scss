@@ -1,83 +1,37 @@
 .subscribe {
-  position: relative;
-  padding: 20px;
-  border-radius: 6px;
-  border: 1px solid rgba(167, 130, 233, 0.06);
-  background-color: #1b222e;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  @apply relative mt-[30px] flex flex-col items-center justify-start
+  rounded border-main-60 bg-background p-5;
 }
 
 .image {
-  width: 100%;
-  margin-bottom: 20px;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  @apply mb-5 flex h-auto w-full flex-row
+  items-center justify-center;
 
   svg {
-    width: 56px;
-    height: auto;
-    stroke: #a782e9;
+    @apply h-auto w-[56px] stroke-primary;
   }
 }
 
 .title {
-  color: #fff;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 100%;
-  margin-bottom: 20px;
-  position: relative;
-  font-family: 'Montserrat', sans-serif;
+  @apply relative mb-5 font-mont text-[24px] font-normal leading-[100%] text-white;
 }
 
 .text {
-  font-size: 14px;
-  line-height: 26px;
-  color: #dbdada;
-  margin-bottom: 25px;
-  width: 100%;
-  text-align: center;
+  @apply mb-[25px] w-full text-center text-sm leading-6 text-light;
 }
 
 .button {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 44px;
-  border-radius: 6px;
+  @apply flex h-[44px] w-full flex-row items-center justify-center rounded
+  text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
+
   background-color: #29b474 !important;
-  color: #fff;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
 }
 
 .input {
-  background-color: rgba(167, 130, 233, 0.03);
-  border: 1px solid rgba(167, 130, 233, 0.06);
-  border-radius: 6px;
-  height: 44px;
-  position: relative;
-  color: #fff;
-  font-size: 14px;
-  width: 100%;
-  padding: 0 20px;
-  letter-spacing: 0.4px;
-  margin-bottom: 20px;
+  @apply relative mb-5 h-[44px] w-full 
+  rounded border-main-60 bg-main-30 py-0 px-5 text-sm tracking-default text-white;
 
   &:focus {
-    background-color: rgba(167, 130, 233, 0.04);
-    border-color: rgba(167, 130, 233, 0.5);
+    @apply border-main-500 bg-main-40;
   }
 }
