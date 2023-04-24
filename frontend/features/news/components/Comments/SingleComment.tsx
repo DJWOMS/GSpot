@@ -14,23 +14,19 @@ const SingleComment: FC<SingleCommentType> = ({ children }) => {
   return (
     <li className={s.item}>
       <div className={s.author}>
-        <img className={s.avatar} src="#" alt="" />
-        <span className={s.name}>John Doe</span>
-        <span className={s.time}>30.08.2020, 17:53</span>
+        <img className={s.avatar} src={children.avatar} alt="" />
+        <span className={s.name}>{children.name}</span>
+        <span className={s.time}>{children.time}</span>
       </div>
-      <p className={s.text}>
-        There are many variations of passages of Lorem Ipsum avmajority have suffered alteration in some form, by injected humour, or randomised wlook
-        even slightly believable. If you are going to use a passage of Lorem Ipsum, youthere is not anything embarrassing hidden in the middle of
-        text.
-      </p>
+      <p className={s.text}>{children.text}</p>
       <div className={s.actions}>
         <div className={s.rate}>
           <button type="button">
             <IconThumbUp />
-            12
+            {children.likes}
           </button>
           <button type="button">
-            7
+            {children.dislikes}
             <IconThumbDown />
           </button>
         </div>
