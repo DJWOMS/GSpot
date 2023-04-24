@@ -1,4 +1,4 @@
-from common.apps import BaseAppConfig
+from base.apps import BaseAppConfig
 
 
 class AdministratorAppConfig(BaseAppConfig):

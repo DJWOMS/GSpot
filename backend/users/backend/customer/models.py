@@ -1,7 +1,7 @@
 from django.db import models
 
 from administrator.models import Country
-from common.models import BaseAbstractUser
+from base.models import BaseAbstractUser
 
 
 class CustomerUser(BaseAbstractUser):
