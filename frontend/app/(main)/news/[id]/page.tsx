@@ -1,7 +1,7 @@
 import Section from 'components/Section'
 import { GameCardInterface } from 'features/games'
 import { ListGames } from 'features/games'
-import { ArticleContent } from 'features/news'
+import { ArticleContent, ArticleInterface } from 'features/news'
 import { Comments } from 'features/news'
 import { SocialLink } from 'features/news'
 import { Subscribe } from 'features/news'
@@ -11,6 +11,7 @@ import s from './page.module.scss'
 
 const Page = async () => {
   const randomGames = await fetchServerSide<GameCardInterface[]>({ path: '/games/random', cache: 'no-cache' })
+  const articleContent = await fetchServerSide<ArticleInterface>({ path: '/news/[id]', cache: 'no-cache' })
 
   return (
     <Section>
@@ -18,7 +19,7 @@ const Page = async () => {
         <div className={s.article}>
           <div className={s.row}>
             <div className={s.colLeft}>
-              <ArticleContent />
+              {articleContent && <ArticleContent>{articleContent}</ArticleContent>}
               <div className={s.links}>
                 <SocialLink type="facebook" />
                 <SocialLink type="twitter" />
