@@ -1,24 +1,24 @@
 name: Frontend Deploy Workflow
+on:
+  workflow_run:
+    workflows: [Frontend Tests]
+    branches:
+      - main
+      - develop
+    types:
+      - completed
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-on:
-  push:
-    branches:
-    - main
-    - develop
-    paths:
-    - frontend/**
+defaults:
+  run:
+    working-directory: frontend
 jobs:
   deploy-dev:
-    name: 'Develop deploy'
-    needs: [build-check]
+    name: Develop deploy
     if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     environment:
       name: Develop
       url: ${{ steps.deploy.outputs.PREVIEW_URL }}
@@ -41,18 +41,14 @@ jobs:
           echo "PREVIEW_URL=$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)" >> $GITHUB_OUTPUT
 
   deploy-prod:
-    name: 'Deploy to production'
-    needs: [build-check]
+    name: Deploy to production
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     environment:
       name: Production
       url: ${{ steps.deploy.outputs.PRODUCTION_URL }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18

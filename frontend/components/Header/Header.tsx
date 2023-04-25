@@ -106,12 +106,12 @@ const Header: FC<HeaderProps> = ({ links }) => {
             <Search />
 
             <div className={s.actions}>
-              <Link className={s.actionLink} href="/favorite">
+              <Link className={s.actionLink} href="/profile/favorites">
                 <IconHeart />
                 <span>Favorites</span>
               </Link>
 
-              <Link className={s.actionLink} href="/checkout">
+              <Link className={s.actionLink} href="/profile/checkout">
                 <IconShoppingCart />
                 <span>$00.00</span>
               </Link>

@@ -7,16 +7,19 @@
   }
 
   &Label {
-    @apply mb-[10px] text-sm font-normal tracking-[0.4px] text-[#dbdada];
+    @apply mb-[12px] text-sm font-normal tracking-[0.4px] text-[#dbdada];
   }
 
   &Input {
-    @apply relative my-2 h-11 w-full rounded-md border border-solid border-main-60
+    @apply relative h-11 w-full rounded-md border border-solid border-main-60
       bg-main-30 py-0 px-5 text-sm tracking-[0.4px] text-white;
 
     &:focus {
       @apply border-main-500 bg-main-40;
     }
+  }
+  &Password {
+    @apply text-[#cc4646];
   }
 
   &Select {
@@ -61,6 +64,13 @@
     &:hover {
       @apply bg-primary text-white;
     }
+
+    &:disabled {
+      @apply opacity-[0.3];
+      &:hover {
+        @apply bg-acid;
+      }
+    }
   }
 }
 
@@ -71,4 +81,12 @@
 .col {
   @extend .row;
   @apply gap-3 gap-x-5;
+}
+
+.errorMessage {
+  @apply text-danger;
+}
+
+.saved {
+  @apply text-acid;
 }
