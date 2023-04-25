@@ -153,7 +153,7 @@ class YookassaResponseParser:
         response_data.invoice = invoice
         return response_data
 
-    def _parse_user_account(self) -> Account:
+    def _parse_user_account(self) -> Account | None:
         account_id = int(self.payment_body.metadata['account_id'])
         return utils.parse_model_instance(
             django_model=Account,
@@ -171,7 +171,7 @@ class YookassaResponseParser:
     @staticmethod
     def _parse_invoice_object(
         payment_body: schemas.YookassaPaymentBody,
-    ) -> Invoice:
+    ) -> Invoice | None:
         return utils.parse_model_instance(
             django_model=Invoice,
             error_message=f"Can't get invoice instance for payment id {payment_body.id_}",

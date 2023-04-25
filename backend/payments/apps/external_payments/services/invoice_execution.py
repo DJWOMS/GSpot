@@ -21,7 +21,7 @@ class InvoiceExecution:
         self.invoice_success_status = True
 
     def process_item_purchase(self, invoice_item_purchase: ItemPurchase) -> None:
-        invoice_item_purchase.is_frozen = True
+        invoice_item_purchase.status = 'PENDING'
         invoice_item_purchase.save()
 
         task_execution_datetime = self.get_item_purchase_execution_date_time(
@@ -52,7 +52,7 @@ class InvoiceExecution:
             execution_date_time = settings.PERIOD_FOR_MYSELF_TASK
         else:
             execution_date_time = settings.PERIOD_FOR_GIFT_TASK
-        return item_purchase_history.date_time_creation + execution_date_time
+        return item_purchase_history.created_date + execution_date_time
 
 
 def execute_invoice_operations(

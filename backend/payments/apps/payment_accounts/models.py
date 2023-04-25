@@ -3,7 +3,8 @@ from __future__ import annotations
 from decimal import Decimal
 
 from apps.base.fields import MoneyField
-from django.core.validators import MinValueValidator
+from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models, transaction
 from django.shortcuts import get_object_or_404
 
@@ -24,6 +25,7 @@ class Account(models.Model):
         validators=[MinValueValidator(0, message='Insufficient Funds')],
         default=0,
     )
+    currency = models.CharField(max_length=3, default=settings.DEFAULT_CURRENCY)
 
     @classmethod
     @is_amount_positive
@@ -75,7 +77,7 @@ class BalanceChange(models.Model):
         editable=False,
         default=0,
     )
-    date_time_creation = models.DateTimeField(
+    created_date = models.DateTimeField(
         auto_now_add=True,
         editable=False,
         db_index=True,
@@ -86,9 +88,95 @@ class BalanceChange(models.Model):
     def __str__(self) -> str:
         return (
             f'Account id:  {self.account_id} '
-            f'Date time of creation: {self.date_time_creation}'
+            f'Date time of creation: {self.created_date}'
             f'Amount: {self.amount}'
         )
 
     class Meta:
-        ordering = ['-date_time_creation']
+        ordering = ['-created_date']
+
+
+class Owner(models.Model):
+    MAX_COMMISSION = 100
+
+    revenue = MoneyField(
+        validators=[MinValueValidator(0, message='Insufficient FUnds')],
+        editable=False,
+        default=0,
+    )
+    income = MoneyField(
+        validators=[MinValueValidator(0, message='Insufficient FUnds')],
+        editable=False,
+        default=0,
+    )
+    commission = models.DecimalField(
+        validators=(
+            MinValueValidator(0, message='Should be positive value'),
+            MaxValueValidator(
+                MAX_COMMISSION,
+                message=f'Should be not greater than {MAX_COMMISSION}',
+            ),
+        ),
+        decimal_places=2,
+        max_digits=settings.MAX_BALANCE_DIGITS,
+        default=Decimal(0.00),
+    )
+    frozen_time = models.DurationField()
+    gift_time = models.DurationField()
+
+    @classmethod
+    @is_amount_positive
+    def deposit_revenue(cls, *, pk: int, amount: Decimal) -> Owner:
+        with transaction.atomic():
+            owner = get_object_or_404(
+                cls.objects.select_for_update(),
+                pk=pk,
+            )
+            owner.revenue += amount
+            owner.save()
+        return owner
+
+    @classmethod
+    @is_amount_positive
+    def deposit_income(cls, *, pk: int, amount: Decimal) -> Owner:
+        with transaction.atomic():
+            owner = get_object_or_404(
+                cls.objects.select_for_update(),
+                pk=pk,
+            )
+            owner.income += amount
+            owner.save()
+        return owner
+
+    @classmethod
+    @is_amount_positive
+    def withdraw_revenue(cls, *, pk: int, amount: Decimal) -> Owner:
+        with transaction.atomic():
+            owner = get_object_or_404(
+                cls.objects.select_for_update(),
+                pk=pk,
+            )
+            owner.revenue -= amount
+            owner.save()
+        return owner
+
+    @classmethod
+    @is_amount_positive
+    def withdraw_income(cls, *, pk: int, amount: Decimal) -> Owner:
+        with transaction.atomic():
+            owner = get_object_or_404(
+                cls.objects.select_for_update(),
+                pk=pk,
+            )
+            owner.income -= amount
+            owner.save()
+        return owner
+
+    def __str__(self) -> str:
+        return (
+            f'Revenue: {self.revenue}'
+            f'Income: {self.income}'
+            f'Commission: {self.commission}'
+            f'Frozen time: {self.frozen_time}'
+            f'Gift time: {self.gift_time}'
+        )
