@@ -25,5 +25,8 @@
         "react/jsx-key": "error",
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/no-var-requires": "off"
-    }
+    },
+    "ignorePatterns": [
+        "**/*.scss"
+    ]
 }

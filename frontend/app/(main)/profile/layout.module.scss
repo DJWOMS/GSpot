@@ -1,0 +1,130 @@
+.profile {
+  @apply relative mb-[10px] flex flex-col items-start justify-start rounded-[6px] border border-solid border-main-60 px-[20px] pb-0;
+
+  &User {
+    @apply mb-[30px] flex flex-row items-center justify-start;
+  }
+
+  &Avatar {
+    @apply relative mr-[15px] block w-[44px] cursor-pointer overflow-hidden rounded-[6px];
+
+    img {
+      @apply w-full;
+    }
+  }
+
+  &Meta {
+    @apply flex flex-col items-start justify-start;
+
+    h3 {
+      @apply mb-[5px] block pl-[12px] text-base font-normal leading-[130%] text-white;
+    }
+
+    span {
+      @apply scale-[.8] text-base leading-[100%] text-white;
+    }
+  }
+
+  &Tabs {
+    @apply flex w-full flex-row items-center justify-start overflow-hidden;
+
+    li {
+      @apply mr-10;
+
+      &:last-child {
+        @apply mr-0;
+      }
+    }
+
+    a {
+      @apply relative flex h-[40px] flex-row items-start justify-start text-xs uppercase tracking-[0.4px] text-light;
+
+      &:hover {
+        @apply text-primary;
+      }
+
+      &:before {
+        @apply absolute bottom-0 left-0 right-0 block h-[2px] bg-primary opacity-0 content-[''];
+        transition: 0.5s;
+        transform: translateY(2px);
+      }
+
+      &.active {
+        @apply cursor-default text-primary;
+
+        &:before {
+          @apply opacity-100;
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+
+  &Logout {
+    @apply absolute top-[20px] right-[20px] flex h-[44px] w-[44px] items-center justify-center rounded-[6px] border border-solid border-main-400
+    bg-main-30 text-xs uppercase tracking-[0.4px] text-white;
+
+    transition: 0.5s;
+
+    span {
+      @apply hidden;
+    }
+
+    svg {
+      @apply h-auto w-[22px] stroke-white;
+      transition: stroke 0.5s;
+    }
+
+    &:hover {
+      @apply border-main-500 bg-main-40;
+
+      svg {
+        @apply stroke-primary;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    @apply mb-5 h-[70px] flex-row items-center justify-between px-5;
+
+    &User {
+      @apply mb-0 mr-10;
+    }
+
+    &Tabs {
+      @apply mb-0 mr-auto w-auto border-b-0;
+
+      a {
+        @apply h-[70px] items-center;
+      }
+    }
+
+    &Logout {
+      @apply relative top-auto right-auto w-[120px];
+
+      svg {
+        @apply hidden;
+      }
+
+      span {
+        @apply block;
+      }
+    }
+  }
+
+  @media (min-width: 1200px) {
+    &User {
+      @apply mr-[100px];
+    }
+
+    &Logout {
+      @apply w-[114px];
+    }
+  }
+
+  @media (min-width: 1310px) {
+    &Logout {
+      @apply w-[130px];
+    }
+  }
+}

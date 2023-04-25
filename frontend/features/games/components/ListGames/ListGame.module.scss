@@ -7,7 +7,7 @@
   }
 
   @media (min-width: 360px) {
-    @apply mt-[20px] pt-[20px];
+    @apply mt-5 pt-5;
 
     &:first-child {
       @apply mt-0 pt-0;
@@ -62,8 +62,7 @@
   }
 
   b {
-    @apply mr-[15px] mt-[7px] text-[13px] font-semibold;
-    color: #fd6060;
+    @apply mr-[15px] mt-[7px] text-[13px] font-semibold text-danger;
   }
 }
 

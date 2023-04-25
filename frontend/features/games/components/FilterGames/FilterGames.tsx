@@ -1,118 +1,89 @@
+'use client'
+
+import { useState } from 'react'
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
+import cn from 'classnames'
+import { Group } from 'components/Form'
+import { useRouter, useSearchParams } from 'next/navigation'
+import qs from 'qs'
 import s from './FilterGames.module.scss'
+import { Genres } from './Genres'
+import { Platforms } from './Platforms'
+import { Prices } from './Prices'
+import { SortBy } from './SortBy'
+
+interface FilterValues {
+  sortby: string | null
+  prices: number[] | null
+  platforms: string[]
+  genres: string[]
+  subgenres: string[]
+}
+
+const initalFilterState: FilterValues = {
+  sortby: null,
+  prices: null,
+  platforms: [],
+  genres: [],
+  subgenres: [],
+}
 
 const FilterGames = () => {
+  const queryParams = useSearchParams()
+  const form = useForm<FilterValues>({
+    defaultValues: {
+      sortby: queryParams.get('sortby'),
+      prices: queryParams.getAll('prices').map((p) => parseInt(p)),
+      platforms: queryParams.getAll('platforms'),
+      genres: queryParams.getAll('genres'),
+      subgenres: queryParams.getAll('subgenres'),
+    },
+  })
+
+  // update router if needed
+  const router = useRouter()
+
+  const onSubmitForm: SubmitHandler<FilterValues> = (data) =>
+    router.push(
+      `/catalog?${qs.stringify(data, {
+        arrayFormat: 'repeat',
+        skipNulls: true,
+      })}`
+    )
+
+  const [openMobileFilter, setOpenMobileFilter] = useState(false)
+  const toggleMobileFilter = () => setOpenMobileFilter((state) => !state)
+
   return (
-    <div className="filter-wrap">
-      <button className={s.openFilter}>Открыть фильтр</button>
+    <>
+      <button className={s.openFilter} onClick={toggleMobileFilter}>
+        {!openMobileFilter ? 'Открыть фильтр' : 'Скрыть фильтр'}
+      </button>
 
-      <div className={s.wrapper}>
-        <div className={s.components}>
-          <h4 className={s.title}>
-            Фильтры <button className={s.clearFilters}>Очистить</button>
-          </h4>
+      <div className={cn(s.wrapper, { [s.open]: openMobileFilter })}>
+        <FormProvider {...form}>
+          <form onSubmit={form.handleSubmit(onSubmitForm)} className={s.components}>
+            <h4 className={s.title}>
+              Фильтры
+              <button className={s.clearFilters} onClick={() => form.reset(initalFilterState)} type="button">
+                Сбросить
+              </button>
+            </h4>
 
-          <div className={s.group}>
-            <label className={s.label}>Ключевые слова: </label>
-            <input className={s.input} type="text" placeholder="Keyword" />
-          </div>
+            <SortBy />
+            <Prices />
+            <Platforms />
+            <Genres />
 
-          <div className={s.group}>
-            <label className={s.label}>Сортировать: </label>
-
-            <div className={s.selectWrap}>
-              <select className={s.select}>
-                <option value="0">По интересам</option>
-                <option value="1">От новых к старым</option>
-                <option value="2">От старых к новым</option>
-              </select>
-            </div>
-          </div>
-
-          <div className={s.group}>
-            <label className={s.label}>Цена: </label>
-
-            <div className={s.range}>
-              <div id="filter__range-start"></div>
-              <div id="filter__range-end"></div>
-            </div>
-
-            <div className={s.range} />
-          </div>
-
-          <div className={s.group}>
-            <label className={s.label}>Платформа: </label>
-            <ul className={s.checkboxes}>
-              <li className={s.checkbox}>
-                <input id="type1" type="checkbox" name="type1" defaultChecked />
-                <label htmlFor="type1">Playstation</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type2" type="checkbox" name="type2" />
-                <label htmlFor="type2">XBOX</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type3" type="checkbox" name="type3" />
-                <label htmlFor="type3">Windows</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type4" type="checkbox" name="type4" />
-                <label htmlFor="type4">Mac OS</label>
-              </li>
-            </ul>
-          </div>
-
-          <div className={s.group}>
-            <label className={s.label}>Жанры:</label>
-            <ul className={s.checkboxes}>
-              <li className={s.checkbox}>
-                <input id="type5" type="checkbox" name="type5" defaultChecked />
-                <label htmlFor="type5">Action</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type6" type="checkbox" name="type6" />
-                <label htmlFor="type6">Adventure</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type7" type="checkbox" name="type7" defaultChecked />
-                <label htmlFor="type7">Fighting</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type8" type="checkbox" name="type8" defaultChecked />
-                <label htmlFor="type8">Flight simulation</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type9" type="checkbox" name="type9" />
-                <label htmlFor="type9">Platform</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type10" type="checkbox" name="type10" />
-                <label htmlFor="type10">Racing</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type11" type="checkbox" name="type11" />
-                <label htmlFor="type11">RPG</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type12" type="checkbox" name="type12" />
-                <label htmlFor="type12">Sports</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type13" type="checkbox" name="type13" />
-                <label htmlFor="type13">Strategy</label>
-              </li>
-              <li className={s.checkbox}>
-                <input id="type14" type="checkbox" name="type14" />
-                <label htmlFor="type14">Survival horror</label>
-              </li>
-            </ul>
-          </div>
-
-          <div className={s.group}>
-            <button className={s.applyFilter}>Применить фильтр</button>
-          </div>
-        </div>
+            <Group>
+              <button className={s.applyFilter} type="submit">
+                Применить фильтр
+              </button>
+            </Group>
+          </form>
+        </FormProvider>
       </div>
-    </div>
+    </>
   )
 }
 
