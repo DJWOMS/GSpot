@@ -1,10 +1,14 @@
 import os
+import json
 from datetime import timedelta
 
 
+ACCESS_TOKEN_LIFETIME = json.loads(os.environ["ACCESS_TOKEN_LIFETIME"])
+REFRESH_TOKEN_LIFETIME = json.loads(os.environ["REFRESH_TOKEN_LIFETIME"])
+
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": os.environ["ACCESS_TOKEN_LIFETIME"],
-    "REFRESH_TOKEN_LIFETIME": os.environ["REFRESH_TOKEN_LIFETIME"],
+    "ACCESS_TOKEN_LIFETIME": timedelta(**ACCESS_TOKEN_LIFETIME),
+    "REFRESH_TOKEN_LIFETIME": timedelta(**REFRESH_TOKEN_LIFETIME),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": False,
