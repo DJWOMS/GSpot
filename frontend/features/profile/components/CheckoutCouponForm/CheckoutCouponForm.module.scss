@@ -4,7 +4,7 @@
 
   &Btn {
     @apply mt-5 flex h-11  w-full flex-row items-center justify-center
-       rounded-md bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
+       rounded-md bg-acid text-sm font-semibold uppercase tracking-normal text-white;
 
     &:hover {
       @apply bg-primary text-white;
