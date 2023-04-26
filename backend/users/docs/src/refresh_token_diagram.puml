@@ -48,7 +48,7 @@ end
 alt CheckTokenReissue
        jwt -> jwt: check token expire less than the threshold value
 else TokenExpired
-       jwt-> redis: ban refresh token
+       ejwt-> redis: ban refresh token
     jwt -> jwt: update refresh token
 end
 jwt -> jwt: generate access token
