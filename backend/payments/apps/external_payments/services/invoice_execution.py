@@ -1,7 +1,7 @@
 from datetime import datetime
 from decimal import Decimal
 
-from apps.base import utils
+from apps.base.utils import change_balance
 from apps.item_purchases.models import Invoice, ItemPurchase, ItemPurchaseHistory
 from apps.payment_accounts.models import Account
 from django.conf import settings
@@ -66,7 +66,7 @@ def execute_invoice_operations(
     if invoice_executioner.invoice_success_status is True:
         # TO BE DONE: it has to put money on our shop account
         # And developer account
-        utils.decrease_user_balance(
+        change_balance.decrease_user_balance(
             account=payer_account,
             amount=decrease_amount,
         )

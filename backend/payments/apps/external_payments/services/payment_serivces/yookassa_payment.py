@@ -1,9 +1,9 @@
 from dataclasses import asdict
 
 import rollbar
-from apps.base import utils
 from apps.base.classes import AbstractPaymentClass
 from apps.base.schemas import URL, ResponseParsedData
+from apps.base.utils import change_balance
 from apps.external_payments import schemas
 from apps.item_purchases.models import Invoice
 from apps.item_purchases.schemas import PurchaseItemsData
@@ -155,14 +155,14 @@ class YookassaResponseParser:
 
     def _parse_user_account(self) -> Account | None:
         account_id = int(self.payment_body.metadata['account_id'])
-        return utils.parse_model_instance(
+        return change_balance.parse_model_instance(
             django_model=Account,
             error_message=f"Can't get user account instance for user id {account_id}",
             pk=account_id,
         )
 
     def _parse_balance_object(self) -> BalanceChange | None:
-        return utils.parse_model_instance(
+        return change_balance.parse_model_instance(
             django_model=BalanceChange,
             error_message=f"Can't get payment instance for payment id {self.payment_body.id_}",
             pk=int(self.payment_body.metadata['balance_change_id']),
@@ -172,7 +172,7 @@ class YookassaResponseParser:
     def _parse_invoice_object(
         payment_body: schemas.YookassaPaymentBody,
     ) -> Invoice | None:
-        return utils.parse_model_instance(
+        return change_balance.parse_model_instance(
             django_model=Invoice,
             error_message=f"Can't get invoice instance for payment id {payment_body.id_}",
             pk=payment_body.metadata['invoice_id'],

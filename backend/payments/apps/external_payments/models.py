@@ -1,7 +1,5 @@
-from decimal import Decimal
-
+from apps.base.fields import CommissionField
 from apps.payment_accounts.models import BalanceChange
-from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
@@ -27,7 +25,7 @@ class PaymentCommission(models.Model):
 
     payment_service_id = models.ForeignKey(PaymentService, on_delete=models.CASCADE)
     payment_type = models.CharField(max_length=50, verbose_name='type_of_payment')
-    commission = models.DecimalField(
+    commission = CommissionField(
         validators=(
             MinValueValidator(0, message='Should be positive value'),
             MaxValueValidator(
@@ -35,9 +33,6 @@ class PaymentCommission(models.Model):
                 message=f'Should be not greater than {MAX_COMMISSION}',
             ),
         ),
-        max_digits=settings.MAX_BALANCE_DIGITS,
-        decimal_places=2,
-        default=Decimal(0.00),
     )
 
     def __str__(self):

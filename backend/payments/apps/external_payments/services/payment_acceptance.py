@@ -1,7 +1,7 @@
 from decimal import Decimal
 
-from apps.base import utils
 from apps.base.schemas import PaymentServices
+from apps.base.utils import change_balance
 
 from .invoice_execution import execute_invoice_operations
 from .payment_serivces.yookassa_payment import YookassaPayment
@@ -14,7 +14,7 @@ def proceed_payment_response(income_data, payment_service: PaymentServices) -> b
     if parsed_data is None:
         return False
 
-    utils.increase_user_balance(
+    change_balance.increase_user_balance(
         balance_change_object=parsed_data.balance_object,
         amount=Decimal(parsed_data.income_amount),
     )

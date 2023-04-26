@@ -5,7 +5,7 @@
         "fields": {
             "revenue": "0",
             "income": "0",
-            "commission": "25",
+            "commission": "25.00",
             "frozen_time": "24:00:00",
             "gift_time": "7 00:00:00"
         }
