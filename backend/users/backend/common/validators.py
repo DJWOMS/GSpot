@@ -1,29 +1,27 @@
-from base.permissions import VerificationError, BaseUserVerification
+from base.validators import VerificationError, BaseUserVerification
 
 
 class NotActiveUserError(VerificationError):
-    pass
+    message = 'not active user'
 
 
 class ActiveUserVerify(BaseUserVerification):
     """User Active Verification"""
 
     exception = NotActiveUserError
-    message = 'user not active'
 
     def _condition(self, user):
         return not user.is_active
 
 
 class BannedUserError(VerificationError):
-    pass
+    message = 'user is  banned'
 
 
 class BannedUserVerify(BaseUserVerification):
     """Banned User Verification"""
 
-    exception = BaseUserVerification
-    message = 'user is banned'
+    exception = BannedUserError
 
     def _condition(self, user):
         return user.is_banned
