@@ -80,16 +80,14 @@ class BasePermission(models.Model):
 
     class Meta:
         abstract = True
-        unique_together = [["content_type", "codename"]]
-        ordering = ["content_type__app_label", "content_type__model", "codename"]
+        unique_together = [["codename"]]
+        ordering = ["codename"]
 
     def __str__(self):
-        return "%s | %s" % (self.content_type, self.name)
+        return "%s" % self.name
 
     def natural_key(self):
-        return (self.codename,) + self.content_type.natural_key()
-
-    natural_key.dependencies = ["contenttypes.contenttype"]
+        return self.codename
 
 
 class BaseGroup(models.Model):
