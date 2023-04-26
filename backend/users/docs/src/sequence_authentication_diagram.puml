@@ -1,0 +1,32 @@
+@startuml
+actor       Actor       as Actor
+participant Userview [
+    =User
+    ----
+    ""view""
+]
+participant AuthServer [
+    =User
+    ----
+    ""service""
+]
+database    User_DB    as User_DB
+Actor -> Userview : POST(login, password)
+Userview -> AuthServer: Login User
+alt CheckAuthorizeUser
+    AuthServer -> User_DB: Запрос к БД
+    User_DB -> User_DB: Searching User
+    User_DB -> AuthServer: Returns user data
+    AuthServer -> AuthServer: User data found
+    AuthServer -> AuthServer: Check active user
+    AuthServer -> AuthServer: Check banned user
+else UnauthorizedUserError
+    AuthServer -> Userview: UnauthorizedUserError
+    Userview -> Actor: Responce 401 \n (AuthenticationError)
+end
+AuthServer -> AuthServer: get_permissions
+AuthServer -> AuthServer: Create Jwt token(with uuid,\nrole, permissions, refresh, access)
+AuthServer -> Userview: get Jwt token
+Userview -> Actor: Responce 200 \n (access_token, refresh_token)
+Actor -> Actor: add to HttpOnly
+@enduml
