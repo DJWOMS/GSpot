@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export const couponData = ['QWERTY', 'ASDFGH', 'ZXCVBN', 'YUIOPK']
+const couponData = ['QWERTY', 'ASDFGH', 'ZXCVBN', 'YUIOPK']
 
 export async function POST(req: NextRequest) {
   const data = await req.json()
