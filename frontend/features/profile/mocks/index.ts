@@ -27,5 +27,3 @@ export const generateMockCheckoutGameCard = (props = {}): CheckoutGameCardInterf
   currency: 'rub',
   ...props,
 })
-
-export const couponData = ['QWERTY', 'ASDFGH', 'ZXCVBN', 'YUIOPK']

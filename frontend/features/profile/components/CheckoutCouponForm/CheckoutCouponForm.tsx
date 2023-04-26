@@ -32,7 +32,7 @@ const CheckoutCouponForm = () => {
 
   return (
     <>
-      <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitCoupon)} target="dummyface">
+      <form className={s.form} onSubmit={handleSubmit(onSubmitCoupon)}>
         <Controller
           control={control}
           name="coupon"
@@ -42,7 +42,9 @@ const CheckoutCouponForm = () => {
           }}
         />
         <ErrorMessage errors={errors} name="couponError" render={({ message }) => <p>{message}</p>} />
-        <input type="submit" className={s.formBtn} value="Применить" disabled={coupon} />
+        <button type="submit" className={s.formBtn} disabled={coupon}>
+          Применить
+        </button>
         {coupon && (
           <div className="inline-flex">
             <p className={s.coupon}>Купон активирован</p>

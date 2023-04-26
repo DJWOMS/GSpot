@@ -26,14 +26,14 @@ const CheckoutForm = () => {
 
   return (
     <div>
-      <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitCheckout)}>
+      <form className={s.form} onSubmit={handleSubmit(onSubmitCheckout)}>
         <Controller
           control={control}
           name="fullName"
           defaultValue=""
           rules={{ required: true }}
           render={({ field }) => {
-            return <Input {...field} type="text" className={s.formInput} placeholder="John Doe" />
+            return <Input {...field} type="text" placeholder="John Doe" />
           }}
         />
         <ErrorMessage errors={errors} name="fullName" render={({ message }) => <p>{message}</p>} />
@@ -43,7 +43,7 @@ const CheckoutForm = () => {
           defaultValue=""
           rules={{ required: true }}
           render={({ field }) => {
-            return <Input {...field} type="email" className={s.formInput} placeholder="gg@template.by" />
+            return <Input {...field} type="email" placeholder="gg@template.by" />
           }}
         />
         <ErrorMessage errors={errors} name="email" render={({ message }) => <p>{message}</p>} />
@@ -53,7 +53,7 @@ const CheckoutForm = () => {
           defaultValue=""
           rules={{ required: true }}
           render={({ field }) => {
-            return <Input {...field} type="text" className={s.formInput} placeholder="+1 234 567-89-00" />
+            return <Input {...field} type="text" placeholder="+1 234 567-89-00" />
           }}
         />
         <ErrorMessage errors={errors} name="phoneNumber" render={({ message }) => <p>{message}</p>} />
@@ -64,7 +64,7 @@ const CheckoutForm = () => {
           rules={{ required: true }}
           render={({ field }) => {
             return (
-              <Select className={s.formSelect} {...field}>
+              <Select {...field}>
                 <option value="visa">Visa</option>
                 <option value="mastercard">Mastercard</option>
                 <option value="qiwi">Qiwi</option>
