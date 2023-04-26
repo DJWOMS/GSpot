@@ -1,0 +1,35 @@
+@startuml
+title Алгоритм верификации токена и добавления в Redis
+
+actor Client
+participant "Users Service" as Users
+database "Redis" as Redis
+
+Client->Users: Запрос верификации токена
+activate Users
+
+Users->Users: Проверка истечения срока действия токена
+alt Токен истек
+  Users->Client: Возврат ошибки "Token expired" (401)
+  deactivate Users
+else Токен не истек
+  Users->Users: Проверка подписи токена
+  alt Подпись верна
+    Users->Users: Проверка тела токена
+    alt Тело токена верно
+      Users->Redis: Добавление токена в Redis
+      Users->Client: Возврат статуса "Token validated" (200)
+      deactivate Redis
+      deactivate Users
+    else Тело токена не верно
+      Users->Client: Возврат ошибки "Invalid token body" (401)
+      deactivate Users
+    end
+  else Подпись не верна
+    Users->Client: Возврат ошибки "Invalid token signature" (401)
+    deactivate Users
+  end
+end
+
+@enduml
+
