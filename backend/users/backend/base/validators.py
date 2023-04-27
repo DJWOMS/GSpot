@@ -3,11 +3,14 @@ from typing import Type
 
 from django.contrib.auth.models import AbstractUser
 
+from base.models import BaseAbstractUser
 
-class AbstractUserVerification(metaclass=ABCMeta):
-    """ Common abstract class for user verification """
 
-    def verify(self, user: AbstractUser):
+class AbstractUserVerify(metaclass=ABCMeta):
+    """Common abstract class for user verification """
+
+    def verify(self, user: AbstractUser) -> bool:
+        """ check user verification by condition """
         pass
 
 
@@ -19,12 +22,17 @@ class VerificationError(Exception):
         super().__init__(self.message, *args)
 
 
-class BaseUserVerification(AbstractUserVerification):
+class AbstractUserValidation(AbstractUserVerify, metaclass=ABCMeta):
+    """ Common abstract class for user validation """
     exception: Type[VerificationError]
 
-    def _condition(self, user) -> bool:
-        raise NotImplementedError
+    def validate(self, user: AbstractUser):
+        """Raise error if user has not passed verification """
+        pass
 
-    def verify(self, user):
-        if self._condition(user):
+
+class BaseUserValidation(AbstractUserValidation):
+
+    def validate(self, user):
+        if not self.verify(user):
             raise self.exception()
