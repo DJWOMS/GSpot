@@ -12,7 +12,7 @@ from ..schemas import ItemPaymentData, PurchaseItemsData
 
 def request_purchase_items(
     purchase_items_data: PurchaseItemsData,
-) -> URL | str:
+) -> URL | str | None:
     user_account, _ = Account.objects.get_or_create(
         user_uuid=purchase_items_data.user_uuid,
     )

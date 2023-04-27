@@ -1,0 +1,38 @@
+[
+    {
+        "model": "external_payments.paymentcommission",
+        "pk": 1,
+        "fields": {
+            "payment_service_id": 1,
+            "payment_type": "bank_card",
+            "commission": "3.5"
+        }
+    },
+    {
+        "model": "external_payments.paymentcommission",
+        "pk": 2,
+        "fields": {
+            "payment_service_id": 1,
+            "payment_type": "yoo_money",
+            "commission": "3.5"
+        }
+    },
+    {
+        "model": "external_payments.paymentcommission",
+        "pk": 3,
+        "fields": {
+            "payment_service_id": 1,
+            "payment_type": "sberbank",
+            "commission": "3.5"
+        }
+    },
+    {
+        "model": "external_payments.paymentcommission",
+        "pk": 4,
+        "fields": {
+            "payment_service_id": 1,
+            "payment_type": "qiwi",
+            "commission": "6"
+        }
+    }
+]

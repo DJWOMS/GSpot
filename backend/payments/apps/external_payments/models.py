@@ -1,5 +1,6 @@
+from apps.base.fields import CommissionField
 from apps.payment_accounts.models import BalanceChange
-from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -20,11 +21,18 @@ class BalanceServiceMap(models.Model):
 
 
 class PaymentCommission(models.Model):
+    MAX_COMMISSION = 100
+
     payment_service_id = models.ForeignKey(PaymentService, on_delete=models.CASCADE)
     payment_type = models.CharField(max_length=50, verbose_name='type_of_payment')
-    commission = models.FloatField(
-        default=0,
-        validators=[MinValueValidator(0, message='indicate the amount of commission')],
+    commission = CommissionField(
+        validators=(
+            MinValueValidator(0, message='Should be positive value'),
+            MaxValueValidator(
+                MAX_COMMISSION,
+                message=f'Should be not greater than {MAX_COMMISSION}',
+            ),
+        ),
     )
 
     def __str__(self):

@@ -2,13 +2,14 @@ from apps.base.schemas import URL, PaymentServices
 from apps.external_payments.services.payment_serivces.yookassa_payment import (
     YookassaPayment,
 )
+from apps.payment_accounts.schemas import BalanceIncreaseData
 
 from ..models import Account, BalanceChange
 
 
 def request_balance_deposit_url(
-    balance_increase_data: BalanceChange,
-) -> URL:
+    balance_increase_data: BalanceIncreaseData,
+) -> URL | None:
     user_account, _ = Account.objects.get_or_create(
         user_uuid=balance_increase_data.user_uuid,
     )
