@@ -3,10 +3,10 @@ import uuid
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
-from base.models import BaseAbstractUser, BaseContentType, BasePermission, BaseGroup
+from base.models import BaseAbstractUser, BasePermission, BaseGroup
 from django.utils.translation import gettext_lazy as _
 
-from common.models import Country
+from common.models import Country, ContactType
 
 
 class DeveloperPermissionMixin(PermissionsMixin):
@@ -14,63 +14,7 @@ class DeveloperPermissionMixin(PermissionsMixin):
         abstract = True
 
 
-class CompanyContact(models.Model):
-    contact = models.ForeignKey('Contact', on_delete=models.CASCADE, related_name='contacts')
-    company = models.ForeignKey('Company', on_delete=models.CASCADE, related_name='companys')
-
-    def __str__(self):
-        return f'{self.contact__type__name} - {self.company__title}'
-
-
-class Contact(models.Model):
-    type = models.ForeignKey('ContactType', on_delete=models.CASCADE, verbose_name=_('type contact'))
-    value = models.CharField(max_length=150, verbose_name=_('value contact'))
-
-    def __str__(self):
-        return f'{self.type__name}-{self.value}'
-
-    class Meta:
-        verbose_name = _('Company contact')
-        verbose_name_plural = _('Company contacts')
-
-
-class ContactType(models.Model):
-    name = models.CharField(max_length=100, verbose_name=_('name contact'))
-    icon = models.ImageField(verbose_name=_('icon contact'), null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('Contact')
-        verbose_name_plural = _('Contacts')
-
-
-class DeveloperContentType(BaseContentType):
-    class Meta(BaseContentType.Meta):
-        db_table = "developer_content_type"
-        verbose_name = _("developer content type")
-        verbose_name_plural = _("developer content types")
-
-
-class DeveloperPermission(BasePermission):
-    content_type = models.ForeignKey(
-        'DeveloperContentType',
-        models.CASCADE,
-        verbose_name=_("content type"),
-    )
-
-    class Meta(BasePermission.Meta):
-        db_table = "developer_permission"
-        verbose_name = _("developer permission")
-        verbose_name_plural = _("developer permissions")
-
-
 class DeveloperGroup(BaseGroup):
-    permissions = models.ManyToManyField(
-        DeveloperPermission, verbose_name=_("permissions"), blank=True, related_query_name="group"
-    )
-
     class Meta(BaseGroup.Meta):
         db_table = "developer_group"
         verbose_name = _("developer group")
@@ -78,9 +22,9 @@ class DeveloperGroup(BaseGroup):
 
 
 class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
-    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, verbose_name=_('User country'))
-    phone = models.CharField(max_length=12, verbose_name=_('User phone-number'))
-    avatar = models.ImageField(blank=True, verbose_name=_('User avatar'))
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, verbose_name=_('Developer country'))
+    phone = models.CharField(max_length=12, verbose_name=_('Developer phone-number'))
+    avatar = models.ImageField(blank=True, verbose_name=_('Developer avatar'))
     is_banned = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -92,29 +36,35 @@ class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
     )
     groups = models.ManyToManyField(
         'DeveloperGroup',
-        verbose_name=_("groups"),
+        verbose_name=_("developer_groups"),
         blank=True,
         help_text=_(
             "The groups this user belongs to. A user will get all permissions "
             "granted to each of their groups."
         ),
-        related_name='user_set',
-        related_query_name='user',
+        related_name='developer_set',
+        related_query_name='developer',
     )
 
     user_permissions = models.ManyToManyField(
         'DeveloperPermission',
-        verbose_name=_('user permissions'),
+        verbose_name=_('developer permissions'),
         blank=True,
-        help_text=_('Specific permissions for this user.'),
-        related_name='user_set',
-        related_query_name='user',
+        help_text=_('Specific permissions for this developer.'),
+        related_name='developer_permission_set',
+        related_query_name='developer_permission',
     )
-    company = models.ForeignKey(
+    company = models.OneToOneField(
         'Company',
         on_delete=models.CASCADE,
         verbose_name=_('Company'),
         related_name='all_user_this_company',
+        null=True
+    )
+    department = models.ForeignKey(
+        'Department',
+        on_delete=models.CASCADE,
+        verbose_name=_('Department'),
         null=True
     )
 
@@ -135,6 +85,14 @@ class Company(models.Model):
         verbose_name=_('Company owner'),
         related_name='company_owner'
     )
+    contact = models.ManyToManyField(
+        ContactType,
+        through='CompanyContact',
+        verbose_name=_('Company contact'),
+        blank=True,
+        related_name='contact_set',
+        related_query_name='contact'
+    )
     title = models.CharField(max_length=50, verbose_name=_('Company title'))
     description = models.TextField(verbose_name=_('Company description'))
     email = models.EmailField(unique=True, verbose_name=_('Company email link'))
@@ -151,20 +109,37 @@ class Company(models.Model):
         verbose_name_plural = _('Company')
 
 
-class Friend(models.Model):
-    user = models.ForeignKey(
-        CompanyUser,
+class Department(models.Model):
+    id = models.IntegerField(primary_key=True)
+    company = models.ForeignKey(
+        'Company',
         on_delete=models.CASCADE,
-        related_name='user',
-        verbose_name=_('user')
+        verbose_name=_('Company'),
+        null=True
     )
+    name = models.CharField(max_length=50, verbose_name=_('Department name'))
 
-    friend = models.ForeignKey(
-        CompanyUser,
-        on_delete=models.CASCADE,
-        related_name='friend',
-        verbose_name=_('friend')
-    )
+    class Meta:
+        verbose_name = _('Company department')
+        verbose_name_plural = _('Company department')
+
+
+class CompanyContact(models.Model):
+    type = models.ForeignKey(ContactType, on_delete=models.CASCADE, verbose_name=_('type contact'), default=1)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    value = models.CharField(max_length=150, verbose_name=_('value contact'), default='')
 
     def __str__(self):
-        return f'{self.user} - {self.friend}'
+        return f'{self.type__name}-{self.value}'
+
+    class Meta:
+        verbose_name = _('Company contact')
+        verbose_name_plural = _('Company contacts')
+
+
+class DeveloperPermission(BasePermission):
+
+    class Meta(BasePermission.Meta):
+        db_table = "Developer permission"
+        verbose_name = _("Developer permission")
+        verbose_name_plural = _("Developer permissions")
