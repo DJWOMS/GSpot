@@ -2,32 +2,27 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from base.models import BaseAbstractUser, BaseContentType, BasePermission, BaseGroup
-
-
-class AdminContentType(BaseContentType):
-    class Meta(BaseContentType.Meta):
-        db_table = "admin_content_type"
-        verbose_name = _("admin content type")
-        verbose_name_plural = _("admin content types")
+from base.models import BaseAbstractUser, BasePermission, BaseGroup
 
 
 class AdminPermission(BasePermission):
-    content_type = models.ForeignKey(
-        AdminContentType,
-        models.CASCADE,
-        verbose_name=_("content type"),
-    )
 
     class Meta(BasePermission.Meta):
-        db_table = "admin_permission"
-        verbose_name = _("admin permission")
-        verbose_name_plural = _("admin permissions")
+        db_table = "permission"
+        verbose_name = _("permission")
+        verbose_name_plural = _("permissions")
+
+
+class AdminPermissionMixin(PermissionsMixin):
+    class Meta:
+        abstract = True
 
 
 class AdminGroup(BaseGroup):
-    permissions = models.ManyToManyField(
-        AdminPermission, verbose_name=_("permissions"), blank=True, related_query_name="group"
+    permission = models.ManyToManyField(
+        AdminPermission,
+        verbose_name=_("permission"),
+        blank=True,
     )
 
     class Meta(BaseGroup.Meta):
@@ -36,12 +31,11 @@ class AdminGroup(BaseGroup):
         verbose_name_plural = _("admin groups")
 
 
-class AdminPermissionMixin(PermissionsMixin):
-    class Meta:
-        abstract = True
-
-
 class Admin(BaseAbstractUser, AdminPermissionMixin):
+    phone = models.CharField(max_length=15, unique=True, default='')
+    avatar = models.ImageField(null=True, blank=True)
+    is_banned = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,
@@ -60,11 +54,11 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
     )
     user_permissions = models.ManyToManyField(
         AdminPermission,
-        verbose_name=_("user permissions"),
+        verbose_name=_("admin permissions"),
         blank=True,
-        help_text=_("Specific permissions for this user."),
-        related_name="user_set",
-        related_query_name="user",
+        help_text=_("Specific permissions for this admin."),
+        related_name="admin_set",
+        related_query_name="admin",
     )
 
     class Meta:
