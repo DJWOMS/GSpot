@@ -140,6 +140,6 @@ class CompanyContact(models.Model):
 class DeveloperPermission(BasePermission):
 
     class Meta(BasePermission.Meta):
-        db_table = "Developer permission"
+        db_table = "Developer_permission"
         verbose_name = _("Developer permission")
         verbose_name_plural = _("Developer permissions")
