@@ -5,6 +5,7 @@ from apps.base.utils.classmethod import OperationType, add_change_balance_method
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.http import HttpResponseServerError
 
 
 class Account(models.Model):
@@ -15,7 +16,7 @@ class Account(models.Model):
     currency = models.CharField(max_length=3, default=settings.DEFAULT_CURRENCY)
 
     @classmethod
-    def deposit(cls, pk, amount):
+    def deposit(cls, pk, amount) -> Account | HttpResponseServerError:
         return add_change_balance_method(
             django_model=cls,
             django_field='balance',
@@ -25,7 +26,7 @@ class Account(models.Model):
         )
 
     @classmethod
-    def withdraw(cls, pk, amount):
+    def withdraw(cls, pk, amount) -> Account | HttpResponseServerError:
         return add_change_balance_method(
             django_model=cls,
             django_field='balance',
@@ -95,7 +96,7 @@ class Owner(models.Model):
     gift_time = models.DurationField()
 
     @classmethod
-    def deposit_revenue(cls, pk, amount):
+    def deposit_revenue(cls, pk, amount) -> Owner | HttpResponseServerError:
         return add_change_balance_method(
             django_model=cls,
             django_field='revenue',
@@ -105,7 +106,7 @@ class Owner(models.Model):
         )
 
     @classmethod
-    def withdraw_revenue(cls, pk, amount):
+    def withdraw_revenue(cls, pk, amount) -> Owner | HttpResponseServerError:
         return add_change_balance_method(
             django_model=cls,
             django_field='revenue',
@@ -115,7 +116,7 @@ class Owner(models.Model):
         )
 
     @classmethod
-    def deposit_income(cls, pk, amount):
+    def deposit_income(cls, pk, amount) -> Owner | HttpResponseServerError:
         return add_change_balance_method(
             django_model=cls,
             django_field='income',
@@ -125,7 +126,7 @@ class Owner(models.Model):
         )
 
     @classmethod
-    def withdraw_income(cls, pk, amount):
+    def withdraw_income(cls, pk, amount) -> Owner | HttpResponseServerError:
         return add_change_balance_method(
             django_model=cls,
             django_field='income',

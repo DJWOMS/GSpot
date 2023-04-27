@@ -23,7 +23,7 @@ def add_change_balance_method(
     pk: int,
     amount: Decimal,
     operation_type: OperationType,
-):
+) -> DjangoModel | HttpResponseServerError:
     if amount < 0:
         raise ValueError('Should be posotive value')
     with transaction.atomic():
@@ -45,7 +45,9 @@ def add_change_balance_method(
         elif OperationType.WITHDRAW:
             new_balance = balance - amount
         else:
-            return
+            rollbar.report_message('Wrong operation type', 'warning')
+            return HttpResponseServerError()
+
         setattr(obj, django_field, new_balance)
         obj.save()
     return obj
