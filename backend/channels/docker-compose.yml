@@ -17,6 +17,9 @@ services:
       - /mongodb_data:/data/db
     env_file:
       - .env.dev
+    networks:
+      - mongodb_net
+      - rabbitmq_net
 
   consumer:
     container_name: channels_consumer
@@ -33,6 +36,9 @@ services:
     depends_on:
       - mongodb
       - rabbitmq
+    networks:
+      - mongodb_net
+      - rabbitmq_net
 
   rabbitmq:
     image: rabbitmq:3.9
@@ -51,6 +57,8 @@ services:
       RABBITMQ_DEFAULT_VHOST: ${BROKER_VHOST}
     ports:
       - "${BROKER_PORTS}:${BROKER_PORTS}"
+    networks:
+      - rabbitmq_net
 
   chat:
     container_name: channels_chat
@@ -73,6 +81,10 @@ services:
         condition: service_started
       redis:
         condition: service_started
+
+networks:
+  mongodb_net:
+  rabbitmq_net:
 
 volumes:
   mongodb_data:
