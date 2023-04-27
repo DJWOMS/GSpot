@@ -11,14 +11,14 @@ class CustomerUser(BaseAbstractUser):
         through='FriendShipRequest',
         through_fields=('sender', 'receiver')
     )
+    avatar = models.ImageField(null=True, blank=True)
+    is_banned = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
     phone_number = models.CharField(
         verbose_name='Номер телефона',
         blank=True,
         max_length=15,
         null=True)
-    # image = models.ImageField(  # Где храним?
-    #     verbose_name='Фото',
-    #     upload_to='media/users')
     country = models.ForeignKey(Country, verbose_name='Страна',
                                 on_delete=models.SET_NULL,
                                 null=True)
