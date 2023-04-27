@@ -35,29 +35,8 @@ services:
       sh -c "python main.py"
     depends_on:
       - mongodb
-      - rabbitmq
     networks:
       - mongodb_net
-      - rabbitmq_net
-
-  rabbitmq:
-    image: rabbitmq:3.9
-    container_name: rabbitmq
-    healthcheck:
-      test: rabbitmq-diagnostics -q ping
-      interval: 30s
-      timeout: 30s
-      retries: 3
-    env_file:
-      - .env.dev
-    environment:
-      RABBITMQ_DEFAULT_USER: ${BROKER_USER}
-      RABBITMQ_DEFAULT_PASS: ${BROKER_PASSWORD}
-      RABBITMQ_DEFAULT_PORT: ${BROKER_PORTS}
-      RABBITMQ_DEFAULT_VHOST: ${BROKER_VHOST}
-    ports:
-      - "${BROKER_PORTS}:${BROKER_PORTS}"
-    networks:
       - rabbitmq_net
 
   chat:
@@ -75,8 +54,6 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      rabbitmq:
-        condition: service_healthy
       mongodb:
         condition: service_started
       redis:
@@ -85,6 +62,7 @@ services:
 networks:
   mongodb_net:
   rabbitmq_net:
+    external: true
 
 volumes:
   mongodb_data:
