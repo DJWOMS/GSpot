@@ -90,9 +90,3 @@ USE_I18N = True
 USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-REDIS_HOST = os.getenv('REDIS_HOST')
-REDIS_PORT = os.getenv('REDIS_PORT')
-REDIS_DB = os.getenv('REDIS_DB')
-ACCESS_KEY = os.getenv('ACCESS_KEY')
-BLACK_LIST_KEY = os.getenv('BLACK_LIST_KEY')

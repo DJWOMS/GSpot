@@ -19,7 +19,7 @@ services:
     networks:
       - db
 
-  cache:
+  redis:
     image: redis
     restart: always
     ports:
