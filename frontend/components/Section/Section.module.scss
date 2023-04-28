@@ -1,29 +1,29 @@
 .section {
-  @apply relative pt-[60px];
+  @apply relative pt-[40px];
 
-  @media (min-width: 576px) {
-    @apply pt-[70px];
-  }
-  @media (min-width: 768px) {
-    @apply pt-[80px];
-  }
-  @media (min-width: 1200px) {
-    @apply pt-[90px];
-  }
+  // @media (min-width: 576px) {
+  //   @apply pt-[70px];
+  // }
+  // @media (min-width: 768px) {
+  //   @apply pt-[80px];
+  // }
+  // // @media (min-width: 1200px) {
+  // //   @apply pt-[90px];
+  // // }
 
-  &First {
-    @apply relative pt-[160px];
+  // &First {
+  //   // @apply relative pt-[160px];
 
-    @media (min-width: 576px) {
-      @apply pt-[170px];
-    }
-    @media (min-width: 768px) {
-      @apply pt-[180px];
-    }
-    @media (min-width: 1200px) {
-      @apply pt-[190px];
-    }
-  }
+  //   // @media (min-width: 576px) {
+  //   //   @apply pt-[170px];
+  //   // }
+  //   // @media (min-width: 768px) {
+  //   //   @apply pt-[180px];
+  //   // }
+  //   // @media (min-width: 1200px) {
+  //   //   @apply pt-[190px];
+  //   // }
+  // }
 
   &Last {
     @apply relative pb-[60px];
@@ -135,7 +135,7 @@
       @apply relative flex flex-col items-start justify-start;
 
       @media (min-width: 768px) {
-        @apply mb-[5px] flex-row items-center justify-between;
+        @apply flex-row items-center justify-between;
       }
 
       &Single {

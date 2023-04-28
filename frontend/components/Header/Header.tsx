@@ -20,6 +20,7 @@ interface HeaderProps {
 
 const scrollDelta = 10
 const scrollOffset = 140
+const body = document.body
 
 const Header: FC<HeaderProps> = ({ links }) => {
   const [hideHeader, setHideHeader] = useState(false)
@@ -61,6 +62,12 @@ const Header: FC<HeaderProps> = ({ links }) => {
   const [openHeader, setOpenHeader] = useState(false)
   const toggleOpen = () => setOpenHeader((state) => !state)
 
+  if (openHeader) {
+    body.classList.add('_lock')
+  } else {
+    body.classList.remove('_lock')
+  }
+
   useEffect(() => {
     window.onscroll = () => (openHeader ? window.scrollTo(window.scrollX, window.scrollY) : () => void 0)
   }, [openHeader])
@@ -69,33 +76,35 @@ const Header: FC<HeaderProps> = ({ links }) => {
     <header className={cn(s.header, { [s.headerHide]: hideHeader })}>
       <div className={s.wrapper}>
         <Container>
-          <div className={s.content}>
-            <button className={cn(s.menu, { [s.menuOpen]: openHeader })} onClick={toggleOpen}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
+          <div className={s.contentWrap}>
+            <div className={s.content}>
+              <button className={cn(s.menu, { [s.menuOpen]: openHeader })} onClick={toggleOpen}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
 
-            <Link className={s.logo} href="/">
-              <Image src={LogoPNG} alt="Logo" loading="eager" />
-            </Link>
-
-            <ul className={cn(s.nav, { [s.navOpen]: openHeader })}>
-              {links.map(({ href, title }, index) => (
-                <li className={s.navItem} onClick={() => setOpenHeader(false)} key={index}>
-                  <Link className={s.navLink} href={href}>
-                    {title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <div className={s.actions}>
-              <span />
-              <a className={s.loginBtn} href="/signin">
-                <span>Авторизация</span>
-              </a>
+              <Link className={s.logo} href="/">
+                <Image src={LogoPNG} alt="Logo" loading="eager" />
+              </Link>
             </div>
+
+            <nav className={s.navWrap}>
+              <ul className={cn(s.nav, { [s.navOpen]: openHeader })}>
+                {links.map(({ href, title }, index) => (
+                  <li className={s.navItem} onClick={() => setOpenHeader(false)} key={index}>
+                    <Link className={s.navLink} href={href}>
+                      {title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className={s.actions}>
+                <a className={s.loginBtn} href="/signin">
+                  <span>Авторизация</span>
+                </a>
+              </div>
+            </nav>
           </div>
         </Container>
       </div>

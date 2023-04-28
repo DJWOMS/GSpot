@@ -1,0 +1,20 @@
+.latestWrap {
+  @apply mt-[30px] flex flex-wrap  gap-3 gap-y-4 [&>*:nth-child(2)]:w-[49%];
+
+  @media (max-width: 1050px) {
+    @apply [&>*:nth-child(2)]:flex-auto;
+  }
+}
+.latestNews {
+  @apply w-full w-[32.3%] first:flex-auto;
+
+  @media (max-width: 1050px) {
+    @apply first:w-[100%];
+  }
+  @media (max-width: 770px) {
+    @apply w-[49%];
+  }
+  @media (max-width: 635px) {
+    @apply w-[100%];
+  }
+}
