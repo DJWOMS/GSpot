@@ -5,7 +5,7 @@ import redis
 
 class RedisValidateToken:
     def __int__(self):
-        self.redis_storage = redis.StrictRedis(host=base.REDIS_HOST, port=base.REDIS_PORT, db=0)
+        self.redis_storage = redis.StrictRedis(host=base.REDIS_HOST, port=base.REDIS_PORT, db=base.REDIS_DB)
 
     def validate_token(self, token):
         pass
