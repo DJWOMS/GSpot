@@ -16,34 +16,41 @@ class NotBannedUser(AbstractUserVerify):
         return not user.is_banned
 
 
-class IsSuperUser(AbstractUserVerify):
+class IsAdminSuperUser(AbstractUserVerify):
+    def verify(self, user):
+        if isinstance(user, Admin):
+            return user.is_superuser
+        return False
+
+
+class IsCompanySuperUser(AbstractUserVerify):
 
     def verify(self, user):
-        if isinstance(user, (Admin, CompanyUser)):
+        if isinstance(user, CompanyUser):
             return user.is_superuser
         return False
 
 
 class AdminScopeUser(AbstractUserVerify):
 
-    def verify(self, user: Admin) -> bool:
+    def verify(self, user) -> bool:
         return isinstance(user, Admin)
 
 
 class CompanyScopeUser(AbstractUserVerify):
 
-    def verify(self, user: Admin) -> bool:
+    def verify(self, user) -> bool:
         return isinstance(user, CompanyUser)
 
 
 class CustomerScopeUser(AbstractUserVerify):
 
-    def verify(self, user: CustomerUser) -> bool:
+    def verify(self, user) -> bool:
         return isinstance(user, CustomerUser)
 
 
 class CompanyOwner(AbstractUserVerify):
-    def verify(self, user: CompanyUser) -> bool:
+    def verify(self, user) -> bool:
         if isinstance(user, CompanyUser):
             return Company.objects.filter(created_by=user).exists()
         return False

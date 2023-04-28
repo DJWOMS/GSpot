@@ -3,8 +3,6 @@ from typing import Type
 
 from django.contrib.auth.models import AbstractUser
 
-from base.models import BaseAbstractUser
-
 
 class AbstractUserVerify(metaclass=ABCMeta):
     """Common abstract class for user verification """

@@ -2,8 +2,12 @@ from base.permissions import BaseUserPermissions
 from common import validators
 
 
-class IsSuperUser(BaseUserPermissions, validators.IsSuperUser):
-    """Check Super User Permission"""
+class IsAdminSuperUser(BaseUserPermissions, validators.IsAdminSuperUser):
+    """Check Admin Super User Permission"""
+
+
+class IsCompanySuperUser(BaseUserPermissions, validators.IsCompanySuperUser):
+    """Check Admin Super User Permission"""
 
 
 class IsAdminScopeUser(BaseUserPermissions, validators.AdminScopeUser):
