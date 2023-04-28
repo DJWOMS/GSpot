@@ -1,12 +1,18 @@
+import { useContext } from 'react'
 import CarouselSection from 'components/CarouselSection'
 import { Container } from 'components/Container'
 import Section from 'components/Section'
 import { GameCard, GameCardBig, GameCardInterface, ListGames, GameListInterface } from 'features/games'
 import { LatestNews } from 'features/news'
 import { fetchServerSide } from 'lib/fetchServerSide'
+import { AuthContext } from 'providers/AuthProvider'
 import s from './page.module.scss'
 
 const Home = async () => {
+  const { authenticated } = useContext(AuthContext)
+
+  console.log(authenticated)
+
   const [bestGames, latestGames, otherGames, giftGames, subscriptionsGames] = await Promise.all([
     fetchServerSide<GameCardInterface[]>({ path: '/games/best' }),
     fetchServerSide<GameCardInterface[]>({ path: '/games/latest' }),

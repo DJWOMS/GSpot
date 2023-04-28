@@ -12,7 +12,7 @@
 
   &Input {
     @apply relative h-11 w-full rounded-md border border-solid border-main-60
-      bg-main-30 py-0 px-5 text-sm tracking-[0.4px] text-white;
+      bg-main-30 px-5 py-0 text-sm tracking-[0.4px] text-white;
 
     &:focus {
       @apply border-main-500 bg-main-40;
@@ -23,7 +23,7 @@
   }
 
   &Select {
-    @apply mb-5 w-full cursor-pointer rounded-md border border-solid border-main-60 py-0 px-5 text-sm tracking-[0.4px] text-white;
+    @apply mb-5 w-full cursor-pointer rounded-md border border-solid border-main-60 px-5 py-0 text-sm tracking-[0.4px] text-white;
     background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
     background-size: 12px auto;
 
@@ -38,7 +38,7 @@
 
   &Textarea {
     @apply relative mb-5 h-[150px] w-full resize-none rounded-md border border-solid border-main-60 bg-main-30
-        py-[15px] px-5 text-sm tracking-[0.4px] text-white;
+        px-5 py-[15px] text-sm tracking-[0.4px] text-white;
 
     &:focus {
       @apply border-main-500 bg-main-40;
