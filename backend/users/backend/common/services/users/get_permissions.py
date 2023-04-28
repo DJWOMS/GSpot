@@ -1,4 +1,4 @@
-def get_dict_of_user_permissions(user):
+def get_user_permissions(user):
     permissions = {}
     user_permissions = user.user_permissions.all()
     if user_permissions:
