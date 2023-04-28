@@ -14,7 +14,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - /mongodb_data:/data/db
+      - mongodb_data:/data/db
     env_file:
       - .env.dev
     networks:
@@ -54,10 +54,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      mongodb:
-        condition: service_started
-      redis:
-        condition: service_started
+      - mongodb
+      - redis
 
 networks:
   mongodb_net:
