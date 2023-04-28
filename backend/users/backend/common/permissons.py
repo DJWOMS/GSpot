@@ -1,3 +1,5 @@
+from rest_framework.permissions import BasePermission
+
 from base.permissions import BaseUserPermissions
 from common import validators
 
@@ -28,3 +30,15 @@ class CompanyOwner(BaseUserPermissions, validators.CompanyOwner):
 
 class CompanyEmployee(BaseUserPermissions, validators.CompanyEmployee):
     """Check Company Employee"""
+
+
+class UserPermissionCheck(BasePermission):
+
+    def __init__(self, permission: str):
+        self.permission = permission
+
+    def __call__(self, *args, **kwargs):
+        return self
+
+    def has_permission(self, request, view):
+        return request.user.has_perm(self.permission)
