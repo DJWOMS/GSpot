@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from finance.serializers import OfferSerializer, PriceSerializer
 from reference import serializers as ref_serializers
 from community import serializers as com_serializers
 from reference.serializers import GenreGamesSerializer
@@ -70,7 +71,7 @@ class ShortSystemReqSerializers(serializers.ModelSerializer):
 
 class GamesListSerializer(serializers.ModelSerializer):
     # todo реализовать прайс
-    price = serializers.IntegerField(default=100)
+    # price = serializers.IntegerField(default=100)
     # todo реализовать систему скидок
     discount = serializers.IntegerField(default=0)
     # todo продумать систему оценок
@@ -79,6 +80,7 @@ class GamesListSerializer(serializers.ModelSerializer):
 
     system_requirements = ShortSystemReqSerializers(many=True, read_only=True)
     genres = GenreGamesSerializer(many=True, read_only=True)
+    offers = OfferSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -91,13 +93,14 @@ class GamesListSerializer(serializers.ModelSerializer):
             'price',
             'discount',
             'is_bought',
-            'is_favorite'
+            'is_favorite',
+            'offers',
         )
 
 
 class GameDetailSerializer(serializers.ModelSerializer):
     # todo реализовать прайс
-    price = serializers.IntegerField(default=100)
+    # price = serializers.IntegerField(default=100)
     # todo реализовать систему скидок
     discount = serializers.IntegerField(default=0)
     # todo продумать систему оценок
@@ -108,6 +111,7 @@ class GameDetailSerializer(serializers.ModelSerializer):
     genres = GenreGamesSerializer(many=True, read_only=True)
     dlcs = DlcSerializer(many=True, read_only=False)
     langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
+    offers = OfferSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -132,4 +136,5 @@ class GameDetailSerializer(serializers.ModelSerializer):
             'dlcs',
             'langs',
             'system_requirements',
+            'offers',
         )
