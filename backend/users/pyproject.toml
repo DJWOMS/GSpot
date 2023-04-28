@@ -18,6 +18,7 @@ drf-yasg = "^1.21.5"
 pillow = "^9.4.0"
 djoser = "^2.1.0"
 djangorestframework-simplejwt = "^5.2.2"
+redis = "^4.5.4"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.3.0"

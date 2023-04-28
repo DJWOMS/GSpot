@@ -89,11 +89,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoprojectAUTH_USER_MODEL.com/en/4.1/howto/static-files/
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+REDIS_HOST = os.getenv('REDIS_HOST')
+REDIS_PORT = os.getenv('REDIS_PORT')
+ACCESS_KEY = os.getenv('ACCESS_KEY')
+BLACK_LIST_KEY = os.getenv('BLACK_LIST_KEY')
