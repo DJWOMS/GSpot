@@ -61,7 +61,7 @@
   }
 
   &Logout {
-    @apply absolute top-[20px] right-[20px] flex h-[44px] w-[44px] items-center justify-center rounded-[6px] border border-solid border-main-400
+    @apply absolute right-[20px] top-[20px] flex h-[44px] w-[44px] items-center justify-center rounded-[6px] border border-solid border-main-400
     bg-main-30 text-xs uppercase tracking-[0.4px] text-white;
 
     transition: 0.5s;
@@ -100,7 +100,7 @@
     }
 
     &Logout {
-      @apply relative top-auto right-auto w-[120px];
+      @apply relative right-auto top-auto w-[120px];
 
       svg {
         @apply hidden;
