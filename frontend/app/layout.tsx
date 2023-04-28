@@ -1,6 +1,9 @@
+'use client'
+
 import { Analytics } from '@vercel/analytics/react'
 import cn from 'classnames'
 import localFont from 'next/font/local'
+import { AuthProvider } from 'providers/AuthProvider'
 import './global.scss'
 
 // head
@@ -25,8 +28,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru" className={cn(montserrat.variable, openSans.variable)}>
       <body>
-        {children}
-        <Analytics />
+        <AuthProvider>
+          {children}
+          <Analytics />
+        </AuthProvider>
       </body>
     </html>
   )

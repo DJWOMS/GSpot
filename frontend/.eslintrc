@@ -11,8 +11,7 @@
         "plugin:@typescript-eslint/recommended",
         "prettier"
     ],
-    "overrides": [
-    ],
+    "overrides": [],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -27,7 +26,8 @@
         "react/jsx-key": "error",
         "prettier/prettier": "error",
         "react/react-in-jsx-scope": "off",
-        "@typescript-eslint/no-var-requires": "off"
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-empty-function": "off"
     },
     "ignorePatterns": [
         "**/*.scss"
