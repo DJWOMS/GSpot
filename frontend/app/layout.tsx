@@ -6,11 +6,12 @@ import localFont from 'next/font/local'
 import { AuthProvider } from 'providers/AuthProvider'
 import './global.scss'
 
+// Commented because use client used for Provider
 // head
-export const metadata = {
-  title: 'GSpot',
-  description: 'Games market',
-}
+// export const metadata = {
+//   title: 'GSpot',
+//   description: 'Games market',
+// }
 
 // fonts
 const montserrat = localFont({
