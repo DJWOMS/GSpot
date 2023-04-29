@@ -4,7 +4,7 @@ from django.conf import settings
 from django.utils import timezone
 
 from base.token import BaseToken
-from common.services.jwt.exceptions import TokenExpired
+from common.services.jwt.exceptions import TokenExpired, PayloadError
 from common.services.jwt.mixins import JWTMixin
 
 
@@ -12,6 +12,7 @@ class Token(BaseToken, JWTMixin):
 
 
 	def generate_access_token(self, data: dict = {}) -> str:
+		self.check_data_for_payload(data)
 		iat = timezone.localtime()
 		exp = iat + settings.ACCESS_TOKEN_LIFETIME
 		payload = {
@@ -22,6 +23,14 @@ class Token(BaseToken, JWTMixin):
 			}
 		access_token = self._encode(payload)
 		return access_token
+	
+
+	@staticmethod
+	def check_data_for_payload(data: dict):
+		required = ['user_id', 'role']
+		for key in required:
+			if key not in data:
+				raise PayloadError(f"Payload must contain - {key}")
 
 	
 	def generate_refresh_token(self) -> str:

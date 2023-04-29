@@ -4,3 +4,7 @@ class TokenExpired(Exception):
 
 class TokenInvalid(Exception):
     pass
+
+
+class PayloadError(Exception):
+    pass
