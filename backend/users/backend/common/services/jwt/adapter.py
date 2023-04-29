@@ -17,7 +17,7 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 		self.role = role
 
 
-	def generate_access_token(self) -> str:
+	def generate_access_token(self, additional_data: dict) -> str:
 		iat = timezone.localtime()
 		exp = iat + settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"]
 		payload = {
@@ -26,7 +26,8 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 			"exp":int(exp.timestamp()),
 			"user_id":str(self.user.id),
 			"role":self.role,
-			"permissions":get_user_permissions(self.user)
+			"permissions":get_user_permissions(self.user),
+			**additional_data
 			}
 		access_token = self._encode(payload)
 		return access_token
