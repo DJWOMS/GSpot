@@ -65,7 +65,13 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 		now = int(time.time())
 		exp = decoded_token['exp']
 		if exp > now :
-			return exp - now 
+			return self.check_exp_left(token)
 		else:
 			raise TokenExpired(f"Token Expired {now-exp} ago.")
-		
+
+	
+	def check_exp_left(self, token: str) -> int:
+		decoded_token = self._decode(token)
+		now = int(time.time())
+		exp = decoded_token['exp']
+		return exp - now
