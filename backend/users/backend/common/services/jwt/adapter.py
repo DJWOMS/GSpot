@@ -17,7 +17,7 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 		self.role = role
 
 
-	def generate_access_token(self, additional_data: dict) -> str:
+	def generate_access_token(self, additional_data: dict = {}) -> str:
 		iat = timezone.localtime()
 		exp = iat + settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"]
 		payload = {
@@ -56,7 +56,6 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 	
 	
 	def check_token(self, token: str):
-		"""Check token for expiration and blacklist"""
 		self.check_exp(token)
 		return True
 
