@@ -36,7 +36,7 @@ const CatalogPage = async ({ searchParams }: { searchParams: URLSearchParams }) 
               ))}
             </div>
 
-            <Pagination />
+            <Pagination currentPage={1} totalItems={5} itemsPerPage={4} />
           </div>
         </div>
       </Section>
