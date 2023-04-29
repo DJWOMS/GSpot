@@ -4,30 +4,21 @@ from django.conf import settings
 from django.utils import timezone
 
 from base.token import BaseToken
-from base.models import BaseAbstractUser
-from common.services.users.get_permissions import get_user_permissions
 from common.services.jwt.exceptions import TokenExpired
 from common.services.jwt.mixins import JWTMixin
 
 
 class Token(BaseToken, JWTMixin):
 
-	def __init__(self, user: BaseAbstractUser = BaseAbstractUser):
-		self.user = user
-		self.role = user._meta.app_label
 
-
-	def generate_access_token(self, additional_data: dict = {}) -> str:
+	def generate_access_token(self, data: dict = {}) -> str:
 		iat = timezone.localtime()
 		exp = iat + settings.ACCESS_TOKEN_LIFETIME
 		payload = {
 			"token_type":"access",
 			"iat":int(iat.timestamp()),
 			"exp":int(exp.timestamp()),
-			"user_id":str(self.user.id),
-			"role":self.role,
-			"permissions":get_user_permissions(self.user),
-			**additional_data
+			**data
 			}
 		access_token = self._encode(payload)
 		return access_token
@@ -40,8 +31,6 @@ class Token(BaseToken, JWTMixin):
 			"token_type":"refresh",
 			"iat":int(iat.timestamp()),
 			"exp":int(exp.timestamp()),
-			"user_id":str(self.user.id),
-			"role":self.role
 			}
 		refresh_token = self._encode(payload)
 		return refresh_token
