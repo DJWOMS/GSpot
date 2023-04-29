@@ -12,7 +12,7 @@ from common.services.jwt.mixins import JWTMixin
 
 class JWTAdapter(BaseTokenAdapter, JWTMixin):
 
-	def __init__(self, user: BaseAbstractUser):
+	def __init__(self, user: BaseAbstractUser = BaseAbstractUser):
 		self.user = user
 		self.role = user._meta.app_label
 
@@ -57,6 +57,7 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 	
 	def check_token(self, token: str):
 		self.check_exp(token)
+		self.check_signature(token)
 		return True
 
 
@@ -75,3 +76,7 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 		now = int(time.time())
 		exp = decoded_token['exp']
 		return exp - now
+	
+
+	def check_signature(self, token: str):
+		self._decode(token)
