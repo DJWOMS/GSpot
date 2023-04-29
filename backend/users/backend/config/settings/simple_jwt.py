@@ -5,6 +5,8 @@ from datetime import timedelta
 
 ACCESS_TOKEN_LIFETIME = json.loads(os.environ["ACCESS_TOKEN_LIFETIME"])
 REFRESH_TOKEN_LIFETIME = json.loads(os.environ["REFRESH_TOKEN_LIFETIME"])
+GET_TOKEN_FROM = os.environ["GET_TOKEN_FROM"]
+
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(**ACCESS_TOKEN_LIFETIME),
