@@ -1,5 +1,6 @@
-from rest_framework.pagination import LimitOffsetPagination
 from rest_framework import generics
+
+from base.paginations import CommentsResultsSetPagination
 
 from .models import Comment, Review
 from .serializers import ReviewSerializer, CommentSerializer
@@ -15,7 +16,7 @@ class GameReviewListView(generics.ListAPIView):
 
 class GameReviewCommentListView(generics.ListAPIView):
     serializer_class = CommentSerializer
-    pagination_class = LimitOffsetPagination
+    pagination_class = CommentsResultsSetPagination
 
     def get_queryset(self):
         review_id = self.kwargs['review_id']
