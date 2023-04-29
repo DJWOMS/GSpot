@@ -3,7 +3,7 @@ from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 
 from base.models import BaseAbstractUser
-from common.services.jwt.adapter import JWTAdapter
+from common.services.jwt.token import Token
 
 
 class CustomJWTAuthentication(BaseAuthentication):
@@ -12,7 +12,7 @@ class CustomJWTAuthentication(BaseAuthentication):
 		jwt_token = self.get_token(request)
 		self.validate_token(jwt_token)
 
-		payload = JWTAdapter._decode(jwt_token)
+		payload = Token._decode(jwt_token)
 		user = self.get_user(payload)
 		return user, payload
 
@@ -44,7 +44,7 @@ class CustomJWTAuthentication(BaseAuthentication):
 	
 	@staticmethod
 	def validate_token(token) -> None:
-		JWTAdapter().check_token(token)
+		Token().check_token(token)
 	
 
 	def get_user(self, payload: dict) -> BaseAbstractUser:

@@ -3,14 +3,14 @@ import time
 from django.conf import settings 
 from django.utils import timezone
 
-from base.token_adapter import BaseTokenAdapter
+from base.token import BaseToken
 from base.models import BaseAbstractUser
 from common.services.users.get_permissions import get_user_permissions
 from common.services.jwt.exceptions import TokenExpired
 from common.services.jwt.mixins import JWTMixin
 
 
-class JWTAdapter(BaseTokenAdapter, JWTMixin):
+class Token(BaseToken, JWTMixin):
 
 	def __init__(self, user: BaseAbstractUser = BaseAbstractUser):
 		self.user = user

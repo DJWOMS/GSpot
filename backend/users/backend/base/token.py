@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class BaseTokenAdapter(ABC):
+class BaseToken(ABC):
 	
 	@abstractmethod
 	def generate_access_token():
