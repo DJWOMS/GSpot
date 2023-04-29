@@ -62,20 +62,22 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 
 
 	def check_exp(self, token: str) -> int:
-		decoded_token = self._decode(token)
-		now = int(time.time())
-		exp = decoded_token['exp']
-		if exp > now :
-			return self.check_exp_left(token)
+		exp_left = self.check_exp_left(token)
+		if exp_left == 0:
+			raise TokenExpired()
 		else:
-			raise TokenExpired(f"Token Expired {now-exp} ago.")
-
+			return exp_left
+			
 	
 	def check_exp_left(self, token: str) -> int:
 		decoded_token = self._decode(token)
 		now = int(time.time())
 		exp = decoded_token['exp']
-		return exp - now
+
+		if exp > now:
+			return exp - now
+		else:
+			return 0
 	
 
 	def check_signature(self, token: str):
