@@ -70,17 +70,3 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 		else:
 			raise TokenExpired(f"Token Expired {now-exp} ago.")
 		
-	
-	def check_blacklist(self, token) -> bool:
-		"""Will be implemented when Redis will be ready"""
-		raise NotImplementedError()
-	
-
-	def add_to_db(self, token) -> None:
-		"""Will be implemented when Redis will be ready"""
-		raise NotImplementedError()
-	
-
-	def add_to_blacklist(self, token) -> None:
-		"""Will be implemented when Redis will be ready"""
-		raise NotImplementedError()
