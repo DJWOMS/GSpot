@@ -58,7 +58,7 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 	def check_token(self, token: str):
 		"""Check token for expiration and blacklist"""
 		self.check_exp(token)
-		return 'Token Valid'
+		return True
 
 
 	def check_exp(self, token: str) -> int:
