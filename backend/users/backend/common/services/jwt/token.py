@@ -19,7 +19,7 @@ class Token(BaseToken, JWTMixin):
 
 	def generate_access_token(self, additional_data: dict = {}) -> str:
 		iat = timezone.localtime()
-		exp = iat + settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"]
+		exp = iat + settings.ACCESS_TOKEN_LIFETIME
 		payload = {
 			"token_type":"access",
 			"iat":int(iat.timestamp()),
@@ -35,7 +35,7 @@ class Token(BaseToken, JWTMixin):
 	
 	def generate_refresh_token(self) -> str:
 		iat = timezone.localtime()
-		exp = iat + settings.SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"]
+		exp = iat + settings.REFRESH_TOKEN_LIFETIME
 		payload = {
 			"token_type":"refresh",
 			"iat":int(iat.timestamp()),

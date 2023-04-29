@@ -14,7 +14,7 @@ class JWTMixin:
 		return jwt.encode(
 				payload, 
 				settings.SECRET_KEY, 
-				settings.SIMPLE_JWT["ALGORITHM"]
+				settings.ALGORITHM
 			)
 	
 
@@ -25,7 +25,7 @@ class JWTMixin:
 			return jwt.decode(
 					token, 
 					settings.SECRET_KEY, 
-					settings.SIMPLE_JWT["ALGORITHM"]
+					settings.ALGORITHM
 				)
 		except:
 			raise TokenInvalid
