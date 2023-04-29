@@ -12,9 +12,9 @@ from common.services.jwt.mixins import JWTMixin
 
 class JWTAdapter(BaseTokenAdapter, JWTMixin):
 
-	def __init__(self, user: BaseAbstractUser, role: str):
+	def __init__(self, user: BaseAbstractUser):
 		self.user = user
-		self.role = role
+		self.role = user._meta.app_label
 
 
 	def generate_access_token(self, additional_data: dict = {}) -> str:
