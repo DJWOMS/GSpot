@@ -12,7 +12,7 @@ from common.services.jwt.mixins import JWTMixin
 
 class JWTAdapter(BaseTokenAdapter, JWTMixin):
 
-	def __init__(self, user:BaseAbstractUser, role:str):
+	def __init__(self, user: BaseAbstractUser, role: str):
 		self.user = user
 		self.role = role
 
@@ -40,7 +40,7 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 			"iat":int(iat.timestamp()),
 			"exp":int(exp.timestamp()),
 			"user_id":str(self.user.id),
-			"role":self.role,
+			"role":self.role
 			}
 		refresh_token = self._encode(payload)
 		return refresh_token
@@ -54,13 +54,13 @@ class JWTAdapter(BaseTokenAdapter, JWTMixin):
 		return tokens
 	
 	
-	def check_token(self, token):
+	def check_token(self, token: str):
 		"""Check token for expiration and blacklist"""
 		self.check_exp(token)
 		return 'Token Valid'
 
 
-	def check_exp(self, token:str) -> int:
+	def check_exp(self, token: str) -> int:
 		decoded_token = self._decode(token)
 		now = int(time.time())
 		exp = decoded_token['exp']
