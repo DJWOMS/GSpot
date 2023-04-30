@@ -64,7 +64,7 @@ class CustomJWTAuthentication(BaseAuthentication):
 		
 		return user
 		
-
+	@staticmethod
 	def get_user_model(role: str) -> BaseAbstractUser:
 		all_user_models = BaseAbstractUser.__subclasses__()
 		for user_model in all_user_models:
