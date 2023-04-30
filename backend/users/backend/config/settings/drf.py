@@ -8,7 +8,7 @@ REST_FRAMEWORK = {
     	'rest_framework.permissions.IsAuthenticated'
         ],
     'DEFAULT_AUTHENTICATION_CLASSES': 
-    	os.environ["DEFAULT_AUTHENTICATION_CLASSES"].split(","),
+    	['common.services.jwt.authentication.CustomJWTAuthentication'],
     'PAGE_SIZE': 10,
     # 'DEFAULT_RENDERER_CLASSES': [
     #     'rest_framework.renderers.JSONRenderer',
