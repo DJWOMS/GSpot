@@ -9,14 +9,11 @@ ENV PIP_NO_CACHE_DIR=1
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN pip install poetry
-
 WORKDIR /chat
 
-COPY pyproject.toml .
+COPY requirements.txt .
 
-RUN poetry config virtualenvs.create false
-RUN poetry install --no-root
+RUN pip install -r requirements.txt
 
 EXPOSE 8000
 
