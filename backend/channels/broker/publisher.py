@@ -1,5 +1,4 @@
 import aio_pika
-from aio_pika.pool import Pool
 from aio_pika.channel import Channel
 
 
