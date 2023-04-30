@@ -1,8 +1,5 @@
 import { FC } from 'react'
-import { IconThumbUp } from '@tabler/icons-react'
-import { IconThumbDown } from '@tabler/icons-react'
-import { IconArrowForwardUp } from '@tabler/icons-react'
-import { IconMessageForward } from '@tabler/icons-react'
+import { IconThumbUp, IconThumbDown, IconArrowForwardUp, IconMessageForward } from '@tabler/icons-react'
 import { CommentInterface } from 'features/news/types'
 import s from './Comments.module.scss'
 

@@ -72,10 +72,10 @@
 }
 
 .articleCategory {
-  @apply mb-5 inline-flex h-6 w-auto min-w-[74px] flex-row items-center justify-center rounded-sm border-main-40 bg-main-150 
+  @apply mb-5 inline-flex h-6 w-auto min-w-[74px] flex-row items-center justify-center rounded border border-main-400 bg-main-150 
   py-0 px-[13px] text-[12px] tracking-[0.4px] text-light md:mb-[30px];
   &:hover {
-    @apply border-main-60 bg-main-30 text-white;
+    @apply border border-main-600 bg-main-30 text-white;
   }
 }
 

@@ -18,8 +18,8 @@ const Page = async () => {
     <Section>
       <div className="container">
         <div className={s.article}>
-          <div className={s.row}>
-            <div className={s.colLeft}>
+          <div className="grid grid-cols-3">
+            <div className="col-span-3 lg:col-span-2">
               {articleContent && <ArticleContent>{articleContent}</ArticleContent>}
               <div className={s.links}>
                 <SocialLink type="facebook" />
@@ -28,9 +28,9 @@ const Page = async () => {
               </div>
               {comments && <Comments>{comments}</Comments>}
             </div>
-            <div className={s.colRight}>
+            <div className="col-span-3 lg:col-span-1">
               <div className={s.sidebar}>
-                <div className={s.row}>
+                <div className="grid md:grid-cols-2 lg:grid-cols-1">
                   <div className={s.colSmall}>{randomGames && <ListGames>{randomGames}</ListGames>}</div>
                   <div className={s.colSmall}>
                     <Subscribe />

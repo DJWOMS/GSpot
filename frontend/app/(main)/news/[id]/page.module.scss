@@ -1,17 +1,5 @@
 .article {
-  @apply relative rounded-md border-main-60 bg-background p-5;
-}
-
-.row {
-  @apply -mx-4 flex flex-wrap;
-}
-
-.colLeft {
-  @apply relative w-full flex-shrink-0 flex-grow-0 basis-full px-4 lg:max-w-[66.666667%] lg:basis-[66.666667%];
-}
-
-.colRight {
-  @apply relative w-full flex-shrink-0 flex-grow-0 basis-full px-4 lg:max-w-[33.333333%] lg:basis-[33.333333%];
+  @apply relative rounded-md border border-main-60 bg-background p-5;
 }
 
 .sidebar {
