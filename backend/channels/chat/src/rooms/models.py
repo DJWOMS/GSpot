@@ -1,5 +1,3 @@
-"""Room"""
-
 from datetime import datetime
 from typing import Optional
 
@@ -8,7 +6,7 @@ from pydantic import BaseModel, Field
 
 
 class Room(BaseModel):
-    """Модель комнаты."""
+    """ Room model """
     id: Optional[ObjectId] = Field(alias="_id")
     room_name: str = Field(...)
     created_at: datetime = Field(default=datetime.utcnow())

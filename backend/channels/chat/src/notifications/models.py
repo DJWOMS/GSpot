@@ -1,5 +1,3 @@
-"""Notification"""
-
 from datetime import datetime
 from typing import Optional
 
@@ -8,7 +6,7 @@ from pydantic import BaseModel, Field
 
 
 class Notification(BaseModel):
-    """Модель уведомления."""
+    """ Notification model """
     id: Optional[ObjectId] = Field(alias="_id")
     user_id: ObjectId = Field(...)
     text: str = Field(...)
