@@ -1,8 +1,7 @@
 from fastapi import FastAPI
+from src.router import router
 
 app = FastAPI()
 
+app.include_router(router)
 
-@app.get('/test')
-async def test():
-    return {"message": "ok"}

@@ -1,5 +1,3 @@
-"""Message"""
-
 from datetime import datetime
 from typing import Optional
 
@@ -8,7 +6,7 @@ from pydantic import BaseModel, Field
 
 
 class Message(BaseModel):
-    """Модель сообщения."""
+    """ Message model """
     id: Optional[ObjectId] = Field(alias="_id")
     sender_id: ObjectId = Field(...)
     room_id: ObjectId = Field(...)
