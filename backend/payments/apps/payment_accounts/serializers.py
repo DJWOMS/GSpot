@@ -26,7 +26,7 @@ class AccountSerializer(serializers.ModelSerializer):
 
 
 class AccountBalanceSerializer(serializers.ModelSerializer):
-    balance = MoneySerializerField
+    balance = MoneySerializerField()
 
     class Meta:
         model = Account
