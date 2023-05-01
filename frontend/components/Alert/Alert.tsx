@@ -32,19 +32,23 @@ const Alert: FC<AlertProps> = ({ type, title, message, closable, duration, child
     return () => clearTimeout(dismissRef.current)
   }, [])
   return (
-    <div className={cn(s.alert, alertType[type].className, !open && s.alertHidden)}>
-      <div className={s.alertIcon}>{alertType[type].icon}</div>
-      <div className={s.alertContent}>
-        <p className={s.alertContentTitle}>{title}</p>
-        <p className={s.alertContentMessage}>{message}</p>
-        {children}
-      </div>
-      {closable && (
-        <button onClick={close} className={s.alertCloseBtn}>
-          <IconX />
-        </button>
-      )}
-    </div>
+    <>
+      {open ? (
+        <div className={cn(s.alert, alertType[type].className)}>
+          <div className={s.alertIcon}>{alertType[type].icon}</div>
+          <div className={s.alertContent}>
+            <p className={s.alertContentTitle}>{title}</p>
+            <p className={s.alertContentMessage}>{message}</p>
+            {children}
+          </div>
+          {closable && (
+            <button onClick={close} className={s.alertCloseBtn}>
+              <IconX />
+            </button>
+          )}
+        </div>
+      ) : null}
+    </>
   )
 }
 
