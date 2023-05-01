@@ -19,9 +19,6 @@ class DeveloperPermission(BasePermission):
 class DeveloperPermissionMixin(BasePermissionMixin):
 
     def has_perm(self, perm, obj=None):
-        if self.is_active and self.is_superuser:
-            return True
-
         queryset = self.user_permissions.filter(codename=perm) | DeveloperPermission.objects.filter(
             developergroup__developer=self, codename=perm)
         return queryset.exists()
