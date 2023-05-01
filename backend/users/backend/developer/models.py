@@ -3,18 +3,45 @@ import uuid
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
-from base.models import BaseAbstractUser, BasePermission, BaseGroup
+from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 from django.utils.translation import gettext_lazy as _
 
 from common.models import Country, ContactType
 
 
-class DeveloperPermissionMixin(PermissionsMixin):
+class DeveloperPermission(BasePermission):
+    class Meta(BasePermission.Meta):
+        db_table = "Developer_permission"
+        verbose_name = _("Developer permission")
+        verbose_name_plural = _("Developer permissions")
+
+
+class DeveloperPermissionMixin(BasePermissionMixin):
+
+    def has_perm(self, perm, obj=None):
+        if self.is_active and self.is_superuser:
+            return True
+
+        queryset = self.user_permissions.filter(codename=perm) | DeveloperPermission.objects.filter(
+            developergroup__developer=self, codename=perm)
+        return queryset.exists()
+
+    def get_all_permissions(self, obj=None):
+        return self.user_permissions.all() | DeveloperPermission.objects.filter(developergroup__developer=self)
+
     class Meta:
         abstract = True
 
 
 class DeveloperGroup(BaseGroup):
+    permission = models.ManyToManyField(
+        DeveloperPermission,
+        verbose_name=_("permission"),
+        blank=True,
+        related_name='developergroup_set',
+        related_query_name='developergroup'
+    )
+
     class Meta(BaseGroup.Meta):
         db_table = "developer_group"
         verbose_name = _("developer group")
@@ -135,11 +162,3 @@ class CompanyContact(models.Model):
     class Meta:
         verbose_name = _('Company contact')
         verbose_name_plural = _('Company contacts')
-
-
-class DeveloperPermission(BasePermission):
-
-    class Meta(BasePermission.Meta):
-        db_table = "Developer_permission"
-        verbose_name = _("Developer permission")
-        verbose_name_plural = _("Developer permissions")

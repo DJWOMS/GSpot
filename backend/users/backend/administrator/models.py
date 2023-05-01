@@ -2,18 +2,29 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from base.models import BaseAbstractUser, BasePermission, BaseGroup
+from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 
 
 class AdminPermission(BasePermission):
-
     class Meta(BasePermission.Meta):
         db_table = "permission"
         verbose_name = _("permission")
         verbose_name_plural = _("permissions")
 
 
-class AdminPermissionMixin(PermissionsMixin):
+class AdminPermissionMixin(BasePermissionMixin):
+
+    def has_perm(self, perm, obj=None):
+        if self.is_active and self.is_superuser:
+            return True
+
+        queryset = self.user_permissions.filter(codename=perm) | AdminPermission.objects.filter(
+            admingroup__user=self, codename=perm)
+        return queryset.exists()
+
+    def get_all_permissions(self, obj=None):
+        return self.user_permissions.all() | AdminPermission.objects.filter(admingroup__user=self)
+
     class Meta:
         abstract = True
 
@@ -23,6 +34,8 @@ class AdminGroup(BaseGroup):
         AdminPermission,
         verbose_name=_("permission"),
         blank=True,
+        related_name='admingroup_set',
+        related_query_name='admingroup'
     )
 
     class Meta(BaseGroup.Meta):
