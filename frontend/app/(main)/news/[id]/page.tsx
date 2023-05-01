@@ -1,18 +1,18 @@
 import Section from 'components/Section'
-import { GameCardInterface } from 'features/games'
-import { ListGames } from 'features/games'
-import { ArticleContent, ArticleInterface, CommentInterface } from 'features/news'
-import { Comments } from 'features/news'
-import { SocialLink } from 'features/news'
-import { Subscribe } from 'features/news'
-import { RelatedNews } from 'features/news'
+import { GameCardInterface, ListGames } from 'features/games'
+import { ArticleContent, ArticleInterface, CommentInterface, Comments, SocialLink, Subscribe, RelatedNews } from 'features/news'
 import { fetchServerSide } from 'lib/fetchServerSide'
+import { notFound } from 'next/navigation'
 import s from './page.module.scss'
 
-const Page = async () => {
-  const randomGames = await fetchServerSide<GameCardInterface[]>({ path: '/games/random', cache: 'no-cache' })
-  const articleContent = await fetchServerSide<ArticleInterface>({ path: '/news/[id]', cache: 'no-cache' })
+const Page = async ({ params }: { params: { id: string } }) => {
+  const articleContent = await fetchServerSide<ArticleInterface>({ path: `/news/${params.id}`, cache: 'no-cache' })
+
+  if (!articleContent) {
+    notFound()
+  }
   const comments = await fetchServerSide<CommentInterface[]>({ path: '/news/comments', cache: 'no-cache' })
+  const randomGames = await fetchServerSide<GameCardInterface[]>({ path: '/games/random', cache: 'no-cache' })
 
   return (
     <Section>
@@ -20,7 +20,7 @@ const Page = async () => {
         <div className={s.article}>
           <div className="grid grid-cols-3">
             <div className="col-span-3 lg:col-span-2">
-              {articleContent && <ArticleContent>{articleContent}</ArticleContent>}
+              <ArticleContent>{articleContent}</ArticleContent>
               <div className={s.links}>
                 <SocialLink type="facebook" />
                 <SocialLink type="twitter" />
