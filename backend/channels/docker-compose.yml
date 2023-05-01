@@ -23,17 +23,21 @@ services:
 
   consumer:
     container_name: channels_consumer
-    build: ./broker
+    build:
+      context: broker
+      dockerfile: Dockerfile
     restart: always
     env_file:
       - .env.dev
     volumes:
       - ./broker:/app
-    depends_on:
-      - mongodb
+    command: >
+      sh -c "python main.py"
     networks:
       - mongodb_net
       - rabbitmq_net
+    depends_on:
+      - mongodb
 
   chat:
     container_name: channels_chat
