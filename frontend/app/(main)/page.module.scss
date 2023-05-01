@@ -1,3 +1,9 @@
 .sections {
   @apply grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3;
 }
+.bestGames {
+  @apply m-auto mb-32 grid max-w-7xl grid-cols-2 gap-4;
+}
+.card {
+  @apply m-auto grid max-w-7xl grid-cols-5 gap-4;
+}

@@ -22,7 +22,6 @@ const CatalogPage = async ({ searchParams }: { searchParams: URLSearchParams }) 
           </>
         }
       />
-
       <Section last>
         <div className={s.row}>
           <div className={s.columns2}>
