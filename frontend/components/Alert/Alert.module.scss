@@ -1,6 +1,6 @@
 .alert {
-  @apply fixed bottom-5 z-[3] flex max-w-xs rounded-b border-t-4 px-4 py-3 shadow-md;
-  background-color: rgba(70, 68, 86, 0.97);
+  @apply z-[3] flex rounded-b border-t-4 px-4 py-3 shadow-md;
+  background-color: rgba(70, 68, 86);
   &Hidden {
     @apply hidden;
   }
@@ -30,6 +30,6 @@
     }
   }
   &CloseBtn {
-    @apply ml-4 self-start;
+    @apply ml-auto self-start;
   }
 }

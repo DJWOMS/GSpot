@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect, useState } from 'react'
+import React, { FC, ReactNode, useEffect, useRef, useState } from 'react'
 import { IconAlertCircle, IconCircleCheck, IconAlertTriangle, IconInfoCircle, IconX } from '@tabler/icons-react'
 import cn from 'classnames'
 import s from './Alert.module.scss'
@@ -7,10 +7,13 @@ interface AlertProps {
   type: 'danger' | 'success' | 'primary' | 'warning'
   title?: string
   message: string
+  duration?: number
+  closable?: boolean
   children?: ReactNode
 }
-const Alert: FC<AlertProps> = ({ type, title, message, children }) => {
+const Alert: FC<AlertProps> = ({ type, title, message, closable, duration, children }) => {
   const [open, setOpen] = useState(true)
+  const dismissRef = useRef<ReturnType<typeof setTimeout>>()
   const alertType = {
     danger: { className: s.alertDanger, icon: <IconAlertTriangle /> },
     success: { className: s.alertSuccess, icon: <IconCircleCheck /> },
@@ -21,11 +24,13 @@ const Alert: FC<AlertProps> = ({ type, title, message, children }) => {
     setOpen(false)
   }
   useEffect(() => {
-    const time = setTimeout(() => {
-      setOpen(false)
-    }, 5000)
-    return () => clearTimeout(time)
-  }, [open])
+    if (duration) {
+      dismissRef.current = setTimeout(() => {
+        setOpen(false)
+      }, duration * 1000)
+    }
+    return () => clearTimeout(dismissRef.current)
+  }, [])
   return (
     <div className={cn(s.alert, alertType[type].className, !open && s.alertHidden)}>
       <div className={s.alertIcon}>{alertType[type].icon}</div>
@@ -34,9 +39,11 @@ const Alert: FC<AlertProps> = ({ type, title, message, children }) => {
         <p className={s.alertContentMessage}>{message}</p>
         {children}
       </div>
-      <button onClick={close} className={s.alertCloseBtn}>
-        <IconX />
-      </button>
+      {closable && (
+        <button onClick={close} className={s.alertCloseBtn}>
+          <IconX />
+        </button>
+      )}
     </div>
   )
 }
