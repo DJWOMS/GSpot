@@ -2,7 +2,7 @@ import uuid
 
 from django.utils.translation import gettext_lazy as _
 
-from django.contrib.auth.models import PermissionManager, GroupManager, AbstractUser
+from django.contrib.auth.models import PermissionManager, GroupManager, AbstractUser, PermissionsMixin
 from django.contrib.contenttypes.models import ContentTypeManager
 from django.db import models
 
@@ -104,3 +104,15 @@ class BaseGroup(models.Model):
 
     def natural_key(self):
         return self.name,
+
+
+class BasePermissionMixin(PermissionsMixin):
+
+    def has_perm(self, perm, obj=None):
+        raise NotImplementedError
+
+    def get_all_permissions(self, obj=None):
+        raise NotImplementedError
+
+    class Meta:
+        abstract = True
