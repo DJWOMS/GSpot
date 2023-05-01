@@ -1,24 +1,21 @@
 from fastapi import WebSocket
 
+from config.settings import redis_conn
+
 
 class ConnectionManager:
-    def __init__(self):
-        self.active_connections: list[WebSocket] = []
-
-    async def connect(self, websocket: WebSocket):
-        await websocket.accept()
-        self.active_connections.append(websocket)
-
-    def disconnect(self, websocket: WebSocket):
-        self.active_connections.remove(websocket)
 
     @staticmethod
-    async def send_personal_message(message: str, websocket: WebSocket):
-        await websocket.send_text(message)
+    async def consume(websocket: WebSocket, token: str):
+        await redis_conn.consumer_handler(ws=websocket, token=token)
 
-    async def broadcast(self, message: str):
-        for connection in self.active_connections:
-            await connection.send_text(message)
+    @staticmethod
+    async def produce(websocket: WebSocket, token: str):
+        await redis_conn.producer_handler(ws=websocket, token=token)
+
+    @staticmethod
+    async def unsubscribe():
+        await redis_conn.unsubscribe()
 
 
 manager = ConnectionManager()
