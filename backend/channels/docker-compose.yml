@@ -13,9 +13,8 @@ services:
     image: mongo:6.0
     ports:
       - "27017:27017"
-#    volumes:
-#      - /data/mongodb:/data/db
-#    command: mongod --bind_ip 0.0.0.0
+    volumes:
+      - mongodb_data:/data/db
     env_file:
       - .env.dev
     networks:
@@ -24,46 +23,36 @@ services:
 
   consumer:
     container_name: channels_consumer
-    build:
-      context: broker
-      dockerfile: Dockerfile
+    build: ./broker
     restart: always
     env_file:
       - .env.dev
     volumes:
       - ./broker:/app
-    command: >
-      sh -c "python main.py"
+    depends_on:
+      - mongodb
     networks:
       - mongodb_net
       - rabbitmq_net
+
+  chat:
+    container_name: channels_chat
+    build: ./chat
+    restart: always
+    env_file:
+      - .env.dev
+    volumes:
+      - ./chat:/chat/
+    ports:
+      - "8000:8000"
     depends_on:
       - mongodb
+      - redis
 
 networks:
   mongodb_net:
   rabbitmq_net:
     external: true
-
-#  channels:
-#    container_name: fastapi_channels
-#    build:
-#      context: .
-#      dockerfile: ./src/Dockerfile
-#    restart: always
-##    volumes:
-##      - ./src:/app
-#    ports:
-#      - "8000:8000"
-#    env_file:
-#      - .env.dev
-#    depends_on:
-#      rabbitmq:
-#        condition: service_healthy
-#      mongodb:
-#        condition: service_started
-#      redis:
-#        condition: service_started
 
 volumes:
   mongodb_data:
