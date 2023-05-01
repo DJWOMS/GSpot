@@ -1,0 +1,20 @@
+.link {
+  @apply mt-5 mr-5 flex h-[30px] flex-row items-center justify-start rounded py-0 px-[15px] text-sm text-white;
+
+  svg {
+    @apply mr-[10px] mt-[1px] h-[16px] text-white;
+  }
+  &:hover {
+    @apply bg-primary text-white;
+  }
+}
+
+.facebook {
+  @apply bg-[#3b5998];
+}
+.twitter {
+  @apply bg-[#55acee];
+}
+.vkontakte {
+  @apply bg-[#4c6c91];
+}
