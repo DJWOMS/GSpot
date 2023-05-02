@@ -19,6 +19,7 @@ class NotificationConsumer(RabbitMQConsumer):
         # logger.info(orig_message.body)
 
     async def insert_message(self, message):
+        print(message)
         db = self.db_client.GSpot
         collection = db.users
         document = {'key': 'value'}
