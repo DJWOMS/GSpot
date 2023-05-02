@@ -1,17 +1,20 @@
 from fastapi import WebSocket
 
-from config.settings import redis_conn
+from src.users.services.redis_pubsub import redis_conn
 
 
 class ConnectionManager:
 
     @staticmethod
     async def consume(websocket: WebSocket, token: str):
-        await redis_conn.consumer_handler(ws=websocket, token=token)
+        message = await websocket.receive_text()
+        if message:
+            await redis_conn.consumer_handler(message=message, token=token)
 
     @staticmethod
     async def produce(websocket: WebSocket, token: str):
-        await redis_conn.producer_handler(ws=websocket, token=token)
+        message = await redis_conn.producer_handler(ws=websocket, token=token)
+        await websocket.send_text(f"Client #{token} says: {message}")
 
     @staticmethod
     async def unsubscribe():
