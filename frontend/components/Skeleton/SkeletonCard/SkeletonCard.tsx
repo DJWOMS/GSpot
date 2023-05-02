@@ -1,6 +1,6 @@
-import s from './SkeletonGameCard.module.scss'
+import s from './SkeletonCard.module.scss'
 
-const SkeletonGameCard = () => {
+const SkeletonCard = () => {
   return (
     <div className={s.block}>
       <div className={s.blockImg} />
@@ -11,4 +11,4 @@ const SkeletonGameCard = () => {
   )
 }
 
-export { SkeletonGameCard }
+export { SkeletonCard }

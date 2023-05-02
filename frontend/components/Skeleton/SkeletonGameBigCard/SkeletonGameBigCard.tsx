@@ -6,10 +6,9 @@ const SkeletonGameBigCard = () => {
     <div className={s.block}>
       <div className={s.blockImg} />
       <div className={s.blockInfo}>
-        <div className={s.blockInfoText} />
-        <div className={s.blockInfoText} />
-        <div className={s.blockInfoText} />
-        <div className={s.blockInfoText} />
+        {[...new Array(4)].map((_, index) => (
+          <div className={s.blockInfoText} key={index} />
+        ))}
         <div className={s.blockInfoBtn} />
       </div>
       <SkeletonInput size={'44'} />

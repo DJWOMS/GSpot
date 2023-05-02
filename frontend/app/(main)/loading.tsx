@@ -1,13 +1,10 @@
 import React from 'react'
-import cn from 'classnames'
-import CarouselSection from 'components/CarouselSection'
 import Section from 'components/Section'
-import { SkeletonGameCard } from 'components/Skeleton/SkeletonGameCard'
-import { SkeletonGameBigCard } from 'components/Skeleton/SkeletonNewsItem'
+import { SkeletonCard } from 'components/Skeleton/SkeletonCard'
+import { SkeletonGameBigCard } from 'components/Skeleton/SkeletonGameBigCard'
 import s from './page.module.scss'
 
 export default function Loading() {
-  const items = new Array(10).fill('', 0)
   return (
     <>
       <Section
@@ -16,18 +13,19 @@ export default function Loading() {
             <b>Лучшие игры</b> этого месяца
           </>
         }
-      />
-
-      <div className={s.bestGames}>
-        <SkeletonGameBigCard />
-        <SkeletonGameBigCard />
-      </div>
-      <Section title={<>Новинки и обновления</>} />
-      <div className={s.card}>
-        {items.map((index, id) => (
-          <SkeletonGameCard key={index} />
-        ))}
-      </div>
+      >
+        <div className={s.bestGames}>
+          {[...new Array(2)].map((_, index) => (
+            <SkeletonGameBigCard key={index} />
+          ))}
+        </div>
+        <Section title={<>Новинки и обновления</>} />
+        <div className={s.card}>
+          {[...new Array(10)].map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
+      </Section>
     </>
   )
 }
