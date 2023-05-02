@@ -2,8 +2,8 @@
   @apply grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3;
 }
 .bestGames {
-  @apply m-auto mb-32 grid max-w-7xl grid-cols-2 gap-4;
+  @apply m-auto mt-3 mb-32 grid grid-cols-2 gap-4 max-lg:grid-cols-1;
 }
 .card {
-  @apply m-auto grid max-w-7xl grid-cols-5 gap-4;
+  @apply m-auto mt-3 grid  grid-cols-5 gap-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1;
 }

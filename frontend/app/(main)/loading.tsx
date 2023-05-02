@@ -7,7 +7,7 @@ import { SkeletonGameBigCard } from 'components/Skeleton/SkeletonNewsItem'
 import s from './page.module.scss'
 
 export default function Loading() {
-  const items = new Array(5).fill('', 0)
+  const items = new Array(10).fill('', 0)
   return (
     <>
       <Section
