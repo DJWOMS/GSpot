@@ -63,6 +63,17 @@ class MoneySerializerField(serializers.DecimalField):
             **kwargs,
         )
 
+    def to_representation(self, obj):
+        value = super().to_representation(obj.amount)
+        return value
+
+    def to_internal_value(self, data):
+        amount = super().to_internal_value(data)
+        return amount
+
+    def get_value(self, dictionary):
+        return dictionary.get(f'{self.field_name}')
+
 
 class CommissionSerializerField(serializers.DecimalField):
     def __init__(

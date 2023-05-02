@@ -7,6 +7,7 @@ from django.db import transaction
 from django.db.models import Model
 from django.http import HttpResponseServerError
 from django.shortcuts import get_object_or_404
+from moneyed import Money
 
 DjangoModel = TypeVar('DjangoModel', bound=Model)
 
@@ -34,16 +35,16 @@ def add_change_balance_method(
 
         try:
             balance = getattr(obj, django_field)
-            if not isinstance(balance, Decimal):
+            if not isinstance(balance, Money):
                 raise TypeError
         except (AttributeError, TypeError) as e:
             rollbar.report_message(e, 'critical')
             return HttpResponseServerError()
 
         if operation_type == OperationType.DEPOSIT:
-            new_balance = balance + amount
+            new_balance = balance + Money(amount, balance.currency)
         elif OperationType.WITHDRAW:
-            new_balance = balance - amount
+            new_balance = balance - Money(amount, balance.currency)
         else:
             rollbar.report_message('Wrong operation type', 'warning')
             return HttpResponseServerError()
