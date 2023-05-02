@@ -21,7 +21,7 @@ const CarouselSection: FC<Props> = ({ showBig, title, children }) => {
         nextRef={nextRef}
         breakpoints={{
           0: {
-            slidesPerView: showBig ? 1 : 2,
+            slidesPerView: showBig ? 1.5 : 2,
           },
           576: {
             slidesPerView: 2,

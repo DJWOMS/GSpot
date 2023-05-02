@@ -45,3 +45,7 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   @apply bg-primary outline-1 outline-main-60;
 }
+.swiper,
+.swiper-container {
+  position: static !important;
+}

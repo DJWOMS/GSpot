@@ -20,7 +20,6 @@ interface HeaderProps {
 
 const scrollDelta = 10
 const scrollOffset = 140
-const body = document.body
 
 const Header: FC<HeaderProps> = ({ links }) => {
   const [hideHeader, setHideHeader] = useState(false)
@@ -62,14 +61,21 @@ const Header: FC<HeaderProps> = ({ links }) => {
   const [openHeader, setOpenHeader] = useState(false)
   const toggleOpen = () => setOpenHeader((state) => !state)
 
-  if (openHeader) {
-    body.classList.add('_lock')
-  } else {
-    body.classList.remove('_lock')
+  useEffect(() => {
+    window.onscroll = () => (openHeader ? window.scrollTo(window.scrollX, window.scrollY) : () => void 0)
+  }, [openHeader])
+
+  const noScroll = (elem: any, state: boolean) => {
+    if (state) {
+      elem.classList.add('_lock')
+    } else {
+      elem.classList.remove('_lock')
+    }
   }
 
   useEffect(() => {
-    window.onscroll = () => (openHeader ? window.scrollTo(window.scrollX, window.scrollY) : () => void 0)
+    const body = document.body
+    noScroll(body, openHeader)
   }, [openHeader])
 
   return (

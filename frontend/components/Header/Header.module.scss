@@ -142,19 +142,6 @@
   &:has(> &:last-child:nth-child(2)) {
     @apply justify-between;
   }
-
-  // @media (min-width: 576px) {
-  //   @apply w-[230px];
-  // }
-  // @media (min-width: 768px) {
-  //   @apply w-[240px];
-  // }
-  // @media (min-width: 1200px) {
-  //   @apply w-[230px];
-  // }
-  // @media (min-width: 1310px) {
-  //   @apply w-[262px];
-  // }
 }
 
 .loginBtn {
