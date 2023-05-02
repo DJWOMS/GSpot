@@ -13,7 +13,7 @@ class ConnectionManager:
 
     @staticmethod
     async def produce(websocket: WebSocket, token: str):
-        message = await redis_conn.producer_handler(ws=websocket, token=token)
+        message = await redis_conn.producer_handler(token=token)
         await websocket.send_text(f"Client #{token} says: {message}")
 
     @staticmethod
