@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-DEFAULT_CONTACT_TYPE = 1
-
 
 class Country(models.Model):
     id = models.IntegerField(primary_key=True)

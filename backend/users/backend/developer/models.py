@@ -6,7 +6,7 @@ from django.db import models
 from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 from django.utils.translation import gettext_lazy as _
 
-from common.models import Country, ContactType, DEFAULT_CONTACT_TYPE
+from common.models import Country, ContactType
 
 
 class DeveloperPermission(BasePermission):
@@ -125,7 +125,6 @@ class CompanyContact(models.Model):
         ContactType,
         on_delete=models.CASCADE,
         verbose_name=_("type contact"),
-        default=DEFAULT_CONTACT_TYPE
     )
     company = models.ForeignKey(
         Company,
