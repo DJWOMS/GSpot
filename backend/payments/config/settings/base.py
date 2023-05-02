@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 3rd party
+    'djmoney',
     'django_extensions',
     'drf_spectacular',
     'rest_framework',
