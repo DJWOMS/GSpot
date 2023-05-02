@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from apps.base.fields import CommissionField, MoneyField
 from apps.base.utils.classmethod import OperationType, add_change_balance_method
-from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.http import HttpResponseServerError
@@ -13,7 +12,6 @@ class Account(models.Model):
     balance = MoneyField(
         validators=[MinValueValidator(0, message='Insufficient Funds')],
     )
-    currency = models.CharField(max_length=3, default=settings.DEFAULT_CURRENCY)
 
     @classmethod
     def deposit(cls, pk, amount) -> Account | HttpResponseServerError:
@@ -76,11 +74,11 @@ class Owner(models.Model):
     MAX_COMMISSION = 100
 
     revenue = MoneyField(
-        validators=[MinValueValidator(0, message='Insufficient FUnds')],
+        validators=[MinValueValidator(0, message='Insufficient Funds')],
         editable=False,
     )
     income = MoneyField(
-        validators=[MinValueValidator(0, message='Insufficient FUnds')],
+        validators=[MinValueValidator(0, message='Insufficient Funds')],
         editable=False,
     )
     commission = CommissionField(

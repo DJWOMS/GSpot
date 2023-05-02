@@ -134,6 +134,9 @@ class Invoice(models.Model):
         editable=False,
     )
     item_purchases = models.ManyToManyField(ItemPurchase)
+    price_with_commission = MoneyField(
+        validators=[MinValueValidator(0, message='Should be positive value')],
+    )
     is_paid = models.BooleanField(default=False)
     created_date = models.DateTimeField(
         auto_now_add=True,
