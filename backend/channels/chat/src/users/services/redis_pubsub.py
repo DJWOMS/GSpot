@@ -4,7 +4,7 @@ import redis
 from config.redis import radis_config
 
 
-class RedisSettings:
+class RedisPubSub:
     def __init__(self):
         self.redis_cli = redis.Redis(host=radis_config.host, port=radis_config.port)
         self.pubsub = self.redis_cli.pubsub()
@@ -29,4 +29,4 @@ class RedisSettings:
         self.pubsub.unsubscribe("chat:c")
 
 
-redis_conn = RedisSettings()
+redis_conn = RedisPubSub()
