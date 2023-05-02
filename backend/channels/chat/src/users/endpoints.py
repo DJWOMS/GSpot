@@ -1,6 +1,4 @@
-import asyncio
 from fastapi import (
-    APIRouter,
     WebSocket,
     Depends,
     WebSocketDisconnect,
@@ -9,11 +7,10 @@ from fastapi import (
 from src.users.services import manager
 from middlewares import get_token
 
+from src.router import router
 
-ws_router = APIRouter()
 
-
-@ws_router.websocket("/ws")
+@router.websocket("/ws")
 async def websocket_endpoint(
         websocket: WebSocket,
         token: str = Depends(get_token),
