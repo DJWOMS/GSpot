@@ -17,11 +17,11 @@ class IsAdminScopeUser(BaseUserPermissions, validators.AdminScopeUser):
 
 
 class IsCompanyScopeUser(BaseUserPermissions, validators.CompanyScopeUser):
-    """Check Company User """
+    """Check Company User"""
 
 
 class IsCustomerScopeUser(BaseUserPermissions, validators.CustomerScopeUser):
-    """Check Customer User """
+    """Check Customer User"""
 
 
 class CompanyOwner(BaseUserPermissions, validators.CompanyOwner):
@@ -33,7 +33,6 @@ class CompanyEmployee(BaseUserPermissions, validators.CompanyEmployee):
 
 
 class UserPermissionCheck(BasePermission):
-
     def __init__(self, permission: str):
         self.permission = permission
 

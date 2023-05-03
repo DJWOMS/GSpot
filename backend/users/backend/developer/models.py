@@ -17,14 +17,16 @@ class DeveloperPermission(BasePermission):
 
 
 class DeveloperPermissionMixin(BasePermissionMixin):
-
     def has_perm(self, perm, obj=None):
         queryset = self.user_permissions.filter(codename=perm) | DeveloperPermission.objects.filter(
-            developergroup__developer=self, codename=perm)
+            developergroup__developer=self, codename=perm
+        )
         return queryset.exists()
 
     def get_all_permissions(self, obj=None):
-        return self.user_permissions.all() | DeveloperPermission.objects.filter(developergroup__developer=self)
+        return self.user_permissions.all() | DeveloperPermission.objects.filter(
+            developergroup__developer=self
+        )
 
     class Meta:
         abstract = True
@@ -36,7 +38,7 @@ class DeveloperGroup(BaseGroup):
         verbose_name=_("permission"),
         blank=True,
         related_name='developergroup_set',
-        related_query_name='developergroup'
+        related_query_name='developergroup',
     )
 
     class Meta(BaseGroup.Meta):
@@ -46,7 +48,9 @@ class DeveloperGroup(BaseGroup):
 
 
 class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
-    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, verbose_name=_('Developer country'))
+    country = models.ForeignKey(
+        Country, on_delete=models.SET_NULL, null=True, verbose_name=_('Developer country')
+    )
     avatar = models.ImageField(blank=True, verbose_name=_('Developer avatar'))
     is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -76,7 +80,7 @@ class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
         verbose_name=_('Company'),
         related_name='companyuser_set',
         blank=True,
-        null=True
+        null=True,
     )
 
     def __str__(self):
@@ -94,7 +98,7 @@ class Company(models.Model):
         CompanyUser,
         on_delete=models.PROTECT,
         verbose_name=_('Company owner'),
-        related_name='company_owner'
+        related_name='company_owner',
     )
     contact = models.ManyToManyField(
         ContactType,
@@ -102,7 +106,7 @@ class Company(models.Model):
         verbose_name=_('Company contact'),
         blank=True,
         related_name='contact_set',
-        related_query_name='contact'
+        related_query_name='contact',
     )
     title = models.CharField(max_length=50, verbose_name=_('Company title'))
     description = models.TextField(verbose_name=_('Company description'))
@@ -127,9 +131,7 @@ class CompanyContact(models.Model):
         verbose_name=_("type contact"),
     )
     company = models.ForeignKey(
-        Company,
-        verbose_name=_("company contacts"),
-        on_delete=models.CASCADE
+        Company, verbose_name=_("company contacts"), on_delete=models.CASCADE
     )
     value = models.CharField(max_length=150, verbose_name=_('value contact'), default='')
 

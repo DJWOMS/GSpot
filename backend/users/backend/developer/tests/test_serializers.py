@@ -1,8 +1,13 @@
+"""
+
 from django.test import TestCase
-from developers.serializers import CompanySerializer, CompanyUserSerializer, CompanyEmployeeSerializer
+from developer.serializers import (
+    CompanySerializer,
+    CompanyUserSerializer,
+    CompanyEmployeeSerializer,
+)
 
 from developers.models import Company, CompanyUser
-from developers.serializers import CompanySerializer
 
 
 class CompanySerializerTest(TestCase):
@@ -108,3 +113,5 @@ class CompanyEmployeeSerializerTest(TestCase):
     def test_serialize_employee(self):
         serializer = CompanyEmployeeSerializer(instance=self.company)
         self.assertEqual(set(serializer.data.keys()), set(self.serializer_data.keys()))
+
+"""

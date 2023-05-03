@@ -7,19 +7,13 @@ from base.models import BaseAbstractUser
 
 class CustomerUser(BaseAbstractUser):
     friends = models.ManyToManyField(
-        'self',
-        symmetrical=True,
-        through='FriendShipRequest',
-        through_fields=('sender', 'receiver')
+        'self', symmetrical=True, through='FriendShipRequest', through_fields=('sender', 'receiver')
     )
     birthday = models.DateField(_("customer birthday"))
     avatar = models.ImageField(null=True, blank=True)
     is_active = models.BooleanField(default=False)
     country = models.ForeignKey(
-        Country,
-        verbose_name='Страна',
-        on_delete=models.SET_NULL,
-        null=True
+        Country, verbose_name='Страна', on_delete=models.SET_NULL, null=True
     )
 
     groups = None
@@ -31,14 +25,14 @@ class CustomerUser(BaseAbstractUser):
 
 class FriendShipRequest(models.Model):
     REQUESTED = 'REQUESTED'  # запрошен
-    ACCEPTED = 'ACCEPTED'    # принято
-    REJECTED = 'REJECTED'    # отклонен
+    ACCEPTED = 'ACCEPTED'  # принято
+    REJECTED = 'REJECTED'  # отклонен
 
-    STATUS_CHOICES = (
-        (REQUESTED, 'requested'),
-        (ACCEPTED, 'accepted'),
-        (REJECTED, 'rejected')
-    )
+    STATUS_CHOICES = ((REQUESTED, 'requested'), (ACCEPTED, 'accepted'), (REJECTED, 'rejected'))
     status = models.TextField(choices=STATUS_CHOICES, default=REQUESTED)
-    sender = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, related_name='sender')      # отправитель
-    receiver = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, related_name='receiver')  # получатель
+    sender = models.ForeignKey(
+        CustomerUser, on_delete=models.CASCADE, related_name='sender'
+    )  # отправитель
+    receiver = models.ForeignKey(
+        CustomerUser, on_delete=models.CASCADE, related_name='receiver'
+    )  # получатель
