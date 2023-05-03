@@ -1,11 +1,12 @@
 import { FC } from 'react'
 import { IconX } from '@tabler/icons-react'
+import { Platform } from 'features/games'
 import { CheckoutGameCardInterface } from 'features/profile'
 import Image from 'next/image'
 import Link from 'next/link'
 import s from './CheckoutGameCard.module.scss'
 
-const CheckoutGameCard: FC<CheckoutGameCardInterface> = ({ title, link, currency, price, coverImg }) => {
+const CheckoutGameCard: FC<CheckoutGameCardInterface> = ({ title, link, currency, price, coverImg, platform }) => {
   return (
     <tr>
       <td>
@@ -16,12 +17,11 @@ const CheckoutGameCard: FC<CheckoutGameCardInterface> = ({ title, link, currency
       <td>
         <Link href={link}>{title}</Link>
       </td>
-      <td>PC</td>
       <td>
-        <span className={s.cardPrice}>
-          {currency}
-          {price}
-        </span>
+        <Platform {...platform} />
+      </td>
+      <td>
+        <span className={s.cardPrice}>{`${currency.toUpperCase()} ${price}`}</span>
       </td>
       <td>
         <button className={s.cardDelete} type="button">

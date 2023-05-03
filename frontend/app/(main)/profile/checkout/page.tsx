@@ -1,5 +1,5 @@
 import Section from 'components/Section'
-import { CheckoutGameCard, CheckoutGameCardInterface } from 'features/profile'
+import { CheckoutCouponForm, CheckoutForm, CheckoutGameCard, CheckoutGameCardInterface } from 'features/profile'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './page.module.scss'
 
@@ -46,33 +46,9 @@ const CheckoutPage = async () => {
               </div>
             </div>
           </div>
-
           <div className={s.right}>
-            <form action="#" className={s.form}>
-              <input type="text" className={s.formInput} placeholder="Coupon code" />
-              <button type="button" className={s.formBtn}>
-                Применить
-              </button>
-            </form>
-
-            <form action="#" className={s.form}>
-              <input type="text" className={s.formInput} placeholder="John Doe" />
-              <input type="email" className={s.formInput} placeholder="gg@template.buy" />
-              <input type="text" className={s.formInput} placeholder="+1 234 567-89-00" />
-
-              <select name="systems" className={s.formSelect}>
-                <option value="visa">Visa</option>
-                <option value="mastercard">Mastercard</option>
-                <option value="paypal">Paypal</option>
-              </select>
-
-              <span className={s.formText}>
-                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.
-              </span>
-              <button type="button" className={s.formBtn}>
-                Продолжить
-              </button>
-            </form>
+            <CheckoutCouponForm />
+            <CheckoutForm />
           </div>
         </div>
       </Section>
