@@ -2,7 +2,7 @@ import React from 'react'
 import Pagination from 'components/Pagination'
 import Section from 'components/Section'
 import { SkeletonInput } from 'components/Skeleton'
-import { SkeletonCard } from 'components/Skeleton/SkeletonCard'
+import { SkeletonCard } from 'components/Skeleton'
 import s from './page.module.scss'
 
 export default function Loading() {
@@ -28,7 +28,6 @@ export default function Loading() {
                   <SkeletonCard key={index} />
                 ))}
               </div>
-              <Pagination />
             </div>
           </div>
         </Section>

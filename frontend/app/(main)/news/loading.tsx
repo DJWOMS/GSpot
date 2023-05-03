@@ -1,6 +1,6 @@
 import React from 'react'
 import Section from 'components/Section'
-import { SkeletonCard } from 'components/Skeleton/SkeletonCard'
+import { SkeletonCard } from 'components/Skeleton'
 import s from './page.module.scss'
 
 export default function Loading() {

@@ -11,7 +11,6 @@ const SkeletonGameBigCard = () => {
         ))}
         <div className={s.blockInfoBtn} />
       </div>
-      <SkeletonInput size={'44'} />
     </div>
   )
 }

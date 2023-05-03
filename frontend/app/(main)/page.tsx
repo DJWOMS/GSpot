@@ -46,14 +46,12 @@ const Home = async () => {
         <div className={s.sections}>
           {otherGames && (
             <Section title="Игры">
-              {' '}
               <ListGames>{otherGames}</ListGames>
             </Section>
           )}
 
           {giftGames && (
             <Section title="Наборы в подарок">
-              {' '}
               <ListGames>{giftGames}</ListGames>
             </Section>
           )}
