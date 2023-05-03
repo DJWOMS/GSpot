@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from common.models import Country
 from base.models import BaseAbstractUser
@@ -11,17 +12,18 @@ class CustomerUser(BaseAbstractUser):
         through='FriendShipRequest',
         through_fields=('sender', 'receiver')
     )
+    birthday = models.DateField(_("customer birthday"))
     avatar = models.ImageField(null=True, blank=True)
-    is_banned = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
-    phone_number = models.CharField(
-        verbose_name='Номер телефона',
-        blank=True,
-        max_length=15,
-        null=True)
-    country = models.ForeignKey(Country, verbose_name='Страна',
-                                on_delete=models.SET_NULL,
-                                null=True)
+    country = models.ForeignKey(
+        Country,
+        verbose_name='Страна',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+
+    groups = None
+    user_permissions = None
 
     class Meta:
         db_table = 'customer'

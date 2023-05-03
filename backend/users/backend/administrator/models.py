@@ -3,6 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
+from common.models import Country
+from developer.models import DeveloperPermission, DeveloperGroup
 
 
 class AdminPermission(BasePermission):
@@ -19,11 +21,11 @@ class AdminPermissionMixin(BasePermissionMixin):
             return True
 
         queryset = self.user_permissions.filter(codename=perm) | AdminPermission.objects.filter(
-            admingroup__user=self, codename=perm)
+            admingroup__admin=self, codename=perm)
         return queryset.exists()
 
     def get_all_permissions(self, obj=None):
-        return self.user_permissions.all() | AdminPermission.objects.filter(admingroup__user=self)
+        return self.user_permissions.all() | AdminPermission.objects.filter(admingroup__admin=self)
 
     class Meta:
         abstract = True
@@ -45,31 +47,47 @@ class AdminGroup(BaseGroup):
 
 
 class Admin(BaseAbstractUser, AdminPermissionMixin):
-    phone = models.CharField(max_length=15, unique=True, default='')
     avatar = models.ImageField(null=True, blank=True)
-    is_banned = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    is_staff = models.BooleanField(
-        _("staff status"),
-        default=False,
-        help_text=_("Designates whether the user can log into this admin site."),
+    country = models.ForeignKey(
+        Country,
+        verbose_name='Страна',
+        on_delete=models.SET_NULL,
+        null=True
     )
     groups = models.ManyToManyField(
         AdminGroup,
-        verbose_name=_("groups"),
+        verbose_name=_("admin_groups"),
         blank=True,
         help_text=_(
             "The groups this user belongs to. A user will get all permissions "
             "granted to each of their groups."
         ),
-        related_name="user_set",
-        related_query_name="user",
+        related_name="admin_set",
+        related_query_name="admin",
     )
-    user_permissions = models.ManyToManyField(
+    user_permission = models.ManyToManyField(
         AdminPermission,
         verbose_name=_("admin permissions"),
         blank=True,
         help_text=_("Specific permissions for this admin."),
+        related_name="admin_set",
+        related_query_name="admin",
+    )
+
+    developer_groups = models.ManyToManyField(
+        DeveloperGroup,
+        verbose_name=_("Developer group for admin"),
+        blank=True,
+        related_name="admin_set",
+        related_query_name="admin",
+    )
+
+    developer_permissions = models.ManyToManyField(
+        DeveloperPermission,
+        verbose_name=_("developer permissions"),
+        blank=True,
+        help_text=_("Specific developer permissions for admin"),
         related_name="admin_set",
         related_query_name="admin",
     )
