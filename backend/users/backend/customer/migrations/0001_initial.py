@@ -21,21 +21,69 @@ class Migration(migrations.Migration):
             name='CustomerUser',
             fields=[
                 ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')),
-                ('first_name', models.CharField(blank=True, max_length=150, verbose_name='first name')),
-                ('last_name', models.CharField(blank=True, max_length=150, verbose_name='last name')),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('email', models.EmailField(db_index=True, max_length=254, unique=True, verbose_name='email address')),
-                ('phone', models.CharField(default='', max_length=15, unique=True, verbose_name='phone')),
+                (
+                    'last_login',
+                    models.DateTimeField(blank=True, null=True, verbose_name='last login'),
+                ),
+                (
+                    'username',
+                    models.CharField(
+                        error_messages={'unique': 'A user with that username already exists.'},
+                        help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.',
+                        max_length=150,
+                        unique=True,
+                        validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
+                        verbose_name='username',
+                    ),
+                ),
+                (
+                    'first_name',
+                    models.CharField(blank=True, max_length=150, verbose_name='first name'),
+                ),
+                (
+                    'last_name',
+                    models.CharField(blank=True, max_length=150, verbose_name='last name'),
+                ),
+                (
+                    'date_joined',
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name='date joined'
+                    ),
+                ),
+                (
+                    'id',
+                    models.UUIDField(
+                        default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                    ),
+                ),
+                (
+                    'email',
+                    models.EmailField(
+                        db_index=True, max_length=254, unique=True, verbose_name='email address'
+                    ),
+                ),
+                (
+                    'phone',
+                    models.CharField(default='', max_length=15, unique=True, verbose_name='phone'),
+                ),
                 ('is_banned', models.BooleanField(default=False)),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='user creation date')),
+                (
+                    'created_at',
+                    models.DateTimeField(auto_now_add=True, verbose_name='user creation date'),
+                ),
                 ('update_at', models.DateTimeField(auto_now=True, verbose_name='user modify date')),
                 ('birthday', models.DateField(verbose_name='customer birthday')),
                 ('avatar', models.ImageField(blank=True, null=True, upload_to='')),
                 ('is_active', models.BooleanField(default=False)),
-                ('country', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='common.country', verbose_name='Страна')),
+                (
+                    'country',
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to='common.country',
+                        verbose_name='Страна',
+                    ),
+                ),
             ],
             options={
                 'db_table': 'customer',
@@ -47,15 +95,46 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FriendShipRequest',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.TextField(choices=[('REQUESTED', 'requested'), ('ACCEPTED', 'accepted'), ('REJECTED', 'rejected')], default='REQUESTED')),
-                ('receiver', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='receiver', to='customer.customeruser')),
-                ('sender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sender', to='customer.customeruser')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
+                (
+                    'status',
+                    models.TextField(
+                        choices=[
+                            ('REQUESTED', 'requested'),
+                            ('ACCEPTED', 'accepted'),
+                            ('REJECTED', 'rejected'),
+                        ],
+                        default='REQUESTED',
+                    ),
+                ),
+                (
+                    'receiver',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='receiver',
+                        to='customer.customeruser',
+                    ),
+                ),
+                (
+                    'sender',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='sender',
+                        to='customer.customeruser',
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
             model_name='customeruser',
             name='friends',
-            field=models.ManyToManyField(through='customer.FriendShipRequest', to='customer.customeruser'),
+            field=models.ManyToManyField(
+                through='customer.FriendShipRequest', to='customer.customeruser'
+            ),
         ),
     ]

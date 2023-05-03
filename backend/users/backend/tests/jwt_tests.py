@@ -6,16 +6,12 @@ from service.jwt.create_jwt import get_token_user
 class JwtApiTestCase(APITestCase):
     def setUp(self):
         self.first_user = CompanyUser.objects.create(
-            username='user_of_company',
-            email='email@mail.ru',
-            password='usercompany'
+            username='user_of_company', email='email@mail.ru', password='usercompany'
         )
         self.first_user.is_active = True
         self.first_user.save()
         self.second_user = CompanyUser.objects.create(
-            username='user_of_company_2',
-            email='email2@mail.ru',
-            password='usercompany2'
+            username='user_of_company_2', email='email2@mail.ru', password='usercompany2'
         )
         self.second_user.is_active = True
         self.second_user.save()
@@ -28,9 +24,7 @@ class JwtApiTestCase(APITestCase):
         self.content_type.save()
 
         self.developer_permission = DeveloperPermission.objects.create(
-            name='add',
-            content_type=self.content_type,
-            codename='123'
+            name='add', content_type=self.content_type, codename='123'
         )
         self.developer_permission.save()
         self.first_user.user_permissions.add(self.developer_permission)

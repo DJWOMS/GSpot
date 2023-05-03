@@ -2,7 +2,12 @@ import uuid
 
 from django.utils.translation import gettext_lazy as _
 
-from django.contrib.auth.models import PermissionManager, GroupManager, AbstractUser, PermissionsMixin
+from django.contrib.auth.models import (
+    PermissionManager,
+    GroupManager,
+    AbstractUser,
+    PermissionsMixin,
+)
 from django.db import models
 
 
@@ -55,7 +60,7 @@ class BaseGroup(models.Model):
         return self.name
 
     def natural_key(self):
-        return self.name,
+        return (self.name,)
 
 
 class BasePermissionMixin(PermissionsMixin):

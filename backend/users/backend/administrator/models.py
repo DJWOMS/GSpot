@@ -15,13 +15,13 @@ class AdminPermission(BasePermission):
 
 
 class AdminPermissionMixin(BasePermissionMixin):
-
     def has_perm(self, perm, obj=None):
         if self.is_active and self.is_superuser:
             return True
 
         queryset = self.user_permissions.filter(codename=perm) | AdminPermission.objects.filter(
-            admingroup__admin=self, codename=perm)
+            admingroup__admin=self, codename=perm
+        )
         return queryset.exists()
 
     def get_all_permissions(self, obj=None):
@@ -37,7 +37,7 @@ class AdminGroup(BaseGroup):
         verbose_name=_("permission"),
         blank=True,
         related_name='admingroup_set',
-        related_query_name='admingroup'
+        related_query_name='admingroup',
     )
 
     class Meta(BaseGroup.Meta):
@@ -50,10 +50,7 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
     avatar = models.ImageField(null=True, blank=True)
     is_superuser = models.BooleanField(default=False)
     country = models.ForeignKey(
-        Country,
-        verbose_name='Страна',
-        on_delete=models.SET_NULL,
-        null=True
+        Country, verbose_name='Страна', on_delete=models.SET_NULL, null=True
     )
     groups = models.ManyToManyField(
         AdminGroup,

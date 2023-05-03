@@ -1,11 +1,20 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser, AllowAny
+from rest_framework.permissions import (
+    IsAuthenticatedOrReadOnly,
+    IsAuthenticated,
+    IsAdminUser,
+    AllowAny,
+)
 from rest_framework.response import Response
 
 from developer.models import CompanyUser, Company
 from developer.permissions import IsAdminOrOwnerCompany
-from developer.serializers.serializers import CompanySerializer, CompanyEmployeeSerializer, CompanyUserSerializer
+from developer.serializers.serializers import (
+    CompanySerializer,
+    CompanyEmployeeSerializer,
+    CompanyUserSerializer,
+)
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
@@ -37,7 +46,10 @@ class CompanyViewSet(viewsets.ModelViewSet):
         return self.serializer_map.get(self.action, self.serializer_map['default'])
 
     def get_permissions(self):
-        return [permission() for permission in self.permission_map.get(self.action, self.permission_map['default'])]
+        return [
+            permission()
+            for permission in self.permission_map.get(self.action, self.permission_map['default'])
+        ]
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)

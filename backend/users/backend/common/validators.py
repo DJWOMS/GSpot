@@ -5,13 +5,11 @@ from developer.models import CompanyUser, Company
 
 
 class IsActiveUser(AbstractUserVerify):
-
     def verify(self, user):
         return user.is_active
 
 
 class NotBannedUser(AbstractUserVerify):
-
     def verify(self, user):
         return not user.is_banned
 
@@ -24,7 +22,6 @@ class IsAdminSuperUser(AbstractUserVerify):
 
 
 class IsCompanySuperUser(AbstractUserVerify):
-
     def verify(self, user):
         if isinstance(user, CompanyUser):
             return user.is_superuser
@@ -32,19 +29,16 @@ class IsCompanySuperUser(AbstractUserVerify):
 
 
 class AdminScopeUser(AbstractUserVerify):
-
     def verify(self, user) -> bool:
         return isinstance(user, Admin)
 
 
 class CompanyScopeUser(AbstractUserVerify):
-
     def verify(self, user) -> bool:
         return isinstance(user, CompanyUser)
 
 
 class CustomerScopeUser(AbstractUserVerify):
-
     def verify(self, user) -> bool:
         return isinstance(user, CustomerUser)
 

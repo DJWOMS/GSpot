@@ -7,16 +7,25 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='ContactType',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('name', models.CharField(max_length=100, verbose_name='name contact')),
-                ('icon', models.ImageField(blank=True, null=True, upload_to='', verbose_name='icon contact')),
+                (
+                    'icon',
+                    models.ImageField(
+                        blank=True, null=True, upload_to='', verbose_name='icon contact'
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Contact',
