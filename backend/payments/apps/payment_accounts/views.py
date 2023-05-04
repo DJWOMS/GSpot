@@ -1,9 +1,14 @@
 import rollbar
-from rest_framework import status
+
+from django.shortcuts import get_object_or_404
+from rest_framework import status, viewsets
+from rest_framework.generics import CreateAPIView
+
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from . import serializers
+from .models import Account
 from .schemas import BalanceIncreaseData, CommissionCalculationInfo
 from .services.balance_change import request_balance_deposit_url
 from .services.payment_commission import calculate_payment_with_commission
@@ -62,3 +67,11 @@ class UserAccountViewSet(GenericViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
+
+
+class AccountBalanceViewSet(viewsets.ViewSet):
+    def retrieve(self, request, user_uuid=None):
+        account = get_object_or_404(Account, user_uuid=user_uuid)
+        serializer = serializers.AccountBalanceSerializer(account)
+        return Response(serializer.data)
+
