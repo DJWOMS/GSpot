@@ -1,7 +1,7 @@
 import rollbar
 
 from django.shortcuts import get_object_or_404
-from rest_framework import status, viewsets
+from rest_framework import status
 
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ViewSet
@@ -68,7 +68,7 @@ class UserAccountViewSet(GenericViewSet):
         serializer.is_valid(raise_exception=True)
 
 
-class AccountBalanceViewSet(viewsets.ViewSet):
+class AccountBalanceViewSet(ViewSet):
     def retrieve(self, request, user_uuid=None):
         account = get_object_or_404(Account, user_uuid=user_uuid)
         serializer = serializers.AccountBalanceSerializer(account)
