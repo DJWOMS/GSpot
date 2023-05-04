@@ -2,10 +2,9 @@ import rollbar
 
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
-from rest_framework.generics import CreateAPIView
 
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ViewSet
 
 from . import serializers
 from .models import Account
