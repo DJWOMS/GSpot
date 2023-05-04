@@ -8,9 +8,12 @@ from common.services.jwt.token import Token
 
 class CustomJWTAuthentication(BaseAuthentication):
     def authenticate(self, request):
-        jwt_token = self.get_token(request)
-        self.validate_token(jwt_token)
+        try:
+            jwt_token = self.get_token(request)
+        except AuthenticationFailed:
+            return None
 
+        self.validate_token(jwt_token)
         payload = Token._decode(jwt_token)
         user = self.get_user(payload)
         return user, payload
