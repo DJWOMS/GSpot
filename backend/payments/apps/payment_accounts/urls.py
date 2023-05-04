@@ -1,9 +1,14 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 
 from . import views
 
-urlpatterns = [
-    path('increase_balance/', views.BalanceIncreaseView.as_view()),
-    path('payment_commission/', views.CalculatePaymentCommissionView.as_view()),
-    path('create_account/', views.UserAccountAPIView.as_view()),
-]
+router = DefaultRouter()
+router.register(
+    r'payment_commission',
+    views.CalculatePaymentCommissionViewSet,
+    basename='payment_commission',
+)
+router.register(r'increase_balance', views.BalanceIncreaseViewSet, basename='increase_balance')
+router.register(r'create_account', views.UserAccountViewSet, basename='create_account')
+
+urlpatterns = router.urls

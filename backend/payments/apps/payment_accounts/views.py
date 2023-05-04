@@ -1,7 +1,7 @@
 import rollbar
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
 from . import serializers
 from .schemas import BalanceIncreaseData, CommissionCalculationInfo
@@ -9,10 +9,10 @@ from .services.balance_change import request_balance_deposit_url
 from .services.payment_commission import calculate_payment_with_commission
 
 
-class CalculatePaymentCommissionView(CreateAPIView):
+class CalculatePaymentCommissionViewSet(GenericViewSet):
     serializer_class = serializers.PaymentCommissionSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
@@ -31,10 +31,10 @@ class CalculatePaymentCommissionView(CreateAPIView):
         return Response({'amount with commission': amount_with_commission})
 
 
-class BalanceIncreaseView(CreateAPIView):
+class BalanceIncreaseViewSet(GenericViewSet):
     serializer_class = serializers.BalanceIncreaseSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
@@ -56,5 +56,9 @@ class BalanceIncreaseView(CreateAPIView):
         )
 
 
-class UserAccountAPIView(CreateAPIView):
+class UserAccountViewSet(GenericViewSet):
     serializer_class = serializers.AccountSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)

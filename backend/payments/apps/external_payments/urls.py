@@ -1,7 +1,12 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 
 from . import views
 
-urlpatterns = [
-    path('accept_payment/', views.YookassaPaymentAcceptanceView.as_view()),
-]
+router = DefaultRouter()
+router.register(
+    r'accept_payment',
+    views.YookassaPaymentAcceptanceViewSet,
+    basename='accept_payment',
+)
+
+urlpatterns = router.urls
