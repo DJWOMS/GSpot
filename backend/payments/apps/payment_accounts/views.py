@@ -73,4 +73,3 @@ class AccountBalanceViewSet(ViewSet):
         account = get_object_or_404(Account, user_uuid=user_uuid)
         serializer = serializers.AccountBalanceSerializer(account)
         return Response(serializer.data)
-
