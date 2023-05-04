@@ -1,0 +1,120 @@
+.comments {
+  @apply mt-12 border-t border-t-main-60 pt-12;
+}
+
+.title {
+  @apply mb-8 flex items-start justify-start;
+
+  h4 {
+    @apply relative mb-0 font-mont text-[24px] font-normal leading-[100%] text-white;
+  }
+
+  span {
+    @apply ml-[15px] flex h-[18px] w-[18px] flex-row items-center justify-center rounded-[50%] bg-primary font-sans
+    text-[12px] font-semibold tracking-[0.4px] text-light;
+  }
+}
+
+.input {
+  @apply relative mb-5 h-[150px] w-full resize-none rounded-md border border-main-60
+  bg-main-30 px-[20px] py-[15px] text-[14px] tracking-default text-white;
+}
+
+.button {
+  @apply flex h-[44px]  w-[140px] flex-row items-center justify-center rounded-md text-[13px] uppercase tracking-[0.6px]
+  text-white;
+  background-color: #29b474 !important;
+}
+
+.item {
+  @apply mb-[30px] block;
+}
+
+.author {
+  @apply relative mb-[15px] block pl-[55px];
+}
+
+.avatar {
+  @apply absolute top-0 left-0 w-[40px] rounded-md;
+}
+
+.name {
+  @apply mb-[5px] block text-base font-normal leading-[20px] tracking-default text-white;
+}
+
+.time {
+  @apply block text-[11px] font-normal leading-[100%] text-light;
+}
+
+.text {
+  @apply relative mb-0 block rounded-t-md rounded-r-md border-x border-t border-x-main-60 border-t-main-60 bg-background p-5
+  text-sm leading-[26px] text-light;
+
+  span {
+    @apply relative mb-5 block min-h-[80px] rounded-md bg-main-30 p-5 text-light;
+  }
+}
+
+.actions {
+  @apply relative flex flex-row items-center justify-end rounded-l-md rounded-b-md border border-main-60 py-[15px] px-5;
+
+  button {
+    @apply mr-5 flex h-[22px] flex-row items-center justify-start last:mr-0;
+  }
+
+  button span {
+    @apply text-[11px] uppercase tracking-[0.2px] text-light;
+    transition: 0.5s;
+  }
+
+  button svg {
+    @apply mr-[5px] h-auto w-[16px] stroke-light;
+    transition: 0.5s;
+  }
+
+  button:hover span {
+    @apply text-primary;
+  }
+
+  button:hover svg {
+    @apply stroke-primary;
+  }
+}
+
+.rate {
+  @apply absolute left-5 top-[50%] -mt-[15px] inline-flex flex-row items-center justify-start;
+
+  button {
+    @apply relative mr-[31px] flex h-[30px] flex-row items-center justify-center text-sm tracking-default text-light last:m-0;
+  }
+
+  button svg {
+    @apply h-auto w-[16px] opacity-80;
+    transition: 0.5s;
+  }
+
+  button:last-child svg {
+    @apply ml-[7px] stroke-danger;
+  }
+
+  button:first-child svg {
+    @apply mr-[7px] stroke-acid;
+  }
+
+  button:first-child:before {
+    content: '';
+    @apply absolute left-[100%] top-[50%] ml-[15px] block h-[15px] w-[1px] -translate-y-[50%] bg-main-60;
+  }
+
+  button:hover {
+    @apply text-white;
+  }
+
+  button:hover svg {
+    @apply opacity-100;
+  }
+}
+
+.details {
+  @apply border-t-0 pt-0;
+}
