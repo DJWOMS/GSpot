@@ -1,3 +1,34 @@
+.purchase {
+  &Image {
+    @apply flex h-auto w-full flex-row items-center justify-center overflow-hidden rounded-[6px] bg-transparent py-[10px];
+
+    img {
+      @apply h-auto w-[100px];
+    }
+  }
+
+  &Price {
+    @apply text-sm font-semibold text-white;
+  }
+
+  &Status {
+    @apply text-light;
+  }
+
+  &Delete {
+    @apply flex h-[24px] w-[24px] flex-row items-center justify-center;
+
+    svg {
+      @apply h-auto w-[24px] stroke-light;
+      transition: stroke 0.5s ease;
+    }
+
+    :hover svg {
+      @apply stroke-primary;
+    }
+  }
+}
+
 .purchases {
   @apply w-full min-w-[920px] overflow-x-auto rounded-md border border-solid border-main-60 bg-background;
 

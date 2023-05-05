@@ -1,4 +1,4 @@
-export * from './Purchase'
-export * from './CheckoutGameCard'
+export * from './PurchaseTable'
+export * from './CheckoutTable'
 export * from './CheckoutForm'
 export * from './CheckoutCouponForm'
