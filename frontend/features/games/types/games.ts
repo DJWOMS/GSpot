@@ -19,6 +19,7 @@ export interface GameDetailsInterface extends GameCardInterface {
   description: string
   languages: LanguageInterface[]
   requirements: RequirementInterface[]
+  age: string
 }
 
 export interface LanguageInterface {
