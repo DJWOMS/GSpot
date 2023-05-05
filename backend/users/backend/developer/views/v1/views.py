@@ -1,15 +1,12 @@
 from rest_framework import viewsets
-from rest_framework.decorators import action
 from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
     IsAuthenticated,
-    IsAdminUser,
     AllowAny,
 )
-from rest_framework.response import Response
 
+from common.permissons import CompanyOwner, IsCompanySuperUser
 from developer.models import CompanyUser, Company
-from developer.permissions import IsAdminOrOwnerCompany
 from developer.serializers.serializers import (
     CompanySerializer,
     CompanyEmployeeSerializer,
@@ -23,12 +20,6 @@ class CompanyViewSet(viewsets.ModelViewSet):
     serializer_map = {
         'default': CompanySerializer,
         'list': CompanyEmployeeSerializer,
-        'create': CompanySerializer,
-        'retrieve': CompanySerializer,
-        'update': CompanySerializer,
-        'partial_update': CompanySerializer,
-        'destroy': CompanySerializer,
-        'employees': CompanySerializer,
     }
 
     permission_map = {
@@ -36,10 +27,10 @@ class CompanyViewSet(viewsets.ModelViewSet):
         'list': [IsAuthenticated],
         'create': [AllowAny],
         'retrieve': [IsAuthenticated],
-        'update': [IsAdminOrOwnerCompany],
-        'partial_update': [IsAdminOrOwnerCompany],
-        'destroy': [IsAdminOrOwnerCompany],
-        'employees': [IsAdminOrOwnerCompany],
+        'update': [CompanyOwner, IsCompanySuperUser],
+        'partial_update': [CompanyOwner, IsCompanySuperUser],
+        'destroy': [CompanyOwner, IsCompanySuperUser],
+        'employees': [CompanyOwner, IsCompanySuperUser],
     }
 
     def get_serializer_class(self):
@@ -64,7 +55,7 @@ class CompanyUserViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             permission_classes = [IsAuthenticated]
         elif self.action in ['create', 'update', 'partial_update', 'destroy']:
-            permission_classes = [IsAdminOrOwnerCompany]
+            permission_classes = [IsCompanySuperUser, CompanyOwner]
         else:
-            permission_classes = [IsAdminUser]
+            permission_classes = [IsCompanySuperUser]
         return [permission() for permission in permission_classes]
