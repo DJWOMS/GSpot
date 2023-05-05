@@ -88,8 +88,8 @@ class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
 
     class Meta:
         db_table = "company_user"
-        verbose_name = _('Company user')
-        verbose_name_plural = _('Company Users')
+        verbose_name = _('company user')
+        verbose_name_plural = _('company users')
 
 
 class Company(models.Model):
@@ -97,7 +97,7 @@ class Company(models.Model):
     created_by = models.OneToOneField(
         CompanyUser,
         on_delete=models.PROTECT,
-        verbose_name=_('Company owner'),
+        verbose_name=_('company owner'),
         related_name='company_owner',
     )
     contact = models.ManyToManyField(
@@ -120,8 +120,9 @@ class Company(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = _('Company')
-        verbose_name_plural = _('Company')
+        db_table = 'company'
+        verbose_name = _('company')
+        verbose_name_plural = _('companies')
 
 
 class CompanyContact(models.Model):
@@ -139,5 +140,6 @@ class CompanyContact(models.Model):
         return f'{self.type__name}-{self.value}'
 
     class Meta:
-        verbose_name = _('Company contact')
-        verbose_name_plural = _('Company contacts')
+        db_table = 'company_contact'
+        verbose_name = _('company contact')
+        verbose_name_plural = _('company contacts')
