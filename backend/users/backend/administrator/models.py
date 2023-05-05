@@ -9,9 +9,9 @@ from developer.models import DeveloperPermission, DeveloperGroup
 
 class AdminPermission(BasePermission):
     class Meta(BasePermission.Meta):
-        db_table = "permission"
-        verbose_name = _("permission")
-        verbose_name_plural = _("permissions")
+        db_table = "admin_permission"
+        verbose_name = _("admin_permission")
+        verbose_name_plural = _("admin_permissions")
 
 
 class AdminPermissionMixin(BasePermissionMixin):
@@ -50,7 +50,7 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
     avatar = models.ImageField(null=True, blank=True)
     is_superuser = models.BooleanField(default=False)
     country = models.ForeignKey(
-        Country, verbose_name='Страна', on_delete=models.SET_NULL, null=True
+        Country, verbose_name=_('admin country'), on_delete=models.SET_NULL, null=True
     )
     groups = models.ManyToManyField(
         AdminGroup,
