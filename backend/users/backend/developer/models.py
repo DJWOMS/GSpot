@@ -11,9 +11,9 @@ from common.models import Country, ContactType
 
 class DeveloperPermission(BasePermission):
     class Meta(BasePermission.Meta):
-        db_table = "Developer_permission"
-        verbose_name = _("Developer permission")
-        verbose_name_plural = _("Developer permissions")
+        db_table = "developer_permission"
+        verbose_name = _("developer permission")
+        verbose_name_plural = _("developer permissions")
 
 
 class DeveloperPermissionMixin(BasePermissionMixin):

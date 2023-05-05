@@ -42,3 +42,14 @@ class EmployeeRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Admin
         exclude = ('password',)
+
+
+class EmployeePermissionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Admin
+        fields = (
+            'groups',
+            'user_permissions',
+            'developer_groups',
+            'developer_permissions',
+        )

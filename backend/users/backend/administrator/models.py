@@ -9,7 +9,7 @@ from developer.models import DeveloperPermission, DeveloperGroup
 
 class AdminPermission(BasePermission):
     class Meta(BasePermission.Meta):
-        db_table = "permission"
+        db_table = "admin_permission"
         verbose_name = _("permission")
         verbose_name_plural = _("permissions")
 

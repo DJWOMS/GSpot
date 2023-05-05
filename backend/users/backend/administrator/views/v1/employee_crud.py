@@ -6,6 +6,7 @@ from administrator.serializers.v1.employee_crud import (
     EmployeeListSerializer,
     EmployeeCreateUpdateSerializer,
     EmployeeRetrieveSerializer,
+    EmployeePermissionsSerializer,
 )
 
 
@@ -33,3 +34,9 @@ class EmployeeDetailView(generics.RetrieveUpdateDestroyAPIView):
             return EmployeeCreateUpdateSerializer
         elif self.request.method == 'PATCH':
             return EmployeeCreateUpdateSerializer
+
+
+class EmployeePermissionsView(generics.RetrieveAPIView, generics.UpdateAPIView):
+    queryset = Admin.objects.filter(is_superuser=False)
+    serializer_class = EmployeePermissionsSerializer
+    permission_classes = [AllowAny]
