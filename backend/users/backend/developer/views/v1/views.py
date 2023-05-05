@@ -7,7 +7,7 @@ from rest_framework.permissions import (
 
 from common.permissons import CompanyOwner, IsCompanySuperUser
 from developer.models import CompanyUser, Company
-from developer.serializers.serializers import (
+from developer.serializers.v1.serializers import (
     CompanySerializer,
     CompanyEmployeeSerializer,
     CompanyUserSerializer,
