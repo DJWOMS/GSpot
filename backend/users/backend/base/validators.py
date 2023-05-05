@@ -4,12 +4,12 @@ from typing import Type
 from django.contrib.auth.models import AbstractUser
 
 
-class AbstractUserVerify(metaclass=ABCMeta):
+class AbstractUserVerify:
     """Common abstract class for user verification"""
 
     def verify(self, user: AbstractUser) -> bool:
         """check user verification by condition"""
-        pass
+        raise NotImplementedError
 
 
 class VerificationError(Exception):
