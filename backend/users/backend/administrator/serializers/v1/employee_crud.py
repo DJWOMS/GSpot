@@ -4,13 +4,22 @@ from administrator.models import Admin
 
 
 class EmployeeListSerializer(serializers.ModelSerializer):
+    country = serializers.SlugRelatedField(read_only=True, slug_field='name')
+
     class Meta:
         model = Admin
-        exclude = ('password',)
+        exclude = (
+            'password',
+            'groups',
+            'user_permissions',
+            'developer_groups',
+            'developer_permissions',
+        )
 
 
 class EmployeeCreateUpdateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
+        """send totp"""
         return Admin.objects.create(**validated_data, is_superuser=False, is_active=False)
 
     class Meta:
@@ -23,6 +32,7 @@ class EmployeeCreateUpdateSerializer(serializers.ModelSerializer):
             'phone',
             'country',
             'avatar',
+            'is_banned',
         )
 
 

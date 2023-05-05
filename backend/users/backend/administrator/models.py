@@ -63,7 +63,7 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
         related_name="admin_set",
         related_query_name="admin",
     )
-    user_permission = models.ManyToManyField(
+    user_permissions = models.ManyToManyField(
         AdminPermission,
         verbose_name=_("admin permissions"),
         blank=True,

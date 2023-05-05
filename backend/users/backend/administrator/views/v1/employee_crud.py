@@ -1,13 +1,12 @@
-from rest_framework import generics, viewsets
+from rest_framework import generics
 from rest_framework.permissions import AllowAny
 
 from administrator.models import Admin
-from administrator.serializers.employee_crud import (
+from administrator.serializers.v1.employee_crud import (
     EmployeeListSerializer,
     EmployeeCreateUpdateSerializer,
     EmployeeRetrieveSerializer,
 )
-from common.permissons import CompanyOwner
 
 
 class EmployeeListView(generics.ListCreateAPIView):
