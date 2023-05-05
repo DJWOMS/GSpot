@@ -31,13 +31,12 @@ class BaseAbstractUser(AbstractUser):
 
 class BasePermission(models.Model):
     name = models.CharField(_("name"), max_length=255)
-    codename = models.CharField(_("codename"), max_length=100)
+    codename = models.CharField(_("codename"), max_length=100, unique=True)
 
     objects = PermissionManager()
 
     class Meta:
         abstract = True
-        unique_together = [["codename"]]
         ordering = ["codename"]
 
     def __str__(self):
