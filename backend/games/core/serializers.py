@@ -2,6 +2,7 @@ from django.db import transaction
 
 from rest_framework import serializers
 from community.models import Social
+from core.models.product import GameDlcLink
 from finance.models.offer import Offer, Price, ProductOffer
 from finance.serializers import ProductOfferSerializer
 
@@ -198,3 +199,26 @@ class GameDetailSerializer(serializers.ModelSerializer):
             'langs',
             'system_requirements',
         )
+
+
+class GameDlcLinkSerializer(serializers.Serializer):
+    game = serializers.UUIDField()
+    dlc = serializers.ListField(child=serializers.UUIDField())
+
+    def create(self, validated_data):
+        game_id = validated_data['game']
+        dlc_ids = validated_data['dlc']
+
+        dlc_links = []
+        for dlc_id in dlc_ids:
+            dlc_links.append(GameDlcLink(game_id=game_id, dlc_id=dlc_id))
+
+        GameDlcLink.objects.bulk_create(dlc_links)
+        return dlc_links
+
+    def to_representation(self, instance):
+        print(instance)
+        return {
+            'game': instance[0].game_id,
+            'dlc': [link.dlc_id for link in instance]
+        }
