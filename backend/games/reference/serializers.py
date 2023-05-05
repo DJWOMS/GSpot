@@ -9,11 +9,13 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 
 class ProductLanguageSerializer(serializers.ModelSerializer):
+    language_name = serializers.CharField(source='language.name')
+
     class Meta:
         model = ProductLanguage
         fields = (
             'id',
-            'language',
+            'language_name',
             'interface',
             'subtitles',
             'voice'

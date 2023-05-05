@@ -7,8 +7,9 @@ from finance.serializers import PriceSerializer, ProductOfferSerializer
 
 from reference import serializers as ref_serializers
 from community import serializers as com_serializers
-from reference.models.langs import ProductLanguage
-from reference.serializers import GenreGamesSerializer, SubGenreSerializer
+from reference.models.genres import Genre, GenreProduct
+from reference.models.langs import Language, ProductLanguage
+from reference.serializers import GenreGamesSerializer, GenreSerializer, SubGenreSerializer
 from .models import SystemRequirement, Product
 
 
@@ -33,15 +34,11 @@ class ProductSerializer(serializers.ModelSerializer):
         )
 
 
-class DlcSerializer(serializers.Serializer):
-    id = serializers.UUIDField()
-
-
 class CreateProductSerializer(serializers.ModelSerializer):
-    system_requirements = SystemRequirementSerializer(many=True, read_only=False, required=True)
-    langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False, required=True)
-    socials = com_serializers.GameSocialSerializer(many=True, read_only=False, required=False)
-    product_offer = ProductOfferSerializer(many=False, read_only=True)
+    system_requirements = SystemRequirementSerializer(many=True)
+    langs = ref_serializers.ProductLanguageSerializer(many=True)
+    socials = com_serializers.GameSocialSerializer(many=True, required=False)
+    product_offer = ProductOfferSerializer(read_only=True)
 
     class Meta:
         model = Product
@@ -70,28 +67,26 @@ class CreateProductSerializer(serializers.ModelSerializer):
 
         product = Product.objects.create(**validated_data)
 
-        for social in socials:
-            Social.objects.create(product=product, type=social['type'], url=social['url'])
+        social_objects = [
+            Social(product=product, **social) for social in socials
+        ]
+        Social.objects.bulk_create(social_objects)
 
-        for lang in langs:
-            ProductLanguage.objects.create(
+        requirement_objects = [
+            SystemRequirement(game=product, **requirement) for requirement in system_requirements
+        ]
+        SystemRequirement.objects.bulk_create(requirement_objects)
+
+        language_objects = [
+            ProductLanguage(
                 product=product,
-                language=lang['language'],
+                language=Language.objects.get(name=lang['language']['name']),
                 interface=lang['interface'],
                 subtitles=lang['subtitles'],
                 voice=lang['voice']
-            )
-
-        for requirement in system_requirements:
-            SystemRequirement.objects.create(
-                game=product,
-                operating_system=requirement['operating_system'],
-                device_processor=requirement['device_processor'],
-                device_memory=requirement['device_memory'],
-                device_storage=requirement['device_storage'],
-                device_graphics=requirement['device_graphics'],
-                type_requirements=requirement['type_requirements']
-            )
+            ) for lang in langs
+        ]
+        ProductLanguage.objects.bulk_create(language_objects)
 
         if product_offer:
             offer_data = product_offer.pop('offer')
@@ -160,7 +155,7 @@ class GameDetailSerializer(serializers.ModelSerializer):
 
     system_requirements = SystemRequirementSerializer(many=True, read_only=True)
     genres = GenreGamesSerializer(many=True, read_only=True)
-    dlcs = DlcSerializer(many=True, read_only=False)
+    dlcs = ProductSerializer(many=True, read_only=False)
     langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
     genres = GenreGamesSerializer(many=True, read_only=True)
 
