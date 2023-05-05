@@ -3,32 +3,35 @@
 import React from 'react'
 import ReactPaginate from 'react-paginate'
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
-import style from './Pagination.module.scss'
+import s from './Pagination.module.scss'
 
 const Pagination = () => {
   return (
-    <ReactPaginate
-      // css settings
-      containerClassName={style.container}
-      pageClassName={style.item}
-      activeClassName={style.itemActive}
-      breakClassName={style.item}
-      previousClassName={style.linkBtn}
-      nextClassName={style.linkBtn}
-      previousLabel={<IconArrowLeft size={20} />}
-      nextLabel={<IconArrowRight size={20} />}
-      // settings ReactPaginate
-      onPageChange={(event) => console.log(event)}
-      pageRangeDisplayed={5}
-      pageCount={100}
-      renderOnZeroPageCount={null}
-      // additional css settings
-      pageLinkClassName={style.linkBtn}
-      previousLinkClassName={style.linkBtn}
-      nextLinkClassName={style.linkBtn}
-      activeLinkClassName={style.activeLink}
-      breakLinkClassName={style.linkBtn}
-    />
+    <div className={s.wrapper}>
+      <div className={s.counter}>12 from 3</div>
+      <ReactPaginate
+        // css settings
+        containerClassName={s.container}
+        pageClassName={s.item}
+        activeClassName={s.itemActive}
+        breakClassName={s.item}
+        previousClassName={s.linkBtn}
+        nextClassName={s.linkBtn}
+        previousLabel={<IconArrowLeft size={17} />}
+        nextLabel={<IconArrowRight size={17} />}
+        // settings ReactPaginate
+        onPageChange={(event) => console.log(event)}
+        pageRangeDisplayed={5}
+        pageCount={3}
+        renderOnZeroPageCount={null}
+        // additional css settings
+        pageLinkClassName={s.linkBtn}
+        previousLinkClassName={s.linkBtn}
+        nextLinkClassName={s.linkBtn}
+        activeLinkClassName={s.activeLink}
+        breakLinkClassName={s.linkBtn}
+      />
+    </div>
   )
 }
 
