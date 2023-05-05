@@ -17,6 +17,15 @@ class SocialSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class GameSocialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Social
+        fields = (
+            'type',
+            'url',
+        )
+
+
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
