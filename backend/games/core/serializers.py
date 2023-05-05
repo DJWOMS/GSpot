@@ -3,7 +3,7 @@ from django.db import transaction
 from rest_framework import serializers
 from community.models import Social
 from finance.models.offer import Offer, Price, ProductOffer
-from finance.serializers import ProductOfferSerializer
+from finance.serializers import PriceSerializer, ProductOfferSerializer
 
 from reference import serializers as ref_serializers
 from community import serializers as com_serializers
@@ -118,8 +118,7 @@ class ShortSystemReqSerializers(serializers.ModelSerializer):
 
 
 class GamesListSerializer(serializers.ModelSerializer):
-    # TODO реализовать прайс
-    price = serializers.IntegerField(default=100)
+    price = serializers.SerializerMethodField()
     # TODO реализовать систему скидок
     discount = serializers.IntegerField(default=0)
     # TODO продумать систему оценок
@@ -128,6 +127,13 @@ class GamesListSerializer(serializers.ModelSerializer):
 
     system_requirements = ShortSystemReqSerializers(many=True, read_only=True)
     genres = SubGenreSerializer()
+
+    def get_price(self, obj):
+        try:
+            offer = ProductOffer.objects.get(product=obj).offer
+        except ProductOffer.DoesNotExist:
+            return None
+        return offer.price.amount
 
     class Meta:
         model = Product
@@ -145,8 +151,7 @@ class GamesListSerializer(serializers.ModelSerializer):
 
 
 class GameDetailSerializer(serializers.ModelSerializer):
-    # TODO реализовать прайс
-    price = serializers.IntegerField(default=100)
+    price = serializers.SerializerMethodField()
     # TODO реализовать систему скидок
     discount = serializers.IntegerField(default=0)
     # TODO продумать систему оценок
@@ -158,6 +163,13 @@ class GameDetailSerializer(serializers.ModelSerializer):
     dlcs = DlcSerializer(many=True, read_only=False)
     langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
     genres = GenreGamesSerializer(many=True, read_only=True)
+
+    def get_price(self, obj):
+        try:
+            offer = ProductOffer.objects.get(product=obj).offer
+        except ProductOffer.DoesNotExist:
+            return None
+        return offer.price.amount
 
     class Meta:
         model = Product
