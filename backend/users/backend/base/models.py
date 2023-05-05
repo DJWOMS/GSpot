@@ -49,7 +49,7 @@ class BasePermission(models.Model):
 
 class BaseGroup(models.Model):
     name = models.CharField(_("name"), max_length=150, unique=True)
-    permissions = None  # Must be overridden in child class
+    permission = None  # Must be overridden in child class
 
     objects = GroupManager()
 
