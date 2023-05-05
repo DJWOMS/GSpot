@@ -3,13 +3,13 @@ from django.db import transaction
 from rest_framework import serializers
 from community.models import Social
 from finance.models.offer import Offer, Price, ProductOffer
-from finance.serializers import PriceSerializer, ProductOfferSerializer
+from finance.serializers import ProductOfferSerializer
 
 from reference import serializers as ref_serializers
 from community import serializers as com_serializers
 from reference.models.genres import Genre, GenreProduct
 from reference.models.langs import Language, ProductLanguage
-from reference.serializers import GenreGamesSerializer, GenreSerializer, SubGenreSerializer
+from reference.serializers import GenreGamesSerializer
 from .models import SystemRequirement, Product
 
 
@@ -39,6 +39,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
     langs = ref_serializers.ProductLanguageSerializer(many=True)
     socials = com_serializers.GameSocialSerializer(many=True, required=False)
     product_offer = ProductOfferSerializer(write_only=True)
+    genres = serializers.ListField(child=serializers.CharField(), write_only=True)
 
     class Meta:
         model = Product
@@ -56,6 +57,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
             'langs',
             'socials',
             'product_offer',
+            'genres',
         )
 
     @transaction.atomic
@@ -64,6 +66,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
         langs = validated_data.pop('langs', None)
         socials = validated_data.pop('socials', None)
         product_offer = validated_data.pop('product_offer', None)
+        genres = validated_data.pop('genres', None)
 
         offer_data = product_offer.pop('offer')
         price_data = offer_data.pop('price')
@@ -94,6 +97,12 @@ class CreateProductSerializer(serializers.ModelSerializer):
         ]
         ProductLanguage.objects.bulk_create(language_objects)
 
+        genre_objects = [
+            GenreProduct(product=product, genre=Genre.objects.get(name=genre))
+            for genre in genres
+        ]
+        GenreProduct.objects.bulk_create(genre_objects)
+
         return product
 
 
@@ -120,7 +129,7 @@ class GamesListSerializer(serializers.ModelSerializer):
     is_favorite = serializers.BooleanField(default=False)
 
     system_requirements = ShortSystemReqSerializers(many=True, read_only=True)
-    genres = SubGenreSerializer()
+    genres = serializers.StringRelatedField(many=True)
 
     def get_price(self, obj):
         try:

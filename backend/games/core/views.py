@@ -29,11 +29,11 @@ class ProductViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
     }
     permission_classes_by_action = {
         'create': (AllowAny,),
-        'update': (IsAdminUser,),
-        'destroy': (IsAdminUser,),
+        'update': (AllowAny,),
+        'destroy': (AllowAny,),
         'list': (AllowAny,),
-        'retrieve': (IsAuthenticated,),
-        'partial_update': (IsAuthenticated,),
+        'retrieve': (AllowAny,),
+        'partial_update': (AllowAny,),
     }
 
     def get_queryset(self):
