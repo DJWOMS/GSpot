@@ -1,17 +1,17 @@
 from administrator.models import AdminPermission, AdminGroup
 
-from base.serializers import BasePermission, BaseGroup
+from base.serializers import BasePermissionSerializer, BaseGroupSerializer
 
 
-class AdminPermissionSerializer(BasePermission):
+class AdminPermissionSerializer(BasePermissionSerializer):
     class Meta:
         model = AdminPermission
-        base_fields = BasePermission.Meta.fields
+        base_fields = BasePermissionSerializer.Meta.fields
         fields = base_fields
 
 
-class AdminGroupSerializer(BaseGroup):
+class AdminGroupSerializer(BaseGroupSerializer):
     class Meta:
         model = AdminGroup
-        base_fields = BaseGroup.Meta.fields
+        base_fields = BaseGroupSerializer.Meta.fields
         fields = base_fields

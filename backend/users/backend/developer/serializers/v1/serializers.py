@@ -1,17 +1,17 @@
 from developer.models import DeveloperPermission, DeveloperGroup
 
-from base.serializers import BasePermission, BaseGroup
+from base.serializers import BasePermissionSerializer, BaseGroupSerializer
 
 
-class DeveloperPermissionSerializer(BasePermission):
+class DeveloperPermissionSerializer(BasePermissionSerializer):
     class Meta:
         model = DeveloperPermission
-        base_fields = BasePermission.Meta.fields
+        base_fields = BasePermissionSerializer.Meta.fields
         fields = base_fields
 
 
-class DeveloperGroupSerializer(BaseGroup):
+class DeveloperGroupSerializer(BaseGroupSerializer):
     class Meta:
         model = DeveloperGroup
-        base_fields = BaseGroup.Meta.fields
+        base_fields = BaseGroupSerializer.Meta.fields
         fields = base_fields
