@@ -65,4 +65,4 @@ const CheckoutTable: FC<Props> = ({ games }) => {
   )
 }
 
-export default CheckoutTable
+export { CheckoutTable }
