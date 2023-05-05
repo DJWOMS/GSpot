@@ -2,7 +2,8 @@ from django.db import transaction
 
 from rest_framework import serializers
 from community.models import Social
-from core.models.product import GameDlcLink
+from finance.models.offer import Offer, Price, ProductOffer
+from finance.serializers import ProductOfferSerializer
 
 from reference import serializers as ref_serializers
 from community import serializers as com_serializers
@@ -37,10 +38,10 @@ class DlcSerializer(serializers.Serializer):
 
 
 class CreateProductSerializer(serializers.ModelSerializer):
-    genre = ...
-    system_requirements = SystemRequirementSerializer(many=True, read_only=False)
-    langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
+    system_requirements = SystemRequirementSerializer(many=True, read_only=False, required=True)
+    langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False, required=True)
     socials = com_serializers.GameSocialSerializer(many=True, read_only=False, required=False)
+    product_offer = ProductOfferSerializer(many=False, read_only=True)
 
     class Meta:
         model = Product
@@ -57,6 +58,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
             'system_requirements',
             'langs',
             'socials',
+            'product_offer',
         )
 
     @transaction.atomic
@@ -64,6 +66,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
         system_requirements = validated_data.pop('system_requirements', [])
         langs = validated_data.pop('langs', [])
         socials = validated_data.pop('socials', [])
+        product_offer = validated_data.pop('product_offer', None)
 
         product = Product.objects.create(**validated_data)
 
@@ -89,6 +92,13 @@ class CreateProductSerializer(serializers.ModelSerializer):
                 device_graphics=requirement['device_graphics'],
                 type_requirements=requirement['type_requirements']
             )
+
+        if product_offer:
+            offer_data = product_offer.pop('offer')
+            price_data = offer_data.pop('price')
+            price = Price.objects.create(**price_data)
+            offer = Offer.objects.create(price=price, **offer_data)
+            ProductOffer.objects.create(product=product, offer=offer, **product_offer)
 
         return product
 
