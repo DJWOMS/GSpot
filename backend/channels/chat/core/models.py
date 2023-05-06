@@ -33,10 +33,10 @@ class ClientAction(BaseModel):
         return v
 
     @validator('body')
-    def body_validator(cls, v):
+    def body_validator(cls, v, values):
         if not isinstance(v, dict):
             raise ValueError('Body should be `dict` object')
-        class_validator = Message if cls.type == 'message' else Notification
+        class_validator = Message if values.get('type') == 'message' else Notification
         try:
             class_validator.parse_obj(v)
         except ValidationError:

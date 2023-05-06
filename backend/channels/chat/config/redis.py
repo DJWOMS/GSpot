@@ -1,4 +1,5 @@
 from pydantic import BaseSettings
+<<<<<<< HEAD
 import os
 
 
@@ -12,3 +13,17 @@ class RadisConfig(BaseSettings):
 
 
 radis_config = RadisConfig()
+=======
+
+
+class RedisConfig(BaseSettings):
+    REDIS_HOST: str
+    REDIS_PORT: str
+
+    @property
+    def url(self):
+        return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/0"
+
+
+redis_config = RedisConfig()
+>>>>>>> origin/channels
