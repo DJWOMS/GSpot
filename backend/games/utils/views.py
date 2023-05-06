@@ -9,6 +9,9 @@ from core.serializers import OperatingSystemSerializer
 from reference.models.genres import Genre, SubGenre
 from reference.serializers import GenreGamesSerializer
 
+from finance.models.library import Library
+from finance.serializers import LibrarySerializer
+
 from .serializers import MinMaxPriceSerializer
 
 
@@ -70,3 +73,10 @@ class GetMinMaxPriceListView(generics.GenericAPIView):
         serializer = self.get_serializer(data={})
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data)
+
+
+class GetProductsLibraryRetrieve(generics.RetrieveAPIView):
+
+    serializer_class = LibrarySerializer
+    queryset = Library.objects.all()
+    lookup_field = 'user'
