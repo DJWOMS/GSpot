@@ -1,15 +1,16 @@
-import { SkeletonInput } from 'components/Skeleton/SkeletonInput'
 import s from './SkeletonGameBigCard.module.scss'
 
 const SkeletonGameBigCard = () => {
   return (
-    <div className={s.block}>
-      <div className={s.blockImg} />
-      <div className={s.blockInfo}>
-        {[...new Array(4)].map((_, index) => (
-          <div className={s.blockInfoText} key={index} />
+    <div className={s.card}>
+      <div className={s.cardImg} />
+      <div className={s.cardInfo}>
+        <div className={s.cardInfoTitle} />
+        {[...new Array(3)].map((_, index) => (
+          <div className={s.cardInfoText} key={index} />
         ))}
-        <div className={s.blockInfoBtn} />
+        <div className={s.cardInfoTitle} />
+        <div className={s.cardInfoBtn} />
       </div>
     </div>
   )

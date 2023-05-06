@@ -1,0 +1,16 @@
+.details {
+  @apply w-full animate-pulse;
+  &Text {
+    @apply my-11 w-full;
+    &Line {
+      @apply my-2 h-3 rounded bg-gray-700 even:mb-5 even:w-10/12;
+    }
+  }
+  &Content {
+    @extend .detailsText;
+    &Line {
+      @extend .detailsTextLine;
+      @apply even:mb-0;
+    }
+  }
+}
