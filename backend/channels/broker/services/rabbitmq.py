@@ -2,11 +2,9 @@ import asyncio
 import aio_pika
 import os
 from aio_pika.abc import AbstractRobustConnection, AbstractRobustChannel
-from dataclasses import dataclass
 from aio_pika.queue import Queue
 
 
-@dataclass
 class RabbitManager:
     connection: AbstractRobustConnection | None = None
     channel: AbstractRobustChannel | None = None
@@ -23,26 +21,6 @@ class RabbitManager:
             return False
         return True
 
-    async def _clear(self) -> None:
-        if self.channel and not self.channel.is_closed:
-            await self.channel.close()
-        if self.connection and not self.connection.is_closed:
-            await self.connection.close()
-        self.connection = None
-        self.channel = None
-
-    async def connect(self, url) -> None:
-        try:
-            loop = asyncio.get_event_loop()
-            self.connection = await aio_pika.connect_robust(url=url, loop=loop)
-            self.channel = await self.connection.channel(publisher_confirms=False)
-        except Exception as e:
-            print(e)
-            await self._clear()
-
-    async def disconnect(self) -> None:
-        await self._clear()
-
     async def publish(self, message: str, routing_key):
         exchange = await self.channel.declare_exchange('GSpot', durable=True)
         ready_queue = await self.channel.declare_queue(routing_key, durable=True)
@@ -55,10 +33,10 @@ class RabbitManager:
             routing_key
         )
 
-    async def prepare_consumed_queue(self, queue) -> Queue:
+    async def prepare_consumed_queue(self, channel, queue) -> Queue:
         # if os.environ.get('DEAD_LETTER_QUEUE_NAME'):
         #     DEFAULT_QUEUE_PARAMETERS["arguments"]["x-queue-type"] = 'classic'
-        queue = await self.channel.declare_queue(
+        queue = await channel.declare_queue(
             queue,
             **self.DEFAULT_QUEUE_PARAMETERS,
         )

@@ -10,7 +10,7 @@ python = "^3.11"
 fastapi = {extras = ["all"], version = "^0.95.1"}
 jinja2 = "^3.1.2"
 uvicorn = {extras = ["standard"], version = "^0.22.0"}
-redis = "^4.5.4"
+redis = "4.5.4"
 aio_pika = "8.1.1"
 aiormq = "6.4.2"
 dnspython = "2.3.0"
