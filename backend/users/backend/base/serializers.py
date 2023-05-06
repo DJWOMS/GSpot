@@ -13,5 +13,5 @@ class BasePermissionSerializer(ModelSerializer):
 class BaseGroupSerializer(ModelSerializer):
     class Meta:
         model = BaseGroup
-        fields = ['name', 'permissions']
+        fields = ['name', 'permission']
         abstract = True
