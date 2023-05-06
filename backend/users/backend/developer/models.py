@@ -11,9 +11,9 @@ from common.models import Country, ContactType
 
 class DeveloperPermission(BasePermission):
     class Meta(BasePermission.Meta):
-        db_table = "Developer_permission"
-        verbose_name = _("Developer permission")
-        verbose_name_plural = _("Developer permissions")
+        db_table = "developer_permission"
+        verbose_name = _("developer permission")
+        verbose_name_plural = _("developer permissions")
 
 
 class DeveloperPermissionMixin(BasePermissionMixin):
@@ -88,8 +88,8 @@ class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
 
     class Meta:
         db_table = "company_user"
-        verbose_name = _('Company user')
-        verbose_name_plural = _('Company Users')
+        verbose_name = _('company user')
+        verbose_name_plural = _('company users')
 
 
 class Company(models.Model):
@@ -120,8 +120,9 @@ class Company(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = _('Company')
-        verbose_name_plural = _('Company')
+        db_table = 'company'
+        verbose_name = _('company')
+        verbose_name_plural = _('companies')
 
 
 class CompanyContact(models.Model):
@@ -139,5 +140,6 @@ class CompanyContact(models.Model):
         return f'{self.type__name}-{self.value}'
 
     class Meta:
-        verbose_name = _('Company contact')
-        verbose_name_plural = _('Company contacts')
+        db_table = 'company_contact'
+        verbose_name = _('company contact')
+        verbose_name_plural = _('company contacts')
