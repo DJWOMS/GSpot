@@ -1,10 +1,15 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from .yasg import urlpatterns as yasg_doc
 
+v1 = [
+    path('admin/', include('administrator.urls')),
+    path('developer/', include('developer.urls')),
+]
 
 urlpatterns = [
+    path('api/v1/', include(v1)),
     path('admin/', admin.site.urls),
 ]
 
