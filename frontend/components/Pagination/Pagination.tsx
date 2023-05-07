@@ -1,11 +1,15 @@
 'use client'
 
-import React from 'react'
+import React, { FC } from 'react'
 import ReactPaginate from 'react-paginate'
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
 import s from './Pagination.module.scss'
 
-const Pagination = () => {
+interface Props {
+  onChange: () => void
+}
+
+const Pagination: FC<Props> = ({ onChange }) => {
   return (
     <div className={s.wrapper}>
       <div className={s.counter}>12 from 3</div>
@@ -20,7 +24,7 @@ const Pagination = () => {
         previousLabel={<IconArrowLeft size={17} />}
         nextLabel={<IconArrowRight size={17} />}
         // settings ReactPaginate
-        onPageChange={(event) => console.log(event)}
+        onPageChange={onChange}
         pageRangeDisplayed={5}
         pageCount={3}
         renderOnZeroPageCount={null}

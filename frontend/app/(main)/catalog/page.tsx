@@ -36,7 +36,7 @@ const CatalogPage = async ({ searchParams }: { searchParams: URLSearchParams }) 
               ))}
             </div>
 
-            <Pagination />
+            <Pagination onChange={console.log} />
           </div>
         </div>
       </Section>

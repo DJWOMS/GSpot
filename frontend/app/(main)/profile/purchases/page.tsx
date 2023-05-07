@@ -26,7 +26,7 @@ const PurchasesItem = async () => {
         <tbody>{purhases && purhases.map((purchase) => <Purchase key={purchase.title} {...purchase} />)}</tbody>
       </table>
 
-      <Pagination />
+      <Pagination onChange={console.log} />
     </>
   )
 }
