@@ -35,7 +35,7 @@
 }
 
 .next {
-  @apply absolute left-[-3%] top-[0] z-10 h-[100%] w-[24px] rounded-md border-[1px] border-[rgba(167,130,233,0.03)] bg-[rgba(167,130,233,0.03)] text-white;
+  @apply absolute left-[-3%] top-[0] z-10 h-full w-[24px] rounded-md border border-main-30 bg-main-30 text-white;
   @media (max-width: 1024px) {
     @apply left-[-5%];
   }
@@ -45,7 +45,7 @@
 }
 
 .prev {
-  @apply absolute right-[-3%] top-[0] z-10 h-[100%] w-[24px] rounded-md border-[1px] border-[rgba(167,130,233,0.03)] bg-[rgba(167,130,233,0.03)] text-white;
+  @apply absolute right-[-3%] top-0 z-10 h-full w-[24px] rounded-md border border-main-30 bg-main-30 text-white;
   @media (max-width: 1024px) {
     @apply right-[-5%];
   }
