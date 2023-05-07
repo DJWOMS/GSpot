@@ -1,6 +1,6 @@
 import React from 'react'
 import Section from 'components/Section'
-import { SkeletonInput } from 'components/Skeleton'
+import { SkeletonInput, SkeletonTitle } from 'components/Skeleton'
 import { SkeletonCard } from 'components/Skeleton'
 import s from './page.module.scss'
 
@@ -8,7 +8,9 @@ export default function Loading() {
   return (
     <>
       <Section />
+
       <Section last>
+        <SkeletonTitle />
         <div className={s.row}>
           <div className={s.columns2}>
             {[...new Array(17)].map((_, index) => (

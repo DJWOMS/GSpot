@@ -9,14 +9,14 @@ export default function Loading() {
   return (
     <>
       <Section>
-        <SkeletonTitle size={'44'} />
+        <SkeletonTitle />
         <div className={s.bestGames}>
           {[...new Array(2)].map((_, index) => (
             <SkeletonGameBigCard key={index} />
           ))}
         </div>
         <Section />
-        <SkeletonTitle size={'88'} />
+        <SkeletonTitle />
         <div className={s.card}>
           {[...new Array(10)].map((_, index) => (
             <SkeletonCard key={index} />

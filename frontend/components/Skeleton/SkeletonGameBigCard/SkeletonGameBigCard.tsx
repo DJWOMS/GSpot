@@ -9,7 +9,8 @@ const SkeletonGameBigCard = () => {
         {[...new Array(3)].map((_, index) => (
           <div className={s.cardInfoText} key={index} />
         ))}
-        <div className={s.cardInfoTitle} />
+        <div className={s.cardInfoPrice} />
+        <div className={s.cardInfoText} />
         <div className={s.cardInfoBtn} />
       </div>
     </div>
