@@ -7,7 +7,7 @@ import Table from 'components/Table'
 import { PurchaseCardInterface } from 'features/profile'
 import Image from 'next/image'
 import Link from 'next/link'
-import s from './PurchaseTable.module.scss'
+import s from './PurchaseTable.module.css'
 
 interface Props {
   items: PurchaseCardInterface[]

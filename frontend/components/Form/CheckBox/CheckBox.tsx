@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction, useId } from 'react'
-import s from './CheckBox.module.scss'
+import s from './CheckBox.module.css'
 
 interface CheckBoxProps extends React.HTMLAttributes<HTMLInputElement> {
   label: string

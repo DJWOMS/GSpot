@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message'
 import { Input } from 'components/Form'
 import { SkeletonInput } from 'components/Skeleton'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from '../page.module.scss'
+import s from '../page.module.css'
 
 interface InputTypes {
   oldPassword: string

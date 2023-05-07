@@ -1,6 +1,6 @@
 import Section from 'components/Section'
 import { NewsItem } from 'features/news'
-import s from './LatestNews.module.scss'
+import s from './LatestNews.module.css'
 
 const LatestNews = () => {
   return (

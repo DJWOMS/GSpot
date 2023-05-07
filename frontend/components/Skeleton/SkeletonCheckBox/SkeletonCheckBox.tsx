@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import cn from 'classnames'
-import s from './SkeletonCheckBox.module.scss'
+import s from './SkeletonCheckBox.module.css'
 
 interface SkeletonCheckBoxProps {
   className: string

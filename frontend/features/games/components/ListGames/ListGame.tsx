@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { IconPlus } from '@tabler/icons-react'
 import { GameListInterface } from 'features/games'
 import Image from 'next/image'
-import s from './ListGame.module.scss'
+import s from './ListGame.module.css'
 
 const ListGame: FC<GameListInterface> = ({ title, price, sale, coverImg }) => {
   return (

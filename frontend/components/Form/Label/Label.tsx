@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import s from './Label.module.scss'
+import s from './Label.module.css'
 
 interface LabelProps {
   children: React.ReactNode
