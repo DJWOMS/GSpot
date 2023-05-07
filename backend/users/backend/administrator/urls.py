@@ -1,6 +1,6 @@
 from rest_framework import routers
 
-from administrator.views.v1.views import AdminGroupViewSet, AdminPermissionViewSet
+from administrator.views.v1 import AdminGroupViewSet, AdminPermissionViewSet
 
 router = routers.DefaultRouter()
 router.register(r'group', AdminGroupViewSet, basename='admin_group')

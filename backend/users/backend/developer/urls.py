@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from developer.views.v1.views import (
+from developer.views.v1 import (
     CompanyUserViewSet,
     CompanyViewSet,
     DeveloperGroupViewSet,

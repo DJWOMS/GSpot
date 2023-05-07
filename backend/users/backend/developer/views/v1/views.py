@@ -6,16 +6,12 @@ from rest_framework.permissions import (
     AllowAny,
 )
 
-from developer.models import CompanyUser, Company, DeveloperGroup, DeveloperPermission
+from developer.models import CompanyUser, Company
 from developer.permissions import IsAdminOrOwnerCompany
 from developer.serializers.serializers import (
     CompanySerializer,
     CompanyEmployeeSerializer,
     CompanyUserSerializer,
-)
-from developer.serializers.v1 import (
-    DeveloperGroupSerializer,
-    DeveloperPermissionSerializer,
 )
 
 
@@ -70,15 +66,3 @@ class CompanyUserViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAdminUser]
         return [permission() for permission in permission_classes]
-
-
-class DeveloperGroupViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    queryset = DeveloperGroup.objects.all()
-    serializer_class = DeveloperGroupSerializer
-
-
-class DeveloperPermissionViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    queryset = DeveloperPermission.objects.all()
-    serializer_class = DeveloperPermissionSerializer
