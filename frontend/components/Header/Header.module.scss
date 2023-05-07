@@ -11,9 +11,11 @@
 .wrapper {
   @apply border-b border-main-60;
 }
-
+.contentWrap {
+  @apply flex justify-between;
+}
 .content {
-  @apply relative flex h-[70px] w-full flex-row items-center justify-between;
+  @apply relative flex h-[70px]  flex-row items-center justify-between;
 }
 
 .logo {
@@ -73,6 +75,9 @@
   }
 }
 
+.navWrap {
+  @apply flex w-full justify-end;
+}
 .nav {
   @apply fixed -left-full bottom-0 top-[71px] z-[100] flex w-full flex-col items-start justify-start bg-background px-[15px] pb-[15px] pt-[20px];
 
@@ -132,23 +137,10 @@
 }
 
 .actions {
-  @apply flex h-[70px] w-[120px] items-center justify-between;
+  @apply flex h-[70px] w-[120px] items-center justify-end gap-3;
 
   &:has(> &:last-child:nth-child(2)) {
     @apply justify-between;
-  }
-
-  @media (min-width: 576px) {
-    @apply w-[230px];
-  }
-  @media (min-width: 768px) {
-    @apply w-[240px];
-  }
-  @media (min-width: 1200px) {
-    @apply w-[230px];
-  }
-  @media (min-width: 1310px) {
-    @apply w-[262px];
   }
 }
 
