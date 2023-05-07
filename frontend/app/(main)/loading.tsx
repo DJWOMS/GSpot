@@ -1,9 +1,9 @@
 import React from 'react'
+import s from 'app/(main)/loading.module.css'
 import Section from 'components/Section'
 import { SkeletonCard } from 'components/Skeleton'
 import { SkeletonGameBigCard } from 'components/Skeleton'
 import { SkeletonTitle } from 'components/Skeleton'
-import s from './loading.module.scss'
 
 export default function Loading() {
   return (

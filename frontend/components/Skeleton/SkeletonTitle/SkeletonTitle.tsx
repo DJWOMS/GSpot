@@ -1,4 +1,4 @@
-import s from './SkeletonTitle.module.scss'
+import s from 'components/Skeleton/SkeletonTitle/SkeletonTitle.module.css'
 
 const SkeletonTitle = () => {
   return (

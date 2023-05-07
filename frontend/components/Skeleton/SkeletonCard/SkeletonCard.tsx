@@ -1,4 +1,4 @@
-import s from './SkeletonCard.module.scss'
+import s from 'components/Skeleton/SkeletonCard/SkeletonCard.module.css'
 
 const SkeletonCard = () => {
   return (
