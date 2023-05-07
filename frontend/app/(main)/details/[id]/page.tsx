@@ -5,7 +5,7 @@ import { GameDetailsInterface, Languages, Platform, Requirements } from 'feature
 import { fetchServerSide } from 'lib/fetchServerSide'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 const Page = async () => {
   const details = await fetchServerSide<GameDetailsInterface>({

@@ -8,7 +8,7 @@ import { Container } from 'components/Container'
 import Image from 'next/image'
 import Link from 'next/link'
 import Search from '../Search/Search'
-import s from './Header.module.scss'
+import s from './Header.module.css'
 
 type HeaderLink = {
   href: string
@@ -65,7 +65,7 @@ const Header: FC<HeaderProps> = ({ links }) => {
     window.onscroll = () => (openHeader ? window.scrollTo(window.scrollX, window.scrollY) : () => void 0)
   }, [openHeader])
 
-  const noScroll = (elem: any, state: boolean) => {
+  const noScroll = (elem: HTMLElement, state: boolean) => {
     if (state) {
       elem.classList.add('_lock')
     } else {
@@ -91,7 +91,7 @@ const Header: FC<HeaderProps> = ({ links }) => {
               </button>
 
               <Link className={s.logo} href="/">
-                <Image src={LogoPNG} alt="Logo" loading="eager" />
+                <Image src={LogoPNG} width={496} height={161} alt="Logo" loading="eager" />
               </Link>
             </div>
 

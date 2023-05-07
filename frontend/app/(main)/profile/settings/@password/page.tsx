@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message'
 import { Input } from 'components/Form'
 import { SkeletonInput } from 'components/Skeleton'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from '../page.module.scss'
+import s from '../page.module.css'
 
 interface InputTypes {
   oldPassword: string
@@ -41,7 +41,7 @@ const Password = () => {
     )
   }
 
-  const onSubmitPasword = async (data: any) => {
+  const onSubmitPassword = async (data: InputTypes) => {
     setSaved(false)
     const response = await fetchServerSide<InputTypes>({
       path: '/profile/settings/password',
@@ -58,7 +58,7 @@ const Password = () => {
   const errorMessage = 'поле не заполнено'
 
   return (
-    <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitPasword)}>
+    <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitPassword)}>
       <h4 className={s.formTitle}>Поменять пароль</h4>
       <div className={s.col}>
         <div>

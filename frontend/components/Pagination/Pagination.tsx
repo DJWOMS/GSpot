@@ -3,7 +3,7 @@
 import React from 'react'
 import ReactPaginate from 'react-paginate'
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
-import s from './Pagination.module.scss'
+import s from './Pagination.module.css'
 
 const Pagination = () => {
   return (

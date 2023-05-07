@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import cn from 'classnames'
-import s from './SkeletonInput.module.scss'
+import s from './SkeletonInput.module.css'
 
 interface SkeletonInputProps {
   size?: '24' | '28' | '32' | '36' | '40' | '44' | 'full'

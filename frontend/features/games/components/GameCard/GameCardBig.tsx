@@ -4,7 +4,7 @@ import cn from 'classnames'
 import { GameCardInterface } from 'features/games'
 import Image from 'next/image'
 import Link from 'next/link'
-import s from './GameCard.module.scss'
+import s from './GameCard.module.css'
 import { Platform } from './Platform'
 
 const GameCardBig: FC<GameCardInterface> = ({ coverImg, link, title, sale, price, platforms, currency = '$' }) => {

@@ -11,7 +11,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import cn from 'classnames'
-import s from './Table.module.scss'
+import s from './Table.module.css'
 
 export type SortingType<T> = {
   id: keyof T

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { IconBrandFacebook, IconBrandTwitter, IconBrandVk } from '@tabler/icons-react'
 import cn from 'classnames'
-import s from './SocialLink.module.scss'
+import s from './SocialLink.module.css'
 
 interface Props {
   type: 'facebook' | 'twitter' | 'vk'

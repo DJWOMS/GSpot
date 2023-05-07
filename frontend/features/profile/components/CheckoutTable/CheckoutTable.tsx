@@ -7,7 +7,7 @@ import { Platform, PlatformType } from 'features/games'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CheckoutGameCardInterface } from '../../types'
-import s from './CheckoutTable.module.scss'
+import s from './CheckoutTable.module.css'
 
 interface Props {
   games: CheckoutGameCardInterface[]

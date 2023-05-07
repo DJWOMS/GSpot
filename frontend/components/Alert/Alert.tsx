@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react'
 import { IconAlertCircle, IconCircleCheck, IconAlertTriangle, IconInfoCircle, IconX } from '@tabler/icons-react'
 import cn from 'classnames'
-import s from './Alert.module.scss'
+import s from './Alert.module.css'
 
 interface AlertProps {
   type: 'danger' | 'success' | 'primary' | 'warning'

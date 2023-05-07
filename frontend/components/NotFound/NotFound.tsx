@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import Link from 'next/link'
-import s from './NotFound.module.scss'
+import s from './NotFound.module.css'
 
 const NotFound: FC = () => {
   return (

@@ -13,7 +13,7 @@ import cn from 'classnames'
 import { Container } from 'components/Container'
 import Image from 'next/image'
 import Link from 'next/link'
-import s from './Footer.module.scss'
+import s from './Footer.module.css'
 
 const Footer = () => {
   return (
@@ -99,7 +99,7 @@ const Footer = () => {
 
         <div className={s.wrapper}>
           <Link className={s.logo} href="/">
-            <Image src={LogoPNG} alt="Logo" loading="eager" />
+            <Image src={LogoPNG} width={496} height={161} alt="Logo" loading="eager" />
           </Link>
           <span>
             © GSpot, 2020—2021

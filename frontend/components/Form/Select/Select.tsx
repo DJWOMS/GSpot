@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction } from 'react'
-import s from './Select.module.scss'
+import s from './Select.module.css'
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   children: React.ReactNode
