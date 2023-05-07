@@ -12,11 +12,11 @@ function CarouselArrow({ nextClass, prevClass }: CarouselArrow) {
   const swipe = useSwiper()
   return (
     <>
-      <button className={nextClass} onClick={() => swipe.slideNext()}>
-        <IconChevronLeft />
-      </button>
-      <button className={prevClass} onClick={() => swipe.slidePrev()}>
+      <button className={prevClass} onClick={() => swipe.slideNext()}>
         <IconChevronRight />
+      </button>
+      <button className={nextClass} onClick={() => swipe.slidePrev()}>
+        <IconChevronLeft />
       </button>
     </>
   )
