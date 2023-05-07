@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message'
 import { IconX } from '@tabler/icons-react'
 import { Input } from 'components/Form'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from './CheckoutCouponForm.module.scss'
+import s from './CheckoutCouponForm.module.css'
 
 const CheckoutCouponForm = () => {
   const {

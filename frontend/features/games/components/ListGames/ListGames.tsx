@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { GameListInterface } from 'features/games'
 import { ListGame } from './ListGame'
-import s from './ListGames.module.scss'
+import s from './ListGames.module.css'
 
 interface ListGamesProps {
   children: GameListInterface[]

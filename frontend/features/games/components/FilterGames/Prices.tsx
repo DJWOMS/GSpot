@@ -5,7 +5,7 @@ import { SkeletonInput } from 'components/Skeleton'
 import { Range } from 'components/Slider'
 import { FilterPriceType } from 'features/games/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from './Prices.module.scss'
+import s from './Prices.module.css'
 
 const Prices = () => {
   const [defaultPrices, setDefaultPrices] = useState<FilterPriceType | null>(null)

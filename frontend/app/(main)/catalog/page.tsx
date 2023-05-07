@@ -2,7 +2,7 @@ import Pagination from 'components/Pagination'
 import Section from 'components/Section'
 import { GameCard, FilterGames, GameCardInterface } from 'features/games'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 // revalidate data every 60sec
 export const revalidate = 60

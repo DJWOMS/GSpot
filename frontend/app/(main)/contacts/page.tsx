@@ -7,7 +7,7 @@ import Section from 'components/Section'
 import { LINK_TO_GOOGLE_MAPS } from 'configs'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import Link from 'next/link'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 interface FormProps {
   name: string
