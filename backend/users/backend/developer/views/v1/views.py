@@ -13,7 +13,7 @@ from developer.serializers.serializers import (
     CompanyEmployeeSerializer,
     CompanyUserSerializer,
 )
-from developer.serializers.v1.serializers import (
+from developer.serializers.v1 import (
     DeveloperGroupSerializer,
     DeveloperPermissionSerializer,
 )

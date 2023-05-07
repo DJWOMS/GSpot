@@ -1,15 +1,7 @@
 from rest_framework import serializers
 
 from administrator.models import AdminPermission, AdminGroup
-
-from base.serializers import BasePermissionSerializer, BaseGroupSerializer
-
-
-class AdminPermissionSerializer(BasePermissionSerializer):
-    class Meta:
-        model = AdminPermission
-        base_fields = BasePermissionSerializer.Meta.fields
-        fields = base_fields
+from base.serializers import BaseGroupSerializer
 
 
 class AdminGroupSerializer(BaseGroupSerializer):
