@@ -1,5 +1,5 @@
 from administrator.models import AdminPermission
-from base.management import BasePermissionCreatingCommand
+from base.management.commands.createbasepermission import BasePermissionCreatingCommand
 
 
 class Command(BasePermissionCreatingCommand):
