@@ -4,7 +4,7 @@ import Section from 'components/Section'
 import { GameCard, GameCardBig, GameCardInterface, ListGames, GameListInterface } from 'features/games'
 import { LatestNews } from 'features/news'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 const Home = async () => {
   const [bestGames, latestGames, otherGames, giftGames, subscriptionsGames] = await Promise.all([

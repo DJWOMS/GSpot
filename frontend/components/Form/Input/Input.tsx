@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction } from 'react'
-import s from './Input.module.scss'
+import s from './Input.module.css'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { RequirementInterface } from 'features/games/types'
-import s from './Requirement.module.scss'
+import s from './Requirement.module.css'
 
 const Requirement: FC<RequirementInterface> = ({ typeRequirements, deviceProcessor, deviceMemory, deviceStorage, deviceGraphics }) => {
   return (

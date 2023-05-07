@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { IconThumbUp, IconThumbDown, IconArrowForwardUp, IconMessageForward } from '@tabler/icons-react'
 import { CommentInterface } from 'features/news/types'
-import s from './Comments.module.scss'
+import s from './Comments.module.css'
 
 type SingleCommentType = {
   children: CommentInterface

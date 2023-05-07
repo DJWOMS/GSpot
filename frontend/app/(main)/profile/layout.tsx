@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { IconUser, IconDoorExit } from '@tabler/icons-react'
 import Section from 'components/Section'
 import Link from 'next/link'
-import s from './layout.module.scss'
+import s from './layout.module.css'
 
 interface ProfileProps {
   children: React.ReactNode

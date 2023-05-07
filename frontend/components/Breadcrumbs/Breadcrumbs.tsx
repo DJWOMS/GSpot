@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import s from './Breadcrumbs.module.scss'
+import s from './Breadcrumbs.module.css'
 
 interface Item {
   name: string

@@ -1,0 +1,56 @@
+.table {
+  @apply w-full min-w-[600px];
+
+  th {
+    @apply pt-0 pr-5 pb-[10px] pl-0 text-sm font-normal leading-none tracking-default text-light;
+
+    a {
+      @apply inline-flex flex-row items-center justify-start text-light;
+
+      svg {
+        @apply h-auto w-5 fill-light;
+        transition: fill 0.5s ease;
+      }
+
+      &:hover {
+        @apply text-white;
+
+        svg {
+          @apply fill-primary;
+        }
+      }
+
+      &.active {
+        @apply text-white;
+
+        svg {
+          @apply w-4 fill-primary;
+        }
+      }
+    }
+
+    &:last-child {
+      @apply w-24 pt-0 pr-0 pb-[10px] pl-0;
+    }
+  }
+
+  td {
+    @apply pt-[10px]  pr-5 pb-[10px] pl-0 text-center text-base font-normal text-white;
+
+    a {
+      @apply text-white;
+
+      &:hover {
+        @apply text-primary;
+      }
+    }
+
+    &:first-child {
+      @apply w-[100px];
+    }
+
+    &:last-child {
+      @apply w-6 py-[10px];
+    }
+  }
+}

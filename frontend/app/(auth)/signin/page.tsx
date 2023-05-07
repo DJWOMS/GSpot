@@ -3,7 +3,7 @@
 import cn from 'classnames'
 import Link from 'next/link'
 import Form from '../Form'
-import s from '../Form.module.scss'
+import s from '../Form.module.css'
 import SocialBtn from '../SocialBtn'
 
 const Signin = () => {

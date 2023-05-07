@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { IconMailOpened } from '@tabler/icons-react'
-import s from './Subscribe.module.scss'
+import s from './Subscribe.module.css'
 
 const Subscribe: FC = () => {
   return (
