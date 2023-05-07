@@ -1,5 +1,5 @@
 .card {
-  @apply relative mt-7 block overflow-hidden rounded-default bg-background;
+  @apply relative  block overflow-hidden rounded-default bg-background;
 
   &Cover {
     @apply relative block;
@@ -113,7 +113,7 @@
         border-x-main-60 border-b-main-60 px-[15px] pb-[15px];
 
     @media (min-width: 360px) {
-      @apply absolute bottom-0 right-0 rounded-none border-x-0 px-[15px] pb-[15px];
+      @apply rounded-none border-x-0 px-[15px] pb-[15px];
     }
 
     @media (min-width: 576px) {

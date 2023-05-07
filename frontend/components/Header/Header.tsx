@@ -65,37 +65,52 @@ const Header: FC<HeaderProps> = ({ links }) => {
     window.onscroll = () => (openHeader ? window.scrollTo(window.scrollX, window.scrollY) : () => void 0)
   }, [openHeader])
 
+  const noScroll = (elem: any, state: boolean) => {
+    if (state) {
+      elem.classList.add('_lock')
+    } else {
+      elem.classList.remove('_lock')
+    }
+  }
+
+  useEffect(() => {
+    const body = document.body
+    noScroll(body, openHeader)
+  }, [openHeader])
+
   return (
     <header className={cn(s.header, { [s.headerHide]: hideHeader })}>
       <div className={s.wrapper}>
         <Container>
-          <div className={s.content}>
-            <button className={cn(s.menu, { [s.menuOpen]: openHeader })} onClick={toggleOpen}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
+          <div className={s.contentWrap}>
+            <div className={s.content}>
+              <button className={cn(s.menu, { [s.menuOpen]: openHeader })} onClick={toggleOpen}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
 
-            <Link className={s.logo} href="/">
-              <Image src={LogoPNG} alt="Logo" loading="eager" />
-            </Link>
-
-            <ul className={cn(s.nav, { [s.navOpen]: openHeader })}>
-              {links.map(({ href, title }, index) => (
-                <li className={s.navItem} onClick={() => setOpenHeader(false)} key={index}>
-                  <Link className={s.navLink} href={href}>
-                    {title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <div className={s.actions}>
-              <span />
-              <a className={s.loginBtn} href="/signin">
-                <span>Авторизация</span>
-              </a>
+              <Link className={s.logo} href="/">
+                <Image src={LogoPNG} alt="Logo" loading="eager" />
+              </Link>
             </div>
+
+            <nav className={s.navWrap}>
+              <ul className={cn(s.nav, { [s.navOpen]: openHeader })}>
+                {links.map(({ href, title }, index) => (
+                  <li className={s.navItem} onClick={() => setOpenHeader(false)} key={index}>
+                    <Link className={s.navLink} href={href}>
+                      {title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className={s.actions}>
+                <a className={s.loginBtn} href="/signin">
+                  <span>Авторизация</span>
+                </a>
+              </div>
+            </nav>
           </div>
         </Container>
       </div>
