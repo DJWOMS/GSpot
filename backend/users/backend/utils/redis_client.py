@@ -28,3 +28,6 @@ class RedisRefreshClient(RedisClient):
         password = redis_config.REDIS_PASSWORD
         super().__init__(host, port, db, password)
 
+
+redis_access_client = RedisAccessClient()
+redis_refresh_client = RedisRefreshClient()
