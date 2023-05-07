@@ -4,10 +4,10 @@ import { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import s from './CheckAge.module.scss'
 
-const CheckAge = (image: any, checkAge: any) => {
+const CheckAge = (image: any, setAge: any) => {
   const [date, setDate] = useState(new Date())
   const router = useRouter()
 
@@ -32,7 +32,8 @@ const CheckAge = (image: any, checkAge: any) => {
     if (userAge < 18) {
       console.log('error!')
     } else {
-      changeAge()
+      console.log(setAge)
+      console.log(setAge(false))
     }
   }
 
