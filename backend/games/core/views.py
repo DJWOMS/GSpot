@@ -32,12 +32,12 @@ class ProductViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
         'partial_update': ProductSerializer,
     }
     permission_classes_by_action = {
-        'create': (AllowAny,),
-        'update': (AllowAny,),
-        'destroy': (AllowAny,),
+        'create': (IsAdminUser,),
+        'update': (IsAdminUser,),
+        'destroy': (IsAdminUser,),
         'list': (AllowAny,),
-        'retrieve': (AllowAny,),
-        'partial_update': (AllowAny,),
+        'retrieve': (IsAuthenticated,),
+        'partial_update': (IsAuthenticated,),
     }
 
     def get_queryset(self):

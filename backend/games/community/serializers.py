@@ -20,10 +20,7 @@ class SocialSerializer(serializers.ModelSerializer):
 class GameSocialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Social
-        fields = (
-            'type',
-            'url',
-        )
+        fields = ('type', 'url')
 
 
 class CommentSerializer(serializers.ModelSerializer):
