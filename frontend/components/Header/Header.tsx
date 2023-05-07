@@ -65,7 +65,7 @@ const Header: FC<HeaderProps> = ({ links }) => {
     window.onscroll = () => (openHeader ? window.scrollTo(window.scrollX, window.scrollY) : () => void 0)
   }, [openHeader])
 
-  const noScroll = (elem: any, state: boolean) => {
+  const noScroll = (elem: HTMLElement, state: boolean) => {
     if (state) {
       elem.classList.add('_lock')
     } else {

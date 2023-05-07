@@ -41,7 +41,7 @@ const Password = () => {
     )
   }
 
-  const onSubmitPasword = async (data: any) => {
+  const onSubmitPassword = async (data: InputTypes) => {
     setSaved(false)
     const response = await fetchServerSide<InputTypes>({
       path: '/profile/settings/password',
@@ -58,7 +58,7 @@ const Password = () => {
   const errorMessage = 'поле не заполнено'
 
   return (
-    <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitPasword)}>
+    <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitPassword)}>
       <h4 className={s.formTitle}>Поменять пароль</h4>
       <div className={s.col}>
         <div>
