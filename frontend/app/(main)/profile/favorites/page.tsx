@@ -37,7 +37,7 @@ const FavoritesPage = () => {
           ))}
         </div>
 
-        <Pagination onChange={console.log} />
+        <Pagination />
       </div>
     </Section>
   )
