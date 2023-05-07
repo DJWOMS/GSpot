@@ -8,21 +8,20 @@ import s from './loading.module.scss'
 export default function Loading() {
   return (
     <>
-      <Section>
-        <SkeletonTitle />
-        <div className={s.bestGames}>
-          {[...new Array(2)].map((_, index) => (
-            <SkeletonGameBigCard key={index} />
-          ))}
-        </div>
-        <Section />
-        <SkeletonTitle />
-        <div className={s.card}>
-          {[...new Array(10)].map((_, index) => (
-            <SkeletonCard key={index} />
-          ))}
-        </div>
-      </Section>
+      <Section />
+      <SkeletonTitle />
+      <div className={s.bestGames}>
+        {[...new Array(2)].map((_, index) => (
+          <SkeletonGameBigCard key={index} />
+        ))}
+      </div>
+      <Section />
+      <SkeletonTitle />
+      <div className={s.card}>
+        {[...new Array(10)].map((_, index) => (
+          <SkeletonCard key={index} />
+        ))}
+      </div>
     </>
   )
 }

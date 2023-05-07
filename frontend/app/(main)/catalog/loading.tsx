@@ -8,7 +8,6 @@ export default function Loading() {
   return (
     <>
       <Section />
-
       <Section last>
         <SkeletonTitle />
         <div className={s.row}>

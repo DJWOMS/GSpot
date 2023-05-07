@@ -6,8 +6,8 @@ import s from './page.module.scss'
 export default function Loading() {
   return (
     <Section>
-      <SkeletonTitle />
       <section className="section section--last section--catalog">
+        <SkeletonTitle />
         <SkeletonInput size={'full'} />
         <div className={s.columns}>
           {[...new Array(11)].map((_, index) => (

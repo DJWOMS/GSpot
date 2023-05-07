@@ -11,7 +11,7 @@ export default function Loading() {
           <div className={s.detailsCardImg} />
           <div className={s.detailsCardDesc}>
             <div className={s.detailsCardDescTitle} />
-            {[...new Array(4)].map((_, index) => (
+            {[...new Array(5)].map((_, index) => (
               <div className={s.detailsCardDescText} key={index} />
             ))}
           </div>
