@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { FC } from 'react'
 import { RequirementInterface } from 'features/games'
 import { Requirement } from './Requirement'
-import s from './Requirements.module.scss'
+import s from './Requirements.module.css'
 
 type RequirementsProps = {
   children: RequirementInterface[]

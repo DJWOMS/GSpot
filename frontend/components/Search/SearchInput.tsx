@@ -2,7 +2,7 @@ import { FC, Fragment } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import cn from 'classnames'
 import { GameCardSimpleInterface } from 'features/games'
-import s from './Search.module.scss'
+import s from './Search.module.css'
 
 interface Props {
   onChange: (value: string) => void

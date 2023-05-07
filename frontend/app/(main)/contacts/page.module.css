@@ -6,7 +6,8 @@
   @apply gap-3 gap-x-5;
 }
 
-///Contacts Form
+/* Contacts Form */
+
 .contactsForm {
   @apply col-span-2;
 }
@@ -40,7 +41,7 @@
   @apply h-5 align-middle text-xs text-danger;
 }
 
-//Contacts info
+/* Contacts info */
 
 .contacts {
   @apply mt-8 text-base leading-6 text-white;

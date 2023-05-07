@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { Input, Select } from 'components/Form'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from './CheckoutForm.module.scss'
+import s from './CheckoutForm.module.css'
 
 const CheckoutForm = () => {
   const {

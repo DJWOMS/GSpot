@@ -1,5 +1,4 @@
-import { generateMockPurchaseCard, UserDataInterface } from 'features/profile'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
 let mockData = {
   username: 'Jon(0)_(^)',

@@ -1,5 +1,5 @@
 .post {
-  @apply relative mt-[30px] overflow-hidden rounded-default border border-main-60;
+  @apply relative  overflow-hidden rounded-default border border-main-60;
 
   &Content {
     @apply block px-[15px] py-[20px];

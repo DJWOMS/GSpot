@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import s from './Group.module.scss'
+import s from './Group.module.css'
 
 interface GroupProps {
   children: React.ReactNode
