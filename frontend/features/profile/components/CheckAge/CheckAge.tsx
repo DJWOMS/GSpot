@@ -7,8 +7,9 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import s from './CheckAge.module.scss'
 
-const CheckAge = (image: any, setAge: any) => {
+const CheckAge = ({ image, age }: any) => {
   const [date, setDate] = useState(new Date())
+  const [isVisible, setIsVisible] = useState(true)
   const router = useRouter()
 
   const calculateAge = (birthMonth: any, birthDay: any, birthYear: any) => {
@@ -30,44 +31,50 @@ const CheckAge = (image: any, setAge: any) => {
   const confirmAge = () => {
     const userAge = calculateAge(date.getMonth(), date.getDay(), date.getFullYear())
     if (userAge < 18) {
-      console.log('error!')
+      alert('Пожалуйста, введите корректную дату')
+      console.log(image)
     } else {
-      console.log(setAge)
-      console.log(setAge(false))
+      setIsVisible(false)
     }
   }
 
   return (
-    <div className={s.mainBlock}>
-      <div className={s.divStyle}>
-        <div className={s.divImg}>
-          <Image alt="" src={image} width={340} height={240} className={s.styleImg} />
-        </div>
-        <div className={s.divH1}>
-          <div className={s.styleH1}>ВНИМАНИЕ: ИГРА МОЖЕТ СОДЕРЖАТЬ КОНТЕНТ, НЕ ПОДХОДЯЩИЙ ДЛЯ ВСЕХ ВОЗРАСТОВ ИЛИ ДЛЯ ПРОСМОТРА НА РАБОТЕ.</div>
-          <form className={s.styleForm} onSubmit={confirmAge}>
-            <div className={s.p}>Пожалуйста, укажите дату своего рождения:</div>
-
-            <div className={s.divDatePicker}>
-              <DatePicker className={s.bday} selected={date} onChange={(date: Date) => setDate(date)} dateFormat="dd" />
-              <DatePicker className={s.bday} selected={date} onChange={(date: Date) => setDate(date)} showMonthYearPicker dateFormat="MMMM" />
-              <DatePicker className={s.bday} selected={date} onChange={(date: Date) => setDate(date)} showYearPicker dateFormat="yyyy" />
+    <>
+      {age === 'adult' ? (
+        <div className={isVisible ? s.mainBlock : s.mainBlockHidden}>
+          <div className={s.divStyle}>
+            <div className={s.divImg}>
+              <Image src={image} width={340} height={240} className={s.styleImg} alt="" />
             </div>
-          </form>
-          <div className={s.divBtn}>
-            <button className={s.btn} onClick={confirmAge}>
-              Открыть страницу
-            </button>
-            <button className={s.btn} onClick={() => router.back()}>
-              Отмена
-            </button>
+            <div className={s.divH1}>
+              <div className={s.styleH1}>ВНИМАНИЕ: ИГРА МОЖЕТ СОДЕРЖАТЬ КОНТЕНТ, НЕ ПОДХОДЯЩИЙ ДЛЯ ВСЕХ ВОЗРАСТОВ ИЛИ ДЛЯ ПРОСМОТРА НА РАБОТЕ.</div>
+              <form className={s.styleForm} onSubmit={confirmAge}>
+                <div className={s.p}>Пожалуйста, укажите дату своего рождения:</div>
+
+                <div className={s.divDatePicker}>
+                  <DatePicker className={s.bday} selected={date} onChange={(date: Date) => setDate(date)} dateFormat="dd" />
+                  <DatePicker className={s.bday} selected={date} onChange={(date: Date) => setDate(date)} showMonthYearPicker dateFormat="MMMM" />
+                  <DatePicker className={s.bday} selected={date} onChange={(date: Date) => setDate(date)} showYearPicker dateFormat="yyyy" />
+                </div>
+              </form>
+              <div className={s.divBtn}>
+                <button className={s.btn} onClick={confirmAge}>
+                  Открыть страницу
+                </button>
+                <button className={s.btn} onClick={() => router.back()}>
+                  Отмена
+                </button>
+              </div>
+            </div>
           </div>
+          <footer className={s.footer}>
+            <div className={s.p}>Эта информация предназначена исключительно для проверки и не будет сохранена.</div>
+          </footer>
         </div>
-      </div>
-      <footer className={s.footer}>
-        <div className={s.p}>Эта информация предназначена исключительно для проверки и не будет сохранена.</div>
-      </footer>
-    </div>
+      ) : (
+        <>{console.log(age)}</>
+      )}
+    </>
   )
 }
 

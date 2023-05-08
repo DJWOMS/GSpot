@@ -1,6 +1,3 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import { IconHeart, IconPlayerPlay } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
 import Section from 'components/Section'
@@ -12,22 +9,16 @@ import Link from 'next/link'
 import s from './page.module.scss'
 
 const Page = async () => {
-  const [age, setAge] = useState(true)
-
   const details = await fetchServerSide<GameDetailsInterface>({
     path: '/games/details/id',
     cache: 'no-cache',
   })
 
-  // useEffect(() => {
-  // }, [])
-
   return (
     <>
-      {details && details.age === 'Adult' && age ? (
-        <CheckAge image={details.coverImg} setAge={setAge} age={age} />
-      ) : (
-        details && (
+      {details && (
+        <>
+          <CheckAge image={details.coverImg} age={details.age} />
           <Section>
             <div className="container">
               <div className="-mx-41">
@@ -128,7 +119,7 @@ const Page = async () => {
               </div>
             </div>
           </Section>
-        )
+        </>
       )}
     </>
   )

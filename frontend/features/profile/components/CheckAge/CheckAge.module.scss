@@ -1,5 +1,10 @@
 .mainBlock {
-  @apply flex h-screen w-full flex-col items-center justify-center px-12;
+  @apply fixed inset-0 z-40 flex h-screen w-full flex-col items-center justify-center px-12;
+  background-color: #17202b;
+}
+
+.mainBlockHidden {
+  @apply hidden;
 }
 
 .p {
@@ -40,7 +45,7 @@
 }
 
 .footer {
-  @apply flex h-1/5 w-full items-center justify-center pb-10 pt-10 text-center font-semibold;
+  @apply mb-9 flex h-1/5 w-full items-center justify-center pb-10 pt-10 text-center font-semibold;
 }
 
 .divBtn {
