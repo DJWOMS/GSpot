@@ -1,0 +1,6 @@
+.animate {
+  @apply mb-6 animate-pulse;
+}
+.line {
+  @apply my-3 h-9 w-80 rounded bg-gray-700;
+}

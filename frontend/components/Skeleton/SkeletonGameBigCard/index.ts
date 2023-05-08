@@ -1,0 +1,1 @@
+export { SkeletonGameBigCard } from './SkeletonGameBigCard'
