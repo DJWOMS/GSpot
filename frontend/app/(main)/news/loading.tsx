@@ -1,7 +1,7 @@
 import React from 'react'
 import Section from 'components/Section'
 import { SkeletonCard, SkeletonInput, SkeletonTitle } from 'components/Skeleton'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 export default function Loading() {
   return (
