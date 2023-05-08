@@ -13,7 +13,7 @@ import cn from 'classnames'
 import { Container } from 'components/Container'
 import Image from 'next/image'
 import Link from 'next/link'
-import s from './Footer.module.scss'
+import s from './Footer.module.css'
 
 const Footer = () => {
   return (

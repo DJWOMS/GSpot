@@ -4,7 +4,7 @@ import { Platform } from 'features/games'
 import { CheckoutGameCardInterface } from 'features/profile'
 import Image from 'next/image'
 import Link from 'next/link'
-import s from './CheckoutGameCard.module.scss'
+import s from './CheckoutGameCard.module.css'
 
 const CheckoutGameCard: FC<CheckoutGameCardInterface> = ({ title, link, currency, price, coverImg, platform }) => {
   return (

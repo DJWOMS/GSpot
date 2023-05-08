@@ -1,7 +1,7 @@
 import { Analytics } from '@vercel/analytics/react'
 import cn from 'classnames'
 import localFont from 'next/font/local'
-import './global.scss'
+import './global.css'
 
 // head
 export const metadata = {

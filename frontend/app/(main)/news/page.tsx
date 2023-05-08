@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import Section from 'components/Section'
 import { NewsItem } from 'features/news'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 const NewsPage: FC = () => {
   return (

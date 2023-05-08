@@ -5,7 +5,7 @@ import { IconSearch } from '@tabler/icons-react'
 import { GameCardSimpleInterface } from 'features/games'
 import { useDebounce } from 'hooks'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from './Search.module.scss'
+import s from './Search.module.css'
 import SearchInput from './SearchInput'
 
 const Search = () => {

@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import cn from 'classnames'
 import Image from 'next/image'
-import styles from './CheckAge.module.scss'
+import styles from './CheckAge.module.css'
 
 const CheckAge = () => {
   const [startDay, setStartDay] = useState(new Date())

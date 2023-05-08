@@ -3,7 +3,7 @@ import { IconX } from '@tabler/icons-react'
 import { PurchaseCardInterface } from 'features/profile'
 import Image from 'next/image'
 import Link from 'next/link'
-import s from './Purchase.module.scss'
+import s from './Purchase.module.css'
 
 const Purchase: FC<PurchaseCardInterface> = ({ id, title, link, platform, date, coverImg, price, status, currency }) => {
   return (

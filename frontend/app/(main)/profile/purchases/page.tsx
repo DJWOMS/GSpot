@@ -1,7 +1,7 @@
 import Pagination from 'components/Pagination'
 import { Purchase, PurchaseCardInterface } from 'features/profile'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 const PurchasesItem = async () => {
   const purhases = await fetchServerSide<PurchaseCardInterface[]>({

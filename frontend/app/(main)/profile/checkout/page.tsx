@@ -1,7 +1,7 @@
 import Section from 'components/Section'
 import { CheckoutCouponForm, CheckoutForm, CheckoutGameCard, CheckoutGameCardInterface } from 'features/profile'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 const CheckoutPage = async () => {
   const games = await fetchServerSide<CheckoutGameCardInterface[]>({

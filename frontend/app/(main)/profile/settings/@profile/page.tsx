@@ -7,7 +7,7 @@ import { Input } from 'components/Form'
 import { SkeletonInput } from 'components/Skeleton'
 import { UserDataInterface } from 'features/profile'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from '../page.module.scss'
+import s from '../page.module.css'
 
 interface InputTypes {
   username: string

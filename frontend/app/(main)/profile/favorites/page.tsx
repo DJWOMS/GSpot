@@ -6,7 +6,7 @@ import Section from 'components/Section'
 import { GameCard, GameCardInterface } from 'features/games'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import { useRouter } from 'next/navigation'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 const FavoritesPage = () => {
   const [favorites, setFavorites] = useState<GameCardInterface[]>([])

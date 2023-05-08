@@ -1,6 +1,6 @@
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
 import Link from 'next/link'
-import s from './Pagination.module.scss'
+import s from './Pagination.module.css'
 
 const Pagination = () => {
   return (

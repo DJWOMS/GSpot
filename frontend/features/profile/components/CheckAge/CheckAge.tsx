@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import s from './CheckAge.module.scss'
+import s from './CheckAge.module.css'
 
 const CheckAge = ({ image, age }: any) => {
   const [date, setDate] = useState(new Date())
