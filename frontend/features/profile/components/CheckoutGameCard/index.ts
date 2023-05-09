@@ -1,1 +1,1 @@
-export * from './CheckoutGameCard'
+export { CheckoutGameCard } from './CheckoutGameCard'

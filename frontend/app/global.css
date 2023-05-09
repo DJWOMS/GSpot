@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 body {
-  @apply container mx-auto bg-background px-4 font-sans font-normal antialiased;
+  @apply container mx-auto box-border bg-background px-4 font-sans font-normal antialiased;
+}
+body._lock {
+  overflow: hidden;
 }
 
 button {
@@ -41,4 +44,8 @@ body::-webkit-scrollbar-track {
 
 body::-webkit-scrollbar-thumb {
   @apply bg-primary outline-1 outline-main-60;
+}
+.swiper,
+.swiper-container {
+  position: static !important;
 }

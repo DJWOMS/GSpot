@@ -1,5 +1,5 @@
 .footer {
-  @apply relative block h-auto w-full border-t border-main-60 pt-[60px];
+  @apply relative block h-auto w-full  border-main-60 pt-[60px];
 
   @media (min-width: 1200px) {
     @apply pt-[90px];

@@ -17,6 +17,8 @@ interface Props {
 const NewsItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCount, url, hasVideo }) => {
   const isBig = size === 'big'
 
+  url = '/news/1'
+
   return (
     <div className={isBig ? s.postBig : s.post}>
       <a href={url} className={isBig ? s.postImg : s.postCover}>

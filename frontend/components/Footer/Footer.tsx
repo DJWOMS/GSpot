@@ -64,7 +64,7 @@ const Footer = () => {
             <nav className={s.list}>
               <a href="#">Партнерская программа</a>
               <a href="#">Продажа</a>
-              <a href="#">Условия и положени</a>
+              <a href="#">Условия и положения</a>
               <a href="#">Политика </a>
               <a href="#">Партнерство</a>
             </nav>
@@ -99,7 +99,7 @@ const Footer = () => {
 
         <div className={s.wrapper}>
           <Link className={s.logo} href="/">
-            <Image src={LogoPNG} alt="Logo" loading="eager" />
+            <Image src={LogoPNG} width={496} height={161} alt="Logo" loading="eager" />
           </Link>
           <span>
             © GSpot, 2020—2021

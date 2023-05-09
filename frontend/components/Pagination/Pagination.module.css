@@ -1,13 +1,13 @@
 .container {
-  @apply mt-[40px] flex flex-row items-center justify-center;
+  @apply mt-[40px] flex flex-row items-center justify-end;
 
   @media (min-width: 576px) {
-    @apply mt-[50px] justify-between;
+    @apply mt-[60px] justify-between;
   }
 }
 
 .counter {
-  @apply hidden;
+  @apply mt-[60px] hidden md:block;
 
   @media (min-width: 576px) {
     @apply flex h-[44px] flex-row items-center justify-center rounded-default border border-main-60 bg-main-30
@@ -16,26 +16,34 @@
 }
 
 .wrapper {
-  @apply flex h-[44px] max-w-full flex-row items-center justify-center;
+  @apply flex h-[44px] max-w-full flex-row items-center justify-between;
 }
 
 .linkBtn {
-  @apply relative flex h-[44px] w-[44px] flex-row items-center justify-center rounded-default border
-    border-main-60 bg-main-30 text-center text-sm;
+  @apply relative flex h-[37px] w-[37px] flex-row items-center justify-center rounded-default border
+    border-main-60 bg-main-30 text-center text-sm text-white;
+
+  &:not(:last-child) {
+    @apply mr-[10px];
+  }
+
+  > svg {
+    @apply pl-[2px];
+  }
 }
 
 .item {
-  @apply mr-[15px] last:mr-0;
+  @apply mr-[10px] last:mr-0;
 
   &:hover .linkBtn {
-    @apply border-main-70 bg-main-40 text-white;
+    @apply border-purple-400 bg-main-40 text-white;
   }
 
   &Active {
     cursor: default;
 
     .linkBtn {
-      @apply cursor-default border-main-500 text-white;
+      @apply left-[10px] cursor-default border-main-500 text-white;
     }
 
     &:hover .linkBtn {

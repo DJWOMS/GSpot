@@ -10,9 +10,7 @@ const CheckoutPage = async () => {
 
   return (
     <>
-      <Section title="Checkout" />
-
-      <Section>
+      <Section title="Checkout">
         <div className={s.row}>
           <div className={s.left}>
             <div className={s.checkout}>
