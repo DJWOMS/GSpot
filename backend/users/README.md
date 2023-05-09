@@ -24,6 +24,13 @@ $ poetry shell
 8. Manually create a superuser: `$ python manage.py createsuperuser --username admin --email admin@admin.com`
 9. Run the server: `$ poetry run python manage.py runserver`
 
+### Create permission for Admin and Developer
+To create permissions quickly you can use 
+#### For Admin
+`$ python manage.py createadminpermission  name=test codename=testcode`
+##### For Developer
+`$ python manage.py createdeveloperpermission  name=test codename=testcode`
+
 ### Use with Docker
 
 For local development (from `gspot/users/ directory`):
@@ -38,3 +45,4 @@ The project used Postgres as db engine. To use postgres with docker:
 
 1. Add `POSTGRES_DB=gspot_users, POSTGRES_USER=postgres, POSTGRES_PASSWORD=postgres` to `.env`
 2. From project root run `$ docker run --rm --volume pgdata:/var/lib/postgresql/data --name pg --env-file ./.env -d -p 5432:5432 postgres:14-alpine`
+
