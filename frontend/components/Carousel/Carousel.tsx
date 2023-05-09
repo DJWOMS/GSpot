@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { Autoplay, Navigation } from 'swiper'
+import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/scss'
 import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
 import s from './Carousel.module.css'
 import CarouselArrow from './CarouselArrow'

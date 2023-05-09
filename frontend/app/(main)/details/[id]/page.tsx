@@ -2,6 +2,7 @@ import { IconHeart, IconPlayerPlay } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
 import Section from 'components/Section'
 import { GameDetailsInterface, Languages, Platform, Requirements } from 'features/games'
+import { CheckAge } from 'features/profile'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -20,6 +21,7 @@ const Page = async () => {
   return (
     <Section>
       <div className="container">
+        <CheckAge image={details.coverImg} age={details.age} />
         <div className="-mx-41">
           <div className="flex-1">
             <div className={s.details}>

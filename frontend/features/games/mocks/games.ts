@@ -46,6 +46,7 @@ const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
     generateRequirement({ operatingSystem: 'Linux', typeRequirements: 'Minimal' }),
     generateRequirement({ operatingSystem: 'Apple', typeRequirements: 'Minimal' }),
   ],
+  age: 'adult',
   ...generateMockGameCard(props),
 })
 
