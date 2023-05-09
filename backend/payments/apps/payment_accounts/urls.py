@@ -10,4 +10,5 @@ urlpatterns = [
         'user_balance/<uuid:user_uuid>/',
         views.AccountBalanceViewSet.as_view({'get': 'retrieve'}),
     ),
+    path('balances/', views.BalanceViewSet.as_view({'post': 'create'})),
 ]
