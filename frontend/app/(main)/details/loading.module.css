@@ -1,0 +1,44 @@
+.details {
+  @apply w-full animate-pulse;
+  &Card {
+    @apply flex animate-pulse flex-wrap max-sm:flex-col;
+    &Img {
+      @apply mb-2 h-[340px] w-[240px]  rounded-lg bg-gray-700 max-[500px]:w-full;
+    }
+    &Desc {
+      @apply ml-3 w-3/5;
+      &Title {
+        @apply mb-2 h-6 w-2/12 rounded-lg bg-gray-700;
+      }
+      &Text {
+        @apply mb-2 h-3 w-6/12 rounded-lg bg-gray-700;
+      }
+    }
+    &Info {
+      @apply ml-3 w-52 max-sm:ml-0 max-[500px]:w-full;
+      &Title {
+        @apply mb-2 h-6 w-6/12 rounded-lg bg-gray-700;
+      }
+      &Text {
+        @extend .detailsCardInfoTitle;
+        @apply mb-2 h-3 w-7/12;
+      }
+      &Btn {
+        @extend .detailsCardInfoTitle;
+        @apply mt-3 h-11 w-full;
+      }
+    }
+  }
+  &Text {
+    @apply my-11 w-full;
+    &Line {
+      @apply my-2 h-3 rounded bg-gray-700 even:mb-5 even:w-10/12;
+    }
+  }
+  &Content {
+    &Line {
+      @extend .detailsTextLine;
+      @apply even:mb-0;
+    }
+  }
+}
