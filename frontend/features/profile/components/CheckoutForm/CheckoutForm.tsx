@@ -7,14 +7,21 @@ import Select from 'components/Select'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './CheckoutForm.module.css'
 
+type FormType = {
+  fullName: string
+  email: string
+  phoneNumber: string
+  paymentMethod: 'visa' | 'mastercard' | 'qiwi'
+}
+
 const CheckoutForm = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm()
+  } = useForm<FormType>()
 
-  const onSubmitCheckout = async (data: any) => {
+  const onSubmitCheckout = async (data: FormType) => {
     const response = await fetchServerSide({
       path: '/profile/checkout',
       method: 'POST',
