@@ -204,7 +204,7 @@
   }
 
   &Gallery {
-    @apply relative mt-5 border-t border-solid border-main-60 pt-5;
+    @apply relative mt-5 mr-auto ml-auto max-w-[94%] border-t border-solid border-main-60 pt-5;
 
     @media (min-width: 992px) {
       @apply order-3 w-full;

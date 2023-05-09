@@ -1,2 +1,7 @@
 export * from './LatestNews'
 export * from './NewsItem'
+export * from './ArticleContent'
+export * from './SocialLink'
+export * from './Subscribe'
+export * from './Comments'
+export * from './RelatedNews'

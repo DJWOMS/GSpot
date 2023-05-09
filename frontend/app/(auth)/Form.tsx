@@ -14,7 +14,7 @@ const Form: FC<FormProps> = ({ onSubmit, children }) => {
     <div className={s.signContent}>
       <form className={s.signForm} onSubmit={onSubmit}>
         <Link className={s.signLogo} href="/">
-          <Image src={LogoPNG} alt="Logo" />
+          <Image src={LogoPNG} width={496} height={161} alt="Logo" />
         </Link>
         {children}
       </form>

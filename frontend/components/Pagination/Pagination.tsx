@@ -1,41 +1,36 @@
+'use client'
+
+import React from 'react'
+import ReactPaginate from 'react-paginate'
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
-import Link from 'next/link'
 import s from './Pagination.module.css'
 
 const Pagination = () => {
   return (
-    <div className="col-12">
-      <div className={s.container}>
-        <div className={s.counter}>12 from 144</div>
-
-        <ul className={s.wrapper}>
-          <li className={s.item}>
-            <Link className={s.linkBtn} href="/prev">
-              <IconArrowLeft />
-            </Link>
-          </li>
-          <li className={s.itemActive}>
-            <Link className={s.linkBtn} href="/1">
-              1
-            </Link>
-          </li>
-          <li className={s.item}>
-            <Link className={s.linkBtn} href="/2">
-              2
-            </Link>
-          </li>
-          <li className={s.item}>
-            <Link className={s.linkBtn} href="/3">
-              3
-            </Link>
-          </li>
-          <li className={s.item}>
-            <Link className={s.linkBtn} href="/next">
-              <IconArrowRight />
-            </Link>
-          </li>
-        </ul>
-      </div>
+    <div className={s.wrapper}>
+      <div className={s.counter}>12 from 3</div>
+      <ReactPaginate
+        // css settings
+        containerClassName={s.container}
+        pageClassName={s.item}
+        activeClassName={s.itemActive}
+        breakClassName={s.item}
+        previousClassName={s.linkBtn}
+        nextClassName={s.linkBtn}
+        previousLabel={<IconArrowLeft size={17} />}
+        nextLabel={<IconArrowRight size={17} />}
+        // settings ReactPaginate
+        onPageChange={console.log}
+        pageRangeDisplayed={5}
+        pageCount={3}
+        renderOnZeroPageCount={null}
+        // additional css settings
+        pageLinkClassName={s.linkBtn}
+        previousLinkClassName={s.linkBtn}
+        nextLinkClassName={s.linkBtn}
+        activeLinkClassName={s.activeLink}
+        breakLinkClassName={s.linkBtn}
+      />
     </div>
   )
 }
