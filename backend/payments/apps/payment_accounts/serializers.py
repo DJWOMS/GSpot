@@ -38,6 +38,7 @@ class UUIDSerializer(serializers.Serializer):
 
     class Meta:
         model = Account
-        fields = ('user_uuid', 'balance',)
-
-
+        fields = (
+            'user_uuid',
+            'balance',
+        )
