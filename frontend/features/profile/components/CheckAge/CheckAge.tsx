@@ -1,21 +1,22 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import cn from 'classnames'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import s from './CheckAge.module.css'
 
-const CheckAge = ({ image, age }: any) => {
+const CheckAge = ({ image, age }: { image: string; age: string }) => {
   const [date, setDate] = useState(new Date())
   const [isVisible, setIsVisible] = useState(true)
   const router = useRouter()
 
-  const calculateAge = (birthMonth: any, birthDay: any, birthYear: any) => {
+  const calculateAge = (birthMonth: number, birthDay: number, birthYear: number) => {
     const currentDate = new Date()
     const currentYear = currentDate.getFullYear()
-    const currentMonth = currentDate.getMonth()
+    const currentMonth = currentDate.getMonth() + 1
     const currentDay = currentDate.getDate()
     let calculatedAge = currentYear - birthYear
 
@@ -29,7 +30,7 @@ const CheckAge = ({ image, age }: any) => {
   }
 
   const confirmAge = () => {
-    const userAge = calculateAge(date.getMonth(), date.getDay(), date.getFullYear())
+    const userAge = calculateAge(date.getMonth() + 1, date.getDay(), date.getFullYear())
     if (userAge < 18) {
       alert('Пожалуйста, введите корректную дату')
     } else {
@@ -37,26 +38,34 @@ const CheckAge = ({ image, age }: any) => {
     }
   }
 
+  useEffect(() => {
+    if (isVisible) {
+      document.body.classList.add('_lock')
+    } else {
+      document.body.classList.remove('_lock')
+    }
+  }, [isVisible])
+
   return (
     <>
-      {age === 'adult' ? (
-        <div className={isVisible ? s.mainBlock : s.mainBlockHidden}>
+      {age === 'adult' && (
+        <div className={cn(s.wrapper, { [s.wrapperHidden]: !isVisible })}>
           <div className={s.divStyle}>
-            <div className={s.divImg}>
-              <Image src={image} width={340} height={240} className={s.styleImg} alt="" />
+            <div className={s.imageBox}>
+              <Image src={image} width={340} height={240} className={s.image} alt="" />
             </div>
-            <div className={s.divH1}>
-              <div className={s.styleH1}>ВНИМАНИЕ: ИГРА МОЖЕТ СОДЕРЖАТЬ КОНТЕНТ, НЕ ПОДХОДЯЩИЙ ДЛЯ ВСЕХ ВОЗРАСТОВ ИЛИ ДЛЯ ПРОСМОТРА НА РАБОТЕ.</div>
-              <form className={s.styleForm} onSubmit={confirmAge}>
-                <div className={s.p}>Пожалуйста, укажите дату своего рождения:</div>
+            <div className={s.titleBox}>
+              <div className={s.title}>Внимание: игра может содержать контент, не подходящий для всех возрастов или для просмотра на работе.</div>
+              <form className={s.form} onSubmit={confirmAge}>
+                <div className={s.tip}>Пожалуйста, укажите дату своего рождения:</div>
 
-                <div className={s.divDatePicker}>
-                  <DatePicker className={s.bday} selected={date} onChange={(date: Date) => setDate(date)} dateFormat="dd" />
-                  <DatePicker className={s.bday} selected={date} onChange={(date: Date) => setDate(date)} showMonthYearPicker dateFormat="MMMM" />
-                  <DatePicker className={s.bday} selected={date} onChange={(date: Date) => setDate(date)} showYearPicker dateFormat="yyyy" />
+                <div className={s.dateBox}>
+                  <DatePicker className={s.input} selected={date} onChange={(date: Date) => setDate(date)} dateFormat="dd" />
+                  <DatePicker className={s.input} selected={date} onChange={(date: Date) => setDate(date)} showMonthYearPicker dateFormat="MMMM" />
+                  <DatePicker className={s.input} selected={date} onChange={(date: Date) => setDate(date)} showYearPicker dateFormat="yyyy" />
                 </div>
               </form>
-              <div className={s.divBtn}>
+              <div className={s.btnBox}>
                 <button className={s.btn} onClick={confirmAge}>
                   Открыть страницу
                 </button>
@@ -67,11 +76,9 @@ const CheckAge = ({ image, age }: any) => {
             </div>
           </div>
           <footer className={s.footer}>
-            <div className={s.p}>Эта информация предназначена исключительно для проверки и не будет сохранена.</div>
+            <div className={s.tip}>Эта информация предназначена исключительно для проверки и не будет сохранена.</div>
           </footer>
         </div>
-      ) : (
-        <></>
       )}
     </>
   )

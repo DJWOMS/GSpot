@@ -1,13 +1,13 @@
-.mainBlock {
+.wrapper {
   @apply fixed inset-0 z-40 flex h-screen w-full flex-col items-center justify-center px-12;
   background-color: #17202b;
+
+  &Hidden {
+    @apply hidden;
+  }
 }
 
-.mainBlockHidden {
-  @apply hidden;
-}
-
-.p {
+.tip {
   @apply text-xs md:text-xl;
   color: #657883;
 }
@@ -17,28 +17,40 @@
   border-color: #657883;
 }
 
-.styleH1 {
-  @apply flex flex-wrap items-center justify-center pb-6 pt-10 text-center text-xs font-semibold text-white md:text-xl lg:pt-4;
+.title {
+  @apply flex flex-wrap items-center justify-center pb-6 pt-10 text-center text-xs font-semibold uppercase text-white md:text-xl lg:pt-4;
+
+  &Box {
+    @apply flex h-full w-11/12 flex-col items-center justify-center lg:w-4/5;
+  }
 }
 
-.styleForm {
+.form {
   @apply flex w-full flex-col items-center justify-center rounded-md p-4 text-center text-xs font-semibold md:text-xl;
   background-color: #323e4c;
   color: #aab8cd;
 }
 
-.styleImg {
+.image {
   @apply h-full w-full;
   box-shadow: rgba(17, 17, 26, 0.444) 0px 8px 24px, rgba(17, 17, 26, 0.564) 0px 16px 56px, rgba(17, 17, 26, 0.63) 0px 10px 30px;
+
+  &Box {
+    @apply absolute top-[-10%] h-1/4 w-2/4 md:h-1/3 lg:w-1/4;
+  }
 }
 
 .btn {
   @apply rounded p-2 text-xl font-semibold;
   background-color: #25596ead;
   color: #5c98c2;
+
+  &Box {
+    @apply mt-6 flex w-full flex-row justify-center gap-3;
+  }
 }
 
-.bday {
+.input {
   @apply mx-1 w-8 w-20 rounded px-2 text-center text-xs text-xl;
   background-color: #25596ead;
   color: #5c98c2;
@@ -48,18 +60,6 @@
   @apply mb-9 flex h-1/5 w-full items-center justify-center pb-10 pt-10 text-center font-semibold;
 }
 
-.divBtn {
-  @apply mt-6 flex w-full flex-row justify-center gap-3;
-}
-
-.divImg {
-  @apply absolute top-0.5 h-1/4 w-2/4 md:h-1/3 lg:w-1/4;
-}
-
-.divH1 {
-  @apply flex h-full w-11/12 flex-col items-center justify-center lg:w-4/5;
-}
-
-.divDatePicker {
+.dateBox {
   @apply flex w-fit flex-row justify-center gap-2 pt-4;
 }
