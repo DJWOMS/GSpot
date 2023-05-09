@@ -32,7 +32,6 @@ const CheckAge = ({ image, age }: any) => {
     const userAge = calculateAge(date.getMonth(), date.getDay(), date.getFullYear())
     if (userAge < 18) {
       alert('Пожалуйста, введите корректную дату')
-      console.log(image)
     } else {
       setIsVisible(false)
     }
@@ -72,7 +71,7 @@ const CheckAge = ({ image, age }: any) => {
           </footer>
         </div>
       ) : (
-        <>{console.log(age)}</>
+        <></>
       )}
     </>
   )
