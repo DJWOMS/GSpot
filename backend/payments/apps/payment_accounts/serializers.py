@@ -31,3 +31,7 @@ class AccountBalanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ('balance',)
+
+
+class UUIDSerializer(serializers.Serializer):
+    uuid_list = serializers.ListField(child=serializers.UUIDField())
