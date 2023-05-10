@@ -1,4 +1,5 @@
-import { faker } from '@faker-js/faker'
+import randomItem from 'utils/randomItem'
+import randomNum from 'utils/randomNumber'
 import type {
   GameCardInterface,
   GameCardSimpleInterface,
@@ -7,15 +8,15 @@ import type {
 } from '../types'
 
 export const generateMockGameCardSimple = (props = {}): GameCardSimpleInterface => ({
-  title: faker.word.adjective(),
-  link: faker.internet.url(),
+  title: 'little',
+  link: '/details/id',
   ...props,
 })
 
 export const generateMockGameList = (props = {}): GameListInterface => ({
-  coverImg: faker.image.imageUrl(240, 340, 'pc-games', true),
-  price: faker.datatype.number(1000),
-  sale: faker.datatype.number(500),
+  coverImg: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(5)}`,
+  price: randomNum(3),
+  sale: randomNum(3),
   currency: 'RUB',
   ...generateMockGameCardSimple(props),
 })
@@ -27,17 +28,17 @@ export const generateMockGameCard = (props = {}): GameCardInterface => ({
 })
 
 export const generateRequirement = (props = {}) => ({
-  operatingSystem: faker.word.adjective(),
-  deviceProcessor: faker.lorem.paragraph(),
-  deviceMemory: faker.lorem.paragraph(),
-  deviceStorage: faker.lorem.paragraph(),
-  deviceGraphics: faker.lorem.paragraph(),
-  typeRequirements: faker.lorem.paragraph(),
+  operatingSystem: randomItem(['Windows', 'Linux', 'MacOS']),
+  deviceProcessor: randomItem(['Intel', 'AMD']),
+  deviceMemory: randomItem(['4GB', '8GB', '12GB', '16GB']),
+  deviceStorage: randomItem(['8GB', '10GB', '12GB', '14GB', '16GB', '20GB', '40GB', '60GB']),
+  deviceGraphics: randomItem(['NVIDIA 1080', 'NVIDIA Titan X', 'AMD Radeon 5215']),
+  typeRequirements: randomItem(['Minimal', 'Recommend']),
   ...props,
 })
 
 export const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
-  description: faker.lorem.paragraphs(5),
+  description: 'Some description for game',
   languages: [
     {
       languageName: 'English',
