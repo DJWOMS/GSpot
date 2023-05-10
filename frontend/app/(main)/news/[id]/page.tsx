@@ -1,12 +1,17 @@
 import Section from 'components/Section'
-import { GameCardInterface, ListGames } from 'features/games'
-import { ArticleContent, ArticleInterface, CommentInterface, Comments, SocialLink, Subscribe, RelatedNews } from 'features/news'
+import { ListGames } from 'features/games/components'
+import type { GameCardInterface } from 'features/games/types'
+import { ArticleContent, Comments, SocialLink, Subscribe, RelatedNews } from 'features/news/components'
+import type { ArticleInterface, CommentInterface } from 'features/news/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import { notFound } from 'next/navigation'
 import s from './page.module.css'
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  const articleContent = await fetchServerSide<ArticleInterface>({ path: `/news/${params.id}`, cache: 'no-cache' })
+  const articleContent = await fetchServerSide<ArticleInterface>({
+    path: `/news/${params.id}`,
+    cache: 'no-cache',
+  })
 
   if (!articleContent) {
     notFound()

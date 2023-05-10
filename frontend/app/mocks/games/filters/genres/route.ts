@@ -1,4 +1,4 @@
-import { generateMockFilterGenre } from 'features/games'
+import { generateMockFilterGenre } from 'features/games/mocks'
 import { NextResponse } from 'next/server'
 
 export function GET() {

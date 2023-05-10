@@ -15,7 +15,11 @@ const customJestConfig = {
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
   testEnvironment: 'jest-environment-jsdom',
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/.vercel/', '<rootDir>[/\\\\](node_modules|.next)[/\\\\]'],
+  testPathIgnorePatterns: [
+    '<rootDir>/.next/',
+    '<rootDir>/.vercel/',
+    '<rootDir>[/\\\\](node_modules|.next)[/\\\\]',
+  ],
   transformIgnorePatterns: ['/node_modules/', '^.+\\.module\\.(css|sass|scss)$'],
   transform: {
     // Use babel-jest to transpile tests with the next/babel preset

@@ -1,1 +1,1 @@
-export { Requirements } from './Requirements'
+export { default } from './Requirements'

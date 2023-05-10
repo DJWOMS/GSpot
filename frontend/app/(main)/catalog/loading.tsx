@@ -7,9 +7,8 @@ import s from './page.module.css'
 export default function Loading() {
   return (
     <>
-      <Section />
+      <Section title={<SkeletonTitle />} />
       <Section last>
-        <SkeletonTitle />
         <div className={s.row}>
           <div className={s.columns2}>
             {[...new Array(17)].map((_, index) => (

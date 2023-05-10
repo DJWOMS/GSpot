@@ -1,13 +1,18 @@
 import { faker } from '@faker-js/faker'
-import { GameCardInterface, GameCardSimpleInterface, GameDetailsInterface, GameListInterface } from 'features/games'
+import type {
+  GameCardInterface,
+  GameCardSimpleInterface,
+  GameDetailsInterface,
+  GameListInterface,
+} from '../types'
 
-const generateMockGameCardSimple = (props = {}): GameCardSimpleInterface => ({
+export const generateMockGameCardSimple = (props = {}): GameCardSimpleInterface => ({
   title: faker.word.adjective(),
   link: faker.internet.url(),
   ...props,
 })
 
-const generateMockGameList = (props = {}): GameListInterface => ({
+export const generateMockGameList = (props = {}): GameListInterface => ({
   coverImg: faker.image.imageUrl(240, 340, 'pc-games', true),
   price: faker.datatype.number(1000),
   sale: faker.datatype.number(500),
@@ -15,13 +20,13 @@ const generateMockGameList = (props = {}): GameListInterface => ({
   ...generateMockGameCardSimple(props),
 })
 
-const generateMockGameCard = (props = {}): GameCardInterface => ({
+export const generateMockGameCard = (props = {}): GameCardInterface => ({
   badge: 'New',
   platforms: [{ type: 'ap' }, { type: 'win' }],
   ...generateMockGameList(props),
 })
 
-const generateRequirement = (props = {}) => ({
+export const generateRequirement = (props = {}) => ({
   operatingSystem: faker.word.adjective(),
   deviceProcessor: faker.lorem.paragraph(),
   deviceMemory: faker.lorem.paragraph(),
@@ -31,7 +36,7 @@ const generateRequirement = (props = {}) => ({
   ...props,
 })
 
-const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
+export const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
   description: faker.lorem.paragraphs(5),
   languages: [
     {
@@ -49,5 +54,3 @@ const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
   age: 'adult',
   ...generateMockGameCard(props),
 })
-
-export { generateMockGameCard, generateMockGameCardSimple, generateMockGameDetails, generateMockGameList }

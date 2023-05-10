@@ -1,1 +1,1 @@
-export { FilterGames } from './FilterGames'
+export { default } from './FilterGames'

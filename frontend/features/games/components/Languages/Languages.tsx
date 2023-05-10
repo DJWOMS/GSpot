@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { LanguageInterface } from 'features/games'
+import type { LanguageInterface } from '../../types'
 import { Language } from './Language'
 
 type LanguagesProps = {
@@ -32,4 +32,4 @@ const Languages: FC<LanguagesProps> = ({ children }) => {
   )
 }
 
-export { Languages }
+export default Languages

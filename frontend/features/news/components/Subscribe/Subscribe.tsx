@@ -18,4 +18,4 @@ const Subscribe: FC = () => {
   )
 }
 
-export { Subscribe }
+export default Subscribe

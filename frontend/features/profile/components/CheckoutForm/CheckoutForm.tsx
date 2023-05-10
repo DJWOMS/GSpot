@@ -2,7 +2,8 @@
 
 import { Controller, useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
-import { Input, Select } from 'components/Form'
+import { Input } from 'components/Form'
+import Select from 'components/Select'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './CheckoutForm.module.css'
 
@@ -64,17 +65,30 @@ const CheckoutForm = () => {
           rules={{ required: true }}
           render={({ field }) => {
             return (
-              <Select {...field}>
-                <option value="visa">Visa</option>
-                <option value="mastercard">Mastercard</option>
-                <option value="qiwi">Qiwi</option>
-              </Select>
+              <Select
+                {...field}
+                options={[
+                  {
+                    name: 'Visa',
+                    value: 'visa',
+                  },
+                  {
+                    name: 'Mastercard',
+                    value: 'mastercard',
+                  },
+                  {
+                    name: 'Qiwi',
+                    value: 'qiwi',
+                  },
+                ]}
+              />
             )
           }}
         />
         <ErrorMessage errors={errors} name="paymentMethod" render={({ message }) => <p>{message}</p>} />
         <span className={s.formText}>
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.
+          There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+          alteration in some form.
         </span>
         <input type="submit" className={s.formBtn} />
       </form>
@@ -82,4 +96,4 @@ const CheckoutForm = () => {
   )
 }
 
-export { CheckoutForm }
+export default CheckoutForm

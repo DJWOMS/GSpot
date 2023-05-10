@@ -10,7 +10,7 @@ import {
 } from '@tabler/icons-react'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
-import { Container } from 'components/Container'
+import Container from 'components/Container'
 import Image from 'next/image'
 import Link from 'next/link'
 import s from './Footer.module.css'

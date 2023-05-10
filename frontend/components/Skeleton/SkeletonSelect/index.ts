@@ -1,1 +1,1 @@
-export { SkeletonSelect } from './SkeletonSelect'
+export { default } from './SkeletonSelect'

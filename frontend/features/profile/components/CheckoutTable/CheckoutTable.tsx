@@ -3,10 +3,11 @@
 import React, { FC } from 'react'
 import { IconX } from '@tabler/icons-react'
 import Table from 'components/Table'
-import { Platform, PlatformType } from 'features/games'
+import { Platform } from 'features/games/components'
+import type { PlatformType } from 'features/games/types'
 import Image from 'next/image'
 import Link from 'next/link'
-import { CheckoutGameCardInterface } from '../../types'
+import type { CheckoutGameCardInterface } from '../../types'
 import s from './CheckoutTable.module.css'
 
 interface Props {
@@ -65,4 +66,4 @@ const CheckoutTable: FC<Props> = ({ games }) => {
   )
 }
 
-export { CheckoutTable }
+export default CheckoutTable

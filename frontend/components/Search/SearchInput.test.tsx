@@ -1,6 +1,6 @@
 import React from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { generateMockGameCardSimple } from 'features/games'
+import { generateMockGameCardSimple } from 'features/games/mocks'
 import Input from './SearchInput'
 
 describe('Input component', () => {

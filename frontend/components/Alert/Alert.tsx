@@ -1,5 +1,11 @@
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react'
-import { IconAlertCircle, IconCircleCheck, IconAlertTriangle, IconInfoCircle, IconX } from '@tabler/icons-react'
+import {
+  IconAlertCircle,
+  IconCircleCheck,
+  IconAlertTriangle,
+  IconInfoCircle,
+  IconX,
+} from '@tabler/icons-react'
 import cn from 'classnames'
 import s from './Alert.module.css'
 

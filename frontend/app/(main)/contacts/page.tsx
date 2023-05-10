@@ -54,8 +54,17 @@ const ContactsPage = () => {
         <div className={s.contactsForm}>
           <Section title="Contacts form" />
           <form className={s.form} action="#" onSubmit={handleSubmit(onSubmit)}>
-            <Controller name="name" control={control} rules={rules} render={({ field }) => <Input {...field} type="text" placeholder="Name" />} />
-            <ErrorMessage errors={errors} name="name" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+            <Controller
+              name="name"
+              control={control}
+              rules={rules}
+              render={({ field }) => <Input {...field} type="text" placeholder="Name" />}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="name"
+              render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+            />
 
             <Controller
               name="email"
@@ -63,7 +72,11 @@ const ContactsPage = () => {
               rules={rulesForEmail}
               render={({ field }) => <Input {...field} type="text" placeholder="Email" />}
             />
-            <ErrorMessage name="email" errors={errors} render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+            <ErrorMessage
+              name="email"
+              errors={errors}
+              render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+            />
 
             <Controller
               name="subject"
@@ -71,10 +84,22 @@ const ContactsPage = () => {
               rules={rules}
               render={({ field }) => <Input {...field} type="text" placeholder="Subject" />}
             />
-            <ErrorMessage name="subject" errors={errors} render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+            <ErrorMessage
+              name="subject"
+              errors={errors}
+              render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+            />
 
-            <textarea className={s.formTextarea} placeholder="Type your message..." {...register('message', rules)}></textarea>
-            <ErrorMessage errors={errors} name="message" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+            <textarea
+              className={s.formTextarea}
+              placeholder="Type your message..."
+              {...register('message', rules)}
+            ></textarea>
+            <ErrorMessage
+              errors={errors}
+              name="message"
+              render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+            />
 
             <button className={s.formBtn} disabled={disabled}>
               Send
@@ -83,7 +108,10 @@ const ContactsPage = () => {
         </div>
         <Section title="Info">
           <div className={s.contacts}>
-            <p>It is a long fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+            <p>
+              It is a long fact that a reader will be distracted by the readable content of a page when
+              looking at its layout.
+            </p>
 
             <ul className={s.list}>
               <li>

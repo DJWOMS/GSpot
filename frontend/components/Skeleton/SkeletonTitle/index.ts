@@ -1,1 +1,1 @@
-export { SkeletonTitle } from './SkeletonTitle'
+export { default } from './SkeletonTitle'

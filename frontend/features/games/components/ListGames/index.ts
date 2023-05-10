@@ -1,1 +1,1 @@
-export { ListGames } from './ListGames'
+export { default } from './ListGames'

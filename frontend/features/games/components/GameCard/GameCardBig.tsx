@@ -1,13 +1,21 @@
 import { FC } from 'react'
 import { IconHeart } from '@tabler/icons-react'
 import cn from 'classnames'
-import { GameCardInterface } from 'features/games'
 import Image from 'next/image'
 import Link from 'next/link'
+import type { GameCardInterface } from '../../types'
+import Platform from '../Platform'
 import s from './GameCard.module.css'
-import { Platform } from './Platform'
 
-const GameCardBig: FC<GameCardInterface> = ({ coverImg, link, title, sale, price, platforms, currency = '$' }) => {
+const GameCardBig: FC<GameCardInterface> = ({
+  coverImg,
+  link,
+  title,
+  sale,
+  price,
+  platforms,
+  currency = '$',
+}) => {
   return (
     <div className={cn(s.card, s.cardBig)}>
       <Link className={s.cardCover} href="/details/id">

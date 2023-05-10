@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { FC } from 'react'
-import { RequirementInterface } from 'features/games'
+import type { RequirementInterface } from '../../types'
 import { Requirement } from './Requirement'
 import s from './Requirements.module.css'
 
@@ -17,20 +17,32 @@ const Requirements: FC<RequirementsProps> = ({ children }) => {
     <>
       <div className={s.requirements}>
         <div className={s.requirementsTabs}>
-          <button className={activeTab === 'windows' ? s.requirementsTabsActive : s.requirementsTabsButton} onClick={() => setActiveTab('windows')}>
+          <button
+            className={activeTab === 'windows' ? s.requirementsTabsActive : s.requirementsTabsButton}
+            onClick={() => setActiveTab('windows')}
+          >
             Windows
           </button>
-          <button className={activeTab === 'linux' ? s.requirementsTabsActive : s.requirementsTabsButton} onClick={() => setActiveTab('linux')}>
+          <button
+            className={activeTab === 'linux' ? s.requirementsTabsActive : s.requirementsTabsButton}
+            onClick={() => setActiveTab('linux')}
+          >
             Linux
           </button>
-          <button className={activeTab === 'apple' ? s.requirementsTabsActive : s.requirementsTabsButton} onClick={() => setActiveTab('apple')}>
+          <button
+            className={activeTab === 'apple' ? s.requirementsTabsActive : s.requirementsTabsButton}
+            onClick={() => setActiveTab('apple')}
+          >
             Apple
           </button>
         </div>
 
         <div>
           {children.map((requirement, index) => (
-            <div key={index} className={activeTab !== requirement.operatingSystem.toLowerCase() ? 'hidden' : ''}>
+            <div
+              key={index}
+              className={activeTab !== requirement.operatingSystem.toLowerCase() ? 'hidden' : ''}
+            >
               <Requirement {...requirement} />
             </div>
           ))}
@@ -40,4 +52,4 @@ const Requirements: FC<RequirementsProps> = ({ children }) => {
   )
 }
 
-export { Requirements }
+export default Requirements

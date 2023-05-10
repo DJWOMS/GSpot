@@ -2,9 +2,8 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-    scrollRestoration: true,
   },
-  output: 'standalone',
+  reactStrictMode: true,
   swcMinify: true,
   images: {
     domains: ['loremflickr.com'],

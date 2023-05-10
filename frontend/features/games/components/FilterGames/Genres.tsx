@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, Controller } from 'react-hook-form'
 import { CheckBox, Group, Label } from 'components/Form'
 import { SkeletonListCheckBoxes } from 'components/Skeleton'
-import { FilterGenreInterface } from 'features/games'
+import type { FilterGenreInterface } from 'features/games/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
 
 const Genres = () => {
   const [genres, setGenres] = useState<FilterGenreInterface[] | null>(null)
-  const { register, watch } = useFormContext()
+  const { control, watch } = useFormContext()
 
   // get list of genres from api and set {selected: true} for selected (from url query params)
   useEffect(() => {
@@ -35,12 +35,22 @@ const Genres = () => {
       ) : (
         genres.map(({ id, name, subgenres }) => (
           <>
-            <CheckBox label={name} defaultValue={id} key={`g${id}`} {...register('genres')} />
+            <Controller
+              key={`g${id}`}
+              control={control}
+              name="genres"
+              render={({ field }) => <CheckBox {...field} label={name} defaultValue={id} />}
+            />
 
             {selectedGenres.includes(id.toFixed()) && subgenres.length > 0 && (
               <div className="mb-5 ml-5">
                 {subgenres.map(({ id, name }) => (
-                  <CheckBox label={name} defaultValue={id} key={`s${id}`} {...register('subgenres')} />
+                  <Controller
+                    key={`s${id}`}
+                    control={control}
+                    name="subgenres"
+                    render={({ field }) => <CheckBox label={name} defaultValue={id} {...field} />}
+                  />
                 ))}
               </div>
             )}

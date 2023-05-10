@@ -1,1 +1,1 @@
-export { SkeletonListCheckBoxes } from './SkeletonListCheckBoxes'
+export { default } from './SkeletonListCheckBoxes'

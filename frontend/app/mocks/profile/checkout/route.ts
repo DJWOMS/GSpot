@@ -1,4 +1,4 @@
-import { generateMockCheckoutGameCard } from 'features/profile'
+import { generateMockCheckoutGameCard } from 'features/profile/mocks'
 import { NextRequest, NextResponse } from 'next/server'
 
 export function GET() {

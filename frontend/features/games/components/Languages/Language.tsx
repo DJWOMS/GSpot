@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { IconCheck, IconX } from '@tabler/icons-react'
-import { LanguageInterface } from 'features/games'
+import type { LanguageInterface } from '../../types'
 
 const Condition = (value: boolean) => (value ? <IconCheck color="green" /> : <IconX color="red" />)
 

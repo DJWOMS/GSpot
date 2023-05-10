@@ -3,7 +3,7 @@ import { useFormContext, Controller } from 'react-hook-form'
 import { Group, Label } from 'components/Form'
 import { SkeletonInput } from 'components/Skeleton'
 import { Range } from 'components/Slider'
-import { FilterPriceType } from 'features/games/types'
+import type { FilterPriceType } from 'features/games/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './Prices.module.css'
 

@@ -1,10 +1,9 @@
-import { forwardRef, ForwardRefRenderFunction } from 'react'
+import { FC, InputHTMLAttributes } from 'react'
+import cn from 'classnames'
 import s from './Input.module.css'
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>
-
-const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({ ...props }, ref) => {
-  return <input className={s.input} ref={ref} {...props} />
+const Input: FC<InputHTMLAttributes<HTMLInputElement>> = ({ className, ...props }) => {
+  return <input className={cn(s.input, className)} {...props} />
 }
 
-export default forwardRef(Input)
+export default Input

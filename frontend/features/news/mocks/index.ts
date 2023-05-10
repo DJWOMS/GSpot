@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
-import { INews } from 'features/news'
+import { INews } from '../models'
 
-const generateMockNewsCard = (props = {}): INews => ({
+export const generateMockNewsCard = (props = {}): INews => ({
   id: faker.datatype.uuid(),
   category: {
     id: faker.datatype.uuid(),
@@ -12,5 +12,3 @@ const generateMockNewsCard = (props = {}): INews => ({
   image: faker.image.abstract(),
   ...props,
 })
-
-export { generateMockNewsCard }

@@ -1,5 +1,5 @@
 import Section from 'components/Section'
-import { NewsItem } from 'features/news'
+import NewsItem from '../NewsItem'
 
 const RelatedNews = () => {
   return (
@@ -45,4 +45,4 @@ const RelatedNews = () => {
   )
 }
 
-export { RelatedNews }
+export default RelatedNews

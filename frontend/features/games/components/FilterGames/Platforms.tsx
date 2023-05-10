@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, Controller } from 'react-hook-form'
 import { CheckBox, Group, Label } from 'components/Form'
 import { SkeletonListCheckBoxes } from 'components/Skeleton'
-import { FilterPlatformInterface } from 'features/games/types'
+import type { FilterPlatformInterface } from 'features/games/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
 
 const Platforms = () => {
   const [platforms, setPlatforms] = useState<FilterPlatformInterface[] | null>(null)
 
-  const { register } = useFormContext()
+  const { control } = useFormContext()
 
   // get list of platforms from api and set {selected: true} for selected (from url query params)
   useEffect(() => {
@@ -36,7 +36,14 @@ const Platforms = () => {
       {platforms === null ? (
         <SkeletonListCheckBoxes count={4} />
       ) : (
-        platforms.map(({ id, name }) => <CheckBox label={name} key={id} defaultValue={id} {...register('platforms')} />)
+        platforms.map(({ id, name }) => (
+          <Controller
+            key={id}
+            control={control}
+            name="platforms"
+            render={({ field }) => <CheckBox label={name} defaultValue={id} {...field} />}
+          />
+        ))
       )}
     </Group>
   )

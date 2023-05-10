@@ -59,4 +59,4 @@ const CheckoutCouponForm = () => {
   )
 }
 
-export { CheckoutCouponForm }
+export default CheckoutCouponForm

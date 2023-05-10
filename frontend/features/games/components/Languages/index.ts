@@ -1,1 +1,1 @@
-export { Languages } from './Languages'
+export { default } from './Languages'

@@ -60,7 +60,7 @@ An example of such usage is shown below. Describes a function that returns an ob
 ```
 // features/games/mocks/index.ts
 import { faker } from '@faker-js/faker'
-import { GameCardInterface } from 'features/games'
+import type { GameCardInterface } from 'features/games/types'
 
 const generateMockGameCard = (props = {}): GameCardInterface => ({
   title: faker.word.adjective(),
