@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { Platform } from './Platform'
+import Platform from './Platform'
 
 describe('CardPlatform', () => {
   test('renders the "ps" platform', () => {

@@ -1,1 +1,1 @@
-export { SkeletonInput } from './SkeletonInput'
+export { default } from './SkeletonInput'

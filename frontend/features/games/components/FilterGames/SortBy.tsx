@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-import { useFormContext } from 'react-hook-form'
-import { Group, Label, Select } from 'components/Form'
+import { useFormContext, Controller } from 'react-hook-form'
+import { Group, Label } from 'components/Form'
+import Select from 'components/Select'
 import { SkeletonSelect } from 'components/Skeleton'
-import { FilterSortByInterface } from 'features/games/types'
+import type { FilterSortByInterface } from 'features/games/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
 
 const SortBy = () => {
-  const { register } = useFormContext()
+  const { control } = useFormContext()
   const [sorts, setSorts] = useState<FilterSortByInterface[] | null>(null)
 
   useEffect(() => {
@@ -30,13 +31,13 @@ const SortBy = () => {
       {sorts === null ? (
         <SkeletonSelect />
       ) : (
-        <Select {...register('sortby')}>
-          {sorts.map(({ id, name }) => (
-            <option value={id} key={id}>
-              {name}
-            </option>
-          ))}
-        </Select>
+        <Controller
+          name="sortby"
+          control={control}
+          render={({ field }) => (
+            <Select {...field} options={sorts.map((i) => ({ name: i.name, value: i.id }))} />
+          )}
+        />
       )}
     </Group>
   )

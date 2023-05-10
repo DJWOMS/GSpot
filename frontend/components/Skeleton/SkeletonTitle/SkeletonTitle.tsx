@@ -8,4 +8,4 @@ const SkeletonTitle = () => {
   )
 }
 
-export { SkeletonTitle }
+export default SkeletonTitle

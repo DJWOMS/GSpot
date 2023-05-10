@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { IconClockHour4 } from '@tabler/icons-react'
-import { ArticleInterface } from 'features/news/types'
+import type { ArticleInterface } from 'features/news/types'
 import s from './ArticleContent.module.css'
 
 type ArticleType = {
@@ -24,4 +24,4 @@ const ArticleContent: FC<ArticleType> = ({ children }) => {
   )
 }
 
-export { ArticleContent }
+export default ArticleContent

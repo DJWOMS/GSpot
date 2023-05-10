@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { CommentInterface } from 'features/news/types'
+import type { CommentInterface } from 'features/news/types'
 import s from './Comments.module.css'
 import { SingleComment } from './SingleComment'
 
@@ -31,4 +31,4 @@ const Comments: FC<CommentsType> = ({ children }) => {
   )
 }
 
-export { Comments }
+export default Comments

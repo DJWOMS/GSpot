@@ -2,8 +2,8 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-    scrollRestoration: true,
   },
+  reactStrictMode: true,
   output: 'standalone',
   swcMinify: true,
   images: {

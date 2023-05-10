@@ -1,1 +1,1 @@
-export * from './SkeletonCheckBox'
+export { default } from './SkeletonCheckBox'

@@ -1,1 +1,1 @@
-export { SkeletonGameBigCard } from './SkeletonGameBigCard'
+export { default } from './SkeletonGameBigCard'

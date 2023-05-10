@@ -8,16 +8,18 @@ import { Input } from 'components/Form'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './CheckoutCouponForm.module.css'
 
+type FormType = { coupon: string }
+
 const CheckoutCouponForm = () => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm()
+  } = useForm<FormType>()
   const [coupon, setCoupon] = useState(false)
   const [couponInvalid, setCouponInvalid] = useState(false)
 
-  const onSubmitCoupon = async (data: any) => {
+  const onSubmitCoupon = async (data: FormType) => {
     const response = await fetchServerSide({
       path: '/profile/checkout/coupon',
       method: 'POST',
@@ -41,7 +43,7 @@ const CheckoutCouponForm = () => {
             return <Input {...field} placeholder="Coupon code" />
           }}
         />
-        <ErrorMessage errors={errors} name="couponError" render={({ message }) => <p>{message}</p>} />
+        <ErrorMessage errors={errors} name="coupon" render={({ message }) => <p>{message}</p>} />
         <button type="submit" className={s.formBtn} disabled={coupon}>
           Применить
         </button>
@@ -59,4 +61,4 @@ const CheckoutCouponForm = () => {
   )
 }
 
-export { CheckoutCouponForm }
+export default CheckoutCouponForm

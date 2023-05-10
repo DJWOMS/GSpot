@@ -17,4 +17,4 @@ const SkeletonGameBigCard = () => {
   )
 }
 
-export { SkeletonGameBigCard }
+export default SkeletonGameBigCard

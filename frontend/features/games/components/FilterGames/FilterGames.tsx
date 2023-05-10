@@ -5,7 +5,6 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form'
 import cn from 'classnames'
 import { Group } from 'components/Form'
 import { useRouter, useSearchParams } from 'next/navigation'
-import qs from 'qs'
 import s from './FilterGames.module.css'
 import { Genres } from './Genres'
 import { Platforms } from './Platforms'
@@ -43,13 +42,15 @@ const FilterGames = () => {
   // update router if needed
   const router = useRouter()
 
-  const onSubmitForm: SubmitHandler<FilterValues> = (data) =>
-    router.push(
-      `/catalog?${qs.stringify(data, {
-        arrayFormat: 'repeat',
-        skipNulls: true,
-      })}`
-    )
+  const onSubmitForm: SubmitHandler<FilterValues> = (data) => {
+    const params = new URLSearchParams()
+    Object.entries(data).forEach(([k, v]) => {
+      if (v) {
+        params.append(k, v)
+      }
+    })
+    router.push(`/catalog?${params.toString()}`)
+  }
 
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const toggleMobileFilter = () => setOpenMobileFilter((state) => !state)
@@ -87,4 +88,4 @@ const FilterGames = () => {
   )
 }
 
-export { FilterGames }
+export default FilterGames

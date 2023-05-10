@@ -1,5 +1,11 @@
 import { faker } from '@faker-js/faker'
-import { FilterGenreInterface, FilterSubgenreType, FilterPlatformInterface, FilterPriceType, FilterSortByInterface } from '../types'
+import type {
+  FilterGenreInterface,
+  FilterSubgenreType,
+  FilterPlatformInterface,
+  FilterPriceType,
+  FilterSortByInterface,
+} from '../types'
 
 /**
  * SortBy mocks

@@ -55,14 +55,34 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
               <Image src={image} width={340} height={240} className={s.image} alt="" />
             </div>
             <div className={s.titleBox}>
-              <div className={s.title}>Внимание: игра может содержать контент, не подходящий для всех возрастов или для просмотра на работе.</div>
+              <div className={s.title}>
+                Внимание: игра может содержать контент, не подходящий для всех возрастов или для просмотра на
+                работе.
+              </div>
               <form className={s.form} onSubmit={confirmAge}>
                 <div className={s.tip}>Пожалуйста, укажите дату своего рождения:</div>
 
                 <div className={s.dateBox}>
-                  <DatePicker className={s.input} selected={date} onChange={(date: Date) => setDate(date)} dateFormat="dd" />
-                  <DatePicker className={s.input} selected={date} onChange={(date: Date) => setDate(date)} showMonthYearPicker dateFormat="MMMM" />
-                  <DatePicker className={s.input} selected={date} onChange={(date: Date) => setDate(date)} showYearPicker dateFormat="yyyy" />
+                  <DatePicker
+                    className={s.input}
+                    selected={date}
+                    onChange={(date: Date) => setDate(date)}
+                    dateFormat="dd"
+                  />
+                  <DatePicker
+                    className={s.input}
+                    selected={date}
+                    onChange={(date: Date) => setDate(date)}
+                    showMonthYearPicker
+                    dateFormat="MMMM"
+                  />
+                  <DatePicker
+                    className={s.input}
+                    selected={date}
+                    onChange={(date: Date) => setDate(date)}
+                    showYearPicker
+                    dateFormat="yyyy"
+                  />
                 </div>
               </form>
               <div className={s.btnBox}>
@@ -76,7 +96,9 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
             </div>
           </div>
           <footer className={s.footer}>
-            <div className={s.tip}>Эта информация предназначена исключительно для проверки и не будет сохранена.</div>
+            <div className={s.tip}>
+              Эта информация предназначена исключительно для проверки и не будет сохранена.
+            </div>
           </footer>
         </div>
       )}
@@ -84,4 +106,4 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
   )
 }
 
-export { CheckAge }
+export default CheckAge

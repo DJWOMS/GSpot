@@ -1,1 +1,1 @@
-export * from './CheckAge'
+export { default } from './CheckAge'

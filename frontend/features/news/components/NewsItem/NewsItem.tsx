@@ -53,4 +53,4 @@ const NewsItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCo
   )
 }
 
-export { NewsItem }
+export default NewsItem

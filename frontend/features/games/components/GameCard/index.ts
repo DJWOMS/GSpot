@@ -1,3 +1,2 @@
-export { GameCard } from './GameCard'
+export { default } from './GameCard'
 export { GameCardBig } from './GameCardBig'
-export { Platform } from './Platform'

@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
-import { CheckoutGameCardInterface, PurchaseCardInterface } from '../types'
+import type { CheckoutGameCardInterface, PurchaseCardInterface } from '../types'
 
-export const generateMockPurchaseCard = (props = {}): PurchaseCardInterface => ({
+export const generateMockPurchaseCard = (): PurchaseCardInterface => ({
   id: faker.datatype.number({ min: 0, max: 100 }),
   title: faker.word.adjective(),
   price: faker.datatype.number(),

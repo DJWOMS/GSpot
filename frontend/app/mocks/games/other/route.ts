@@ -1,4 +1,4 @@
-import { generateMockGameList } from 'features/games'
+import { generateMockGameList } from 'features/games/mocks'
 import { NextResponse } from 'next/server'
 
 export function GET() {

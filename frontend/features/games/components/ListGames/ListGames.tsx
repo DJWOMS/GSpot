@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { GameListInterface } from 'features/games'
+import type { GameListInterface } from '../../types'
 import { ListGame } from './ListGame'
 import s from './ListGames.module.css'
 
@@ -7,7 +7,7 @@ interface ListGamesProps {
   children: GameListInterface[]
 }
 
-export const ListGames: FC<ListGamesProps> = ({ children }) => {
+const ListGames: FC<ListGamesProps> = ({ children }) => {
   return (
     <div className={s.list}>
       {children.map((game, index) => (
@@ -16,3 +16,5 @@ export const ListGames: FC<ListGamesProps> = ({ children }) => {
     </div>
   )
 }
+
+export default ListGames

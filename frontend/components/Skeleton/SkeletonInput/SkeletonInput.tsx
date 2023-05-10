@@ -15,4 +15,4 @@ const SkeletonInput: FC<SkeletonInputProps> = ({ size = 'full', height }) => {
   )
 }
 
-export { SkeletonInput }
+export default SkeletonInput

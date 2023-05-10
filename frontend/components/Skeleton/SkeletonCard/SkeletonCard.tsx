@@ -12,4 +12,4 @@ const SkeletonCard = () => {
   )
 }
 
-export { SkeletonCard }
+export default SkeletonCard

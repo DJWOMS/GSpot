@@ -1,1 +1,1 @@
-export * from './CheckoutCouponForm'
+export { default } from './CheckoutCouponForm'

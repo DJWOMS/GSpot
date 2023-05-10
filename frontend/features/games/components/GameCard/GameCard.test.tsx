@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import { GameCardInterface } from 'features/games'
-import { GameCard } from './GameCard'
+import type { GameCardInterface } from 'features/games/types'
+import GameCard from './GameCard'
 
 describe('Card', () => {
   const props: GameCardInterface = {
