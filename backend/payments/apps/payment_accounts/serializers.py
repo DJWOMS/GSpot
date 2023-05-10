@@ -35,4 +35,3 @@ class AccountBalanceSerializer(serializers.ModelSerializer):
 
 class UUIDSerializer(serializers.Serializer):
     uuid_list = serializers.ListField(child=serializers.UUIDField())
-
