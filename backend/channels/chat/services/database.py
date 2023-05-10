@@ -38,11 +38,12 @@ class MongoManager:
             await collection.insert_one(document)
 
     async def find_one(self, collection_name: str, filter: dict) -> Optional[dict]:
-        collection = self.get_collection(collection_name)
-        return await collection.find_one(filter) if collection else None
+        collection = await self.get_collection(collection_name)
+        return await collection.find_one(filter) if collection is not None else None
 
     async def find_many(self, collection_name: str, filter: dict) -> list:
-        cursor = self.get_collection(collection_name).find(filter)
+        collection = await self.get_collection(collection_name)
+        cursor = collection.find(filter)
         return [document async for document in cursor]
 
     async def update_one(self,
@@ -50,20 +51,24 @@ class MongoManager:
                          filter: dict,
                          update: dict,
                          upsert: bool = False) -> None:
-        await self.get_collection(collection_name).update_one(filter, {'$set': update}, upsert=upsert)
+        collection = await self.get_collection(collection_name)
+        await collection.update_one(filter, {'$set': update}, upsert=upsert)
 
     async def update_many(self,
                           collection_name: str,
                           filter: dict,
                           update: dict,
                           upsert: bool = False) -> None:
-        await self.get_collection(collection_name).update_many(filter, {'$set': update}, upsert=upsert)
+        collection = await self.get_collection(collection_name)
+        await collection.update_many(filter, {'$set': update}, upsert=upsert)
 
     async def delete_one(self, collection_name: str, filter: dict) -> None:
-        await self.get_collection(collection_name).delete_one(filter)
+        collection = await self.get_collection(collection_name)
+        await collection.delete_one(filter)
 
     async def delete_many(self, collection_name: str, filter: dict) -> None:
-        await self.get_collection(collection_name).delete_many(filter)
+        collection = await self.get_collection(collection_name)
+        await collection.delete_many(filter)
 
 
 db = MongoManager()
