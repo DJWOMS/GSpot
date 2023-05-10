@@ -1,5 +1,6 @@
 from django.db import models
 from core.models import Product
+from finance.models import Offer
 
 
 class Library(models.Model):
@@ -16,3 +17,8 @@ class Library(models.Model):
 class LibraryProduct(models.Model):
     library = models.ForeignKey(Library, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    can_return = models.BooleanField(default=True)
+    offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'library_product'

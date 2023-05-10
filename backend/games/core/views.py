@@ -1,8 +1,7 @@
-from rest_framework import viewsets, generics, status
+from rest_framework import viewsets, generics, status, filters
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 
 from base import classes
 from base.paginations import ProductResultsSetPagination
@@ -21,8 +20,10 @@ from .models import Product, SystemRequirement
 
 class ProductViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
     pagination_class = ProductResultsSetPagination
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_class = ProductFilter
+    search_fields = ['name']
+    filter_fields = ['price', 'name', 'platform', 'release_date', 'genres', 'subgenres']
     serializer_classes_by_action = {
         'create': CreateProductSerializer,
         'update': ProductSerializer,
