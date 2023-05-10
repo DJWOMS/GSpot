@@ -1,4 +1,3 @@
-import logging
 import redis.asyncio as redis
 from redis.asyncio.client import PubSub, Redis
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
@@ -41,13 +40,11 @@ class ChannelsContextManager(MongoManager, RabbitManager):
         self.db_session.end_session()
 
     async def __aenter__(self):
-        logging.debug('Context manager enter')
         await self._connect()
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
         await self._disconnect()
-        logging.debug('Context manager exit')
 
     async def prepare_consumed_queue(self, queue: str):
         queue = await super(ChannelsContextManager, self).prepare_consumed_queue(self.rabbitmq_channel, queue)

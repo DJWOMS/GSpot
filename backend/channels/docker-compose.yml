@@ -7,6 +7,8 @@ services:
     image: redis:7.0
     ports:
       - "6379:6379"
+    networks:
+      - mongodb_net
 
   mongodb:
     container_name: channels_db
@@ -26,18 +28,19 @@ services:
     build:
       context: broker
       dockerfile: Dockerfile
-    restart: always
+    restart: on-failure
     env_file:
       - .env.dev
     volumes:
       - ./broker:/app
     command: >
-      sh -c "python main.py"
+      sh -c "python -m unittest tests/main.py && python main.py"
     networks:
       - mongodb_net
       - rabbitmq_net
     depends_on:
       - mongodb
+      - redis
 
   chat:
     container_name: channels_chat
