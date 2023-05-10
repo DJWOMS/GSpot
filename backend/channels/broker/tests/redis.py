@@ -4,7 +4,6 @@ from redis import Redis
 from config.redis import redis_config
 import redis.asyncio as redis
 from redis.asyncio.client import PubSub
-import os
 
 
 class TestRedis(unittest.IsolatedAsyncioTestCase):
@@ -24,19 +23,22 @@ class TestRedis(unittest.IsolatedAsyncioTestCase):
     async def test_pubsub(self):
         messages = ['hello', 'world']
         await self.pubsub.subscribe('channel1', 'channel2')
-        future = asyncio.create_task(self.reader())
         await self.redis.publish('channel1', messages[0])
         await self.redis.publish('channel2', messages[1])
-        await future
+        await self.reader()
+        await self.pubsub.close()
 
     async def reader(self):
-        channels = ['channel1', 'channel2']
-        messages = {'channel1': 'hello', 'channel2': 'world'}
+        result = {
+            'channel1': 'hello',
+            'channel2': 'world'
+        }
+        messages = {}
         while True:
             message = await self.pubsub.get_message()
             if message is not None:
                 if type(message['data']) is not int:
-                    self.assertTrue(message['channel'] in channels)
-                    self.assertEqual(message['data'], messages[message['channel']])
+                    messages[message['channel']] = message['data']
                     if message['channel'] == 'channel2':
+                        self.assertDictEqual(messages, result)
                         break
