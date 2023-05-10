@@ -1,13 +1,13 @@
 import React from 'react'
 import Section from 'components/Section'
-import { SkeletonInput, SkeletonTitle } from 'components/Skeleton'
+import { SkeletonInput } from 'components/Skeleton'
 import { SkeletonCard } from 'components/Skeleton'
 import s from './page.module.css'
 
 export default function Loading() {
   return (
     <>
-      <Section title={<SkeletonTitle />} />
+      <Section title={<>Каталог</>} />
       <Section last>
         <div className={s.row}>
           <div className={s.columns2}>
