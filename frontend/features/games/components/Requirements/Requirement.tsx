@@ -3,6 +3,7 @@ import type { RequirementInterface } from 'features/games/types'
 import s from './Requirement.module.css'
 
 const Requirement: FC<RequirementInterface> = ({
+  operatingSystem,
   typeRequirements,
   deviceProcessor,
   deviceMemory,
@@ -13,6 +14,9 @@ const Requirement: FC<RequirementInterface> = ({
     <div>
       <span className={s.title}>{typeRequirements}:</span>
       <ul className={s.list}>
+        <li>
+          <span>System:</span> {operatingSystem}
+        </li>
         <li>
           <span>Processor:</span> {deviceProcessor}
         </li>

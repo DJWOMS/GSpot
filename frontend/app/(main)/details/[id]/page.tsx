@@ -98,8 +98,8 @@ const Page = async () => {
                 </ul>
 
                 <div className={s.detailsPrice}>
-                  <span>$15.36</span>
-                  <s>$38.80</s>
+                  <span>₽15.36</span>
+                  <s>₽38.80</s>
                   <b>60% OFF</b>
                 </div>
 
