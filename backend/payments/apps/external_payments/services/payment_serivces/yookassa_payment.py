@@ -12,13 +12,10 @@ from apps.payment_accounts.schemas import BalanceIncreaseData, YookassaRequestPa
 from apps.payment_accounts.services.payment_commission import (
     calculate_payment_without_commission,
 )
-from environs import Env
-from yookassa import Configuration, Payment
+from config.settings import yookassa_config
+from yookassa import Payment
 
-env = Env()
-env.read_env()
-Configuration.account_id = env.int('SHOP_ACCOUNT_ID')
-Configuration.secret_key = env.str('SHOP_SECRET_KEY')
+yookassa_config.payment
 
 
 class YookassaPayment(AbstractPaymentClass):

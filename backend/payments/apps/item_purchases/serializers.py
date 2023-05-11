@@ -1,4 +1,4 @@
-from apps.base.fields import MoneySerializerField
+from apps.base.fields import MoneyAmountSerializerField
 from apps.base.serializer import PaymentServiceSerializer
 from rest_framework import serializers
 
@@ -7,7 +7,7 @@ class ItemPaymentData(serializers.Serializer):
     owner_uuid = serializers.UUIDField()
     item_uuid = serializers.UUIDField()
     developer_uuid = serializers.UUIDField()
-    price = MoneySerializerField()
+    price = MoneyAmountSerializerField()
 
 
 class PurchaseItemsSerializer(PaymentServiceSerializer):

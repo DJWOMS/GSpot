@@ -1,5 +1,4 @@
 import rollbar
-from apps.base.fields import MoneySerializerField
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.generics import CreateAPIView
@@ -82,8 +81,13 @@ class BalanceViewSet(viewsets.ViewSet):
 
         for uuid in uuid_list:
             obj = get_object_or_404(Account, user_uuid=uuid)
-            money = MoneySerializerField(initial=obj.balance)
-            balance_dict = {'user_uuid': str(uuid), 'balance': money.to_representation(obj.balance)}
+            balance = {'balance': obj.balance}
+
+            money_serializer = serializers.MoneySerializer(data=balance)
+            money_serializer.is_valid(raise_exception=True)
+
+            balance_dict = {'user_uuid': str(uuid)}
+            balance_dict.update(money_serializer.validated_data)
             user_balance_datas.append(balance_dict)
 
         return Response(user_balance_datas)
