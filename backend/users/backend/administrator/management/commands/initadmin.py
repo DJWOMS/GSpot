@@ -13,6 +13,7 @@ class Command(BaseCommand):
                 first_name="admin",
                 last_name="admin",
                 password="admin",
+                phone='9995556767',
             )
         else:
             print("Admin already initialized")
