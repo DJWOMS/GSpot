@@ -46,7 +46,7 @@ class MoneySerializer(serializers.Serializer):
 
 
 class AmountPayoutSerializer(serializers.Serializer):
-    value = MoneySerializerField(
+    value = MoneyAmountSerializerField(
         validators=[
             MinValueValidator(
                 settings.MINIMUM_PAYOUT_AMOUNT,
