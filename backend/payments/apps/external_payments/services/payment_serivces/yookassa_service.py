@@ -13,6 +13,7 @@ from apps.payment_accounts.schemas import BalanceIncreaseData, YookassaRequestPa
 from apps.payment_accounts.services.payment_commission import (
     calculate_payment_without_commission,
 )
+from django.conf import settings
 from environs import Env
 from yookassa import Configuration, Payment, Payout
 from yookassa.domain.response import PayoutResponse
@@ -26,8 +27,7 @@ class YookassaService(AbstractPaymentService):
         self,
         yookassa_response: schemas.YookassaPaymentResponse | None = None,
     ):
-        Configuration.account_id = env.int('SHOP_ACCOUNT_ID')
-        Configuration.secret_key = env.str('SHOP_SECRET_KEY')
+        settings.YOOKASSA_CONFIG.get_payment_settings()
         self.yookassa_response = yookassa_response
         self.invoice_validator: InvoiceValidator | None = None
 
