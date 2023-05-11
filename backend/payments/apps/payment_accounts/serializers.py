@@ -1,4 +1,4 @@
-from apps.base.fields import MoneySerializerField
+from apps.base.fields import MoneyAmountSerializerField, MoneySerializerField
 from apps.base.serializer import PaymentServiceSerializer
 from django.core.validators import MinValueValidator
 from rest_framework import serializers
@@ -7,7 +7,7 @@ from .models import Account
 
 
 class PaymentCommissionSerializer(PaymentServiceSerializer):
-    payment_amount = MoneySerializerField(
+    payment_amount = MoneyAmountSerializerField(
         validators=[MinValueValidator(0, message='Insufficient Funds')],
     )
 
@@ -26,7 +26,7 @@ class AccountSerializer(serializers.ModelSerializer):
 
 
 class AccountBalanceSerializer(serializers.ModelSerializer):
-    balance = MoneySerializerField()
+    balance = MoneyAmountSerializerField()
 
     class Meta:
         model = Account
@@ -35,3 +35,7 @@ class AccountBalanceSerializer(serializers.ModelSerializer):
 
 class UUIDSerializer(serializers.Serializer):
     uuid_list = serializers.ListField(child=serializers.UUIDField())
+
+
+class MoneySerializer(serializers.Serializer):
+    balance = MoneySerializerField()

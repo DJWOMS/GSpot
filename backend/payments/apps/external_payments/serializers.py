@@ -1,4 +1,4 @@
-from apps.base.fields import MoneySerializerField
+from apps.base.fields import MoneyAmountSerializerField
 from rest_enumfield import EnumField
 from rest_framework import serializers
 
@@ -37,7 +37,7 @@ class BaseSerializer(serializers.Serializer):
 
 
 class AmountSerializer(serializers.Serializer):
-    value = MoneySerializerField()
+    value = MoneyAmountSerializerField()
     currency = serializers.CharField(max_length=3)
 
 

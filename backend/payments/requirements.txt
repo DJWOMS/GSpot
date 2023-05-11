@@ -16,3 +16,5 @@ gevent==22.10.2
 dacite==1.8.0
 dataclasses_json==0.5.7
 django-money==3.1.0
+pydantic==1.10.7
+python-dotenv==1.0.0

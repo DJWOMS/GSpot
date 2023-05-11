@@ -48,7 +48,7 @@ class CommissionField(DecimalField):
         )
 
 
-class MoneySerializerField(serializers.DecimalField):
+class MoneyAmountSerializerField(serializers.DecimalField):
     def __init__(
         self,
         min_value=0,
@@ -73,6 +73,42 @@ class MoneySerializerField(serializers.DecimalField):
 
     def get_value(self, dictionary):
         return dictionary.get(f'{self.field_name}')
+
+
+class MoneySerializerField(serializers.DecimalField):
+    def __init__(
+        self,
+        min_value=0,
+        max_digits=settings.MAX_BALANCE_DIGITS,
+        decimal_places=2,
+        **kwargs,
+    ):
+        super().__init__(
+            max_digits,
+            decimal_places,
+            min_value,
+            **kwargs,
+        )
+
+    def to_representation(self, obj):
+        amount = super().to_representation(obj['amount'])
+        return {
+            'amount': amount,
+            'currency': str(obj['currency']),
+        }
+
+    def to_internal_value(self, data):
+        amount = super().to_representation(data['amount'])
+        return {
+            'amount': amount,
+            'currency': str(data['currency']),
+        }
+
+    def get_value(self, dictionary):
+        return {
+            'amount': dictionary[f'{self.field_name}'].amount,
+            'currency': dictionary[f'{self.field_name}'].currency,
+        }
 
 
 class CommissionSerializerField(serializers.DecimalField):
