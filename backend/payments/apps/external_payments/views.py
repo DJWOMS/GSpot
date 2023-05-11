@@ -1,7 +1,7 @@
 import rollbar
 from apps.base.schemas import PaymentServices
 from dacite import MissingValueError, from_dict
-from rest_framework.generics import CreateAPIView
+from rest_framework import viewsets
 from rest_framework.response import Response
 
 from .schemas import YookassaPaymentResponse
@@ -9,10 +9,10 @@ from .serializers import YookassaPaymentAcceptanceSerializer
 from .services.payment_acceptance import proceed_payment_response
 
 
-class YookassaPaymentAcceptanceView(CreateAPIView):
+class YookassaPaymentAcceptanceViewSet(viewsets.ViewSet):
     serializer_class = YookassaPaymentAcceptanceSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
             rollbar.report_message(

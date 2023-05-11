@@ -8,7 +8,7 @@ from .serializers import PurchaseItemsSerializer
 from .services.purchase_items import request_purchase_items
 
 
-class PurchaseItemView(viewsets.GenericViewSet):
+class PurchaseItemViewSet(viewsets.ViewSet):
     serializer_class = PurchaseItemsSerializer
 
     def create(self, request, *args, **kwargs):
