@@ -18,3 +18,4 @@ dataclasses_json==0.5.7
 django-money==3.1.0
 pydantic==1.10.7
 python-dotenv==1.0.0
+dateutils==0.6.12

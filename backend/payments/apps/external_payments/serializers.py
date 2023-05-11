@@ -1,9 +1,27 @@
 from apps.base.fields import MoneyAmountSerializerField
+from apps.base.schemas import PaymentTypes
 from rest_enumfield import EnumField
 from rest_framework import serializers
 
-from ..base.schemas import PaymentTypes
 from .schemas import YookassaPaymentStatuses
+
+
+class AmountSerializer(serializers.Serializer):
+    value = MoneyAmountSerializerField()
+    currency = serializers.CharField(max_length=3)
+
+
+class YookassaPaymentMethodSerializer(serializers.Serializer):
+    type_ = EnumField(choices=PaymentTypes)
+
+
+class YookassaPaymentBodySerializer(serializers.Serializer):
+    id_ = serializers.UUIDField()
+    income_amount = AmountSerializer()
+    amount = AmountSerializer()
+    description = serializers.CharField()
+    metadata = serializers.DictField()
+    payment_method = YookassaPaymentMethodSerializer()
 
 
 class BaseSerializer(serializers.Serializer):
@@ -34,24 +52,6 @@ class BaseSerializer(serializers.Serializer):
                 new_data[key_name] = old_data[key]
 
         return new_data
-
-
-class AmountSerializer(serializers.Serializer):
-    value = MoneyAmountSerializerField()
-    currency = serializers.CharField(max_length=3)
-
-
-class YookassaPaymentMethodSerializer(serializers.Serializer):
-    type_ = EnumField(choices=PaymentTypes)
-
-
-class YookassaPaymentBodySerializer(serializers.Serializer):
-    id_ = serializers.UUIDField()
-    income_amount = AmountSerializer()
-    amount = AmountSerializer()
-    description = serializers.CharField()
-    metadata = serializers.DictField()
-    payment_method = YookassaPaymentMethodSerializer()
 
 
 class YookassaPaymentAcceptanceSerializer(BaseSerializer):

@@ -1,10 +1,11 @@
 from dataclasses import asdict
 
 import rollbar
-from apps.base.classes import AbstractPaymentClass
+from apps.base.classes import AbstractPaymentService, AbstractPayoutService
 from apps.base.schemas import URL, ResponseParsedData
 from apps.base.utils import change_balance
 from apps.external_payments import schemas
+from apps.external_payments.schemas import PayOutMethod, YookassaPayoutModel
 from apps.item_purchases.models import Invoice
 from apps.item_purchases.schemas import PurchaseItemsData
 from apps.payment_accounts.models import Account, BalanceChange
@@ -12,17 +13,21 @@ from apps.payment_accounts.schemas import BalanceIncreaseData, YookassaRequestPa
 from apps.payment_accounts.services.payment_commission import (
     calculate_payment_without_commission,
 )
-from config.settings import yookassa_config
-from yookassa import Payment
+from environs import Env
+from yookassa import Configuration, Payment, Payout
+from yookassa.domain.response import PayoutResponse
 
-yookassa_config.payment
+env = Env()
+env.read_env()
 
 
-class YookassaPayment(AbstractPaymentClass):
+class YookassaService(AbstractPaymentService):
     def __init__(
         self,
         yookassa_response: schemas.YookassaPaymentResponse | None = None,
     ):
+        Configuration.account_id = env.int('SHOP_ACCOUNT_ID')
+        Configuration.secret_key = env.str('SHOP_SECRET_KEY')
         self.yookassa_response = yookassa_response
         self.invoice_validator: InvoiceValidator | None = None
 
@@ -86,9 +91,6 @@ class YookassaPayment(AbstractPaymentClass):
             metadata=metadata,
         )
 
-    def request_balance_withdraw_url(self, payment_data):
-        pass
-
     def handel_payment_response(self) -> ResponseParsedData | None:
         parsed_data = self.parse_income_data()
 
@@ -113,6 +115,37 @@ class YookassaPayment(AbstractPaymentClass):
             yookassa_response=self.yookassa_response,
         )
         return self.invoice_validator.is_invoice_valid()
+
+
+class YookassaPayOut(AbstractPayoutService):
+    def __init__(self):
+        Configuration.account_id = env.int('GATE_AWAY_ACCOUNT_ID')
+        Configuration.secret_key = env.str('GATE_AWAY_SECRET_KEY')
+
+    def request_payout(self, payout_data: dict) -> PayoutResponse:
+        return Payout.create(payout_data)
+
+    @staticmethod
+    def create_payout_data(payout_data: YookassaPayoutModel, developer_account: Account):
+        response = {
+            'amount': {
+                'value': payout_data.amount.value,
+                'currency': payout_data.amount.currency.value,
+            },
+            'description': f'Выплата для {developer_account.user_uuid}',
+        }
+        if payout_data.payout_destination_data.type_ == PayOutMethod.yoo_money:
+            response['payout_destination_data'] = {
+                'type': payout_data.payout_destination_data.type_.value,
+                'account_number': payout_data.payout_destination_data.account_number,
+            }
+            return response
+        elif payout_data.payout_destination_data.type_ == PayOutMethod.bank_card:
+            # TODO add functionality to support bank card # noqa: T000
+            #  https://yookassa.ru/developers/api#payout_object
+            pass
+        else:
+            raise NotImplementedError('Not supported payout type')
 
 
 class YookassaResponseParser:

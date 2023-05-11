@@ -1,7 +1,7 @@
 from apps.base.schemas import URL, PaymentServices
 from apps.external_payments.services.invoice_execution import execute_invoice_operations
-from apps.external_payments.services.payment_serivces.yookassa_payment import (
-    YookassaPayment,
+from apps.external_payments.services.payment_serivces.yookassa_service import (
+    YookassaService,
 )
 from apps.payment_accounts.models import Account, BalanceChange
 from django.core.exceptions import ValidationError
@@ -39,17 +39,17 @@ def request_purchase_items(
     balance_change = BalanceChange.objects.create(
         account_id=user_account,
         is_accepted=False,
-        operation_type='DEPOSIT',
+        operation_type=BalanceChange.OperationType.DEPOSIT,
     )
 
     if purchase_items_data.payment_service == PaymentServices.yookassa:
-        payment_data = YookassaPayment.create_purchase_items_data(
+        payment_data = YookassaService.create_purchase_items_data(
             purchase_items_data,
             user_account,
             balance_change,
             invoice_instance,
         )
-        return YookassaPayment().request_balance_deposit_url(
+        return YookassaService().request_balance_deposit_url(
             payment_data,
         )
 

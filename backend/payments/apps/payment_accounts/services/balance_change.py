@@ -1,6 +1,6 @@
 from apps.base.schemas import URL, PaymentServices
-from apps.external_payments.services.payment_serivces.yookassa_payment import (
-    YookassaPayment,
+from apps.external_payments.services.payment_serivces.yookassa_service import (
+    YookassaService,
 )
 from apps.payment_accounts.schemas import BalanceIncreaseData
 
@@ -17,15 +17,15 @@ def request_balance_deposit_url(
     balance_change = BalanceChange.objects.create(
         account_id=user_account,
         is_accepted=False,
-        operation_type='DEPOSIT',
+        operation_type=BalanceChange.OperationType.DEPOSIT,
     )
 
     if balance_increase_data.payment_service == PaymentServices.yookassa:
-        payment_data = YookassaPayment.create_balance_increase_data(
+        payment_data = YookassaService.create_balance_increase_data(
             balance_increase_data,
             user_account,
             balance_change,
         )
-        return YookassaPayment().request_balance_deposit_url(
+        return YookassaService().request_balance_deposit_url(
             payment_data,
         )

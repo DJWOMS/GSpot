@@ -5,6 +5,7 @@ from typing import NewType
 
 from apps.item_purchases.models import Invoice
 from apps.payment_accounts.models import Account, BalanceChange
+from django.conf import settings
 
 URL = NewType('URLField', str)
 
@@ -34,3 +35,9 @@ class ResponseParsedData:
     account: Account
     balance_object: BalanceChange
     invoice: Invoice | None = None
+
+
+EnumCurrencies = enum.Enum(
+    'Currencies',
+    {currency: currency for currency in settings.SUPPORTED_CURRENCIES},
+)

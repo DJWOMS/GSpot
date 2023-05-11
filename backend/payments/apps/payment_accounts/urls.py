@@ -11,4 +11,5 @@ urlpatterns = [
         views.AccountBalanceViewSet.as_view({'get': 'retrieve'}),
     ),
     path('balances/', views.BalanceViewSet.as_view({'post': 'create'})),
+    path('payout/', views.PayoutView.as_view({'post': 'create'})),
 ]
