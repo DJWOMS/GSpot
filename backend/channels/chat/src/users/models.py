@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional
 
 from enum import Enum
-from bson import ObjectId
+from utils.models import PydanticObjectId
 from pydantic import BaseModel, Field
 
 
@@ -18,7 +18,7 @@ class ChatStatus(str, Enum):
 class User(BaseModel):
     """ User model """
 
-    id: ObjectId = Field(alias="_id")
+    id: PydanticObjectId = Field(alias="_id")
     username: str
     avatar: Optional[str] = Field(default=None)
     last_seen: Optional[datetime] = Field(default=datetime.utcnow())
@@ -38,9 +38,9 @@ class User(BaseModel):
 
 class RoomParticipant(BaseModel):
     """ Room participant model """
-    id: Optional[ObjectId] = Field(alias="_id")
-    user_id: ObjectId
-    room_id: ObjectId
+    id: Optional[PydanticObjectId] = Field(alias="_id")
+    user_id: PydanticObjectId
+    room_id: PydanticObjectId
 
     class Config:
         allow_population_by_field_name = True
