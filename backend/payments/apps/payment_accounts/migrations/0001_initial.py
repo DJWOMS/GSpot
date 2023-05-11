@@ -142,6 +142,7 @@ class Migration(migrations.Migration):
                 ),
                 ('frozen_time', models.DurationField()),
                 ('gift_time', models.DurationField()),
+                ('payout_day_of_month', models.IntegerField()),
             ],
         ),
         migrations.CreateModel(

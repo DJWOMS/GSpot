@@ -5,10 +5,17 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
 from . import serializers
+from .exceptions import (
+    InsufficientFundsError,
+    NotPayoutDayError,
+    NotValidAccountNumberError,
+    PayOutLimitExceededError,
+)
 from .models import Account
 from .schemas import BalanceIncreaseData, CommissionCalculationInfo
 from .services.balance_change import request_balance_deposit_url
 from .services.payment_commission import calculate_payment_with_commission
+from .services.payout import PayoutProcessor
 
 
 class CalculatePaymentCommissionView(CreateAPIView):
@@ -67,6 +74,27 @@ class AccountBalanceViewSet(viewsets.ViewSet):
         account = get_object_or_404(Account, user_uuid=user_uuid)
         serializer = serializers.AccountBalanceSerializer(account)
         return Response(serializer.data)
+
+
+class PayoutView(viewsets.ViewSet):
+    serializer_class = serializers.PayoutSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        pre_payout_processor = PayoutProcessor(serializer.validated_data)
+        try:
+            response = pre_payout_processor.create_payout()
+        except (
+            NotPayoutDayError,
+            InsufficientFundsError,
+            PayOutLimitExceededError,
+            NotImplementedError,
+            NotValidAccountNumberError,
+        ) as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({'payout status': response})
 
 
 class BalanceViewSet(viewsets.ViewSet):
