@@ -1,7 +1,6 @@
 import rollbar
 from django.shortcuts import get_object_or_404
-from rest_framework import status, viewsets
-from rest_framework.generics import CreateAPIView
+from rest_framework import mixins, status, viewsets
 from rest_framework.response import Response
 
 from . import serializers
@@ -18,10 +17,10 @@ from .services.payment_commission import calculate_payment_with_commission
 from .services.payout import PayoutProcessor
 
 
-class CalculatePaymentCommissionView(CreateAPIView):
+class CalculatePaymentCommissionViewSet(viewsets.ViewSet):
     serializer_class = serializers.PaymentCommissionSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
@@ -40,10 +39,10 @@ class CalculatePaymentCommissionView(CreateAPIView):
         return Response({'amount with commission': amount_with_commission})
 
 
-class BalanceIncreaseView(CreateAPIView):
+class BalanceIncreaseViewSet(viewsets.ViewSet):
     serializer_class = serializers.BalanceIncreaseSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
@@ -65,7 +64,7 @@ class BalanceIncreaseView(CreateAPIView):
         )
 
 
-class UserAccountAPIView(CreateAPIView):
+class AccountViewSet(mixins.CreateModelMixin, viewsets.ViewSet):
     serializer_class = serializers.AccountSerializer
 
 
