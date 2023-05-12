@@ -1,12 +1,10 @@
 from rest_framework import viewsets
-from rest_framework.decorators import action
 from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
     IsAuthenticated,
     IsAdminUser,
     AllowAny,
 )
-from rest_framework.response import Response
 
 from developer.models import CompanyUser, Company
 from developer.permissions import IsAdminOrOwnerCompany
