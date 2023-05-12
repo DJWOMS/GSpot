@@ -15,7 +15,8 @@ async def consumer_handler(service: ConnectionContextManager):
             await asyncio.sleep(0.1)
             received_data = await service.websocket.receive_json()
             try:
-                data = ClientAction.parse_obj(received_data)
+                data = ClientAction.parse_obj(received_data["message"])
+                await service.ws_controller.rout(collection=data.type, action=data.action, data=data)
                 logging.debug(data)
             except ValidationError as e:
                 await service.websocket.send_json({"error": e.errors()[0]['msg']})

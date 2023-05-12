@@ -5,6 +5,8 @@ from fastapi import WebSocket
 import redis.asyncio as redis
 from redis.asyncio.client import PubSub, Redis
 
+from core.routs import controller
+from core.controller import Controller
 from config.redis import redis_config
 
 
@@ -26,6 +28,7 @@ class ConnectionContextManager:
         decode_responses=True
     )
     pubsub: PubSub
+    ws_controller: Controller = controller
 
     def __init__(self, websocket: WebSocket, user_id: str):
         self.user_id = user_id
