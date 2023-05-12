@@ -1,4 +1,6 @@
-import { FC } from 'react'
+'use client'
+
+import { FC, useState } from 'react'
 import type { LanguageInterface } from '../../types'
 import { Language } from './Language'
 
@@ -7,6 +9,7 @@ type LanguagesProps = {
 }
 
 const Languages: FC<LanguagesProps> = ({ children }) => {
+  const [allLanguagesOpen, setAllLanguagesOpen] = useState(false)
   return (
     <table className="text-center text-sm">
       <thead className="text-xs uppercase">
@@ -24,9 +27,17 @@ const Languages: FC<LanguagesProps> = ({ children }) => {
         </tr>
       </thead>
       <tbody>
-        {children.map((language) => (
-          <Language key={language.languageName} {...language} />
-        ))}
+        {allLanguagesOpen
+          ? children.map((language) => <Language key={language.languageName} {...language} />)
+          : children.slice(0, 2).map((language) => <Language key={language.languageName} {...language} />)}
+        {children.length > 2 && (
+          <button
+            onClick={() => setAllLanguagesOpen(!allLanguagesOpen)}
+            className="whitespace-nowrap text-primary"
+          >
+            {allLanguagesOpen ? '...hide list' : '...show all list'}
+          </button>
+        )}
       </tbody>
     </table>
   )

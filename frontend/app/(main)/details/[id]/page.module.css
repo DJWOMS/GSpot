@@ -5,7 +5,7 @@
     @apply relative w-full;
 
     @media (min-width: 768px) {
-      @apply flex flex-row items-stretch justify-between;
+      @apply flex flex-row items-start justify-between;
     }
 
     @media (min-width: 1026px) {
@@ -21,7 +21,7 @@
     @apply relative mb-[15px] block w-full overflow-hidden rounded-md;
 
     img {
-      @apply relative z-[1] h-full w-full;
+      @apply relative z-[1] w-full;
     }
 
     @media (min-width: 576px) {
