@@ -7,7 +7,11 @@ interface fetchProps extends RequestInit {
   cache?: 'no-store' | 'reload' | 'no-cache' | 'force-cache'
 }
 
-export const fetchServerSide = async <T>({ path, cache = 'no-cache', ...props }: fetchProps): Promise<T | undefined> => {
+export const fetchServerSide = async <T>({
+  path,
+  cache = 'no-cache',
+  ...props
+}: fetchProps): Promise<T | undefined> => {
   try {
     const res = await fetch(`${API_URL}${path}`, {
       ...props,

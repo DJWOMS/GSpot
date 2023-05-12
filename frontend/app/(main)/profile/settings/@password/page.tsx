@@ -78,10 +78,16 @@ const Password = () => {
                   message: errorMessage,
                 },
               }}
-              render={({ field }) => <Input {...field} id="oldPassword" type="password" placeholder="*** *** ***" />}
+              render={({ field }) => (
+                <Input {...field} id="oldPassword" type="password" placeholder="*** *** ***" />
+              )}
             />
           )}
-          <ErrorMessage errors={errors} name="oldPassword" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+          <ErrorMessage
+            errors={errors}
+            name="oldPassword"
+            render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+          />
         </div>
         <div>
           <label className={s.formLabel} htmlFor="newPassword">
@@ -101,10 +107,16 @@ const Password = () => {
                 },
                 validate: (value) => validatePassword(value) || 'пароль слишком легкий',
               }}
-              render={({ field }) => <Input {...field} id="newPassword" type="password" placeholder="*** *** ***" />}
+              render={({ field }) => (
+                <Input {...field} id="newPassword" type="password" placeholder="*** *** ***" />
+              )}
             />
           )}
-          <ErrorMessage errors={errors} name="newPassword" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+          <ErrorMessage
+            errors={errors}
+            name="newPassword"
+            render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+          />
         </div>
         <div>
           <label className={s.formLabel} htmlFor="confirmPassword">
@@ -124,10 +136,16 @@ const Password = () => {
                 },
                 validate: (value, formValues) => value === formValues.newPassword || 'пароли не совпадают',
               }}
-              render={({ field }) => <Input {...field} id="confirmPassword" type="password" placeholder="*** *** ***" />}
+              render={({ field }) => (
+                <Input {...field} id="confirmPassword" type="password" placeholder="*** *** ***" />
+              )}
             />
           )}
-          <ErrorMessage errors={errors} name="confirmPassword" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+          <ErrorMessage
+            errors={errors}
+            name="confirmPassword"
+            render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+          />
         </div>
       </div>
       {saved && <p className={s.saved}>Пароль изменен</p>}

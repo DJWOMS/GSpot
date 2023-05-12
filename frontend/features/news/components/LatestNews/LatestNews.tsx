@@ -1,5 +1,5 @@
 import Section from 'components/Section'
-import { NewsItem } from 'features/news'
+import { NewsItem } from 'features/news/components'
 import s from './LatestNews.module.css'
 
 const LatestNews = () => {
@@ -70,4 +70,4 @@ const LatestNews = () => {
   )
 }
 
-export { LatestNews }
+export default LatestNews

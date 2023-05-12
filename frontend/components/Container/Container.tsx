@@ -9,4 +9,4 @@ const Container: FC<ContainerProps> = ({ children }) => {
   return <div className={s.component}>{children}</div>
 }
 
-export { Container }
+export default Container

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { IconBrandApple, IconBrandWindows, IconBrandXbox, IconPlaystationSquare } from '@tabler/icons-react'
 import cn from 'classnames'
-import { PlatformType } from 'features/games'
+import type { PlatformType } from '../../types'
 import s from './Platform.module.css'
 
 const Platform: FC<PlatformType> = ({ type }): JSX.Element => {
@@ -15,4 +15,4 @@ const Platform: FC<PlatformType> = ({ type }): JSX.Element => {
   )
 }
 
-export { Platform }
+export default Platform

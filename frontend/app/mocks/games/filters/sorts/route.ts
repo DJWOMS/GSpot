@@ -1,4 +1,4 @@
-import { generateMockFilterSortBy } from 'features/games'
+import { generateMockFilterSortBy } from 'features/games/mocks'
 import { NextResponse } from 'next/server'
 
 export function GET() {

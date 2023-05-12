@@ -8,4 +8,4 @@ const SkeletonSelect = () => {
   )
 }
 
-export { SkeletonSelect }
+export default SkeletonSelect

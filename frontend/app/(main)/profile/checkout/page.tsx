@@ -1,5 +1,6 @@
 import Section from 'components/Section'
-import { CheckoutCouponForm, CheckoutForm, CheckoutTable, CheckoutGameCardInterface } from 'features/profile'
+import { CheckoutCouponForm, CheckoutForm, CheckoutTable } from 'features/profile/components'
+import type { CheckoutGameCardInterface } from 'features/profile/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './page.module.css'
 

@@ -1,24 +1,24 @@
 .select {
-  display: none;
-
-  @media (min-width: 1200px) {
-    @apply block h-[44px] w-[115px] cursor-pointer border-none bg-transparent p-0 text-sm text-white outline-none;
-    background: url('/svg/arrow2.svg') no-repeat center right;
-    background-size: 12px auto;
-
-    option {
-      @apply m-0 p-0 text-black;
-    }
-  }
+  @apply relative h-[30px] w-full cursor-pointer rounded-md bg-main-30 text-sm text-white;
 
   @media (min-width: 1310px) {
     width: 150px;
   }
+
+  &Btn {
+    display: none;
+
+    @media (min-width: 1200px) {
+      @apply block h-[30px] w-[30px] bg-transparent p-0 focus:outline-none focus-visible:ring-0;
+      background: url('/svg/arrow2.svg') no-repeat center right;
+      background-size: 12px auto;
+    }
+  }
 }
 
 .options {
-  @apply absolute mt-1 max-h-60 w-full overflow-auto overflow-x-hidden rounded-md border
-  border-gray-800 bg-slate-800 text-base sm:text-sm;
+  @apply absolute z-10 mt-1 max-h-60 w-full overflow-auto overflow-x-hidden rounded-xl
+  border border-gray-800 bg-slate-800 text-base sm:text-sm;
 
   &::-webkit-scrollbar-track {
     @apply bg-slate-800;

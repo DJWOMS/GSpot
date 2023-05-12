@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react'
 import { IconHeart, IconShoppingCart } from '@tabler/icons-react'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
-import { Container } from 'components/Container'
+import Container from 'components/Container'
 import Image from 'next/image'
 import Link from 'next/link'
 import Search from '../Search/Search'
@@ -31,7 +31,9 @@ const Header: FC<HeaderProps> = ({ links }) => {
     const handleScroll = () => {
       setScrolling((prev) => {
         if (!prev) {
-          !window.requestAnimationFrame ? setTimeout(autoHideHeader, 250) : requestAnimationFrame(autoHideHeader)
+          !window.requestAnimationFrame
+            ? setTimeout(autoHideHeader, 250)
+            : requestAnimationFrame(autoHideHeader)
           return true
         }
         return prev

@@ -1,29 +1,33 @@
-import { faker } from '@faker-js/faker'
-import { FilterGenreInterface, FilterSubgenreType, FilterPlatformInterface, FilterPriceType, FilterSortByInterface } from '../types'
+import randomItem from 'utils/randomItem'
+import randomNum from 'utils/randomNumber'
+import type {
+  FilterGenreInterface,
+  FilterSubgenreType,
+  FilterPlatformInterface,
+  FilterPriceType,
+  FilterSortByInterface,
+} from '../types'
 
 /**
  * SortBy mocks
  */
 export const generateMockFilterSortBy = (props = {}): FilterSortByInterface => ({
-  id: faker.datatype.number({ min: 0, max: 10 }),
-  name: faker.word.adjective(),
+  id: randomNum(3),
+  name: randomItem(['Price', 'Date', 'Hot']),
   ...props,
 })
 
 /**
  * Prices mocks
  */
-export const generateMockFilterPrice = (): FilterPriceType => [
-  faker.datatype.number({ min: 1000, max: 5000 }),
-  faker.datatype.number({ min: 10000, max: 50000 }),
-]
+export const generateMockFilterPrice = (): FilterPriceType => [randomNum(4), randomNum(5)]
 
 /**
  * Platforms mocks
  */
 export const generateMockFilterPlatform = (props = {}): FilterPlatformInterface => ({
-  id: faker.datatype.number({ min: 0, max: 10 }),
-  name: faker.word.adjective(),
+  id: randomNum(3),
+  name: randomItem(['Requirements', 'RAM', 'ROM', 'CPU', 'Video card']),
   ...props,
 })
 
@@ -31,8 +35,8 @@ export const generateMockFilterPlatform = (props = {}): FilterPlatformInterface 
  * Genres mocks
  */
 export const generateMockFilterSubgenre = (props = {}): FilterSubgenreType => ({
-  id: faker.datatype.number({ min: 0, max: 10 }),
-  name: faker.word.adjective(),
+  id: randomNum(3),
+  name: randomItem(['RPG', 'Action', 'MMO', 'Horror', 'Adventure']),
   ...props,
 })
 

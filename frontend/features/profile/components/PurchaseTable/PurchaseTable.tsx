@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { IconX } from '@tabler/icons-react'
 import { PaginationState } from '@tanstack/react-table'
 import Table from 'components/Table'
-import { PurchaseCardInterface } from 'features/profile'
+import type { PurchaseCardInterface } from 'features/profile/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import s from './PurchaseTable.module.css'
@@ -96,4 +96,4 @@ const PurchaseTable: FC<Props> = ({ items }) => {
   )
 }
 
-export { PurchaseTable }
+export default PurchaseTable

@@ -1,12 +1,12 @@
 import { FC, Fragment } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import cn from 'classnames'
-import { GameCardSimpleInterface } from 'features/games'
+import type { GameCardSimpleInterface } from 'features/games/types'
 import s from './Search.module.css'
 
 interface Props {
   onChange: (value: string) => void
-  result: GameCardSimpleInterface[] | null
+  result?: GameCardSimpleInterface[]
 }
 
 const SearchInput: FC<Props> = ({ onChange, result }) => {
@@ -14,7 +14,11 @@ const SearchInput: FC<Props> = ({ onChange, result }) => {
     <Combobox>
       <div className="relative w-full">
         <div className={s.wrapper}>
-          <Combobox.Input placeholder={'Я ищу...'} className={s.combo} onChange={(e) => onChange(e.target.value)} />
+          <Combobox.Input
+            placeholder={'Я ищу...'}
+            className={s.combo}
+            onChange={(e) => onChange(e.target.value)}
+          />
         </div>
 
         {result && (
@@ -27,7 +31,11 @@ const SearchInput: FC<Props> = ({ onChange, result }) => {
           >
             <Combobox.Options className={s.options}>
               {result.map((game) => (
-                <Combobox.Option key={game.link} className={({ active }) => cn(s.option, { [s.optionActive]: active })} value={game}>
+                <Combobox.Option
+                  key={game.link}
+                  className={({ active }) => cn(s.option, { [s.optionActive]: active })}
+                  value={game}
+                >
                   <span className="block truncate font-normal">{game.title}</span>
                 </Combobox.Option>
               ))}

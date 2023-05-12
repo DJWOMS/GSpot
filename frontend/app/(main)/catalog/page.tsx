@@ -1,15 +1,24 @@
 import Pagination from 'components/Pagination'
 import Section from 'components/Section'
-import { GameCard, FilterGames, GameCardInterface } from 'features/games'
+import { GameCard, FilterGames } from 'features/games/components'
+import type { GameCardInterface } from 'features/games/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from './page.module.css'
 
 // revalidate data every 60sec
 export const revalidate = 60
 
-const CatalogPage = async ({ searchParams }: { searchParams: URLSearchParams }) => {
+interface Props {
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
+const CatalogPage = async ({ searchParams }: Props) => {
+  const search = Object.fromEntries(
+    Object.entries(searchParams).filter(([, v]) => typeof v !== 'string')
+  ) as Record<string, string>
+
   const games = await fetchServerSide<GameCardInterface[]>({
-    path: `/games/list?${new URLSearchParams(searchParams)}`,
+    path: `/games/list?${new URLSearchParams(search).toString()}`,
     cache: 'no-cache',
   })
 

@@ -118,10 +118,18 @@ const Table = <T,>({ columns, data, setSorting, sorting, navigation, className }
               <>
                 <div className={s.navigationSeparator} />
                 <div className={s.navigationContainer}>
-                  <button className={s.navigationBtn} onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+                  <button
+                    className={s.navigationBtn}
+                    onClick={() => table.previousPage()}
+                    disabled={!table.getCanPreviousPage()}
+                  >
                     {'<'}
                   </button>
-                  <button className={s.navigationBtn} onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+                  <button
+                    className={s.navigationBtn}
+                    onClick={() => table.nextPage()}
+                    disabled={!table.getCanNextPage()}
+                  >
                     {'>'}
                   </button>
                   <span className={s.navigationPage}>
@@ -131,7 +139,11 @@ const Table = <T,>({ columns, data, setSorting, sorting, navigation, className }
                     </strong>
                   </span>
                   {navigation.pageSizes && (
-                    <select className={s.navigationSelect} value={table.getState().pagination.pageSize} onChange={onSelectPageSize}>
+                    <select
+                      className={s.navigationSelect}
+                      value={table.getState().pagination.pageSize}
+                      onChange={onSelectPageSize}
+                    >
                       {navigation.pageSizes.map((pageSize) => (
                         <option key={pageSize} value={pageSize}>
                           Показывать {pageSize} элементов

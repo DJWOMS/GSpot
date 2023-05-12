@@ -15,4 +15,4 @@ const SkeletonCheckBox: FC<SkeletonCheckBoxProps> = ({ className }) => {
   )
 }
 
-export { SkeletonCheckBox }
+export default SkeletonCheckBox

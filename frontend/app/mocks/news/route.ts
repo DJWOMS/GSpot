@@ -1,4 +1,4 @@
-import { generateMockNewsCard } from 'features/news'
+import { generateMockNewsCard } from 'features/news/mocks'
 import { NextResponse } from 'next/server'
 
 export function GET() {

@@ -1,38 +1,44 @@
-import { faker } from '@faker-js/faker'
-import { GameCardInterface, GameCardSimpleInterface, GameDetailsInterface, GameListInterface } from 'features/games'
+import randomItem from 'utils/randomItem'
+import randomNum from 'utils/randomNumber'
+import type {
+  GameCardInterface,
+  GameCardSimpleInterface,
+  GameDetailsInterface,
+  GameListInterface,
+} from '../types'
 
-const generateMockGameCardSimple = (props = {}): GameCardSimpleInterface => ({
-  title: faker.word.adjective(),
-  link: faker.internet.url(),
+export const generateMockGameCardSimple = (props = {}): GameCardSimpleInterface => ({
+  title: 'little',
+  link: '/details/id',
   ...props,
 })
 
-const generateMockGameList = (props = {}): GameListInterface => ({
-  coverImg: faker.image.imageUrl(240, 340, 'pc-games', true),
-  price: faker.datatype.number(1000),
-  sale: faker.datatype.number(500),
+export const generateMockGameList = (props = {}): GameListInterface => ({
+  coverImg: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(5)}`,
+  price: randomNum(3),
+  sale: randomNum(3),
   currency: 'RUB',
   ...generateMockGameCardSimple(props),
 })
 
-const generateMockGameCard = (props = {}): GameCardInterface => ({
+export const generateMockGameCard = (props = {}): GameCardInterface => ({
   badge: 'New',
   platforms: [{ type: 'ap' }, { type: 'win' }],
   ...generateMockGameList(props),
 })
 
-const generateRequirement = (props = {}) => ({
-  operatingSystem: faker.word.adjective(),
-  deviceProcessor: faker.lorem.paragraph(),
-  deviceMemory: faker.lorem.paragraph(),
-  deviceStorage: faker.lorem.paragraph(),
-  deviceGraphics: faker.lorem.paragraph(),
-  typeRequirements: faker.lorem.paragraph(),
+export const generateRequirement = (props = {}) => ({
+  operatingSystem: randomItem(['Windows', 'Linux', 'MacOS']),
+  deviceProcessor: randomItem(['Intel', 'AMD']),
+  deviceMemory: randomItem(['4GB', '8GB', '12GB', '16GB']),
+  deviceStorage: randomItem(['8GB', '10GB', '12GB', '14GB', '16GB', '20GB', '40GB', '60GB']),
+  deviceGraphics: randomItem(['NVIDIA 1080', 'NVIDIA Titan X', 'AMD Radeon 5215']),
+  typeRequirements: randomItem(['Minimal', 'Recommend']),
   ...props,
 })
 
-const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
-  description: faker.lorem.paragraphs(5),
+export const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
+  description: 'Some description for game',
   languages: [
     {
       languageName: 'English',
@@ -46,7 +52,6 @@ const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
     generateRequirement({ operatingSystem: 'Linux', typeRequirements: 'Minimal' }),
     generateRequirement({ operatingSystem: 'Apple', typeRequirements: 'Minimal' }),
   ],
+  age: 'adult',
   ...generateMockGameCard(props),
 })
-
-export { generateMockGameCard, generateMockGameCardSimple, generateMockGameDetails, generateMockGameList }

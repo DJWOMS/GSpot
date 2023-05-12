@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { Input } from 'components/Form'
-import { UserDataInterface } from 'features/profile'
+import type { UserDataInterface } from 'features/profile/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from '../page.module.css'
 
@@ -77,7 +77,11 @@ const ProfileForm: FC<Props> = ({ data }) => {
             }}
             render={({ field }) => <Input {...field} type="text" placeholder="Doe" />}
           />
-          <ErrorMessage errors={errors} name="username" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+          <ErrorMessage
+            errors={errors}
+            name="username"
+            render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+          />
         </div>
         <div>
           <label className={s.formLabel} htmlFor="email">
@@ -95,7 +99,11 @@ const ProfileForm: FC<Props> = ({ data }) => {
             }}
             render={({ field }) => <Input {...field} type="text" placeholder="email@email.com" />}
           />
-          <ErrorMessage errors={errors} name="email" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+          <ErrorMessage
+            errors={errors}
+            name="email"
+            render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+          />
         </div>
         <div>
           <label className={s.formLabel} htmlFor="firstName">
@@ -113,7 +121,11 @@ const ProfileForm: FC<Props> = ({ data }) => {
             }}
             render={({ field }) => <Input {...field} type="text" placeholder="John" />}
           />
-          <ErrorMessage errors={errors} name="firstName" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+          <ErrorMessage
+            errors={errors}
+            name="firstName"
+            render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+          />
         </div>
         <div>
           <label className={s.formLabel} htmlFor="lastName">
@@ -131,7 +143,11 @@ const ProfileForm: FC<Props> = ({ data }) => {
             }}
             render={({ field }) => <Input {...field} type="text" placeholder="Doe" />}
           />
-          <ErrorMessage errors={errors} name="lastName" render={({ message }) => <p className={s.errorMessage}>{message}</p>} />
+          <ErrorMessage
+            errors={errors}
+            name="lastName"
+            render={({ message }) => <p className={s.errorMessage}>{message}</p>}
+          />
         </div>
       </div>
       {error && <p className={s.errorMessage}>{error}</p>}

@@ -1,4 +1,4 @@
-import { UserDataInterface } from 'features/profile'
+import type { UserDataInterface } from 'features/profile/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import ProfileForm from './ProfileForm'
 

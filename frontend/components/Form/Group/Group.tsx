@@ -1,12 +1,12 @@
 import { FC } from 'react'
+import cn from 'classnames'
 import s from './Group.module.css'
 
-interface GroupProps {
-  children: React.ReactNode
-}
-
-const Group: FC<GroupProps> = ({ children }) => {
-  return <div className={s.group}>{children}</div>
+const Group: FC<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>> = ({
+  className,
+  ...props
+}) => {
+  return <div className={cn(s.group, className)} {...props} />
 }
 
 export default Group
