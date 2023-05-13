@@ -1,7 +1,7 @@
 import React from 'react'
-import s from 'app/(main)/details/loading.module.css'
 import Section from 'components/Section'
 import { SkeletonInput } from 'components/Skeleton'
+import s from './loading.module.css'
 
 export default function Loading() {
   return (

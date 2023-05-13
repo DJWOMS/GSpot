@@ -1,7 +1,7 @@
-import { HTMLAttributes, useId, FC } from 'react'
+import { useId, FC, InputHTMLAttributes, DetailedHTMLProps } from 'react'
 import s from './CheckBox.module.css'
 
-interface Props extends HTMLAttributes<HTMLInputElement> {
+interface Props extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   label?: string
 }
 
