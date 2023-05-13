@@ -77,7 +77,7 @@ export const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
       voice: true,
     },
     {
-      languageName: 'Polish',
+      languageName: 'Belarusian',
       interfaces: true,
       subtitles: false,
       voice: false,
