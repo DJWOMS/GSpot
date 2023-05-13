@@ -1,10 +1,10 @@
 .header {
-  @apply left-0 top-0 z-[99] w-full bg-background;
+  @apply left-0 top-0 z-[99] w-full bg-background sticky;
 
   transition: 0.5s, margin 0s;
 
   &Hide {
-    @apply top-[71px];
+    @apply top-[-71px];
   }
 }
 

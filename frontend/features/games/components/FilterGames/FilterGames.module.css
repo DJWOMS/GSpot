@@ -16,15 +16,14 @@
 
 .wrapper {
   @apply hidden lg:block;
-
-  &.open {
-    @apply block;
-  }
 }
 
-.title {
-  @apply mb-[25px] flex h-auto w-full flex-row items-center justify-between text-base font-semibold
-    tracking-default text-white;
+.open {
+  @apply block;
+}
+
+.header {
+  @apply mb-[25px] flex w-full items-center justify-between text-base font-semibold tracking-default text-white;
 }
 
 .clearFilters {
@@ -41,5 +40,40 @@
 
   &:hover svg {
     @apply stroke-primary;
+  }
+}
+
+.range {
+  @apply relative mb-[10px] flex h-[30px] w-full flex-row items-center justify-start rounded-default
+  border border-main-60 bg-main-30 px-3 text-[13px] tracking-[.4px] text-white;
+
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &Box {
+    @apply flex w-full gap-2;
+  }
+}
+
+.separator {
+  @apply text-lg font-medium text-white;
+}
+
+.slider {
+  div:first-child {
+    @apply opacity-40;
+  }
+
+  div:nth-child(2) {
+    @apply bg-primary;
+  }
+
+  div[role='slider'] {
+    @apply border-primary bg-background opacity-100 !shadow-none;
   }
 }

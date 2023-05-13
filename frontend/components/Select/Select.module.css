@@ -1,15 +1,11 @@
 .select {
-  @apply relative h-[30px] w-full cursor-pointer rounded-md bg-main-30 text-sm text-white;
-
-  @media (min-width: 1310px) {
-    width: 150px;
-  }
+  @apply relative flex h-[30px] w-full cursor-pointer justify-between rounded-md bg-main-30 px-3 text-sm text-white outline-none;
 
   &Btn {
     display: none;
 
     @media (min-width: 1200px) {
-      @apply block h-[30px] w-[30px] bg-transparent p-0 focus:outline-none focus-visible:ring-0;
+      @apply block h-[30px] w-[30px] bg-transparent p-0;
       background: url('/svg/arrow2.svg') no-repeat center right;
       background-size: 12px auto;
     }

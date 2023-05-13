@@ -1,4 +1,4 @@
-import s from 'components/Skeleton/SkeletonGameBigCard/SkeletonGameBigCard.module.css'
+import s from './SkeletonGameBigCard.module.css'
 
 const SkeletonGameBigCard = () => {
   return (

@@ -11,11 +11,11 @@ interface Item {
 interface Props {
   value?: string | number
   onChange: (value: string | number) => void
-  options: Item[]
+  options?: Item[]
 }
 
 const Select: FC<Props> = ({ value, onChange, options }) => {
-  const currentValue = options.find((i) => i.value === value)
+  const currentValue = options?.find((i) => i.value === value)
 
   return (
     <Listbox value={value} onChange={onChange}>
@@ -31,7 +31,7 @@ const Select: FC<Props> = ({ value, onChange, options }) => {
           leaveTo="opacity-0"
         >
           <Listbox.Options className={s.options}>
-            {options.map((item) => (
+            {options?.map((item) => (
               <Listbox.Option
                 key={item.value}
                 className={({ active }) => cn(s.option, { [s.optionActive]: active })}
