@@ -18,6 +18,7 @@ class PurchaseItemsData(PaymentServiceInfo):
     user_uuid: UUID
     return_url: URL
     items_payment_data: list[ItemPaymentData]
+    price_with_commission: Decimal
 
-    def total_price(self):
+    def items_total_price(self) -> Decimal:
         return sum(item_payment_data.price for item_payment_data in self.items_payment_data)

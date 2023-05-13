@@ -1,5 +1,6 @@
 import datetime
 
+from apps.base.exceptions import AttemptsLimitExceededError
 from apps.external_payments.schemas import YookassaPayoutModel
 from apps.external_payments.services.payment_serivces.yookassa_service import (
     YookassaPayOut,
@@ -8,7 +9,6 @@ from apps.payment_accounts.exceptions import (
     InsufficientFundsError,
     NotPayoutDayError,
     NotValidAccountNumberError,
-    PayOutLimitExceededError,
 )
 from apps.payment_accounts.models import Account, BalanceChange, Owner
 from django.conf import settings
@@ -60,7 +60,7 @@ class PayOutValidator:
             raise NotPayoutDayError(f'The payout day is {owner.payout_day_of_month}')
 
         if self._is_payout_limit_exceeded(self.developer_account):
-            raise PayOutLimitExceededError(
+            raise AttemptsLimitExceededError(
                 (
                     f'You exceeded your payout limit '
                     f'[{settings.MAXIMUM_PAYOUTS_PER_MONTH}] for this month'

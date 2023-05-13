@@ -1,4 +1,5 @@
 import rollbar
+from apps.base.exceptions import AttemptsLimitExceededError
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.generics import CreateAPIView
@@ -9,7 +10,6 @@ from .exceptions import (
     InsufficientFundsError,
     NotPayoutDayError,
     NotValidAccountNumberError,
-    PayOutLimitExceededError,
 )
 from .models import Account
 from .schemas import BalanceIncreaseData, CommissionCalculationInfo
@@ -88,7 +88,7 @@ class PayoutView(viewsets.ViewSet):
         except (
             NotPayoutDayError,
             InsufficientFundsError,
-            PayOutLimitExceededError,
+            AttemptsLimitExceededError,
             NotImplementedError,
             NotValidAccountNumberError,
         ) as e:

@@ -14,3 +14,4 @@ class PurchaseItemsSerializer(PaymentServiceSerializer):
     user_uuid = serializers.UUIDField()
     items_payment_data = ItemPaymentData(many=True)
     return_url = serializers.URLField()
+    price_with_commission = MoneyAmountSerializerField()
