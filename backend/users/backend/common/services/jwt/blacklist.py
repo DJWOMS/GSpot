@@ -10,4 +10,3 @@ class TokenBlackList:
         token.check_token(self.token)
         ttl = token.check_exp_left(self.token)
         ttl
-        pass
