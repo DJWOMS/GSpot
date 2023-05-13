@@ -3,4 +3,4 @@ class TokenBlackList:
         self.token = token
 
     def add(self):
-        raise NotImplementedError
+        pass
