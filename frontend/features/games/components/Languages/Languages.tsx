@@ -36,9 +36,9 @@ const Languages: FC<LanguagesProps> = ({ children }) => {
       {children.length > 2 && (
         <button
           onClick={() => setAllLanguagesOpen(!allLanguagesOpen)}
-          className="whitespace-nowrap text-primary"
+          className="whitespace-nowrap font-medium text-primary"
         >
-          {allLanguagesOpen ? '...hide list' : '...show all languages'}
+          {allLanguagesOpen ? 'Свернуть' : 'Показать все'}
         </button>
       )}
     </>
