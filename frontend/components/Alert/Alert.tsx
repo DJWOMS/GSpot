@@ -36,7 +36,7 @@ const Alert: FC<AlertProps> = ({ type, title, message, closable, duration, child
       }, duration * 1000)
     }
     return () => clearTimeout(dismissRef.current)
-  }, [])
+  }, [duration])
   return (
     <>
       {open ? (
