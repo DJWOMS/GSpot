@@ -3,11 +3,13 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
+from common.serializers.v1.logout_serializer import LogoutSerializer
 from common.services.jwt.blacklist import TokenBlackList
 
 
 class JWTLogoutView(GenericAPIView):
     permission_classes = [AllowAny]
+    serializer_class = LogoutSerializer
 
     def post(self, request):
         try:
