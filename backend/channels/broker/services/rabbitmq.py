@@ -33,6 +33,26 @@ class RabbitManager:
             routing_key
         )
 
+    async def _clear(self) -> None:
+        if self.channel and not self.channel.is_closed:
+            await self.channel.close()
+        if self.connection and not self.connection.is_closed:
+            await self.connection.close()
+        self.connection = None
+        self.channel = None
+
+    async def connect(self, url) -> None:
+        try:
+            loop = asyncio.get_event_loop()
+            self.connection = await aio_pika.connect_robust(url=url, loop=loop)
+            self.channel = await self.connection.channel(publisher_confirms=False)
+        except Exception as e:
+            print(e)
+            await self._clear()
+
+    async def disconnect(self) -> None:
+        await self._clear()
+
     async def prepare_consumed_queue(self, channel, queue) -> Queue:
         # if os.environ.get('DEAD_LETTER_QUEUE_NAME'):
         #     DEFAULT_QUEUE_PARAMETERS["arguments"]["x-queue-type"] = 'classic'
