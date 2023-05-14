@@ -1,6 +1,7 @@
 import rollbar
 from apps.base.exceptions import AttemptsLimitExceededError
 from apps.base.schemas import URL, PaymentServices
+from apps.base.utils.db_query import multiple_select_or_404
 from apps.external_payments.services.invoice_execution import execute_invoice_operations
 from apps.external_payments.services.payment_serivces.yookassa_service import (
     YookassaService,
@@ -12,7 +13,6 @@ from apps.payment_accounts.services.payment_commission import (
 )
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.shortcuts import get_object_or_404
 
 from ..models import Invoice, ItemPurchase, ItemPurchaseHistory
 from ..schemas import ItemPaymentData, PurchaseItemsData
@@ -88,11 +88,13 @@ class ItemPurchaseRequest:
                 self.purchase_items_data.payment_type,
                 items_sum_price,
             )
-        return compare_price == self.purchase_items_data.price_with_commission
+        return compare_price == self.purchase_items_data.price_with_commission.amount
 
     def _is_developers_exists(self):
-        for item_payment_data in self.purchase_items_data.items_payment_data:
-            get_object_or_404(Account, user_uuid=item_payment_data.developer_uuid)
+        developers_list = [
+            item.developer_uuid for item in self.purchase_items_data.items_payment_data
+        ]
+        multiple_select_or_404(developers_list, Account, 'user_uuid')
 
     def _is_invoice_attempts_exceeded(self):
         positive_attempts = Invoice.get_positive_attempts_for_period(self.user_account)
@@ -121,9 +123,12 @@ class InvoiceCreator:
                 item_payment_data,
             )
             list_of_item_purchase.append(item_purchase)
-
+        money_data = (
+            self.income_data.price_with_commission.amount,
+            self.income_data.price_with_commission.currency.value,
+        )
         invoice = Invoice.objects.create(
-            price_with_commission=self.income_data.price_with_commission,
+            price_with_commission=money_data,
         )
         invoice.item_purchases.add(*list_of_item_purchase)
         self.invoice_instance = invoice
@@ -138,10 +143,14 @@ class InvoiceCreator:
         account_to, _ = Account.objects.get_or_create(
             user_uuid=item_payment_data.owner_uuid,
         )
+        money_data = (
+            item_payment_data.price.amount,
+            item_payment_data.price.currency.value,
+        )
         item_purchase = ItemPurchase.objects.create(
             account_from=payer_account,
             account_to=account_to,
-            item_price=item_payment_data.price,
+            item_price=money_data,
             item_uuid=item_payment_data.item_uuid,
             developer_id=developer_acc,
         )

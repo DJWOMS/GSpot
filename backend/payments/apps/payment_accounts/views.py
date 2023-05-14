@@ -1,5 +1,7 @@
 import rollbar
 from apps.base.exceptions import AttemptsLimitExceededError
+from apps.base.utils.db_query import multiple_select_or_404
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.generics import CreateAPIView
@@ -69,13 +71,6 @@ class UserAccountAPIView(CreateAPIView):
     serializer_class = serializers.AccountSerializer
 
 
-class AccountBalanceViewSet(viewsets.ViewSet):
-    def retrieve(self, request, user_uuid=None):
-        account = get_object_or_404(Account, user_uuid=user_uuid)
-        serializer = serializers.AccountBalanceSerializer(account)
-        return Response(serializer.data)
-
-
 class PayoutView(viewsets.ViewSet):
     serializer_class = serializers.PayoutSerializer
 
@@ -99,23 +94,20 @@ class PayoutView(viewsets.ViewSet):
 
 class BalanceViewSet(viewsets.ViewSet):
     serializer_class = serializers.UUIDSerializer
+    balance_serializer_class = serializers.BalanceSerializer
 
-    def create(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs):  # noqa: A003
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         uuid_list = serializer.validated_data['uuid_list']
-        user_balance_datas = []
+        try:
+            balance_list = multiple_select_or_404(uuid_list, Account, 'user_uuid')
+        except Http404 as error:
+            return Response({'detail': str(error)}, status=status.HTTP_404_NOT_FOUND)
 
-        for uuid in uuid_list:
-            obj = get_object_or_404(Account, user_uuid=uuid)
-            balance = {'balance': obj.balance}
+        return Response([self.balance_serializer_class(obj).data for obj in balance_list])
 
-            money_serializer = serializers.MoneySerializer(data=balance)
-            money_serializer.is_valid(raise_exception=True)
-
-            balance_dict = {'user_uuid': str(uuid)}
-            balance_dict.update(money_serializer.validated_data)
-            user_balance_datas.append(balance_dict)
-
-        return Response(user_balance_datas)
+    def retrieve(self, request, user_uuid=None):
+        account = get_object_or_404(Account, user_uuid=user_uuid)
+        return Response(self.balance_serializer_class(account).data)

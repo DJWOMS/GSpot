@@ -33,9 +33,9 @@ class PurchaseItemView(viewsets.ViewSet):
             item_purchase_request = ItemPurchaseRequest(income_data)
         except (InsufficientFundsError, ValidationError, AttemptsLimitExceededError) as error:
             return Response({'detail': str(error)}, status=status.HTTP_400_BAD_REQUEST)
-        except Http404:
+        except Http404 as error:
             return Response(
-                {'detail': 'passed not existed developer account'},
+                {'detail': str(error)},
                 status=status.HTTP_404_NOT_FOUND,
             )
 
