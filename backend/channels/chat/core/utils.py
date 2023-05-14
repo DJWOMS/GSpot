@@ -2,10 +2,8 @@ import functools
 import json
 import logging
 from fastapi import WebSocket
-import redis.asyncio as redis
+from services.redis import redis
 from redis.asyncio.client import PubSub, Redis
-
-from config.redis import redis_config
 
 
 def ps_wrap(func):
@@ -20,11 +18,7 @@ def ps_wrap(func):
 class ConnectionContextManager:
     websocket: WebSocket
     user_id: str
-    redis: Redis = redis.from_url(
-        redis_config.url,
-        encoding='utf-8',
-        decode_responses=True
-    )
+    redis: Redis = redis
     pubsub: PubSub
 
     def __init__(self, websocket: WebSocket, user_id: str):

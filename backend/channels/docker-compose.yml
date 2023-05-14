@@ -28,7 +28,7 @@ services:
     build:
       context: broker
       dockerfile: Dockerfile
-    restart: on-failure
+#    restart: on-failure
     env_file:
       - .env.dev
     volumes:
@@ -52,6 +52,8 @@ services:
       - ./chat:/chat/
     ports:
       - "8000:8000"
+    networks:
+      - mongodb_net
     depends_on:
       - mongodb
       - redis
