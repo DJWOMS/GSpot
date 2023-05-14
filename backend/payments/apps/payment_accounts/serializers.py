@@ -1,4 +1,4 @@
-from apps.base.fields import MoneyAmountSerializerField, MoneySerializerField
+from apps.base.fields import MoneyAmountSerializerField
 from apps.base.schemas import EnumCurrencies
 from apps.base.serializer import PaymentServiceSerializer
 from apps.external_payments.schemas import PayOutMethod
@@ -29,20 +29,8 @@ class AccountSerializer(serializers.ModelSerializer):
         fields = ('user_uuid',)
 
 
-class AccountBalanceSerializer(serializers.ModelSerializer):
-    balance = MoneyAmountSerializerField()
-
-    class Meta:
-        model = Account
-        fields = ('balance',)
-
-
 class UUIDSerializer(serializers.Serializer):
     uuid_list = serializers.ListField(child=serializers.UUIDField())
-
-
-class MoneySerializer(serializers.Serializer):
-    balance = MoneySerializerField()
 
 
 class AmountPayoutSerializer(serializers.Serializer):
@@ -76,3 +64,9 @@ class PayoutSerializer(serializers.Serializer):
     amount = AmountPayoutSerializer()
     payout_destination_data = PayoutDestination()
     user_uuid = serializers.UUIDField()
+
+
+class BalanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('user_uuid', 'balance', 'balance_currency')

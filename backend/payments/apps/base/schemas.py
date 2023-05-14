@@ -41,3 +41,9 @@ EnumCurrencies = enum.Enum(
     'Currencies',
     {currency: currency for currency in settings.SUPPORTED_CURRENCIES},
 )
+
+
+@dataclass
+class MoneyDataClass:
+    amount: Decimal
+    currency: EnumCurrencies

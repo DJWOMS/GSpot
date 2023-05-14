@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import uuid
+from datetime import timedelta
 from decimal import Decimal
 
 from apps.base.fields import MoneyField
 from apps.item_purchases.exceptions import DuplicateError
 from apps.payment_accounts.models import Account
+from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models import Q
+from django.utils import timezone
 
 
 class TransferHistory(models.Model):
@@ -145,12 +149,35 @@ class Invoice(models.Model):
     )
 
     @property
-    def total_price(self) -> Decimal:
+    def items_sum_price(self) -> Decimal:
         return Decimal(
             sum(
                 self.item_purchases.all().values_list('item_price', flat=True),
             ),
         )
+
+    @classmethod
+    def get_positive_attempts_for_period(cls, user_account: Account) -> int:
+        return cls._get_invoice_attempts_for_period(
+            is_paid=True,
+            user_account=user_account,
+        )
+
+    @classmethod
+    def get_negative_attempts_for_period(cls, user_account: Account) -> int:
+        return cls._get_invoice_attempts_for_period(
+            is_paid=False,
+            user_account=user_account,
+        )
+
+    @classmethod
+    def _get_invoice_attempts_for_period(cls, is_paid: bool, user_account: Account) -> int:
+        start_date = timezone.now() - timedelta(minutes=settings.MINUTES_FOR_INVOICE_ATTEMPTS)
+        return cls.objects.filter(
+            Q(item_purchases__account_from=user_account)
+            & Q(is_paid=is_paid)
+            & Q(created_date__gte=start_date),
+        ).count()
 
     def __str__(self):
         return f'{self.invoice_id}'
