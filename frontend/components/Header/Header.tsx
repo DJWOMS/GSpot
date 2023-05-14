@@ -129,7 +129,7 @@ const Header: FC<HeaderProps> = ({ links }) => {
 
               <Link className={s.actionLink} href="/profile/checkout">
                 <IconShoppingCart />
-                <span>$00.00</span>
+                <span>₽00.00</span>
               </Link>
             </div>
           </div>
