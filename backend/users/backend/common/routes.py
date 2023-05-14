@@ -9,11 +9,11 @@ class CustomChangeInfoAccountRouter(SimpleRouter):
                 'get': 'retrieve',
                 'put': 'update',
                 'patch': 'partial_update',
-                'delete': 'destroy'
+                'delete': 'destroy',
             },
             name='{basename}-detail',
             detail=True,
-            initkwargs={'suffix': 'Detail'}
+            initkwargs={'suffix': 'Detail'},
         ),
     ]
 
@@ -22,12 +22,9 @@ class CustomChangePasswordRouter(SimpleRouter):
     routes = [
         Route(
             url=r'^{prefix}/$',
-            mapping={
-                'get': 'retrieve',
-                'patch': 'partial_update'
-            },
+            mapping={'get': 'retrieve', 'patch': 'partial_update'},
             name='{basename}-detail',
             detail=True,
-            initkwargs={'suffix': 'Detail'}
+            initkwargs={'suffix': 'Detail'},
         ),
     ]

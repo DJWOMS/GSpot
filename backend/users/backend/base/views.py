@@ -3,7 +3,6 @@ from rest_framework.exceptions import NotFound
 
 
 class PersonalAccount(viewsets.ModelViewSet):
-
     def get_serializer_class(self):
         return self.serializer_map.get(self.action, self.serializer_map['default'])
 

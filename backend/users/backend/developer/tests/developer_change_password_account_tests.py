@@ -4,7 +4,6 @@ from developer.models import CompanyUser
 
 
 class DeveloperChangePasswordApiTestCase(ChangePasswordAccountInfoApiTestCase, APITestCase):
-
     @staticmethod
     def set_settings_user():
         user = {
@@ -14,7 +13,7 @@ class DeveloperChangePasswordApiTestCase(ChangePasswordAccountInfoApiTestCase, A
             'first_name': 'user1',
             'last_name': 'user2',
             'phone': '89991234567',
-            'country': None
+            'country': None,
         }
         return user
 

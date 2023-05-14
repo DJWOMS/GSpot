@@ -28,9 +28,7 @@ class ChangePasswordRetUpdSerializers(serializers.ModelSerializer):
         user = self.instance
         old_password = attrs.pop('old_password')
         if not user.check_password(old_password):
-            raise ParseError(
-                'Please check that your current password is correct'
-            )
+            raise ParseError('Please check that your current password is correct')
         self.valid_confirm_password(attrs)
         return attrs
 
@@ -43,9 +41,7 @@ class ChangePasswordRetUpdSerializers(serializers.ModelSerializer):
         new_password = attrs.get('new_password')
         confirmation_new_password = attrs.get('confirmation_new_password')
         if not new_password == confirmation_new_password:
-            raise ParseError(
-                'The confirmation password does not match the new password'
-            )
+            raise ParseError('The confirmation password does not match the new password')
         return attrs
 
     def update(self, instance, validate_data):

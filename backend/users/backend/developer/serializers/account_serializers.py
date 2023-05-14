@@ -4,7 +4,6 @@ from base.serializers import ChangePasswordRetUpdSerializers
 
 
 class DeveloperAccountRetrieveSerializers(serializers.ModelSerializer):
-
     class Meta:
         model = CompanyUser
         fields = (
@@ -22,14 +21,12 @@ class DeveloperAccountRetrieveSerializers(serializers.ModelSerializer):
 
 
 class DeveloperAccountUpdateSerializers(serializers.ModelSerializer):
-
     class Meta:
         model = CompanyUser
         fields = ('username', 'first_name', 'last_name', 'email', 'phone', 'avatar', 'country')
 
 
 class DeveloperChangePasswordRetUpdSerializers(ChangePasswordRetUpdSerializers):
-
     class Meta:
         model = CompanyUser
         fields = ('old_password', 'new_password', 'confirmation_new_password')

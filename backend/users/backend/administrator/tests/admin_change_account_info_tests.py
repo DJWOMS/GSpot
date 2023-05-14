@@ -4,7 +4,6 @@ from administrator.models import Admin
 
 
 class AdminChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITestCase):
-
     @staticmethod
     def set_settings_user():
         user = {

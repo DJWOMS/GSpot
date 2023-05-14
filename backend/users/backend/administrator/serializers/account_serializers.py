@@ -5,7 +5,6 @@ from base.serializers import ChangePasswordRetUpdSerializers
 
 
 class AdministratorAccountRetrieveSerializers(serializers.ModelSerializer):
-
     class Meta:
         model = Admin
         fields = (
@@ -28,9 +27,6 @@ class AdministratorAccountUpdateSerializers(serializers.ModelSerializer):
 
 
 class AdministratorChangePasswordRetUpdSerializers(ChangePasswordRetUpdSerializers):
-
     class Meta:
         model = Admin
         fields = ('old_password', 'new_password', 'confirmation_new_password')
-
-

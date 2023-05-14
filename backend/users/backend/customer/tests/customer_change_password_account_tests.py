@@ -6,7 +6,6 @@ from customer.models import CustomerUser
 
 
 class CustomerChangePasswordApiTestCase(ChangePasswordAccountInfoApiTestCase, APITestCase):
-
     @staticmethod
     def set_settings_user():
         user = {
@@ -16,8 +15,7 @@ class CustomerChangePasswordApiTestCase(ChangePasswordAccountInfoApiTestCase, AP
             'first_name': 'user1',
             'last_name': 'user2',
             'phone': '89991234567',
-            'birthday': datetime.date.today()
-
+            'birthday': datetime.date.today(),
         }
         return user
 

@@ -4,7 +4,6 @@ from administrator.models import Admin
 
 
 class AdminChangePasswordApiTestCase(ChangePasswordAccountInfoApiTestCase, APITestCase):
-
     @staticmethod
     def set_settings_user():
         user = {
