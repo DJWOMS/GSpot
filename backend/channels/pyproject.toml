@@ -4,6 +4,11 @@ version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
+packages = [
+    { include = "broker" },
+    { include = "chat" },
+    { include = "tests", format = "sdist" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -23,27 +28,33 @@ pymongo = "4.3.3"
 typing_extensions = "4.5.0"
 yarl = "1.8.2"
 flake8 = "6.0.0"
+multidict = "^6.0.4"
+attr = "^0.3.2"
+yarl = "^1.9.2"
+attrs = "^23.1.0"
+aiohttp = "^3.8.4"
+aio-pika = "^9.0.5"
+bson = "^0.5.10"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.263"
 pre-commit = "^3.2.2"
 
-[tool.ruff]
-select = ["E", "F"]
-ignore = []
-fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
-exclude = [
-    ".git",
-    ".venv",
-]
-unfixable = []
-line-length = 110
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-target-version = "py311"
-
-[tool.ruff.mccabe]
-max-complexity = 10
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+select = [
+    "E",
+    "W",
+    "F",
+    "C",
+    "B",
+]
+ignore = [
+    "E501",
+    "B008",
+    "C901",
+]
