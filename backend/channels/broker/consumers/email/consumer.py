@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class EmailConsumer(RabbitMQConsumer):
     queue_name = 'email'
 
-    def __init__(self, queue: Queue, db_client: AsyncIOMotorClient, *args, **kwargs):
+    def __int__(self, queue: Queue, db_client: AsyncIOMotorClient, *args, **kwargs):
         super().__init__(
             queue=queue,
             db_client=db_client
@@ -22,4 +22,3 @@ class EmailConsumer(RabbitMQConsumer):
             print('сообщение отработано и успешно удалено из очереди в консьюмере mail')
         # await self.db_client.do_insert(orig_message)
         logger.info(orig_message.body)
-

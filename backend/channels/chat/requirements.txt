@@ -4,8 +4,6 @@ redis==4.5.4
 uvicorn[standard]==0.22.0
 redis==4.5.4
 aiohttp==3.8.4
-
-aiormq==6.4.2
 dnspython==2.3.0
 idna==3.4
 motor==3.1.1

@@ -57,11 +57,11 @@ services:
     depends_on:
       - mongodb
       - redis
-
 networks:
   mongodb_net:
   rabbitmq_net:
     external: true
+
 
 volumes:
   mongodb_data:

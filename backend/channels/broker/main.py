@@ -16,5 +16,6 @@ async def main() -> None:
     except ConnectionError:
         logging.warning('databus service is not running, please start databus service and restart this service')
 
+
 if __name__ == "__main__":
     asyncio.run(main())
