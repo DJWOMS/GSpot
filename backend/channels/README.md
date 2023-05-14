@@ -53,9 +53,6 @@ The second service is a chat, which serves to receive a websocket connection fro
 * FastAPI
 * Docker
 * Python 3.11
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -94,10 +91,9 @@ For the first launch, be sure to build the databus service. For all subsequent l
 <!-- ERORORS -->
 ## Errors
 If you saw in the console  
-`network rabbitmq_net declared as external, but could not be found`,  you need to repeat the <a href="#installation"> first paragraph of the instruction </a>
+`network rabbitmq_net declared as external, but could not be found`,  you need to repeat  <a href="#installation"> the first paragraph of the instruction </a>
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
