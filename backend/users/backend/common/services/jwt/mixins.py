@@ -17,5 +17,9 @@ class JWTMixin:
     def _decode(token: str) -> dict:
         try:
             return jwt.decode(token, settings.SECRET_KEY, settings.ALGORITHM)
+        except jwt.exceptions.InvalidSignatureError:
+            return jwt.decode(
+                token, algorithms=[settings.ALGORITHM], options={"verify_signature": False}
+            )
         except Exception:
             raise TokenInvalid

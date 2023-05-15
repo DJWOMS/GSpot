@@ -13,8 +13,10 @@ class CustomJWTAuthentication(BaseAuthentication):
         except AuthenticationFailed:
             return None
 
-        self.validate_token(jwt_token)
         payload = Token._decode(jwt_token)
+        if payload.get('accessID'):
+            return None
+        self.validate_token(jwt_token)
         user = self.get_user(payload)
         return user, payload
 
