@@ -44,15 +44,10 @@ class EmployeeRetrieveSerializer(serializers.ModelSerializer):
         exclude = ('password',)
 
 
-class EmployeePermissionsSerializer(serializers.ModelSerializer):
-    groups = serializers.SlugRelatedField(read_only=True, slug_field="name")
-    user_permissions = serializers.SlugRelatedField(read_only=True, slug_field="name")
+class EmployeeSendEmailSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=False)
 
-    class Meta:
-        model = Admin
-        fields = (
-            'groups',
-            'user_permissions',
-            'developer_groups',
-            'developer_permissions',
-        )
+    def update(self, instance, validated_data):
+        instance.email = validated_data.get('email', instance.email)
+        instance.save()
+        return instance
