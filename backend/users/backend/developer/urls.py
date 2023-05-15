@@ -7,6 +7,7 @@ from developer.views.v1 import (
     DeveloperGroupViewSet,
     DeveloperPermissionViewSet,
 )
+from developer.views.v1.developer_registration_view import DeveloperRegistrationView
 
 router = routers.DefaultRouter()
 router.register(r'users', CompanyUserViewSet, basename='company_users')
@@ -15,3 +16,7 @@ router.register(r'group', DeveloperGroupViewSet, basename='developer_group')
 router.register(r'permission', DeveloperPermissionViewSet, basename='developer_permission')
 
 urlpatterns = router.urls
+
+generic_routes = [path('registration/', DeveloperRegistrationView.as_view())]
+
+urlpatterns += generic_routes

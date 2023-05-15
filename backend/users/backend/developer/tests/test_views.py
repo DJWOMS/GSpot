@@ -1,6 +1,8 @@
 from django.test import TestCase
 
 from base.base_tests import BaseGroupViewsTest, BasePermissionViewsTest
+from base.base_tests.test_registrations import RegistrationUsersDatasetTest
+from base.base_tests.tests import TestBase, TestView
 from developer.models import DeveloperPermission, CompanyUser
 
 
@@ -26,3 +28,13 @@ class DeveloperGroupViewTest(BaseGroupViewsTest, TestCase):
     @staticmethod
     def get_group_path() -> str:
         return "/api/v1/developer/group/"
+
+
+class DeveloperRegistrationViewTest(TestView):
+    url = '/api/v1/developer/registration/'
+
+
+class DeveloperRegistrationTest(TestBase, TestCase):
+    class Meta:
+        dataset = RegistrationUsersDatasetTest
+        view = DeveloperRegistrationViewTest

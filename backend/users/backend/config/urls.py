@@ -6,6 +6,7 @@ from .yasg import urlpatterns as yasg_doc
 v1 = [
     path('admin/', include('administrator.urls')),
     path('developer/', include('developer.urls')),
+    path('customer/', include('customer.urls')),
 ]
 
 urlpatterns = [

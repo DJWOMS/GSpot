@@ -1,8 +1,29 @@
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import UserManager
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from common.models import Country
 from base.models import BaseAbstractUser
+
+
+class CustomerManager(UserManager):
+    def _create_customer_user(self, username, email, phone, password, **extra_fields):
+        if not username:
+            raise ValueError("The given username must be set")
+        email = self.normalize_email(email)
+        username = CustomerUser.normalize_username(username)
+        user = CustomerUser(username=username, email=email, phone=phone, **extra_fields)
+        user.password = make_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, username, email=None, phone=None, password=None, **extra_fields):
+        return self._create_customer_user(username, email, phone, password, **extra_fields)
+
+    def create_superuser(self, username, email=None, phone=None, password=None, **extra_fields):
+        raise ValidationError(_('unable to create a superuser'))
 
 
 class CustomerUser(BaseAbstractUser):
@@ -18,6 +39,8 @@ class CustomerUser(BaseAbstractUser):
 
     groups = None
     user_permissions = None
+
+    objects = CustomerManager()
 
     class Meta:
         db_table = 'customer'
