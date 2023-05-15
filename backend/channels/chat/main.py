@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from core.database import db
-from core.router import core_wsrouter, router
+from core.router import ws_router, router
 from core.websocket.router.routing import WebSocketRouter
 
 
@@ -9,7 +9,7 @@ app = FastAPI()
 app.include_router(router)
 
 chat = WebSocketRouter()
-chat.include_router(core_wsrouter)
+chat.include_router(ws_router)
 
 
 @app.on_event('startup')

@@ -4,8 +4,8 @@ from core.websocket.router.routing import WebSocketRouter
 from src.messages.endpoints.websocket import messages
 
 
-core_wsrouter = WebSocketRouter()
-core_wsrouter.include_router(messages)
+ws_router = WebSocketRouter()
+ws_router.include_router(messages)
 
 router = APIRouter()
 router.include_router(ws, tags=('websocket',))
