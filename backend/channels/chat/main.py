@@ -1,12 +1,12 @@
 from fastapi import FastAPI
-from core.websocket.router.router import core_wsrouter, ws
 from core.database import db
+from core.router import core_wsrouter, router
 from core.websocket.router.routing import WebSocketRouter
 
 
 app = FastAPI()
 
-app.include_router(ws)
+app.include_router(router)
 
 chat = WebSocketRouter()
 chat.include_router(core_wsrouter)

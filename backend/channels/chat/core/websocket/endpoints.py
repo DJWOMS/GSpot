@@ -1,12 +1,12 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from core.websocket.connect_user import ConnectionContextManager
 from core.websocket.handlers.producer import ProducerHandler
-from core.websocket.router.routing import WebSocketRouter
-from src.messages.endpoints.websocket import messages
+# from core.websocket.router.routing import WebSocketRouter
+# from src.messages.endpoints.websocket import messages
 
 
-core_wsrouter = WebSocketRouter()
-core_wsrouter.include_router(messages)
+# core_wsrouter = WebSocketRouter()
+# core_wsrouter.include_router(messages)
 ws = APIRouter()
 
 
