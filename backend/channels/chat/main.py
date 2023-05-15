@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from src.router import router
-from services.database import db
+from core.router import router
+from core.database import db
 
 
 app = FastAPI()

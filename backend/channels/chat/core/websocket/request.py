@@ -6,7 +6,7 @@ from src.notifications.models import Notification
 from src.messages.models import Message
 
 
-class ClientAction(BaseModel):
+class WebsocketRequest(BaseModel):
     action: Literal['create', 'update']
     type: Literal['message', 'notification']
     body: dict
