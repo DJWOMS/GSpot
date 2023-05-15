@@ -1,5 +1,5 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-from core.websocket.connect_user import ConnectionContextManager
+from core.websocket.handlers.connection import ConnectionContextManager
 from core.websocket.handlers.producer import ProducerHandler
 
 ws = APIRouter()
