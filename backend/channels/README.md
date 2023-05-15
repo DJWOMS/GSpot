@@ -96,7 +96,3 @@ If you saw in the console
 
 
 
-
-
-
-
