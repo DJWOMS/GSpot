@@ -1,12 +1,26 @@
+from django.db import transaction
+
 from rest_framework import serializers
+from community.models import Social
+from core.models.product import GameDlcLink
+from finance.models.offer import Offer, Price, ProductOffer
+from finance.serializers import ProductOfferSerializer
 
 from reference import serializers as ref_serializers
 from community import serializers as com_serializers
+from reference.models.genres import Genre, GenreProduct
+from reference.models.langs import Language, ProductLanguage
 from reference.serializers import GenreGamesSerializer
 from .models import SystemRequirement, Product
 
 
-class DlcSerializer(serializers.ModelSerializer):
+class SystemRequirementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SystemRequirement
+        exclude = ('game',)
+
+
+class ProductSerializer(serializers.ModelSerializer):
     langs = ref_serializers.ProductLanguageSerializer(many=True)
 
     class Meta:
@@ -21,10 +35,76 @@ class DlcSerializer(serializers.ModelSerializer):
         )
 
 
-class SystemRequirementSerializer(serializers.ModelSerializer):
+class CreateProductSerializer(serializers.ModelSerializer):
+    system_requirements = SystemRequirementSerializer(many=True)
+    langs = ref_serializers.ProductLanguageSerializer(many=True)
+    socials = com_serializers.GameSocialSerializer(many=True, required=False)
+    product_offer = ProductOfferSerializer(write_only=True)
+    genres = serializers.ListField(child=serializers.CharField(), write_only=True)
+
     class Meta:
-        model = SystemRequirement
-        exclude = ('game',)
+        model = Product
+        fields = (
+            'id',
+            'name',
+            'developers_uuid',
+            'publishers_uuid',
+            'description',
+            'about',
+            'age',
+            'adult',
+            'type',
+            'system_requirements',
+            'langs',
+            'socials',
+            'product_offer',
+            'genres',
+        )
+
+    @transaction.atomic
+    def create(self, validated_data):
+        system_requirements = validated_data.pop('system_requirements', None)
+        langs = validated_data.pop('langs', None)
+        socials = validated_data.pop('socials', None)
+        product_offer = validated_data.pop('product_offer', None)
+        genres = validated_data.pop('genres', None)
+
+        offer_data = product_offer.pop('offer')
+        price_data = offer_data.pop('price')
+
+        price = Price.objects.create(**price_data)
+        offer = Offer.objects.create(price=price, **offer_data)
+        product = Product.objects.create(**validated_data)
+        ProductOffer.objects.create(product=product, offer=offer, **product_offer)
+
+        social_objects = [
+            Social(product=product, **social) for social in socials
+        ]
+        Social.objects.bulk_create(social_objects)
+
+        requirement_objects = [
+            SystemRequirement(game=product, **requirement) for requirement in system_requirements
+        ]
+        SystemRequirement.objects.bulk_create(requirement_objects)
+
+        language_objects = [
+            ProductLanguage(
+                product=product,
+                language=Language.objects.get(name=lang['language']['name']),
+                interface=lang['interface'],
+                subtitles=lang['subtitles'],
+                voice=lang['voice']
+            ) for lang in langs
+        ]
+        ProductLanguage.objects.bulk_create(language_objects)
+
+        genre_objects = [
+            GenreProduct(product=product, genre=Genre.objects.get(name=genre))
+            for genre in genres
+        ]
+        GenreProduct.objects.bulk_create(genre_objects)
+
+        return product
 
 
 class OperatingSystemSerializer(serializers.Serializer):
@@ -35,33 +115,6 @@ class OperatingSystemSerializer(serializers.Serializer):
         fields = ('operating_system',)
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    dlcs = DlcSerializer(many=True, read_only=False)
-    langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
-    system_requirements = SystemRequirementSerializer(many=True, read_only=False)
-    socials = com_serializers.SocialSerializer(many=True, read_only=False)
-
-    class Meta:
-        model = Product
-        fields = (
-            'id',
-            'name',
-            'release_date',
-            'description',
-            'about',
-            'age',
-            'adult',
-            'status',
-            'type',
-            'developers_uuid',
-            'publishers_uuid',
-            'dlcs',
-            'langs',
-            'system_requirements',
-            'socials',
-        )
-
-
 class ShortSystemReqSerializers(serializers.ModelSerializer):
     class Meta:
         model = SystemRequirement
@@ -69,16 +122,22 @@ class ShortSystemReqSerializers(serializers.ModelSerializer):
 
 
 class GamesListSerializer(serializers.ModelSerializer):
-    # todo реализовать прайс
-    price = serializers.IntegerField(default=100)
-    # todo реализовать систему скидок
+    price = serializers.SerializerMethodField()
+    # TODO реализовать систему скидок
     discount = serializers.IntegerField(default=0)
-    # todo продумать систему оценок
+    # TODO продумать систему оценок
     is_bought = serializers.BooleanField(default=False)
     is_favorite = serializers.BooleanField(default=False)
 
     system_requirements = ShortSystemReqSerializers(many=True, read_only=True)
-    genres = GenreGamesSerializer(many=True, read_only=True)
+    genres = serializers.StringRelatedField(many=True)
+
+    def get_price(self, obj):
+        try:
+            offer = ProductOffer.objects.get(product=obj).offer
+        except ProductOffer.DoesNotExist:
+            return None
+        return offer.price.amount
 
     class Meta:
         model = Product
@@ -96,18 +155,25 @@ class GamesListSerializer(serializers.ModelSerializer):
 
 
 class GameDetailSerializer(serializers.ModelSerializer):
-    # todo реализовать прайс
-    price = serializers.IntegerField(default=100)
-    # todo реализовать систему скидок
+    price = serializers.SerializerMethodField()
+    # TODO реализовать систему скидок
     discount = serializers.IntegerField(default=0)
-    # todo продумать систему оценок
+    # TODO продумать систему оценок
     is_bought = serializers.BooleanField(default=False)
     is_favorite = serializers.BooleanField(default=False)
 
     system_requirements = SystemRequirementSerializer(many=True, read_only=True)
     genres = GenreGamesSerializer(many=True, read_only=True)
-    dlcs = DlcSerializer(many=True, read_only=False)
+    dlcs = ProductSerializer(many=True, read_only=False)
     langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
+    genres = GenreGamesSerializer(many=True, read_only=True)
+
+    def get_price(self, obj):
+        try:
+            offer = ProductOffer.objects.get(product=obj).offer
+        except ProductOffer.DoesNotExist:
+            return None
+        return offer.price.amount
 
     class Meta:
         model = Product
@@ -133,3 +199,26 @@ class GameDetailSerializer(serializers.ModelSerializer):
             'langs',
             'system_requirements',
         )
+
+
+class GameDlcLinkSerializer(serializers.Serializer):
+    game = serializers.UUIDField()
+    dlc = serializers.ListField(child=serializers.UUIDField())
+
+    def create(self, validated_data):
+        game_id = validated_data['game']
+        dlc_ids = validated_data['dlc']
+
+        dlc_links = []
+        for dlc_id in dlc_ids:
+            dlc_links.append(GameDlcLink(game_id=game_id, dlc_id=dlc_id))
+
+        GameDlcLink.objects.bulk_create(dlc_links)
+        return dlc_links
+
+    def to_representation(self, instance):
+        print(instance)
+        return {
+            'game': instance[0].game_id,
+            'dlc': [link.dlc_id for link in instance]
+        }

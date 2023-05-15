@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from core.models.product import Product
-from finance.models.offer import Price, ProductOffer
-from finance.models import Offer
+from finance.models import Price, ProductOffer, Offer
 from django.db import transaction
 
 
@@ -42,3 +41,11 @@ class OfferSerializer(serializers.ModelSerializer):
         ]
         ProductOffer.objects.bulk_create(product_offer)
         return offer
+
+
+class ProductOfferSerializer(serializers.ModelSerializer):
+    offer = OfferSerializer()
+
+    class Meta:
+        model = ProductOffer
+        exclude = ('product',)
