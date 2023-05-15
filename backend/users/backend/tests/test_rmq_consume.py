@@ -4,6 +4,7 @@ import pika
 def callback(ch, method, properties, body):
     print("Received message:", body.decode())
 
+
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 
