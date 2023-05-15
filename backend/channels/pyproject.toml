@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [
     { include = "broker" },
     { include = "chat" },
-    { include = "tests", format = "sdist" },
+#    { include = "tests", format = "sdist" },
 ]
 
 [tool.poetry.dependencies]
@@ -28,13 +28,12 @@ pymongo = "4.3.3"
 typing_extensions = "4.5.0"
 yarl = "1.8.2"
 flake8 = "6.0.0"
-multidict = "^6.0.4"
-attr = "^0.3.2"
-yarl = "^1.9.2"
-attrs = "^23.1.0"
-aiohttp = "^3.8.4"
-aio-pika = "^9.0.5"
-bson = "^0.5.10"
+
+attr = "0.3.2"
+attrs = "23.1.0"
+aiohttp = "3.8.4"
+bson = "0.5.10"
+
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.263"
