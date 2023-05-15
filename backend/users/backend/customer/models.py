@@ -22,7 +22,7 @@ class CustomerManager(UserManager):
     def create_user(self, username, email=None, phone=None, password=None, **extra_fields):
         return self._create_customer_user(username, email, phone, password, **extra_fields)
 
-    def create_superuser(self, username, email=None, password=None, **extra_fields):
+    def create_superuser(self, username, email=None, phone=None, password=None, **extra_fields):
         raise ValidationError(_('unable to create a superuser'))
 
 

@@ -61,13 +61,13 @@ class CompanyUserManager(UserManager):
 
     def create_user(self, username, email=None, phone=None, password=None, **extra_fields):
         extra_fields.setdefault("is_superuser", False)
-        return self._create_company_user(username, email, password, phone, **extra_fields)
+        return self._create_company_user(username, email, phone, password, **extra_fields)
 
     def create_superuser(self, username, email=None, phone=None, password=None, **extra_fields):
         extra_fields.setdefault("is_superuser", True)
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
-        return self._create_company_user(username, email, password, phone, **extra_fields)
+        return self._create_company_user(username, email, phone, password, **extra_fields)
 
 
 class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
