@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [
     { include = "broker" },
     { include = "chat" },
-    { include = "tests", format = "sdist" },
+#    { include = "tests", format = "sdist" },
 ]
 
 [tool.poetry.dependencies]
@@ -15,15 +15,25 @@ python = "^3.11"
 fastapi = {extras = ["all"], version = "^0.95.1"}
 jinja2 = "^3.1.2"
 uvicorn = {extras = ["standard"], version = "^0.22.0"}
-redis = "^4.5.4"
-motor = "^3.1.2"
-multidict = "^6.0.4"
-attr = "^0.3.2"
-yarl = "^1.9.2"
-attrs = "^23.1.0"
-aiohttp = "^3.8.4"
-aio-pika = "^9.0.5"
-bson = "^0.5.10"
+redis = "4.5.4"
+aio_pika = "8.1.1"
+aiormq = "6.4.2"
+dnspython = "2.3.0"
+idna = "3.4"
+motor = "3.1.1"
+multidict = "6.0.4"
+pamqp = "3.2.1"
+pydantic = "1.10.7"
+pymongo = "4.3.3"
+typing_extensions = "4.5.0"
+yarl = "1.8.2"
+flake8 = "6.0.0"
+
+attr = "0.3.2"
+attrs = "23.1.0"
+aiohttp = "3.8.4"
+bson = "0.5.10"
+
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.263"

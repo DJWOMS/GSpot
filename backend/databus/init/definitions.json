@@ -1,0 +1,88 @@
+{
+     "users": [
+    {
+      "name": "users",
+      "password": "BMfxN8drrYcIqXZMrpWTpDT0nMcOagMduLX0bjr4jwudpN",
+      "tags": [
+        "administrator"
+      ],
+      "limits": {}
+    },
+             {
+      "name": "payments",
+      "password": "BMfxN8drrYcIqXZMrpWTpDT0nMcOagMduLX0bjr4jwudpN",
+      "tags": [
+        "administrator"
+      ],
+      "limits": {}
+    },
+         {
+      "name": "games",
+      "password": "BMfxN8drrYcIqXZMrpWTpDT0nMcOagMduLX0bjr4jwudpN",
+      "tags": [
+        "administrator"
+      ],
+      "limits": {}
+    },
+         {
+      "name": "channels",
+      "password": "BMfxN8drrYcIqXZMrpWTpDT0nMcOagMduLX0bjr4jwudpN",
+      "tags": [
+        "administrator"
+      ],
+      "limits": {}
+    }
+  ],
+      "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+"queues": [
+    {
+        "name": "email",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {
+            "x-queue-type": "classic"
+        }
+    },
+        {
+        "name": "notifications",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {
+            "x-queue-type": "classic"
+        }
+    }
+],
+"exchanges": [
+        {
+        "name": "GSpot",
+        "vhost": "/",
+        "type": "direct",
+        "durable": true,
+        "auto_delete": false,
+        "internal": false,
+        "arguments": {}
+    }
+],
+  "permissions":[
+    {"user":"channels","vhost":"/","configure":".*","write":".*","read":".*"},
+    {"user":"payments","vhost":"/","configure":".*","write":".*","read":".*"},
+    {"user":"games","vhost":"/","configure":".*","write":".*","read":".*"},
+    {"user":"users","vhost":"/","configure":".*","write":".*","read":".*"}
+  ],
+"bindings": [
+    {
+        "source": "GSpot",
+        "vhost": "/",
+        "destination": "email",
+        "destination_type": "queue",
+        "routing_key": "email",
+        "arguments": {}
+    }
+  ]
+ }

@@ -19,7 +19,6 @@ class MongoManager:
         self.client.close()
 
     async def ping_server(self):
-        # Replace the placeholder with your Atlas connection string
         try:
             self.client.admin.command('ping')
             print("Pinged your deployment. You successfully connected to MongoDB!")
