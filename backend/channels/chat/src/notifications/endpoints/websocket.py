@@ -4,6 +4,6 @@ from core.websocket.router.routing import WebSocketRouter
 notifications = WebSocketRouter()
 
 
-@notifications.add_endpoint('notification')
+@notifications.add_endpoint('notifications')
 async def test_notifications(request, websocket):
-    print('async notif func is working')
+    await websocket.send_text('функция notifications отработала')

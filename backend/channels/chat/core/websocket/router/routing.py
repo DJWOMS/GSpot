@@ -32,5 +32,5 @@ class WebSocketRouter:
         for route in self.routes:
             if route.path == request.path:
                 await route.endpoint(request, websocket)
-            else:
-                pass
+            # else:
+            #     await websocket.send_text('no such router')
