@@ -19,7 +19,7 @@ class BaseGroupSerializer(ModelSerializer):
         abstract = True
 
 
-class ChangePasswordRetUpdSerializers(serializers.ModelSerializer):
+class ChangePasswordSerializers(serializers.ModelSerializer):
     old_password = serializers.CharField(write_only=True)
     new_password = serializers.CharField(write_only=True)
     confirmation_new_password = serializers.CharField(write_only=True)

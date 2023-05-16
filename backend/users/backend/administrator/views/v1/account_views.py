@@ -4,15 +4,15 @@ from administrator.serializers import account_serializers
 from rest_framework.permissions import AllowAny
 
 
-class AdministratorAccountViewSet(PersonalAccount):
+class AccountViewSet(PersonalAccount):
     queryset = Admin.objects.all()
 
     serializer_map = {
-        'default': account_serializers.AdministratorAccountRetrieveSerializers,
-        'retrieve': account_serializers.AdministratorAccountRetrieveSerializers,
-        'update': account_serializers.AdministratorAccountUpdateSerializers,
-        'partial_update': account_serializers.AdministratorAccountUpdateSerializers,
-        'destroy': account_serializers.AdministratorAccountRetrieveSerializers,
+        'default': account_serializers.AccountRetrieveSerializers,
+        'retrieve': account_serializers.AccountRetrieveSerializers,
+        'update': account_serializers.AccountUpdateSerializers,
+        'partial_update': account_serializers.AccountUpdateSerializers,
+        'destroy': account_serializers.AccountRetrieveSerializers,
     }
 
     permission_map = {
@@ -24,13 +24,13 @@ class AdministratorAccountViewSet(PersonalAccount):
     }
 
 
-class AdministratorChangePasswordViewSet(PersonalAccount):
+class ChangePasswordViewSet(PersonalAccount):
     queryset = Admin.objects.all()
 
     serializer_map = {
-        'default': account_serializers.AdministratorChangePasswordRetUpdSerializers,
-        'retrieve': account_serializers.AdministratorChangePasswordRetUpdSerializers,
-        'partial_update': account_serializers.AdministratorChangePasswordRetUpdSerializers,
+        'default': account_serializers.ChangePasswordRetUpdSerializers,
+        'retrieve': account_serializers.ChangePasswordRetUpdSerializers,
+        'partial_update': account_serializers.ChangePasswordRetUpdSerializers,
     }
 
     permission_map = {

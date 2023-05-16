@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
 from administrator.models import Admin
-from base.serializers import ChangePasswordRetUpdSerializers
+from base.serializers import ChangePasswordSerializers
 
 
-class AdministratorAccountRetrieveSerializers(serializers.ModelSerializer):
+class AccountRetrieveSerializers(serializers.ModelSerializer):
     class Meta:
         model = Admin
         fields = (
@@ -20,13 +20,13 @@ class AdministratorAccountRetrieveSerializers(serializers.ModelSerializer):
         )
 
 
-class AdministratorAccountUpdateSerializers(serializers.ModelSerializer):
+class AccountUpdateSerializers(serializers.ModelSerializer):
     class Meta:
         model = Admin
         fields = ('username', 'first_name', 'last_name', 'email', 'phone', 'avatar', 'country')
 
 
-class AdministratorChangePasswordRetUpdSerializers(ChangePasswordRetUpdSerializers):
+class ChangePasswordRetUpdSerializers(ChangePasswordSerializers):
     class Meta:
         model = Admin
         fields = ('old_password', 'new_password', 'confirmation_new_password')
