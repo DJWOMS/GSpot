@@ -14,5 +14,7 @@ chat.include_router(ws_router)
 
 
 @app.on_event('startup')
-async def init_db():
+async def init_services():
     db.session = await db.client.start_session()
+
+

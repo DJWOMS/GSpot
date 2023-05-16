@@ -7,6 +7,7 @@ from src.messages.models import Message
 
 
 class WebsocketRequest(BaseModel):
+    user_id: str
     action: Literal['create', 'update']
     # type: Literal['message', 'notification']
     path: str
