@@ -41,8 +41,4 @@ class TestRedis(unittest.IsolatedAsyncioTestCase):
                     messages[message['channel']] = message['data']
                     if message['channel'] == 'channel2':
                         self.assertDictEqual(messages, result)
-<<<<<<< HEAD
                         break
-=======
-                        break
->>>>>>> channels

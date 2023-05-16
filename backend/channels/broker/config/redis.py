@@ -12,8 +12,4 @@ class RedisConfig(BaseSettings):
         return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}"
 
 
-<<<<<<< HEAD
 redis_config = RedisConfig()
-=======
-redis_config = RedisConfig()
->>>>>>> channels

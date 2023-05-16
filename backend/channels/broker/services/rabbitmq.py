@@ -1,14 +1,8 @@
 import asyncio
 import aio_pika
-import os
 from aio_pika.abc import AbstractRobustConnection, AbstractRobustChannel
-<<<<<<< HEAD
-from dataclasses import dataclass
-from aio_pika.queue import Queue
-=======
 from aio_pika.queue import Queue
 import os
->>>>>>> channels
 
 
 class RabbitManager:
@@ -75,9 +69,5 @@ class RabbitManager:
         await queue.bind(os.environ.get('EXCHANGE'))
         return queue
 
-<<<<<<< HEAD
-
-=======
->>>>>>> channels
 
 rabbit_connection = RabbitManager()

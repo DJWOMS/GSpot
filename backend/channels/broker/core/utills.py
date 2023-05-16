@@ -48,8 +48,4 @@ class ChannelsContextManager(MongoManager, RabbitManager):
 
     async def prepare_consumed_queue(self, queue: str):
         queue = await super(ChannelsContextManager, self).prepare_consumed_queue(self.rabbitmq_channel, queue)
-<<<<<<< HEAD
         return queue
-=======
-        return queue
->>>>>>> channels

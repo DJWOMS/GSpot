@@ -21,10 +21,5 @@ class EmailConsumer(RabbitMQConsumer):
         async with orig_message.process():
             print('сообщение отработано и успешно удалено из очереди в консьюмере mail')
         # await self.db_client.do_insert(orig_message)
-<<<<<<< HEAD
-        logger.info(orig_message.body)
-=======
         logger.info(orig_message.body)
 
-
->>>>>>> channels
