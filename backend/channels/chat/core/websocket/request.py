@@ -6,9 +6,10 @@ from src.notifications.models import Notification
 from src.messages.models import Message
 
 
-class ClientAction(BaseModel):
+class WebsocketRequest(BaseModel):
     action: Literal['create', 'update']
-    type: Literal['message', 'notification']
+    # type: Literal['message', 'notification']
+    path: str
     body: dict
 
     @validator('body', pre=True)
@@ -26,28 +27,29 @@ class ClientAction(BaseModel):
             raise ValueError('Action must be `create` or `update`')
         return v
 
-    @validator('type')
-    def type_validator(cls, v):
-        if v not in ['message', 'notification']:
-            raise ValueError('Type must be `message` or `notification`')
-        return v
+    # @validator('type')
+    # def type_validator(cls, v):
+    #     if v not in ['message', 'notification']:
+    #         raise ValueError('Type must be `message` or `notification`')
+    #     return v
 
     @validator('body')
     def body_validator(cls, v, values):
         if not isinstance(v, dict):
             raise ValueError('Body should be `dict` object')
-        class_validator = Message if values.get('type') == 'message' else Notification
-        try:
-            class_validator.parse_obj(v)
-        except ValidationError:
-            raise ValueError('Invalid body content')
+        # class_validator = Message if values.get('type') == 'message' else Notification
+        print(v, values)
+        # try:
+        #     class_validator.parse_obj(v)
+        # except ValidationError:
+        #     raise ValueError('Invalid body content')
         return v
 
     class Config:
         schema_extra = {
             'example': {
                 'action': 'update',
-                'type': 'message',
+                'path': 'message',
                 'body': {
                     "sender_id": "6148ed23aa02a1a38bde5e5d",
                     "room_id": "6148ed23aa02a1a38bde5e5c",

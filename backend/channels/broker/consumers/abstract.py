@@ -2,6 +2,7 @@ import asyncio
 from abc import ABCMeta, abstractmethod
 
 from aio_pika.message import IncomingMessage
+<<<<<<< HEAD
 from aio_pika.queue import Queue
 import os
 
@@ -13,6 +14,8 @@ async def mark_message_processed(orig_message: IncomingMessage):
     except Exception:
         await orig_message.nack()
         raise
+=======
+>>>>>>> channels
 
 
 class RabbitMQConsumer(metaclass=ABCMeta):

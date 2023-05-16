@@ -18,4 +18,3 @@ networks:
   rabbitmq_net:
     name: rabbitmq_net
     driver: bridge
-

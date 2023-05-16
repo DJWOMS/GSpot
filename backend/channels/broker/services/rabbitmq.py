@@ -2,14 +2,24 @@ import asyncio
 import aio_pika
 import os
 from aio_pika.abc import AbstractRobustConnection, AbstractRobustChannel
+<<<<<<< HEAD
 from dataclasses import dataclass
 from aio_pika.queue import Queue
+=======
+from aio_pika.queue import Queue
+import os
+>>>>>>> channels
 
 
-@dataclass
 class RabbitManager:
     connection: AbstractRobustConnection | None = None
     channel: AbstractRobustChannel | None = None
+    DEFAULT_QUEUE_PARAMETERS = {
+        "durable": True,
+        "arguments": {
+            "x-queue-type": "classic",
+        },
+    }
 
     DEFAULT_QUEUE_PARAMETERS = {
         "durable": True,
@@ -65,6 +75,9 @@ class RabbitManager:
         await queue.bind(os.environ.get('EXCHANGE'))
         return queue
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> channels
 
 rabbit_connection = RabbitManager()

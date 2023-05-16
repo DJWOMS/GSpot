@@ -9,6 +9,7 @@ pydantic==1.10.7
 pymongo==4.3.3
 typing_extensions==4.5.0
 yarl==1.8.2
+<<<<<<< HEAD
 redis==4.5.4
 
 flake8==5.0.4
@@ -21,3 +22,6 @@ flake8-quotes==3.3.2
 flake8-todo==0.7
 flake8-cognitive-complexity==0.1.0
 pre-commit==3.1.1
+=======
+redis==4.5.4
+>>>>>>> channels
