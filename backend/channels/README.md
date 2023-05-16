@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-REST API service for working with finance online video game store GSpot.
-
-Environment variable
-=======
 <a name="readme-channels"></a>
 <h1>GSpot сhannels</h1>
 
