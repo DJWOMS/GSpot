@@ -15,6 +15,7 @@ class ConnectionContextManager:
         self.websocket = websocket
         self.pubsub = self.redis_manager.redis.pubsub()
 
+
     async def _connect(self):
         await self.websocket.accept()
         await self.redis_manager.redis.set(f'status:{self.user_id}', '1')
@@ -24,6 +25,7 @@ class ConnectionContextManager:
         await self.redis_manager.redis.delete(f'status:{self.user_id}')
         await self.pubsub.unsubscribe(f'{self.user_id}')
         await self.pubsub.close()
+
 
     async def __aenter__(self):
         logging.debug('Context manager enter')
