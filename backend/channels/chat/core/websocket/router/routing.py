@@ -28,9 +28,9 @@ class WebSocketRouter:
     def add_route(self, path: str, func: typing.Callable):
         self.routes.append(BaseRoute(path, func))
 
-    async def handle(self, request, websocket):
+    async def handle(self, request):
         for route in self.routes:
             if route.path == request.path:
-                await route.endpoint(request, websocket)
+                await route.endpoint(request)
             # else:
             #     await websocket.send_text('no such router')
