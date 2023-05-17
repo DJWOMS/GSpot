@@ -16,7 +16,7 @@ class DeveloperEmployeeListSerializer(serializers.ModelSerializer):
         )
 
 
-class DeveloperEmployeeCreateSerializer(serializers.ModelSerializer):
+class DeveloperEmployeeCreateUpdateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """send totp"""
         return CompanyUser.objects.create(**validated_data)

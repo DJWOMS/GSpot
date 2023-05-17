@@ -1,9 +1,12 @@
 from rest_framework import generics
+
+from administrator.serializers.v1.employee_crud import EmployeeCreateUpdateSerializer
 from common.permissons import CompanyOwner
 from developer.models import CompanyUser
 from developer.serializers.v1.employee_crud import (
     DeveloperEmployeeListSerializer,
-    DeveloperEmployeeCreateSerializer,
+    DeveloperEmployeeDetailSerializer,
+    DeveloperEmployeeCreateUpdateSerializer,
 )
 
 
@@ -24,8 +27,21 @@ class DeveloperEmployeeListView(generics.ListCreateAPIView):
         if self.request.method == 'GET':
             return DeveloperEmployeeListSerializer
         elif self.request.method == 'POST':
-            return DeveloperEmployeeCreateSerializer
+            return DeveloperEmployeeCreateUpdateSerializer
 
 
 class DeveloperEmployeeDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [CompanyOwner]
+
+    def get_queryset(self):
+        return CompanyUser.objects.filter(company=self.request.user.company_owner).exclude(
+            id=self.request.user.id
+        )
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return DeveloperEmployeeDetailSerializer
+        elif self.request.method == 'PUT':
+            return EmployeeCreateUpdateSerializer
+        elif self.request.method == 'PATCH':
+            return EmployeeCreateUpdateSerializer
