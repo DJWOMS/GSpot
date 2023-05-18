@@ -1,6 +1,11 @@
 import pika
 
-from config.settings.rabbitmq import RABBITMQ_HOST, RABBITMQ_PORT, RABBITMQ_USERNAME, RABBITMQ_PASSWORD
+from config.settings.rabbitmq import (
+    RABBITMQ_HOST,
+    RABBITMQ_PORT,
+    RABBITMQ_USERNAME,
+    RABBITMQ_PASSWORD,
+)
 from utils.broker.message import BaseMessage
 
 
@@ -16,10 +21,7 @@ class RabbitMQ:
     def __enter__(self):
         credentials = pika.PlainCredentials(self.username, self.password)
         parameters = pika.ConnectionParameters(
-            host=self.host,
-            port=self.port,
-            virtual_host='/',
-            credentials=credentials
+            host=self.host, port=self.port, virtual_host='/', credentials=credentials
         )
         self._connection = pika.BlockingConnection(parameters)
         self._channel = self._connection.channel()
@@ -30,7 +32,5 @@ class RabbitMQ:
 
     def send_message(self, message: BaseMessage) -> None:
         self._channel.basic_publish(
-            exchange=message.exchange_name,
-            routing_key=message.routing_key,
-            body=message.to_bytes()
+            exchange=message.exchange_name, routing_key=message.routing_key, body=message.to_bytes()
         )
