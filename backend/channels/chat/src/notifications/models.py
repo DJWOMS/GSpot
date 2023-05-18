@@ -11,7 +11,7 @@ class Notification(BaseModel):
     user_id: PydanticObjectId
     text: str
     status: str = Field(default="unread")
-    timestamp: datetime = Field(default=datetime.utcnow())
+    created_at: datetime = Field(default=datetime.utcnow())
     timestamp_2: datetime = Field(default=datetime.utcnow())
 
     class Config:
