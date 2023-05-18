@@ -1,15 +1,15 @@
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, Field
 
-from utils.models import PydanticObjectId
+from bson import ObjectId
+from pydantic import BaseModel, Field
 
 
 class Notification(BaseModel):
     """ Notification model """
-    id: Optional[PydanticObjectId] = Field(alias="_id")
-    user_id: PydanticObjectId
-    text: str
+    id: Optional[ObjectId] = Field(alias="_id")
+    user_id: ObjectId = Field(...)
+    text: str = Field(...)
     status: str = Field(default="unread")
     timestamp: datetime = Field(default=datetime.utcnow())
     timestamp_2: datetime = Field(default=datetime.utcnow())

@@ -1,18 +1,16 @@
-"""Message"""
-
 from datetime import datetime
 from typing import Optional
-
-from bson import ObjectId
 from pydantic import BaseModel, Field
+
+from utils.models import PydanticObjectId
 
 
 class Message(BaseModel):
-    """Модель сообщения."""
-    id: Optional[ObjectId] = Field(alias="_id")
-    sender_id: ObjectId = Field(...)
-    room_id: ObjectId = Field(...)
-    message_text: str = Field(...)
+    """ Message model """
+    id: Optional[PydanticObjectId] = Field(alias="_id")
+    sender_id: PydanticObjectId
+    room_id: PydanticObjectId
+    message_text: str
     created_at: datetime = Field(default=datetime.utcnow())
 
     class Config:

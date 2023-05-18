@@ -7,15 +7,16 @@ services:
     image: redis:7.0
     ports:
       - "6379:6379"
+    networks:
+      - mongodb_net
 
   mongodb:
     container_name: channels_db
     image: mongo:6.0
     ports:
       - "27017:27017"
-#    volumes:
-#      - /data/mongodb:/data/db
-#    command: mongod --bind_ip 0.0.0.0
+    volumes:
+      - mongodb_data:/data/db
     env_file:
       - .env.dev
     networks:
@@ -27,43 +28,40 @@ services:
     build:
       context: broker
       dockerfile: Dockerfile
-    restart: always
+#    restart: on-failure
     env_file:
       - .env.dev
     volumes:
       - ./broker:/app
     command: >
-      sh -c "python main.py"
+      sh -c "python -m unittest tests/main.py && python main.py"
     networks:
       - mongodb_net
       - rabbitmq_net
     depends_on:
       - mongodb
+      - redis
 
+  chat:
+    container_name: channels_chat
+    build: ./chat
+    restart: always
+    env_file:
+      - .env.dev
+    volumes:
+      - ./chat:/chat/
+    ports:
+      - "8000:8000"
+    networks:
+      - mongodb_net
+    depends_on:
+      - mongodb
+      - redis
 networks:
   mongodb_net:
   rabbitmq_net:
     external: true
 
-#  channels:
-#    container_name: fastapi_channels
-#    build:
-#      context: .
-#      dockerfile: ./src/Dockerfile
-#    restart: always
-##    volumes:
-##      - ./src:/app
-#    ports:
-#      - "8000:8000"
-#    env_file:
-#      - .env.dev
-#    depends_on:
-#      rabbitmq:
-#        condition: service_healthy
-#      mongodb:
-#        condition: service_started
-#      redis:
-#        condition: service_started
 
 volumes:
   mongodb_data:

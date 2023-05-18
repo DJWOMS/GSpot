@@ -1,16 +1,14 @@
-"""Room"""
-
 from datetime import datetime
 from typing import Optional
 
-from bson import ObjectId
+from utils.models import PydanticObjectId
 from pydantic import BaseModel, Field
 
 
 class Room(BaseModel):
-    """Модель комнаты."""
-    id: Optional[ObjectId] = Field(alias="_id")
-    room_name: str = Field(...)
+    """ Room model """
+    id: Optional[PydanticObjectId] = Field(alias="_id")
+    room_name: str
     created_at: datetime = Field(default=datetime.utcnow())
 
     class Config:
