@@ -2,6 +2,7 @@ from rest_framework import viewsets, generics, status, filters
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from finance.models import Library, Offer
 
 from base import classes
 from base.paginations import ProductResultsSetPagination
@@ -69,3 +70,15 @@ class SystemRequirementViewSet(classes.MixedPermissionSerializer, viewsets.Model
 
     def get_queryset(self):
         return SystemRequirement.objects.all()
+
+
+def save_to_library(request):
+    user_to = request.GET.get('user_to')
+    offer_uuids = request.GET.getlist('offer_uuid')
+    offers = Offer.objects.filter(id__in=offer_uuids, is_active=True)
+    user_library, _ = Library.objects.get_or_create(user=user_to)
+
+    for offer in offers:
+        games = offer.products.filter(type='game')
+        for game in games:
+            user_library.products.add(game)
