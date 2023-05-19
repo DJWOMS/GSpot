@@ -4,10 +4,10 @@ from config.settings import redis_config
 
 class RedisClient:
     def __init__(self, host: str, port: int, db: int, password: str):
-        self.__redis_client = redis.StrictRedis(host=host, port=port, db=db, passsword=password)
+        self.__redis_client = redis.StrictRedis(host=host, port=port, db=db, password=password)
 
     @property
-    def client(self):
+    def conn(self):
         return self.__redis_client
 
 
