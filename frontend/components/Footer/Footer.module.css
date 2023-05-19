@@ -89,7 +89,7 @@
   @apply mt-5 flex flex-col items-start justify-start;
 
   a {
-    @apply relative pl-[20px] text-sm leading-[26px] tracking-default text-light opacity-80;
+    @apply flex relative pl-[20px] text-sm leading-[26px] tracking-default text-light opacity-80;
 
     &:hover {
       @apply opacity-100;
@@ -97,7 +97,6 @@
     &:before {
       @apply absolute bottom-0 left-0 top-0 block w-[10px] opacity-50 content-[''];
 
-      background: url('/svg/arrow.svg') no-repeat left center;
       background-size: 10px auto;
 
       transition: 0.5s;

@@ -7,6 +7,7 @@ import {
   IconBrandTwitter,
   IconBrandVk,
   IconBrandTwitch,
+  IconChevronRight,
 } from '@tabler/icons-react'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
@@ -26,11 +27,25 @@ const Footer = () => {
               <span>GSpot Info</span>
             </div>
             <nav className={s.list}>
-              <a href="#About">О нас</a>
-              <a href="#Catalog">Каталог</a>
-              <a href="#News">Новости</a>
-              <a href="#FAQ">Центр помощи</a>
-              <Link href="/contacts">Контакты</Link>
+              <a href="#About">
+                <IconChevronRight color="#a782e9" size={20} />О нас
+              </a>
+              <a href="#Catalog">
+                <IconChevronRight color="#a782e9" size={20} />
+                Каталог
+              </a>
+              <a href="#News">
+                <IconChevronRight color="#a782e9" size={20} />
+                Новости
+              </a>
+              <a href="#FAQ">
+                <IconChevronRight color="#a782e9" size={20} />
+                Центр помощи
+              </a>
+              <Link href="/contacts">
+                <IconChevronRight color="#a782e9" size={20} />
+                Контакты
+              </Link>
             </nav>
           </div>
 
@@ -40,18 +55,48 @@ const Footer = () => {
               <span>Game</span>
             </div>
             <nav className={cn(s.list, s.listDouble)}>
-              <a href="#dota2">Dota 2</a>
-              <a href="#pubg">Pubg</a>
-              <a href="#COD">Call of Duty</a>
-              <a href="#CS">CS:GO</a>
-              <a href="#Mine">Minecraft</a>
+              <a href="#dota2">
+                <IconChevronRight color="#a782e9" size={20} />
+                Dota 2
+              </a>
+              <a href="#pubg">
+                <IconChevronRight color="#a782e9" size={20} />
+                Pubg
+              </a>
+              <a href="#COD">
+                <IconChevronRight color="#a782e9" size={20} />
+                Call of Duty
+              </a>
+              <a href="#CS">
+                <IconChevronRight color="#a782e9" size={20} />
+                CS:GO
+              </a>
+              <a href="#Mine">
+                <IconChevronRight color="#a782e9" size={20} />
+                Minecraft
+              </a>
             </nav>
             <nav className={cn(s.list, s.listDouble)}>
-              <a href="#Portal2">Portal 2</a>
-              <a href="#GOW">God Of War</a>
-              <a href="#NFS">Need For Speed</a>
-              <a href="#Metro">Metro Exodus</a>
-              <a href="#Fortnite">Fortnite</a>
+              <a href="#Portal2">
+                <IconChevronRight color="#a782e9" size={20} />
+                Portal 2
+              </a>
+              <a href="#GOW">
+                <IconChevronRight color="#a782e9" size={20} />
+                God Of War
+              </a>
+              <a href="#NFS">
+                <IconChevronRight color="#a782e9" size={20} />
+                Need For Speed
+              </a>
+              <a href="#Metro">
+                <IconChevronRight color="#a782e9" size={20} />
+                Metro Exodus
+              </a>
+              <a href="#Fortnite">
+                <IconChevronRight color="#a782e9" size={20} />
+                Fortnite
+              </a>
             </nav>
           </div>
 
@@ -62,11 +107,26 @@ const Footer = () => {
             </div>
 
             <nav className={s.list}>
-              <a href="#">Партнерская программа</a>
-              <a href="#">Продажа</a>
-              <a href="#">Условия и положения</a>
-              <a href="#">Политика </a>
-              <a href="#">Партнерство</a>
+              <a href="#">
+                <IconChevronRight color="#a782e9" size={20} />
+                Партнерская программа
+              </a>
+              <a href="#">
+                <IconChevronRight color="#a782e9" size={20} />
+                Продажа
+              </a>
+              <a href="#">
+                <IconChevronRight color="#a782e9" size={20} />
+                Условия и положения
+              </a>
+              <a href="#">
+                <IconChevronRight color="#a782e9" size={20} />
+                Политика{' '}
+              </a>
+              <a href="#">
+                <IconChevronRight color="#a782e9" size={20} />
+                Партнерство
+              </a>
             </nav>
 
             <div className={s.contacts}>
