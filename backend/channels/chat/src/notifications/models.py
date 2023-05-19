@@ -12,7 +12,7 @@ class Notification(BaseModel):
     text: str
     status: str = Field(default="unread")
     created_at: datetime = Field(default=datetime.utcnow())
-    timestamp_2: datetime = Field(default=datetime.utcnow())
+    updated_at: datetime = Field(default=datetime.utcnow())
 
     class Config:
         allow_population_by_field_name = True
