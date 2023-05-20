@@ -17,4 +17,4 @@ class CompanySerializer(serializers.ModelSerializer):
 class CompanyEmployeeSerializer(CompanySerializer):
     class Meta:
         model = Company
-        fields = ('email', 'description', 'poster', 'created_by')
+        fields = ('email', 'description', 'image', 'created_by')

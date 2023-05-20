@@ -23,4 +23,4 @@ class AdminChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITestCas
 
     @staticmethod
     def get_reverse_url():
-        return 'developer-user-account-detail'
+        return 'developer-user-account'

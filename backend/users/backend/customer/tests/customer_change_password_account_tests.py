@@ -25,4 +25,4 @@ class CustomerChangePasswordApiTestCase(ChangePasswordAccountInfoApiTestCase, AP
 
     @staticmethod
     def get_reverse_url():
-        return 'customer-users-change-password-detail'
+        return 'customer-user-change-password'

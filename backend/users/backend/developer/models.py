@@ -1,6 +1,7 @@
 import uuid
 
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import PermissionsMixin, UserManager
 from django.db import models
 
 from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
@@ -47,6 +48,28 @@ class DeveloperGroup(BaseGroup):
         verbose_name_plural = _("developer groups")
 
 
+class CompanyUserManager(UserManager):
+    def _create_company_user(self, username, email, phone, password, **extra_fields):
+        if not username:
+            raise ValueError("The given username must be set")
+        email = self.normalize_email(email)
+        username = CompanyUser.normalize_username(username)
+        user = CompanyUser(username=username, email=email, phone=phone, **extra_fields)
+        user.password = make_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, username, email=None, phone=None, password=None, **extra_fields):
+        extra_fields.setdefault("is_superuser", False)
+        return self._create_company_user(username, email, phone, password, **extra_fields)
+
+    def create_superuser(self, username, email=None, phone=None, password=None, **extra_fields):
+        extra_fields.setdefault("is_superuser", True)
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
+        return self._create_company_user(username, email, phone, password, **extra_fields)
+
+
 class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
     country = models.ForeignKey(
         Country, on_delete=models.SET_NULL, null=True, verbose_name=_('Developer country')
@@ -82,6 +105,8 @@ class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
         blank=True,
         null=True,
     )
+
+    objects = CompanyUserManager()
 
     def __str__(self):
         return self.username

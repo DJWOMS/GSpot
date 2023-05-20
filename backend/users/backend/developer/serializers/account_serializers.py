@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from developer.models import CompanyUser
-from base.serializers import ChangePasswordRetUpdSerializers
+from base.serializers import ChangePasswordSerializers
 
 
-class DeveloperAccountRetrieveSerializers(serializers.ModelSerializer):
+class AccountRetrieveSerializers(serializers.ModelSerializer):
     class Meta:
+        ref_name = 'developer_account_retrieve'
         model = CompanyUser
         fields = (
             'username',
@@ -20,13 +21,15 @@ class DeveloperAccountRetrieveSerializers(serializers.ModelSerializer):
         )
 
 
-class DeveloperAccountUpdateSerializers(serializers.ModelSerializer):
+class AccountUpdateSerializers(serializers.ModelSerializer):
     class Meta:
+        ref_name = 'developer_account_update'
         model = CompanyUser
         fields = ('username', 'first_name', 'last_name', 'email', 'phone', 'avatar', 'country')
 
 
-class DeveloperChangePasswordRetUpdSerializers(ChangePasswordRetUpdSerializers):
+class ChangePasswordRetUpdSerializers(ChangePasswordSerializers):
     class Meta:
+        ref_name = 'developer_account_change_pass'
         model = CompanyUser
         fields = ('old_password', 'new_password', 'confirmation_new_password')

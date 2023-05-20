@@ -4,3 +4,4 @@ from .logging import *
 from .drf import *
 from .auth import *
 from .jwt import *
+from .rabbitmq import *

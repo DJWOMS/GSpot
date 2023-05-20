@@ -25,7 +25,7 @@ class ChangePasswordSerializers(serializers.ModelSerializer):
     confirmation_new_password = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
-        user = self.instance
+        user = self.context['request'].user
         old_password = attrs.pop('old_password')
         if not user.check_password(old_password):
             raise ParseError('Please check that your current password is correct')
@@ -44,8 +44,9 @@ class ChangePasswordSerializers(serializers.ModelSerializer):
             raise ParseError('The confirmation password does not match the new password')
         return attrs
 
-    def update(self, instance, validate_data):
+    def create(self, validate_data):
         password = validate_data.pop('new_password')
+        instance = self.context['request'].user
         instance.set_password(password)
         instance.save()
         return instance

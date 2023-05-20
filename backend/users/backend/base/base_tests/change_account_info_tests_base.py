@@ -30,10 +30,10 @@ class ChangeAccountInfoApiTestCase:
         new_data = {
             'username': 'user_of_company2',
         }
-        responce_change_username = self.client.patch(url, data=new_data)
+        responce_change_username = self.client.put(url, data=new_data)
         self.assertEqual('user_of_company2', responce_change_username.data.get('username'))
 
     def test_change_info_logout_user(self):
         url = reverse(self.url_reverse)
         responce = self.client.get(url)
-        self.assertEqual(404, responce.status_code)
+        self.assertEqual(403, responce.status_code)

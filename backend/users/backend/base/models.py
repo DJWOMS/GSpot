@@ -25,6 +25,8 @@ class BaseAbstractUser(AbstractUser):
     date_joined = None  # Remove data joined field
     last_login = None  # Remove last login field
 
+    REQUIRED_FIELDS = ['phone', 'email']
+
     class Meta:
         abstract = True
 

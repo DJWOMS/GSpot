@@ -31,7 +31,7 @@ class ChangePasswordAccountInfoApiTestCase:
             'new_password': 'adminnew01',
             'confirmation_new_password': 'adminnew01',
         }
-        self.client.patch(url, data=data)
+        self.client.post(url, data=data)
         self.assertTrue(self.first_user.check_password('adminnew01'))
 
     def test_change_password_wrong_old_password(self):
@@ -43,7 +43,7 @@ class ChangePasswordAccountInfoApiTestCase:
             'new_password': 'adminnew01',
             'confirmation_new_password': 'adminnew01',
         }
-        responce = self.client.patch(url, data=data)
+        responce = self.client.post(url, data=data)
         self.assertEqual(400, responce.status_code)
         self.assertEqual(
             'Please check that your current password is correct', responce.json().get('detail')
@@ -58,7 +58,7 @@ class ChangePasswordAccountInfoApiTestCase:
             'new_password': 'adminnew01',
             'confirmation_new_password': 'adminnew',
         }
-        responce = self.client.patch(url, data=data)
+        responce = self.client.post(url, data=data)
         self.assertEqual(400, responce.status_code)
         self.assertEqual(
             'The confirmation password does not match the new password',
@@ -68,4 +68,4 @@ class ChangePasswordAccountInfoApiTestCase:
     def test_change_password_logout_user(self):
         url = reverse(self.url_reverse)
         responce = self.client.get(url)
-        self.assertEqual(404, responce.status_code)
+        self.assertEqual(403, responce.status_code)

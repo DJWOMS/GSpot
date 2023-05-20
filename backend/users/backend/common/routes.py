@@ -22,7 +22,7 @@ class CustomChangePasswordRouter(SimpleRouter):
     routes = [
         Route(
             url=r'^{prefix}/$',
-            mapping={'get': 'retrieve', 'patch': 'partial_update'},
+            mapping={'get': 'retrieve', 'put': 'partial_update'},
             name='{basename}-detail',
             detail=True,
             initkwargs={'suffix': 'Detail'},

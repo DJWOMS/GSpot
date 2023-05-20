@@ -1,9 +1,9 @@
-from base.base_tests.change_account_info_tests_base import ChangeAccountInfoApiTestCase
+from base.base_tests.change_password_account_base import ChangePasswordAccountInfoApiTestCase
 from rest_framework.test import APITestCase
 from administrator.models import Admin
 
 
-class AdminChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITestCase):
+class AdminChangePasswordApiTestCase(ChangePasswordAccountInfoApiTestCase, APITestCase):
     @staticmethod
     def set_settings_user():
         user = {
@@ -22,4 +22,4 @@ class AdminChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITestCas
 
     @staticmethod
     def get_reverse_url():
-        return 'administrator-user-account-detail'
+        return 'admininstrator-user-change-password'

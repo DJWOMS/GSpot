@@ -23,4 +23,4 @@ class DeveloperChangePasswordApiTestCase(ChangePasswordAccountInfoApiTestCase, A
 
     @staticmethod
     def get_reverse_url():
-        return 'developer-users-change-password-detail'
+        return 'developer-user-change-password'
