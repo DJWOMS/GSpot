@@ -16,7 +16,7 @@ from rest_framework.permissions import IsAuthenticated
             200: openapi.Response(
                 'Личная информация пользователя', account_serializers.AccountRetrieveSerializers
             ),
-            403: openapi.Response('Нет права для выполнения запроса'),
+            401: openapi.Response('Не аутентифицированный'),
         },
     ),
 )
@@ -29,7 +29,7 @@ from rest_framework.permissions import IsAuthenticated
             200: openapi.Response(
                 'Информация обновлена', account_serializers.AccountUpdateSerializers
             ),
-            403: openapi.Response('Нет права для выполнения запроса'),
+            401: openapi.Response('Не аутентифицированный'),
         },
     ),
 )
@@ -39,8 +39,8 @@ from rest_framework.permissions import IsAuthenticated
         operation_description='Удаление своего профиля самим пользователем',
         tags=['Пользователь', 'Личный кабинет'],
         responses={
-            200: openapi.Response('Ваш профиль успешно удалён'),
-            403: openapi.Response('Нет права для выполнения запроса'),
+            200: openapi.Response('профиль успешно удалён'),
+            401: openapi.Response('Не аутентифицированный'),
         },
     ),
 )
@@ -69,8 +69,8 @@ class AccountViewSet(PersonalAccount):
         operation_description='Изменение пароля пользователя',
         tags=['Пользователь', 'Личный кабинет'],
         responses={
-            201: openapi.Response('Ваш пароль успешно изменён'),
-            403: openapi.Response('Нет права для выполнения запроса'),
+            200: openapi.Response('пароль успешно изменён'),
+            401: openapi.Response('Не аутентифицированный'),
         },
     ),
 )
