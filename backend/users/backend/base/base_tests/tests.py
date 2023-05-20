@@ -2,6 +2,8 @@ from typing import List
 from django.test import TestCase
 from rest_framework.test import APIClient
 
+from common.services.jwt.token import Token
+
 
 class TestDataSet:
     valid_data: List[dict]
@@ -42,3 +44,18 @@ class TestBase:
     class Meta:
         dataset: TestDataSet
         view: TestView
+
+
+class BaseTestView:
+    url: str
+
+    def setUp(self) -> None:
+        self.client = APIClient()
+
+    @staticmethod
+    def get_token(user) -> str:
+        context = {
+            'user_id': str(user.id),
+            'role': user._meta.app_label,
+        }
+        return Token().generate_access_token(context)

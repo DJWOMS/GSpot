@@ -1,7 +1,11 @@
-from django.urls import path, include
+from django.urls import path
 from customer.views.v1 import account_views
 from customer.views.v1.customer_registration_view import CustomerRegistrationView
-from common import routes
+
+
+urlpatterns = [
+    path('registration/', CustomerRegistrationView.as_view()),
+]
 
 account_router = [
     path(
@@ -17,7 +21,5 @@ account_router = [
         name='customer-user-change-password',
     ),
 ]
-
-urlpatterns = [path('registration/', CustomerRegistrationView.as_view())]
 
 urlpatterns += account_router
