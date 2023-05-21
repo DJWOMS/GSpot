@@ -10,7 +10,7 @@ services:
       - DJANGO_SETTINGS_MODULE
     env_file:
       - ../.env
-    command: /start-web.sh
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - static:/code/static
       - media:/code/media
