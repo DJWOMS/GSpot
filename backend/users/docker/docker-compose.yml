@@ -6,8 +6,6 @@ services:
     build:
       context: ./..
       dockerfile: docker/python/Dockerfile
-    environment:
-      - DJANGO_SETTINGS_MODULE
     env_file:
       - ../.env
     command: /start-web.sh
