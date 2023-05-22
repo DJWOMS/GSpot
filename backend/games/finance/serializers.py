@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from core.models.product import Product
-from finance.models import Price, ProductOffer, Offer
+from finance.models import Price, ProductOffer, Offer, Cart, CartOffer
 from django.db import transaction
 
 
@@ -49,3 +49,22 @@ class ProductOfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductOffer
         exclude = ('product',)
+
+
+class CartSerializerCreate(serializers.ModelSerializer):
+    offers = serializers.PrimaryKeyRelatedField(many=True, queryset=Offer.objects.all())
+
+    class Meta:
+        model = Cart
+        fields = ('created_by', 'gift_recipient', 'offers')
+
+    @transaction.atomic
+    def create(self, validated_data):
+        offer = validated_data.pop('offers')
+        created_by = validated_data.pop('created_by')
+        gift_recipient = None
+        if self.initial_data.get('gift_recipient'):
+            gift_recipient = validated_data.pop('gift_recipient')
+        cart = Cart.objects.create(created_by=created_by, gift_recipient=gift_recipient)
+        CartOffer.objects.create(offer=offer[0], cart=cart)
+        return cart
