@@ -1,4 +1,4 @@
-import Pagination from 'components/Pagination'
+import CustomPagination from 'components/CustomPagination'
 import Section from 'components/Section'
 import { GameCard, FilterGames } from 'features/games/components'
 import type {
@@ -22,6 +22,8 @@ const CatalogPage = async ({ searchParams }: Props) => {
   const search = Object.fromEntries(
     Object.entries(searchParams).filter(([, v]) => typeof v !== 'string')
   ) as Record<string, string>
+
+  const currentPage = searchParams.page ? Number(searchParams.page) : 1
 
   const [games, sorts, prices, platforms, genres] = await Promise.all([
     fetchServerSide<GameCardInterface[]>({
@@ -65,7 +67,7 @@ const CatalogPage = async ({ searchParams }: Props) => {
               ))}
             </div>
 
-            <Pagination />
+            <CustomPagination path={'/catalog'} query={searchParams} currentPage={currentPage} />
           </div>
         </div>
       </Section>
