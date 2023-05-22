@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import CustomPagination from 'components/CustomPagination'
+import Pagination from 'components/Pagination'
 import Section from 'components/Section'
 import { GameCard } from 'features/games/components'
 import type { GameCardInterface } from 'features/games/types'
@@ -39,8 +39,7 @@ const FavoritesPage = () => {
             <GameCard onDelete={onDelete} {...game} key={index} />
           ))}
         </div>
-
-        <CustomPagination path={'/profile/favorites'} currentPage={currentPage} />
+        <Pagination path={'/profile/favorites'} currentPage={currentPage} />
       </div>
     </Section>
   )

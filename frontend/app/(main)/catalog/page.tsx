@@ -1,4 +1,4 @@
-import CustomPagination from 'components/CustomPagination'
+import Pagination from 'components/Pagination'
 import Section from 'components/Section'
 import { GameCard, FilterGames } from 'features/games/components'
 import type {
@@ -67,7 +67,7 @@ const CatalogPage = async ({ searchParams }: Props) => {
               ))}
             </div>
 
-            <CustomPagination path={'/catalog'} query={searchParams} currentPage={currentPage} />
+            <Pagination path={'/catalog'} query={searchParams} currentPage={currentPage} />
           </div>
         </div>
       </Section>
