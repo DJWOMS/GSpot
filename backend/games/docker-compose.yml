@@ -9,7 +9,7 @@ services:
     env_file:
       - .env.dev
     ports:
-      - "5432:5432"
+      - "5433:5432"
   web:
     build: .
     container_name: games
