@@ -14,7 +14,8 @@ class YookassaPaymentAcceptanceView(CreateAPIView):
     serializer_class = YookassaPaymentAcceptanceSerializer
 
     def post(self, request, *args, **kwargs):
-        if not check_yookassa_response(request.data['object']):
+        yookassa_object = request.data.get('object')
+        if not check_yookassa_response(yookassa_object):
             rollbar.report_message(
                 'Response not from yookassa.',
                 'warning',
