@@ -25,13 +25,11 @@ const Pagination: FC<Props> = ({ path, currentPage, query }) => {
     <div className={s.wrapper}>
       <div className={s.counter}>{`${currentPage} from ${pageCount}`}</div>
       <ul className={s.container}>
-        {currentPage > 1 && (
-          <li className={s.linkBtn}>
-            <Link className={s.linkBtn} href={{ pathname: path, query: { page: currentPage - 1 } }}>
-              {<IconArrowLeft size={17} />}
-            </Link>
-          </li>
-        )}
+        <li className={`${s.linkBtn} ${currentPage === 1 && s.disabledBtn}`}>
+          <Link className={s.linkBtn} href={{ pathname: path, query: { page: currentPage - 1 } }}>
+            {<IconArrowLeft size={17} />}
+          </Link>
+        </li>
         {visiblePages.map((pageNumber) => (
           <li key={pageNumber} className={`${s.item} ${currentPage === pageNumber && s.itemActive}`}>
             <Link
@@ -42,19 +40,17 @@ const Pagination: FC<Props> = ({ path, currentPage, query }) => {
             </Link>
           </li>
         ))}
-        {currentPage < pageCount && (
-          <li className={s.linkBtn}>
-            <Link
-              className={s.linkBtn}
-              href={{
-                pathname: path,
-                query: { page: currentPage + 1 },
-              }}
-            >
-              {<IconArrowRight size={17} />}
-            </Link>
-          </li>
-        )}
+        <li className={`${s.linkBtn} ${currentPage === pageCount && s.disabledBtn}`}>
+          <Link
+            className={s.linkBtn}
+            href={{
+              pathname: path,
+              query: { page: currentPage + 1 },
+            }}
+          >
+            {<IconArrowRight size={17} />}
+          </Link>
+        </li>
       </ul>
     </div>
   )

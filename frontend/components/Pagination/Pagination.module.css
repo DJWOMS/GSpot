@@ -31,6 +31,10 @@
   }
 }
 
+.disabledBtn{
+  @apply opacity-50 pointer-events-none;
+}
+
 .item {
   @apply mr-[10px] last:mr-0;
 
