@@ -23,9 +23,7 @@ const Pagination: FC<Props> = ({ path, currentPage, query }) => {
 
   return (
     <div className={s.wrapper}>
-      <div className={s.counter}>{`${visiblePages.length * currentPage} from ${
-        visiblePages.length * pageCount
-      }`}</div>
+      <div className={s.counter}>{`${currentPage} from ${pageCount}`}</div>
       <ul className={s.container}>
         {currentPage > 1 && (
           <li className={s.linkBtn}>
@@ -35,7 +33,7 @@ const Pagination: FC<Props> = ({ path, currentPage, query }) => {
           </li>
         )}
         {visiblePages.map((pageNumber) => (
-          <li key={pageNumber} className={`${s.item} ${currentPage === pageNumber ? s.itemActive : ''}`}>
+          <li key={pageNumber} className={`${s.item} ${currentPage === pageNumber && s.itemActive}`}>
             <Link
               href={{ pathname: path, query: query ? { ...query, page: pageNumber } : { page: pageNumber } }}
               className={s.linkBtn}

@@ -67,7 +67,7 @@ const CatalogPage = async ({ searchParams }: Props) => {
               ))}
             </div>
 
-            <Pagination path={'/catalog'} query={searchParams} currentPage={currentPage} />
+            <Pagination path={'/catalog'} query={search} currentPage={currentPage} />
           </div>
         </div>
       </Section>
