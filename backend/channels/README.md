@@ -46,13 +46,14 @@ Channels is a service for interacting with a client. Our service includes two mi
 The second service is a chat, which serves to receive a websocket connection from the client and interact with it.
 
 ### Built With
+_**(Работоспособность проверена с указанными версиями)**_
 
 * Rabbitmq 
 * Redis
 * MongoDB
 * FastAPI
-* Docker
-* Python 3.11
+* Docker (Docker - Compose &&!)
+* Python 3.9 (В соответствии с всем проектом Python >= 3.9!)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -62,16 +63,19 @@ To get a local copy up and running follow these simple example steps.
 
 ### Installation
 
-The first thing to do is start the databus service to listen for events. To do this, you need to enter through the terminal to the directory `backend/databus` and run the command
+The first thing to do is start the **databus** service to listen for events. 
+To do this, you need to enter through the terminal **to the directory** `backend/databus`**(!)** and run the command
 1. ```sh
    docker-compose up --build
    ```
-2. Next you need to rename the file `env.example` to `env.dev` in the channels directory
+2. Next you need to rename the file `env.example` to `env.dev` **in the channels directory**
 3. Next, in the chanels directory, you need to run the command
    ```sh
    docker-compose up --build
    ```
-For the first launch, be sure to build the databus service. For all subsequent launches from the channels directory, you can run the command
+For the first launch, be sure to build the **databus (??)** service. 
+
+For all subsequent launches from the **channels directory**, you can run the command
    ```sh
    docker-compose up
    ```
