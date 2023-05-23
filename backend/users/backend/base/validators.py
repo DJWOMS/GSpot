@@ -2,23 +2,15 @@ from abc import ABCMeta
 from typing import Type
 
 from django.contrib.auth.models import AbstractUser
+from common.permissions.exceptions import VerificationError
 
 
 class AbstractUserVerify:
     """Common abstract class for user verification"""
 
-    def verify(self, user: AbstractUser) -> bool:
+    def _verify(self, user: AbstractUser) -> bool:
         """check user verification by condition"""
         raise NotImplementedError
-
-
-class VerificationError(Exception):
-    """Common base class for all verification exceptions."""
-
-    message = 'user verification error'
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(self.message, *args)
 
 
 class AbstractUserValidation(AbstractUserVerify, metaclass=ABCMeta):
@@ -28,10 +20,20 @@ class AbstractUserValidation(AbstractUserVerify, metaclass=ABCMeta):
 
     def validate(self, user: AbstractUser):
         """Raise error if user has not passed verification"""
-        pass
+        raise NotImplementedError
 
 
 class BaseUserValidation(AbstractUserValidation):
+    exception = VerificationError
+    message = 'ValidationError'
+
+    def __init__(self, message=''):
+        if message:
+            self.message = message
+
+    def _verify(self, user: AbstractUser) -> bool:
+        raise NotImplementedError
+
     def validate(self, user):
-        if not self.verify(user):
-            raise self.exception()
+        if not self._verify(user):
+            raise self.exception(self.message)
