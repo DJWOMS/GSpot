@@ -5,6 +5,9 @@ from yookassa.domain.common import HttpVerb
 
 def check_yookassa_response(yookassa_data: dict) -> bool:
     payment_id = yookassa_data.get('id')
+    if payment_id is None:
+        return False
+
     settings.YOOKASSA_CONFIG.get_payment_settings()
     client = ApiClient()
     base_path = '/payments'
