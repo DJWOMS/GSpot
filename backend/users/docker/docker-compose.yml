@@ -25,6 +25,14 @@ services:
     env_file:
       - ../.env
     command: python manage.py test
+  web_users_admin:
+    container_name: users-service-admin
+    build:
+      context: ./..
+      dockerfile: docker/python/Dockerfile
+    env_file:
+      - ../.env
+    command: python manage.py createsuperuser --noinput
   db:
     container_name: users-service-db
     image: postgres:14-alpine
