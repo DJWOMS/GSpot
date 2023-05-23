@@ -1,6 +1,6 @@
 FROM python:3.11-slim-buster
 
-ENV DJANGO_ENV=${DJANGO_ENV} \
+ENV \
   # python:
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
@@ -20,16 +20,17 @@ RUN apt-get update && \
   build-essential \
   gettext \
   libpq-dev \
-  wget \
+  wget
   # Cleaning cache:
-  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
+RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
   # Installing `poetry` package manager:
   # https://github.com/python-poetry/poetry
-  && pip install "poetry-core==1.4.0" "poetry==$POETRY_VERSION" && poetry --version
+RUN pip install "poetry-core==1.4.0" "poetry==$POETRY_VERSION" && poetry --version
 
 # Copy only requirements, to cache them in docker layer
 WORKDIR /code
-COPY ./poetry.lock ./pyproject.toml /code/
+COPY ./pyproject.toml /code/
 
 # Project initialization:
 RUN poetry install --no-root
@@ -40,8 +41,7 @@ COPY . /code
 COPY ./docker/python/start-web.sh /start-web.sh
 
 # Setting up proper permissions:
-RUN chmod +x /start-web.sh \
-  && mkdir -p /code/media /code/static \
-  && chmod +x /code/media/ /code/static/
+RUN mkdir -p /code/media /code/static && \
+	chmod +x /code/media/ /code/static/
 
 WORKDIR backend
