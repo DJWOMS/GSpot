@@ -14,7 +14,6 @@ class OfferAPIView(APIView):
 
 
 class ShowLibraryView(generics.RetrieveAPIView):
-
     serializer_class = LibrarySerializer
     queryset = Library.objects.all()
     lookup_field = 'user'
