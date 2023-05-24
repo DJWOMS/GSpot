@@ -11,6 +11,7 @@ class BaseAdminSuperUserViewSet(viewsets.ModelViewSet):
     queryset = None
     serializer_class = None
     permission_classes = [IsAdminSuperUser]
+    http_method_names = ["get", "retrieve", "post", "put", "delete"]
 
     def get_permissions(self):
         if self.action in ["list", "retrieve"]:
