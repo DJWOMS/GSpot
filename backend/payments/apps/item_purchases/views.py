@@ -1,15 +1,19 @@
 import rollbar
 from apps.base.exceptions import AttemptsLimitExceededError
-from apps.item_purchases.schemas import PurchaseItemsData
 from apps.payment_accounts.exceptions import InsufficientFundsError
+from apps.payment_accounts.models import Account
 from dacite import MissingValueError, from_dict
 from django.core.exceptions import ValidationError
 from django.http import Http404
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
-from .serializers import PurchaseItemsSerializer
+from .exceptions import RefundNotAllowedError
+from .models import ItemPurchase
+from .schemas import PurchaseItemsData, RefundData
+from .serializers import PurchaseItemsSerializer, RefundSerializer
 from .services.purchase_items import ItemPurchaseRequest
+from .services.refund import RefundProcessor
 
 
 class PurchaseItemView(viewsets.ViewSet):
@@ -41,3 +45,44 @@ class PurchaseItemView(viewsets.ViewSet):
 
         response = item_purchase_request.request_items_purchase()
         return Response({'response': response}, status=status.HTTP_200_OK)
+
+
+class RefundView(viewsets.ViewSet):
+    serializer_class = RefundSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            income_data = from_dict(
+                RefundData,
+                serializer.validated_data,
+            )
+        except MissingValueError as error:
+            rollbar.report_message(
+                f'Schemas and serializers got different structure. Got next error: {str(error)}',
+                'error',
+            )
+
+        try:
+            refund_process = RefundProcessor(income_data)
+        except Account.DoesNotExist as error:
+            return Response(
+                {'detail': str(error)},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except ItemPurchase.DoesNotExist as error:
+            return Response(
+                {'detail': str(error)},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except RefundNotAllowedError as error:
+            return Response(
+                {'detail': str(error)},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        refund_process.take_refund()
+
+        return Response(status=status.HTTP_202_ACCEPTED)

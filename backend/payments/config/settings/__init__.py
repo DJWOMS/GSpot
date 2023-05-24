@@ -5,3 +5,4 @@ from .celery import *
 from .database import *
 from .drf import *
 from .logger import *
+from .services import *

@@ -5,9 +5,10 @@ from datetime import timedelta
 from decimal import Decimal
 
 from apps.base.fields import MoneyField
-from apps.item_purchases.exceptions import DuplicateError
 from apps.payment_accounts.models import Account
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Q
@@ -15,18 +16,11 @@ from django.utils import timezone
 
 
 class TransferHistory(models.Model):
-    account_from = models.ForeignKey(
-        Account,
-        on_delete=models.PROTECT,
-        related_name='history_accounts_from',
-    )
-    account_to = models.ForeignKey(
-        Account,
-        on_delete=models.PROTECT,
-        related_name='history_accounts_to',
-    )
+    account_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    account_to = GenericForeignKey('account_type', 'object_id')
     amount = MoneyField(
-        validators=[MinValueValidator(0, message='Should be positive value')],
+        validators=[MinValueValidator(0, message='Should be a positive value')],
         editable=False,
     )
     created_date = models.DateTimeField(
@@ -35,25 +29,12 @@ class TransferHistory(models.Model):
         db_index=True,
     )
 
-    def clean(self):
-        if self.account_from == self.account_to:
-            raise DuplicateError(
-                'account_from and account_to should be different values',
-            )
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super().save(*args, **kwargs)
-
     def __str__(self) -> str:
         return (
-            f'Account from: {self.account_from} -> '
             f'Account to: {self.account_to}'
+            f'Account type: {self.account_type}'
             f'Date time of creation: {self.created_date}'
         )
-
-    class Meta:
-        ordering = ['-created_date']
 
 
 class ItemPurchase(models.Model):

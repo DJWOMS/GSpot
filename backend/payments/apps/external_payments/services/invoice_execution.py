@@ -3,11 +3,11 @@ from decimal import Decimal
 
 from apps.base.utils import change_balance
 from apps.item_purchases.models import Invoice, ItemPurchase, ItemPurchaseHistory
+from apps.item_purchases.tasks import get_item_for_self_user, gift_item_to_other_user
 from apps.payment_accounts.models import Account
 from django.conf import settings
 
 from ..exceptions import ExtraTransactionHistoriesError
-from ..tasks import get_item_for_self_user, gift_item_to_other_user
 
 
 class InvoiceExecution:
@@ -29,9 +29,17 @@ class InvoiceExecution:
         )
 
         if invoice_item_purchase.account_to != invoice_item_purchase.account_from:
-            get_item_for_self_user.apply_async(eta=task_execution_datetime)
+            gift_item_to_other_user.apply_async(
+                args=[invoice_item_purchase.id],
+                eta=task_execution_datetime,
+                task_id=invoice_item_purchase.id,
+            )
         else:
-            gift_item_to_other_user.apply_async(eta=task_execution_datetime)
+            get_item_for_self_user.apply_async(
+                args=[invoice_item_purchase.id],
+                eta=task_execution_datetime,
+                task_id=invoice_item_purchase.id,
+            )
 
     @staticmethod
     def get_item_purchase_execution_date_time(
@@ -64,9 +72,9 @@ def execute_invoice_operations(
     invoice_executioner = InvoiceExecution(invoice_instance)
     invoice_executioner.process_invoice_item_purchase()
     if invoice_executioner.invoice_success_status is True:
-        # TO BE DONE: it has to put money on our shop account
-        # And developer account
         change_balance.decrease_user_balance(
             account=payer_account,
             amount=decrease_amount,
         )
+        invoice_instance.is_paid = True
+        invoice_instance.save()

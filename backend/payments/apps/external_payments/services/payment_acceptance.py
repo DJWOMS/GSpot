@@ -14,7 +14,7 @@ def proceed_payment_response(income_data, payment_service: PaymentServices) -> b
     if parsed_data is None:
         return False
 
-    change_balance.increase_user_balance(
+    change_balance.edit_change_balance(
         balance_change_object=parsed_data.balance_object,
         amount=Decimal(parsed_data.income_amount),
     )
