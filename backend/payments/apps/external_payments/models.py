@@ -12,9 +12,14 @@ class PaymentService(models.Model):
 
 
 class BalanceServiceMap(models.Model):
-    payment_id = models.UUIDField(primary_key=True, editable=False, db_index=True)
+    class OperationType(models.TextChoices):
+        PAYOUT = ('PO', 'PAYOUT')
+        PAYMENT = ('PM', 'PAYMENT')
+
+    payment_id = models.CharField(editable=False, max_length=70)
     service_id = models.ForeignKey(PaymentService, on_delete=models.PROTECT)
     balance_change_id = models.ForeignKey(BalanceChange, on_delete=models.PROTECT)
+    operation_type = models.CharField(max_length=20, choices=OperationType.choices)
 
     def __str__(self):
         return f'{self.payment_id}'
