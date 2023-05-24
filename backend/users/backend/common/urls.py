@@ -1,7 +1,8 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from common.views.v1.views import CountryViewSet, ContactTypeViewSet
+from common.views.v1.contenttype_view import ContactTypeViewSet
+from common.views.v1.countrylist_view import CountryViewSet
 from common.views.v1.logout_view import JWTLogoutView
 
 
