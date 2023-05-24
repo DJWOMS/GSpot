@@ -7,11 +7,10 @@ from django.test import TestCase
 from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
 
-from administrator.models import Admin, AdminGroup, AdminPermission
+from administrator.models import Admin, AdminGroup
 from base.models import BaseAbstractUser
 from base.permissions import BaseUserPermissions
 from base.validators import BaseUserValidation
-from common.permissions.exceptions import BannedUserError
 from common.permissions.permissons import (
     IsAdminSuperUserPerm,
     IsCompanySuperUserPerm,
@@ -66,7 +65,7 @@ class TestValidators(TestCase):
     def test_020_banned_user_validator(self):
         user = mock.create_autospec(BaseAbstractUser)
         user.is_banned = True
-        with self.assertRaises(BannedUserError):
+        with self.assertRaises(ValidationError):
             BannedUserValidatorVerify().validate(user)
         user.is_banned = False
         BannedUserValidatorVerify().validate(user)
