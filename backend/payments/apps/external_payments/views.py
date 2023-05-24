@@ -6,6 +6,7 @@ from rest_framework.response import Response
 
 from .schemas import YookassaPaymentResponse
 from .serializers import YookassaPaymentAcceptanceSerializer
+from .services.check_yookassa_response import check_yookassa_response
 from .services.payment_acceptance import proceed_payment_response
 
 
@@ -13,6 +14,20 @@ class YookassaPaymentAcceptanceView(CreateAPIView):
     serializer_class = YookassaPaymentAcceptanceSerializer
 
     def post(self, request, *args, **kwargs):
+        yookassa_object = request.data.get('object')
+        if yookassa_object is None:
+            rollbar.report_message(
+                'Response not from yookassa.',
+                'warning',
+            )
+            return Response(404)
+        if not check_yookassa_response(yookassa_object):
+            rollbar.report_message(
+                'Response not from yookassa.',
+                'warning',
+            )
+            return Response(404)
+
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
             rollbar.report_message(
