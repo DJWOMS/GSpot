@@ -27,7 +27,7 @@ from developer.models import CompanyUser, Company, DeveloperGroup, DeveloperPerm
 
 
 class TestBasePermissions(TestCase):
-    @patch.object(BaseUserPermissions, '_verify')
+    @patch.object(BaseUserPermissions, 'verify')
     def test_010_base_permission(self, mock_verify: MagicMock):
         mock_verify.return_value = True
         view = MagicMock()
@@ -36,7 +36,7 @@ class TestBasePermissions(TestCase):
         mock_verify.return_value = False
         self.assertFalse(BaseUserPermissions().has_permission(request, view))
 
-    @patch.object(BaseUserValidation, '_verify')
+    @patch.object(BaseUserValidation, 'verify')
     def test_020_base_validators(self, mock_verify: MagicMock):
         mock_verify.return_value = True
         user = MagicMock()

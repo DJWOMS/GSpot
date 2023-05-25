@@ -7,7 +7,7 @@ from rest_framework.exceptions import ValidationError
 class AbstractUserVerify:
     """Common abstract class for user verification"""
 
-    def _verify(self, user: AbstractUser) -> bool:
+    def verify(self, user: AbstractUser) -> bool:
         """check user verification by condition"""
         raise NotImplementedError
 
@@ -30,9 +30,9 @@ class BaseUserValidation(AbstractUserValidation):
         if message:
             self.error_message = message
 
-    def _verify(self, user: AbstractUser) -> bool:
+    def verify(self, user: AbstractUser) -> bool:
         raise NotImplementedError
 
     def validate(self, user):
-        if not self._verify(user):
+        if not self.verify(user):
             raise self.exception(self.error_message)

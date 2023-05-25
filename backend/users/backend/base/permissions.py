@@ -5,4 +5,4 @@ from base.validators import AbstractUserVerify
 
 class BaseUserPermissions(AbstractUserVerify, BasePermission):
     def has_permission(self, request, view):
-        return self._verify(request.user)
+        return self.verify(request.user)
