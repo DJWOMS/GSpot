@@ -14,9 +14,7 @@ def proceed_payment_response(income_data, payment_service: PaymentServices) -> b
         parsed_data = YookassaService(income_data).handel_payment_response()
     if parsed_data is None:
         return False
-    
     add_to_db_payout_info(parsed_data, income_data)
-    
     if parsed_data.invoice is None:
         return True
 
