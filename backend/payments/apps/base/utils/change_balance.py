@@ -30,7 +30,7 @@ def increase_user_balance(
     *,
     balance_change_object: BalanceChange,
     amount: Decimal,
-) -> None:
+) -> BalanceChange:
     with transaction.atomic():
         balance_change_object.is_accepted = True
         balance_change_object.amount = amount
@@ -47,9 +47,10 @@ def increase_user_balance(
         ),
         'info',
     )
+    return balance_change_object
 
 
-def decrease_user_balance(*, account: Account, amount: Decimal):
+def decrease_user_balance(*, account: Account, amount: Decimal) -> BalanceChange:
     with transaction.atomic():
         balance_change_object = BalanceChange.objects.create(
             account_id=account,
@@ -69,3 +70,4 @@ def decrease_user_balance(*, account: Account, amount: Decimal):
         ),
         'info',
     )
+    return balance_change_object

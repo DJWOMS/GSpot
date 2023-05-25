@@ -1,6 +1,7 @@
-import rollbar
-from apps.base.exceptions import AttemptsLimitExceededError
+from apps.base.classes import DRFtoDataClassMixin
+from apps.base.exceptions import AttemptsLimitExceededError, DifferentStructureError
 from apps.base.utils.db_query import multiple_select_or_404
+from apps.external_payments.schemas import YookassaPayoutModel
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
@@ -20,19 +21,13 @@ from .services.payment_commission import calculate_payment_with_commission
 from .services.payout import PayoutProcessor
 
 
-class CalculatePaymentCommissionView(CreateAPIView):
+class CalculatePaymentCommissionView(CreateAPIView, DRFtoDataClassMixin):
     serializer_class = serializers.PaymentCommissionSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
         try:
-            commission_data = CommissionCalculationInfo(**serializer.validated_data)
-        except KeyError as error:
-            rollbar.report_message(
-                f'Schemas and serializers got different structure. Got next error: {str(error)}'
-                'error',
-            )
+            commission_data = self.convert_data(request, CommissionCalculationInfo)
+        except DifferentStructureError:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         amount_with_commission = calculate_payment_with_commission(
@@ -42,42 +37,36 @@ class CalculatePaymentCommissionView(CreateAPIView):
         return Response({'amount with commission': amount_with_commission})
 
 
-class BalanceIncreaseView(CreateAPIView):
+class BalanceIncreaseView(CreateAPIView, DRFtoDataClassMixin):
     serializer_class = serializers.BalanceIncreaseSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
         try:
-            balance_increase_data = BalanceIncreaseData(
-                **serializer.validated_data,
-            )
-        except KeyError as error:
-            rollbar.report_message(
-                f'Schemas and serializers got different structure. Got next error: {str(error)}',
-                'error',
-            )
+            balance_increase_data = self.convert_data(request, BalanceIncreaseData)
+        except DifferentStructureError:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         confirmation_url = request_balance_deposit_url(balance_increase_data)
-
         return Response(
             {'confirmation_url': confirmation_url},
             status=status.HTTP_201_CREATED,
         )
 
 
-class UserAccountAPIView(CreateAPIView):
+class UserAccountAPIView(CreateAPIView, DRFtoDataClassMixin):
     serializer_class = serializers.AccountSerializer
 
 
-class PayoutView(viewsets.ViewSet):
+class PayoutView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.PayoutSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        pre_payout_processor = PayoutProcessor(serializer.validated_data)
+        try:
+            payout_data = self.convert_data(request, YookassaPayoutModel)
+        except DifferentStructureError:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        pre_payout_processor = PayoutProcessor(payout_data)
         try:
             response = pre_payout_processor.create_payout()
         except (

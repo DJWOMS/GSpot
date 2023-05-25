@@ -3,7 +3,7 @@
         "model": "external_payments.paymentservice",
         "pk": 1,
         "fields": {
-            "name": "Yookassa"
+            "name": "yookassa"
         }
     }
 ]
