@@ -1,7 +1,7 @@
 from rest_framework import generics
 
 from administrator.serializers.v1.employee_crud import EmployeeCreateUpdateSerializer
-from common.permissons import CompanyOwner
+from common.permissions.permissons import CompanyOwnerPerm
 from developer.models import CompanyUser
 from developer.serializers.v1.employee_crud import (
     DeveloperEmployeeListSerializer,
@@ -11,7 +11,7 @@ from developer.serializers.v1.employee_crud import (
 
 
 class DeveloperEmployeeListView(generics.ListCreateAPIView):
-    permission_classes = [CompanyOwner]
+    permission_classes = [CompanyOwnerPerm]
 
     def get_queryset(self):
         return CompanyUser.objects.filter(company=self.request.user.company_owner).exclude(
@@ -31,7 +31,7 @@ class DeveloperEmployeeListView(generics.ListCreateAPIView):
 
 
 class DeveloperEmployeeDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [CompanyOwner]
+    permission_classes = [CompanyOwnerPerm]
 
     def get_queryset(self):
         return CompanyUser.objects.filter(company=self.request.user.company_owner).exclude(

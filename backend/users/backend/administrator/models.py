@@ -19,11 +19,13 @@ class AdminPermissionMixin(BasePermissionMixin):
     def has_perm(self, perm, obj=None):
         if self.is_active and self.is_superuser:
             return True
-
-        queryset = self.user_permissions.filter(codename=perm) | AdminPermission.objects.filter(
+        user_perm = self.user_permissions.filter(codename=perm) | AdminPermission.objects.filter(
             admingroup__admin=self, codename=perm
         )
-        return queryset.exists()
+        dev_perm = self.developer_permissions.filter(
+            codename=perm
+        ) | DeveloperPermission.objects.filter(developergroup__admin=self, codename=perm)
+        return user_perm.exists() or dev_perm.exists()
 
     def get_all_permissions(self, obj=None):
         return self.user_permissions.all() | AdminPermission.objects.filter(admingroup__admin=self)
