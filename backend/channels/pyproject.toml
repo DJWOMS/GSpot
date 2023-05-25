@@ -15,10 +15,6 @@ python = "^3.11"
 fastapi = {extras = ["all"], version = "^0.95.1"}
 jinja2 = "^3.1.2"
 uvicorn = {extras = ["standard"], version = "^0.22.0"}
-<<<<<<< HEAD
-redis = "^4.5.4"
-motor = "^3.1.2"
-=======
 redis = "4.5.4"
 aio_pika = "8.1.1"
 aiormq = "6.4.2"
@@ -37,8 +33,6 @@ attr = "0.3.2"
 attrs = "23.1.0"
 aiohttp = "3.8.4"
 bson = "0.5.10"
-
->>>>>>> 72afe9f55340e1a522f8b7a2d06b62870dbd522f
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.263"
