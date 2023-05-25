@@ -10,7 +10,7 @@ from ..schemas import RefundData
 class RefundProcessor:
     def __init__(self, refund_data: RefundData):
         self.user_uuid = refund_data.user_uuid
-        self.item_uuid = refund_data.offer_uuid
+        self.item_uuid = refund_data.item_uuid
         self._validate_income_data()
 
     def _validate_income_data(self):
@@ -20,16 +20,21 @@ class RefundProcessor:
             raise Account.DoesNotExist('This user does not exist.')
 
         try:
-            self.item_purchase = ItemPurchase.objects.filter(
+            self.item_purchase = ItemPurchase.objects.get(
                 account_to=self.user_account,
                 item_uuid=self.item_uuid,
-            ).last()
+                status=ItemPurchase.ItemPurchaseStatus.PENDING,
+            )
         except ItemPurchase.DoesNotExist:
             raise ItemPurchase.DoesNotExist('No such product in this user.')
 
         invoice = Invoice.objects.get(item_purchases=self.item_purchase)
+        invoice = self.item_purchase.invoice_set.all()
 
-        if self.item_purchase.status != 'PENDING' or invoice.is_paid is not True:
+        if (
+            self.item_purchase.status != ItemPurchase.ItemPurchaseStatus.PENDING
+            or invoice.is_paid is not True
+        ):
             raise RefundNotAllowedError
 
     def take_refund(self):

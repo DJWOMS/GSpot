@@ -55,10 +55,7 @@ class RefundView(viewsets.ViewSet):
         serializer.is_valid(raise_exception=True)
 
         try:
-            income_data = from_dict(
-                RefundData,
-                serializer.validated_data,
-            )
+            income_data = RefundData(**serializer.validated_data)
         except MissingValueError as error:
             rollbar.report_message(
                 f'Schemas and serializers got different structure. Got next error: {str(error)}',
@@ -67,12 +64,7 @@ class RefundView(viewsets.ViewSet):
 
         try:
             refund_process = RefundProcessor(income_data)
-        except Account.DoesNotExist as error:
-            return Response(
-                {'detail': str(error)},
-                status=status.HTTP_404_NOT_FOUND,
-            )
-        except ItemPurchase.DoesNotExist as error:
+        except (ItemPurchase.DoesNotExist, Account.DoesNotExist) as error:
             return Response(
                 {'detail': str(error)},
                 status=status.HTTP_404_NOT_FOUND,
@@ -80,7 +72,7 @@ class RefundView(viewsets.ViewSet):
         except RefundNotAllowedError as error:
             return Response(
                 {'detail': str(error)},
-                status=status.HTTP_403_FORBIDDEN,
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
         refund_process.take_refund()

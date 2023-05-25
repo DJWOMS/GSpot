@@ -1,14 +1,15 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from decimal import Decimal
 from uuid import UUID
 
-from apps.base.schemas import URL, EnumCurrencies, PaymentServiceInfo
+from apps.base.schemas import URL, MoneyDataClass, PaymentServiceInfo
+from dataclasses_json import config
 
 
 @dataclass
 class ItemPaymentData:
     item_uuid: UUID
-    price: Decimal
+    price: MoneyDataClass
     developer_uuid: UUID
 
 
@@ -18,14 +19,13 @@ class PurchaseItemsData(PaymentServiceInfo):
     user_uuid_to: UUID
     return_url: URL
     items_payment_data: list[ItemPaymentData]
-    price_with_commission: Decimal
-    currency: EnumCurrencies
+    price_with_commission: MoneyDataClass
 
     def items_total_price(self) -> Decimal:
-        return sum(item_payment_data.price for item_payment_data in self.items_payment_data)
+        return sum(item_payment_data.price.amount for item_payment_data in self.items_payment_data)
 
 
 @dataclass
 class RefundData:
     user_uuid: UUID
-    offer_uuid: UUID
+    item_uuid: str = field(metadata=config(field_name='offer_uuid'))

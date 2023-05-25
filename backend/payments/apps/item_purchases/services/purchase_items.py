@@ -15,6 +15,7 @@ from apps.payment_accounts.services.payment_commission import (
 )
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.shortcuts import get_object_or_404
 
 from ..models import Invoice, ItemPurchase, ItemPurchaseHistory
 from ..schemas import ItemPaymentData, PurchaseItemsData
@@ -79,7 +80,10 @@ class ItemPurchaseRequest:
             )
 
     def _is_enough_funds(self):
-        return self.user_account.balance.amount >= self.purchase_items_data.price_with_commission
+        return (
+            self.user_account.balance.amount
+            >= self.purchase_items_data.price_with_commission.amount
+        )
 
     def _is_invoice_price_correct(self):
         items_sum_price = self.purchase_items_data.items_total_price()
@@ -90,7 +94,7 @@ class ItemPurchaseRequest:
                 self.purchase_items_data.payment_type,
                 items_sum_price,
             )
-        return compare_price == self.purchase_items_data.price_with_commission
+        return compare_price == self.purchase_items_data.price_with_commission.amount
 
     def _is_developers_exists(self):
         developers_list = [
@@ -123,13 +127,12 @@ class InvoiceCreator:
             item_purchase = self.create_item_purchase_instance(
                 self.payer_account,
                 self.income_data.user_uuid_to,
-                self.income_data.currency,
                 item_payment_data,
             )
             list_of_item_purchase.append(item_purchase)
         money_data = (
-            self.income_data.price_with_commission,
-            self.income_data.currency.value,
+            self.income_data.price_with_commission.amount,
+            self.income_data.price_with_commission.currency.value,
         )
         invoice = Invoice.objects.create(
             price_with_commission=money_data,
@@ -142,17 +145,15 @@ class InvoiceCreator:
     def create_item_purchase_instance(
         payer_account: Account,
         receiver_account: UUID,
-        currency: str,
         item_payment_data: ItemPaymentData,
     ) -> ItemPurchase:
         developer_acc = Account.objects.get(user_uuid=item_payment_data.developer_uuid)
-        account_to, _ = Account.objects.get_or_create(
-            user_uuid=receiver_account,
-        )
+        account_to = get_object_or_404(Account, user_uuid=receiver_account)
         money_data = (
-            item_payment_data.price,
-            currency.value,
+            item_payment_data.price.amount,
+            item_payment_data.price.currency.value,
         )
+
         item_purchase = ItemPurchase.objects.create(
             account_from=payer_account,
             account_to=account_to,
