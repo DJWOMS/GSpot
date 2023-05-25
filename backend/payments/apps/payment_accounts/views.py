@@ -1,4 +1,4 @@
-from apps.base.classes import DRFtoDataClassConverter
+from apps.base.classes import DRFtoDataClassMixin
 from apps.base.exceptions import AttemptsLimitExceededError, DifferentStructureError
 from apps.base.utils.db_query import multiple_select_or_404
 from apps.external_payments.schemas import YookassaPayoutModel
@@ -21,7 +21,7 @@ from .services.payment_commission import calculate_payment_with_commission
 from .services.payout import PayoutProcessor
 
 
-class CalculatePaymentCommissionView(CreateAPIView, DRFtoDataClassConverter):
+class CalculatePaymentCommissionView(CreateAPIView, DRFtoDataClassMixin):
     serializer_class = serializers.PaymentCommissionSerializer
 
     def post(self, request, *args, **kwargs):
@@ -37,7 +37,7 @@ class CalculatePaymentCommissionView(CreateAPIView, DRFtoDataClassConverter):
         return Response({'amount with commission': amount_with_commission})
 
 
-class BalanceIncreaseView(CreateAPIView, DRFtoDataClassConverter):
+class BalanceIncreaseView(CreateAPIView, DRFtoDataClassMixin):
     serializer_class = serializers.BalanceIncreaseSerializer
 
     def post(self, request, *args, **kwargs):
@@ -53,11 +53,11 @@ class BalanceIncreaseView(CreateAPIView, DRFtoDataClassConverter):
         )
 
 
-class UserAccountAPIView(CreateAPIView, DRFtoDataClassConverter):
+class UserAccountAPIView(CreateAPIView, DRFtoDataClassMixin):
     serializer_class = serializers.AccountSerializer
 
 
-class PayoutView(viewsets.ViewSet, DRFtoDataClassConverter):
+class PayoutView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.PayoutSerializer
 
     def create(self, request, *args, **kwargs):

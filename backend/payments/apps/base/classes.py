@@ -28,7 +28,7 @@ class AbstractPayoutService(ABC):
         pass
 
 
-class DRFtoDataClassConverter:
+class DRFtoDataClassMixin:
     def convert_data(self, request, dataclass_model):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
