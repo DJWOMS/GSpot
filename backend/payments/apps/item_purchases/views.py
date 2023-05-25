@@ -23,6 +23,8 @@ class PurchaseItemView(viewsets.ViewSet):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
+            # TODO after pydantic implementation # noqa: T000
+            #  we could use class DRFtoDataClassConverter
             income_data = from_dict(
                 PurchaseItemsData,
                 serializer.validated_data,

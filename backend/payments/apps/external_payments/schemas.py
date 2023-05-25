@@ -15,6 +15,7 @@ class YookassaPaymentStatuses(enum.Enum):
     canceled = 'payment.canceled'
     waiting_for_capture = 'payment.waiting_for_capture'
     refund_succeeded = 'refund.succeeded'
+    payout_succeeded = 'succeeded'
 
 
 @dataclass
@@ -91,7 +92,7 @@ class PayoutDestination(BaseModel):
     type_: PayOutMethod = Field(
         alias='type',
     )
-    account_number: int
+    account_number: str
 
     class Config:
         allow_population_by_field_name = True
@@ -100,3 +101,4 @@ class PayoutDestination(BaseModel):
 class YookassaPayoutModel(BaseModel):
     amount: AmountModel
     payout_destination_data: PayoutDestination
+    user_uuid: UUID
