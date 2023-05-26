@@ -20,5 +20,5 @@ class MongoManager:
         except Exception as e:
             print(e)
 
-
 db = MongoManager()
+

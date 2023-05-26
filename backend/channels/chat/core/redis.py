@@ -12,4 +12,4 @@ class RedisManager:
     pubsub: PubSub
 
 
-redis = RedisManager()
+redis_manager = RedisManager()

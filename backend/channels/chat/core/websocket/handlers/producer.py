@@ -2,7 +2,6 @@ from fastapi import WebSocket
 import sys
 from core.websocket.request import WebsocketRequest
 from pydantic.error_wrappers import ValidationError
-from json.decoder import JSONDecodeError
 
 
 class ProducerHandler:
@@ -17,6 +16,8 @@ class ProducerHandler:
         try:
             request = WebsocketRequest.parse_obj(data)
             await chat.handle(request, self.websocket)
+            await chat.handle(request)
+
         except ValidationError as e:
             errors = {f'{x["loc"]}': f'{x["msg"]}' for x in e.errors()}
             await self.websocket.send_json(errors)

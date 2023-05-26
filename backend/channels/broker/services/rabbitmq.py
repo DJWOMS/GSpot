@@ -15,13 +15,6 @@ class RabbitManager:
         },
     }
 
-    DEFAULT_QUEUE_PARAMETERS = {
-        "durable": True,
-        "arguments": {
-            "x-queue-type": "classic",
-        },
-    }
-
     def status(self) -> bool:
         if self.connection.is_closed or self.channel.is_closed:
             return False

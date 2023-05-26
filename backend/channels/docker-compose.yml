@@ -62,5 +62,6 @@ networks:
   rabbitmq_net:
     external: true
 
+
 volumes:
   mongodb_data:

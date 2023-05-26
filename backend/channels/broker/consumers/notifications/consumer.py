@@ -15,6 +15,5 @@ class NotificationConsumer(RabbitMQConsumer):
 
     async def process_message(self, orig_message: IncomingMessage):
         async with orig_message.process():
-            await self.insert_message(orig_message.body)
             print(orig_message)
-        # logger.info(orig_message.body)
+
