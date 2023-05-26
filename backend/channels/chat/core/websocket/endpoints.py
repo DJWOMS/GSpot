@@ -1,8 +1,4 @@
-import json
-
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends
-from core.websocket.handlers.connection import ConnectionContextManager
-from core.websocket.handlers.producer import ProducerHandler
+from fastapi import Depends
 from src.middlewares import get_token
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
@@ -30,16 +26,4 @@ async def websocket_handler(websocket: WebSocket, token: str = Depends(get_token
             except RuntimeError:
                 break
             except WebSocketDisconnect:
-
-@ws.websocket('/ws')
-async def websocket_handler(websocket: WebSocket):
-    async with ConnectionContextManager(user_id='token[:10]', websocket=websocket) as service:
-        producer = ProducerHandler(websocket)
-        while True:
-            try:
-                data = await websocket.receive_json()
-                await producer.handle_event(data)
-            except WebSocketDisconnect:
-                break
-            except RuntimeError:
                 break

@@ -47,12 +47,13 @@ The second service is a chat, which serves to receive a websocket connection fro
 
 ### Built With
 
-* Rabbitmq 
-* Redis
-* MongoDB
-* FastAPI
-* Docker
-* Python 3.11
+* Rabbitmq 3.10
+* Redis 7.0
+* MongoDB 7.0
+* FastAPI 0.95
+* Docker 20.10
+* docker-compose 2.2.1
+* Python 3.11 
 
 <!-- GETTING STARTED -->
 ## Getting Started
