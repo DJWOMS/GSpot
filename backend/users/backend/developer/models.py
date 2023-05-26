@@ -20,13 +20,13 @@ class DeveloperPermission(BasePermission):
 class DeveloperPermissionMixin(BasePermissionMixin):
     def has_perm(self, perm, obj=None):
         queryset = self.user_permissions.filter(codename=perm) | DeveloperPermission.objects.filter(
-            developergroup__developer=self, codename=perm
+            developergroup__companyuser=self, codename=perm
         )
         return queryset.exists()
 
     def get_all_permissions(self, obj=None):
         return self.user_permissions.all() | DeveloperPermission.objects.filter(
-            developergroup__developer=self
+            developergroup__companyuser=self
         )
 
     class Meta:

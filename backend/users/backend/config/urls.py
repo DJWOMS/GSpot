@@ -1,6 +1,9 @@
 from django.urls import path, include
 
 from .yasg import urlpatterns as yasg_doc
+from developer.urls import urlpatterns as develop_url
+from administrator.urls import urlpatterns as admin_url
+from customer.urls import urlpatterns as customer_url
 
 v1 = [
     path('admin/', include('administrator.urls')),
@@ -14,3 +17,6 @@ urlpatterns = [
 ]
 
 urlpatterns += yasg_doc
+urlpatterns += admin_url
+urlpatterns += develop_url
+urlpatterns += customer_url

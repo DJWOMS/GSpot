@@ -9,13 +9,13 @@ from administrator.serializers.v1.employee_crud import (
     EmployeeRetrieveSerializer,
     EmployeeSendEmailSerializer,
 )
-from common.permissons import IsAdminSuperUser
+from common.permissions.permissons import IsAdminSuperUserPerm
 
 
 class EmployeeListView(generics.ListCreateAPIView):
     queryset = Admin.objects.filter(is_superuser=False)
     permission_classes = [
-        IsAdminSuperUser,
+        IsAdminSuperUserPerm,
     ]
 
     def get_serializer_class(self):
@@ -28,7 +28,7 @@ class EmployeeListView(generics.ListCreateAPIView):
 class EmployeeDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Admin.objects.filter(is_superuser=False)
     permission_classes = [
-        IsAdminSuperUser,
+        IsAdminSuperUserPerm,
     ]
 
     def get_serializer_class(self):
@@ -42,7 +42,7 @@ class EmployeeDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 class EmployeeSendEmail(APIView):
     permission_classes = [
-        IsAdminSuperUser,
+        IsAdminSuperUserPerm,
     ]
 
     serializer_class = EmployeeSendEmailSerializer

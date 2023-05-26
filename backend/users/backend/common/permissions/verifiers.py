@@ -1,78 +1,58 @@
 from administrator.models import Admin
-from base.validators import VerificationError, BaseUserValidation, AbstractUserVerify
+from base.validators import AbstractUserVerify
 from customer.models import CustomerUser
 from developer.models import CompanyUser, Company
 
 
-class IsActiveUser(AbstractUserVerify):
+class IsActiveUserVerify(AbstractUserVerify):
     def verify(self, user):
         return user.is_active
 
 
-class NotBannedUser(AbstractUserVerify):
+class NotBannedUserVerify(AbstractUserVerify):
     def verify(self, user):
         return not user.is_banned
 
 
-class IsAdminSuperUser(AbstractUserVerify):
+class IsAdminSuperUserVerify(AbstractUserVerify):
     def verify(self, user):
         if isinstance(user, Admin):
             return user.is_superuser
         return False
 
 
-class IsCompanySuperUser(AbstractUserVerify):
+class IsCompanySuperUserVerify(AbstractUserVerify):
     def verify(self, user):
         if isinstance(user, CompanyUser):
             return user.is_superuser
         return False
 
 
-class AdminScopeUser(AbstractUserVerify):
+class AdminScopeUserVerify(AbstractUserVerify):
     def verify(self, user) -> bool:
         return isinstance(user, Admin)
 
 
-class CompanyScopeUser(AbstractUserVerify):
+class CompanyScopeUserVerify(AbstractUserVerify):
     def verify(self, user) -> bool:
         return isinstance(user, CompanyUser)
 
 
-class CustomerScopeUser(AbstractUserVerify):
+class CustomerScopeUserVerify(AbstractUserVerify):
     def verify(self, user) -> bool:
         return isinstance(user, CustomerUser)
 
 
-class CompanyOwner(AbstractUserVerify):
+class CompanyOwnerVerify(AbstractUserVerify):
     def verify(self, user) -> bool:
         if isinstance(user, CompanyUser):
             return Company.objects.filter(created_by=user).exists()
         return False
 
 
-class CompanyEmployee(AbstractUserVerify):
+class CompanyEmployeeVerify(AbstractUserVerify):
     def verify(self, user):
         if isinstance(user, CompanyUser):
             if user.company:
                 return user.company.created_by != user
         return False
-
-
-class NotActiveUserError(VerificationError):
-    message = 'not active user'
-
-
-class ActiveUserVerify(BaseUserValidation, IsActiveUser):
-    """User Active Verification"""
-
-    exception = NotActiveUserError
-
-
-class BannedUserError(VerificationError):
-    message = 'user is  banned'
-
-
-class BannedUserVerify(BaseUserValidation, NotBannedUser):
-    """Banned User Verification"""
-
-    exception = BannedUserError
