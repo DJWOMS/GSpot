@@ -11,8 +11,6 @@ services:
       - ./init/definitions.json:/etc/rabbitmq/definitions.json:ro
     networks:
         - rabbitmq_net
-    env_file:
-      - .env.dev
 
 networks:
   rabbitmq_net:
