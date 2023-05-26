@@ -1,9 +1,8 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from decimal import Decimal
 from uuid import UUID
 
 from apps.base.schemas import URL, MoneyDataClass, PaymentServiceInfo
-from dataclasses_json import config
 
 
 @dataclass
@@ -28,4 +27,4 @@ class PurchaseItemsData(PaymentServiceInfo):
 @dataclass
 class RefundData:
     user_uuid: UUID
-    item_uuid: str = field(metadata=config(field_name='offer_uuid'))
+    item_uuid: UUID

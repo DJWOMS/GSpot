@@ -29,7 +29,6 @@ class RefundProcessor:
             raise ItemPurchase.DoesNotExist('No such product in this user.')
 
         invoice = Invoice.objects.get(item_purchases=self.item_purchase)
-        invoice = self.item_purchase.invoice_set.all()
 
         if (
             self.item_purchase.status != ItemPurchase.ItemPurchaseStatus.PENDING

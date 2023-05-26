@@ -21,7 +21,7 @@ class InvoiceExecution:
         self.invoice_success_status = True
 
     def process_item_purchase(self, invoice_item_purchase: ItemPurchase) -> None:
-        invoice_item_purchase.status = 'PENDING'
+        invoice_item_purchase.status = ItemPurchase.ItemPurchaseStatus.PENDING
         invoice_item_purchase.save()
 
         task_execution_datetime = self.get_item_purchase_execution_date_time(

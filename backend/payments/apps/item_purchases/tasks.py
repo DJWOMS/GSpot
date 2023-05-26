@@ -4,6 +4,7 @@ from apps.base.utils.change_balance import increase_user_balance
 from apps.payment_accounts.models import Owner
 from config.celery import app
 from django.conf import settings
+from django.db import transaction
 from requests.exceptions import RequestException
 
 from .models import ItemPurchase, TransferHistory
@@ -19,25 +20,29 @@ def get_item_for_self_user(item_purchase_id: int):
     developer_income = item_purchase.item_price.amount * ((100 - owner.commission) / 100)
     owner_income = item_purchase.item_price.amount * owner.commission / 100
 
-    owner.withdraw_revenue(pk=owner.id, amount=item_purchase.item_price.amount)
+    with transaction.atomic():
+        owner.withdraw_revenue(pk=owner.id, amount=item_purchase.item_price.amount)
 
-    TransferHistory.objects.create(
-        account_to=developer,
-        amount=developer_income,
-    )
-    TransferHistory.objects.create(
-        account_to=owner,
-        amount=owner_income,
-    )
+        TransferHistory.objects.create(
+            account_to=developer,
+            amount=developer_income,
+        )
+        TransferHistory.objects.create(
+            account_to=owner,
+            amount=owner_income,
+        )
 
-    increase_user_balance(
-        account=developer,
-        amount=developer_income,
-    )
-    owner.deposit_income(
-        pk=owner.id,
-        amount=owner_income,
-    )
+        increase_user_balance(
+            account=developer,
+            amount=developer_income,
+        )
+        owner.deposit_income(
+            pk=owner.id,
+            amount=owner_income,
+        )
+
+        item_purchase.status = ItemPurchase.ItemPurchaseStatus.PAID
+        item_purchase.save()
 
     user = item_purchase.account_to
     refund_data = {'user': str(user.user_uuid), 'offer_uuid': str(item_purchase.item_uuid)}
@@ -55,9 +60,6 @@ def get_item_for_self_user(item_purchase_id: int):
             f'{error}',
             level='error',
         )
-
-    item_purchase.status = ItemPurchase.ItemPurchaseStatus.PAID
-    item_purchase.save()
 
 
 @app.task

@@ -1,8 +1,7 @@
-import rollbar
-from apps.base.exceptions import AttemptsLimitExceededError
+from apps.base.classes import DRFtoDataClassMixin
+from apps.base.exceptions import AttemptsLimitExceededError, DifferentStructureError
 from apps.payment_accounts.exceptions import InsufficientFundsError
 from apps.payment_accounts.models import Account
-from dacite import MissingValueError, from_dict
 from django.core.exceptions import ValidationError
 from django.http import Http404
 from rest_framework import status, viewsets
@@ -16,25 +15,15 @@ from .services.purchase_items import ItemPurchaseRequest
 from .services.refund import RefundProcessor
 
 
-class PurchaseItemView(viewsets.ViewSet):
+class PurchaseItemView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = PurchaseItemsSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
         try:
-            # TODO after pydantic implementation # noqa: T000
-            #  we could use class DRFtoDataClassConverter
-            income_data = from_dict(
-                PurchaseItemsData,
-                serializer.validated_data,
-            )
-        except MissingValueError as error:
-            rollbar.report_message(
-                f'Schemas and serializers got different structure. Got next error: {str(error)}',
-                'error',
-            )
+            income_data = self.convert_data(request, PurchaseItemsData)
+        except DifferentStructureError:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
         try:
             item_purchase_request = ItemPurchaseRequest(income_data)
         except (InsufficientFundsError, ValidationError, AttemptsLimitExceededError) as error:
@@ -49,20 +38,14 @@ class PurchaseItemView(viewsets.ViewSet):
         return Response({'response': response}, status=status.HTTP_200_OK)
 
 
-class RefundView(viewsets.ViewSet):
+class RefundView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = RefundSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
         try:
-            income_data = RefundData(**serializer.validated_data)
-        except MissingValueError as error:
-            rollbar.report_message(
-                f'Schemas and serializers got different structure. Got next error: {str(error)}',
-                'error',
-            )
+            income_data = self.convert_data(request, RefundData)
+        except DifferentStructureError:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         try:
             refund_process = RefundProcessor(income_data)
