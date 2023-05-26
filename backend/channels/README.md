@@ -47,11 +47,12 @@ The second service is a chat, which serves to receive a websocket connection fro
 
 ### Built With
 
-* Rabbitmq 
-* Redis
-* MongoDB
-* FastAPI
-* Docker
+* Rabbitmq 3.10
+* Redis 7.0
+* MongoDB 7.0
+* FastAPI 0.95
+* Docker 20.10
+* docker-compose 2.2.1
 * Python 3.11
 
 <!-- GETTING STARTED -->
@@ -92,7 +93,8 @@ For the first launch, be sure to build the databus service. For all subsequent l
 ## Errors
 If you saw in the console  
 `network rabbitmq_net declared as external, but could not be found`,  you need to repeat  <a href="#installation"> the first paragraph of the instruction </a>
-
+`ERROR: The Compose file './docker-compose.yml' is invalid because:
+networks.rabbitmq_net value Additional properties are not allowed ('name' was unexpected)`
 
 
 
