@@ -13,6 +13,7 @@
     "test:ci": "jest --ci",
     "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
     "e2e:ci": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\""
+    "e2e:ci": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\""
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
@@ -40,7 +41,9 @@
     "@testing-library/user-event": "^14.4.3",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "@types/node": "18.14.6",
+    "@types/node": "18.14.6",
     "@types/qs": "^6.9.7",
+    "@types/react": "18.0.28",
     "@types/react": "18.0.28",
     "@types/react-datepicker": "^4.10.0",
     "@types/react-dom": "18.0.11",
@@ -51,6 +54,7 @@
     "eslint": "^8.35.0",
     "eslint-config-next": "^13.4.1",
     "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
