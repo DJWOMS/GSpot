@@ -26,11 +26,11 @@ def parse_model_instance(
     return django_model_instance
 
 
-def increase_user_balance(
+def edit_change_balance(
     *,
     balance_change_object: BalanceChange,
     amount: Decimal,
-) -> BalanceChange:
+) -> None:
     with transaction.atomic():
         balance_change_object.is_accepted = True
         balance_change_object.amount = amount
@@ -47,10 +47,31 @@ def increase_user_balance(
         ),
         'info',
     )
-    return balance_change_object
 
 
-def decrease_user_balance(*, account: Account, amount: Decimal) -> BalanceChange:
+def increase_user_balance(*, account: Account, amount: Decimal):
+    with transaction.atomic():
+        balance_change_object = BalanceChange.objects.create(
+            account_id=account,
+            amount=amount,
+            is_accepted=True,
+            operation_type=BalanceChange.OperationType.DEPOSIT,
+        )
+
+        Account.deposit(
+            pk=account.pk,
+            amount=Decimal(amount),
+        )
+    rollbar.report_message(
+        (
+            f'Deposit {balance_change_object.amount} {settings.DEFAULT_CURRENCY} '
+            f'from user account {balance_change_object.account_id}'
+        ),
+        'info',
+    )
+
+
+def decrease_user_balance(*, account: Account, amount: Decimal):
     with transaction.atomic():
         balance_change_object = BalanceChange.objects.create(
             account_id=account,
@@ -70,4 +91,3 @@ def decrease_user_balance(*, account: Account, amount: Decimal) -> BalanceChange
         ),
         'info',
     )
-    return balance_change_object

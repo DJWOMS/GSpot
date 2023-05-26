@@ -18,6 +18,8 @@ Django image reads settings from environment variables, default settings for tes
 - `POSTGRES_HOST` - host for postgres, if local - localhost, if docker - name of container.
 - `REDIS` - broker for celery, variable in **settings.py -> CELERY_BROKER_URL**.
 - `SUBDOMAIN` - for localtunnel, use it for yookassa.
+- `GAMES_DOMAIN` - game service domain.
+- `GAMES_REFUND` - send message for change frozen status to service games.
 
 ## How to run local-version
 

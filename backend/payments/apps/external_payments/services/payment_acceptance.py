@@ -31,7 +31,7 @@ def add_to_db_payout_info(parsed_data: ResponseParsedData, income_data):
     payment_service, _ = PaymentService.objects.get_or_create(
         name=PaymentServices.yookassa.value,
     )
-    balance_change = change_balance.increase_user_balance(
+    balance_change = change_balance.edit_change_balance(
         balance_change_object=parsed_data.balance_object,
         amount=Decimal(parsed_data.income_amount),
     )
