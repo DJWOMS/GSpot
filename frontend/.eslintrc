@@ -9,7 +9,10 @@
         "plugin:react/recommended",
         "plugin:@next/next/recommended",
         "plugin:@typescript-eslint/recommended",
+<<<<<<< HEAD
         "plugin:react-hooks/recommended",
+=======
+>>>>>>> origin/develop
         "prettier"
     ],
     "overrides": [
@@ -22,8 +25,12 @@
     "plugins": [
         "react",
         "prettier",
+<<<<<<< HEAD
         "@typescript-eslint",
         "react-hooks"
+=======
+        "@typescript-eslint"
+>>>>>>> origin/develop
     ],
     "rules": {
         "react/jsx-key": "error",
