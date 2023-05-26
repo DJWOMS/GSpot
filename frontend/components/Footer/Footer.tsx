@@ -10,10 +10,10 @@ import {
 } from '@tabler/icons-react'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
-import { Container } from 'components/Container'
+import Container from 'components/Container'
 import Image from 'next/image'
 import Link from 'next/link'
-import s from './Footer.module.scss'
+import s from './Footer.module.css'
 
 const Footer = () => {
   return (
@@ -30,7 +30,7 @@ const Footer = () => {
               <a href="#Catalog">Каталог</a>
               <a href="#News">Новости</a>
               <a href="#FAQ">Центр помощи</a>
-              <a href="#Contacts">Контакты</a>
+              <Link href="/contacts">Контакты</Link>
             </nav>
           </div>
 
@@ -64,7 +64,7 @@ const Footer = () => {
             <nav className={s.list}>
               <a href="#">Партнерская программа</a>
               <a href="#">Продажа</a>
-              <a href="#">Условия и положени</a>
+              <a href="#">Условия и положения</a>
               <a href="#">Политика </a>
               <a href="#">Партнерство</a>
             </nav>
@@ -99,7 +99,7 @@ const Footer = () => {
 
         <div className={s.wrapper}>
           <Link className={s.logo} href="/">
-            <Image src={LogoPNG} alt="Logo" loading="eager" />
+            <Image src={LogoPNG} width={496} height={161} alt="Logo" loading="eager" />
           </Link>
           <span>
             © GSpot, 2020—2021

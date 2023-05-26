@@ -1,8 +1,8 @@
 import { FC, MutableRefObject } from 'react'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import cn from 'classnames'
-import { Container } from 'components/Container'
-import s from './Section.module.scss'
+import Container from '../Container'
+import s from './Section.module.css'
 
 interface SectionProps {
   first?: boolean

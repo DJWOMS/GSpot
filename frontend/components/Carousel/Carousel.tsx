@@ -1,20 +1,22 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Autoplay } from 'swiper'
+import { Autoplay, Navigation } from 'swiper'
+import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/scss'
-import { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
-import s from './Carousel.module.scss'
+import type { Swiper as SwiperType, SwiperOptions } from 'swiper/types'
+import s from './Carousel.module.css'
+import CarouselArrow from './CarouselArrow'
 
 interface CarouselProps {
   prevRef?: React.RefObject<HTMLElement>
   nextRef?: React.RefObject<HTMLElement>
+  navigation?: boolean
   breakpoints: SwiperOptions['breakpoints']
   children: Array<React.ReactNode>
 }
 
-const Carousel = ({ prevRef, nextRef, breakpoints, children }: CarouselProps) => {
+const Carousel = ({ prevRef, nextRef, breakpoints, children, navigation }: CarouselProps) => {
   const [swiper, setSwiper] = useState<SwiperType | null>(null)
 
   // event: click prevButton
@@ -54,7 +56,7 @@ const Carousel = ({ prevRef, nextRef, breakpoints, children }: CarouselProps) =>
   return (
     <div className={s.container}>
       <Swiper
-        modules={[Autoplay]}
+        modules={[Autoplay, Navigation]}
         onSwiper={(swiper) => setSwiper(swiper)}
         spaceBetween={30}
         loop={true}
@@ -68,6 +70,7 @@ const Carousel = ({ prevRef, nextRef, breakpoints, children }: CarouselProps) =>
         {children.map((child, index) => (
           <SwiperSlide key={index}>{child}</SwiperSlide>
         ))}
+        {navigation && <CarouselArrow nextClass={s.next} prevClass={s.prev} />}
       </Swiper>
     </div>
   )

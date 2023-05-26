@@ -1,0 +1,26 @@
+.latestWrap {
+  @apply mt-[30px] flex flex-wrap  gap-3 gap-y-4;
+
+  & > *:nth-child(2) {
+    @apply w-1/2;
+  }
+
+  @media (max-width: 1050px) {
+    & > *:nth-child(2) {
+      @apply flex-auto;
+    }
+  }
+}
+.latestNews {
+  @apply w-1/3 first:flex-auto;
+
+  @media (max-width: 1050px) {
+    @apply first:w-full;
+  }
+  @media (max-width: 770px) {
+    @apply w-1/2;
+  }
+  @media (max-width: 635px) {
+    @apply w-full;
+  }
+}

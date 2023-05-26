@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { GameCardInterface } from 'features/games'
+import type { GameCardInterface } from 'features/games/types'
 import { GameCardBig } from './GameCardBig'
 
 describe('GameCardBig', () => {

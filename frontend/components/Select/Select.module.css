@@ -1,0 +1,36 @@
+.select {
+  @apply relative flex h-[30px] w-full cursor-pointer justify-between rounded-md bg-main-30 px-3 text-sm text-white outline-none;
+
+  &Btn {
+    display: none;
+
+    @media (min-width: 1200px) {
+      @apply block h-[30px] w-[30px] bg-transparent p-0;
+      background: url('/svg/arrow2.svg') no-repeat center right;
+      background-size: 12px auto;
+    }
+  }
+}
+
+.options {
+  @apply absolute z-10 mt-1 max-h-60 w-full overflow-auto overflow-x-hidden rounded-xl
+  border border-gray-800 bg-slate-800 text-base sm:text-sm;
+
+  &::-webkit-scrollbar-track {
+    @apply bg-slate-800;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply bg-primary outline-1 outline-main-60;
+  }
+  &::-webkit-scrollbar {
+    @apply w-1;
+  }
+}
+
+.option {
+  @apply relative cursor-default select-none py-2 pl-4 pr-4 text-white;
+
+  &Active {
+    @apply bg-primary;
+  }
+}

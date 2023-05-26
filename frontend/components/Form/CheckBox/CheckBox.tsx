@@ -1,19 +1,19 @@
-import { forwardRef, ForwardRefRenderFunction, useId } from 'react'
-import s from './CheckBox.module.scss'
+import { useId, FC, InputHTMLAttributes, DetailedHTMLProps } from 'react'
+import s from './CheckBox.module.css'
 
-interface CheckBoxProps extends React.HTMLAttributes<HTMLInputElement> {
-  label: string
+interface Props extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+  label?: string
 }
 
-const CheckBox: ForwardRefRenderFunction<HTMLInputElement, CheckBoxProps> = ({ label, ...props }, ref) => {
+const CheckBox: FC<Props> = ({ label, ...props }) => {
   const uid = useId()
 
   return (
     <div className={s.checkbox}>
-      <input id={uid} type="checkbox" ref={ref} {...props} />
+      <input id={uid} type="checkbox" {...props} />
       <label htmlFor={uid}>{label}</label>
     </div>
   )
 }
 
-export default forwardRef(CheckBox)
+export default CheckBox

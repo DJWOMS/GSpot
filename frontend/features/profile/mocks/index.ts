@@ -1,29 +1,30 @@
-import { faker } from '@faker-js/faker'
-import { PurchaseCardInterface, CheckoutGameCardInterface } from '../types'
+import randomItem from 'utils/randomItem'
+import randomNum from 'utils/randomNumber'
+import type { CheckoutGameCardInterface, PurchaseCardInterface } from '../types'
 
-export const generateMockPurchaseCard = (props = {}): PurchaseCardInterface => ({
-  id: faker.datatype.number({ min: 0, max: 100 }),
-  title: faker.word.adjective(),
-  price: faker.datatype.number(),
+export const generateMockPurchaseCard = (): PurchaseCardInterface => ({
+  id: randomNum(4),
+  title: randomItem(['Some', 'The', 'Another', 'Other', 'Word', 'Word', 'World']),
+  price: randomNum(4),
   status: 'confirmed',
-  coverImg: faker.image.abstract(240, 340),
+  coverImg: `https://loremflickr.com/240/320/abstract?lock=${randomNum(4)}`,
   platform: {
     type: 'win',
   },
   date: 'Aug 22, 2021',
   currency: 'rub',
-  link: faker.internet.url(),
+  link: '/details/id',
 })
 
 export const generateMockCheckoutGameCard = (props = {}): CheckoutGameCardInterface => ({
-  id: faker.datatype.number(),
-  title: faker.word.adjective(),
-  coverImg: faker.image.abstract(240, 240),
+  id: randomNum(6),
+  title: randomItem(['Warcraft', 'CS:GO', 'Dota 2', 'Cyperpank']),
+  coverImg: `https://loremflickr.com/240/240/abstract?lock=${randomNum(4)}`,
   platform: {
     type: 'win',
   },
-  link: faker.internet.url(),
-  price: faker.datatype.number(),
+  link: '/details/id',
+  price: randomNum(4),
   currency: 'rub',
   ...props,
 })

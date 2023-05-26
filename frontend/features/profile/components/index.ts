@@ -1,2 +1,5 @@
-export * from './Purchase'
-export * from './CheckoutGameCard'
+export { default as PurchaseTable } from './PurchaseTable'
+export { default as CheckoutTable } from './CheckoutTable'
+export { default as CheckoutForm } from './CheckoutForm'
+export { default as CheckoutCouponForm } from './CheckoutCouponForm'
+export { default as CheckAge } from './CheckAge'

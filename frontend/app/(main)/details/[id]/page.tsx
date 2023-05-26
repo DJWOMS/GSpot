@@ -1,11 +1,13 @@
 import { IconHeart, IconPlayerPlay } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
 import Section from 'components/Section'
-import { GameDetailsInterface, Languages, Platform, Requirements } from 'features/games'
+import { Languages, Platform, Requirements } from 'features/games/components'
+import type { GameDetailsInterface } from 'features/games/types'
+import { CheckAge } from 'features/profile/components'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 const Page = async () => {
   const details = await fetchServerSide<GameDetailsInterface>({
@@ -20,6 +22,7 @@ const Page = async () => {
   return (
     <Section>
       <div className="container">
+        <CheckAge image={details.coverImg} age={details.age} />
         <div className="-mx-41">
           <div className="flex-1">
             <div className={s.details}>
@@ -47,7 +50,6 @@ const Page = async () => {
                       <span>Developer:</span> Envato Game Dev
                     </li>
                     <li>
-                      <span>Языки:</span>
                       <Languages>{details.languages}</Languages>
                     </li>
                   </ul>
@@ -71,6 +73,7 @@ const Page = async () => {
                         slidesPerView: 5,
                       },
                     }}
+                    navigation={true}
                   >
                     {[...new Array(12)].map((_, index) => (
                       <img key={index} src="https://picsum.photos/1020" alt="" />
@@ -94,10 +97,9 @@ const Page = async () => {
                   <Platform type="ap" />
                 </ul>
 
-                <span className={s.detailsCartTitle}>PRICE</span>
                 <div className={s.detailsPrice}>
-                  <span>$15.36</span>
-                  <s>$38.80</s>
+                  <span>₽15.36</span>
+                  <s>₽38.80</s>
                   <b>60% OFF</b>
                 </div>
 

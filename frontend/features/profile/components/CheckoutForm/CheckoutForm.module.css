@@ -1,0 +1,29 @@
+.form {
+  @apply rounded-lg border border-solid border-main-60
+    border-opacity-10 bg-background p-5;
+
+  &Text {
+    @apply mb-5 block w-full text-sm leading-6 text-white;
+
+    a {
+      @apply relative text-primary;
+
+      &:hover {
+        @apply underline;
+      }
+    }
+  }
+
+  &Btn {
+    @apply mt-5 flex h-11  w-full flex-row items-center justify-center
+       rounded-md bg-acid text-sm font-semibold uppercase tracking-normal text-white;
+
+    &:hover {
+      @apply bg-primary text-white;
+    }
+  }
+}
+
+.errorMessage {
+  @apply text-danger;
+}

@@ -1,4 +1,4 @@
-import { generateMockGameCardSimple } from 'features/games'
+import { generateMockGameCardSimple } from 'features/games/mocks'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export function GET(request: NextRequest) {

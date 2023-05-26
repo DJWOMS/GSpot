@@ -1,4 +1,4 @@
-import s from './SkeletonSelect.module.scss'
+import s from './SkeletonSelect.module.css'
 
 const SkeletonSelect = () => {
   return (
@@ -8,4 +8,4 @@ const SkeletonSelect = () => {
   )
 }
 
-export { SkeletonSelect }
+export default SkeletonSelect

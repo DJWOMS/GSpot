@@ -1,0 +1,7 @@
+.languageName{
+    @apply py-4 font-medium text-start;
+    min-width: 80px;
+}
+.column{
+    @apply px-6 py-4;
+}

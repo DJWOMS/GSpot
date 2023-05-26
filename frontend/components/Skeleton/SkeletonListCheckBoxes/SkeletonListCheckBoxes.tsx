@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { SkeletonCheckBox } from 'components/Skeleton'
-import s from './SkeletonListCheckBoxes.module.scss'
+import SkeletonCheckBox from '../SkeletonCheckBox'
+import s from './SkeletonListCheckBoxes.module.css'
 
 interface SkeletonListCheckBoxesProps {
   count: number
@@ -18,4 +18,4 @@ const SkeletonListCheckBoxes: FC<SkeletonListCheckBoxesProps> = ({ count = 5 }) 
   )
 }
 
-export { SkeletonListCheckBoxes }
+export default SkeletonListCheckBoxes

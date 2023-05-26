@@ -1,4 +1,4 @@
-import { PlatformType } from 'features/games'
+import type { PlatformType } from 'features/games/types'
 
 export interface PurchaseCardInterface {
   id: number
@@ -20,4 +20,12 @@ export interface CheckoutGameCardInterface {
   platform: PlatformType
   price: number
   currency: string
+}
+
+export interface UserDataInterface {
+  status: number
+  username: string
+  email: string
+  firstName: string
+  lastName: string
 }

@@ -1,0 +1,88 @@
+.articleContent {
+  @apply relative lg:pr-[15px];
+
+  img {
+    @apply mb-5 block h-auto w-full rounded-md md:mb-[30px] last:md:mb-0;
+  }
+  iframe {
+    @apply mb-5 block h-[240px] w-full rounded-md border-none sm:h-[280px] md:mb-[30px] last:md:mb-0 lg:h-[440px];
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mb-5 font-mont font-normal text-white last:mb-0 md:mb-[30px] last:md:mb-0;
+  }
+
+  h1 {
+    @apply text-4xl md:text-[32px];
+  }
+  h2 {
+    @apply text-3xl md:text-3xl;
+  }
+  h3 {
+    @apply text-2xl md:text-[26px];
+  }
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+  h6 {
+    @apply text-base md:text-lg;
+  }
+
+  p {
+    @apply mb-5 block text-base font-normal leading-7 tracking-default text-light last:mb-0 last:md:mb-0;
+  }
+
+  p b {
+    @apply font-semibold;
+  }
+
+  p a {
+    @apply text-primary no-underline hover:no-underline focus:no-underline;
+  }
+
+  blockquote {
+    @apply relative mb-5 block p-0 pl-5 font-mont text-base font-normal leading-8 text-white last:mb-0 md:mb-[30px] last:md:mb-0;
+  }
+
+  blockquote:before {
+    @apply absolute top-0.5 bottom-0.5 left-0 block w-[3px] rounded-md bg-primary;
+    content: '';
+    box-shadow: 0 0 13px 0 rgba(167, 130, 233, 0.06);
+  }
+
+  ul {
+    @apply mb-5 block last:mb-0 md:mb-[30px] last:md:mb-0;
+  }
+
+  ul li {
+    @apply relative pl-6 text-base font-normal leading-7 text-light;
+  }
+
+  ul li:before {
+    content: '';
+    @apply absolute left-0 top-[50%] -mt-0.5 block h-1.5 w-1.5 rounded border border-primary;
+  }
+}
+
+.articleCategory {
+  @apply mb-5 inline-flex h-6 w-auto min-w-[74px] flex-row items-center justify-center rounded border border-main-400 bg-main-150 
+  py-0 px-[13px] text-[12px] tracking-[0.4px] text-light md:mb-[30px];
+  &:hover {
+    @apply border border-main-600 bg-main-30 text-white;
+  }
+}
+
+.articleDate {
+  @apply absolute top-0 right-0 flex flex-row items-center justify-start text-sm text-light;
+
+  svg {
+    @apply mr-1 h-auto w-4 stroke-primary lg:right-[15px];
+  }
+}

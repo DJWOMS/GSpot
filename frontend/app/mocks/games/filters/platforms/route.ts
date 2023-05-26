@@ -1,4 +1,4 @@
-import { generateMockFilterPlatform } from 'features/games'
+import { generateMockFilterPlatform } from 'features/games/mocks'
 import { NextResponse } from 'next/server'
 
 export function GET() {

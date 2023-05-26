@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { IconClockHour4, IconMessages, IconPlayerPlay } from '@tabler/icons-react'
 import Image from 'next/image'
-import s from './NewsItem.module.scss'
+import s from './NewsItem.module.css'
 
 interface Props {
   title: string
@@ -16,6 +16,8 @@ interface Props {
 
 const NewsItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCount, url, hasVideo }) => {
   const isBig = size === 'big'
+
+  url = '/news/1'
 
   return (
     <div className={isBig ? s.postBig : s.post}>
@@ -51,4 +53,4 @@ const NewsItem: FC<Props> = ({ title, date, imageSrc, category, size, commentsCo
   )
 }
 
-export { NewsItem }
+export default NewsItem

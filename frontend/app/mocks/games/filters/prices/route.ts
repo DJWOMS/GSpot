@@ -1,4 +1,4 @@
-import { generateMockFilterPrice } from 'features/games'
+import { generateMockFilterPrice } from 'features/games/mocks'
 import { NextResponse } from 'next/server'
 
 export function GET() {

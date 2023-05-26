@@ -1,14 +1,14 @@
 'use client'
 
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import { IconHeart, IconShoppingCart } from '@tabler/icons-react'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
-import { Container } from 'components/Container'
+import Container from 'components/Container'
 import Image from 'next/image'
 import Link from 'next/link'
 import Search from '../Search/Search'
-import s from './Header.module.scss'
+import s from './Header.module.css'
 
 type HeaderLink = {
   href: string
@@ -31,7 +31,9 @@ const Header: FC<HeaderProps> = ({ links }) => {
     const handleScroll = () => {
       setScrolling((prev) => {
         if (!prev) {
-          !window.requestAnimationFrame ? setTimeout(autoHideHeader, 250) : requestAnimationFrame(autoHideHeader)
+          !window.requestAnimationFrame
+            ? setTimeout(autoHideHeader, 250)
+            : requestAnimationFrame(autoHideHeader)
           return true
         }
         return prev
@@ -65,37 +67,51 @@ const Header: FC<HeaderProps> = ({ links }) => {
     window.onscroll = () => (openHeader ? window.scrollTo(window.scrollX, window.scrollY) : () => void 0)
   }, [openHeader])
 
+  const noScroll = useCallback((elem: HTMLElement, state: boolean) => {
+    if (state) {
+      elem.classList.add('_lock')
+    } else {
+      elem.classList.remove('_lock')
+    }
+  }, [])
+
+  useEffect(() => {
+    noScroll(document.body, openHeader)
+  }, [openHeader, noScroll])
+
   return (
     <header className={cn(s.header, { [s.headerHide]: hideHeader })}>
       <div className={s.wrapper}>
         <Container>
-          <div className={s.content}>
-            <button className={cn(s.menu, { [s.menuOpen]: openHeader })} onClick={toggleOpen}>
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
+          <div className={s.contentWrap}>
+            <div className={s.content}>
+              <button className={cn(s.menu, { [s.menuOpen]: openHeader })} onClick={toggleOpen}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
 
-            <Link className={s.logo} href="/">
-              <Image src={LogoPNG} alt="Logo" loading="eager" />
-            </Link>
-
-            <ul className={cn(s.nav, { [s.navOpen]: openHeader })}>
-              {links.map(({ href, title }, index) => (
-                <li className={s.navItem} onClick={() => setOpenHeader(false)} key={index}>
-                  <Link className={s.navLink} href={href}>
-                    {title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <div className={s.actions}>
-              <span />
-              <a className={s.loginBtn} href="/signin">
-                <span>Авторизация</span>
-              </a>
+              <Link className={s.logo} href="/">
+                <Image src={LogoPNG} width={496} height={161} alt="Logo" loading="eager" />
+              </Link>
             </div>
+
+            <nav className={s.navWrap}>
+              <ul className={cn(s.nav, { [s.navOpen]: openHeader })}>
+                {links.map(({ href, title }, index) => (
+                  <li className={s.navItem} onClick={() => setOpenHeader(false)} key={index}>
+                    <Link className={s.navLink} href={href}>
+                      {title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className={s.actions}>
+                <a className={s.loginBtn} href="/signin">
+                  <span>Авторизация</span>
+                </a>
+              </div>
+            </nav>
           </div>
         </Container>
       </div>
@@ -106,14 +122,14 @@ const Header: FC<HeaderProps> = ({ links }) => {
             <Search />
 
             <div className={s.actions}>
-              <Link className={s.actionLink} href="/favorite">
+              <Link className={s.actionLink} href="/profile/favorites">
                 <IconHeart />
                 <span>Favorites</span>
               </Link>
 
               <Link className={s.actionLink} href="/profile/checkout">
                 <IconShoppingCart />
-                <span>$00.00</span>
+                <span>₽00.00</span>
               </Link>
             </div>
           </div>

@@ -1,18 +1,17 @@
 import { API_URL } from 'configs'
 
-interface fetchProps<B extends BodyInit | undefined = undefined> {
-  body?: B
+interface fetchProps extends RequestInit {
   method?: 'POST' | 'GET' | 'PUT' | 'DELETE'
   headers?: HeadersInit
   path: string
   cache?: 'no-store' | 'reload' | 'no-cache' | 'force-cache'
 }
 
-export const fetchServerSide = async <T, D extends BodyInit | undefined = undefined>({
+export const fetchServerSide = async <T>({
   path,
   cache = 'no-cache',
   ...props
-}: fetchProps<D>): Promise<T | undefined> => {
+}: fetchProps): Promise<T | undefined> => {
   try {
     const res = await fetch(`${API_URL}${path}`, {
       ...props,

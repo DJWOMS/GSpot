@@ -5,4 +5,4 @@ const Range = ({ ...props }) => {
   return <Slider range {...props} />
 }
 
-export { Range }
+export default Range

@@ -1,10 +1,11 @@
 import CarouselSection from 'components/CarouselSection'
-import { Container } from 'components/Container'
+import Container from 'components/Container'
 import Section from 'components/Section'
-import { GameCard, GameCardBig, GameCardInterface, ListGames, GameListInterface } from 'features/games'
-import { LatestNews } from 'features/news'
+import { GameCard, GameCardBig, ListGames } from 'features/games/components'
+import type { GameCardInterface, GameListInterface } from 'features/games/types'
+import { LatestNews } from 'features/news/components'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import s from './page.module.scss'
+import s from './page.module.css'
 
 const Home = async () => {
   const [bestGames, latestGames, otherGames, giftGames, subscriptionsGames] = await Promise.all([

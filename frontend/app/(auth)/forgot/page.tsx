@@ -1,7 +1,7 @@
 'use client'
 
 import Form from '../Form'
-import s from '../Form.module.scss'
+import s from '../Form.module.css'
 
 const Forgot = () => {
   return (

@@ -1,11 +1,12 @@
 import Section from 'components/Section'
-import { NewsItem } from 'features/news'
+import { NewsItem } from 'features/news/components'
+import s from './LatestNews.module.css'
 
 const LatestNews = () => {
   return (
     <Section title="Latest news">
-      <div className={'flex gap-4'}>
-        <div className="w-full">
+      <div className={s.latestWrap}>
+        <div className={s.latestNews}>
           <NewsItem
             title={'New hot race from your favorite computer games studio'}
             imageSrc={'https://loremflickr.com/640/400'}
@@ -17,7 +18,7 @@ const LatestNews = () => {
           />
         </div>
 
-        <div className="w-full">
+        <div className={s.latestNews}>
           <NewsItem
             title={'New hot race from your favorite computer games studio'}
             imageSrc={'https://loremflickr.com/640/400'}
@@ -28,10 +29,8 @@ const LatestNews = () => {
             url={'#'}
           />
         </div>
-      </div>
 
-      <div className="flex gap-4">
-        <div className="w-full">
+        <div className={s.latestNews}>
           <NewsItem
             title={'New hot race from your favorite computer games studio'}
             imageSrc={'https://loremflickr.com/640/400'}
@@ -43,7 +42,7 @@ const LatestNews = () => {
           />
         </div>
 
-        <div className="w-full">
+        <div className={s.latestNews}>
           <NewsItem
             title={'New hot race from your favorite computer games studio'}
             imageSrc={'https://loremflickr.com/640/400'}
@@ -55,7 +54,7 @@ const LatestNews = () => {
           />
         </div>
 
-        <div className="w-full">
+        <div className={s.latestNews}>
           <NewsItem
             title={'New hot race from your favorite computer games studio'}
             imageSrc={'https://loremflickr.com/640/400'}
@@ -71,4 +70,4 @@ const LatestNews = () => {
   )
 }
 
-export { LatestNews }
+export default LatestNews
