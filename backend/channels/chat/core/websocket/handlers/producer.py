@@ -2,14 +2,9 @@ from fastapi import WebSocket
 import sys
 from core.websocket.request import WebsocketRequest
 from pydantic.error_wrappers import ValidationError
-from json.decoder import JSONDecodeError
 
 
 class ProducerHandler:
-    websocket: WebSocket
-
-    def __init__(self, websocket: WebSocket):
-        self.websocket = websocket
 
     async def handle_event(self, data):
         sys.path.insert(0, '.')
