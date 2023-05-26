@@ -1,7 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from finance.serializers import OfferSerializer
+from rest_framework import generics
+from finance.models import Library
+from finance.serializers import OfferSerializer, LibrarySerializer
 
 
 class OfferAPIView(APIView):
@@ -10,3 +11,9 @@ class OfferAPIView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+
+class ShowLibraryView(generics.RetrieveAPIView):
+    serializer_class = LibrarySerializer
+    queryset = Library.objects.all()
+    lookup_field = 'user'
