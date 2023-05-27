@@ -29,19 +29,19 @@ RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 RUN pip install "poetry-core==1.4.0" "poetry==$POETRY_VERSION" && poetry --version
 
 # Copy only requirements, to cache them in docker layer
-WORKDIR /code
-COPY ./pyproject.toml /code/
+WORKDIR /app
+COPY ./pyproject.toml /app/
 
 # Project initialization:
 RUN poetry install --no-root
 
 # Creating folders, and files for a project:
-COPY . /code
+COPY . /app
 
 COPY ./docker/start-web.sh /start-web.sh
 
 # Setting up proper permissions:
-RUN mkdir -p /code/media /code/static && \
-	chmod +x /code/media/ /code/static/
+RUN mkdir -p /app/media /app/static && \
+	chmod +x /app/media/ /app/static/
 
 WORKDIR backend
