@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  web_users_tests:
+    container_name: users-service-test
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    env_file:
+      - .env.tests
+    command: python manage.py test
+
