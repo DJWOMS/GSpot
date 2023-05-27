@@ -36,9 +36,9 @@ COPY ./pyproject.toml /code/
 RUN poetry install --no-root
 
 # Creating folders, and files for a project:
-COPY python /code
+COPY . /code
 
-COPY ./docker/python/start-web.sh /start-web.sh
+COPY ./docker/start-web.sh /start-web.sh
 
 # Setting up proper permissions:
 RUN mkdir -p /code/media /code/static && \
