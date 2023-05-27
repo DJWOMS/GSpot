@@ -31,7 +31,3 @@ export interface UserDataInterface {
   firstName: string
   lastName: string
 }
-
-// export interface PlatformType {
-//   type: 'ps' | 'xbox' | 'win' | 'ap'
-// }
