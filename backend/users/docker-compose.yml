@@ -17,33 +17,7 @@ services:
       - 8000
     ports:
       - "8000:8000"
-  web_users_tests:
-    container_name: users-service-test
-    build:
-      context: ./..
-      dockerfile: docker/Dockerfile
-    env_file:
-      - ../.env
-    command: python manage.py test
-  web_users_admin:
-    container_name: users-service-admin
-    build:
-      context: ./..
-      dockerfile: docker/Dockerfile
-    env_file:
-      - ../.env
-    command: python manage.py createsuperuser --noinput
-  db:
-    container_name: users-service-db
-    image: postgres:14-alpine
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    env_file:
-      - ../.env
-    ports:
-      - "5432:5432"
 
 volumes:
   media:
   static:
-  pgdata:
