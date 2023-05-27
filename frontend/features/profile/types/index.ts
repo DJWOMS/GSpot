@@ -1,4 +1,6 @@
-import type { PlatformType } from 'features/games/types'
+export interface PlatformType {
+  type: 'ps' | 'xbox' | 'win' | 'ap'
+}
 
 export interface PurchaseCardInterface {
   id: number
@@ -29,3 +31,7 @@ export interface UserDataInterface {
   firstName: string
   lastName: string
 }
+
+// export interface PlatformType {
+//   type: 'ps' | 'xbox' | 'win' | 'ap'
+// }

@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import type { CommentInterface } from 'features/news/types'
+import type { CommentInterface } from '../../types'
 import s from './Comments.module.css'
 import { SingleComment } from './SingleComment'
 
