@@ -7,7 +7,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     env_file:
-      - ../.env.example
+      - .env.local
     ports:
       - "5432:5432"
   rabbitmq:
@@ -16,12 +16,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-    environment:
-      - RABBITMQ_HOST=localhost
-      - RABBITMQ_PORT=5672
-      - RABBITMQ_USERNAME=guest
-      - RABBITMQ_PASSWORD=guest
-      - RABBITMQ_VIRTUAL_HOST=/
+    env_file:
+      - .env.local
 
 volumes:
   pgdata:
