@@ -1,40 +1,6 @@
 version: "3.9"
 
 services:
-  web_users:
-    container_name: users-service
-    build:
-      context: ./..
-      dockerfile: docker/Dockerfile
-    environment:
-      - DJANGO_SETTINGS_MODULE
-    env_file:
-      - ../.env.example
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - static:/code/static
-      - media:/code/media
-    restart: always
-    expose:
-      - 8000
-    ports:
-      - "8000:8000"
-  web_users_tests:
-   container_name: users-service-test
-   build:
-     context: ./..
-     dockerfile: docker/Dockerfile
-   env_file:
-     - ../.env.example
-   command: python manage.py test
-  web_users_admin:
-    container_name: users-service-admin
-    build:
-      context: ./..
-      dockerfile: docker/Dockerfile
-    env_file:
-      - ../.env.example
-    command: python manage.py createsuperuser --noinput
   db:
     container_name: users-service-db
     image: postgres:14-alpine
@@ -44,8 +10,18 @@ services:
       - ../.env.example
     ports:
       - "5432:5432"
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_HOST=localhost
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_VIRTUAL_HOST=/
 
 volumes:
-  media:
-  static:
   pgdata:
