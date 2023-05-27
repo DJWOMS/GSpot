@@ -18,7 +18,6 @@ class CustomerAuthView(APIView):
             "user_id": str(customer.id),
             "role": customer._meta.app_label,
             "avatar": str(customer.avatar),
-            "permissions": customer.permissions_codename,
             "age": customer.age,
         }
 
