@@ -4,10 +4,9 @@ services:
   web_users:
     container_name: users-service
     build:
-      context: ./..
       dockerfile: docker/Dockerfile
     env_file:
-      - ../.env
+      - .env
     command: /start-web.sh
     volumes:
       - static:/code/static
