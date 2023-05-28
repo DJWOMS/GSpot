@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, Field
 
+from pydantic import BaseModel, Field, validator
 from utils.models import PydanticObjectId
 
 
@@ -13,6 +13,28 @@ class Notification(BaseModel):
     status: str = Field(default="unread")
     timestamp: datetime = Field(default=datetime.utcnow())
     timestamp_2: datetime = Field(default=datetime.utcnow())
+
+    @validator('text')
+    def validate(cls, v):
+        if not v.strip():
+            raise ValueError("Message mustn't be empty")
+        return v
+
+    @validator('timestamp', 'timestamp_2')
+    def validate_timestamp(cls, values):
+        timestamp = values.get('timestamp')
+        timestamp_2 = values.get('timestamp_2')
+
+        try:
+            datetime.strptime(str(timestamp), '%Y-%m-%dT%H:%M:%S.%fZ')
+            datetime.strptime(str(timestamp_2), '%Y-%m-%dT%H:%M:%S.%fZ')
+        except ValueError as e:
+            raise ValueError("Invalid timestamp format. Expected format: YYYY-MM-DDTHH:MM:SS.sssZ") from e
+
+        if timestamp > datetime.utcnow() or timestamp_2 > datetime.utcnow():
+            raise ValueError("Timestamps can't be in the future")
+
+        return values
 
     class Config:
         allow_population_by_field_name = True
