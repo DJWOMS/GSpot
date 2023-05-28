@@ -27,10 +27,6 @@ class BaseAbstractUser(AbstractUser):
 
     REQUIRED_FIELDS = ["phone", "email"]
 
-    @property
-    def permissions_codename(self) -> list[str]:
-        return list(self.user_permissions.values_list("codename", flat=True))
-
     class Meta:
         abstract = True
 
