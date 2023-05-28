@@ -1,5 +1,6 @@
 from rest_framework.test import APIClient
 
+from administrator.models import AdminGroup
 from base.models import BaseAbstractUser, BasePermission
 from common.services.jwt.token import Token
 

@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.test import TestCase
+from django.urls import reverse
 from rest_framework.test import APIClient
 
 from administrator.models import Admin
@@ -13,7 +14,7 @@ from developer.models import CompanyUser
 class TestJWTLogoutView(TestCase):
     def setUp(self):
         self.token = Token()
-        self.path = "/api/users/logout/"
+        self.path = reverse('logout')
         self.client = APIClient()
         self.invalid_token = {"refresh_token": "testinvalidrefreshtoken"}
 
