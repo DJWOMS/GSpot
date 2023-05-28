@@ -10,7 +10,7 @@ async def test_notifications(request):
     # await websocket.send_text('функция notifications отработала')
 
 
-@notifications.add_endpoint('update')
+@notifications.add_endpoint('update_status')
 async def update_status_notification(request):
     await NotificationRepo.update_status_notification(
         _id=request.body.get('id'),
