@@ -1,31 +1,30 @@
 from dataclasses import asdict
 
 import rollbar
-from apps.base.classes import AbstractPaymentClass
+from apps.base.classes import AbstractPaymentService, AbstractPayoutService
 from apps.base.schemas import URL, ResponseParsedData
 from apps.base.utils import change_balance
 from apps.external_payments import schemas
+from apps.external_payments.schemas import PayOutMethod, YookassaPayoutModel
 from apps.item_purchases.models import Invoice
 from apps.item_purchases.schemas import PurchaseItemsData
 from apps.payment_accounts.models import Account, BalanceChange
 from apps.payment_accounts.schemas import BalanceIncreaseData, YookassaRequestPayment
-from apps.payment_accounts.services.payment_commission import (
-    calculate_payment_without_commission,
-)
+from django.conf import settings
 from environs import Env
-from yookassa import Configuration, Payment
+from yookassa import Configuration, Payment, Payout
+from yookassa.domain.response import PayoutResponse
 
 env = Env()
 env.read_env()
-Configuration.account_id = env.int('SHOP_ACCOUNT_ID')
-Configuration.secret_key = env.str('SHOP_SECRET_KEY')
 
 
-class YookassaPayment(AbstractPaymentClass):
+class YookassaService(AbstractPaymentService):
     def __init__(
         self,
         yookassa_response: schemas.YookassaPaymentResponse | None = None,
     ):
+        settings.YOOKASSA_CONFIG.get_payment_settings()
         self.yookassa_response = yookassa_response
         self.invoice_validator: InvoiceValidator | None = None
 
@@ -81,16 +80,13 @@ class YookassaPayment(AbstractPaymentClass):
         }
 
         return YookassaRequestPayment(
-            payment_amount=invoice_instance.total_price,
+            payment_amount=invoice_instance.price_with_commission.amount,
             payment_service=purchase_items_data.payment_service,
             payment_type=purchase_items_data.payment_type,
             user_uuid=purchase_items_data.user_uuid,
             return_url=purchase_items_data.return_url,
             metadata=metadata,
         )
-
-    def request_balance_withdraw_url(self, payment_data):
-        pass
 
     def handel_payment_response(self) -> ResponseParsedData | None:
         parsed_data = self.parse_income_data()
@@ -105,6 +101,9 @@ class YookassaPayment(AbstractPaymentClass):
             is_invoice_valid = self.validate_income_data(parsed_data)
             if not is_invoice_valid:
                 parsed_data.invoice = None
+            else:
+                parsed_data.invoice.is_paid = True
+                parsed_data.invoice.save()
         return parsed_data
 
     def parse_income_data(self) -> ResponseParsedData | None:
@@ -181,22 +180,18 @@ class YookassaResponseParser:
 
 class InvoiceValidator:
     def __init__(self, invoice_object: Invoice, yookassa_response):
-        self.invoice_object = invoice_object
+        self.invoice_object: Invoice = invoice_object
         self.yookassa_response = yookassa_response
         self.payment_body = yookassa_response.object_
         self.income_value = self.payment_body.income_amount.value
-        self.invoice_total_price = self.invoice_object.total_price
+        self.invoice_total_price = self.invoice_object.price_with_commission
         self.error_message: str | None = None
 
     def is_invoice_valid(self):
-        if self._is_invoice_price_correct() is False:
-            return False
-        if self._is_commission_correct() is False:
-            return False
-        return True
+        return self._is_invoice_price_correct() and self._is_commission_correct()
 
     def _is_invoice_price_correct(self):
-        if not self.invoice_total_price == self.payment_body.amount.value:
+        if not self.invoice_total_price.amount == self.payment_body.amount.value:
             self.error_message = (
                 f'Initial payment amount is: {self.payment_body.amount.value}'
                 f'But invoice total price is: {self.invoice_total_price}'
@@ -210,14 +205,10 @@ class InvoiceValidator:
         return True
 
     def _is_commission_correct(self):
-        price_without_commission = calculate_payment_without_commission(
-            self.payment_body.payment_method.type_,
-            self.invoice_total_price,
-        )
-        if price_without_commission != self.income_value:
+        if self.invoice_object.items_sum_price != self.income_value:
             self.error_message = (
                 f'Received payment amount: {self.income_value}'
-                f'But invoice price_without_commission equal to: {price_without_commission}'
+                f'But items sum price equal to: {self.invoice_object.items_sum_price}'
                 f'For invoice {self.invoice_object.invoice_id}'
             )
             rollbar.report_message(
@@ -226,3 +217,34 @@ class InvoiceValidator:
             )
             return False
         return True
+
+
+class YookassaPayOut(AbstractPayoutService):
+    def __init__(self):
+        Configuration.account_id = env.int('GATE_AWAY_ACCOUNT_ID')
+        Configuration.secret_key = env.str('GATE_AWAY_SECRET_KEY')
+
+    def request_payout(self, payout_data: dict) -> PayoutResponse:
+        return Payout.create(payout_data)
+
+    @staticmethod
+    def create_payout_data(payout_data: YookassaPayoutModel, developer_account: Account):
+        response = {
+            'amount': {
+                'value': payout_data.amount.value,
+                'currency': payout_data.amount.currency.value,
+            },
+            'description': f'Выплата для {developer_account.user_uuid}',
+        }
+        if payout_data.payout_destination_data.type_ == PayOutMethod.yoo_money:
+            response['payout_destination_data'] = {
+                'type': payout_data.payout_destination_data.type_.value,
+                'account_number': payout_data.payout_destination_data.account_number,
+            }
+            return response
+        elif payout_data.payout_destination_data.type_ == PayOutMethod.bank_card:
+            # TODO add functionality to support bank card # noqa: T000
+            #  https://yookassa.ru/developers/api#payout_object
+            pass
+        else:
+            raise NotImplementedError('Not supported payout type')

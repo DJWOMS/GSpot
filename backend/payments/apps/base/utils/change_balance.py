@@ -55,7 +55,7 @@ def decrease_user_balance(*, account: Account, amount: Decimal):
             account_id=account,
             amount=amount,
             is_accepted=True,
-            operation_type='WITHDRAW',
+            operation_type=BalanceChange.OperationType.WITHDRAW,
         )
 
         Account.withdraw(

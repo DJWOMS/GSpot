@@ -1,12 +1,8 @@
-from .base import env
+import dj_database_url
+from config.settings.pydantic_files import db_datas_config
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': env.str('POSTGRES_HOST'),
-        'PORT': env.str('POSTGRES_PORT'),
-        'USER': env.str('POSTGRES_USER'),
-        'PASSWORD': env.str('POSTGRES_PASSWORD'),
-        'NAME': env.str('POSTGRES_DB'),
-    },
-}
+DATABASES = {'default': dj_database_url.config(default=db_datas_config.url)}
+# DATABASES = {'default': dj_database_url.config(default='postgres://postgres:postgres@
+# localhost:5433/payment')}
+#
+#

@@ -3,9 +3,11 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from uuid import UUID
 
-from apps.base.schemas import URL, PaymentTypes
+from apps.base.schemas import URL, EnumCurrencies, PaymentTypes
 from dataclasses_json import config, dataclass_json
 from django.conf import settings
+from pydantic import BaseModel, Field
+from yookassa.domain.common import PaymentMethodType
 
 
 class YookassaPaymentStatuses(enum.Enum):
@@ -73,3 +75,28 @@ class YookassaPaymentCreate:
     capture: bool = True
     refundable: bool = False
     description: str | None = None
+
+
+class AmountModel(BaseModel):
+    value: Decimal
+    currency: EnumCurrencies = EnumCurrencies.RUB
+
+
+class PayOutMethod(enum.Enum):
+    yoo_money = PaymentMethodType.YOO_MONEY
+    bank_card = PaymentMethodType.BANK_CARD
+
+
+class PayoutDestination(BaseModel):
+    type_: PayOutMethod = Field(
+        alias='type',
+    )
+    account_number: int
+
+    class Config:
+        allow_population_by_field_name = True
+
+
+class YookassaPayoutModel(BaseModel):
+    amount: AmountModel
+    payout_destination_data: PayoutDestination

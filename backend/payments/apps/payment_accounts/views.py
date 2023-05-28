@@ -1,15 +1,23 @@
 import rollbar
-from apps.base.fields import MoneySerializerField
+from apps.base.exceptions import AttemptsLimitExceededError
+from apps.base.utils.db_query import multiple_select_or_404
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
 from . import serializers
+from .exceptions import (
+    InsufficientFundsError,
+    NotPayoutDayError,
+    NotValidAccountNumberError,
+)
 from .models import Account
 from .schemas import BalanceIncreaseData, CommissionCalculationInfo
 from .services.balance_change import request_balance_deposit_url
 from .services.payment_commission import calculate_payment_with_commission
+from .services.payout import PayoutProcessor
 
 
 class CalculatePaymentCommissionView(CreateAPIView):
@@ -63,27 +71,43 @@ class UserAccountAPIView(CreateAPIView):
     serializer_class = serializers.AccountSerializer
 
 
-class AccountBalanceViewSet(viewsets.ViewSet):
-    def retrieve(self, request, user_uuid=None):
-        account = get_object_or_404(Account, user_uuid=user_uuid)
-        serializer = serializers.AccountBalanceSerializer(account)
-        return Response(serializer.data)
-
-
-class BalanceViewSet(viewsets.ViewSet):
-    serializer_class = serializers.UUIDSerializer
+class PayoutView(viewsets.ViewSet):
+    serializer_class = serializers.PayoutSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
+        pre_payout_processor = PayoutProcessor(serializer.validated_data)
+        try:
+            response = pre_payout_processor.create_payout()
+        except (
+            NotPayoutDayError,
+            InsufficientFundsError,
+            AttemptsLimitExceededError,
+            NotImplementedError,
+            NotValidAccountNumberError,
+        ) as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({'payout status': response})
+
+
+class BalanceViewSet(viewsets.ViewSet):
+    serializer_class = serializers.UUIDSerializer
+    balance_serializer_class = serializers.BalanceSerializer
+
+    def list(self, request, *args, **kwargs):  # noqa: A003
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         uuid_list = serializer.validated_data['uuid_list']
-        user_balance_datas = []
+        try:
+            balance_list = multiple_select_or_404(uuid_list, Account, 'user_uuid')
+        except Http404 as error:
+            return Response({'detail': str(error)}, status=status.HTTP_404_NOT_FOUND)
 
-        for uuid in uuid_list:
-            obj = get_object_or_404(Account, user_uuid=uuid)
-            money = MoneySerializerField(initial=obj.balance)
-            balance_dict = {'user_uuid': str(uuid), 'balance': money.to_representation(obj.balance)}
-            user_balance_datas.append(balance_dict)
+        return Response([self.balance_serializer_class(obj).data for obj in balance_list])
 
-        return Response(user_balance_datas)
+    def retrieve(self, request, user_uuid=None):
+        account = get_object_or_404(Account, user_uuid=user_uuid)
+        return Response(self.balance_serializer_class(account).data)

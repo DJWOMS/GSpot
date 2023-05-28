@@ -48,7 +48,7 @@ class CommissionField(DecimalField):
         )
 
 
-class MoneySerializerField(serializers.DecimalField):
+class MoneyAmountSerializerField(serializers.DecimalField):
     def __init__(
         self,
         min_value=0,

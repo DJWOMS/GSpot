@@ -9,7 +9,8 @@
             "income_currency": "RUB",
             "commission": "25.00",
             "frozen_time": "24:00:00",
-            "gift_time": "7 00:00:00"
+            "gift_time": "7 00:00:00",
+            "payout_day_of_month": 25
         }
     }
 ]

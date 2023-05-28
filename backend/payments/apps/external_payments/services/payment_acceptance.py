@@ -4,13 +4,13 @@ from apps.base.schemas import PaymentServices
 from apps.base.utils import change_balance
 
 from .invoice_execution import execute_invoice_operations
-from .payment_serivces.yookassa_payment import YookassaPayment
+from .payment_serivces.yookassa_service import YookassaService
 
 
 def proceed_payment_response(income_data, payment_service: PaymentServices) -> bool:
     parsed_data = None
     if payment_service == PaymentServices.yookassa:
-        parsed_data = YookassaPayment(income_data).handel_payment_response()
+        parsed_data = YookassaService(income_data).handel_payment_response()
     if parsed_data is None:
         return False
 

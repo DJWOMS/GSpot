@@ -1,15 +1,17 @@
 import os
 from pathlib import Path
 
-from environs import Env
+from config.settings.pydantic_files import (
+    allowed_host,
+    debug_value,
+    jwt_secret_key,
+    secret_key,
+)
 
-env = Env()
-env.read_env()
-
-DEBUG = env.bool('DEBUG', False)
+DEBUG = debug_value
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-SECRET_KEY = env.str('SECRET_KEY')
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ['127.0.0.1', 'localhost'])
+SECRET_KEY = secret_key.key
+ALLOWED_HOSTS = allowed_host.alloved_host_value
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -90,4 +92,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-JWT_SECRET_KEY = env.str('JWT_SECRET_KEY', '')
+JWT_SECRET_KEY = jwt_secret_key.js_key
