@@ -14,7 +14,7 @@ from django.db import models
 class BaseAbstractUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(_("email address"), unique=True, db_index=True)
-    phone = models.CharField(_("phone"), max_length=15, unique=True, default='')
+    phone = models.CharField(_("phone"), max_length=15, unique=True, default="")
     is_banned = models.BooleanField(default=False)
     created_at = models.DateTimeField(_("user creation date"), auto_now_add=True)
     update_at = models.DateTimeField(_("user modify date"), auto_now=True)
@@ -25,7 +25,7 @@ class BaseAbstractUser(AbstractUser):
     date_joined = None  # Remove data joined field
     last_login = None  # Remove last login field
 
-    REQUIRED_FIELDS = ['phone', 'email']
+    REQUIRED_FIELDS = ["phone", "email"]
 
     class Meta:
         abstract = True

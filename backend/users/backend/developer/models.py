@@ -38,8 +38,8 @@ class DeveloperGroup(BaseGroup):
         DeveloperPermission,
         verbose_name=_("permission"),
         blank=True,
-        related_name='developergroup_set',
-        related_query_name='developergroup',
+        related_name="developergroup_set",
+        related_query_name="developergroup",
     )
 
     class Meta(BaseGroup.Meta):
@@ -72,49 +72,56 @@ class CompanyUserManager(UserManager):
 
 class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
     country = models.ForeignKey(
-        Country, on_delete=models.SET_NULL, null=True, verbose_name=_('Developer country')
+        Country,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name=_("Developer country"),
     )
-    avatar = models.ImageField(blank=True, verbose_name=_('Developer avatar'))
+    avatar = models.ImageField(blank=True, verbose_name=_("Developer avatar"))
     is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     groups = models.ManyToManyField(
-        'DeveloperGroup',
+        "DeveloperGroup",
         verbose_name=_("developer_groups"),
         blank=True,
         help_text=_(
             "The groups this user belongs to. A user will get all permissions "
             "granted to each of their groups."
         ),
-        related_name='companyuser_set',
-        related_query_name='companyuser',
+        related_name="companyuser_set",
+        related_query_name="companyuser",
     )
 
     user_permissions = models.ManyToManyField(
-        'DeveloperPermission',
-        verbose_name=_('developer permissions'),
+        "DeveloperPermission",
+        verbose_name=_("developer permissions"),
         blank=True,
-        help_text=_('Specific permissions for this developer.'),
-        related_name='companyuser_set',
-        related_query_name='companyuser',
+        help_text=_("Specific permissions for this developer."),
+        related_name="companyuser_set",
+        related_query_name="companyuser",
     )
     company = models.ForeignKey(
-        'Company',
+        "Company",
         on_delete=models.CASCADE,
-        verbose_name=_('Company'),
-        related_name='companyuser_set',
+        verbose_name=_("Company"),
+        related_name="companyuser_set",
         blank=True,
         null=True,
     )
 
     objects = CompanyUserManager()
 
+    @property
+    def permissions_codename(self) -> list[str]:
+        return list(self.user_permissions.values_list("codename", flat=True))
+
     def __str__(self):
         return self.username
 
     class Meta:
         db_table = "company_user"
-        verbose_name = _('company user')
-        verbose_name_plural = _('company users')
+        verbose_name = _("company user")
+        verbose_name_plural = _("company users")
 
 
 class Company(models.Model):
@@ -122,32 +129,32 @@ class Company(models.Model):
     created_by = models.OneToOneField(
         CompanyUser,
         on_delete=models.PROTECT,
-        verbose_name=_('Company owner'),
-        related_name='company_owner',
+        verbose_name=_("Company owner"),
+        related_name="company_owner",
     )
     contact = models.ManyToManyField(
         ContactType,
-        through='CompanyContact',
-        verbose_name=_('Company contact'),
+        through="CompanyContact",
+        verbose_name=_("Company contact"),
         blank=True,
-        related_name='contact_set',
-        related_query_name='contact',
+        related_name="contact_set",
+        related_query_name="contact",
     )
-    title = models.CharField(max_length=50, verbose_name=_('Company title'))
-    description = models.TextField(verbose_name=_('Company description'))
-    email = models.EmailField(unique=True, verbose_name=_('Company email link'))
-    image = models.ImageField(blank=True, verbose_name=_('Company poster'))
+    title = models.CharField(max_length=50, verbose_name=_("Company title"))
+    description = models.TextField(verbose_name=_("Company description"))
+    email = models.EmailField(unique=True, verbose_name=_("Company email link"))
+    image = models.ImageField(blank=True, verbose_name=_("Company poster"))
     is_confirmed = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Company created date'))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Company created date"))
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        db_table = 'company'
-        verbose_name = _('company')
-        verbose_name_plural = _('companies')
+        db_table = "company"
+        verbose_name = _("company")
+        verbose_name_plural = _("companies")
 
 
 class CompanyContact(models.Model):
@@ -159,12 +166,12 @@ class CompanyContact(models.Model):
     company = models.ForeignKey(
         Company, verbose_name=_("company contacts"), on_delete=models.CASCADE
     )
-    value = models.CharField(max_length=150, verbose_name=_('value contact'), default='')
+    value = models.CharField(max_length=150, verbose_name=_("value contact"), default="")
 
     def __str__(self):
-        return f'{self.type__name}-{self.value}'
+        return f"{self.type__name}-{self.value}"
 
     class Meta:
-        db_table = 'company_contact'
-        verbose_name = _('company contact')
-        verbose_name_plural = _('company contacts')
+        db_table = "company_contact"
+        verbose_name = _("company contact")
+        verbose_name_plural = _("company contacts")
