@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView, Response
 from administrator.serializers.v1.auth_serializer import AdminAuthSerializer
+from base.serializers import AuthTokensResponseSerializer
 
 from common.services.jwt.token import Token
 
@@ -12,24 +13,9 @@ class AdminAuthView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                "email": openapi.Schema(type=openapi.TYPE_STRING),
-                "password": openapi.Schema(type=openapi.TYPE_STRING),
-            },
-            required=["email", "password"],
-        ),
+        request_body=AdminAuthSerializer,
         responses={
-            200: openapi.Response(
-                description="Successful authentication",
-                schema=openapi.Schema(
-                    type=openapi.TYPE_OBJECT,
-                    properties={
-                        "tokens": openapi.Schema(type=openapi.TYPE_STRING),
-                    },
-                ),
-            ),
+            200: AuthTokensResponseSerializer,
             400: openapi.Response(description="Email or Password not valid"),
         },
     )
@@ -47,4 +33,7 @@ class AdminAuthView(APIView):
 
         tokens = Token().generate_tokens(data=data)
 
-        return Response(tokens, status=status.HTTP_200_OK)
+        response_serializer = AuthTokensResponseSerializer(data=tokens)
+        response_serializer.is_valid(raise_exception=True)
+
+        return Response(response_serializer.data, status=status.HTTP_200_OK)

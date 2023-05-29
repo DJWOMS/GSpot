@@ -73,3 +73,8 @@ class BaseAuthSerializer(serializers.ModelSerializer):
     class Meta:
         model: BaseAbstractUser
         fields = ("email", "password")
+
+
+class AuthTokensResponseSerializer(serializers.Serializer):
+    access = serializers.CharField()
+    refresh = serializers.CharField()
