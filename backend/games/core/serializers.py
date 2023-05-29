@@ -1,5 +1,4 @@
 from django.db import transaction
-from django.core.exceptions import ValidationError
 
 from rest_framework import serializers
 from community.models import Social
@@ -84,8 +83,8 @@ class CreateProductSerializer(serializers.ModelSerializer):
             language_name = lang['language']['name']
             try:
                 language = Language.objects.get(name=language_name)
-            except Language.DoesNotExist:
-                raise ValidationError(f"Invalid language: {language_name}")
+            except Language.DoesNotExist as e:
+                raise serializers.ValidationError(str(e), code='invalid')
             language_objects.append(ProductLanguage(
                 product=product,
                 language=language,
@@ -100,8 +99,8 @@ class CreateProductSerializer(serializers.ModelSerializer):
         for genre_name in genres:
             try:
                 genre = Genre.objects.get(name=genre_name)
-            except Genre.DoesNotExist:
-                raise ValidationError(f"Invalid genre: {genre_name}")
+            except Genre.DoesNotExist as e:
+                raise serializers.ValidationError(str(e), code='invalid')
             genre_objects.append(GenreProduct(product=product, genre=genre))
 
         GenreProduct.objects.bulk_create(genre_objects)
