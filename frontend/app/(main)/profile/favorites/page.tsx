@@ -39,7 +39,12 @@ const FavoritesPage = () => {
             <GameCard onDelete={onDelete} {...game} key={index} />
           ))}
         </div>
-        <Pagination path={'/profile/favorites'} currentPage={currentPage} />
+        <Pagination
+          path={'/profile/favorites'}
+          currentPage={currentPage}
+          visiblePageButtonsCount={5}
+          pageCount={5}
+        />
       </div>
     </Section>
   )
