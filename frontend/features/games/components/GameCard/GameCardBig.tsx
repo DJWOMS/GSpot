@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { IconHeart } from '@tabler/icons-react'
 import cn from 'classnames'
+import Platform from 'components/Platform'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { GameCardInterface } from '../../types'
-import Platform from '../Platform'
 import s from './GameCard.module.css'
 
 const GameCardBig: FC<GameCardInterface> = ({

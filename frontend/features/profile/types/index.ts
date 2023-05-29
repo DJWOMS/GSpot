@@ -1,6 +1,4 @@
-export interface PlatformType {
-  type: 'ps' | 'xbox' | 'win' | 'ap'
-}
+import { PlatformType } from 'components/Platform/Platform'
 
 export interface PurchaseCardInterface {
   id: number

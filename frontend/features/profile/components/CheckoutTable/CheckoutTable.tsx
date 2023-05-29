@@ -2,11 +2,11 @@
 
 import React, { FC } from 'react'
 import { IconX } from '@tabler/icons-react'
+import Platform from 'components/Platform'
+import type { PlatformType } from 'components/Platform/Platform'
 import Table from 'components/Table'
-import { Platform } from 'features/games/components'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { PlatformType } from '../../types'
 import type { CheckoutGameCardInterface } from '../../types'
 import s from './CheckoutTable.module.css'
 
