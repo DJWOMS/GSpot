@@ -44,7 +44,7 @@ const ContactsPage = () => {
   }
   const rulesForEmail = {
     required: 'The field is required',
-    pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i, message: 'Е-mail is invalid!' },
+    pattern: { value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, message: 'Е-mail is invalid!' },
   }
 
   const disabled = !!errors.name || !!errors.email || !!errors.message || !!errors.subject
