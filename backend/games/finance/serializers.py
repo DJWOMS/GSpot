@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from core.models.product import Product
-from finance.models import Price, ProductOffer, Offer, Cart, CartOffer
+from finance.models import Price, ProductOffer, Offer, Cart, CartOffer, Library
 from django.db import transaction
 
 
@@ -49,6 +49,27 @@ class ProductOfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductOffer
         exclude = ('product',)
+
+
+class ProductLibrarySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = (
+            'id',
+            'name',
+            'description',
+            'developers_uuid',
+            'publishers_uuid',
+        )
+
+
+class LibrarySerializer(serializers.ModelSerializer):
+    products = ProductLibrarySerializer(many=True)
+
+    class Meta:
+        model = Library
+        fields = ('products',)
 
 
 class CartSerializerCreate(serializers.ModelSerializer):

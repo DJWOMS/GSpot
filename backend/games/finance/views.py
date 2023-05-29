@@ -3,9 +3,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from finance.models import Offer
 from rest_framework.exceptions import ValidationError
-from finance.serializers import OfferSerializer, CartSerializerCreate
 from core.serializers import GamesListSerializer
 from drf_yasg import openapi
+from rest_framework import generics
+from finance.models import Library
+from finance.serializers import (
+    OfferSerializer, LibrarySerializer, CartSerializerCreate
+)
 
 
 class OfferAPIView(APIView):
@@ -37,3 +41,9 @@ class CartAPIView(APIView):
         games = offer.products.all()
         game_serializer = GamesListSerializer(games, many=True)
         return Response(game_serializer.data)
+
+
+class ShowLibraryView(generics.RetrieveAPIView):
+    serializer_class = LibrarySerializer
+    queryset = Library.objects.all()
+    lookup_field = 'user'
