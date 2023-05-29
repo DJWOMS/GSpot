@@ -18,6 +18,7 @@ class AdminAuthView(APIView):
             200: AuthTokensResponseSerializer,
             400: openapi.Response(description="Email or Password not valid"),
         },
+        tags=["Аутентификация Admin"],
     )
     def post(self, request):
         serializer = AdminAuthSerializer(data=request.data)
