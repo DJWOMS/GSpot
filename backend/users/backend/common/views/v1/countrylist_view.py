@@ -2,7 +2,7 @@ from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
-from base.views.base_views import BaseAdminSuperUserViewSet
+from base.views import BaseAdminSuperUserViewSet
 
 from common.models import Country
 from common.serializers.v1.country_serializer import CountrySerializer
@@ -67,8 +67,8 @@ from common.serializers.v1.country_serializer import CountrySerializer
             "Список стран",
         ],
         responses={
-            201: openapi.Response(
-                "Запись успешно создана", CountrySerializer(many=True)
+            204: openapi.Response(
+                "Запись успешно удалена", CountrySerializer(many=True)
             ),
             400: openapi.Response("Входные данные не валидны"),
             403: openapi.Response(
