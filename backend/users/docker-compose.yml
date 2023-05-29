@@ -7,7 +7,7 @@ services:
       dockerfile: docker/Dockerfile
     env_file:
       - .env
-    command: start-web.sh
+    command: /start-web.sh
     volumes:
       - static:/app/static
       - media:/app/media
