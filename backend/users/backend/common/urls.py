@@ -12,5 +12,5 @@ router.register(r"contact_types", ContactTypeViewSet, basename="contact_type")
 
 urlpatterns = [
     path("logout/", JWTLogoutView.as_view(), name="logout"),
-    path("common/", include(router.urls)),
+    path("common/", include(router.urls), name="common"),
 ]
