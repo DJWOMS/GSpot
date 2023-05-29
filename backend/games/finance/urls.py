@@ -1,10 +1,10 @@
 from django.urls import path
 
-from finance.views import OfferAPIView, ShowLibraryView, CartAPIView
+from .views import OfferInCartAPIView, OfferAPIView, ShowLibraryView
 
 
 urlpatterns = [
     path('offer/', OfferAPIView.as_view(), name="offer"),
-    path('cart/', CartAPIView.as_view(), name="cart"),
-    path("library/<user>", ShowLibraryView.as_view(), name="all_products_in_library")
+    path("library/<user>", ShowLibraryView.as_view(), name="all_products_in_library"),
+    path('offer-in-cart/', OfferInCartAPIView.as_view(), name="offer_in_cart")
 ]

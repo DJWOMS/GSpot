@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, exceptions
 from core.models.product import Product
 from finance.models import Price, ProductOffer, Offer, Cart, CartOffer, Library
 from django.db import transaction
@@ -72,20 +72,34 @@ class LibrarySerializer(serializers.ModelSerializer):
         fields = ('products',)
 
 
-class CartSerializerCreate(serializers.ModelSerializer):
-    offers = serializers.PrimaryKeyRelatedField(many=True, queryset=Offer.objects.all())
+class OfferInCartSerializerCreate(serializers.Serializer):
+    offers = serializers.PrimaryKeyRelatedField(many=False, queryset=Offer.objects.all())
+    created_by = serializers.UUIDField()
+    gift_recipient = serializers.UUIDField()
 
-    class Meta:
-        model = Cart
-        fields = ('created_by', 'gift_recipient', 'offers')
+    def validate(self, data):
+        created_by = data.get('created_by')
+        gift_recipient = data.get('gift_recipient')
+        offers = data.get('offers')
+        if Cart.objects.filter(
+            created_by=created_by, gift_recipient=gift_recipient, offers=offers
+        ).exists():
+            raise serializers.ValidationError('Такой продукт уже есть в корзине')
+        return data
 
     @transaction.atomic
     def create(self, validated_data):
         offer = validated_data.pop('offers')
         created_by = validated_data.pop('created_by')
-        gift_recipient = None
-        if self.initial_data.get('gift_recipient'):
-            gift_recipient = validated_data.pop('gift_recipient')
-        cart = Cart.objects.create(created_by=created_by, gift_recipient=gift_recipient)
-        CartOffer.objects.create(offer=offer[0], cart=cart)
-        return cart
+        gift_recipient = validated_data.pop('gift_recipient')
+        if not Cart.objects.filter(created_by=created_by).exists():
+            cart = Cart.objects.create(created_by=created_by, gift_recipient=gift_recipient)
+        else:
+            cart = Cart.objects.get(created_by=created_by)
+            if cart.gift_recipient != gift_recipient:
+                raise exceptions.ValidationError(
+                    'В корзину уже добавлены игры либо для себя либо для подарка, '
+                    'нельзя добавлять и для себя и в подарок одновременно'
+                )
+        cart_offer = CartOffer.objects.create(offer=offer, cart=cart)
+        return cart_offer

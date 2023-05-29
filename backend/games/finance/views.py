@@ -1,14 +1,14 @@
+from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from finance.models import Offer
-from rest_framework.exceptions import ValidationError
 from core.serializers import GamesListSerializer
 from drf_yasg import openapi
 from rest_framework import generics
 from finance.models import Library
 from finance.serializers import (
-    OfferSerializer, LibrarySerializer, CartSerializerCreate
+    OfferSerializer, LibrarySerializer, OfferInCartSerializerCreate
 )
 
 
@@ -26,16 +26,14 @@ class OfferAPIView(APIView):
         return Response(serializer.data)
 
 
-class CartAPIView(APIView):
+class OfferInCartAPIView(APIView):
     @swagger_auto_schema(
         operation_description="description",
-        responses={200: openapi.Response('Добавление в корзину', CartSerializerCreate())},
-        request_body=CartSerializerCreate)
+        responses={200: openapi.Response('Добавление в корзину', OfferInCartSerializerCreate())},
+        request_body=OfferInCartSerializerCreate)
     def post(self, request):
-        offer = Offer.objects.get(id=request.data.get('offers')[0])
-        if offer.cart.filter(created_by=request.data.get('created_by')).exists():
-            raise ValidationError('Эта игра или сборник игр уже в корзине у пользователя.')
-        offer_serializer = CartSerializerCreate(data=request.data)
+        offer = get_object_or_404(Offer, id=request.data.get('offers'))
+        offer_serializer = OfferInCartSerializerCreate(data=request.data)
         offer_serializer.is_valid(raise_exception=True)
         offer_serializer.save()
         games = offer.products.all()
