@@ -26,7 +26,6 @@ $ docker-compose -f docker-compose.yml \
 ### To run project's tests
 ```
 $ docker-compose -f docker-compose.tests.yml \
-                 -f docker-compose.local.yml \
                  up \
                  --build  \
                  --abort-on-container-exit \
