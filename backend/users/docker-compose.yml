@@ -7,10 +7,10 @@ services:
       dockerfile: docker/Dockerfile
     env_file:
       - .env
-    command: /start-web.sh
+    command: start-web.sh
     volumes:
-      - static:/code/static
-      - media:/code/media
+      - static:/app/static
+      - media:/app/media
     restart: always
     expose:
       - 8000
