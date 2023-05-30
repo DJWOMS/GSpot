@@ -15,9 +15,15 @@ class Notification(BaseModel):
     timestamp_2: datetime = Field(default=datetime.utcnow())
 
     @validator('text')
-    def validate(cls, v):
+    def validate_text(cls, v):
         if not v.strip():
             raise ValueError("Message mustn't be empty")
+        return v
+
+    @validator('status')
+    def validate_status(self, v):
+        if v not in ['unread', 'read']:
+            raise ValueError('Invalid status. Status must be one of "["unread", "read"]"')
         return v
 
     @validator('timestamp', 'timestamp_2')
