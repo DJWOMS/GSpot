@@ -8,15 +8,33 @@
 
 Here is a short instruction on how to quickly set up the project for development:
 
-## Run through docker-compose
+            
+## Before start
+
+- Create .env file based on .env.local
+    
+### Environment variables
+
+- `DJANGO_ENV` - variable for defining environment for project (DEVELOPMENT/PRODUCTION)
+- `DJANGO_LOG_LEVEL` - variable for defining level of logger 
+  - Possible values:
+  - DEBUG: Low level system information for debugging purposes
+  - INFO: General system information
+  - WARNING: Information describing a minor problem that has occurred.
+  - ERROR: Information describing a major problem that has occurred.
+  - CRITICAL: Information describing a critical problem that has occurred.
+    
+- `DJANGO_CORS_ALLOWED_ORIGINS` - http://localhost:8080, http://localhost:8000
+- `DJANGO_ALLOWED_HOSTS` - http://localhost:8080, http://localhost:8000
+
+## Run through docker-compose for development
 
 
 **NOTE**: docker-compose.yml - for project   
 **NOTE**: docker-compose.local.yml - for project's db (Postgres, Redis, Rabbitmq)  
 **NOTE**: docker-compose.tests.yml - for running project's tests
-            
 
-### To start project locally run
+### To start project run
 ```
 $ docker-compose -f docker-compose.yml \
                  -f docker-compose.local.yml \
