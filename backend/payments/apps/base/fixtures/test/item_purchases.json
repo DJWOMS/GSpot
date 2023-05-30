@@ -1,0 +1,67 @@
+[
+    {
+        "model": "item_purchases.itempurchase",
+        "pk": 1,
+        "fields": {
+            "item_price": "100.00",
+            "item_price_currency": "RUB",
+            "item_uuid": "f7b93673-c9b7-47de-bbf5-173e2a0436a9",
+            "status": "PD",
+            "account_to_id": "1",
+            "account_from_id": "1",
+            "developer_id": "5"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchase",
+        "pk": 2,
+        "fields": {
+            "item_price": "200.00",
+            "item_price_currency": "RUB",
+            "item_uuid": "c3a8fd64-7ac4-43da-98ad-6dbcad069095",
+            "status": "PD",
+            "account_to_id": "1",
+            "account_from_id": "1",
+            "developer_id": "5"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchase",
+        "pk": 3,
+        "fields": {
+            "item_price": "100.00",
+            "item_price_currency": "RUB",
+            "item_uuid": "37de4e89-8ccd-4193-a96e-a7f00e1f9701",
+            "status": "PD",
+            "account_to_id": "2",
+            "account_from_id": "2",
+            "developer_id": "5"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchase",
+        "pk": 4,
+        "fields": {
+            "item_price": "150.00",
+            "item_price_currency": "RUB",
+            "item_uuid": "93d828dc-e30f-42ae-952b-923bf3911e71",
+            "status": "PD",
+            "account_to_id": "2",
+            "account_from_id": "2",
+            "developer_id": "5"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchase",
+        "pk": 5,
+        "fields": {
+            "item_price": "1500.00",
+            "item_price_currency": "RUB",
+            "item_uuid": "0d9d2a74-2948-4c8b-b603-b2ece21d6c24",
+            "status": "RF",
+            "account_to_id": "2",
+            "account_from_id": "2",
+            "developer_id": "5"
+        }
+    }
+]

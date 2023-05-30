@@ -1,32 +1,24 @@
-version: '3.7'
+version: '3.9'
 
 services:
   payments:
-    build:
-      context: .
-      dockerfile: Dockerfiles/payments.Dockerfile
+    build: .
     restart: always
-    env_file:
-      - ./.env
-    volumes:
-      - type: bind
-        source: ./
-        target: /home/app/web
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     depends_on:
-      - payments_db
-      - redis
+      payments_db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   payments_db:
     image: postgres:15.2
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "${POSTGRES_PORT}:5432"
-    env_file:
-      - ./.env
+    expose:
+      - 5432
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
@@ -35,46 +27,31 @@ services:
       start_period: 10s
 
   redis:
-    restart: unless-stopped
+    restart: always
     image: redis:7.0.5-alpine
-    hostname: redis
-    ports:
-      - "6379:6379"
+    expose:
+      - 6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
 
   worker:
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: Dockerfiles/payments.Dockerfile
-    hostname: worker
+    restart: always
+    build: .
     command: celery -A config worker --loglevel=info
-    env_file:
-      - ./.env
-    volumes:
-      - ./:/home/app/web
-    links:
-      - redis
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
 
-  nginx:
-    build:
-      context: .
-      dockerfile: Dockerfiles/ngnix.Dockerfile
-    volumes:
-      - ./static/:/static/
-    ports:
-      - "1337:80"
+  beat:
+    restart: always
+    build: .
+    command: celery -A config beat --loglevel=info
     depends_on:
-      - payments
-
-  node:
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: Dockerfiles/node.Dockerfile
-    links:
-      - payments
+      redis:
+        condition: service_healthy
 
 volumes:
   postgres_data:

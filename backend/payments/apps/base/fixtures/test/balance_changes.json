@@ -1,0 +1,62 @@
+[
+    {
+        "model": "payment_accounts.balancechange",
+        "pk": 1,
+        "fields": {
+            "amount": "10.00",
+            "amount_currency": "RUB",
+            "is_accepted": "True",
+            "created_date": "2023-05-23 17:28:50.369797+00",
+            "operation_type": "DT",
+            "account_id_id": "1"
+        }
+    },
+    {
+        "model": "payment_accounts.balancechange",
+        "pk": 2,
+        "fields": {
+            "amount": "100.00",
+            "amount_currency": "RUB",
+            "is_accepted": "True",
+            "created_date": "2023-05-24 17:28:50.369797+00",
+            "operation_type": "DT",
+            "account_id_id": "1"
+        }
+    },
+    {
+        "model": "payment_accounts.balancechange",
+        "pk": 3,
+        "fields": {
+            "amount": "20.00",
+            "amount_currency": "RUB",
+            "is_accepted": "True",
+            "created_date": "2023-05-25 17:28:50.369797+00",
+            "operation_type": "DT",
+            "account_id_id": "2"
+        }
+    },
+    {
+        "model": "payment_accounts.balancechange",
+        "pk": 4,
+        "fields": {
+            "amount": "300.00",
+            "amount_currency": "RUB",
+            "is_accepted": "True",
+            "created_date": "2023-05-26 17:28:50.369797+00",
+            "operation_type": "WD",
+            "account_id_id": "3"
+        }
+    },
+    {
+        "model": "payment_accounts.balancechange",
+        "pk": 5,
+        "fields": {
+            "amount": "400.00",
+            "amount_currency": "RUB",
+            "is_accepted": "True",
+            "created_date": "2023-05-27 17:28:50.369797+00",
+            "operation_type": "DT",
+            "account_id_id": "4"
+        }
+    }
+]
