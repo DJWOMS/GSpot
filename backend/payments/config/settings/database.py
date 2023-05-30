@@ -1,8 +1,23 @@
 import dj_database_url
-from config.settings.pydantic_files import db_datas_config
+from pydantic import BaseSettings
+
+
+class DataBaseDatas(BaseSettings):
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+    POSTGRES_USER: str
+    POSTGRES_PORT: int
+    POSTGRES_HOST: str
+
+    @property
+    def url(self):
+        return (
+            f'postgres://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@'
+            f'{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}'
+        )
+
+
+db_datas_config = DataBaseDatas()
+
 
 DATABASES = {'default': dj_database_url.config(default=db_datas_config.url)}
-# DATABASES = {'default': dj_database_url.config(default='postgres://postgres:postgres@
-# localhost:5433/payment')}
-#
-#
