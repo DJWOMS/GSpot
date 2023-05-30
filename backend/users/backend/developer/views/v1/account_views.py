@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
     name='retrieve',
     decorator=swagger_auto_schema(
         operation_description='Личный кабинет пользователя',
-        tags=['Разработчик', 'Личный кабинет'],
+        tags=['Разработчик', 'Личный кабинет разработчика'],
         responses={
             200: openapi.Response(
                 'Личная информация пользователя', account_serializers.AccountRetrieveSerializers
@@ -24,7 +24,7 @@ from rest_framework.permissions import IsAuthenticated
     name='partial_update',
     decorator=swagger_auto_schema(
         operation_description='Изменение информации в личном кабинете пользователя',
-        tags=['Разработчик', 'Личный кабинет'],
+        tags=['Разработчик', 'Личный кабинет разработчика'],
         responses={
             200: openapi.Response(
                 'Информация обновлена', account_serializers.AccountUpdateSerializers
@@ -37,7 +37,7 @@ from rest_framework.permissions import IsAuthenticated
     name='destroy',
     decorator=swagger_auto_schema(
         operation_description='Удаление своего профиля самим пользователем',
-        tags=['Разработчик', 'Личный кабинет'],
+        tags=['Разработчик', 'Личный кабинет разработчика'],
         responses={
             200: openapi.Response('профиль успешно удалён'),
             401: openapi.Response('Не аутентифицированный'),
@@ -67,7 +67,7 @@ class AccountViewSet(PersonalAccount):
     name='create',
     decorator=swagger_auto_schema(
         operation_description='Изменение пароля пользователя',
-        tags=['Разработчик', 'Личный кабинет'],
+        tags=['Разработчик', 'Личный кабинет разработчика'],
         responses={
             200: openapi.Response('пароль успешно изменён'),
             401: openapi.Response('Не аутентифицированный'),

@@ -66,7 +66,7 @@ class EmployeeViewTest(BaseTestView, TestCase):
     def test_05_partial_update(self):
         data = {'last_name': 'user3'}
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.valid_user))
-        request = self.client.patch(f'{self.url}{self.created.id}/', data)
+        request = self.client.put(f'{self.url}{self.created.id}/', data)
         self.assertEqual(request.status_code, 200)
         self.assertEqual(Admin.objects.get(pk=self.created.id).last_name, data['last_name'])
 

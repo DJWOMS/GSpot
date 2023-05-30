@@ -13,12 +13,13 @@ class DeveloperAuthView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
+        operation_description='Получение разработчиком JWT токена',
         request_body=DeveloperAuthSerializer,
         responses={
             200: AuthTokensResponseSerializer,
             400: openapi.Response(description="Email or Password not valid"),
         },
-        tags=["Аутентификация Developer"],
+        tags=["Аутентификация", "Разработчик"],
     )
     def post(self, request):
         serializer = DeveloperAuthSerializer(data=request.data)

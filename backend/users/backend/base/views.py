@@ -1,5 +1,10 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.exceptions import NotFound
+
+
+class PartialUpdateMixin:
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
 
 class PersonalAccount(viewsets.ModelViewSet):

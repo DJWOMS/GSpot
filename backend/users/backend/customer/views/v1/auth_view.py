@@ -13,12 +13,13 @@ class CustomerAuthView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
+        operation_description='Получение пользователем JWT токена',
         request_body=CustomerAuthSerializer,
         responses={
             200: AuthTokensResponseSerializer,
             400: openapi.Response(description="Email or Password not valid"),
         },
-        tags=["Аутентификация Customer"],
+        tags=["Аутентификация", "Пользователь"],
     )
     def post(self, request):
         serializer = CustomerAuthSerializer(data=request.data)
