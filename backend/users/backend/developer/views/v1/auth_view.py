@@ -19,7 +19,7 @@ class DeveloperAuthView(APIView):
             200: AuthTokensResponseSerializer,
             400: openapi.Response(description="Email or Password not valid"),
         },
-        tags=["Авторизация", "Разработчик"],
+        tags=["Аутентификация", "Разработчик"],
     )
     def post(self, request):
         serializer = DeveloperAuthSerializer(data=request.data)

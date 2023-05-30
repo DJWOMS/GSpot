@@ -15,7 +15,7 @@ from common.services.jwt.blacklist import TokenBlackList
     decorator=swagger_auto_schema(
         operation_description='Прекратить сеанс работы в качестве зарегистрированного пользователя',
         tags=[
-            'Авторизация',
+            'Аутентификация',
         ],
         request_body=LogoutSerializer,
         responses={

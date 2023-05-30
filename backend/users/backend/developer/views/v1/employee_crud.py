@@ -112,6 +112,9 @@ class DeveloperEmployeeDetailView(PartialUpdateMixin, generics.RetrieveUpdateDes
     http_method_names = ['put', 'post', 'get']
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):
+            # queryset just for schema generation metadata
+            return CompanyUser.objects.none()
         return CompanyUser.objects.filter(company=self.request.user.company_owner).exclude(
             id=self.request.user.id
         )

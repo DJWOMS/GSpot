@@ -19,7 +19,7 @@ class CustomerAuthView(APIView):
             200: AuthTokensResponseSerializer,
             400: openapi.Response(description="Email or Password not valid"),
         },
-        tags=["Авторизация", "Пользователь"],
+        tags=["Аутентификация", "Пользователь"],
     )
     def post(self, request):
         serializer = CustomerAuthSerializer(data=request.data)
