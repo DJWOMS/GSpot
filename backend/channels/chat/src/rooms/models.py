@@ -13,7 +13,7 @@ class Room(BaseModel):
 
     @validator('room_name')
     def validate_room_name(self, v):
-        if v.strip():
+        if not v.strip():
             raise ValueError("Room name mustn't be empty")
         return v
 
