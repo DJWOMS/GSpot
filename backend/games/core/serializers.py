@@ -222,3 +222,8 @@ class GameDlcLinkSerializer(serializers.Serializer):
             'game': instance[0].game_id,
             'dlc': [link.dlc_id for link in instance]
         }
+
+
+class SaveToLibrarySerializer(serializers.Serializer):
+    user_to = serializers.UUIDField()
+    offer_uuid = serializers.ListField(child=serializers.UUIDField())
