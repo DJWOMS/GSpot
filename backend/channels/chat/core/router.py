@@ -3,7 +3,7 @@ from core.websocket.endpoints import ws
 from core.websocket.router.routing import WebSocketRouter
 from src.messages.endpoints.websocket import messages
 from src.notifications.endpoints.websocket import notifications as ws_notifications
-from src.notifications.endpoints.http import notifications as http_notifications
+from src.notifications.endpoints.http import notification as http_notifications
 
 
 ws_router = WebSocketRouter()
