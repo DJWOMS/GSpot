@@ -23,6 +23,8 @@ const CatalogPage = async ({ searchParams }: Props) => {
     Object.entries(searchParams).filter(([, v]) => typeof v !== 'string')
   ) as Record<string, string>
 
+  const currentPage = searchParams.page ? Number(searchParams.page) : 1
+
   const [games, sorts, prices, platforms, genres] = await Promise.all([
     fetchServerSide<GameCardInterface[]>({
       path: `/games/list?${new URLSearchParams(search).toString()}`,
@@ -65,7 +67,13 @@ const CatalogPage = async ({ searchParams }: Props) => {
               ))}
             </div>
 
-            <Pagination />
+            <Pagination
+              path={'/catalog'}
+              query={search}
+              currentPage={currentPage}
+              visiblePageButtonsCount={5}
+              pageCount={5}
+            />
           </div>
         </div>
       </Section>

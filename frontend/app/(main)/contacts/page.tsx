@@ -40,10 +40,11 @@ const ContactsPage = () => {
   const rules = {
     required: 'The field is required',
     minLength: { value: 2, message: 'Please, enter more than 2 characters!' },
+    pattern: { value: /[A-Za-z]+/, message: 'Field is invalid!' },
   }
   const rulesForEmail = {
     required: 'The field is required',
-    pattern: { value: /[^@]+@[^.]+\..+/, message: 'Е-mail is invalid!' },
+    pattern: { value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, message: 'Е-mail is invalid!' },
   }
 
   const disabled = !!errors.name || !!errors.email || !!errors.message || !!errors.subject
