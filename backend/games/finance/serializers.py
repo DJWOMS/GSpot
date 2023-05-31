@@ -81,6 +81,8 @@ class OfferInCartSerializerCreate(serializers.Serializer):
         created_by = data.get('created_by')
         gift_recipient = data.get('gift_recipient')
         offers = data.get('offers')
+        if offers.products.count() <= 1:
+            raise serializers.ValidationError('Оффер должен быть связан более чем с одной игрой')
         if Cart.objects.filter(
             created_by=created_by, gift_recipient=gift_recipient, offers=offers
         ).exists():
