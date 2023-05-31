@@ -32,7 +32,12 @@ class User(BaseModel):
 
     @validator('last_seen')
     def validate_last_seen(cls, v):
-        if v and v > datetime.utcnow():
+        if v is not None:
+            try:
+                datetime.strptime(str(v), '%Y-%m-%dT%H:%M:%S.%fZ')
+            except ValueError as e:
+                raise ValueError("Invalid last_seen format. Expected format: YYYY-MM-DDTHH:MM:SS.sssZ") from e
+        if v > datetime.utcnow():
             raise ValueError("last_seen can't be in the future.")
         return v
 
