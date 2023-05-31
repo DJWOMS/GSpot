@@ -7,7 +7,6 @@ from apps.base.schemas import URL, MoneyDataClass, PaymentServiceInfo
 
 @dataclass
 class ItemPaymentData:
-    owner_uuid: UUID
     item_uuid: UUID
     price: MoneyDataClass
     developer_uuid: UUID
@@ -15,10 +14,17 @@ class ItemPaymentData:
 
 @dataclass(kw_only=True)
 class PurchaseItemsData(PaymentServiceInfo):
-    user_uuid: UUID
+    user_uuid_from: UUID
+    user_uuid_to: UUID
     return_url: URL
     items_payment_data: list[ItemPaymentData]
     price_with_commission: MoneyDataClass
 
     def items_total_price(self) -> Decimal:
         return sum(item_payment_data.price.amount for item_payment_data in self.items_payment_data)
+
+
+@dataclass
+class RefundData:
+    user_uuid: UUID
+    item_uuid: UUID

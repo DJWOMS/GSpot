@@ -1,5 +1,9 @@
 from abc import ABC, abstractmethod
 
+import rollbar
+from apps.base.exceptions import DifferentStructureError
+from dacite import from_dict
+
 
 class AbstractPaymentService(ABC):
     @abstractmethod
@@ -23,3 +27,25 @@ class AbstractPayoutService(ABC):
     @abstractmethod
     def request_payout(self, payout_data):
         pass
+
+
+class DRFtoDataClassMixin:
+    def convert_data(self, request, dataclass_model):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return self.__convert_drf_to_dataclass(dataclass_model, serializer)
+
+    def __convert_drf_to_dataclass(self, dataclass_model, serializer: dict):
+        # TODO change to pydantic, add typehint for pydantic model  # noqa: T000
+        try:
+            dataclass_data = from_dict(
+                dataclass_model,
+                serializer.validated_data,
+            )
+        except KeyError as error:
+            rollbar.report_message(
+                f'Schemas and serializers got different structure. Got next error: {str(error)}',
+                'error',
+            )
+            raise DifferentStructureError
+        return dataclass_data
