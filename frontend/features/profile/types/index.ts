@@ -1,4 +1,4 @@
-import { PlatformType } from 'components/Platform/Platform'
+import { PlatformType } from 'components/Platform'
 
 export interface PurchaseCardInterface {
   id: number
