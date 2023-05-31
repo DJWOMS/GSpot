@@ -3,7 +3,7 @@
 import { FC } from 'react'
 import { IconHeart, IconTrash } from '@tabler/icons-react'
 import cn from 'classnames'
-import Platform from 'components/Platform'
+import { Platform } from 'components/Platform'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { GameCardInterface } from '../../types'
