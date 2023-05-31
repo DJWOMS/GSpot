@@ -12,15 +12,15 @@ class Room(BaseModel):
     created_at: datetime = Field(default=datetime.utcnow())
 
     @validator('room_name')
-    def validate_room_name(self, v):
+    def validate_room_name(cls, v):
         if not v.strip():
-            raise ValueError("Room name mustn't be empty")
+            raise ValueError("Room name mustn't be empty.")
         return v
 
     @validator('created_at')
-    def validate_created_at(self, v):
+    def validate_created_at(cls, v):
         if v > datetime.utcnow():
-            raise ValueError("created_at can't be in the future")
+            raise ValueError("created_at can't be in the future.")
         return v
 
     class Config:

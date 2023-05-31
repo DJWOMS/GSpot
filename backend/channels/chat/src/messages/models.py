@@ -16,13 +16,13 @@ class Message(BaseModel):
     @validator('message_text')
     def validate_message_text(cls, v):
         if not v.strip():
-            raise ValueError("Message mustn't be empty")
+            raise ValueError("Message mustn't be empty.")
         return v
 
     @validator('created_at')
     def validate_created_at(cls, v):
         if v > datetime.utcnow():
-            raise ValueError("created_at can't be in the future")
+            raise ValueError("created_at can't be in the future.")
         return v
 
     class Config:

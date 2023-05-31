@@ -17,13 +17,13 @@ class Notification(BaseModel):
     @validator('text')
     def validate_text(cls, v):
         if not v.strip():
-            raise ValueError("Message mustn't be empty")
+            raise ValueError("Message mustn't be empty.")
         return v
 
     @validator('status')
-    def validate_status(self, v):
+    def validate_status(cls, v):
         if v not in ['unread', 'read']:
-            raise ValueError('Invalid status. Status must be one of "["unread", "read"]"')
+            raise ValueError('Invalid status. Status must be one of "["unread", "read"]".')
         return v
 
     @validator('timestamp', 'timestamp_2')
@@ -38,7 +38,7 @@ class Notification(BaseModel):
             raise ValueError("Invalid timestamp format. Expected format: YYYY-MM-DDTHH:MM:SS.sssZ") from e
 
         if timestamp > datetime.utcnow() or timestamp_2 > datetime.utcnow():
-            raise ValueError("Timestamps can't be in the future")
+            raise ValueError("Timestamps can't be in the future.")
 
         return values
 

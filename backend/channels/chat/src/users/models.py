@@ -25,21 +25,21 @@ class User(BaseModel):
     chat_status: str = Field(default=ChatStatus.OFFLINE)
 
     @validator('username')
-    def validate_username(self, v):
+    def validate_username(cls, v):
         if not v.split():
             raise ValueError("username musn't be empty.")
         return v
 
     @validator('last_seen')
-    def validate_last_seen(self, v):
-        if v > datetime.utcnow():
-            raise ValueError("last_seen can't be in the future")
+    def validate_last_seen(cls, v):
+        if v and v > datetime.utcnow():
+            raise ValueError("last_seen can't be in the future.")
         return v
 
     @validator('chat_status')
-    def validate_chat_status(self, v):
+    def validate_chat_status(cls, v):
         if v not in ChatStatus._value2member_map_:
-            raise ValueError(f'Invalid chat_status. chat_status must be one of "{ChatStatus._value2member_map_.keys()}"')
+            raise ValueError(f'Invalid chat_status. chat_status must be one of "{list(ChatStatus._value2member_map_.keys())}".')
         return v
 
     class Config:
