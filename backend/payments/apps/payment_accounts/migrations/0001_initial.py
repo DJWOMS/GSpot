@@ -6,16 +6,7 @@ import apps.base.fields
 import django.core.validators
 import django.db.models.deletion
 import djmoney.models.fields
-from django.core.management import call_command
 from django.db import migrations, models
-
-
-def load_fixtures(apps, schema_editor):
-    call_command(
-        'loaddata',
-        'apps/payment_accounts/fixtures/owner.json',
-        verbosity=0,
-    )
 
 
 class Migration(migrations.Migration):
@@ -203,5 +194,4 @@ class Migration(migrations.Migration):
                 'ordering': ['-created_date'],
             },
         ),
-        migrations.RunPython(load_fixtures),
     ]

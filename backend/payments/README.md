@@ -158,4 +158,33 @@ Or if you start project local you need to use [`ngrok`](https://ngrok.com/) or n
 5. At last, you need to put this link in yookassa settings and you're done:
 
 ![alt text](https://i.pinimg.com/originals/90/1a/27/901a279e9df3b0da2bcac4f236fc3a4b.png)
--
+
+## Fixtures
+
+Our app has fixtures:
+- base - fixtures with commissions for services
+- test - test data to test our app
+
+### Linux
+
+Base fixtures run in entrypoint for container but you also can run them by your own:
+
+```shell
+python manage.py apps/base/fixtures/base/*.json
+```
+
+Test fixtures don't apply automatically you need to run them by command:
+
+```shell
+python manage.py apps/base/fixtures/test/*.json
+```
+
+### Windows
+
+If you use Windows, you can't apply all fixtures by one command, you need to apply them by one, for example:
+
+```shell
+python manage.py apps/base/fixtures/test/invoices.json
+```
+
+---
