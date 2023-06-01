@@ -1,13 +1,12 @@
 from apps.base.fields import MoneyAmountSerializerField
 from apps.base.schemas import EnumCurrencies
 from apps.base.serializer import PaymentServiceSerializer
-from apps.external_payments.schemas import PayOutMethod
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from rest_enumfield import EnumField
 from rest_framework import serializers
 
-from .models import Account
+from .models import Account, PayoutData
 
 
 class PaymentCommissionSerializer(PaymentServiceSerializer):
@@ -50,7 +49,7 @@ class AmountPayoutSerializer(serializers.Serializer):
 
 
 class PayoutDestination(serializers.Serializer):
-    type_ = EnumField(choices=PayOutMethod)
+    type_ = EnumField(choices=PayoutData.PayoutType)
     account_number = serializers.CharField()
 
     def to_internal_value(self, data):
@@ -64,6 +63,26 @@ class PayoutSerializer(serializers.Serializer):
     amount = AmountPayoutSerializer()
     payout_destination_data = PayoutDestination()
     user_uuid = serializers.UUIDField()
+
+
+class PayoutDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PayoutData
+        fields = ['account_number', 'is_auto_payout', 'payout_type']
+
+    def validate(self, data):
+        if all(char.isdigit() for char in data['account_number']):
+            return data
+        raise serializers.ValidationError({'account_number': 'should contain only digits'})
+
+
+class CreatePayoutDataSerializer(PayoutDataSerializer):
+    user_uuid = serializers.UUIDField()
+
+    class Meta(PayoutDataSerializer.Meta):
+        fields = PayoutDataSerializer.Meta.fields + [
+            'user_uuid',
+        ]
 
 
 class BalanceSerializer(serializers.ModelSerializer):

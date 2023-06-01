@@ -49,7 +49,7 @@ def edit_change_balance(
     )
 
 
-def increase_user_balance(*, account: Account, amount: Decimal):
+def increase_user_balance(*, account: Account, amount: Decimal) -> BalanceChange:
     with transaction.atomic():
         balance_change_object = BalanceChange.objects.create(
             account_id=account,
@@ -69,9 +69,10 @@ def increase_user_balance(*, account: Account, amount: Decimal):
         ),
         'info',
     )
+    return balance_change_object
 
 
-def decrease_user_balance(*, account: Account, amount: Decimal):
+def decrease_user_balance(*, account: Account, amount: Decimal) -> BalanceChange:
     with transaction.atomic():
         balance_change_object = BalanceChange.objects.create(
             account_id=account,
@@ -91,3 +92,4 @@ def decrease_user_balance(*, account: Account, amount: Decimal):
         ),
         'info',
     )
+    return balance_change_object

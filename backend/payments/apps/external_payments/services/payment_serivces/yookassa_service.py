@@ -5,10 +5,10 @@ from apps.base.classes import AbstractPaymentService, AbstractPayoutService
 from apps.base.schemas import URL, ResponseParsedData
 from apps.base.utils import change_balance
 from apps.external_payments import schemas
-from apps.external_payments.schemas import PayOutMethod, YookassaPayoutModel
+from apps.external_payments.schemas import YookassaPayoutModel
 from apps.item_purchases.models import Invoice
 from apps.item_purchases.schemas import PurchaseItemsData
-from apps.payment_accounts.models import Account, BalanceChange
+from apps.payment_accounts.models import Account, BalanceChange, PayoutData
 from apps.payment_accounts.schemas import BalanceIncreaseData, YookassaRequestPayment
 from django.conf import settings
 from environs import Env
@@ -236,13 +236,13 @@ class YookassaPayOut(AbstractPayoutService):
             },
             'description': f'Выплата для {developer_account.user_uuid}',
         }
-        if payout_data.payout_destination_data.type_ == PayOutMethod.yoo_money:
+        if payout_data.payout_destination_data.type_ == PayoutData.PayoutType.YOO_MONEY:
             response['payout_destination_data'] = {
                 'type': payout_data.payout_destination_data.type_.value,
                 'account_number': payout_data.payout_destination_data.account_number,
             }
             return response
-        elif payout_data.payout_destination_data.type_ == PayOutMethod.bank_card:
+        elif payout_data.payout_destination_data.type_ == PayoutData.PayoutType.BANK_CARD:
             # TODO add functionality to support bank card # noqa: T000
             #  https://yookassa.ru/developers/api#payout_object
             pass

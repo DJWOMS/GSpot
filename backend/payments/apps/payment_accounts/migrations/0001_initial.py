@@ -137,6 +137,32 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='PayoutData',
+            fields=[
+                (
+                    'user_uuid',
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        primary_key=True,
+                        related_name='payout_data',
+                        serialize=False,
+                        to='payment_accounts.account',
+                        to_field='user_uuid',
+                        editable=False,
+                    ),
+                ),
+                ('account_number', models.CharField(max_length=30)),
+                ('is_auto_payout', models.BooleanField(default=False)),
+                (
+                    'payout_type',
+                    models.CharField(
+                        choices=[('yoo_money', 'YOO_MONEY'), ('bank_card', 'BANK_CARD')],
+                        max_length=23,
+                    ),
+                ),
+            ],
+        ),
+        migrations.CreateModel(
             name='BalanceChange',
             fields=[
                 (
