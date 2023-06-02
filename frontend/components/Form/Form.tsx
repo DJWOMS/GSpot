@@ -16,17 +16,39 @@ interface Props<T extends FieldValues> {
   onSubmit: (values: T) => void
   btnText: string
   config: UseFormProps<T>
+  onResetButton?: boolean
+  onResetSubmit?: boolean
 }
-function Form<T extends FieldValues>({ fields, title, onSubmit, btnText, config }: Props<T>) {
+
+function Form<T extends FieldValues>({
+  fields,
+  title,
+  onSubmit,
+  btnText,
+  config,
+  onResetButton = false,
+  onResetSubmit = false,
+}: Props<T>) {
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<T>(config)
 
+  const onResetSubmitAction = (data: T) => {
+    onSubmit(data)
+    onResetSubmit && reset()
+  }
+
   return (
-    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={s.form} onSubmit={handleSubmit(onResetSubmitAction)}>
       {title && <h4 className={s.formTitle}>{title}</h4>}
+      {onResetButton && (
+        <button className={s.formButtonReset} type="button" onClick={() => reset()}>
+          сбросить
+        </button>
+      )}
       <div className={s.col}>
         {fields.map(({ label, ...field }, index) => (
           <div key={`item-${index}`}>

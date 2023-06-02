@@ -14,14 +14,6 @@ interface InputTypes {
 
 const Password = () => {
   const [saved, setSaved] = useState(false)
-  const { reset } = useForm<InputTypes>({
-    mode: 'onBlur',
-    defaultValues: {
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    },
-  })
 
   function validatePassword(password: string): boolean {
     return (
@@ -45,7 +37,6 @@ const Password = () => {
       setSaved(true)
       setTimeout(() => setSaved(false), 3000)
     }
-    reset()
   }
 
   return (
@@ -117,7 +108,15 @@ const Password = () => {
       title="Поменять пароль"
       onSubmit={onSubmitPassword}
       btnText="Поменять"
-      config={{ mode: 'onChange' }}
+      onResetSubmit
+      config={{
+        mode: 'onChange',
+        defaultValues: {
+          oldPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        },
+      }}
     />
   )
 }
