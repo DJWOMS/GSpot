@@ -1,22 +1,18 @@
+from core.serializers import GamesListSerializer
 from django.shortcuts import get_object_or_404
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from rest_framework import generics
-
-from finance.models import Offer, Library
-from core.serializers import GamesListSerializer
-from drf_yasg import openapi
-
-
+from finance.models import Library, Offer
 from finance.serializers import (
-    OfferSerializer, LibrarySerializer, OfferInCartSerializerCreate
+    LibrarySerializer, OfferInCartSerializerCreate, OfferSerializer
 )
 
 
 class OfferAPIView(APIView):
-
     @swagger_auto_schema(
         operation_description="description",
         responses={200: openapi.Response('Создание пакета игр или одной игры', OfferSerializer())},

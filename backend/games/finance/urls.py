@@ -1,7 +1,6 @@
 from django.urls import path
 
-from .views import OfferInCartAPIView, OfferAPIView, ShowLibraryView
-
+from .views import OfferAPIView, OfferInCartAPIView, ShowLibraryView
 
 urlpatterns = [
     path('offer/', OfferAPIView.as_view(), name="offer"),
