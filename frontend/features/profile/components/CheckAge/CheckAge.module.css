@@ -1,5 +1,5 @@
 .wrapper {
-  @apply fixed inset-0 z-40 flex h-screen w-full flex-col items-center justify-center px-12;
+  @apply fixed inset-0 z-[9999] flex h-screen w-full flex-col items-center justify-center px-12;
   background-color: #17202b;
 
   &Hidden {
@@ -33,7 +33,8 @@
 
 .image {
   @apply h-full w-full;
-  box-shadow: rgba(17, 17, 26, 0.444) 0px 8px 24px, rgba(17, 17, 26, 0.564) 0px 16px 56px, rgba(17, 17, 26, 0.63) 0px 10px 30px;
+  box-shadow: rgba(17, 17, 26, 0.444) 0px 8px 24px, rgba(17, 17, 26, 0.564) 0px 16px 56px,
+    rgba(17, 17, 26, 0.63) 0px 10px 30px;
 
   &Box {
     @apply absolute top-[-10%] h-1/4 w-2/4 md:h-1/3 lg:w-1/4;

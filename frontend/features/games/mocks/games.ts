@@ -43,6 +43,48 @@ export const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
     {
       languageName: 'English',
       interfaces: true,
+      subtitles: true,
+      voice: false,
+    },
+    {
+      languageName: 'Russian',
+      interfaces: true,
+      subtitles: false,
+      voice: false,
+    },
+    {
+      languageName: 'German',
+      interfaces: true,
+      subtitles: false,
+      voice: true,
+    },
+    {
+      languageName: 'Spanish',
+      interfaces: true,
+      subtitles: true,
+      voice: false,
+    },
+    {
+      languageName: 'Italian',
+      interfaces: true,
+      subtitles: false,
+      voice: false,
+    },
+    {
+      languageName: 'Chinese',
+      interfaces: true,
+      subtitles: false,
+      voice: true,
+    },
+    {
+      languageName: 'Belarusian',
+      interfaces: true,
+      subtitles: false,
+      voice: false,
+    },
+    {
+      languageName: 'Turkey',
+      interfaces: true,
       subtitles: false,
       voice: false,
     },

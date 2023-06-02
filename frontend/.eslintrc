@@ -9,6 +9,7 @@
         "plugin:react/recommended",
         "plugin:@next/next/recommended",
         "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
         "prettier"
     ],
     "overrides": [
@@ -21,13 +22,15 @@
     "plugins": [
         "react",
         "prettier",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "react-hooks"
     ],
     "rules": {
         "react/jsx-key": "error",
         "prettier/prettier": "error",
         "react/react-in-jsx-scope": "off",
-        "@typescript-eslint/no-var-requires": "off"
+        "@typescript-eslint/no-var-requires": "off",
+        "react-hooks/exhaustive-deps": "error"
     },
     "ignorePatterns": [
         "**/*.scss"

@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import { IconHeart, IconShoppingCart } from '@tabler/icons-react'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
@@ -67,18 +67,17 @@ const Header: FC<HeaderProps> = ({ links }) => {
     window.onscroll = () => (openHeader ? window.scrollTo(window.scrollX, window.scrollY) : () => void 0)
   }, [openHeader])
 
-  const noScroll = (elem: HTMLElement, state: boolean) => {
+  const noScroll = useCallback((elem: HTMLElement, state: boolean) => {
     if (state) {
       elem.classList.add('_lock')
     } else {
       elem.classList.remove('_lock')
     }
-  }
+  }, [])
 
   useEffect(() => {
-    const body = document.body
-    noScroll(body, openHeader)
-  }, [openHeader])
+    noScroll(document.body, openHeader)
+  }, [openHeader, noScroll])
 
   return (
     <header className={cn(s.header, { [s.headerHide]: hideHeader })}>
@@ -130,7 +129,7 @@ const Header: FC<HeaderProps> = ({ links }) => {
 
               <Link className={s.actionLink} href="/profile/checkout">
                 <IconShoppingCart />
-                <span>$00.00</span>
+                <span>₽00.00</span>
               </Link>
             </div>
           </div>
