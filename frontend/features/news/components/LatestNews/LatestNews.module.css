@@ -16,7 +16,7 @@
 
   @media (max-width: 1050px) {
     @apply first:w-full;
-    > *:nth-clild(2) {
+    &:nth-clild(2) {
       @apply w-full;
     }
   }
