@@ -1,0 +1,47 @@
+[
+    {
+        "model": "payment_accounts.account",
+        "pk": 1,
+        "fields": {
+            "user_uuid": "8fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "balance": "0.00",
+            "balance_currency": "RUB"
+        }
+    },
+    {
+        "model": "payment_accounts.account",
+        "pk": 2,
+        "fields": {
+            "user_uuid": "d4e3866d-8715-4d08-a3f9-b1c57f324055",
+            "balance": "100.00",
+            "balance_currency": "RUB"
+        }
+    },
+    {
+        "model": "payment_accounts.account",
+        "pk": 3,
+        "fields": {
+            "user_uuid": "85ef9f56-71d0-4ccf-a240-eceb0c58beb8",
+            "balance": "2000.00",
+            "balance_currency": "RUB"
+        }
+    },
+    {
+        "model": "payment_accounts.account",
+        "pk": 4,
+        "fields": {
+            "user_uuid": "f848436c-883c-4ec4-a695-a46b2bdb1e8a",
+            "balance": "5.00",
+            "balance_currency": "RUB"
+        }
+    },
+    {
+        "model": "payment_accounts.account",
+        "pk": 5,
+        "fields": {
+            "user_uuid": "90f66a92-bd5e-404b-80ca-57aee7965973",
+            "balance": "400.00",
+            "balance_currency": "RUB"
+        }
+    }
+]

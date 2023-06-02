@@ -1,0 +1,22 @@
+[
+    {
+        "model": "external_payments.balanceservicemap",
+        "pk": 1,
+        "fields": {
+            "payment_id": "6fe08521-6858-46b5-8f35-4d449fe12468",
+            "balance_change_id_id": "1",
+            "service_id_id": "1",
+            "operation_type": "PM"
+        }
+    },
+    {
+        "model": "external_payments.balanceservicemap",
+        "pk": 2,
+        "fields": {
+            "payment_id": "3ee72ce4-2c4b-43e0-bca0-a3de4082e4b6",
+            "balance_change_id_id": "2",
+            "service_id_id": "1",
+            "operation_type": "PM"
+        }
+    }
+]

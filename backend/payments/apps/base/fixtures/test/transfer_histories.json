@@ -1,0 +1,68 @@
+[
+    {
+        "model": "item_purchases.transferhistory",
+        "pk": 1,
+        "fields": {
+            "account_type_id": 7,
+            "amount": "750.00",
+            "amount_currency": "RUB",
+            "object_id": "1",
+            "created_date": "2023-05-25 22:49:21.682908+00"
+        }
+    },
+    {
+        "model": "item_purchases.transferhistory",
+        "pk": 2,
+        "fields": {
+            "account_type_id": 8,
+            "amount": "250.00",
+            "amount_currency": "RUB",
+            "object_id": "1",
+            "created_date": "2023-05-25 22:49:21.682908+00"
+        }
+    },
+    {
+        "model": "item_purchases.transferhistory",
+        "pk": 3,
+        "fields": {
+            "account_type_id": 7,
+            "amount": "75.00",
+            "amount_currency": "RUB",
+            "object_id": "2",
+            "created_date": "2023-05-26 22:49:21.682908+00"
+        }
+    },
+    {
+        "model": "item_purchases.transferhistory",
+        "pk": 4,
+        "fields": {
+            "account_type_id": 8,
+            "amount": "25.00",
+            "amount_currency": "RUB",
+            "object_id": "1",
+            "created_date": "2023-05-26 22:49:21.682908+00"
+        }
+    },
+    {
+        "model": "item_purchases.transferhistory",
+        "pk": 5,
+        "fields": {
+            "account_type_id": 7,
+            "amount": "7.50",
+            "amount_currency": "RUB",
+            "object_id": "2",
+            "created_date": "2023-05-27 22:49:21.682908+00"
+        }
+    },
+    {
+        "model": "item_purchases.transferhistory",
+        "pk": 6,
+        "fields": {
+            "account_type_id": 8,
+            "amount": "2.50",
+            "amount_currency": "RUB",
+            "object_id": "1",
+            "created_date": "2023-05-27 22:49:21.682908+00"
+        }
+    }
+]

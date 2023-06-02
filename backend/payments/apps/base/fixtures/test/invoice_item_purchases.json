@@ -1,0 +1,42 @@
+[
+    {
+        "model": "item_purchases.invoice_item_purchases",
+        "pk": 1,
+        "fields": {
+            "invoice_id": "04056b5d-ccca-442b-b91d-c7eba9931895",
+            "itempurchase_id": "1"
+        }
+    },
+    {
+        "model": "item_purchases.invoice_item_purchases",
+        "pk": 2,
+        "fields": {
+            "invoice_id": "04056b5d-ccca-442b-b91d-c7eba9931895",
+            "itempurchase_id": "2"
+        }
+    },
+    {
+        "model": "item_purchases.invoice_item_purchases",
+        "pk": 3,
+        "fields": {
+            "invoice_id": "0d23249f-9dee-4f10-aa0d-15f236d3bd61",
+            "itempurchase_id": "3"
+        }
+    },
+    {
+        "model": "item_purchases.invoice_item_purchases",
+        "pk": 4,
+        "fields": {
+            "invoice_id": "0d23249f-9dee-4f10-aa0d-15f236d3bd61",
+            "itempurchase_id": "4"
+        }
+    },
+    {
+        "model": "item_purchases.invoice_item_purchases",
+        "pk": 5,
+        "fields": {
+            "invoice_id": "0d23249f-9dee-4f10-aa0d-15f236d3bd61",
+            "itempurchase_id": "5"
+        }
+    }
+]
