@@ -1,6 +1,6 @@
 import { IconHeart, IconPlayerPlay } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
-import { Platform } from 'components/Platform'
+import Platform from 'components/Platform'
 import Section from 'components/Section'
 import { Languages, Requirements } from 'features/games/components'
 import type { GameDetailsInterface } from 'features/games/types'

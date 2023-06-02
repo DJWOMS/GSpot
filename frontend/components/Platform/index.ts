@@ -1,2 +1,2 @@
-export { default as Platform } from './Platform'
+export { default } from './Platform'
 export type { PlatformType } from './Platform'
