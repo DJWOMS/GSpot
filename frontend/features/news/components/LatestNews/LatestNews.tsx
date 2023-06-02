@@ -1,5 +1,5 @@
 import Section from 'components/Section'
-import { NewsItem } from 'features/news/components'
+import NewsItem from '../NewsItem'
 import s from './LatestNews.module.css'
 
 const LatestNews = () => {
