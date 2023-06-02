@@ -4,9 +4,9 @@ import { FC, useState } from 'react'
 import { IconX } from '@tabler/icons-react'
 import { PaginationState } from '@tanstack/react-table'
 import Table from 'components/Table'
-import type { PurchaseCardInterface } from 'features/profile/types'
 import Image from 'next/image'
 import Link from 'next/link'
+import type { PurchaseCardInterface } from '../../types'
 import s from './PurchaseTable.module.css'
 
 interface Props {

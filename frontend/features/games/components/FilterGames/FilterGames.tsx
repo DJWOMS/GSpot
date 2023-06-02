@@ -6,13 +6,13 @@ import cn from 'classnames'
 import { CheckBox, Group } from 'components/Form'
 import Select from 'components/Select'
 import { Range } from 'components/Slider'
+import { useRouter, useSearchParams } from 'next/navigation'
 import type {
   FilterGenreInterface,
   FilterPlatformInterface,
   FilterPriceType,
   FilterSortByInterface,
-} from 'features/games/types'
-import { useRouter, useSearchParams } from 'next/navigation'
+} from '../../types'
 import s from './FilterGames.module.css'
 import GroupItem from './GroupItem'
 
