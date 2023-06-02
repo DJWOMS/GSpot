@@ -2,11 +2,13 @@ from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from rest_framework import generics
 
 from finance.models import Offer, Library
 from core.serializers import GamesListSerializer
 from drf_yasg import openapi
+
 
 from finance.serializers import (
     OfferSerializer, LibrarySerializer, OfferInCartSerializerCreate
@@ -27,12 +29,6 @@ class OfferAPIView(APIView):
         return Response(serializer.data)
 
 
-class ShowLibraryView(generics.RetrieveAPIView):
-    serializer_class = LibrarySerializer
-    queryset = Library.objects.all()
-    lookup_field = 'user'
-
-
 class OfferInCartAPIView(APIView):
     @swagger_auto_schema(
         operation_description="description",
@@ -46,3 +42,9 @@ class OfferInCartAPIView(APIView):
         games = offer.products.all()
         game_serializer = GamesListSerializer(games, many=True)
         return Response(game_serializer.data)
+
+
+class ShowLibraryView(generics.RetrieveAPIView):
+    serializer_class = LibrarySerializer
+    queryset = Library.objects.all()
+    lookup_field = 'user'
