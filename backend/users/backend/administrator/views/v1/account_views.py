@@ -1,4 +1,4 @@
-from base.views import PersonalAccount
+from base.views import PersonalAccount, PartialUpdateMixin
 from administrator.models import Admin
 from administrator.serializers import account_serializers
 from drf_yasg import openapi
@@ -11,12 +11,12 @@ from django.utils.decorators import method_decorator
     name='retrieve',
     decorator=swagger_auto_schema(
         operation_description='Личный кабинет пользователя',
-        tags=['Администратор', 'Личный кабинет'],
+        tags=['Администратор', 'Личный кабинет администратора'],
         responses={
             200: openapi.Response(
-                'Личная информация пользователя', account_serializers.AccountRetrieveSerializers
+                'Личная информация администратора', account_serializers.AccountRetrieveSerializers
             ),
-            401: openapi.Response('Не аутентифицированный'),
+            401: openapi.Response('Не аутентифицированный пользователь'),
         },
     ),
 )
@@ -24,23 +24,23 @@ from django.utils.decorators import method_decorator
     name='partial_update',
     decorator=swagger_auto_schema(
         operation_description='Изменение информации в личном кабинете пользователя',
-        tags=['Администратор', 'Личный кабинет'],
+        tags=['Администратор', 'Личный кабинет администратора'],
         responses={
             200: openapi.Response(
-                'Информация обновлена', account_serializers.AccountUpdateSerializers
+                'Личная информация администратора', account_serializers.AccountUpdateSerializers
             ),
-            401: openapi.Response('Не аутентифицированный'),
+            401: openapi.Response('Не аутентифицированный пользователь'),
         },
     ),
 )
 @method_decorator(
     name='destroy',
     decorator=swagger_auto_schema(
-        operation_description='Удаление своего профиля самим пользователем',
-        tags=['Администратор', 'Личный кабинет'],
+        operation_description='Удаление профиля администратора',
+        tags=['Администратор', 'Личный кабинет администратора'],
         responses={
-            200: openapi.Response('профиль успешно удалён'),
-            401: openapi.Response('Не аутентифицированный'),
+            204: openapi.Response('Профиль администратора успешно удалён'),
+            401: openapi.Response('Не аутентифицированный пользователь'),
         },
     ),
 )
@@ -67,10 +67,10 @@ class AccountViewSet(PersonalAccount):
     name='create',
     decorator=swagger_auto_schema(
         operation_description='Изменение пароля пользователя',
-        tags=['Администратор', 'Личный кабинет'],
+        tags=['Администратор', 'Личный кабинет администратора'],
         responses={
-            200: openapi.Response('пароль успешно изменён'),
-            401: openapi.Response('Не аутентифицированный'),
+            200: openapi.Response('Пароль успешно изменён'),
+            401: openapi.Response('Не аутентифицированный пользователь'),
         },
     ),
 )

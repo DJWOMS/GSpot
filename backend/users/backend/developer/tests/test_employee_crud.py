@@ -73,7 +73,7 @@ class DeveloperTestView(BaseTestView, TestCase):
             "first_name": '123',
         }
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.company_owner))
-        response = self.client.patch(f'{self.url}{self.created.id}/', data)
+        response = self.client.put(f'{self.url}{self.created.id}/', data)
         self.assertEqual(response.status_code, 200)
 
     def test_060_queryset(self):
@@ -97,5 +97,5 @@ class DeveloperTestView(BaseTestView, TestCase):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(test_company_owner))
         response = self.client.get(self.url)
         self.assertEqual(len(response.data), 0)
-        response = self.client.get(f'{self.url}{self.created.id}')
-        self.assertEqual(response.status_code, 301)
+        response = self.client.get(f'{self.url}{self.created.id}/')
+        self.assertEqual(response.status_code, 404)
