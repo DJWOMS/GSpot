@@ -11,6 +11,7 @@ v1 = [
 
 urlpatterns = [
     path('api/v1/', include(v1)),
+    path('api/users/', include('common.urls')),
 ]
 
 urlpatterns += yasg_doc

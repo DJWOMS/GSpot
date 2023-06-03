@@ -7,19 +7,17 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     env_file:
-      - ../.env
+      - .env.local
     ports:
       - "5432:5432"
-    networks:
-      - db
-
-  web_users:
-    depends_on:
-      - db
-    networks:
-      - db
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    env_file:
+      - .env.local
 
 volumes:
   pgdata:
-networks:
-  db:
