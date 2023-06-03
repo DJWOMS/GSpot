@@ -175,7 +175,7 @@ class PayoutData(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['account_number', 'payout_type'],
-                name='name of constraint',
+                name='unique payout data',
             ),
         ]
 

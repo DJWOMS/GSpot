@@ -70,10 +70,19 @@ class PayoutDataSerializer(serializers.ModelSerializer):
         model = PayoutData
         fields = ['account_number', 'is_auto_payout', 'payout_type']
 
-    def validate(self, data):
-        if all(char.isdigit() for char in data['account_number']):
+    def validate(self, data: dict) -> dict | None:
+        payout_type = data.get('payout_type')
+        account_number = data.get('account_number')
+
+        if (
+            payout_type != PayoutData.PayoutType.YOO_MONEY
+            or account_number is None
+            or all(char.isdigit() for char in account_number)
+        ):
             return data
-        raise serializers.ValidationError({'account_number': 'should contain only digits'})
+        raise serializers.ValidationError(
+            {'account_number': 'yoomoney account number should contain only digits'},
+        )
 
 
 class CreatePayoutDataSerializer(PayoutDataSerializer):

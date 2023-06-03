@@ -2,6 +2,7 @@ from apps.base.classes import DRFtoDataClassMixin
 from apps.base.exceptions import AttemptsLimitExceededError, DifferentStructureError
 from apps.base.utils.db_query import multiple_select_or_404
 from apps.external_payments.schemas import YookassaPayoutModel
+from django.forms import model_to_dict
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, status, viewsets
@@ -116,17 +117,18 @@ class PayoutDataObjectViewSet(
         payout_data_obj = self.get_object()
         data = request.data
 
-        payout_data_obj.account_number = data.get('account_number', payout_data_obj.account_number)
-        payout_data_obj.is_auto_payout = data.get('is_auto_payout', payout_data_obj.is_auto_payout)
-        payout_data_obj.payout_type = data.get('payout_type', payout_data_obj.payout_type)
+        for field_name in ('account_number', 'is_auto_payout', 'payout_type'):
+            field_data = data.get(field_name, getattr(payout_data_obj, field_name))
+            setattr(payout_data_obj, field_name, field_data)
 
+        serializer_data = model_to_dict(payout_data_obj)
+        payout_serializers = self.get_serializer(data=serializer_data)
+        payout_serializers.is_valid(raise_exception=True)
         payout_data_obj.save()
-
-        payout_serializers = self.serializer_class(payout_data_obj)
-        return Response(payout_serializers.data)
+        return Response(payout_serializers.validated_data)
 
 
-class PayoutDataCreateViewSet(mixins.CreateModelMixin, viewsets.ViewSet):
+class PayoutDataCreateView(viewsets.ViewSet):
     serializer_class = CreatePayoutDataSerializer
 
     def create(self, request, *args, **kwargs):
