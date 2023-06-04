@@ -35,17 +35,19 @@ class DRFtoDataClassMixin:
         serializer.is_valid(raise_exception=True)
         return self.__convert_drf_to_dataclass(dataclass_model, serializer)
 
-    def __convert_drf_to_dataclass(self, dataclass_model, serializer: dict):
+    def __convert_drf_to_dataclass(self, data_model, serializer: dict):
         # TODO change to pydantic, add typehint for pydantic model  # noqa: T000
         try:
-            dataclass_data = from_dict(
-                dataclass_model,
+            data_model_data = from_dict(
+                data_model,
                 serializer.validated_data,
             )
+        except AttributeError:
+            data_model_data = data_model(**serializer.validated_data)
         except KeyError as error:
             rollbar.report_message(
                 f'Schemas and serializers got different structure. Got next error: {str(error)}',
                 'error',
             )
             raise DifferentStructureError
-        return dataclass_data
+        return data_model_data
