@@ -8,10 +8,9 @@ services:
       dockerfile: docker/Dockerfile
     env_file:
       - .env
-    command: python manage.py migrate &&
-              gunicorn -b 0.0.0.0:8000 \
-                      --log-level INFO \
-                      --access-logfile - config.wsgi:application
+    command: >
+      sh -c "python manage.py migrate &&
+             gunicorn -b 0.0.0.0:8000 --log-level info --access-logfile - config.wsgi:application"
     volumes:
       - static:/app/static
       - media:/app/media
