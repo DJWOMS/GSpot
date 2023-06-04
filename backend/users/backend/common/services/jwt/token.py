@@ -4,6 +4,7 @@ from django.conf import settings
 from django.utils import timezone
 
 from base.token import BaseToken
+from base.models import BaseAbstractUser
 from common.services.jwt.exceptions import TokenExpired, PayloadError
 from common.services.jwt.mixins import JWTMixin
 
@@ -47,6 +48,48 @@ class Token(BaseToken, JWTMixin):
         }
         refresh_token = self._encode(payload)
         return refresh_token
+
+    def generate_tokens_for_user(self, user: BaseAbstractUser) -> dict:
+        access_token = self.generate_access_token_for_user(user)
+        refresh_token = self.generate_refresh_token_for_user(user)
+        return {"access": access_token, "refresh": refresh_token}
+
+    def generate_access_token_for_user(self, user: BaseAbstractUser) -> str:
+        user_payload = self.get_user_payload(user)
+        iat = timezone.localtime()
+        exp = iat + settings.ACCESS_TOKEN_LIFETIME
+        payload = {
+            "token_type": "access",
+            "iat": int(iat.timestamp()),
+            "exp": int(exp.timestamp()),
+            **user_payload,
+        }
+        access_token = self._encode(payload)
+        return access_token
+
+    def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
+        user_payload = self.get_user_payload(user)
+        iat = timezone.localtime()
+        exp = iat + settings.REFRESH_TOKEN_LIFETIME
+        payload = {
+            "token_type": "refresh",
+            "iat": int(iat.timestamp()),
+            "exp": int(exp.timestamp()),
+            **user_payload,
+        }
+        refresh_token = self._encode(payload)
+        return refresh_token
+
+    @staticmethod
+    def get_user_payload(user: BaseAbstractUser) -> dict:
+        print(user.permissions_codename)
+        user_payload = {
+            "user_id": str(user.id),
+            "role": user._meta.app_label,
+            "avatar": str(user.avatar),
+            "permissions": user.permissions_codename,
+        }
+        return user_payload
 
     def check_token(self, token: str) -> bool:
         self.check_exp(token)
