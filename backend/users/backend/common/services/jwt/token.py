@@ -82,7 +82,6 @@ class Token(BaseToken, JWTMixin):
 
     @staticmethod
     def get_user_payload(user: BaseAbstractUser) -> dict:
-        print(user.permissions_codename)
         user_payload = {
             "user_id": str(user.id),
             "role": user._meta.app_label,
