@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  web_users_tests:
+    container_name: users-service-test
+    build:
+      dockerfile: docker/Dockerfile
+    env_file:
+      - .env.tests
+    command: python manage.py test
+  db:
+    container_name: users-service-db
+    image: postgres:14-alpine
+    env_file:
+      - .env.tests
+    ports:
+      - "5432:5432"
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    env_file:
+      - .env.tests
+

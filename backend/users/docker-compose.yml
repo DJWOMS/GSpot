@@ -4,16 +4,14 @@ services:
   web_users:
     container_name: users-service
     build:
-      context: ./..
-      dockerfile: docker/python/Dockerfile
-    environment:
-      - DJANGO_SETTINGS_MODULE
+      context: .
+      dockerfile: docker/Dockerfile
     env_file:
-      - ../.env
+      - .env
     command: /start-web.sh
     volumes:
-      - static:/code/static
-      - media:/code/media
+      - static:/app/static
+      - media:/app/media
     restart: always
     expose:
       - 8000

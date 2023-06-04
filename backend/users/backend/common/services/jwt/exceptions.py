@@ -2,15 +2,15 @@ from rest_framework import status
 from rest_framework.exceptions import ValidationError
 
 
-class TokenExpired(Exception):
+class TokenExpired(ValidationError):
     pass
 
 
-class TokenInvalid(Exception):
+class TokenInvalid(ValidationError):
     pass
 
 
-class PayloadError(Exception):
+class PayloadError(ValidationError):
     pass
 
 
