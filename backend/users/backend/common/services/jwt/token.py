@@ -9,6 +9,13 @@ from common.services.jwt.mixins import JWTMixin
 
 
 class Token(BaseToken, JWTMixin):
+    @staticmethod
+    def validate_payload_data(data: dict) -> None:
+        required_fields = ['user_id', 'role']
+        for field in required_fields:
+            if field not in data:
+                raise PayloadError(f"Payload must contain - {field}")
+
     def generate_tokens(self, data: dict) -> dict:
         access_token = self.generate_access_token(data)
         refresh_token = self.generate_refresh_token(data)
@@ -40,13 +47,6 @@ class Token(BaseToken, JWTMixin):
         }
         refresh_token = self._encode(payload)
         return refresh_token
-
-    @staticmethod
-    def validate_payload_data(data: dict) -> None:
-        required_fields = ['user_id', 'role']
-        for field in required_fields:
-            if field not in data:
-                raise PayloadError(f"Payload must contain - {field}")
 
     def check_token(self, token: str) -> bool:
         self.check_exp(token)
