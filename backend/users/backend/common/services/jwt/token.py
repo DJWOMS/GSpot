@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from base.token import BaseToken
 from base.models import BaseAbstractUser
-from common.services.jwt.exceptions import TokenExpired, PayloadError
+from common.services.jwt.exceptions import TokenExpired, PayloadError, InvalidUserType
 from common.services.jwt.mixins import JWTMixin
 
 
@@ -16,6 +16,11 @@ class Token(BaseToken, JWTMixin):
         for field in required_fields:
             if field not in data:
                 raise PayloadError(f"Payload must contain - {field}")
+
+    @staticmethod
+    def validate_user_type(user: BaseAbstractUser) -> None:
+        if not hasattr(user, 'permissions_codename'):
+            raise InvalidUserType(f"<{user._meta.app_label}> is not valid user type")
 
     def generate_tokens(self, data: dict) -> dict:
         access_token = self.generate_access_token(data)
@@ -55,6 +60,7 @@ class Token(BaseToken, JWTMixin):
         return {"access": access_token, "refresh": refresh_token}
 
     def generate_access_token_for_user(self, user: BaseAbstractUser) -> str:
+        self.validate_user_type(user)
         user_payload = self.get_user_payload(user)
         iat = timezone.localtime()
         exp = iat + settings.ACCESS_TOKEN_LIFETIME
@@ -68,6 +74,7 @@ class Token(BaseToken, JWTMixin):
         return access_token
 
     def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
+        self.validate_user_type(user)
         user_payload = self.get_user_payload(user)
         iat = timezone.localtime()
         exp = iat + settings.REFRESH_TOKEN_LIFETIME
