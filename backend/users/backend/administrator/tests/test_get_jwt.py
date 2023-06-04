@@ -1,9 +1,9 @@
-from base.base_tests.change_account_info_tests_base import ChangeAccountInfoApiTestCase
+from base.base_tests.test_base_get_jwt import GetJwtApiTestCase
+from administrator.models import Admin
 from rest_framework.test import APITestCase
-from developer.models import CompanyUser
 
 
-class DeveloperChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITestCase):
+class AdminGetJwtApiTestCase(GetJwtApiTestCase, APITestCase):
     @staticmethod
     def set_settings_user():
         user = {
@@ -13,14 +13,9 @@ class DeveloperChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITes
             'first_name': 'user1',
             'last_name': 'user2',
             'phone': '89991234567',
-            'company': None,
         }
         return user
 
     @staticmethod
     def get_user_model():
-        return CompanyUser
-
-    @staticmethod
-    def get_reverse_url():
-        return 'developer-user-account'
+        return Admin
