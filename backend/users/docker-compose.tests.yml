@@ -1,13 +1,6 @@
 version: "3.9"
 
 services:
-  web_users_tests:
-    container_name: users-service-test
-    build:
-      dockerfile: docker/Dockerfile
-    env_file:
-      - .env.tests
-    command: python manage.py test
   db:
     container_name: users-service-db
     image: postgres:14-alpine
@@ -15,6 +8,17 @@ services:
       - .env.tests
     ports:
       - "5432:5432"
+  web_users_tests:
+    container_name: users-service-test
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    env_file:
+      - .env.tests
+    command: python manage.py test
+    depends_on:
+      - db
+      - rabbitmq
   rabbitmq:
     image: rabbitmq:3.11-management
     container_name: rabbitmq
@@ -23,4 +27,3 @@ services:
       - "15672:15672"
     env_file:
       - .env.tests
-
