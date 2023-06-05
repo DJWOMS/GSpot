@@ -22,6 +22,16 @@ class Token(BaseToken, JWTMixin):
         if not hasattr(user, 'permissions_codename'):
             raise InvalidUserType(f"<{user._meta.app_label}> is not valid user type")
 
+    @staticmethod
+    def get_default_payload() -> dict:
+        iat = timezone.localtime()
+        exp = iat + settings.ACCESS_TOKEN_LIFETIME
+        default_payload = {
+            "iat": int(iat.timestamp()),
+            "exp": int(exp.timestamp()),
+        }
+        return default_payload
+
     def generate_tokens(self, data: dict) -> dict:
         access_token = self.generate_access_token(data)
         refresh_token = self.generate_refresh_token(data)
@@ -29,12 +39,10 @@ class Token(BaseToken, JWTMixin):
 
     def generate_access_token(self, data: dict = {}) -> str:
         self.validate_payload_data(data)
-        iat = timezone.localtime()
-        exp = iat + settings.ACCESS_TOKEN_LIFETIME
+        default_payload = self.get_default_payload()
         payload = {
             "token_type": "access",
-            "iat": int(iat.timestamp()),
-            "exp": int(exp.timestamp()),
+            **default_payload,
             **data,
         }
         access_token = self._encode(payload)
@@ -42,14 +50,12 @@ class Token(BaseToken, JWTMixin):
 
     def generate_refresh_token(self, data: dict) -> str:
         self.validate_payload_data(data)
-        iat = timezone.localtime()
-        exp = iat + settings.REFRESH_TOKEN_LIFETIME
+        default_payload = self.get_default_payload()
         payload = {
             "token_type": "refresh",
-            "iat": int(iat.timestamp()),
-            "exp": int(exp.timestamp()),
             "user_id": data['user_id'],
             "role": data['role'],
+            **default_payload,
         }
         refresh_token = self._encode(payload)
         return refresh_token
@@ -62,12 +68,10 @@ class Token(BaseToken, JWTMixin):
     def generate_access_token_for_user(self, user: type[BaseAbstractUser]) -> str:
         self.validate_user_type(user)
         user_payload = self.get_user_payload(user)
-        iat = timezone.localtime()
-        exp = iat + settings.ACCESS_TOKEN_LIFETIME
+        default_payload = self.get_default_payload()
         payload = {
             "token_type": "access",
-            "iat": int(iat.timestamp()),
-            "exp": int(exp.timestamp()),
+            **default_payload,
             **user_payload,
         }
         access_token = self._encode(payload)
@@ -76,12 +80,10 @@ class Token(BaseToken, JWTMixin):
     def generate_refresh_token_for_user(self, user: type[BaseAbstractUser]) -> str:
         self.validate_user_type(user)
         user_payload = self.get_user_payload(user)
-        iat = timezone.localtime()
-        exp = iat + settings.REFRESH_TOKEN_LIFETIME
+        default_payload = self.get_default_payload()
         payload = {
             "token_type": "refresh",
-            "iat": int(iat.timestamp()),
-            "exp": int(exp.timestamp()),
+            **default_payload,
             **user_payload,
         }
         refresh_token = self._encode(payload)
