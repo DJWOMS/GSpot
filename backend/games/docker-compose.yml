@@ -9,7 +9,7 @@ services:
     env_file:
       - .env.dev
     ports:
-      - "5433:5432"
+      - "5432:5432"
   web:
     build: .
     container_name: games
@@ -20,7 +20,6 @@ services:
       - ./:/games
     ports:
       - "8000:8000"
-      - "4000:4000"
     depends_on:
       - db
     env_file:

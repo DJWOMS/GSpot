@@ -1,0 +1,4 @@
+.vscode
+docker-compose.dev.yml
+Dockerfile.dev
+requirements.dev.txt
