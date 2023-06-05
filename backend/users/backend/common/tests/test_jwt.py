@@ -5,7 +5,7 @@ from typing import Type
 
 from administrator.models import Admin
 from base.models import BaseAbstractUser
-from common.services.jwt.exceptions import PayloadError, InvalidUserType, TokenInvalid, TokenExpired
+from common.services.jwt.exceptions import PayloadError, TokenInvalid, TokenExpired
 from common.services.jwt.token import Token
 from customer.models import CustomerUser
 from developer.models import CompanyUser
@@ -72,7 +72,8 @@ class TestTokenJWT(TestCase):
         self.assertIsInstance(tokens, dict)
 
     def test_create_tokens_for_customer_user(self):
-        self.assertRaises(InvalidUserType, self.token.generate_tokens_for_user, self.customer)
+        tokens = self.token.generate_tokens_for_user(self.customer)
+        self.assertIsInstance(tokens, dict)
 
     def test_check_valid_token_signature(self):
         user_payload = self.get_payload_for_user(self.administrator)

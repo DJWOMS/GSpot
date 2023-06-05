@@ -11,7 +11,3 @@ class TokenInvalid(ValidationError):
 
 class PayloadError(ValidationError):
     pass
-
-
-class InvalidUserType(ValidationError):
-    pass

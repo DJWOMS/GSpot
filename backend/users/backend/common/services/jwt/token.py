@@ -5,7 +5,7 @@ from typing import Type
 
 from base.models import BaseAbstractUser
 from base.token import BaseToken
-from common.services.jwt.exceptions import TokenExpired, PayloadError, InvalidUserType
+from common.services.jwt.exceptions import TokenExpired, PayloadError
 from common.services.jwt.mixins import JWTMixin
 
 
@@ -16,11 +16,6 @@ class Token(BaseToken, JWTMixin):
         for field in required_fields:
             if field not in data:
                 raise PayloadError(f"Payload must contain - {field}")
-
-    @staticmethod
-    def validate_user_type(user: Type[BaseAbstractUser]) -> None:
-        if not hasattr(user, 'permissions_codename'):
-            raise InvalidUserType(f"<{user._meta.app_label}> is not valid user Type")
 
     @staticmethod
     def get_default_payload() -> dict:
@@ -66,7 +61,6 @@ class Token(BaseToken, JWTMixin):
         return {"access": access_token, "refresh": refresh_token}
 
     def generate_access_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
-        self.validate_user_type(user)
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
         payload = {
@@ -78,7 +72,6 @@ class Token(BaseToken, JWTMixin):
         return access_token
 
     def generate_refresh_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
-        self.validate_user_type(user)
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
         payload = {
