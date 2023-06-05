@@ -5,7 +5,7 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 
 from administrator.models import Admin
-from base.models import AbstractUser
+from base.models import BaseAbstractUser
 from common.services.jwt.token import Token
 from customer.models import CustomerUser
 from developer.models import CompanyUser
@@ -34,7 +34,7 @@ class TestJWTLogoutView(TestCase):
         self.assertEqual(response.status_code, 205)
 
     @staticmethod
-    def create_refresh_token(user_model: type[AbstractUser]) -> dict:
+    def create_refresh_token(user_model: type[BaseAbstractUser]) -> dict:
         data = {
             'username': 'test_user',
             'password': 'test_password',
