@@ -18,7 +18,7 @@ class Token(BaseToken, JWTMixin):
                 raise PayloadError(f"Payload must contain - {field}")
 
     @staticmethod
-    def validate_user_type(user: BaseAbstractUser) -> None:
+    def validate_user_type(user: type[BaseAbstractUser]) -> None:
         if not hasattr(user, 'permissions_codename'):
             raise InvalidUserType(f"<{user._meta.app_label}> is not valid user type")
 
@@ -54,12 +54,12 @@ class Token(BaseToken, JWTMixin):
         refresh_token = self._encode(payload)
         return refresh_token
 
-    def generate_tokens_for_user(self, user: BaseAbstractUser) -> dict:
+    def generate_tokens_for_user(self, user: type[BaseAbstractUser]) -> dict:
         access_token = self.generate_access_token_for_user(user)
         refresh_token = self.generate_refresh_token_for_user(user)
         return {"access": access_token, "refresh": refresh_token}
 
-    def generate_access_token_for_user(self, user: BaseAbstractUser) -> str:
+    def generate_access_token_for_user(self, user: type[BaseAbstractUser]) -> str:
         self.validate_user_type(user)
         user_payload = self.get_user_payload(user)
         iat = timezone.localtime()
@@ -73,7 +73,7 @@ class Token(BaseToken, JWTMixin):
         access_token = self._encode(payload)
         return access_token
 
-    def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
+    def generate_refresh_token_for_user(self, user: type[BaseAbstractUser]) -> str:
         self.validate_user_type(user)
         user_payload = self.get_user_payload(user)
         iat = timezone.localtime()
@@ -88,7 +88,7 @@ class Token(BaseToken, JWTMixin):
         return refresh_token
 
     @staticmethod
-    def get_user_payload(user: BaseAbstractUser) -> dict:
+    def get_user_payload(user: type[BaseAbstractUser]) -> dict:
         user_payload = {
             "user_id": str(user.id),
             "role": user._meta.app_label,
