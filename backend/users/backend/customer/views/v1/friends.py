@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets, status
@@ -27,8 +28,6 @@ class FriendshipViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(operation_description='Отправить запрос на добавление в друзья', tags=['Друзья'])
     def add_friend(self, request, pk=None):
         user = request.user
-        serializer = FriendShipRequestSerializer(data=request.data)
-
         request_data = json.loads(request.data)
         friend_id = request_data['friend_id']
         friend = self._get_friend(friend_id)
@@ -37,14 +36,15 @@ class FriendshipViewSet(viewsets.ModelViewSet):
         if friend_request_exists:
             return Response({'error': 'Friend request already sent.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        FriendShipRequest.objects.create(sender=user, receiver=friend)
-        message = FriendAddedMessage(
-            exchange_name='friend_added_exchange',
-            routing_key='friend_added_queue',
-            message={'friend_id': str(friend_id), "sender_id": str(user.id)}
-        )
-        with RabbitMQ() as rabbitmq:
-            rabbitmq.send_message(message)
+        with transaction.atomic():
+            FriendShipRequest.objects.create(sender=user, receiver=friend)
+            message = FriendAddedMessage(
+                exchange_name='friend_added_exchange',
+                routing_key='friend_added_queue',
+                message={'friend_id': str(friend_id), "sender_id": str(user.id)}
+            )
+            with RabbitMQ() as rabbitmq:
+                rabbitmq.send_message(message)
         return Response({'success': 'Friend request sent.'}, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['post'])
