@@ -107,18 +107,18 @@ class Token(BaseToken, JWTMixin):
     def check_exp(self, token: str) -> int:
         exp_left = self.check_exp_left(token)
         if exp_left == 0:
-            raise TokenExpired()
+            raise TokenExpired('Token is expired')
         else:
             return exp_left
 
     def check_exp_left(self, token: str) -> int:
-        decoded_token = self._decode(token)
-        now = int(time.time())
-        exp = decoded_token['exp']
-
-        if exp > now:
-            return exp - now
-        else:
+        try:
+            decoded_token = self._decode(token)
+            now = int(time.time())
+            exp = decoded_token['exp']
+            if exp > now:
+                return exp - now
+        except TokenExpired:
             return 0
 
     def check_signature(self, token: str) -> None:
