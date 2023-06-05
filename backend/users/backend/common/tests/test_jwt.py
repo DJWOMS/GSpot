@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from django.test import TestCase
 from django.utils import timezone
+from typing import Type
 
 from administrator.models import Admin
 from base.models import BaseAbstractUser
@@ -18,7 +19,7 @@ class TestTokenJWT(TestCase):
         self.customer = self.create_user(CustomerUser)
 
     @staticmethod
-    def create_user(user_model: type[BaseAbstractUser]) -> type[BaseAbstractUser]:
+    def create_user(user_model: Type[BaseAbstractUser]) -> Type[BaseAbstractUser]:
         data = {
             'username': 'test_user',
             'password': 'test_password',
@@ -31,7 +32,7 @@ class TestTokenJWT(TestCase):
         return user
 
     @staticmethod
-    def get_payload_for_user(user: type[BaseAbstractUser]) -> dict:
+    def get_payload_for_user(user: Type[BaseAbstractUser]) -> dict:
         user_payload = {'user_id': str(user.id), 'role': user._meta.app_label}
         return user_payload
 

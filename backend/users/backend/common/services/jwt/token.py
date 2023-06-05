@@ -1,10 +1,10 @@
 import time
-
 from django.conf import settings
 from django.utils import timezone
+from typing import Type
 
-from base.token import BaseToken
 from base.models import BaseAbstractUser
+from base.token import BaseToken
 from common.services.jwt.exceptions import TokenExpired, PayloadError, InvalidUserType
 from common.services.jwt.mixins import JWTMixin
 
@@ -18,9 +18,9 @@ class Token(BaseToken, JWTMixin):
                 raise PayloadError(f"Payload must contain - {field}")
 
     @staticmethod
-    def validate_user_type(user: type[BaseAbstractUser]) -> None:
+    def validate_user_type(user: Type[BaseAbstractUser]) -> None:
         if not hasattr(user, 'permissions_codename'):
-            raise InvalidUserType(f"<{user._meta.app_label}> is not valid user type")
+            raise InvalidUserType(f"<{user._meta.app_label}> is not valid user Type")
 
     @staticmethod
     def get_default_payload() -> dict:
@@ -60,12 +60,12 @@ class Token(BaseToken, JWTMixin):
         refresh_token = self._encode(payload)
         return refresh_token
 
-    def generate_tokens_for_user(self, user: type[BaseAbstractUser]) -> dict:
+    def generate_tokens_for_user(self, user: Type[BaseAbstractUser]) -> dict:
         access_token = self.generate_access_token_for_user(user)
         refresh_token = self.generate_refresh_token_for_user(user)
         return {"access": access_token, "refresh": refresh_token}
 
-    def generate_access_token_for_user(self, user: type[BaseAbstractUser]) -> str:
+    def generate_access_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
         self.validate_user_type(user)
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
@@ -77,7 +77,7 @@ class Token(BaseToken, JWTMixin):
         access_token = self._encode(payload)
         return access_token
 
-    def generate_refresh_token_for_user(self, user: type[BaseAbstractUser]) -> str:
+    def generate_refresh_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
         self.validate_user_type(user)
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
@@ -90,7 +90,7 @@ class Token(BaseToken, JWTMixin):
         return refresh_token
 
     @staticmethod
-    def get_user_payload(user: type[BaseAbstractUser]) -> dict:
+    def get_user_payload(user: Type[BaseAbstractUser]) -> dict:
         user_payload = {
             "user_id": str(user.id),
             "role": user._meta.app_label,
