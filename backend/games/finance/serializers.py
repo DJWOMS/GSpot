@@ -12,7 +12,7 @@ class PriceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class OfferSerializer(serializers.ModelSerializer):
+class OfferBundleSerializer(serializers.ModelSerializer):
     price = PriceSerializer()
     products = serializers.PrimaryKeyRelatedField(many=True, queryset=Product.objects.all())
 
@@ -42,6 +42,14 @@ class OfferSerializer(serializers.ModelSerializer):
         ]
         ProductOffer.objects.bulk_create(product_offer)
         return offer
+
+
+class OfferSerializer(serializers.ModelSerializer):
+    price = PriceSerializer()
+
+    class Meta:
+        model = Offer
+        fields = '__all__'
 
 
 class ProductOfferSerializer(serializers.ModelSerializer):

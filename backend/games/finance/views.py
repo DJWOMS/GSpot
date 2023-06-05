@@ -1,3 +1,4 @@
+from finance.serializers import OfferBundleSerializer
 from core.serializers import GamesListSerializer
 from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
@@ -12,14 +13,16 @@ from finance.serializers import (
 )
 
 
-class OfferAPIView(APIView):
+class OfferBundleAPIView(APIView):
     @swagger_auto_schema(
         operation_description="description",
-        responses={200: openapi.Response('Создание пакета игр или одной игры', OfferSerializer())},
-        request_body=OfferSerializer
+        responses={200: openapi.Response(
+            'Создание пакета игр или одной игры', OfferBundleSerializer()
+        )},
+        request_body=OfferBundleSerializer
     )
     def post(self, request):
-        serializer = OfferSerializer(data=request.data)
+        serializer = OfferBundleSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
