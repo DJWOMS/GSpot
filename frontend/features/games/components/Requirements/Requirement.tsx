@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import type { RequirementInterface } from 'features/games/types'
+import type { RequirementInterface } from '../../types'
 import s from './Requirement.module.css'
 
 const Requirement: FC<RequirementInterface> = ({

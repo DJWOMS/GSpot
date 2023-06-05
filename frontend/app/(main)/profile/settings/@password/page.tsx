@@ -1,10 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { ErrorMessage } from '@hookform/error-message'
-import { Input } from 'components/Form'
-import { SkeletonInput } from 'components/Skeleton'
+import { useForm } from 'react-hook-form'
+import Form from 'components/Form/Form'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import s from '../page.module.css'
 
@@ -16,19 +14,6 @@ interface InputTypes {
 
 const Password = () => {
   const [saved, setSaved] = useState(false)
-  const {
-    handleSubmit,
-    reset,
-    control,
-    formState: { errors, isValid, isLoading },
-  } = useForm<InputTypes>({
-    mode: 'onBlur',
-    defaultValues: {
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    },
-  })
 
   function validatePassword(password: string): boolean {
     return (
@@ -52,105 +37,87 @@ const Password = () => {
       setSaved(true)
       setTimeout(() => setSaved(false), 3000)
     }
-    reset()
   }
 
-  const errorMessage = 'поле не заполнено'
-
   return (
-    <form action="#" className={s.form} onSubmit={handleSubmit(onSubmitPassword)}>
-      <h4 className={s.formTitle}>Поменять пароль</h4>
-      <div className={s.col}>
-        <div>
-          <label className={s.formLabel} htmlFor="oldPassword">
-            Старый пароль
-          </label>
-          {isLoading ? (
-            <SkeletonInput height="44px" />
-          ) : (
-            <Controller
-              name="oldPassword"
-              control={control}
-              rules={{
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: errorMessage,
-                },
-              }}
-              render={({ field }) => (
-                <Input {...field} id="oldPassword" type="password" placeholder="*** *** ***" />
-              )}
+    <Form
+      fields={[
+        {
+          name: 'oldPassword',
+          label: 'Старый пароль',
+          rules: {
+            required: true,
+            minLength: {
+              value: 3,
+              message: 'Введите старый пароль',
+            },
+          },
+          render: ({ field }) => (
+            <input
+              {...field}
+              id="oldPassword"
+              type="password"
+              placeholder="*** *** ***"
+              className={s.formInput}
             />
-          )}
-          <ErrorMessage
-            errors={errors}
-            name="oldPassword"
-            render={({ message }) => <p className={s.errorMessage}>{message}</p>}
-          />
-        </div>
-        <div>
-          <label className={s.formLabel} htmlFor="newPassword">
-            Новый пароль
-          </label>
-          {isLoading ? (
-            <SkeletonInput height="44px" />
-          ) : (
-            <Controller
-              name="newPassword"
-              control={control}
-              rules={{
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: errorMessage,
-                },
-                validate: (value) => validatePassword(value) || 'пароль слишком легкий',
-              }}
-              render={({ field }) => (
-                <Input {...field} id="newPassword" type="password" placeholder="*** *** ***" />
-              )}
+          ),
+        },
+        {
+          name: 'newPassword',
+          label: 'Новый пароль',
+          rules: {
+            required: true,
+            minLength: {
+              value: 3,
+              message: 'Введите новый пароль',
+            },
+            validate: (value) => validatePassword(value) || 'пароль слишком легкий',
+          },
+          render: ({ field }) => (
+            <input
+              {...field}
+              id="newPassword"
+              type="password"
+              placeholder="*** *** ***"
+              className={s.formInput}
             />
-          )}
-          <ErrorMessage
-            errors={errors}
-            name="newPassword"
-            render={({ message }) => <p className={s.errorMessage}>{message}</p>}
-          />
-        </div>
-        <div>
-          <label className={s.formLabel} htmlFor="confirmPassword">
-            Подтвердить Новый пароль
-          </label>
-          {isLoading ? (
-            <SkeletonInput height="44px" />
-          ) : (
-            <Controller
-              name="confirmPassword"
-              control={control}
-              rules={{
-                required: true,
-                minLength: {
-                  value: 3,
-                  message: errorMessage,
-                },
-                validate: (value, formValues) => value === formValues.newPassword || 'пароли не совпадают',
-              }}
-              render={({ field }) => (
-                <Input {...field} id="confirmPassword" type="password" placeholder="*** *** ***" />
-              )}
+          ),
+        },
+        {
+          name: 'confirmPassword',
+          label: 'Подтвердить Новый пароль',
+          rules: {
+            required: true,
+            minLength: {
+              value: 3,
+              message: 'Введите подтверждение нового пароля',
+            },
+            validate: (value, formValues) => value === formValues.newPassword || 'пароли не совпадают',
+          },
+          render: ({ field }) => (
+            <input
+              {...field}
+              id="confirmPassword"
+              type="password"
+              placeholder="*** *** ***"
+              className={s.formInput}
             />
-          )}
-          <ErrorMessage
-            errors={errors}
-            name="confirmPassword"
-            render={({ message }) => <p className={s.errorMessage}>{message}</p>}
-          />
-        </div>
-      </div>
-      {saved && <p className={s.saved}>Пароль изменен</p>}
-      <input type="submit" className={s.formBtn} value="Поменять" disabled={!isValid} />
-    </form>
+          ),
+        },
+      ]}
+      title="Поменять пароль"
+      onSubmit={onSubmitPassword}
+      btnText="Поменять"
+      onResetSubmit
+      config={{
+        mode: 'onChange',
+        defaultValues: {
+          oldPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        },
+      }}
+    />
   )
 }
 

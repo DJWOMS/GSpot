@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { IconClockHour4 } from '@tabler/icons-react'
-import type { ArticleInterface } from 'features/news/types'
+import type { ArticleInterface } from '../../types'
 import s from './ArticleContent.module.css'
 
 type ArticleType = {
