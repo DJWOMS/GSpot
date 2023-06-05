@@ -18,4 +18,4 @@ class JWTMixin:
         try:
             return jwt.decode(token, settings.SECRET_KEY, settings.ALGORITHM)
         except Exception:
-            raise TokenInvalid
+            raise TokenInvalid("%s is invalid token" % token)
