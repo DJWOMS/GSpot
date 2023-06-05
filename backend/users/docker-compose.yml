@@ -15,6 +15,9 @@ services:
     restart: always
     expose:
       - 8000
+    depends_on:
+      - db
+      - rabbitmq
   db:
     container_name: users-service-db
     image: postgres:14-alpine
