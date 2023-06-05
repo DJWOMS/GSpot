@@ -12,8 +12,8 @@ services:
       sh -c "python manage.py migrate &&
              gunicorn -b 0.0.0.0:8000 --log-level info --access-logfile - config.wsgi:application"
     volumes:
-      - static:/app/static
-      - media:/app/media
+      - ./static:/app/
+      - ./media:/app/
     restart: always
     expose:
       - 8000
@@ -23,7 +23,7 @@ services:
     container_name: users-service-db
     image: postgres:14-alpine
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
     env_file:
       - .env.local
     ports:
@@ -36,9 +36,4 @@ services:
       - "15672:15672"
     env_file:
       - .env.local
-
-volumes:
-  media:
-  static:
-  pgdata:
-    
+        
