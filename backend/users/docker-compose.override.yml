@@ -6,6 +6,17 @@ services:
       - .env
     ports:
       - "8000:8000"
+  web_users_tests:
+    container_name: users-service-tests
+    env_file:
+      - .env.tests
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    command: python manage.py test
+    depends_on:
+      - db
+      - rabbitmq
   db:
     env_file:
       - .env
