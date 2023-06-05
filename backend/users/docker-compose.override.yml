@@ -10,7 +10,17 @@ services:
     volumes:
       - gspot_users_static:/app/static/
       - gspot_users_media:/app/media/
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
   db:
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - gspot_users_pgdata:/var/lib/postgresql/data
     env_file:
