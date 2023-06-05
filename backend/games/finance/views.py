@@ -1,4 +1,3 @@
-from finance.serializers import OfferBundleSerializer
 from core.serializers import GamesListSerializer
 from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
@@ -8,9 +7,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from finance.models import Library, Offer
-from finance.serializers import (
-    LibrarySerializer, OfferInCartSerializerCreate, OfferSerializer
-)
+from finance.serializers import (LibrarySerializer, OfferBundleSerializer,
+                                 OfferInCartSerializerCreate)
 
 
 class OfferBundleAPIView(APIView):
