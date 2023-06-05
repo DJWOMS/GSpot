@@ -24,6 +24,10 @@ class OfferBundleSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         products_data = validated_data.pop('products')
         developer = set()
+        if len(products_data) <= 1:
+            raise serializers.ValidationError(
+                {"mesage": 'Пакет игр должен состоять более чем из одной игры'}
+            )
         for product in products_data:
             developer.add(product.developers_uuid)
             if len(developer) > 1:
@@ -90,8 +94,6 @@ class OfferInCartSerializerCreate(serializers.Serializer):
         created_by = data.get('created_by')
         gift_recipient = data.get('gift_recipient')
         offers = data.get('offers')
-        if offers.products.count() <= 1:
-            raise serializers.ValidationError('Оффер должен быть связан более чем с одной игрой')
         if Cart.objects.filter(
             created_by=created_by, gift_recipient=gift_recipient, offers=offers
         ).exists():
