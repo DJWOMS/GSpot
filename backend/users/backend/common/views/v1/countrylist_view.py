@@ -17,9 +17,7 @@ from common.serializers.v1.country_serializer import CountrySerializer
         ],
         responses={
             200: openapi.Response("Список стран", CountrySerializer(many=True)),
-            401: openapi.Response(
-                "Список стран доступен только авторизованным пользователям"
-            ),
+            403: openapi.Response("Список стран доступен только авторизованным пользователям"),
         },
     ),
 )
@@ -31,13 +29,9 @@ from common.serializers.v1.country_serializer import CountrySerializer
             "Список стран",
         ],
         responses={
-            201: openapi.Response(
-                "Запись успешно создана", CountrySerializer(many=True)
-            ),
+            201: openapi.Response("Запись успешно создана", CountrySerializer),
             400: openapi.Response("Входные данные не валидны"),
-            403: openapi.Response(
-                "Создание записи в БД доступна только администратору"
-            ),
+            403: openapi.Response("Создание записи в БД доступна только администратору"),
         },
     ),
 )
@@ -49,13 +43,10 @@ from common.serializers.v1.country_serializer import CountrySerializer
             "Список стран",
         ],
         responses={
-            201: openapi.Response(
-                "Запись успешно создана", CountrySerializer(many=True)
-            ),
+            200: openapi.Response("Запись успешно обновлена"),
             400: openapi.Response("Входные данные не валидны"),
-            403: openapi.Response(
-                "Создание записи в БД доступна только администратору"
-            ),
+            403: openapi.Response("Создание записи в БД доступна только администратору"),
+            404: openapi.Response("Записи с таким ID не существует"),
         },
     ),
 )
@@ -67,13 +58,9 @@ from common.serializers.v1.country_serializer import CountrySerializer
             "Список стран",
         ],
         responses={
-            204: openapi.Response(
-                "Запись успешно удалена", CountrySerializer(many=True)
-            ),
-            400: openapi.Response("Входные данные не валидны"),
-            403: openapi.Response(
-                "Создание записи в БД доступна только администратору"
-            ),
+            204: openapi.Response("Запись успешно удалена"),
+            403: openapi.Response("Удлаение записи в БД доступна только администратору"),
+            404: openapi.Response("Записи с таким ID не существует"),
         },
     ),
 )
@@ -87,9 +74,9 @@ class CountryViewSet(BaseAdminSuperUserViewSet):
             "Список стран",
         ],
         responses={
-            200: openapi.Response("Список типов содержимого", CountrySerializer),
-            401: openapi.Response(
-                "Список типов содержимого доступен только авторизованным пользователям"
+            200: openapi.Response("Список стран", CountrySerializer),
+            403: openapi.Response(
+                "Список стран содержимого доступен только авторизованным пользователям"
             ),
             404: openapi.Response("Записи с таким ID не существует"),
         },
