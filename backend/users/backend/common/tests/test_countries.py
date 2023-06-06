@@ -17,7 +17,7 @@ class CountryTestsCase(BaseViewSetTestCase, TestCase):
     invalid_data = [{"name": ""}, {"name": str("a" * 51)}]
     valid_data_for_put = [{"name": "renamed country"}, {"name": "renamed country1"}]
     valid_data_for_create = [
-        {"name": fake.country()},
+        {"name": fake.country()[:49]},
     ]
 
     @classmethod
