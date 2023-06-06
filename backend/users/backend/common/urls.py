@@ -8,9 +8,9 @@ from common.views.v1.logout_view import JWTLogoutView
 
 router = routers.DefaultRouter()
 router.register(r"countries", CountryViewSet, basename="countries")
-router.register(r"contact_types", ContactTypeViewSet, basename="contact_type")
+router.register(r"contact_types", ContactTypeViewSet, basename="contact_types")
 
 urlpatterns = [
     path("logout/", JWTLogoutView.as_view(), name="logout"),
-    path("common/", include(router.urls), name="common"),
+    path("", include(router.urls)),
 ]
