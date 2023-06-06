@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.urls import reverse
 
 from base.base_tests.test_crud_contry_and_contentType import BaseViewSetTestCase
 from base.base_tests.testing_utilities.utils import MixinTestView
@@ -7,7 +8,7 @@ from common.tests.factory import ContactTypeFactory
 
 
 class ContactTypeTestsCase(BaseViewSetTestCase, TestCase):
-    url: str = "/api/users/common/contact_types/"
+    url: str = reverse("contact_types-list")
     valid_data_for_put = [{"name": "renamed contactType1"}, {"name": "renamed contactType2"}]
     invalid_data = [{"name": ""}, {"name": str("a" * 101)}]
     valid_data_for_create = [{"name": "some contentType 1"}, {"name": "some contentType 1"}]
