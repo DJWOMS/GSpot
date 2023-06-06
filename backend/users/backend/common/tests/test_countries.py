@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.urls import reverse
 
 from faker import Faker
 
@@ -12,7 +13,7 @@ fake = Faker()
 
 
 class CountryTestsCase(BaseViewSetTestCase, TestCase):
-    url: str = "/api/users/common/countries/"
+    url: str = reverse("countries-list")
     invalid_data = [{"name": ""}, {"name": str("a" * 51)}]
     valid_data_for_put = [{"name": "renamed country"}, {"name": "renamed country1"}]
     valid_data_for_create = [
