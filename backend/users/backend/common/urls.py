@@ -4,5 +4,5 @@ from common.views.v1.get_jwt_view import GetJwtView
 
 urlpatterns = [
     path('logout/', JWTLogoutView.as_view(), name="logout"),
-    path('get-jwt', GetJwtView.as_view(), name='get_jwt'),
+    path('get-jwt', GetJwtView.as_view(), name='get-jwt'),
 ]

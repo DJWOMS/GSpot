@@ -1,5 +1,4 @@
-from rest_framework import status
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, AuthenticationFailed
 
 
 class TokenExpired(ValidationError):
@@ -14,9 +13,9 @@ class PayloadError(ValidationError):
     pass
 
 
-class UnauthorizedUserError(ValidationError):
-    ValidationError.status_code = status.HTTP_401_UNAUTHORIZED
+class UnauthorizedUserError(AuthenticationFailed):
+    pass
 
 
-class TokenBannedError(ValidationError):
-    ValidationError.status_code = status.HTTP_401_UNAUTHORIZED
+class TokenBannedError(AuthenticationFailed):
+    pass

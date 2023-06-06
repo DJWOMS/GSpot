@@ -8,11 +8,11 @@ class GetJwtApiTestCase:
     def setUp(self):
         self.user = self.get_user_model()
         self.data = self.set_settings_user()
-        self.first_user = self.user.objects.create(**self.data)
+        self.first_user = self.user.objects.create_user(**self.data)
         self.first_user.is_active = True
         self.first_user.save()
         self.client.force_authenticate(user=self.first_user)
-        self.url = reverse('get_jwt')
+        self.url = reverse('get-jwt')
         self.user_data = {
             'user_id': str(self.first_user.id),
             'role': self.first_user._meta.app_label,
@@ -34,12 +34,12 @@ class GetJwtApiTestCase:
     def test_correct_get_jwt(self):
         response = self.client_post(self.data)
         self.assertEqual(response.status_code, 200)
-        decod_refresh_token = Token()._decode(response.data['refresh'])
-        decod_refresh_token = {
-            'user_id': decod_refresh_token['user_id'],
-            'role': decod_refresh_token['role'],
+        decoded_refresh_token = Token()._decode(response.data['refresh'])
+        decoded_refresh_token = {
+            'user_id': decoded_refresh_token['user_id'],
+            'role': decoded_refresh_token['role'],
         }
-        self.assertEqual(decod_refresh_token, self.user_data)
+        self.assertEqual(decoded_refresh_token, self.user_data)
 
     def test_wrong_post_refresh_token(self):
         data = {'refresh_token': self.token.get('refresh') + 'asd'}
@@ -49,6 +49,7 @@ class GetJwtApiTestCase:
     def test_is_not_active_user(self):
         self.first_user.is_active = False
         response = self.client_post(self.data)
+        print(response)
         self.assertEqual(response.status_code, 401)
 
     def test_expired_refresh_token(self):

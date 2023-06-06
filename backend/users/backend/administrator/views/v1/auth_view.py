@@ -24,7 +24,6 @@ class AdminAuthView(APIView):
     def post(self, request):
         serializer = AdminAuthSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         admin = serializer.validated_data["user"]
         data = {
             "user_id": str(admin.id),
@@ -37,5 +36,4 @@ class AdminAuthView(APIView):
 
         response_serializer = AuthTokensResponseSerializer(data=tokens)
         response_serializer.is_valid(raise_exception=True)
-
         return Response(response_serializer.data, status=status.HTTP_200_OK)
