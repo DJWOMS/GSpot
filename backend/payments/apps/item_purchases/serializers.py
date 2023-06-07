@@ -31,3 +31,9 @@ class RefundSerializer(serializers.Serializer):
             data['item_uuid'] = data['offer_uuid']
             del data['offer_uuid']
         return super().to_internal_value(data)
+
+
+class ItemHistorySerializer(serializers.Serializer):
+    item_uuid = serializers.UUIDField()
+    item_price = MoneySerializer()
+    created_at = serializers.DateTimeField()
