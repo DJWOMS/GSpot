@@ -58,6 +58,10 @@ class CustomerUser(BaseAbstractUser):
 
         return age
 
+    @property
+    def permissions_codename(self) -> list[str]:
+        return []
+
     class Meta:
         db_table = "customer"
 

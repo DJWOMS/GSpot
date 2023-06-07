@@ -1,21 +1,13 @@
-from rest_framework.exceptions import ValidationError, AuthenticationFailed
+from base.exceptions import AuthenticationFailed
 
 
-class TokenExpired(ValidationError):
+class TokenExpired(AuthenticationFailed):
     pass
 
 
-class TokenInvalid(ValidationError):
+class TokenInvalid(AuthenticationFailed):
     pass
 
 
-class PayloadError(ValidationError):
-    pass
-
-
-class UnauthorizedUserError(AuthenticationFailed):
-    pass
-
-
-class TokenBannedError(AuthenticationFailed):
+class PayloadError(AuthenticationFailed):
     pass

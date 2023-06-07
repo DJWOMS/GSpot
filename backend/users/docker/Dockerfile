@@ -38,8 +38,6 @@ RUN poetry install --no-root
 # Creating folders, and files for a project:
 COPY . /app
 
-COPY ./start-web.sh /start-web.sh
-RUN chmod +x /start-web.sh
 # Setting up proper permissions:
 
 RUN mkdir -p /app/media /app/static && \

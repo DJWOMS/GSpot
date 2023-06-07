@@ -3,7 +3,7 @@ from developer.models import CompanyUser
 from base.base_tests.test_base_get_jwt import GetJwtApiTestCase
 
 
-class DeveloperChangeAccountInfoApiTestCase(GetJwtApiTestCase, APITestCase):
+class DeveloperGetJwtApiTestCase(GetJwtApiTestCase, APITestCase):
     @staticmethod
     def set_settings_user():
         user = {

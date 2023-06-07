@@ -6,18 +6,23 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    env_file:
-      - .env
-    command: /start-web.sh
-    volumes:
-      - static:/app/static
-      - media:/app/media
+    command: >
+      sh -c "python manage.py migrate &&
+             gunicorn -b 0.0.0.0:8000 --log-level info --access-logfile - config.wsgi:application"
     restart: always
     expose:
       - 8000
-    ports:
-      - "8000:8000"
-
-volumes:
-  media:
-  static:
+    depends_on:
+      - db
+      - rabbitmq
+  db:
+    container_name: users-service-db
+    image: postgres:14-alpine
+    expose:
+      - 5432
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: users-service-rabbitmq
+    expose:
+      - 5672
+      - 15672

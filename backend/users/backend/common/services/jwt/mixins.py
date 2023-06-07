@@ -1,9 +1,9 @@
-from typing import final
-
 import jwt
 from django.conf import settings
+from jwt.exceptions import ExpiredSignatureError
+from typing import final
 
-from common.services.jwt.exceptions import TokenInvalid
+from common.services.jwt.exceptions import TokenInvalid, TokenExpired
 
 
 class JWTMixin:
@@ -17,5 +17,7 @@ class JWTMixin:
     def _decode(token: str) -> dict:
         try:
             return jwt.decode(token, settings.SECRET_KEY, settings.ALGORITHM)
+        except ExpiredSignatureError:
+            raise TokenExpired('Token is expired')
         except Exception:
-            raise TokenInvalid
+            raise TokenInvalid("%s is invalid token" % token)
