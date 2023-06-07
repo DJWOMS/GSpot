@@ -4,10 +4,10 @@ from decimal import Decimal
 from uuid import UUID
 
 from apps.base.schemas import URL, EnumCurrencies, PaymentTypes
+from apps.payment_accounts.models import PayoutData
 from dataclasses_json import config, dataclass_json
 from django.conf import settings
 from pydantic import BaseModel, Field
-from yookassa.domain.common import PaymentMethodType
 
 
 class YookassaPaymentStatuses(enum.Enum):
@@ -83,13 +83,8 @@ class AmountModel(BaseModel):
     currency: EnumCurrencies = EnumCurrencies.RUB
 
 
-class PayOutMethod(enum.Enum):
-    yoo_money = PaymentMethodType.YOO_MONEY
-    bank_card = PaymentMethodType.BANK_CARD
-
-
 class PayoutDestination(BaseModel):
-    type_: PayOutMethod = Field(
+    type_: PayoutData.PayoutType = Field(
         alias='type',
     )
     account_number: str

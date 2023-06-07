@@ -1,0 +1,34 @@
+[
+    {
+        "model": "payment_accounts.payoutdata",
+        "pk": "89245da1-ff99-4ca5-b688-c1cc0182bbc9",
+        "fields": {
+            "account_number": "4100116075156746",
+            "is_auto_payout": true,
+            "payout_type":  "yoo_money"
+        }
+    },
+    {
+        "model": "payment_accounts.payoutdata",
+        "pk": "4cdfb2a6-104b-49e8-b73a-5bb72fc57931",
+        "fields": {
+            "account_number": "410011788545536",
+            "is_auto_payout": false,
+            "payout_type":  "yoo_money"
+        }
+    },
+        {
+        "model": "payment_accounts.account",
+        "pk": 125,
+        "fields": {
+            "user_uuid": "89245da1-ff99-4ca5-b688-c1cc0182bbc9"
+        }
+    },
+    {
+        "model": "payment_accounts.account",
+        "pk": 126,
+        "fields": {
+            "user_uuid": "4cdfb2a6-104b-49e8-b73a-5bb72fc57931"
+        }
+    }
+]
