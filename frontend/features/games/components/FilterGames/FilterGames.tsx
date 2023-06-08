@@ -4,9 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import cn from 'classnames'
 import { CheckBox } from 'components/Form'
-// eslint-disable-next-line prettier/prettier
 import Form from 'components/Form/Form'
-// eslint-disable-next-line prettier/prettier
 import Select from 'components/Select'
 import { Range } from 'components/Slider'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -45,7 +43,6 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
     },
   })
 
-  // update router if needed
   const router = useRouter()
 
   const onSubmitForm = (data: FilterValues) => {
@@ -152,9 +149,13 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
                 if (!platforms) {
                   return <></>
                 }
-                return platforms.map(({ id, name }) => (
-                  <CheckBox key={id} label={name} defaultValue={id} {...field} />
-                ))
+                return (
+                  <>
+                    {platforms.map(({ id, name }) => (
+                      <CheckBox key={id} label={name} defaultValue={id} {...field} />
+                    ))}
+                  </>
+                )
               },
             },
             {
@@ -165,30 +166,35 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
                 if (!genres) {
                   return <></>
                 }
-                // genres?: undefined | null[];
                 const fieldValue = field.value || []
-                return genres.map(({ id, name, subgenres }) => (
+                return (
                   <>
-                    <CheckBox
-                      key={id}
-                      onChange={() => onChangeCheckbox(fieldValue, field.onChange, id)}
-                      label={name}
-                      checked={checkboxValue(fieldValue, id)}
-                    />
-                    {fieldValue.includes(id.toString()) && subgenres.length && (
-                      <div className="mb-5 ml-5">
-                        {subgenres.map(({ id, name }) => (
-                          <CheckBox
-                            key={`s${id}`}
-                            onChange={() => onChangeCheckbox(fieldValue, field.onChange, id, true)}
-                            checked={checkboxValue(fieldValue, id)}
-                            label={name}
-                          />
-                        ))}
-                      </div>
-                    )}
+                    {genres.map(({ id, name, subgenres }) => (
+                      <>
+                        <CheckBox
+                          key={id}
+                          onChange={() => onChangeCheckbox(fieldValue, field.onChange, id)}
+                          label={name}
+                          checked={checkboxValue(fieldValue, id)}
+                        />
+                        {fieldValue.includes(toString(id)) && subgenres.length && (
+                          <div className="mb-5 ml-5">
+                            {subgenres.map(({ id: subgenreId, name }) => (
+                              <CheckBox
+                                key={`s${subgenreId}`}
+                                onChange={() =>
+                                  onChangeCheckbox(fieldValue, field.onChange, subgenreId, true)
+                                }
+                                checked={checkboxValue(fieldValue, subgenreId)}
+                                label={name}
+                              />
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    ))}
                   </>
-                ))
+                )
               },
             },
           ]}
