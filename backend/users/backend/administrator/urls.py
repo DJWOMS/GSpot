@@ -9,6 +9,7 @@ from administrator.views.v1.employee_crud import (
 )
 from administrator.views.v1.auth_view import AdminAuthView
 
+
 router = routers.DefaultRouter()
 router.register(r"group", AdminGroupViewSet, basename="admin_group")
 router.register(r"permission", AdminPermissionViewSet, basename="admin_permission")
