@@ -7,6 +7,8 @@ from common.serializers.v1.get_jwt_serializers import GetJwtSerializers, Respons
 from rest_framework.response import Response
 from common.services.jwt.token import Token
 
+from common.services.jwt.expired_time_token import get_expired_time_token
+
 
 @method_decorator(
     name='post',
@@ -25,19 +27,16 @@ class GetJwtView(generics.GenericAPIView):
     http_method_names = ['post']
 
     def post(self, request):
-        data = request.data
-        context = self.get_serializer_context()
         token = Token()
-        serializer = GetJwtSerializers(data=data, context=context)
+        serializer = GetJwtSerializers(data=request.data, context=self.get_serializer_context())
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
-        if serializer.validated_data['exp_left']:
+        refresh_token = serializer.validated_data['refresh_token']
+        if get_expired_time_token(refresh_token):
             dict_token = {
-                'refresh': data.get('refresh_token'),
+                'refresh': refresh_token,
                 'access': token.generate_access_token_for_user(user),
             }
         else:
             dict_token = token.generate_tokens_for_user(user)
-        dict_token = ResponseGetJwtSerializers(data=dict_token)
-        dict_token.is_valid(raise_exception=True)
-        return Response(dict_token.data, status=status.HTTP_200_OK)
+        return Response(dict_token, status=status.HTTP_200_OK)
