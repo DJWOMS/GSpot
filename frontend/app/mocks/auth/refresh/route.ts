@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 const access_token =
@@ -7,23 +6,13 @@ const access_token =
 export async function POST(req: Request) {
   const data = (await req.json()) as { refresh_token: string }
   if (data.refresh_token === access_token) {
-    const cookiesStore = cookies()
-
-    cookiesStore.set({
-      name: 'access_token',
-      value: access_token,
-      httpOnly: true,
-      path: '/',
+    return new Response('', {
+      status: 200,
+      headers: {
+        'Set-Cookie': `token=${access_token}; HttpOnly; Path=/`,
+        '\0Set-Cookie': `token=${access_token}; HttpOnly; Path=/`,
+      },
     })
-
-    cookiesStore.set({
-      name: 'refresh_token',
-      value: access_token,
-      httpOnly: true,
-      path: '/',
-    })
-
-    return NextResponse.json('')
   }
   return NextResponse.json({ status: 'Invalid token' }, { status: 400 })
 }

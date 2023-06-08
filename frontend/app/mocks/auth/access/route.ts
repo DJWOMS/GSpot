@@ -1,5 +1,3 @@
-import { RequestCookies } from 'next/dist/compiled/@edge-runtime/cookies'
-import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 const access_token =
@@ -15,22 +13,13 @@ interface AuthPayload {
 export async function POST(req: Request) {
   const data = (await req.json()) as AuthPayload
   if (data.username === 'test' && data.password === 'test') {
-    const expirationDate = new Date(Date.now() + 86400 * 1000).toUTCString()
-    const cookiesStore = cookies() as RequestCookies
-
-    cookiesStore.set({
-      name: 'access_token',
-      value: access_token,
-      path: '/',
+    return new Response('', {
+      status: 200,
+      headers: {
+        'Set-Cookie': `token=${access_token}; HttpOnly; Path=/`,
+        '\0Set-Cookie': `token=${refresh_token}; HttpOnly; Path=/`,
+      },
     })
-
-    cookiesStore.set({
-      name: 'refresh_token',
-      value: refresh_token,
-      httpOnly: true,
-      path: '/',
-    })
-
-    return NextResponse.json('')
   }
+  return NextResponse.json({ status: 'No user' }, { status: 400 })
 }
