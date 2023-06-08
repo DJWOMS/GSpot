@@ -9,7 +9,7 @@ class CommonUserPayload:
     def __init__(self):
         self.user = None
 
-    def get_common_fields(self) -> dict:
+    def get_common_payload(self) -> dict:
         common_payload = {
             "user_id": str(self.user.id),
             "role": self.user._meta.app_label,
@@ -24,7 +24,7 @@ class AdminPayload(BasePayload, CommonUserPayload):
         self.user = user
 
     def generate_payload(self):
-        common_payload = self.get_common_fields()
+        common_payload = self.get_common_payload()
         return common_payload
 
 
@@ -33,7 +33,7 @@ class DeveloperPayload(BasePayload, CommonUserPayload):
         self.user = user
 
     def generate_payload(self):
-        common_payload = self.get_common_fields()
+        common_payload = self.get_common_payload()
         return common_payload
 
 
@@ -42,7 +42,7 @@ class CustomerPayload(BasePayload, CommonUserPayload):
         self.user = user
 
     def generate_payload(self):
-        common_payload = self.get_common_fields()
+        common_payload = self.get_common_payload()
         common_payload['age'] = self.user.age
         return common_payload
 
@@ -54,9 +54,10 @@ class PayloadFactory:
         CustomerUser: CustomerPayload,
     }
 
-    def create_payload(self, user_type: BaseAbstractUser) -> dict:
+    def create_payload(self, user: BaseAbstractUser) -> dict:
+        user_type = type(user)
         payload_class = self.payload_types.get(user_type)
         if payload_class:
-            return payload_class(user_type).generate_payload()
+            return payload_class(user).generate_payload()
         else:
             raise ValueError("Unknown user type.")
