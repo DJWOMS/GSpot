@@ -1,9 +1,12 @@
 'use client'
 
-import { FC, useState } from 'react'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import cn from 'classnames'
-import { CheckBox, Group } from 'components/Form'
+import { CheckBox } from 'components/Form'
+// eslint-disable-next-line prettier/prettier
+import Form from 'components/Form/Form'
+// eslint-disable-next-line prettier/prettier
 import Select from 'components/Select'
 import { Range } from 'components/Slider'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -14,7 +17,6 @@ import type {
   FilterSortByInterface,
 } from '../../types'
 import s from './FilterGames.module.css'
-import GroupItem from './GroupItem'
 
 interface FilterValues {
   sortby?: string
@@ -24,14 +26,6 @@ interface FilterValues {
   subgenres: string[]
 }
 
-const initalFilterState: FilterValues = {
-  sortby: undefined,
-  prices: undefined,
-  platforms: [],
-  genres: [],
-  subgenres: [],
-}
-
 interface Props {
   sorts?: FilterSortByInterface[]
   platforms?: FilterPlatformInterface[]
@@ -39,9 +33,9 @@ interface Props {
   prices?: FilterPriceType
 }
 
-const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
+const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
   const queryParams = useSearchParams()
-  const { control, handleSubmit, reset, setValue } = useForm<FilterValues>({
+  const { setValue } = useForm<FilterValues>({
     defaultValues: {
       sortby: queryParams.get('sortby') ?? undefined,
       prices: queryParams.getAll('prices').map((p) => parseInt(p)),
@@ -54,7 +48,7 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
   // update router if needed
   const router = useRouter()
 
-  const onSubmitForm: SubmitHandler<FilterValues> = (data) => {
+  const onSubmitForm = (data: FilterValues) => {
     const params = new URLSearchParams()
     Object.entries(data).forEach(([k, v]) => {
       if (v) {
@@ -95,29 +89,25 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
       </button>
 
       <div className={cn(s.wrapper, { [s.open]: openMobileFilter })}>
-        <form onSubmit={handleSubmit(onSubmitForm)} className={s.components}>
-          <div className={s.header}>
-            <h4>Фильтры</h4>
-            <button className={s.clearFilters} onClick={() => reset(initalFilterState)} type="button">
-              Сбросить
-            </button>
-          </div>
-
-          <GroupItem label="Сортировать:">
-            <Controller
-              name="sortby"
-              control={control}
-              render={({ field }) => (
-                <Select {...field} options={sorts?.map((i) => ({ name: i.name, value: i.id }))} />
-              )}
-            />
-          </GroupItem>
-
-          <GroupItem label="Цена:">
-            <Controller
-              control={control}
-              name="prices"
-              render={({ field: { onChange, value } }) => {
+        <Form
+          fields={[
+            {
+              name: 'sortby',
+              label: 'Сортировать:',
+              rules: {},
+              render: ({ field }) => (
+                <Select
+                  {...field}
+                  options={sorts?.map((i) => ({ name: i.name, value: i.id }))}
+                  value={field.value ? field.value.toString() : ''}
+                />
+              ),
+            },
+            {
+              name: 'prices',
+              label: 'Цена:',
+              rules: {},
+              render: ({ field: { onChange, value } }) => {
                 const data = value?.length ? value : prices
 
                 return (
@@ -152,65 +142,71 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
                     />
                   </>
                 )
-              }}
-            />
-          </GroupItem>
-
-          <GroupItem label="Платформа:">
-            {platforms?.map(({ id, name }) => (
-              <Controller
-                key={id}
-                control={control}
-                name="platforms"
-                render={({ field }) => <CheckBox label={name} defaultValue={id} {...field} />}
-              />
-            ))}
-          </GroupItem>
-
-          <GroupItem label="Жанры:">
-            {genres?.map(({ id, name, subgenres }) => (
-              <>
-                <Controller
-                  control={control}
-                  name="genres"
-                  render={({ field }) => (
-                    <>
-                      <CheckBox
-                        onChange={() => onChangeCheckbox(field.value, field.onChange, id)}
-                        label={name}
-                        checked={checkboxValue(field.value, id)}
-                      />
-                      {field.value.includes(id.toString()) && subgenres.length && (
-                        <div className="mb-5 ml-5">
-                          {subgenres.map(({ id, name }) => (
-                            <Controller
-                              key={`s${id}`}
-                              control={control}
-                              name="subgenres"
-                              render={({ field }) => (
-                                <CheckBox
-                                  onChange={() => onChangeCheckbox(field.value, field.onChange, id, true)}
-                                  checked={checkboxValue(field.value, id)}
-                                  label={name}
-                                />
-                              )}
-                            />
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  )}
-                />
-              </>
-            ))}
-          </GroupItem>
-
-          <Group>
-            <button className={s.applyFilter} type="submit">
-              Применить фильтр
-            </button>
-          </Group>
-        </form>
+              },
+            },
+            {
+              name: 'platforms',
+              label: 'Платформа:',
+              rules: {},
+              render: ({ field }) => {
+                if (!platforms) {
+                  return <></>
+                }
+                return platforms.map(({ id, name }) => (
+                  <CheckBox key={id} label={name} defaultValue={id} {...field} />
+                ))
+              },
+            },
+            {
+              name: 'genres',
+              label: 'Жанры:',
+              rules: {},
+              render: ({ field }) => {
+                if (!genres) {
+                  return <></>
+                }
+                // genres?: undefined | null[];
+                const fieldValue = field.value || []
+                return genres.map(({ id, name, subgenres }) => (
+                  <>
+                    <CheckBox
+                      key={id}
+                      onChange={() => onChangeCheckbox(fieldValue, field.onChange, id)}
+                      label={name}
+                      checked={checkboxValue(fieldValue, id)}
+                    />
+                    {fieldValue.includes(id.toString()) && subgenres.length && (
+                      <div className="mb-5 ml-5">
+                        {subgenres.map(({ id, name }) => (
+                          <CheckBox
+                            key={`s${id}`}
+                            onChange={() => onChangeCheckbox(fieldValue, field.onChange, id, true)}
+                            checked={checkboxValue(fieldValue, id)}
+                            label={name}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ))
+              },
+            },
+          ]}
+          title="Фильтры"
+          onSubmit={onSubmitForm}
+          btnText="Применить фильтр"
+          config={{
+            defaultValues: {
+              sortby: undefined,
+              prices: undefined,
+              platforms: [],
+              genres: [],
+              subgenres: [],
+            },
+          }}
+          onResetButton
+          onResetSubmit
+        />
       </div>
     </>
   )
