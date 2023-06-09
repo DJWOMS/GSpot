@@ -1,0 +1,24 @@
+name: Users CI/CD
+
+on:
+  push:
+    branches: [ "users" ]
+  pull_request:
+    branches: ["users" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: pip install flake8
+      - name: Test with flake8
+        run: |
+          cd backend/users/backend && python -m flake8
+      - name: Run test in docker-compose
+        run: |
+          cd backend/users/ && docker-compose up --build \
+                                    --abort-on-container-exit \
+                                    --exit-code-from  web_users 

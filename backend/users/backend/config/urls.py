@@ -1,14 +1,16 @@
-from django.contrib import admin
 from django.urls import path, include
 
-
 from .yasg import urlpatterns as yasg_doc
-from service.jwt.urls_jwt import urlpatterns as jwt_url
 
+v1 = [
+    path('admin/', include('administrator.urls')),
+    path('developer/', include('developer.urls')),
+    path('customer/', include('customer.urls')),
+    path('common/', include('common.urls')),
+]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('auth/', include('djoser.urls')),
+    path('api/v1/', include(v1)),
 ]
+
 urlpatterns += yasg_doc
-urlpatterns += jwt_url

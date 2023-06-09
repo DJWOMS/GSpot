@@ -3,8 +3,10 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Country(models.Model):
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         db_table = "country"
@@ -20,5 +22,6 @@ class ContactType(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = _('Contact')
-        verbose_name_plural = _('Contacts')
+        db_table = 'contact_type'
+        verbose_name = _('contact_type')
+        verbose_name_plural = _('contact_types')

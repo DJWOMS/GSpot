@@ -38,14 +38,11 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'rest_framework',
-    'djoser',
-    'rest_framework_simplejwt',
     # Local apps
     'administrator.apps.AdministratorAppConfig',
     'developer.apps.DeveloperAppConfig',
     'customer.apps.CustomerAppConfig',
-	'common.apps.CommonAppConfig',
-
+    'common.apps.CommonAppConfig',
 ]
 
 MIDDLEWARE = [
