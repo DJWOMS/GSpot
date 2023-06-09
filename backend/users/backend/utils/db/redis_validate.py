@@ -1,4 +1,3 @@
-import redis
 from config.settings import redis_config
 from .redis_client import RedisClient
 
