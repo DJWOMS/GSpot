@@ -1,6 +1,6 @@
+import { refresh_token } from 'features/auth/mocks'
 import { fetchServerSide } from 'lib/fetchServerSide'
 import { cookies } from 'next/headers'
-import { refresh_token } from '../auth'
 
 export const checkAuthServer = async (): Promise<boolean> => {
   const cookieStore = cookies()

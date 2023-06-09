@@ -1,4 +1,5 @@
-import { AuthPayload, refresh_token, access_token } from 'features/auth'
+import { refresh_token, access_token } from 'features/auth/mocks'
+import { AuthPayload } from 'features/auth/types'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {

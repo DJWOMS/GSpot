@@ -1,4 +1,4 @@
-import { access_token } from 'features/auth'
+import { access_token } from 'features/auth/mocks'
 import { NextResponse } from 'next/server'
 
 export async function GET(req: Request) {
