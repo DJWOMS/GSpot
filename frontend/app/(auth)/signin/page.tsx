@@ -1,14 +1,27 @@
 'use client'
 
 import cn from 'classnames'
+import { fetchServerSide } from 'lib/fetchServerSide'
 import Link from 'next/link'
 import Form from '../Form'
 import s from '../Form.module.css'
 import SocialBtn from '../SocialBtn'
 
 const Signin = () => {
+  const onSubmit = async (e: SubmitEvent) => {
+    e.preventDefault()
+    await fetchServerSide({
+      method: 'POST',
+      path: '/auth/access',
+      body: JSON.stringify({
+        username: 'test',
+        password: 'test',
+      }),
+    })
+  }
+
   return (
-    <Form onSubmit={() => console.log('hello')}>
+    <Form onSubmit={onSubmit}>
       <div className={s.signGroup}>
         <input className={s.signInput} type="text" placeholder="Введите username" />
       </div>

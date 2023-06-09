@@ -1,10 +1,12 @@
 import { API_URL } from 'configs'
+import checkAuthClient from 'features/auth/utils/checkAuthClient'
 
 interface fetchProps extends RequestInit {
   method?: 'POST' | 'GET' | 'PUT' | 'DELETE'
   headers?: HeadersInit
   path: string
   cache?: 'no-store' | 'reload' | 'no-cache' | 'force-cache'
+  error?: boolean
 }
 
 export const fetchServerSide = async <T>({
@@ -19,7 +21,11 @@ export const fetchServerSide = async <T>({
     })
 
     if (!res.ok) {
-      return
+      if (res.status === 403 && typeof window === 'undefined' && !props.error) {
+        if (await checkAuthClient()) {
+          return await fetchServerSide({ path, cache, ...props, error: true })
+        }
+      }
     }
 
     return await res.json()
