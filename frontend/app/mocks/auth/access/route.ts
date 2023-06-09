@@ -1,14 +1,5 @@
+import { AuthPayload, refresh_token, access_token } from 'features/auth'
 import { NextResponse } from 'next/server'
-
-const access_token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
-const refresh_token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
-
-interface AuthPayload {
-  username: string
-  password: string
-}
 
 export async function POST(req: Request) {
   const data = (await req.json()) as AuthPayload
@@ -16,8 +7,8 @@ export async function POST(req: Request) {
     return new Response('', {
       status: 200,
       headers: {
-        'Set-Cookie': `token=${access_token}; HttpOnly; Path=/`,
-        '\0Set-Cookie': `token=${refresh_token}; HttpOnly; Path=/`,
+        'Set-Cookie': `access_token=${access_token}; HttpOnly; Path=/`,
+        '\0Set-Cookie': `refresh_token=${refresh_token}; HttpOnly; Path=/`,
       },
     })
   }
