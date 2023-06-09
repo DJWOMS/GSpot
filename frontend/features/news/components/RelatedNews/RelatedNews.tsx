@@ -3,7 +3,7 @@ import NewsItem from '../NewsItem'
 
 const RelatedNews = () => {
   return (
-    <Section title="Related news">
+    <Section first title="Related news">
       <div className="flex gap-4">
         <div className="w-full">
           <NewsItem

@@ -6,12 +6,14 @@ import Section from 'components/Section'
 import { GameCard } from 'features/games/components'
 import type { GameCardInterface } from 'features/games/types'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import s from './page.module.css'
 
 const FavoritesPage = () => {
   const [favorites, setFavorites] = useState<GameCardInterface[]>([])
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const currentPage = searchParams.get('page') ? Number(searchParams.get('page')) : 1
   const fetchData = async () => {
     const data = await fetchServerSide<GameCardInterface[]>({
       path: '/profile/favorites',
@@ -37,8 +39,12 @@ const FavoritesPage = () => {
             <GameCard onDelete={onDelete} {...game} key={index} />
           ))}
         </div>
-
-        <Pagination />
+        <Pagination
+          path={'/profile/favorites'}
+          currentPage={currentPage}
+          visiblePageButtonsCount={5}
+          pageCount={5}
+        />
       </div>
     </Section>
   )
