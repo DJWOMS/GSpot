@@ -15,7 +15,7 @@ from .exceptions import (
     NotPayoutDayError,
     NotValidAccountNumberError,
 )
-from .models import Account, PayoutData
+from .models import Account, Owner, PayoutData
 from .schemas import BalanceIncreaseData, CommissionCalculationInfo
 from .serializers import CreatePayoutDataSerializer
 from .services.balance_change import request_balance_deposit_url
@@ -102,6 +102,13 @@ class BalanceViewSet(viewsets.ViewSet):
     def retrieve(self, request, user_uuid=None):
         account = get_object_or_404(Account, user_uuid=user_uuid)
         return Response(self.balance_serializer_class(account).data)
+
+
+class OwnerView(viewsets.GenericViewSet, mixins.RetrieveModelMixin, mixins.UpdateModelMixin):
+    serializer_class = serializers.OwnerSerializer
+
+    def get_object(self):
+        return Owner.objects.first()
 
 
 class PayoutDataObjectViewSet(

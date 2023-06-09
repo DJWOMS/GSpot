@@ -13,6 +13,10 @@ urlpatterns = [
     path('balances/', views.BalanceViewSet.as_view({'post': 'list'})),
     path('balances/<uuid:user_uuid>/', views.BalanceViewSet.as_view({'get': 'retrieve'})),
     path('payout/', views.PayoutView.as_view({'post': 'create'})),
+    path(
+        'owner/',
+        views.OwnerView.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update'}),
+    ),
     path('payout_data/', views.PayoutDataCreateView.as_view({'post': 'create'})),
     path('', include(router.urls)),
 ]
