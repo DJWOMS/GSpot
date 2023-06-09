@@ -104,8 +104,9 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
               name: 'prices',
               label: 'Цена:',
               rules: {},
-              render: ({ field: { onChange, value } }) => {
-                const data = value?.length ? value : prices
+              render: ({ field: { onChange, ...field } }) => {
+                const fieldValue = field.value as number[] | undefined
+                const data = fieldValue?.length ? fieldValue : prices
 
                 return (
                   <>
@@ -145,14 +146,15 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
               name: 'platforms',
               label: 'Платформа:',
               rules: {},
-              render: ({ field }) => {
+              render: ({ field: { value, ...field } }) => {
                 if (!platforms) {
                   return <></>
                 }
+                const fieldValue = value as number | undefined
                 return (
                   <>
                     {platforms.map(({ id, name }) => (
-                      <CheckBox key={id} label={name} defaultValue={id} {...field} />
+                      <CheckBox key={id} label={name} defaultValue={id} value={fieldValue} {...field} />
                     ))}
                   </>
                 )
@@ -163,10 +165,10 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
               label: 'Жанры:',
               rules: {},
               render: ({ field }) => {
-                if (!genres) {
+                if (!genres || typeof field.value === 'undefined') {
                   return <></>
                 }
-                const fieldValue = field.value || []
+                const fieldValue = field.value as string[]
                 return (
                   <>
                     {genres.map(({ id, name, subgenres }) => (
@@ -177,7 +179,7 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
                           label={name}
                           checked={checkboxValue(fieldValue, id)}
                         />
-                        {fieldValue.includes(toString(id)) && subgenres.length && (
+                        {fieldValue.includes(String(id)) && subgenres.length && (
                           <div className="mb-5 ml-5">
                             {subgenres.map(({ id: subgenreId, name }) => (
                               <CheckBox
@@ -203,11 +205,11 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
           btnText="Применить фильтр"
           config={{
             defaultValues: {
-              sortby: undefined,
-              prices: undefined,
-              platforms: [],
-              genres: [],
-              subgenres: [],
+              sortby: queryParams.get('sortby') ?? undefined,
+              prices: queryParams.getAll('prices').map((p) => parseInt(p)),
+              platforms: queryParams.getAll('platforms'),
+              genres: queryParams.getAll('genres'),
+              subgenres: queryParams.getAll('subgenres'),
             },
           }}
           onResetButton

@@ -1,12 +1,11 @@
 import { Controller, useForm } from 'react-hook-form'
-import type { FieldValues, Path, ControllerProps, RegisterOptions, UseFormProps } from 'react-hook-form'
+import type { FieldValues, ControllerProps, UseFormProps } from 'react-hook-form'
+import { UseControllerProps } from 'react-hook-form/dist/types/controller'
 import { ErrorMessage } from '@hookform/error-message'
 import s from './Form.module.css'
 
-interface FieldType<T extends FieldValues> {
-  name: Path<T>
+interface FieldType<T extends FieldValues> extends Pick<UseControllerProps<T>, 'name' | 'rules'> {
   label: string
-  rules?: Exclude<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs'>
   render: ControllerProps<T>['render']
 }
 
@@ -58,7 +57,7 @@ function Form<T extends FieldValues>({
             <Controller<T> control={control} {...field} />
             <ErrorMessage
               errors={errors}
-              name={field.name as T['name']}
+              name={field.name as T['']}
               render={({ message }) => <p className={s.errorMessage}>{message}</p>}
             />
           </div>
