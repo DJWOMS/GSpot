@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { FC, useState } from 'react'
 import cn from 'classnames'
 import { CheckBox } from 'components/Form'
 import Form from 'components/Form/Form'
@@ -31,18 +30,8 @@ interface Props {
   prices?: FilterPriceType
 }
 
-const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
+const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
   const queryParams = useSearchParams()
-  const { setValue } = useForm<FilterValues>({
-    defaultValues: {
-      sortby: queryParams.get('sortby') ?? undefined,
-      prices: queryParams.getAll('prices').map((p) => parseInt(p)),
-      platforms: queryParams.getAll('platforms'),
-      genres: queryParams.getAll('genres'),
-      subgenres: queryParams.getAll('subgenres'),
-    },
-  })
-
   const router = useRouter()
 
   const onSubmitForm = (data: FilterValues) => {
@@ -55,16 +44,8 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
     router.push(`/catalog?${params.toString()}`)
   }
 
-  const onChangeCheckbox = (
-    values: string[],
-    onChange: (value: string[]) => void,
-    id: number,
-    isSubgenres = false
-  ) => {
+  const onChangeCheckbox = (values: string[], onChange: (value: string[]) => void, id: number) => {
     if (values.includes(id.toString())) {
-      if (!isSubgenres) {
-        setValue('subgenres', [])
-      }
       return onChange(
         values.filter((i) => {
           return i !== id.toString()
@@ -87,6 +68,20 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
 
       <div className={cn(s.wrapper, { [s.open]: openMobileFilter })}>
         <Form
+          title="Фильтры"
+          onSubmit={onSubmitForm}
+          btnText="Применить фильтр"
+          config={{
+            defaultValues: {
+              sortby: queryParams.get('sortby') ?? undefined,
+              prices: queryParams.getAll('prices').map((p) => parseInt(p)),
+              platforms: queryParams.getAll('platforms'),
+              genres: queryParams.getAll('genres'),
+              subgenres: queryParams.getAll('subgenres'),
+            },
+          }}
+          onResetButton
+          onResetSubmit
           fields={[
             {
               name: 'sortby',
@@ -184,9 +179,7 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
                             {subgenres.map(({ id: subgenreId, name }) => (
                               <CheckBox
                                 key={`s${subgenreId}`}
-                                onChange={() =>
-                                  onChangeCheckbox(fieldValue, field.onChange, subgenreId, true)
-                                }
+                                onChange={() => onChangeCheckbox(fieldValue, field.onChange, subgenreId)}
                                 checked={checkboxValue(fieldValue, subgenreId)}
                                 label={name}
                               />
@@ -200,20 +193,6 @@ const FilterGames = ({ sorts, platforms, genres, prices }: Props) => {
               },
             },
           ]}
-          title="Фильтры"
-          onSubmit={onSubmitForm}
-          btnText="Применить фильтр"
-          config={{
-            defaultValues: {
-              sortby: queryParams.get('sortby') ?? undefined,
-              prices: queryParams.getAll('prices').map((p) => parseInt(p)),
-              platforms: queryParams.getAll('platforms'),
-              genres: queryParams.getAll('genres'),
-              subgenres: queryParams.getAll('subgenres'),
-            },
-          }}
-          onResetButton
-          onResetSubmit
         />
       </div>
     </>
