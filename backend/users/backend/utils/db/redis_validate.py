@@ -14,4 +14,3 @@ class RedisValidateToken:
     @staticmethod
     def add_token(client: RedisClient, token: str, ttl: int, prefix: bool = False) -> None:
         client.add_token(token=token, ttl=ttl, prefix=prefix)
-
