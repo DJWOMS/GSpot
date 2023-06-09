@@ -42,7 +42,7 @@ class SchedulerPrice(PriceAbstractModel):
 
 
 class Offer(models.Model):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_by = models.UUIDField('UUID creator')
     price = models.OneToOneField(Price, on_delete=models.CASCADE, related_name='offer')
     is_active = models.BooleanField(default=False)
