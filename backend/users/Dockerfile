@@ -44,3 +44,6 @@ RUN mkdir -p /app/media /app/static && \
 	chmod +x /app/media/ /app/static/
 
 WORKDIR backend
+
+CMD python manage.py migrate && \
+    gunicorn -b 0.0.0.0:8000 --log-level info --access-logfile - config.wsgi:application
