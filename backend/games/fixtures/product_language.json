@@ -1,0 +1,112 @@
+[
+    {
+        "model": "reference.productlanguage",
+        "pk": 1,
+        "fields": {
+            "language": 1,
+            "product": "2a309400-a2ea-4b7b-bc36-4115f7e1a40c",
+            "interface": true,
+            "subtitles": true,
+            "voice": true
+        }
+    },
+    {
+        "model": "reference.productlanguage",
+        "pk": 2,
+        "fields": {
+            "language": 6,
+            "product": "2a309400-a2ea-4b7b-bc36-4115f7e1a40c",
+            "interface": true,
+            "subtitles": true,
+            "voice": true
+        }
+    },
+    {
+        "model": "reference.productlanguage",
+        "pk": 3,
+        "fields": {
+            "language": 8,
+            "product": "19d1e55e-cc6a-4dd7-8e17-5d33b0b5438d",
+            "interface": true,
+            "subtitles": true,
+            "voice": true
+        }
+    },
+    {
+        "model": "reference.productlanguage",
+        "pk": 4,
+        "fields": {
+            "language": 6,
+            "product": "19d1e55e-cc6a-4dd7-8e17-5d33b0b5438d",
+            "interface": true,
+            "subtitles": true,
+            "voice": true
+        }
+    },
+    {
+        "model": "reference.productlanguage",
+        "pk": 5,
+        "fields": {
+            "language": 6,
+            "product": "455cd924-5c92-451e-a79c-fba68fb65dee",
+            "interface": true,
+            "subtitles": true,
+            "voice": true
+        }
+    },
+    {
+        "model": "reference.productlanguage",
+        "pk": 6,
+        "fields": {
+            "language": 6,
+            "product": "7c2a4715-fd95-43a2-b70b-05324f2f44b4",
+            "interface": true,
+            "subtitles": true,
+            "voice": true
+        }
+    },
+    {
+        "model": "reference.productlanguage",
+        "pk": 7,
+        "fields": {
+            "language": 6,
+            "product": "8d5c339f-f67b-4094-a86e-9ae0f8baecbb",
+            "interface": true,
+            "subtitles": true,
+            "voice": true
+        }
+    },
+    {
+        "model": "reference.productlanguage",
+        "pk": 8,
+        "fields": {
+            "language": 6,
+            "product": "7e1bdb84-1064-4350-80ca-7247bd42b7d3",
+            "interface": true,
+            "subtitles": true,
+            "voice": true
+        }
+    },
+    {
+        "model": "reference.productlanguage",
+        "pk": 9,
+        "fields": {
+            "language": 1,
+            "product": "8f02ce0e-d8a7-48c9-8014-1ae700451d14",
+            "interface": true,
+            "subtitles": true,
+            "voice": true
+        }
+    },
+    {
+        "model": "reference.productlanguage",
+        "pk": 10,
+        "fields": {
+            "language": 6,
+            "product": "9a3f3555-153e-466f-bcbb-d5d0f4df3c23",
+            "interface": true,
+            "subtitles": true,
+            "voice": true
+        }
+    }
+]
