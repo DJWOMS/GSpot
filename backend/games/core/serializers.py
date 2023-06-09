@@ -39,6 +39,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
     system_requirements = SystemRequirementSerializer(many=True)
     langs = ref_serializers.ProductLanguageSerializer(many=True)
     socials = com_serializers.GameSocialSerializer(many=True, required=False)
+    product_offer = ProductOfferSerializer(write_only=True)
     genres = serializers.ListField(child=serializers.CharField(), write_only=True)
 
     class Meta:
@@ -56,6 +57,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
             'system_requirements',
             'langs',
             'socials',
+            'product_offer',
             'genres',
         )
 
@@ -64,9 +66,16 @@ class CreateProductSerializer(serializers.ModelSerializer):
         system_requirements = validated_data.pop('system_requirements', None)
         langs = validated_data.pop('langs', None)
         socials = validated_data.pop('socials', None)
+        product_offer = validated_data.pop('product_offer', None)
         genres = validated_data.pop('genres', None)
 
+        offer_data = product_offer.pop('offer')
+        price_data = offer_data.pop('price')
+
+        price = Price.objects.create(**price_data)
+        offer = Offer.objects.create(price=price, **offer_data)
         product = Product.objects.create(**validated_data)
+        ProductOffer.objects.create(product=product, offer=offer, **product_offer)
 
         social_objects = [
             Social(product=product, **social) for social in socials
