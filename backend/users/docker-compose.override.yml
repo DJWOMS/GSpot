@@ -35,7 +35,16 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  redis:
+    image: redis
+    restart: always
+    env_file:
+      - .env.tests
+    command: redis-server --requirepass Qwe123!@#
+    volumes:
+      - gspot_users_redis_cache:/var/lib/redis_cache/data
 volumes:
   gspot_users_media:
   gspot_users_static:
   gspot_users_pgdata:
+  gspot_users_redis_cache:

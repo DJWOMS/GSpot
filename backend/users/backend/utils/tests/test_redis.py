@@ -46,7 +46,7 @@ class RedisClientTestCase(TestCase):
                                        token='test_totp_token_one',
                                        ttl=180,
                                        prefix=True)
-        result = self.redis_validator.is_token_exist(client=self.redis_access_client,
+        result = self.redis_validator.is_token_exist(client=self.redis_totp_client,
                                                      token='totp:test_totp_token_one')
         self.assertEqual(result, True)
 
