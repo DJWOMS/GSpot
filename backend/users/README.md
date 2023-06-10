@@ -11,7 +11,7 @@ Here is a short instruction on how to quickly set up the project for development
             
 ## Before start
 
-- Create .env file based on .env.local
+- Check environment variables
     
 ### Environment variables
 
@@ -36,10 +36,7 @@ Here is a short instruction on how to quickly set up the project for development
 
 ### To start project run
 ```
-$ docker-compose -f docker-compose.yml \
-                 -f docker-compose.local.yml \
-                 up \
-                 --build 
+$ docker-compose -f docker-compose.yml up --build 
 ```
 ### To run project's tests
 ```
@@ -47,7 +44,7 @@ $ docker-compose -f docker-compose.tests.yml \
                  up \
                  --build  \
                  --abort-on-container-exit \
-                 --exit-code-from  web_users_tests
+                 --exit-code-from  web_users
 
 ```
 ## Execute commands in docker
