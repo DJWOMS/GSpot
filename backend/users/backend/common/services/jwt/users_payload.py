@@ -56,11 +56,14 @@ class PayloadFactory:
 
     def create_payload(self, user: BaseAbstractUser) -> dict:
         if isinstance(user, BaseAbstractUser):
-            user_type = type(user)
-            payload_class = self.payload_types.get(user_type)
-            if payload_class:
-                return payload_class(user).generate_payload()
-            else:
-                raise ValueError("Unknown user type.")
+            return self.create_payload_for_user(user)
         else:
             raise TypeError('BaseAbstractUser instance required!')
+
+    def create_payload_for_user(self, user: BaseAbstractUser) -> dict:
+        user_type = type(user)
+        payload_class = self.payload_types.get(user_type)
+        if payload_class:
+            return payload_class(user).generate_payload()
+        else:
+            raise ValueError("Unknown user type.")
