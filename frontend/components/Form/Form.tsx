@@ -1,12 +1,12 @@
+import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import type { FieldValues, Path, ControllerProps, RegisterOptions, UseFormProps } from 'react-hook-form'
+import type { FieldValues, ControllerProps, UseFormProps, UseFormSetValue } from 'react-hook-form'
+import type { UseControllerProps } from 'react-hook-form/dist/types/controller'
 import { ErrorMessage } from '@hookform/error-message'
 import s from './Form.module.css'
 
-interface FieldType<T extends FieldValues> {
-  name: Path<T>
+interface FieldType<T extends FieldValues> extends Pick<UseControllerProps<T>, 'name' | 'rules'> {
   label: string
-  rules?: Exclude<RegisterOptions, 'valueAsNumber' | 'valueAsDate' | 'setValueAs'>
   render: ControllerProps<T>['render']
 }
 
@@ -18,6 +18,7 @@ interface Props<T extends FieldValues> {
   config: UseFormProps<T>
   onResetButton?: boolean
   onResetSubmit?: boolean
+  updateValueCallback?: (value: UseFormSetValue<T>) => void
 }
 
 function Form<T extends FieldValues>({
@@ -26,6 +27,7 @@ function Form<T extends FieldValues>({
   onSubmit,
   btnText,
   config,
+  updateValueCallback,
   onResetButton = false,
   onResetSubmit = false,
 }: Props<T>) {
@@ -34,7 +36,14 @@ function Form<T extends FieldValues>({
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<T>(config)
+
+  useEffect(() => {
+    if (updateValueCallback) {
+      updateValueCallback(setValue)
+    }
+  }, [updateValueCallback, setValue])
 
   const onResetSubmitAction = (data: T) => {
     onSubmit(data)
@@ -58,7 +67,7 @@ function Form<T extends FieldValues>({
             <Controller<T> control={control} {...field} />
             <ErrorMessage
               errors={errors}
-              name={field.name as T['name']}
+              name={field.name as T['']}
               render={({ message }) => <p className={s.errorMessage}>{message}</p>}
             />
           </div>
