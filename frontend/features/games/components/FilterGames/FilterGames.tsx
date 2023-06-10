@@ -1,6 +1,7 @@
 'use client'
 
 import { FC, useState } from 'react'
+import { UseFormSetValue } from 'react-hook-form'
 import cn from 'classnames'
 import { CheckBox } from 'components/Form'
 import Form from 'components/Form/Form'
@@ -33,6 +34,7 @@ interface Props {
 const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
   const queryParams = useSearchParams()
   const router = useRouter()
+  const [setValue, updateValueCallback] = useState<UseFormSetValue<FilterValues>>()
 
   const onSubmitForm = (data: FilterValues) => {
     const params = new URLSearchParams()
@@ -44,8 +46,16 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
     router.push(`/catalog?${params.toString()}`)
   }
 
-  const onChangeCheckbox = (values: string[], onChange: (value: string[]) => void, id: number) => {
+  const onChangeCheckbox = (
+    values: string[],
+    onChange: (value: string[]) => void,
+    id: number,
+    isSubgenres = false
+  ) => {
     if (values.includes(id.toString())) {
+      if (!isSubgenres && setValue) {
+        setValue('subgenres', [])
+      }
       return onChange(
         values.filter((i) => {
           return i !== id.toString()
@@ -67,10 +77,11 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
       </button>
 
       <div className={cn(s.wrapper, { [s.open]: openMobileFilter })}>
-        <Form
+        <Form<FilterValues>
           title="Фильтры"
           onSubmit={onSubmitForm}
           btnText="Применить фильтр"
+          updateValueCallback={updateValueCallback}
           config={{
             defaultValues: {
               sortby: queryParams.get('sortby') ?? undefined,
@@ -86,7 +97,6 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
             {
               name: 'sortby',
               label: 'Сортировать:',
-              rules: {},
               render: ({ field }) => (
                 <Select
                   {...field}
@@ -98,7 +108,6 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
             {
               name: 'prices',
               label: 'Цена:',
-              rules: {},
               render: ({ field: { onChange, ...field } }) => {
                 const fieldValue = field.value as number[] | undefined
                 const data = fieldValue?.length ? fieldValue : prices
@@ -140,7 +149,6 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
             {
               name: 'platforms',
               label: 'Платформа:',
-              rules: {},
               render: ({ field: { value, ...field } }) => {
                 if (!platforms) {
                   return <></>
@@ -158,7 +166,6 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
             {
               name: 'genres',
               label: 'Жанры:',
-              rules: {},
               render: ({ field }) => {
                 if (!genres || typeof field.value === 'undefined') {
                   return <></>

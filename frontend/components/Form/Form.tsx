@@ -1,6 +1,7 @@
+import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import type { FieldValues, ControllerProps, UseFormProps } from 'react-hook-form'
-import { UseControllerProps } from 'react-hook-form/dist/types/controller'
+import type { FieldValues, ControllerProps, UseFormProps, UseFormSetValue } from 'react-hook-form'
+import type { UseControllerProps } from 'react-hook-form/dist/types/controller'
 import { ErrorMessage } from '@hookform/error-message'
 import s from './Form.module.css'
 
@@ -17,6 +18,7 @@ interface Props<T extends FieldValues> {
   config: UseFormProps<T>
   onResetButton?: boolean
   onResetSubmit?: boolean
+  updateValueCallback?: (value: UseFormSetValue<T>) => void
 }
 
 function Form<T extends FieldValues>({
@@ -25,6 +27,7 @@ function Form<T extends FieldValues>({
   onSubmit,
   btnText,
   config,
+  updateValueCallback,
   onResetButton = false,
   onResetSubmit = false,
 }: Props<T>) {
@@ -33,7 +36,14 @@ function Form<T extends FieldValues>({
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<T>(config)
+
+  useEffect(() => {
+    if (updateValueCallback) {
+      updateValueCallback(setValue)
+    }
+  }, [updateValueCallback, setValue])
 
   const onResetSubmitAction = (data: T) => {
     onSubmit(data)
