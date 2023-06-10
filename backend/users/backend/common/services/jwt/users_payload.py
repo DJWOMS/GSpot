@@ -66,4 +66,4 @@ class PayloadFactory:
         if payload_class:
             return payload_class(user).generate_payload()
         else:
-            raise ValueError("Unknown user type.")
+            raise KeyError("Unknown user type!")
