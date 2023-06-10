@@ -8,16 +8,29 @@ services:
     expose:
       - 8000
     depends_on:
-      - db
-      - rabbitmq
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    env_file:
+      - .env.prod
   db:
     container_name: users-service-db
     image: postgres:14-alpine
     expose:
       - 5432
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    env_file:
+      - .env.prod
   rabbitmq:
     image: rabbitmq:3.11-management
     container_name: users-service-rabbitmq
     expose:
       - 5672
       - 15672
+    env_file:
+      - .env.prod
