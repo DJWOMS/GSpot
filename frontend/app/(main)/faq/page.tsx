@@ -1,7 +1,5 @@
 import Carousel from 'components/Carousel'
 import Section from 'components/Section'
-import Image from 'next/image'
-import img from '../../../assets/img/about.jpg'
 import s from './page.module.css'
 
 interface partner {
@@ -21,7 +19,7 @@ const FaqPage = () => {
   return (
     <Section>
       <div className={s.sectionWrap}>
-        <Image src={img} alt="картинка" className={s.img} />
+        <img src="/partners/about.jpg" alt="картинка" className={s.img} />
         <div className={s.wrapper}>
           <div className={s.contentWrap}>
             <h1 className={s.headingText}>Keep Reading</h1>
