@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  web_users:
+    extends:
+      file: docker-compose.yml
+      service: web_users
+    restart: "no"
+    command: >
+      sh -c "python manage.py test"
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+    env_file:
+      - .env.tests
+  db:
+    extends:
+      file: docker-compose.yml
+      service: db
+    container_name: users-service-db-tests
+    env_file:
+      - .env.tests
+  rabbitmq:
+    extends:
+      file: docker-compose.yml
+      service: rabbitmq
+    container_name: users-service-rabbitmq-tests
+    env_file:
+      - .env.tests
