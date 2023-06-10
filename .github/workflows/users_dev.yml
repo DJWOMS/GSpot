@@ -23,5 +23,5 @@ jobs:
                               up \
                               --build  \
                               --abort-on-container-exit \
-                              --exit-code-from  web_users
+                              --exit-code-from  web_users_tests
 
