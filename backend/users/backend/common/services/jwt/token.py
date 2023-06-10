@@ -2,7 +2,7 @@ import time
 from typing import Type
 
 from base.models import BaseAbstractUser
-from base.token import BaseToken
+from base.tokens.token import BaseToken
 from common.services.jwt.exceptions import TokenExpired, PayloadError
 from common.services.jwt.mixins import JWTMixin
 from common.services.jwt.users_payload import PayloadFactory

@@ -1,6 +1,6 @@
 from administrator.models import Admin
 from base.models import BaseAbstractUser
-from base.payload import BasePayload
+from base.tokens.payload import BasePayload
 from customer.models import CustomerUser
 from developer.models import CompanyUser
 
