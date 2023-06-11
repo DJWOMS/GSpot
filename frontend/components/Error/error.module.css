@@ -1,0 +1,68 @@
+.errorsContainer {
+    container: errorBar / inline-size;
+}
+.errorsContainer{
+    @apply text-center font-[montserrat] mb-5 text-light font-medium;
+}
+.statusCode {
+    @apply text-6xl leading-none;
+}
+.title {
+    @apply text-3xl ;
+}
+.errorMessage {
+    @apply  text-xl ;
+}
+@container errorBar (max-width: 50px) {
+    .statusCode {
+        @apply text-sm
+    }
+    .title {
+        @apply none
+    }
+    .errorMessage {
+        @apply none
+    }
+}
+
+@container errorBar (max-width: 200px) {
+    .statusCode {
+    @apply text-lg
+    }
+    .title {
+        @apply text-sm
+    }
+    .errorMessage {
+        @apply none
+    }
+}
+@container errorBar (max-width: 700px) {
+    .statusCode {
+        @apply text-xl
+    }
+    .title {
+        @apply text-lg
+    }
+    .errorMessage {
+        @apply text-base
+    }
+}
+@container errorBar (max-width: 1200px) {
+    .statusCodee {
+        @apply text-3xl
+    }
+    .title {
+        @apply text-xl
+    }
+    .errorMessage {
+        @apply text-sm
+    }
+}
+
+.btnError {
+    @apply
+    w-24  items-center justify-center rounded-md
+    bg-acid  text-[13px] font-semibold uppercase tracking-[0.6px] text-white hover: bg-primary text-white
+
+
+}
