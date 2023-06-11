@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import cn from 'classnames'
+import Cookies from 'js-cookie'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import s from './CheckAge.module.css'
@@ -12,6 +13,7 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
   const [date, setDate] = useState(new Date())
   const [isVisible, setIsVisible] = useState(true)
   const router = useRouter()
+  const isAdult = Cookies.get('adultCheck')
 
   const calculateAge = (birthMonth: number, birthDay: number, birthYear: number) => {
     const currentDate = new Date()
@@ -34,6 +36,7 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
     if (userAge < 18) {
       alert('Пожалуйста, введите корректную дату')
     } else {
+      Cookies.set('adultCheck', 'true', { expires: 365 })
       setIsVisible(false)
     }
   }
@@ -48,7 +51,7 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
 
   return (
     <>
-      {age === 'adult' && (
+      {age === 'adult' && !isAdult && (
         <div className={cn(s.wrapper, { [s.wrapperHidden]: !isVisible })}>
           <div className={s.divStyle}>
             <div className={s.imageBox}>
