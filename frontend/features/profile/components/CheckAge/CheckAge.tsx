@@ -14,6 +14,8 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
   const [isVisible, setIsVisible] = useState(true)
   const router = useRouter()
   const isAdult = Cookies.get('adultCheck')
+  const expirationDate = new Date()
+  expirationDate.setFullYear(expirationDate.getFullYear() + 2, 11, 31)
 
   const calculateAge = (birthMonth: number, birthDay: number, birthYear: number) => {
     const currentDate = new Date()
@@ -36,7 +38,7 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
     if (userAge < 18) {
       alert('Пожалуйста, введите корректную дату')
     } else {
-      Cookies.set('adultCheck', 'true', { expires: 365 })
+      Cookies.set('adultCheck', 'true', { expires: expirationDate })
       setIsVisible(false)
     }
   }
