@@ -20,6 +20,11 @@ services:
     container_name: users-service-db-tests
     env_file:
       - .env.tests
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   rabbitmq:
     extends:
       file: docker-compose.yml
