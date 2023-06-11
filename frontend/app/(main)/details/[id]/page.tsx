@@ -6,6 +6,7 @@ import { Languages, Requirements } from 'features/games/components'
 import type { GameDetailsInterface } from 'features/games/types'
 import { CheckAge } from 'features/profile/components'
 import { fetchServerSide } from 'lib/fetchServerSide'
+import { cookies } from 'next/headers'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import s from './page.module.css'
@@ -16,6 +17,9 @@ const Page = async () => {
     cache: 'no-cache',
   })
 
+  const cookieStore = cookies()
+  const adultCheck = cookieStore.get('adultCheck')
+
   if (!details) {
     notFound()
   }
@@ -23,7 +27,7 @@ const Page = async () => {
   return (
     <Section>
       <div className="container">
-        <CheckAge image={details.coverImg} age={details.age} />
+        {!adultCheck && <CheckAge image={details.coverImg} age={details.age} />}
         <div className="-mx-41">
           <div className="flex-1">
             <div className={s.details}>

@@ -13,9 +13,6 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
   const [date, setDate] = useState(new Date())
   const [isVisible, setIsVisible] = useState(true)
   const router = useRouter()
-  const isAdult = Cookies.get('adultCheck')
-  const expirationDate = new Date()
-  expirationDate.setFullYear(expirationDate.getFullYear() + 2, 11, 31)
 
   const calculateAge = (birthMonth: number, birthDay: number, birthYear: number) => {
     const currentDate = new Date()
@@ -38,7 +35,9 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
     if (userAge < 18) {
       alert('Пожалуйста, введите корректную дату')
     } else {
-      Cookies.set('adultCheck', 'true', { expires: expirationDate })
+      const expirationDate = new Date()
+      expirationDate.setFullYear(expirationDate.getFullYear() + 2)
+      Cookies.set('adultCheck', 'true', { expires: expirationDate, path: '/details/id' })
       setIsVisible(false)
     }
   }
@@ -53,7 +52,7 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
 
   return (
     <>
-      {age === 'adult' && !isAdult && (
+      {age === 'adult' && (
         <div className={cn(s.wrapper, { [s.wrapperHidden]: !isVisible })}>
           <div className={s.divStyle}>
             <div className={s.imageBox}>
