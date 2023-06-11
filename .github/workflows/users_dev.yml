@@ -17,3 +17,8 @@ jobs:
       - name: Test with flake8
         run: |
           cd backend/users/backend && python -m flake8
+      - name: Run test in docker-compose
+        run: |
+          cd backend/users/ && docker-compose up --build \
+                                    --abort-on-container-exit \
+                                    --exit-code-from  web_users 

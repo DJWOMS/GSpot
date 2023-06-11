@@ -6,6 +6,9 @@ logger = logging.getLogger(__name__)
 
 ACCESS_TOKEN_LIFETIME = timedelta(seconds=int(os.environ["ACCESS_TOKEN_LIFETIME"]))
 REFRESH_TOKEN_LIFETIME = timedelta(seconds=int(os.environ["REFRESH_TOKEN_LIFETIME"]))
+REFRESH_TOKEN_ROTATE_MIN_LIFETIME = timedelta(
+    seconds=int(os.environ['REFRESH_TOKEN_ROTATE_MIN_LIFETIME'])
+)
 ALGORITHM = "HS256"
 
 GET_TOKEN_FROM = "header"

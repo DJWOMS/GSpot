@@ -1,9 +1,9 @@
-from base.base_tests.change_account_info_tests_base import ChangeAccountInfoApiTestCase
 from rest_framework.test import APITestCase
 from developer.models import CompanyUser
+from base.base_tests.test_base_get_jwt import GetJwtApiTestCase
 
 
-class DeveloperChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITestCase):
+class DeveloperGetJwtApiTestCase(GetJwtApiTestCase, APITestCase):
     @staticmethod
     def set_settings_user():
         user = {

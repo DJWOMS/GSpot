@@ -1,13 +1,13 @@
-from django.core.exceptions import ValidationError
+from base.exceptions import AuthenticationFailed
 
 
-class TokenExpired(ValidationError):
+class TokenExpired(AuthenticationFailed):
     pass
 
 
-class TokenInvalid(ValidationError):
+class TokenInvalid(AuthenticationFailed):
     pass
 
 
-class PayloadError(ValidationError):
+class PayloadError(AuthenticationFailed):
     pass

@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  web_users:
+    env_file:
+      - .env.tests
+    restart: "no"
+    command: >
+      sh -c "python manage.py test"
+    volumes:
+      - gspot_users_static:/app/static/
+      - gspot_users_media:/app/media/
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+  db:
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - gspot_users_pgdata:/var/lib/postgresql/data
+    env_file:
+      - .env.tests
+    ports:
+      - "5432:5432"
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: users-service-rabbitmq
+    env_file:
+      - .env.tests
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+volumes:
+  gspot_users_media:
+  gspot_users_static:
+  gspot_users_pgdata:
