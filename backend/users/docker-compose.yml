@@ -3,26 +3,37 @@ version: "3.9"
 services:
   web_users:
     container_name: users-service
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-    command: >
-      sh -c "python manage.py migrate &&
-             gunicorn -b 0.0.0.0:8000 --log-level info --access-logfile - config.wsgi:application"
+    build: ./
     restart: always
     expose:
       - 8000
     depends_on:
       - db
       - rabbitmq
+    env_file:
+      - .env.prod
   db:
     container_name: users-service-db
     image: postgres:14-alpine
     expose:
       - 5432
+    env_file:
+      - .env.prod
   rabbitmq:
     image: rabbitmq:3.11-management
     container_name: users-service-rabbitmq
     expose:
       - 5672
       - 15672
+    env_file:
+      - .env.prod
+  redis:
+    image: redis
+    restart: always
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_PASSWORD"
+    env_file:
+      - .env.prod
+    volumes:
+      - gspot_users_redis_cache:/var/lib/redis_cache/data
+volumes:
+  gspot_users_redis_cache:

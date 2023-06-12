@@ -15,7 +15,6 @@ db.sqlite3
 venv
 
 .env.dev
-.env.prod
 
 __pycache__/
 */__pycache__/

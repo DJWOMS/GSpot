@@ -19,6 +19,9 @@ jobs:
           cd backend/users/backend && python -m flake8
       - name: Run test in docker-compose
         run: |
-          cd backend/users/ && docker-compose up --build \
-                                    --abort-on-container-exit \
-                                    --exit-code-from  web_users 
+          cd backend/users/ && docker-compose -f docker-compose.tests.yml \
+                              up \
+                              --build  \
+                              --abort-on-container-exit \
+                              --exit-code-from  web_users_tests
+

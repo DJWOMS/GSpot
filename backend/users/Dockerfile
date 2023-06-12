@@ -14,6 +14,8 @@ ENV \
   POETRY_VIRTUALENVS_CREATE=false \
   POETRY_CACHE_DIR='/var/cache/pypoetry'
 
+# Cleaning cache:
+RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 # System deps:
 RUN apt-get update && \
   apt-get install --no-install-recommends -y \
@@ -21,8 +23,6 @@ RUN apt-get update && \
   gettext \
   libpq-dev \
   wget
-  # Cleaning cache:
-RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
   # Installing `poetry` package manager:
   # https://github.com/python-poetry/poetry
@@ -44,3 +44,6 @@ RUN mkdir -p /app/media /app/static && \
 	chmod +x /app/media/ /app/static/
 
 WORKDIR backend
+
+CMD python manage.py migrate && \
+    gunicorn -b 0.0.0.0:8000 --log-level info --access-logfile - config.wsgi:application
