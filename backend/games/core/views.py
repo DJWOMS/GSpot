@@ -3,7 +3,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from finance.models import Library, Offer, LibraryProduct
+from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 
 from base import classes
 from base.paginations import ProductResultsSetPagination
@@ -16,9 +17,10 @@ from .serializers import (
     SystemRequirementSerializer,
     GamesListSerializer,
     GameDetailSerializer,
-    SaveToLibrarySerializer
+    SaveToLibrarySerializer,
 )
 from .models import Product, SystemRequirement
+from finance.models import Library, Offer, LibraryProduct
 
 
 class ProductViewSet(classes.MixedPermissionSerializer, viewsets.ModelViewSet):
@@ -75,17 +77,17 @@ class SystemRequirementViewSet(classes.MixedPermissionSerializer, viewsets.Model
 
 
 class SaveToLibraryAPIView(APIView):
-    def get(self, request):
+    def post(self, request):
         serializer = SaveToLibrarySerializer(data=request.GET)
         serializer.is_valid(raise_exception=True)
 
         user_to = request.GET.get('user_to')
         offer_uuids = request.GET.getlist('offer_uuid')
-
         if not user_to or not offer_uuids:
             return Response({'message': 'Missing required parameters.'}, status=400)
 
         library = self.get_or_create_library(user_to)
+
         if library is None:
             return Response({'message': 'Failed to create library.'}, status=500)
 
@@ -93,10 +95,7 @@ class SaveToLibraryAPIView(APIView):
         return response
 
     def get_or_create_library(self, user_to):
-        try:
-            library = Library.objects.get(user=user_to)
-        except Library.DoesNotExist:
-            library = Library.objects.create(user=user_to)
+        library, _ = Library.objects.get_or_create(user=user_to)
         return library
 
     def add_offers_to_library(self, library, offer_uuids):
@@ -106,16 +105,14 @@ class SaveToLibraryAPIView(APIView):
                 return Response(
                     {'message': f"Offer with ID {offer_uuid} does not exist or is not active."},
                     status=status.HTTP_404_NOT_FOUND
-                    )
+                )
             self.add_products_to_library(library, offer)
 
-        return Response({'message': 'Games added to library successfully'})
+        return Response({'message': 'Games added to library successfully'}, status=200)
 
     def get_active_offer(self, offer_uuid):
-        try:
-            return Offer.objects.get(created_by=offer_uuid, is_active=True)
-        except Offer.DoesNotExist:
-            return None
+        offer = get_object_or_404(Offer, id=offer_uuid)
+        return offer
 
     def add_products_to_library(self, library, offer):
         products = offer.products.all()

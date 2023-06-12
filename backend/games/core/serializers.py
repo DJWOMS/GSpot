@@ -226,4 +226,5 @@ class GameDlcLinkSerializer(serializers.Serializer):
 
 class SaveToLibrarySerializer(serializers.Serializer):
     user_to = serializers.UUIDField()
+    user_from = serializers.UUIDField(required=False)
     offer_uuid = serializers.ListField(child=serializers.UUIDField())
