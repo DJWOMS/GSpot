@@ -86,7 +86,7 @@ class SaveToLibraryAPIView(APIView):
         if not user_to or not offer_uuids:
             return Response({'message': 'Missing required parameters.'}, status=400)
 
-        library = self.get_or_create_library(user_to)
+        library, _ = Library.objects.get_or_create(user=user_to)
 
         if library is None:
             return Response({'message': 'Failed to create library.'}, status=500)
@@ -94,13 +94,9 @@ class SaveToLibraryAPIView(APIView):
         response = self.add_offers_to_library(library, offer_uuids)
         return response
 
-    def get_or_create_library(self, user_to):
-        library, _ = Library.objects.get_or_create(user=user_to)
-        return library
-
     def add_offers_to_library(self, library, offer_uuids):
         for offer_uuid in offer_uuids:
-            offer = self.get_active_offer(offer_uuid)
+            offer = get_object_or_404(Offer, id=offer_uuid)
             if offer is None:
                 return Response(
                     {'message': f"Offer with ID {offer_uuid} does not exist or is not active."},
@@ -109,10 +105,6 @@ class SaveToLibraryAPIView(APIView):
             self.add_products_to_library(library, offer)
 
         return Response({'message': 'Games added to library successfully'}, status=200)
-
-    def get_active_offer(self, offer_uuid):
-        offer = get_object_or_404(Offer, id=offer_uuid)
-        return offer
 
     def add_products_to_library(self, library, offer):
         products = offer.products.all()
