@@ -1,9 +1,10 @@
 'use client'
 
 import { FC, useState } from 'react'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { UseFormSetValue } from 'react-hook-form'
 import cn from 'classnames'
-import { CheckBox, Group } from 'components/Form'
+import { CheckBox } from 'components/Form'
+import Form from 'components/Form/Form'
 import Select from 'components/Select'
 import { Range } from 'components/Slider'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -14,7 +15,6 @@ import type {
   FilterSortByInterface,
 } from '../../types'
 import s from './FilterGames.module.css'
-import GroupItem from './GroupItem'
 
 interface FilterValues {
   sortby?: string
@@ -22,14 +22,6 @@ interface FilterValues {
   platforms: string[]
   genres: string[]
   subgenres: string[]
-}
-
-const initalFilterState: FilterValues = {
-  sortby: undefined,
-  prices: undefined,
-  platforms: [],
-  genres: [],
-  subgenres: [],
 }
 
 interface Props {
@@ -41,20 +33,10 @@ interface Props {
 
 const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
   const queryParams = useSearchParams()
-  const { control, handleSubmit, reset, setValue } = useForm<FilterValues>({
-    defaultValues: {
-      sortby: queryParams.get('sortby') ?? undefined,
-      prices: queryParams.getAll('prices').map((p) => parseInt(p)),
-      platforms: queryParams.getAll('platforms'),
-      genres: queryParams.getAll('genres'),
-      subgenres: queryParams.getAll('subgenres'),
-    },
-  })
-
-  // update router if needed
   const router = useRouter()
+  const [setValue, updateValueCallback] = useState<UseFormSetValue<FilterValues>>()
 
-  const onSubmitForm: SubmitHandler<FilterValues> = (data) => {
+  const onSubmitForm = (data: FilterValues) => {
     const params = new URLSearchParams()
     Object.entries(data).forEach(([k, v]) => {
       if (v) {
@@ -71,7 +53,7 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
     isSubgenres = false
   ) => {
     if (values.includes(id.toString())) {
-      if (!isSubgenres) {
+      if (!isSubgenres && setValue) {
         setValue('subgenres', [])
       }
       return onChange(
@@ -95,30 +77,40 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
       </button>
 
       <div className={cn(s.wrapper, { [s.open]: openMobileFilter })}>
-        <form onSubmit={handleSubmit(onSubmitForm)} className={s.components}>
-          <div className={s.header}>
-            <h4>Фильтры</h4>
-            <button className={s.clearFilters} onClick={() => reset(initalFilterState)} type="button">
-              Сбросить
-            </button>
-          </div>
-
-          <GroupItem label="Сортировать:">
-            <Controller
-              name="sortby"
-              control={control}
-              render={({ field }) => (
-                <Select {...field} options={sorts?.map((i) => ({ name: i.name, value: i.id }))} />
-              )}
-            />
-          </GroupItem>
-
-          <GroupItem label="Цена:">
-            <Controller
-              control={control}
-              name="prices"
-              render={({ field: { onChange, value } }) => {
-                const data = value?.length ? value : prices
+        <Form<FilterValues>
+          title="Фильтры"
+          onSubmit={onSubmitForm}
+          btnText="Применить фильтр"
+          updateValueCallback={updateValueCallback}
+          config={{
+            defaultValues: {
+              sortby: queryParams.get('sortby') ?? undefined,
+              prices: queryParams.getAll('prices').map((p) => parseInt(p)),
+              platforms: queryParams.getAll('platforms'),
+              genres: queryParams.getAll('genres'),
+              subgenres: queryParams.getAll('subgenres'),
+            },
+          }}
+          onResetButton
+          onResetSubmit
+          fields={[
+            {
+              name: 'sortby',
+              label: 'Сортировать:',
+              render: ({ field }) => (
+                <Select
+                  {...field}
+                  options={sorts?.map((i) => ({ name: i.name, value: i.id }))}
+                  value={field.value ? field.value.toString() : ''}
+                />
+              ),
+            },
+            {
+              name: 'prices',
+              label: 'Цена:',
+              render: ({ field: { onChange, ...field } }) => {
+                const fieldValue = field.value as number[] | undefined
+                const data = fieldValue?.length ? fieldValue : prices
 
                 return (
                   <>
@@ -152,65 +144,63 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
                     />
                   </>
                 )
-              }}
-            />
-          </GroupItem>
-
-          <GroupItem label="Платформа:">
-            {platforms?.map(({ id, name }) => (
-              <Controller
-                key={id}
-                control={control}
-                name="platforms"
-                render={({ field }) => <CheckBox label={name} defaultValue={id} {...field} />}
-              />
-            ))}
-          </GroupItem>
-
-          <GroupItem label="Жанры:">
-            {genres?.map(({ id, name, subgenres }) => (
-              <>
-                <Controller
-                  control={control}
-                  name="genres"
-                  render={({ field }) => (
-                    <>
-                      <CheckBox
-                        onChange={() => onChangeCheckbox(field.value, field.onChange, id)}
-                        label={name}
-                        checked={checkboxValue(field.value, id)}
-                      />
-                      {field.value.includes(id.toString()) && subgenres.length && (
-                        <div className="mb-5 ml-5">
-                          {subgenres.map(({ id, name }) => (
-                            <Controller
-                              key={`s${id}`}
-                              control={control}
-                              name="subgenres"
-                              render={({ field }) => (
-                                <CheckBox
-                                  onChange={() => onChangeCheckbox(field.value, field.onChange, id, true)}
-                                  checked={checkboxValue(field.value, id)}
-                                  label={name}
-                                />
-                              )}
-                            />
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  )}
-                />
-              </>
-            ))}
-          </GroupItem>
-
-          <Group>
-            <button className={s.applyFilter} type="submit">
-              Применить фильтр
-            </button>
-          </Group>
-        </form>
+              },
+            },
+            {
+              name: 'platforms',
+              label: 'Платформа:',
+              render: ({ field: { value, ...field } }) => {
+                if (!platforms) {
+                  return <></>
+                }
+                const fieldValue = value as number | undefined
+                return (
+                  <>
+                    {platforms.map(({ id, name }) => (
+                      <CheckBox key={id} label={name} defaultValue={id} value={fieldValue} {...field} />
+                    ))}
+                  </>
+                )
+              },
+            },
+            {
+              name: 'genres',
+              label: 'Жанры:',
+              render: ({ field }) => {
+                if (!genres || typeof field.value === 'undefined') {
+                  return <></>
+                }
+                const fieldValue = field.value as string[]
+                return (
+                  <>
+                    {genres.map(({ id, name, subgenres }) => (
+                      <>
+                        <CheckBox
+                          key={id}
+                          onChange={() => onChangeCheckbox(fieldValue, field.onChange, id)}
+                          label={name}
+                          checked={checkboxValue(fieldValue, id)}
+                        />
+                        {fieldValue.includes(String(id)) && subgenres.length && (
+                          <div className="mb-5 ml-5">
+                            {subgenres.map(({ id: subgenreId, name }) => (
+                              <CheckBox
+                                key={`s${subgenreId}`}
+                                onChange={() => onChangeCheckbox(fieldValue, field.onChange, subgenreId)}
+                                checked={checkboxValue(fieldValue, subgenreId)}
+                                label={name}
+                              />
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    ))}
+                  </>
+                )
+              },
+            },
+          ]}
+        />
       </div>
     </>
   )

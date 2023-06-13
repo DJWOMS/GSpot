@@ -5,7 +5,7 @@ import Link from 'next/link'
 import s from './Form.module.css'
 
 interface FormProps {
-  onSubmit: (data: object) => void
+  onSubmit: (data: any) => void
   children?: React.ReactNode
 }
 
