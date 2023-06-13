@@ -32,7 +32,8 @@ class CustomersViewTest(BaseTestView, TestCase):
 
     def test_01_block_customer(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
-        request = self.client.post(f"{self.url}/{self.user.id}/block", {'reason': 'Test reason'})
+        payload = {'reason': 'Test reason'}
+        request = self.client.post(f"{self.url}/{self.user.id}/block", payload, format='json')
         self.assertEqual(request.status_code, 201)
 
     def test_02_unblock_customer(self):
