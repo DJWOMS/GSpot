@@ -6,6 +6,7 @@ from administrator.models import BlockReason
 from administrator.serializers.customer_seriallizers import (
     CustomerListSerializer,
     CustomerBlockSerializer,
+    CustomerRetrieveSerializer,
 )
 from common.permissions.permissons import IsAdminScopeUserPerm
 from customer.models import CustomerUser
@@ -62,18 +63,21 @@ from django.utils.decorators import method_decorator
 )
 class CustomerListView(ModelViewSet):
     queryset = CustomerUser.objects.all()
-    serializer_class = CustomerListSerializer
     http_method_names = ['get', 'post', 'delete']
     permission_classes = [IsAdminScopeUserPerm]
     filter_backends = [filters.SearchFilter]
     search_fields = ['email', 'phone']
 
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return CustomerRetrieveSerializer
+        else:
+            return CustomerListSerializer
+
     def block(self, request, pk):
-        serializer = CustomerBlockSerializer(
-            data={'reason': request.data.get('reason'), 'creator': request.user.id, 'user': pk}
-        )
+        serializer = CustomerBlockSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+        serializer.save(creator=request.user.id, user=pk)
         headers = self.get_success_headers(serializer.data)
         return Response(status=status.HTTP_201_CREATED, headers=headers)
 
