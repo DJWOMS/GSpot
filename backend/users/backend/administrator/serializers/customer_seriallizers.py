@@ -53,3 +53,10 @@ class CustomerBlockSerializer(serializers.ModelSerializer):
             'creator',
             'user',
         )
+
+
+class CustomerRequestBlockSerializer(serializers.ModelSerializer):
+    class Meta:
+        ref_name = 'customer_req_block'
+        model = BlockReason
+        fields = ('reason',)
