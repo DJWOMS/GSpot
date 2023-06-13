@@ -6,7 +6,6 @@ import { Languages, Requirements } from 'features/games/components'
 import type { GameDetailsInterface } from 'features/games/types'
 import { CheckAge } from 'features/profile/components'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import { cookies } from 'next/headers'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import s from './page.module.css'
@@ -17,9 +16,6 @@ const Page = async () => {
     cache: 'no-cache',
   })
 
-  const cookieStore = cookies()
-  const adultCheck = cookieStore.get('adultCheck')
-
   if (!details) {
     notFound()
   }
@@ -27,7 +23,7 @@ const Page = async () => {
   return (
     <Section>
       <div className="container">
-        {!adultCheck && <CheckAge image={details.coverImg} age={details.age} />}
+        <CheckAge image={details.coverImg} age={details.age} />
         <div className="-mx-41">
           <div className="flex-1">
             <div className={s.details}>
@@ -80,8 +76,8 @@ const Page = async () => {
                     }}
                     navigation={true}
                   >
-                    {details.carouselImage.map((img) => (
-                      <img key={img.id} src={img.link} alt="" />
+                    {details.carouselImage.map((item) => (
+                      <img key={item.id} src={item.link} alt="" />
                     ))}
                   </Carousel>
                 </div>

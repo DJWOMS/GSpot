@@ -41,8 +41,42 @@ export const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
   description: 'Some description for game',
   carouselImage: [
     {
-      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(5)}`,
-      id: randomNum(15),
+      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(12)}`,
+      id: randomNum(13),
+    },
+
+    {
+      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(12)}`,
+      id: randomNum(20),
+    },
+
+    {
+      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(12)}`,
+      id: randomNum(20),
+    },
+
+    {
+      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(12)}`,
+      id: randomNum(20),
+    },
+
+    {
+      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(12)}`,
+      id: randomNum(20),
+    },
+
+    {
+      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(12)}`,
+      id: randomNum(20),
+    },
+
+    {
+      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(12)}`,
+      id: randomNum(20),
+    },
+    {
+      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(12)}`,
+      id: randomNum(20),
     },
   ],
   languages: [
