@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 
 from base import classes
@@ -81,8 +80,8 @@ class SaveToLibraryAPIView(APIView):
         serializer = SaveToLibrarySerializer(data=request.GET)
         serializer.is_valid(raise_exception=True)
 
-        user_to = request.GET.get('user_to')
-        offer_uuids = request.GET.getlist('offer_uuid')
+        user_to = request.query_params.get('user_to')
+        offer_uuids = request.query_params.getlist('offer_uuid')
         if not user_to or not offer_uuids:
             return Response({'message': 'Missing required parameters.'}, status=400)
 
