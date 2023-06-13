@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["egorfilippov <e.filippov@edisoncorp.ru>"]
 readme = "README.md"
-packages = [{include = "gspot_user_service"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
