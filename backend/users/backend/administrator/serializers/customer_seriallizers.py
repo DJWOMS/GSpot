@@ -9,15 +9,24 @@ class CustomerListSerializer(serializers.ModelSerializer):
         ref_name = 'customer_list'
         model = CustomerUser
         fields = (
-            'birthday',
-            'avatar',
-            'country',
             'email',
+            'avatar',
+            'is_active',
+            'is_banned',
+        )
+
+
+class CustomerRetrieveSerializer(serializers.ModelSerializer):
+    class Meta:
+        ref_name = 'customer_retrieve'
+        model = CustomerUser
+        fields = (
+            'birthday',
+            'country',
             'phone',
             'created_at',
             'update_at',
-            'is_active',
-            'is_banned',
+            *CustomerListSerializer.Meta.fields,
         )
 
 
