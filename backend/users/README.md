@@ -11,7 +11,7 @@ Here is a short instruction on how to quickly set up the project for development
             
 ## Before start
 
-- Create .env file based on .env.local
+- Check environment variables in .env.example
     
 ### Environment variables
 
@@ -31,15 +31,11 @@ Here is a short instruction on how to quickly set up the project for development
 
 
 **NOTE**: docker-compose.yml - for project   
-**NOTE**: docker-compose.local.yml - for project's db (Postgres, Redis, Rabbitmq)  
 **NOTE**: docker-compose.tests.yml - for running project's tests
 
 ### To start project run
 ```
-$ docker-compose -f docker-compose.yml \
-                 -f docker-compose.local.yml \
-                 up \
-                 --build 
+$ docker-compose -f docker-compose.yml up --build 
 ```
 ### To run project's tests
 ```

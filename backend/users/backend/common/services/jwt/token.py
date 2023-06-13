@@ -1,12 +1,13 @@
 import time
-from django.conf import settings
-from django.utils import timezone
 from typing import Type
 
 from base.models import BaseAbstractUser
-from base.token import BaseToken
+from base.tokens.token import BaseToken
 from common.services.jwt.exceptions import TokenExpired, PayloadError
 from common.services.jwt.mixins import JWTMixin
+from common.services.jwt.users_payload import PayloadFactory
+from django.conf import settings
+from django.utils import timezone
 
 
 class Token(BaseToken, JWTMixin):
@@ -84,13 +85,8 @@ class Token(BaseToken, JWTMixin):
 
     @staticmethod
     def get_user_payload(user: Type[BaseAbstractUser]) -> dict:
-        user_payload = {
-            "user_id": str(user.id),
-            "role": user._meta.app_label,
-            "avatar": str(user.avatar),
-            "permissions": user.permissions_codename,
-        }
-        return user_payload
+        factory = PayloadFactory()
+        return factory.create_payload(user)
 
     def check_token(self, token: str) -> bool:
         self.check_exp(token)

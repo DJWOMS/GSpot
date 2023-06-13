@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  web_users_tests:
+    build: ./
+    env_file:
+      - .env.tests
+    restart: "no"
+    command: >
+      sh -c "python manage.py test"
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_started
+  db:
+    extends:
+      file: docker-compose.yml
+      service: db
+    container_name: users-service-db-tests
+    env_file:
+      - .env.tests
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  rabbitmq:
+    extends:
+      file: docker-compose.yml
+      service: rabbitmq
+    container_name: users-service-rabbitmq-tests
+    env_file:
+      - .env.tests
