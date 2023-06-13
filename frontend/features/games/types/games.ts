@@ -14,13 +14,17 @@ export interface GameCardInterface extends GameListInterface {
   badge?: 'New' | 'Pre-order'
   platforms: PlatformType[]
 }
+export interface GameCardInterfaceCarousel {
+  link: string
+  id: number
+}
 
 export interface GameDetailsInterface extends GameCardInterface {
   description: string
   languages: LanguageInterface[]
   requirements: RequirementInterface[]
   age: string
-  carouselImage: string
+  carouselImage: GameCardInterfaceCarousel[]
 }
 
 export interface LanguageInterface {

@@ -39,7 +39,12 @@ export const generateRequirement = (props = {}) => ({
 
 export const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
   description: 'Some description for game',
-  carouselImage: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(5)}`,
+  carouselImage: [
+    {
+      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(5)}`,
+      id: randomNum(15),
+    },
+  ],
   languages: [
     {
       languageName: 'English',

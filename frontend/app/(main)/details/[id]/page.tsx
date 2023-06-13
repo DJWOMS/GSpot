@@ -80,8 +80,8 @@ const Page = async () => {
                     }}
                     navigation={true}
                   >
-                    {[...new Array(12)].map((_, index) => (
-                      <img key={index} src={details.carouselImage} alt="" />
+                    {details.carouselImage.map((img) => (
+                      <img key={img.id} src={img.link} alt="" />
                     ))}
                   </Carousel>
                 </div>
