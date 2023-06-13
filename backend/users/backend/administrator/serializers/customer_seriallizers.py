@@ -35,9 +35,9 @@ class CustomerBlockSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if len(attrs["reason"]) < 3:
             raise ValidationError(_("Reason message should be more than 3 symbols"))
-        if not CustomerUser.objects.filter(pk=self.context['pk']).exists():
+        if not CustomerUser.objects.filter(pk=attrs.get('user')).exists():
             raise ValidationError(_("User doesn't exists"))
-        return {**attrs, **self.context}
+        return attrs
 
     def create(self, validated_data):
         user = CustomerUser.objects.get(pk=validated_data.get("pk"))
