@@ -12,12 +12,12 @@ from customer.models import CustomerUser
 class CustomersViewTest(BaseTestView, TestCase):
     url = '/api/v1/admin/customers'
     user: AbstractUser
-    created: Admin
+    admin: Admin
 
     @classmethod
     def setUpTestData(cls):
         Country.objects.create(id=1, name='Russia')
-        cls.created = Admin.objects.create_superuser(
+        cls.admin = Admin.objects.create_superuser(
             'admin3', 'admin2@admin.com', 'admin', '9803515667'
         )
         cls.user = CustomerUser.objects.create_user(
@@ -31,16 +31,16 @@ class CustomersViewTest(BaseTestView, TestCase):
         )
 
     def test_01_block_customer(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.user))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         request = self.client.post(f"{self.url}/{self.user.id}/block", {'reason': 'Test reason'})
         self.assertEqual(request.status_code, 201)
 
     def test_02_unblock_customer(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.user))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         request = self.client.post(f"{self.url}/{self.user.id}/unblock")
         self.assertEqual(request.status_code, 200)
 
     def test_03_delete(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.user))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         request = self.client.delete(f'{self.url}/{self.user.id}/')
         self.assertEqual(request.status_code, 204)
