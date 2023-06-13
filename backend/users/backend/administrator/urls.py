@@ -8,7 +8,7 @@ from administrator.views.v1.employee_crud import (
     EmployeeSendEmail,
 )
 from administrator.views.v1.auth_view import AdminAuthView
-
+from administrator.views.v1.customer_view import CustomerListView
 
 router = routers.DefaultRouter()
 router.register(r"group", AdminGroupViewSet, basename="admin_group")
@@ -45,8 +45,28 @@ generic_urls = [
     ),
 ]
 
+customer_urls = [
+    path("customers/", CustomerListView.as_view({'get': 'list'}), name="admin_customers"),
+    path(
+        "customers/<uuid:pk>/",
+        CustomerListView.as_view({'get': 'retrieve', 'delete': 'destroy'}),
+        name="admin_customers_remove",
+    ),
+    path(
+        "customers/<uuid:pk>/block",
+        CustomerListView.as_view({'post': 'block'}),
+        name="admin_customers_block",
+    ),
+    path(
+        "customers/<uuid:pk>/unblock",
+        CustomerListView.as_view({'post': 'unblock'}),
+        name="admin_customers_unblock",
+    ),
+]
+
 auth_urls = [path("login/", AdminAuthView.as_view(), name="admin_login")]
 
 urlpatterns += account_router
 urlpatterns += generic_urls
 urlpatterns += auth_urls
+urlpatterns += customer_urls
