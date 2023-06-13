@@ -20,6 +20,7 @@ export interface GameDetailsInterface extends GameCardInterface {
   languages: LanguageInterface[]
   requirements: RequirementInterface[]
   age: string
+  carouselImage: string
 }
 
 export interface LanguageInterface {

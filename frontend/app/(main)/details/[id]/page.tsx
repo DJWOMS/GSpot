@@ -77,7 +77,7 @@ const Page = async () => {
                     navigation={true}
                   >
                     {[...new Array(12)].map((_, index) => (
-                      <img key={index} src="https://picsum.photos/1020" alt="" />
+                      <img key={index} src={details.carouselImage} alt="" />
                     ))}
                   </Carousel>
                 </div>
