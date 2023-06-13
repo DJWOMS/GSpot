@@ -9,7 +9,7 @@
 }
 @container errorBar (max-width: 50px) {
     .title {
-        @apply none
+        @apply invisible
     }
 }
 
