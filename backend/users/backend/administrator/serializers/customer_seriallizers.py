@@ -1,5 +1,6 @@
 from rest_framework import serializers
-
+from rest_framework.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 from administrator.models import BlockReason
 from customer.models import CustomerUser
 
@@ -31,6 +32,13 @@ class CustomerRetrieveSerializer(serializers.ModelSerializer):
 
 
 class CustomerBlockSerializer(serializers.ModelSerializer):
+    def validate(self, attrs):
+        if len(attrs["reason"]) < 3:
+            raise ValidationError(_("Reason message should be more than 3 symbols"))
+        if not CustomerUser.objects.filter(pk=self.context['pk']).exists():
+            raise ValidationError(_("User doesn't exists"))
+        return {**attrs, **self.context}
+
     def create(self, validated_data):
         user = CustomerUser.objects.get(pk=validated_data.get("pk"))
         user.is_banned = True
