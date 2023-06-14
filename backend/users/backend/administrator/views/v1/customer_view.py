@@ -78,7 +78,7 @@ class CustomerListView(ModelViewSet):
 
     @block_schema
     def block(self, request, pk):
-        payload = {'user': pk, 'creator': request.user.id, **request.data}
+        payload = dict(user=str(pk), creator=str(request.user.id), **request.data)
         serializer = CustomerBlockSerializer(data=payload)
 
         serializer.is_valid(raise_exception=True)
