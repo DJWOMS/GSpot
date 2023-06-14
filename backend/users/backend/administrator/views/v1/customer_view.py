@@ -78,11 +78,15 @@ class CustomerListView(ModelViewSet):
 
     @block_schema
     def block(self, request, pk):
-        payload = dict(user=str(pk), creator=str(request.user.id), **request.data)
-        serializer = CustomerBlockSerializer(data=payload)
-
+        block_customer = self.get_object()
+        serializer = CustomerBlockSerializer(
+            data=request.data,
+            context={
+                'user': block_customer,
+            },
+        )
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(creator=request.user)
         headers = self.get_success_headers(serializer.data)
         return Response(status=status.HTTP_201_CREATED, headers=headers)
 
