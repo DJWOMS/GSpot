@@ -1,0 +1,38 @@
+[
+    {
+        "model": "finance.offer",
+        "pk": "377cf46f-b1cf-44df-83d2-e04f8adb09a6",
+        "fields": {
+            "created_by": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "price": 2,
+            "is_active": false
+        }
+    },
+    {
+        "model": "finance.offer",
+        "pk": "69d2161c-bc60-4b9b-a6d1-0efc24e4f917",
+        "fields": {
+            "created_by": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d2",
+            "price": 1,
+            "is_active": true
+        }
+    },
+    {
+        "model": "finance.offer",
+        "pk": "71569b68-c426-4dbb-b7ce-b1f396d4a6ae",
+        "fields": {
+            "created_by": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d3",
+            "price": 3,
+            "is_active": true
+        }
+    },
+    {
+        "model": "finance.offer",
+        "pk": "f84d4029-4528-48ff-be17-44ada65ab71d",
+        "fields": {
+            "created_by": "1fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "price": 4,
+            "is_active": true
+        }
+    }
+]
