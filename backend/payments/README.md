@@ -29,7 +29,7 @@ Django image reads settings from environment variables, default settings for tes
 
 ```shell
 python -m venv venv             ## windows
-./venv/scripts/activavte        ## windows
+./venv/scripts/activate        ## windows
 
 virtualenv venv                 ## linux
 source ../venv/bin/activate     ## linux
