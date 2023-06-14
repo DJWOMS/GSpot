@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import PermissionsMixin, UserManager
+from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -131,7 +132,13 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
 
 
 class BlockReason(models.Model):
-    reason = models.CharField(max_length=255, verbose_name=_('block reason'))
+    reason = models.CharField(
+        max_length=255,
+        verbose_name=_('block reason'),
+        validators=[
+            MinLengthValidator(3),
+        ],
+    )
     creator = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, related_name='block_reasons')
 

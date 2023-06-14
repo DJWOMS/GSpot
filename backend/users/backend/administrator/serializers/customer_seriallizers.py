@@ -33,26 +33,20 @@ class CustomerRetrieveSerializer(serializers.ModelSerializer):
 
 class CustomerBlockSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
-        if len(attrs["reason"]) < 3:
-            raise ValidationError(_("Reason message should be more than 3 symbols"))
-        if not CustomerUser.objects.filter(pk=attrs.get('user')).exists():
-            raise ValidationError(_("User doesn't exists"))
+        banned_user: CustomerUser = self.context['user']
+        if banned_user.is_banned:
+            raise ValidationError(_('User already banned'))
         return attrs
 
-    def create(self, validated_data):
-        user = CustomerUser.objects.get(pk=validated_data.get("user"))
-        user.is_banned = True
-        user.save()
-        return BlockReason.objects.create(**validated_data)
+    def save(self, creator):
+        return BlockReason.objects.create(
+            reason=self.validated_data['reason'], creator=creator, user=self.context['user']
+        )
 
     class Meta:
         ref_name = 'customer_block'
         model = BlockReason
-        fields = (
-            'reason',
-            'creator',
-            'user',
-        )
+        fields = ('reason',)
 
 
 class CustomerRequestBlockSerializer(serializers.ModelSerializer):
