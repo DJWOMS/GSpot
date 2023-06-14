@@ -1,13 +1,12 @@
 version: "3.9"
 
 services:
-  web_users_tests:
-    build: ./
-    env_file:
-      - .env.tests
-    restart: "no"
-    command: >
-      sh -c "python manage.py test"
+  web_users:
+    restart: "always"
+    command:  >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
     depends_on:
       db:
         condition: service_healthy
@@ -15,13 +14,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-  db:
-    extends:
-      file: docker-compose.yml
-      service: db
-    container_name: users-service-db-tests
-    env_file:
-      - .env.tests
   rabbitmq:
     image: rabbitmq:3.11-management
     container_name: users-service-rabbitmq
@@ -29,7 +21,7 @@ services:
       - 5672
       - 15672
     env_file:
-      - .env.tests
+      - .env.prod
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 30s
@@ -40,12 +32,11 @@ services:
     image: redis:7.0.5-alpine
     expose:
       - 6379
-    env_file:
-      - .env.tests
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 1s
       timeout: 3s
       retries: 30
+
 
 
