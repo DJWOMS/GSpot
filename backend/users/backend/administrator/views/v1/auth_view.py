@@ -13,27 +13,23 @@ class AdminAuthView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
-        operation_description='Получение администратором JWT токена',
+        operation_description="Получение администратором JWT токена",
         request_body=AdminAuthSerializer,
         responses={
             200: AuthTokensResponseSerializer,
             400: openapi.Response(description="Email or Password not valid"),
         },
-        tags=["Аутентификация", 'Администратор'],
+        tags=["Аутентификация", "Администратор"],
     )
     def post(self, request):
         serializer = AdminAuthSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        admin = serializer.validated_data["user"]
-        data = {
-            "user_id": str(admin.id),
-            "role": admin._meta.app_label,
-            "avatar": str(admin.avatar),
-            "permissions": admin.permissions_codename,
-        }
 
-        tokens = Token().generate_tokens(data=data)
+        admin = serializer.validated_data["user"]
+
+        tokens = Token().generate_tokens_for_user(user=admin)
 
         response_serializer = AuthTokensResponseSerializer(data=tokens)
         response_serializer.is_valid(raise_exception=True)
+
         return Response(response_serializer.data, status=status.HTTP_200_OK)
