@@ -9,6 +9,8 @@ REST_FRAMEWORK = {
         'common.services.jwt.authentication.CustomJWTAuthentication'
     ],
     'PAGE_SIZE': 10,
+    "MAX_LIMIT": 10,
+    "DEFAULT_LIMIT": 100,
     # 'DEFAULT_RENDERER_CLASSES': [
     #     'rest_framework.renderers.JSONRenderer',
     # ]
