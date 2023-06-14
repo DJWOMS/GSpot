@@ -1,6 +1,6 @@
+import os
 import redis
 from config.settings import redis_config
-from config.settings.jwt import ACCESS_TOKEN_LIFETIME, REFRESH_TOKEN_LIFETIME
 
 
 class RedisClient:
@@ -17,11 +17,13 @@ class RedisClient:
     def conn(self):
         return self.__redis_client
 
-    def __get(self, name: str) -> str | None:
-        return self.conn.get(name)
+    def __get(self, name: str) -> dict:
+        return self.conn.hgetall(name)
 
     def __put(self, name: str, value: dict, ttl: int) -> None:
-        self.conn.set(name=name, value=value, ex=ttl)
+        print(f'Name - {name}, value - {value}, ttl - {ttl}')
+        self.conn.hset(name=name, mapping=value)
+        self.conn.expire(name=name, time=ttl)
 
     def is_token_exist(self, token: str, prefix: bool = True) -> str | None:
         key = f'{self._prefix}:{token}' if prefix else token
@@ -29,33 +31,33 @@ class RedisClient:
 
     def add_token(self, token: str, value: dict = None, ttl: int = _ttl, prefix: bool = True):
         key = f'{self._prefix}:{token}' if prefix else token
-        value = value if value is not None else dict
+        value = value if value is not None else {'token': key}
         self.__put(name=key, value=value, ttl=ttl)
 
 
 class RedisAccessClient(RedisClient):
     _prefix = redis_config.REDIS_ACCESS_PREFIX
-    _ttl = ACCESS_TOKEN_LIFETIME
+    _ttl = int(os.environ["ACCESS_TOKEN_LIFETIME"])
 
-    def __init__(self):
-        db = redis_config.REDIS_ACCESS_DB
+    def __init__(self, db: int = None):
+        db = redis_config.REDIS_ACCESS_DB if db is None else db
         super().__init__(db)
 
 
 class RedisRefreshClient(RedisClient):
     _prefix = redis_config.REDIS_REFRESH_PREFIX
-    _ttl = REFRESH_TOKEN_LIFETIME
+    _ttl = int(os.environ["REFRESH_TOKEN_LIFETIME"])
 
-    def __init__(self):
-        db = redis_config.REDIS_REFRESH_DB
+    def __init__(self, db: int = None):
+        db = redis_config.REDIS_REFRESH_DB if db is None else db
         super().__init__(db)
 
 
 class RedisTotpClient(RedisClient):
     _prefix = redis_config.REDIS_TOTP_PREFIX
 
-    def __init__(self):
-        db = redis_config.REDIS_TOTP_DB
+    def __init__(self, db: int = None):
+        db = redis_config.REDIS_TOTP_DB if db is None else db
         super().__init__(db)
 
 
