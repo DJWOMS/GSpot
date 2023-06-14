@@ -21,11 +21,10 @@ class RedisClient:
         return self.conn.hgetall(name)
 
     def __put(self, name: str, value: dict, ttl: int) -> None:
-        print(f'Name - {name}, value - {value}, ttl - {ttl}')
         self.conn.hset(name=name, mapping=value)
         self.conn.expire(name=name, time=ttl)
 
-    def is_token_exist(self, token: str, prefix: bool = True) -> str | None:
+    def is_token_exist(self, token: str, prefix: bool = True) -> dict:
         key = f'{self._prefix}:{token}' if prefix else token
         return self.__get(key)
 

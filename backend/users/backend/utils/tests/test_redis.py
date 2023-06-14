@@ -47,8 +47,8 @@ class RedisClientTestCase(TestCase):
 
     def test_all_tokens_in_one_db(self):
         self.redis_access_client_basik.add_token(token='access_one')
-        self.redis_refresh_client.add_token(token='refresh_one')
-        self.redis_totp_client.add_token(token='totp_one')
+        self.redis_refresh_client_basik.add_token(token='refresh_one')
+        self.redis_totp_client_basik.add_token(token='totp_one')
         result_access = self.redis_totp_client_basik.is_token_exist(token='access:access_one', prefix=False)
         result_refresh = self.redis_access_client_basik.is_token_exist(token='refresh:refresh_one', prefix=False)
         result_totp = self.redis_refresh_client_basik.is_token_exist(token='totp:totp_one', prefix=False)
