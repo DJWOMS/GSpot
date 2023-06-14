@@ -23,6 +23,16 @@ list_schema = swagger_auto_schema(
     },
 )
 
+retrieve_schema = swagger_auto_schema(
+    operation_description='Детальный просмотр пользователя',
+    tags=['Администратор', 'Личный кабинет администратора'],
+    responses={
+        200: openapi.Response('Пользователь', CustomerRetrieveSerializer),
+        401: openapi.Response('Не аутентифицированный пользователь'),
+        403: openapi.Response('Отсутствуют права на просмотр'),
+    },
+)
+
 unblock_schema = swagger_auto_schema(
     operation_description='Разблокировка пользователя',
     tags=['Администратор', 'Административная панель владельца'],
@@ -75,6 +85,10 @@ class CustomerListView(ModelViewSet):
     @list_schema
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
+
+    @retrieve_schema
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
 
     @destroy_schema
     def destroy(self, request, *args, **kwargs):
