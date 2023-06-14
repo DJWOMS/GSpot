@@ -144,8 +144,12 @@ class GamesListSerializer(serializers.ModelSerializer):
 
     def get_price(self, obj):
         try:
-            offer = ProductOffer.objects.get(product=obj).offer
+            offer = ProductOffer.objects.get(product=obj)
+            offer_id = str(offer.offer_id)
+            offer = Offer.objects.get(id=offer_id)
         except ProductOffer.DoesNotExist:
+            return None
+        except Offer.DoesNotExist:
             return None
         return offer.price.amount
 
