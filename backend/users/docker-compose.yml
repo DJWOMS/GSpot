@@ -8,8 +8,8 @@ services:
     expose:
       - 8000
     depends_on:
-      - db
-      - rabbitmq
+      db:
+        condition: service_healthy
     env_file:
       - .env.prod
   db:
@@ -19,11 +19,8 @@ services:
       - 5432
     env_file:
       - .env.prod
-  rabbitmq:
-    image: rabbitmq:3.11-management
-    container_name: users-service-rabbitmq
-    expose:
-      - 5672
-      - 15672
-    env_file:
-      - .env.prod
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
