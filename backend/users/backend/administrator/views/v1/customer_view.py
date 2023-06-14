@@ -6,7 +6,6 @@ from administrator.serializers.customer_seriallizers import (
     CustomerListSerializer,
     CustomerBlockSerializer,
     CustomerRetrieveSerializer,
-    CustomerRequestBlockSerializer,
 )
 from common.permissions.permissons import IsAdminScopeUserPerm
 from customer.models import CustomerUser
@@ -36,7 +35,7 @@ block_schema = swagger_auto_schema(
     operation_description='Блокировка пользователя',
     tags=['Администратор', 'Административная панель владельца'],
     responses={
-        200: openapi.Response('Успешно'),
+        201: openapi.Response('Успешно'),
         400: openapi.Response('Данные не валидны'),
         403: openapi.Response('Отсутствуют права на редактирование'),
     },
@@ -46,7 +45,7 @@ destroy_schema = swagger_auto_schema(
     operation_description='Удалить пользователя',
     tags=['Администратор', 'Административная панель владельца'],
     responses={
-        200: openapi.Response('Пользователь удалён'),
+        204: openapi.Response('Пользователь удалён'),
         403: openapi.Response('Отсутствуют права на редактирование'),
     },
 )
@@ -63,7 +62,7 @@ class CustomerListView(ModelViewSet):
         if self.action == 'retrieve':
             return CustomerRetrieveSerializer
         if self.action == 'block':
-            return CustomerRequestBlockSerializer
+            return CustomerBlockSerializer
         if self.action == 'list':
             return CustomerListSerializer
         return None
@@ -92,7 +91,7 @@ class CustomerListView(ModelViewSet):
 
     @unblock_schema
     def unblock(self, _request, pk):
-        user = CustomerUser.objects.get(pk=pk)
+        user = self.get_object()
         user.is_banned = False
         user.save()
         return Response(status=status.HTTP_200_OK)
