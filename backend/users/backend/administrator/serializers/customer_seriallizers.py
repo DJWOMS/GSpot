@@ -40,7 +40,7 @@ class CustomerBlockSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        user = CustomerUser.objects.get(pk=validated_data.get("pk"))
+        user = CustomerUser.objects.get(pk=validated_data.get("user"))
         user.is_banned = True
         user.save()
         return BlockReason.objects.create(**validated_data)
