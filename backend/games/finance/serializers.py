@@ -43,8 +43,16 @@ class OfferSerializer(serializers.ModelSerializer):
         return offer
 
 
+class OfferPriceSerializer(serializers.ModelSerializer):
+    price = PriceSerializer()
+
+    class Meta:
+        model = Offer
+        fields = '__all__'
+
+
 class ProductOfferSerializer(serializers.ModelSerializer):
-    offer = OfferSerializer()
+    offer = OfferPriceSerializer()
 
     class Meta:
         model = ProductOffer

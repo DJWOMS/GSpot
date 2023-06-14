@@ -7,7 +7,6 @@ from .views import LinkDlcApiView, ProductViewSet, SystemRequirementViewSet
 api_router = DefaultRouter()
 api_router.register('product', ProductViewSet, basename='games')
 api_router.register('system_requirement', SystemRequirementViewSet, basename='system_requirement')
-api_router.register('products', ProductViewSet, basename='products')
 
 
 urlpatterns = [

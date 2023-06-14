@@ -87,21 +87,31 @@ class CreateProductSerializer(serializers.ModelSerializer):
         ]
         SystemRequirement.objects.bulk_create(requirement_objects)
 
-        language_objects = [
-            ProductLanguage(
+        language_objects = []
+        for lang in langs:
+            language_name = lang['language']['name']
+            try:
+                language = Language.objects.get(name=language_name)
+            except Language.DoesNotExist as e:
+                raise serializers.ValidationError(str(e), code='invalid')
+            language_objects.append(ProductLanguage(
                 product=product,
-                language=Language.objects.get(name=lang['language']['name']),
+                language=language,
                 interface=lang['interface'],
                 subtitles=lang['subtitles'],
                 voice=lang['voice']
-            ) for lang in langs
-        ]
+            ))
+
         ProductLanguage.objects.bulk_create(language_objects)
 
-        genre_objects = [
-            GenreProduct(product=product, genre=Genre.objects.get(name=genre))
-            for genre in genres
-        ]
+        genre_objects = []
+        for genre_name in genres:
+            try:
+                genre = Genre.objects.get(name=genre_name)
+            except Genre.DoesNotExist as e:
+                raise serializers.ValidationError(str(e), code='invalid')
+            genre_objects.append(GenreProduct(product=product, genre=genre))
+
         GenreProduct.objects.bulk_create(genre_objects)
 
         return product
