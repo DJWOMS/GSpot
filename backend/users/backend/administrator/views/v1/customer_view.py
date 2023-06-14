@@ -7,6 +7,7 @@ from administrator.serializers.customer_seriallizers import (
     CustomerBlockSerializer,
     CustomerRetrieveSerializer,
 )
+from base.paginations import BasePagination
 from common.permissions.permissons import IsAdminScopeUserPerm
 from customer.models import CustomerUser
 from drf_yasg import openapi
@@ -18,6 +19,7 @@ list_schema = swagger_auto_schema(
     responses={
         200: openapi.Response('Список пользователей', CustomerListSerializer(many=True)),
         401: openapi.Response('Не аутентифицированный пользователь'),
+        403: openapi.Response('Отсутствуют права на просмотр'),
     },
 )
 
@@ -28,6 +30,7 @@ unblock_schema = swagger_auto_schema(
         200: openapi.Response('Успешно'),
         400: openapi.Response('Данные не валидны'),
         403: openapi.Response('Отсутствуют права на редактирование'),
+        404: openapi.Response('Пользователь не найден'),
     },
 )
 
@@ -47,6 +50,7 @@ destroy_schema = swagger_auto_schema(
     responses={
         204: openapi.Response('Пользователь удалён'),
         403: openapi.Response('Отсутствуют права на редактирование'),
+        404: openapi.Response('Пользователь не найден'),
     },
 )
 
@@ -57,6 +61,7 @@ class CustomerListView(ModelViewSet):
     permission_classes = [IsAdminScopeUserPerm]
     filter_backends = [filters.SearchFilter]
     search_fields = ['email', 'phone']
+    pagination_class = BasePagination
 
     def get_serializer_class(self):
         if self.action == 'retrieve':

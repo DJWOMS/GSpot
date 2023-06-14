@@ -9,12 +9,7 @@ class CustomerListSerializer(serializers.ModelSerializer):
     class Meta:
         ref_name = 'customer_list'
         model = CustomerUser
-        fields = (
-            'email',
-            'avatar',
-            'is_active',
-            'is_banned',
-        )
+        fields = ('email', 'avatar', 'is_active', 'is_banned', 'username')
 
 
 class CustomerRetrieveSerializer(serializers.ModelSerializer):
