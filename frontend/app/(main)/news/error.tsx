@@ -4,7 +4,7 @@ import React from 'react'
 import Error from 'components/Error/error'
 
 const ErrorProfile = ({ reset }: { reset: () => void }) => {
-  return <Error reset={reset} textError={'Ошибка профиля'} />
+  return <Error reset={reset} textError={'Ошибка новостей'} />
 }
 
 export default ErrorProfile
