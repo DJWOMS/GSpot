@@ -13,7 +13,7 @@ class CustomerAuthView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
-        operation_description='Получение пользователем JWT токена',
+        operation_description="Получение пользователем JWT токена",
         request_body=CustomerAuthSerializer,
         responses={
             200: AuthTokensResponseSerializer,
@@ -26,14 +26,8 @@ class CustomerAuthView(APIView):
         serializer.is_valid(raise_exception=True)
 
         customer = serializer.validated_data["user"]
-        data = {
-            "user_id": str(customer.id),
-            "role": customer._meta.app_label,
-            "avatar": str(customer.avatar),
-            "age": customer.age,
-        }
 
-        tokens = Token().generate_tokens(data=data)
+        tokens = Token().generate_tokens_for_user(user=customer)
 
         response_serializer = AuthTokensResponseSerializer(data=tokens)
         response_serializer.is_valid(raise_exception=True)
