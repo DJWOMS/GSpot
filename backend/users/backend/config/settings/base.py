@@ -1,5 +1,9 @@
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../../../.env"))
+
 
 def reduce_path(file_name, times):
     result = os.path.realpath(file_name)
@@ -11,8 +15,7 @@ def reduce_path(file_name, times):
 ROOT_DIR = reduce_path(__file__, 4)
 APPS_DIR = reduce_path(__file__, 3)
 
-DJANGO_ENV = os.getenv("DJANGO_ENV", "DEVELOPMENT")
-DEBUG = DJANGO_ENV != "PRODUCTION"
+DEBUG = os.getenv('DEBUG', False)
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 ALLOWED_HOSTS = os.environ["DJANGO_ALLOWED_HOSTS"].split(",")
 
@@ -73,7 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
