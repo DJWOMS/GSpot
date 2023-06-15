@@ -28,6 +28,7 @@ const Page = async () => {
     <Section>
       <div className="container">
         {!adultCheck && <CheckAge image={details.coverImg} age={details.age} />}
+        <CheckAge image={details.coverImg} age={details.age} />
         <div className="-mx-41">
           <div className="flex-1">
             <div className={s.details}>
@@ -80,8 +81,8 @@ const Page = async () => {
                     }}
                     navigation={true}
                   >
-                    {[...new Array(12)].map((_, index) => (
-                      <img key={index} src="https://picsum.photos/1020" alt="" />
+                    {details.carouselImages.map((item) => (
+                      <img key={item.id} src={item.link} alt="" />
                     ))}
                   </Carousel>
                 </div>
