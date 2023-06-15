@@ -13,7 +13,7 @@ class DeveloperAuthView(APIView):
     permission_classes = [AllowAny]
 
     @swagger_auto_schema(
-        operation_description='Получение разработчиком JWT токена',
+        operation_description="Получение разработчиком JWT токена",
         request_body=DeveloperAuthSerializer,
         responses={
             200: AuthTokensResponseSerializer,
@@ -26,14 +26,8 @@ class DeveloperAuthView(APIView):
         serializer.is_valid(raise_exception=True)
 
         developer = serializer.validated_data["user"]
-        data = {
-            "user_id": str(developer.id),
-            "role": developer._meta.app_label,
-            "avatar": str(developer.avatar),
-            "permissions": developer.permissions_codename,
-        }
 
-        tokens = Token().generate_tokens(data=data)
+        tokens = Token().generate_tokens_for_user(user=developer)
 
         response_serializer = AuthTokensResponseSerializer(data=tokens)
         response_serializer.is_valid(raise_exception=True)
