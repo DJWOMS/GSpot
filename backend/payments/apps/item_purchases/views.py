@@ -1,3 +1,5 @@
+from rest_framework.mixins import ListModelMixin
+
 from apps.base.classes import DRFtoDataClassMixin
 from apps.base.exceptions import AttemptsLimitExceededError, DifferentStructureError
 from apps.payment_accounts.exceptions import InsufficientFundsError
@@ -10,8 +12,8 @@ from rest_framework.response import Response
 from .exceptions import RefundNotAllowedError
 from .models import ItemPurchase
 from .schemas import PurchaseItemsData, RefundData
-from .serializers import PurchaseItemsSerializer, RefundSerializer
-from .services.purchase_items import ItemPurchaseRequest
+from .serializers import PurchaseItemsSerializer, RefundSerializer, ItemPurchaseHistorySerializer
+from .services.purchase_items import ItemPurchaseRequest, ItemPurchaseHistoryData
 from .services.refund import RefundProcessor
 
 
@@ -63,3 +65,11 @@ class RefundView(viewsets.ViewSet, DRFtoDataClassMixin):
         refund_process.take_refund()
 
         return Response(status=status.HTTP_202_ACCEPTED)
+
+
+class ItemPurchaseHistoryView(ListModelMixin, viewsets.GenericViewSet):
+
+    serializer_class = ItemPurchaseHistorySerializer
+
+    def get_queryset(self):
+        return ItemPurchaseHistoryData(self.kwargs['account_id']).get_item_purchase_qs()
