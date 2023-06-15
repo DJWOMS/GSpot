@@ -17,10 +17,11 @@ class TOTPToken(BaseTOTPToken):
     def generate_totp() -> str:
         return str(uuid.uuid4())
 
-    def add_to_redis(self, totp: str, user: BaseAbstractUser):
+    @staticmethod
+    def add_to_redis(totp: str, user: BaseAbstractUser):
         redis_client = RedisTotpClient()
         value = {
-            "user_id": str(self.user.id),
+            "user_id": str(user.id),
             "role": user._meta.app_label,
         }
         redis_client.add_token(token=totp, value=value)
