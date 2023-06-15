@@ -14,6 +14,7 @@ export interface GameCardInterface extends GameListInterface {
   badge?: 'New' | 'Pre-order'
   platforms: PlatformType[]
 }
+
 export interface GameCardInterfaceCarousel {
   link: string
   id: number
@@ -24,7 +25,7 @@ export interface GameDetailsInterface extends GameCardInterface {
   languages: LanguageInterface[]
   requirements: RequirementInterface[]
   age: string
-  carouselImage: GameCardInterfaceCarousel[]
+  carouselImages: GameCardInterfaceCarousel[]
 }
 
 export interface LanguageInterface {
