@@ -32,3 +32,6 @@ class TOTPToken(BaseTOTPToken):
             totp_token_message = DevTOTPTokenMessage()
             totp_token_message.message = message
             rabbit.send_message(totp_token_message)
+
+    def check_totp(self, totp: str):
+        pass
