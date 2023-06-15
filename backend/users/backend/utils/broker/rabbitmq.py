@@ -31,6 +31,7 @@ class RabbitMQ:
         self._connection.close()
 
     def send_message(self, message: BaseMessage) -> None:
+        self._channel.exchange_declare(exchange=message.exchange_name, exchange_type='direct')
         self._channel.basic_publish(
             exchange=message.exchange_name, routing_key=message.routing_key, body=message.to_bytes()
         )
