@@ -37,6 +37,7 @@ services:
       retries: 3
   redis:
     restart: always
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_PASSWORD"
     image: redis:7.0.5-alpine
     expose:
       - 6379
@@ -47,5 +48,3 @@ services:
       interval: 1s
       timeout: 3s
       retries: 30
-
-
