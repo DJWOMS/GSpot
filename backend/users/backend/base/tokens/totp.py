@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from base.models import BaseAbstractUser
+
 
 class BaseTOTPToken(ABC):
     @staticmethod
@@ -17,7 +19,7 @@ class BaseTOTPToken(ABC):
         pass
 
     @abstractmethod
-    def add_to_redis(self, totp: str, data: dict):
+    def add_to_redis(self, totp: str, user: BaseAbstractUser):
         pass
 
     @abstractmethod
