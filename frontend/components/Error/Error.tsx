@@ -1,6 +1,6 @@
 'use client'
 
-import s from './error.module.css'
+import s from './Error.module.css'
 
 export default function Error({ reset, textError }: { reset: () => void; textError: string }) {
   const onClickHandler = () => reset()
