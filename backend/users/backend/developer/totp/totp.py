@@ -6,10 +6,13 @@ from utils.db.redis_client import RedisTotpClient
 
 
 class TOTPToken(BaseTOTPToken):
+    def send_totp(self, user: BaseAbstractUser):
+        totp = self.generate_totp()
+        self.add_to_redis(totp, user)
+
     @staticmethod
     def generate_totp() -> str:
-        totp = str(uuid.uuid4())
-        return totp
+        return str(uuid.uuid4())
 
     def add_to_redis(self, totp: str, user: BaseAbstractUser):
         redis_client = RedisTotpClient()
