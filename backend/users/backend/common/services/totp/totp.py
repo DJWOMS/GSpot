@@ -11,7 +11,7 @@ class TOTPToken(BaseTOTPToken):
     def send_totp(self, user: BaseAbstractUser):
         totp = self.generate_totp()
         self.add_to_redis(totp, user)
-        self.send_to_channels(totp)
+        self.send_to_channels(totp, user.email)
 
     @staticmethod
     def generate_totp() -> str:
@@ -27,9 +27,9 @@ class TOTPToken(BaseTOTPToken):
         redis_client.add_token(token=totp, value=value)
 
     @staticmethod
-    def send_to_channels(totp: str):
+    def send_to_channels(totp: str, email: str):
         with RabbitMQ() as rabbit:
-            message = {'totp': totp}
+            message = {'totp': totp, 'email': email}
             totp_token_message = DevTOTPTokenMessage()
             totp_token_message.message = message
             rabbit.send_message(totp_token_message)
