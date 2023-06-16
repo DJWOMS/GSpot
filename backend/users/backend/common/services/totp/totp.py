@@ -2,12 +2,16 @@ import uuid
 
 from base.models import BaseAbstractUser
 from base.tokens.totp import BaseTOTPToken
-from utils.db.redis_client import RedisTotpClient
+from utils.db.redis_client import RedisTotpClient, RedisClient
 from utils.broker.rabbitmq import RabbitMQ
-from utils.broker.message import DevTOTPTokenMessage
+from utils.broker.message import DevTOTPTokenMessage, BaseMessage
 
 
 class TOTPToken(BaseTOTPToken):
+    redis: RedisClient = RedisTotpClient()
+    rabbitmq = RabbitMQ()
+    message: BaseMessage = DevTOTPTokenMessage()
+
     def send_totp(self, user: BaseAbstractUser):
         totp = self.generate_totp()
         self.add_to_redis(totp, user)
@@ -17,22 +21,18 @@ class TOTPToken(BaseTOTPToken):
     def generate_totp() -> str:
         return str(uuid.uuid4())
 
-    @staticmethod
-    def add_to_redis(totp: str, user: BaseAbstractUser):
-        redis_client = RedisTotpClient()
+    def add_to_redis(self, totp: str, user: BaseAbstractUser):
         value = {
             "user_id": str(user.id),
             "role": user._meta.app_label,
         }
-        redis_client.add_token(token=totp, value=value)
+        self.redis.add_token(token=totp, value=value)
 
-    @staticmethod
-    def send_to_channels(totp: str, email: str):
-        with RabbitMQ() as rabbit:
+    def send_to_channels(self, totp: str, email: str):
+        with self.rabbitmq as rabbit:
             message = {'totp': totp, 'email': email}
-            totp_token_message = DevTOTPTokenMessage()
-            totp_token_message.message = message
-            rabbit.send_message(totp_token_message)
+            self.message.message = message
+            rabbit.send_message(self.message)
 
     def check_totp(self, totp: str):
         pass
