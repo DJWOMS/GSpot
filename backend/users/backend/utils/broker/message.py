@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Any
 
 
-@dataclass(init=False)
+@dataclass
 class BaseMessage:
     exchange_name: str
     routing_key: str
@@ -14,37 +14,37 @@ class BaseMessage:
         return message_json.encode()
 
 
-@dataclass(init=False)
+@dataclass
 class DevActivationMessage(BaseMessage):
     exchange_name = 'dev_activation_exchange'
     routing_key = 'dev_activation_queue'
 
 
-@dataclass(init=False)
+@dataclass
 class ClientActivationMessage(BaseMessage):
     exchange_name = 'client_activation_exchange'
     routing_key = 'client_activation_queue'
 
 
-@dataclass(init=False)
+@dataclass
 class OwnerAccessMessage(BaseMessage):
     exchange_name = 'owner_access_exchange'
     routing_key = 'owner_access_queue'
 
 
-@dataclass(init=False)
+@dataclass
 class DevAccessMessage(BaseMessage):
     exchange_name = 'dev_access_exchange'
     routing_key = 'dev_access_queue'
 
 
-@dataclass(init=False)
+@dataclass
 class FriendAddedMessage(BaseMessage):
     exchange_name = 'friend_added_exchange'
     routing_key = 'friend_added_queue'
 
 
-@dataclass(init=False)
+@dataclass
 class DevTOTPTokenMessage(BaseMessage):
     exchange_name = 'dev_totp_exchange'
     routing_key = 'dev_totp_queue'

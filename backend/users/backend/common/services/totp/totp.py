@@ -10,7 +10,7 @@ from utils.broker.message import DevTOTPTokenMessage, BaseMessage
 class TOTPToken(BaseTOTPToken):
     redis: RedisClient = RedisTotpClient()
     rabbitmq = RabbitMQ()
-    message: BaseMessage = DevTOTPTokenMessage()
+    message: BaseMessage = DevTOTPTokenMessage
 
     def send_totp(self, user: BaseAbstractUser):
         totp = self.generate_totp()
@@ -31,8 +31,10 @@ class TOTPToken(BaseTOTPToken):
     def send_to_channels(self, totp: str, email: str):
         with self.rabbitmq as rabbit:
             message = {'totp': totp, 'email': email}
-            self.message.message = message
-            rabbit.send_message(self.message)
+            exchange_name = 'dev_totp_exchange'
+            routing_key = 'dev_totp_queue'
+            rabbitmq_message = self.message(exchange_name, routing_key, message)
+            rabbit.send_message(rabbitmq_message)
 
     def check_totp(self, totp: str):
         pass
