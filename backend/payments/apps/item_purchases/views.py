@@ -1,5 +1,3 @@
-from rest_framework.mixins import ListModelMixin
-
 from apps.base.classes import DRFtoDataClassMixin
 from apps.base.exceptions import AttemptsLimitExceededError, DifferentStructureError
 from apps.payment_accounts.exceptions import InsufficientFundsError
@@ -7,13 +5,18 @@ from apps.payment_accounts.models import Account
 from django.core.exceptions import ValidationError
 from django.http import Http404
 from rest_framework import status, viewsets
+from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 
 from .exceptions import RefundNotAllowedError
 from .models import ItemPurchase
 from .schemas import PurchaseItemsData, RefundData
-from .serializers import PurchaseItemsSerializer, RefundSerializer, ItemPurchaseHistorySerializer
-from .services.purchase_items import ItemPurchaseRequest, ItemPurchaseHistoryData
+from .serializers import (
+    ItemPurchaseHistorySerializer,
+    PurchaseItemsSerializer,
+    RefundSerializer,
+)
+from .services.purchase_items import ItemPurchaseHistoryData, ItemPurchaseRequest
 from .services.refund import RefundProcessor
 
 
@@ -68,7 +71,6 @@ class RefundView(viewsets.ViewSet, DRFtoDataClassMixin):
 
 
 class ItemPurchaseHistoryView(ListModelMixin, viewsets.GenericViewSet):
-
     serializer_class = ItemPurchaseHistorySerializer
 
     def get_queryset(self):

@@ -3,14 +3,13 @@ from decimal import Decimal
 from typing import TypeVar
 
 import rollbar
+from apps.base.classes import ListAdminMixin
 from django.contrib import admin
 from django.db import transaction
 from django.db.models import Model
 from django.http import HttpResponseServerError
 from django.shortcuts import get_object_or_404
 from moneyed import Money
-
-from apps.base.classes import ListAdminMixin
 
 DjangoModel = TypeVar('DjangoModel', bound=Model)
 

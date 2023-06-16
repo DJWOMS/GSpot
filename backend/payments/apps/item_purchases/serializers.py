@@ -1,8 +1,7 @@
 from apps.base.serializer import MoneySerializer, PaymentServiceSerializer
+from apps.item_purchases.models import ItemPurchase
 from djmoney.contrib.django_rest_framework import MoneyField
 from rest_framework import serializers
-
-from apps.item_purchases.models import ItemPurchase
 
 
 class ItemPaymentData(serializers.Serializer):
@@ -43,7 +42,7 @@ class ItemHistorySerializer(serializers.Serializer):
 
 
 class ItemPurchaseHistorySerializer(serializers.Serializer):
-    id = serializers.IntegerField()
+    history_id = serializers.IntegerField(source=id)
     item_uuid = serializers.UUIDField(source='item_purchase_id.item_uuid')
     item_price = MoneyField(source='item_purchase_id.item_price', max_digits=10, decimal_places=2)
     item_price_currency = serializers.CharField(source='item_purchase_id.item_price_currency')
@@ -53,7 +52,10 @@ class ItemPurchaseHistorySerializer(serializers.Serializer):
 
     def get_status(self, obj):
         _status = obj.item_purchase_id.status
-        if _status == ItemPurchase.ItemPurchaseStatus.REFUNDED and obj.event_type == obj.ItemPurchaseType.CREATED:
+        if (
+            _status == ItemPurchase.ItemPurchaseStatus.REFUNDED
+            and obj.event_type == obj.ItemPurchaseType.CREATED
+        ):
             return ItemPurchase.ItemPurchaseStatus.PAID
         return _status
 

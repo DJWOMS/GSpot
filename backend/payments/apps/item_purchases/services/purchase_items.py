@@ -1,8 +1,6 @@
 from uuid import UUID
 
 import rollbar
-from django.db.models import Q
-
 from apps.base.exceptions import AttemptsLimitExceededError
 from apps.base.schemas import URL, PaymentServices
 from apps.base.utils.db_query import multiple_select_or_404
@@ -17,6 +15,7 @@ from apps.payment_accounts.services.payment_commission import (
 )
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
 from ..models import Invoice, ItemPurchase, ItemPurchaseHistory
@@ -171,18 +170,16 @@ class InvoiceCreator:
 
 
 class ItemPurchaseHistoryData:
-
     def __init__(self, user_account):
         self.user_account = user_account
 
     def get_item_purchase_qs(self):
-
         q_exclude_complete = Q(event_type=ItemPurchaseHistory.ItemPurchaseType.COMPLETED)
         q_exclude_paid = Q(item_purchase_id__status=ItemPurchase.ItemPurchaseStatus.PAID)
 
-        qs = ItemPurchaseHistory.objects.select_related("item_purchase_id").filter(
-            item_purchase_id__account_from__user_uuid=self.user_account
-        ).exclude(
-            (q_exclude_complete & q_exclude_paid)
+        qs = (
+            ItemPurchaseHistory.objects.select_related('item_purchase_id')
+            .filter(item_purchase_id__account_from__user_uuid=self.user_account)
+            .exclude((q_exclude_complete & q_exclude_paid))
         )
         return qs
