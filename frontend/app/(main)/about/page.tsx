@@ -15,7 +15,7 @@ const partners: partner[] = [
   { link: '#', img: '/partners/themeforest.png' },
 ]
 
-const FaqPage = () => {
+const AboutPage = () => {
   return (
     <Section>
       <div className={s.sectionWrap}>
@@ -79,4 +79,4 @@ const FaqPage = () => {
   )
 }
 
-export default FaqPage
+export default AboutPage
