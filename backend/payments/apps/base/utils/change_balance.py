@@ -26,7 +26,7 @@ def parse_model_instance(
     return django_model_instance
 
 
-def edit_change_balance(
+def accept_balance_change(
     *,
     balance_change_object: BalanceChange,
     amount: Decimal,

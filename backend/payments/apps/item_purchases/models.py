@@ -16,9 +16,20 @@ from django.utils import timezone
 
 
 class TransferHistory(models.Model):
-    account_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    account_from_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+        related_name='transfer_history_account_from',
+    )
+    account_to_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+        related_name='transfer_history_account_to',
+    )
+
     object_id = models.PositiveIntegerField()
-    account_to = GenericForeignKey('account_type', 'object_id')
+    account_to = GenericForeignKey('account_to_type', 'object_id')
+    account_from = GenericForeignKey('account_from_type', 'object_id')
     amount = MoneyField(
         validators=[MinValueValidator(0, message='Should be a positive value')],
         editable=False,

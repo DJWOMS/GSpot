@@ -83,7 +83,7 @@ class YookassaService(AbstractPaymentService):
             payment_amount=invoice_instance.price_with_commission.amount,
             payment_service=purchase_items_data.payment_service,
             payment_type=purchase_items_data.payment_type,
-            user_uuid=purchase_items_data.user_uuid,
+            user_uuid=purchase_items_data.user_uuid_from,
             return_url=purchase_items_data.return_url,
             metadata=metadata,
         )
