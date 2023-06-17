@@ -1,23 +1,18 @@
 import time
 from typing import Type
 
-from base.models import BaseAbstractUser
-from base.tokens.token import BaseToken
-from common.services.jwt.exceptions import TokenExpired, PayloadError
-from common.services.jwt.mixins import JWTMixin
-from common.services.jwt.users_payload import PayloadFactory
 from django.conf import settings
 from django.utils import timezone
 
+from base.models import BaseAbstractUser
+from base.tokens.token import BaseToken
+from common.services.jwt.decorators import validate_payload_data
+from common.services.jwt.exceptions import TokenExpired
+from common.services.jwt.mixins import JWTMixin
+from common.services.jwt.users_payload import PayloadFactory
+
 
 class Token(BaseToken, JWTMixin):
-    @staticmethod
-    def validate_payload_data(data: dict) -> None:
-        required_fields = ['user_id', 'role']
-        for field in required_fields:
-            if field not in data:
-                raise PayloadError(f"Payload must contain - {field}")
-
     @staticmethod
     def get_default_payload() -> dict:
         iat = timezone.localtime()
@@ -33,8 +28,8 @@ class Token(BaseToken, JWTMixin):
         refresh_token = self.generate_refresh_token(data)
         return {"access": access_token, "refresh": refresh_token}
 
+    @validate_payload_data
     def generate_access_token(self, data: dict = {}) -> str:
-        self.validate_payload_data(data)
         default_payload = self.get_default_payload()
         payload = {
             "token_type": "access",
@@ -44,8 +39,8 @@ class Token(BaseToken, JWTMixin):
         access_token = self._encode(payload)
         return access_token
 
+    @validate_payload_data
     def generate_refresh_token(self, data: dict) -> str:
-        self.validate_payload_data(data)
         default_payload = self.get_default_payload()
         payload = {
             "token_type": "refresh",
