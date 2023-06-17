@@ -20,7 +20,7 @@ def validate_user(func):
         if not user.is_active:
             raise UserInActive()
         elif user.is_banned:
-            raise UserBanned
+            raise UserBanned()
         return func(self, user)
 
     return wrapper
