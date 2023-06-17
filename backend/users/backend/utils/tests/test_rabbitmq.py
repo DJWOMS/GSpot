@@ -118,23 +118,6 @@ class TestRabbitMQ(unittest.TestCase):
             received_message = json.loads(body)
             self.assertEqual(received_message, friend_added_message.message)
 
-    # def test_send_message_with_invalid_format(self):
-    #     with self.assertRaises(TypeError):
-    #         with self.rabbitmq:
-    #             invalid_message = 'invalid message'
-    #             message = BaseMessage(
-    #                 exchange_name=self.exchange_name, routing_key=self.queue_name, message=invalid_message
-    #             )
-    #             self.rabbitmq.send_message(message)
-
-    # def test_send_message_to_nonexistent_queue(self):
-    #     with self.assertRaises(Exception):
-    #         with self.rabbitmq:
-    #             message = BaseMessage(
-    #                 exchange_name=self.exchange_name, routing_key='', message={'test': 'test message'}
-    #             )
-    #             self.rabbitmq.send_message(message)
-
     def test_send_message_with_invalid_routing_key(self):
         with self.assertRaises(Exception):
             with self.rabbitmq:
