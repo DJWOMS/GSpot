@@ -13,7 +13,9 @@ from administrator.serializers.v1.employee_crud import (
     EmployeeSendEmailSerializer,
 )
 from base.views import PartialUpdateMixin
+from common.mixins import TOTPVerificationMixin
 from common.permissions.permissons import IsAdminSuperUserPerm
+from common.services.totp import TOTPToken
 
 
 @method_decorator(
@@ -39,7 +41,7 @@ from common.permissions.permissons import IsAdminSuperUserPerm
         },
     ),
 )
-class EmployeeListView(generics.ListCreateAPIView):
+class EmployeeListView(TOTPVerificationMixin, generics.ListCreateAPIView):
     queryset = Admin.objects.filter(is_superuser=False)
     http_method_names = ['get', 'post']
     permission_classes = [
@@ -130,7 +132,7 @@ class EmployeeDetailView(PartialUpdateMixin, generics.RetrieveUpdateDestroyAPIVi
         },
     ),
 )
-class EmployeeSendEmail(APIView):
+class EmployeeSendEmail(TOTPVerificationMixin, APIView):
     permission_classes = [
         IsAdminSuperUserPerm,
     ]
@@ -141,6 +143,6 @@ class EmployeeSendEmail(APIView):
         admin = Admin.objects.get(pk=pk, is_active=False)
         serializer = self.serializer_class(instance=admin, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
-        """send totp"""
+        user = serializer.save()
+        TOTPToken().send_totp(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
