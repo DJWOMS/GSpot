@@ -25,6 +25,7 @@ class TestTokenJWT(TestCase):
             'password': 'test_password',
             'email': 'test_email@example.com',
             'phone': 12341234,
+            'is_active': True,
         }
         if user_model == CustomerUser:
             data['birthday'] = datetime.now()

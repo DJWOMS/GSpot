@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from base.models import BaseAbstractUser
 from base.tokens.token import BaseToken
-from common.services.jwt.decorators import validate_payload_data
+from common.services.jwt.decorators import validate_payload_data, validate_user
 from common.services.jwt.exceptions import TokenExpired
 from common.services.jwt.mixins import JWTMixin
 from common.services.jwt.users_payload import PayloadFactory
@@ -51,11 +51,13 @@ class Token(BaseToken, JWTMixin):
         refresh_token = self._encode(payload)
         return refresh_token
 
+    @validate_user
     def generate_tokens_for_user(self, user: Type[BaseAbstractUser]) -> dict:
         access_token = self.generate_access_token_for_user(user)
         refresh_token = self.generate_refresh_token_for_user(user)
         return {"access": access_token, "refresh": refresh_token}
 
+    @validate_user
     def generate_access_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
@@ -67,6 +69,7 @@ class Token(BaseToken, JWTMixin):
         access_token = self._encode(payload)
         return access_token
 
+    @validate_user
     def generate_refresh_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
