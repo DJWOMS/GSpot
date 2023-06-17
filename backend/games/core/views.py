@@ -77,11 +77,12 @@ class SystemRequirementViewSet(classes.MixedPermissionSerializer, viewsets.Model
 
 class SaveToLibraryAPIView(APIView):
     def post(self, request):
-        serializer = SaveToLibrarySerializer(data=request.GET)
+        serializer = SaveToLibrarySerializer(data=request.query_params)
         serializer.is_valid(raise_exception=True)
 
         user_to = request.query_params.get('user_to')
         offer_uuids = request.query_params.getlist('offer_uuid')
+
         if not user_to or not offer_uuids:
             return Response({'message': 'Missing required parameters.'}, status=400)
 
@@ -103,7 +104,7 @@ class SaveToLibraryAPIView(APIView):
                 )
             self.add_products_to_library(library, offer)
 
-        return Response({'message': 'Games added to library successfully'}, status=200)
+            return Response({'message': 'Games added to library successfully'}, status=200)
 
     def add_products_to_library(self, library, offer):
         products = offer.products.all()
