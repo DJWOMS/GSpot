@@ -129,4 +129,3 @@ class Token(BaseToken, JWTMixin):
     def __add_refresh_to_redis(cls, token: str, value: dict):
         redis_refresh_client = RedisRefreshClient()
         cls.__add_token_to_redis(redis_client=redis_refresh_client, token=token, value=value)
-
