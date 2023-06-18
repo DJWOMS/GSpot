@@ -118,7 +118,7 @@ class Token(BaseToken, JWTMixin):
 
     @staticmethod
     def __add_token_to_redis(redis_client: RedisClient, token: str, value: dict):
-        redis_client.add(token=token, value=value)
+        redis_client.add_token(token=token, value=value)
 
     @classmethod
     def __add_access_to_redis(cls, token: str, value: dict):
