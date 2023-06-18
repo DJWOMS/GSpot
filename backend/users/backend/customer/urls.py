@@ -27,21 +27,38 @@ account_router = [
 auth_routes = [path("login/", CustomerAuthView.as_view(), name="customer_login")]
 
 friends = [
-    path('customer/add-friend/', customer_friend_view.AddFriendsView.as_view(), name='add-friend'),
+    path('customers/', customer_friend_view.GetUsersList.as_view(), name='users-list'),
     path(
-        'customer/accept-add-friend/',
-        customer_friend_view.AcceptAddFriendsView.as_view(),
-        name='accept-add-friend',
+        'customers/<uuid:user_id>/',
+        customer_friend_view.GetUserRetrieve.as_view(),
+        name='user-retrieve',
     ),
     path(
-        'customer/reject-add-friend',
-        customer_friend_view.RejectAddFriendsView.as_view(),
-        name='reject-add-friend',
+        'customer/<uuid:user_id>/add-friend/',
+        customer_friend_view.AddFriendsView.as_view(),
+        name='add-friend',
     ),
     path(
-        'customer/delete-friend',
-        customer_friend_view.DeleteFriendsView.as_view(),
-        name='delete-friend',
+        'friends_requests/',
+        customer_friend_view.GetListAcceptAddFriendsView.as_view(),
+        name='list-friends-requests',
+    ),
+    path(
+        'friends_requests/<uuid:user_id>/ ',
+        customer_friend_view.RetrieveAcceptRejectAddFriendsView.as_view(
+            {'get': 'retrieve', 'post': 'create', 'delete': 'destroy'}
+        ),
+        name='retrieve-accept-reject-friend',
+    ),
+    path(
+        'friends/',
+        customer_friend_view.GetAllFriendsView.as_view(),
+        name='my-friends',
+    ),
+    path(
+        'friends/<uuid:user_id>/',
+        customer_friend_view.RetrieveDestroyFriendsView.as_view(),
+        name='retrieve-destroy-friend',
     ),
 ]
 
