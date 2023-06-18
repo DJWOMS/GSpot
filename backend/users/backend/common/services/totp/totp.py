@@ -4,7 +4,7 @@ from django.conf import settings
 
 from base.models import BaseAbstractUser
 from base.tokens.totp import BaseTOTPToken
-from utils.broker.message import DevTOTPTokenMessage, BaseMessage
+from utils.broker.message import TOTPTokenMessage, BaseMessage
 from utils.broker.rabbitmq import RabbitMQ
 from utils.db.redis_client import RedisTotpClient, RedisClient
 
@@ -12,7 +12,7 @@ from utils.db.redis_client import RedisTotpClient, RedisClient
 class TOTPToken(BaseTOTPToken):
     redis: RedisClient = RedisTotpClient()
     rabbitmq = RabbitMQ()
-    message: BaseMessage = DevTOTPTokenMessage
+    message: BaseMessage = TOTPTokenMessage
 
     def send_totp(self, user: BaseAbstractUser):
         totp = self.generate_totp()

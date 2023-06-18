@@ -47,6 +47,6 @@ class FriendAddedMessage(BaseMessage):
 
 
 @dataclass
-class DevTOTPTokenMessage(BaseMessage):
+class TOTPTokenMessage(BaseMessage):
     exchange_name = settings.TOTP_EXCHANGE_NAME
     routing_key = settings.TOTP_ROUTING_KEY
