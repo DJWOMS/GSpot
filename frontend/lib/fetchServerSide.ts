@@ -1,5 +1,6 @@
 import { API_URL } from 'configs'
 import checkAuthClient from 'features/auth/utils/checkAuthClient'
+import { errorHandler } from './errorHandler'
 
 interface fetchProps extends RequestInit {
   method?: 'POST' | 'GET' | 'PUT' | 'DELETE'
@@ -26,6 +27,8 @@ export const fetchServerSide = async <T>({
           return await fetchServerSide({ path, cache, ...props, error: true })
         }
       }
+
+      await errorHandler(res.status)
     }
 
     return await res.json()
