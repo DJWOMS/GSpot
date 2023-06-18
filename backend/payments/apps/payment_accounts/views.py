@@ -58,6 +58,16 @@ class BalanceIncreaseView(CreateAPIView, DRFtoDataClassMixin):
 class UserAccountAPIView(CreateAPIView, DRFtoDataClassMixin):
     serializer_class = serializers.AccountSerializer
 
+    def create(self, request, *args, **kwargs):
+        uuid = request.data.get('user_uuid')
+        if Account.objects.filter(user_uuid=uuid).exists():
+            return Response(
+                {'error': 'A user with this UUID already exists'},
+                status=status.HTTP_409_CONFLICT,
+            )
+        else:
+            return super().create(request, *args, **kwargs)
+
 
 class PayoutView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.PayoutSerializer
