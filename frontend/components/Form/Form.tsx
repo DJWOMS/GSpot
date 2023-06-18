@@ -16,6 +16,8 @@ interface Props<T extends FieldValues> {
   onSubmit: (values: T) => void
   btnText: string
   config: UseFormProps<T>
+  disabled?: boolean
+  styleBtn?: string
   onResetButton?: boolean
   onResetSubmit?: boolean
   updateValueCallback?: (value: UseFormSetValue<T>) => void
@@ -23,7 +25,9 @@ interface Props<T extends FieldValues> {
 
 function Form<T extends FieldValues>({
   fields,
+  styleBtn = s.formBtn,
   title,
+  disabled,
   onSubmit,
   btnText,
   config,
@@ -73,7 +77,7 @@ function Form<T extends FieldValues>({
           </div>
         ))}
       </div>
-      <button type="submit" className={s.formBtn}>
+      <button type="submit" className={styleBtn} disabled={disabled}>
         {btnText}
       </button>
     </form>

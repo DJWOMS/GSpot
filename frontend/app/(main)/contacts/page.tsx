@@ -3,6 +3,7 @@
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { ErrorMessage } from '@hookform/error-message'
 import { Input } from 'components/Form'
+import Form from 'components/Form/Form'
 import Section from 'components/Section'
 import { LINK_TO_GOOGLE_MAPS } from 'configs'
 import { fetchServerSide } from 'lib/fetchServerSide'
@@ -54,58 +55,52 @@ const ContactsPage = () => {
       <div className={s.row}>
         <div className={s.contactsForm}>
           <Section title="Contacts form" />
-          <form className={s.form} action="#" onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              name="name"
-              control={control}
-              rules={rules}
-              render={({ field }) => <Input {...field} type="text" placeholder="Name" />}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="name"
-              render={({ message }) => <p className={s.errorMessage}>{message}</p>}
-            />
-
-            <Controller
-              name="email"
-              control={control}
-              rules={rulesForEmail}
-              render={({ field }) => <Input {...field} type="text" placeholder="Email" />}
-            />
-            <ErrorMessage
-              name="email"
-              errors={errors}
-              render={({ message }) => <p className={s.errorMessage}>{message}</p>}
-            />
-
-            <Controller
-              name="subject"
-              control={control}
-              rules={rules}
-              render={({ field }) => <Input {...field} type="text" placeholder="Subject" />}
-            />
-            <ErrorMessage
-              name="subject"
-              errors={errors}
-              render={({ message }) => <p className={s.errorMessage}>{message}</p>}
-            />
-
-            <textarea
-              className={s.formTextarea}
-              placeholder="Type your message..."
-              {...register('message', rules)}
-            ></textarea>
-            <ErrorMessage
-              errors={errors}
-              name="message"
-              render={({ message }) => <p className={s.errorMessage}>{message}</p>}
-            />
-
-            <button className={s.formBtn} disabled={disabled}>
-              Send
-            </button>
-          </form>
+          <Form<FormProps>
+            onSubmit={onSubmit}
+            btnText="Send"
+            disabled={disabled}
+            styleBtn={s.formBtn}
+            config={{
+              defaultValues: {
+                name: '',
+                email: '',
+                subject: '',
+                message: '',
+              },
+            }}
+            fields={[
+              {
+                name: 'name',
+                label: '',
+                rules: rules,
+                render: ({ field }) => <Input {...field} type="text" placeholder="Name" />,
+              },
+              {
+                name: 'email',
+                label: '',
+                rules: rulesForEmail,
+                render: ({ field }) => <Input {...field} type="text" placeholder="Email" />,
+              },
+              {
+                name: 'subject',
+                label: '',
+                rules: rules,
+                render: ({ field }) => <Input {...field} type="text" placeholder="Subject" />,
+              },
+              {
+                name: 'message',
+                label: '',
+                rules: rules,
+                render: ({ field }) => (
+                  <textarea
+                    className={s.formTextarea}
+                    {...field}
+                    placeholder="Type your message..."
+                  ></textarea>
+                ),
+              },
+            ]}
+          />
         </div>
         <Section title="Info">
           <div className={s.contacts}>
