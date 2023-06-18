@@ -1,5 +1,4 @@
 import time
-from typing import Type
 
 from django.conf import settings
 from django.utils import timezone
@@ -65,13 +64,13 @@ class Token(BaseToken, JWTMixin):
         refresh_token = self._encode(payload)
         return refresh_token
 
-    def generate_tokens_for_user(self, user: Type[BaseAbstractUser]) -> dict:
+    def generate_tokens_for_user(self, user: BaseAbstractUser) -> dict:
         self.validate_user(user)
         access_token = self.generate_access_token_for_user(user)
         refresh_token = self.generate_refresh_token_for_user(user)
         return {"access": access_token, "refresh": refresh_token}
 
-    def generate_access_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
+    def generate_access_token_for_user(self, user: BaseAbstractUser) -> str:
         self.validate_user(user)
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
@@ -83,7 +82,7 @@ class Token(BaseToken, JWTMixin):
         access_token = self._encode(payload)
         return access_token
 
-    def generate_refresh_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
+    def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
         self.validate_user(user)
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
@@ -96,7 +95,7 @@ class Token(BaseToken, JWTMixin):
         return refresh_token
 
     @staticmethod
-    def get_user_payload(user: Type[BaseAbstractUser]) -> dict:
+    def get_user_payload(user: BaseAbstractUser) -> dict:
         factory = PayloadFactory()
         return factory.create_payload(user)
 
