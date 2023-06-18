@@ -2,6 +2,8 @@ import json
 from dataclasses import dataclass
 from typing import Any
 
+from django.conf import settings
+
 
 @dataclass
 class BaseMessage:
@@ -46,5 +48,5 @@ class FriendAddedMessage(BaseMessage):
 
 @dataclass
 class DevTOTPTokenMessage(BaseMessage):
-    exchange_name = 'dev_totp_exchange'
-    routing_key = 'dev_totp_queue'
+    exchange_name = settings.TOTP_EXCHANGE_NAME
+    routing_key = settings.TOTP_ROUTING_KEY
