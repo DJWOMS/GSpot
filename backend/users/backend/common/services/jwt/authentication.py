@@ -1,6 +1,8 @@
-from rest_framework.authentication import BaseAuthentication
-from rest_framework.exceptions import AuthenticationFailed
+from typing import Type
 
+from rest_framework.authentication import BaseAuthentication
+
+from base.exceptions import AuthenticationFailed
 from base.models import BaseAbstractUser
 from common.services.jwt.request import get_token
 from common.services.jwt.token import Token
@@ -40,7 +42,7 @@ class CustomJWTAuthentication(BaseAuthentication):
         return user
 
     @staticmethod
-    def get_user_model(role: str) -> BaseAbstractUser:
+    def get_user_model(role: str) -> Type[BaseAbstractUser]:
         all_user_models = BaseAbstractUser.__subclasses__()
         for user_model in all_user_models:
             if user_model._meta.app_label == role:

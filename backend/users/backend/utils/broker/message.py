@@ -42,3 +42,9 @@ class DevAccessMessage(BaseMessage):
 class FriendAddedMessage(BaseMessage):
     exchange_name = 'friend_added_exchange'
     routing_key = 'friend_added_queue'
+
+
+@dataclass
+class DevTOTPTokenMessage(BaseMessage):
+    exchange_name = 'dev_totp_exchange'
+    routing_key = 'dev_totp_queue'

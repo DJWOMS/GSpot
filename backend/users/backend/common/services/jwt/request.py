@@ -1,5 +1,5 @@
 from django.conf import settings
-from rest_framework.exceptions import AuthenticationFailed
+from base.exceptions import AuthenticationFailed
 
 
 def get_token(request) -> str:

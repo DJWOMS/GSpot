@@ -5,6 +5,7 @@ from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
+from common.mixins import TOTPVerificationMixin
 from developer.serializers.v1.developer_registration_serializer import (
     DeveloperRegistrationSerializer,
 )
@@ -25,7 +26,7 @@ from developer.serializers.v1.developer_registration_serializer import (
         },
     ),
 )
-class DeveloperRegistrationView(generics.CreateAPIView):
+class DeveloperRegistrationView(TOTPVerificationMixin, generics.CreateAPIView):
     serializer_class = DeveloperRegistrationSerializer
     permission_classes = [
         AllowAny,
