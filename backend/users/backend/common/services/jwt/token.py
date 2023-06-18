@@ -15,10 +15,10 @@ from common.services.jwt.users_payload import PayloadFactory
 class Token(BaseToken, JWTMixin):
     @staticmethod
     def validate_user(user: BaseAbstractUser):
-        if not user.is_active:
-            raise UserInActive()
-        elif user.is_banned:
-            raise UserBanned()
+        if user.is_active is not True:
+            raise UserInActive('Пользователь долджен быть активным')
+        elif user.is_banned is not False:
+            raise UserBanned('Пользователь не должен быть забанен')
 
     @staticmethod
     def validate_payload_data(data: dict):
