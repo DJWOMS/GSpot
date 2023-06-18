@@ -6,6 +6,7 @@ from base.tokens.token import BaseToken
 from common.services.jwt.exceptions import TokenExpired, PayloadError
 from common.services.jwt.mixins import JWTMixin
 from common.services.jwt.users_payload import PayloadFactory
+from utils.db.redis_client import RedisAccessClient, RedisRefreshClient, RedisClient
 from django.conf import settings
 from django.utils import timezone
 
@@ -70,6 +71,7 @@ class Token(BaseToken, JWTMixin):
             **user_payload,
         }
         access_token = self._encode(payload)
+        self.__add_access_to_redis(token=access_token, value=payload)
         return access_token
 
     def generate_refresh_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
@@ -81,6 +83,7 @@ class Token(BaseToken, JWTMixin):
             **user_payload,
         }
         refresh_token = self._encode(payload)
+        self.__add_refresh_to_redis(token=refresh_token, value=payload)
         return refresh_token
 
     @staticmethod
@@ -112,3 +115,18 @@ class Token(BaseToken, JWTMixin):
 
     def check_signature(self, token: str) -> None:
         self._decode(token)
+
+    @staticmethod
+    def __add_token_to_redis(redis_client: RedisClient, token: str, value: dict):
+        redis_client.add(token=token, value=value)
+
+    @classmethod
+    def __add_access_to_redis(cls, token: str, value: dict):
+        redis_access_client = RedisAccessClient()
+        cls.__add_token_to_redis(redis_client=redis_access_client, token=token, value=value)
+
+    @classmethod
+    def __add_refresh_to_redis(cls, token: str, value: dict):
+        redis_refresh_client = RedisRefreshClient()
+        cls.__add_token_to_redis(redis_client=redis_refresh_client, token=token, value=value)
+
