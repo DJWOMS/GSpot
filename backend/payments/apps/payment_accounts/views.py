@@ -65,8 +65,7 @@ class UserAccountAPIView(CreateAPIView, DRFtoDataClassMixin):
                 {'error': 'A user with this UUID already exists'},
                 status=status.HTTP_409_CONFLICT,
             )
-        else:
-            return super().create(request, *args, **kwargs)
+        return super().create(request, *args, **kwargs)
 
 
 class PayoutView(viewsets.ViewSet, DRFtoDataClassMixin):
