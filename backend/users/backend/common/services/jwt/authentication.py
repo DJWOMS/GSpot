@@ -1,17 +1,17 @@
 from typing import Type
 
+from django.conf import settings
 from rest_framework.authentication import BaseAuthentication
 
 from base.exceptions import AuthenticationFailed
 from base.models import BaseAbstractUser
-from common.services.jwt.request import get_token
 from common.services.jwt.token import Token
 
 
 class CustomJWTAuthentication(BaseAuthentication):
     def authenticate(self, request):
         try:
-            jwt_token = get_token(request)
+            jwt_token = self.get_token(request)
         except AuthenticationFailed:
             return None
 
@@ -49,3 +49,23 @@ class CustomJWTAuthentication(BaseAuthentication):
                 return user_model
 
         raise AuthenticationFailed('No such User role')
+
+    def get_token(self, request) -> str:
+        if settings.GET_TOKEN_FROM == 'header':
+            token = self.get_token_from_header(request)
+        else:
+            token = self.get_token_from_cookies(request)
+
+        if not token:
+            raise AuthenticationFailed('Token not found in %s' % settings.GET_TOKEN_FROM)
+        return token
+
+    @staticmethod
+    def get_token_from_header(request) -> str:
+        token = request.META.get('HTTP_AUTHORIZATION')
+        return token
+
+    @staticmethod
+    def get_token_from_cookies(request) -> str:
+        token = request.COOKIES.get('Authentication')
+        return token
