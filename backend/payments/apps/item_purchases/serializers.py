@@ -1,6 +1,5 @@
 from apps.base.serializer import MoneySerializer, PaymentServiceSerializer
 from apps.item_purchases.models import ItemPurchase
-from djmoney.contrib.django_rest_framework import MoneyField
 from rest_framework import serializers
 
 
@@ -42,13 +41,14 @@ class ItemHistorySerializer(serializers.Serializer):
 
 
 class ItemPurchaseHistorySerializer(serializers.Serializer):
-    history_id = serializers.IntegerField(source=id)
-    item_uuid = serializers.UUIDField(source='item_purchase_id.item_uuid')
-    item_price = MoneyField(source='item_purchase_id.item_price', max_digits=10, decimal_places=2)
-    item_price_currency = serializers.CharField(source='item_purchase_id.item_price_currency')
+    history_id = serializers.IntegerField(source='id')
+    offer_uuid = serializers.UUIDField(source='item_purchase_id.item_uuid')
+    price = MoneySerializer(source='item_purchase_id.item_price')
+    purchase_type = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
-    gift = serializers.SerializerMethodField()
-    created_date = serializers.DateTimeField()
+    created_at = serializers.DateTimeField(source='created_date')
+
+    STATUSES = {item.value: item.name.lower() for item in ItemPurchase.ItemPurchaseStatus}
 
     def get_status(self, obj):
         _status = obj.item_purchase_id.status
@@ -56,8 +56,10 @@ class ItemPurchaseHistorySerializer(serializers.Serializer):
             _status == ItemPurchase.ItemPurchaseStatus.REFUNDED
             and obj.event_type == obj.ItemPurchaseType.CREATED
         ):
-            return ItemPurchase.ItemPurchaseStatus.PAID
-        return _status
+            return ItemPurchase.ItemPurchaseStatus.PAID.label.lower()
+        return self.STATUSES[_status]
 
-    def get_gift(self, obj):
-        return obj.item_purchase_id.account_from != obj.item_purchase_id.account_to
+    def get_purchase_type(self, obj):
+        if obj.item_purchase_id.account_from != obj.item_purchase_id.account_to:
+            return 'gift'
+        return 'for_self'

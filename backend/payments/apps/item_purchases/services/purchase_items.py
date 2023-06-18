@@ -170,7 +170,7 @@ class InvoiceCreator:
 
 
 class ItemPurchaseHistoryData:
-    def __init__(self, user_account):
+    def __init__(self, user_account: UUID):
         self.user_account = user_account
 
     def get_item_purchase_qs(self):
