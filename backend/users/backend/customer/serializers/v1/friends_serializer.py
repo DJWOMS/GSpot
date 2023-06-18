@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import serializers, status
 from customer.models import CustomerUser, FriendShipRequest
 from common.permissions.validators import BannedUserValidatorVerify, ActiveUserValidator
@@ -8,6 +9,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerUser
         fields = ('id', 'avatar', 'username')
+
+
+class UserRetrieveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomerUser
+        exclude = ('password', 'is_active', 'is_banned', 'update_at')
 
 
 class BaseFriendSerializer(serializers.Serializer):
@@ -85,11 +92,18 @@ class RejectAddFriendSerializer(BaseFriendSerializer):
 
 class DeleteFriendSerializer(BaseFriendSerializer):
     def save(self, **kwargs):
-        instance = FriendShipRequest.objects.get(
-            sender=kwargs.get('sender_user'),
-            receiver=kwargs.get('receiver_user'),
-            status='ACCEPTED',
-        )
+        instance = FriendShipRequest.objects.filter(
+            Q(
+                sender=kwargs.get('sender_user'),
+                receiver=kwargs.get('receiver_user'),
+                status='ACCEPTED',
+            )
+            | Q(
+                sender=kwargs.get('receiver_user'),
+                receiver=kwargs.get('sender_user'),
+                status='ACCEPTED',
+            )
+        )[0]
         instance.status = 'REJECTED'
         instance.save()
         return instance
