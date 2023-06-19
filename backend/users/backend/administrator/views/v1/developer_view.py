@@ -2,7 +2,7 @@ from rest_framework import filters, status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from serializers.v1.developer_serializer import (
+from administrator.serializers.v1.developer_serializer import (
     DeveloperListSerializer,
     DeveloperBlockSerializer,
     DeveloperUnblockSerializer,
