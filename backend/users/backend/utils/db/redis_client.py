@@ -1,5 +1,6 @@
 import os
 import redis
+import json
 from config.settings import redis_config
 
 
@@ -17,19 +18,22 @@ class RedisClient:
     def conn(self):
         return self.__redis_client
 
-    def __get(self, name: str) -> dict:
-        return self.conn.hgetall(name)
+    def __get(self, name: str) -> dict | None:
+        value = self.conn.get(name)
+        if value:
+            return json.loads(value)
 
     def __put(self, name: str, value: dict, ttl: int) -> None:
-        self.conn.hset(name=name, mapping=value)
-        self.conn.expire(name=name, time=ttl)
+        value_data = json.dumps(value)
+        self.conn.set(name=name, value=value_data, ex=ttl)
 
     def is_token_exist(self, token: str, prefix: bool = True) -> dict:
         key = f'{self._prefix}:{token}' if prefix else token
         return self.__get(key)
 
-    def add_token(self, token: str, value: dict = None, ttl: int = _ttl, prefix: bool = True):
+    def add_token(self, token: str, value: dict = None, ttl: int = None, prefix: bool = True):
         key = f'{self._prefix}:{token}' if prefix else token
+        ttl = ttl if ttl is not None else self._ttl
         value = value if value is not None else {'token': key}
         self.__put(name=key, value=value, ttl=ttl)
 
