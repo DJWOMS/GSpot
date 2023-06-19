@@ -36,13 +36,9 @@ class BaseFriendSerializer(serializers.Serializer):
 
 
 class AddFriendSerializer(serializers.Serializer):
-    user_id = serializers.UUIDField()
-
     def validate(self, attrs):
+        user_add = self.context['view'].get_object()
         request_user = self.context["request"].user
-        user_add = CustomerUser.objects.get(pk=attrs['user_id'])
-        ActiveUserValidator().validate(user_add)
-        BannedUserValidatorVerify().validate(user_add)
         RequestFriends.check_send_request(request_user, user_add)
         attrs['user_add'] = user_add
         attrs['request_user'] = request_user
