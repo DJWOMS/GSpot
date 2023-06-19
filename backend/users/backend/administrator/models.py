@@ -129,25 +129,3 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
 
     class Meta:
         db_table = "admin"
-
-
-class BlockReason(models.Model):
-    reason = models.CharField(
-        max_length=255,
-        verbose_name=_('block reason'),
-        validators=[
-            MinLengthValidator(3),
-        ],
-    )
-    creator = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
-    user = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, related_name='block_reasons')
-
-    blocked_at = models.DateTimeField(_("block time"), auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.user}: {self.reason}"
-
-    class Meta:
-        db_table = 'block_reasons'
-        verbose_name = _('Block reason')
-        verbose_name_plural = _('Block reasons')

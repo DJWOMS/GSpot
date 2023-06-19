@@ -1,7 +1,7 @@
 import uuid
 
 from django.utils.translation import gettext_lazy as _
-
+from django.core.validators import MinLengthValidator
 from django.contrib.auth.models import (
     PermissionManager,
     GroupManager,
@@ -9,6 +9,8 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
+
+from backend.administrator.models import Admin
 
 
 class BaseAbstractUser(AbstractUser):
@@ -76,3 +78,23 @@ class BasePermissionMixin(PermissionsMixin):
 
     class Meta:
         abstract = True
+
+
+class BaseModerate(models.Model):
+    ACTIONS = {
+        ('B', 'Block'),
+        ('U', 'Unblock')
+    }
+    reason = models.CharField(
+        max_length=255,
+        verbose_name=_('block reason'),
+        validators=[
+            MinLengthValidator(3),
+        ],
+    )
+    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(_("block time"), auto_now_add=True)
+    action = models.CharField(max_length=1, choices=ACTIONS)
+
+    class Meta:
+        abstract=True
