@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from common.models import Country, ContactType
-
+from administrator.models import Admin
 from base.models import (
     BaseAbstractUser,
     BaseModerate,
@@ -190,6 +190,7 @@ class CompanyUserModerate(BaseModerate):
         on_delete=models.CASCADE,
         related_name='moderate_reasons'
     )
+    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return f"{self.company_user}: {self.reason}"
@@ -206,6 +207,7 @@ class CompanyModerate(BaseModerate):
         on_delete=models.CASCADE,
         related_name='moderate_reasons'
     )
+    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return f"{self.company}: {self.reason}"

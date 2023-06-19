@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 
 from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 from common.models import Country
-from customer.models import CustomerUser
 from developer.models import DeveloperPermission, DeveloperGroup
 
 
