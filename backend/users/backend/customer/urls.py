@@ -42,24 +42,26 @@ friends = [
     ),
     path(
         'friends_requests/',
-        customer_friend_view.GetListAcceptAddFriendsView.as_view(),
+        customer_friend_view.ListRetrieveAcceptRejectAddFriendsView.as_view({'get': 'list'}),
         name='list-friends-requests',
     ),
     path(
         'friends_requests/<uuid:user_id>/ ',
-        customer_friend_view.RetrieveAcceptRejectAddFriendsView.as_view(
+        customer_friend_view.ListRetrieveAcceptRejectAddFriendsView.as_view(
             {'get': 'retrieve', 'post': 'create', 'delete': 'destroy'}
         ),
         name='retrieve-accept-reject-friend',
     ),
     path(
         'friends/',
-        customer_friend_view.GetAllFriendsView.as_view(),
+        customer_friend_view.ListRetrieveDestroyFriendsView.as_view({'get': 'list'}),
         name='my-friends',
     ),
     path(
         'friends/<uuid:user_id>/',
-        customer_friend_view.RetrieveDestroyFriendsView.as_view(),
+        customer_friend_view.ListRetrieveDestroyFriendsView.as_view(
+            {'get': 'retrieve', 'delete': 'destroy'}
+        ),
         name='retrieve-destroy-friend',
     ),
 ]
