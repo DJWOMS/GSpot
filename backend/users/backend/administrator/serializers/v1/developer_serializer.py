@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from developer.models import CompanyUser, CompanyUserModerate
+from developer.models import CompanyUser
+from administrator.models import CompanyUserModerate
 
 
 class DeveloperListSerializer(serializers.ModelSerializer):

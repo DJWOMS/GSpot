@@ -6,8 +6,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from common.models import Country
-from base.models import BaseAbstractUser, BaseModerate
-from administrator.models import Admin
+from base.models import BaseAbstractUser
 
 
 class CustomerManager(UserManager):
@@ -84,20 +83,3 @@ class FriendShipRequest(models.Model):
     receiver = models.ForeignKey(
         CustomerUser, on_delete=models.CASCADE, related_name="receiver"
     )  # получатель
-
-
-class CustomerModerate(BaseModerate):
-    customer = models.ForeignKey(
-        CustomerUser,
-        on_delete=models.CASCADE,
-        related_name='moderate_reasons'
-    )
-    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
-
-    def __str__(self):
-        return f"{self.customer}: {self.reason}"
-
-    class Meta:
-        db_table = 'customer_moderate_reasons'
-        verbose_name = _('Customer moderate reason')
-        verbose_name_plural = _('Customers moderate reasons')

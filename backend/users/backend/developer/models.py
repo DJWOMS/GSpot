@@ -6,10 +6,9 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from common.models import Country, ContactType
-from administrator.models import Admin
+
 from base.models import (
     BaseAbstractUser,
-    BaseModerate,
     BasePermission,
     BaseGroup,
     BasePermissionMixin
@@ -182,37 +181,3 @@ class CompanyContact(models.Model):
         db_table = "company_contact"
         verbose_name = _("company contact")
         verbose_name_plural = _("company contacts")
-
-
-class CompanyUserModerate(BaseModerate):
-    company_user = models.ForeignKey(
-        CompanyUser,
-        on_delete=models.CASCADE,
-        related_name='moderate_reasons'
-    )
-    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
-
-    def __str__(self):
-        return f"{self.company_user}: {self.reason}"
-
-    class Meta:
-        db_table = 'developer_moderate_reasons'
-        verbose_name = _('Developer moderate reason')
-        verbose_name_plural = _('Developers moderate reasons')
-
-
-class CompanyModerate(BaseModerate):
-    company = models.ForeignKey(
-        Company,
-        on_delete=models.CASCADE,
-        related_name='moderate_reasons'
-    )
-    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
-
-    def __str__(self):
-        return f"{self.company}: {self.reason}"
-
-    class Meta:
-        db_table = 'company_moderate_reasons'
-        verbose_name = _('Company moderate reason')
-        verbose_name_plural = _('Company moderate reasons')
