@@ -2,7 +2,7 @@ import dj_database_url
 from pydantic import BaseSettings
 
 
-class DataBaseData(BaseSettings):
+class DatabaseConfig(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
     POSTGRES_USER: str
@@ -17,7 +17,7 @@ class DataBaseData(BaseSettings):
         )
 
 
-db_data_config = DataBaseData()
+db_data_config = DatabaseConfig()
 
 
 DATABASES = {'default': dj_database_url.config(default=db_data_config.url)}

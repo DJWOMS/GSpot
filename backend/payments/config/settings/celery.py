@@ -1,7 +1,7 @@
 from pydantic import BaseSettings
 
 
-class RedisData(BaseSettings):
+class RedisConfig(BaseSettings):
     REDIS_HOST: str
     REDIS_PORT: int
 
@@ -10,7 +10,7 @@ class RedisData(BaseSettings):
         return f'redis://{self.REDIS_HOST}:{self.REDIS_PORT}/'
 
 
-redis_data = RedisData()
+redis_data = RedisConfig()
 
 
 CELERY_BROKER_URL = redis_data.url + '0'

@@ -1,21 +1,11 @@
-from pydantic import BaseSettings
-
 from .base import BASE_DIR, DEBUG
+from environs import Env
 
-
-class RollbarAccessToken(BaseSettings):
-    ROLLBAR_ACCESS_TOKEN: str
-
-    @property
-    def r_token(self):
-        return self.ROLLBAR_ACCESS_TOKEN
-
-
-rollbar_token = RollbarAccessToken()
-
+env = Env()
+env.read_env()
 
 ROLLBAR = {
-    'access_token': rollbar_token.r_token,
+    'access_token': env.str('ROLLBAR_ACCESS_TOKEN'),
     'environment': 'development' if DEBUG else 'production',
     'code_version': '1.0',
     'root': BASE_DIR,
