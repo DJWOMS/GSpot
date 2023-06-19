@@ -1,12 +1,23 @@
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import PermissionsMixin, UserManager
-from django.core.validators import MinLengthValidator
+from django.contrib.auth.models import UserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 from common.models import Country
-from developer.models import DeveloperPermission, DeveloperGroup
+from customer.models import CustomerUser
+from developer.models import (
+    DeveloperPermission,
+    DeveloperGroup,
+    CompanyUser,
+    Company
+)
+from base.models import (
+    BaseAbstractUser,
+    BasePermission,
+    BaseGroup,
+    BasePermissionMixin,
+    BaseModerate
+)
 
 
 class AdminPermission(BasePermission):
@@ -128,3 +139,54 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
 
     class Meta:
         db_table = "admin"
+
+
+class CustomerModerate(BaseModerate):
+    customer = models.ForeignKey(
+        CustomerUser,
+        on_delete=models.CASCADE,
+        related_name='moderate_reasons'
+    )
+    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.customer}: {self.reason}"
+
+    class Meta:
+        db_table = 'customer_moderate_reasons'
+        verbose_name = _('Customer moderate reason')
+        verbose_name_plural = _('Customers moderate reasons')
+
+
+class CompanyUserModerate(BaseModerate):
+    company_user = models.ForeignKey(
+        CompanyUser,
+        on_delete=models.CASCADE,
+        related_name='moderate_reasons'
+    )
+    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.company_user}: {self.reason}"
+
+    class Meta:
+        db_table = 'developer_moderate_reasons'
+        verbose_name = _('Developer moderate reason')
+        verbose_name_plural = _('Developers moderate reasons')
+
+
+class CompanyModerate(BaseModerate):
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE,
+        related_name='moderate_reasons'
+    )
+    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.company}: {self.reason}"
+
+    class Meta:
+        db_table = 'company_moderate_reasons'
+        verbose_name = _('Company moderate reason')
+        verbose_name_plural = _('Company moderate reasons')
