@@ -10,7 +10,7 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
-from backend.administrator.models import Admin
+from administrator.models import Admin
 
 
 class BaseAbstractUser(AbstractUser):
