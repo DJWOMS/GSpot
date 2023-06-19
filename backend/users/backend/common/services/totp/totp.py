@@ -1,7 +1,5 @@
 import uuid
 
-from django.conf import settings
-
 from base.models import BaseAbstractUser
 from base.tokens.totp import BaseTOTPToken
 from utils.broker.message import TOTPTokenMessage, BaseMessage
@@ -33,9 +31,7 @@ class TOTPToken(BaseTOTPToken):
     def send_to_channels(self, totp: str, email: str):
         with self.rabbitmq as rabbit:
             message = {'totp': totp, 'email': email}
-            rabbitmq_message = self.message(
-                settings.TOTP_EXCHANGE_NAME, settings.TOTP_ROUTING_KEY, message
-            )
+            rabbitmq_message = self.message(message)
             rabbit.send_message(rabbitmq_message)
 
     def check_totp(self, totp: str):
