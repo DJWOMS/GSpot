@@ -92,7 +92,7 @@ class BaseModerate(models.Model):
             MinLengthValidator(3),
         ],
     )
-    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
+    admin = None    # Must be overridden in child class
     date = models.DateTimeField(_("block time"), auto_now_add=True)
     action = models.CharField(max_length=1, choices=ACTIONS)
 
