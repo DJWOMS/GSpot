@@ -1,13 +1,19 @@
 import uuid
 
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import PermissionsMixin, UserManager
+from django.contrib.auth.models import UserManager
 from django.db import models
-
-from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 from django.utils.translation import gettext_lazy as _
 
 from common.models import Country, ContactType
+
+from base.models import (
+    BaseAbstractUser,
+    BaseModerate,
+    BasePermission,
+    BaseGroup,
+    BasePermissionMixin
+)
 
 
 class DeveloperPermission(BasePermission):
@@ -147,6 +153,7 @@ class Company(models.Model):
     is_confirmed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Company created date"))
     is_active = models.BooleanField(default=True)
+    is_banned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -175,3 +182,35 @@ class CompanyContact(models.Model):
         db_table = "company_contact"
         verbose_name = _("company contact")
         verbose_name_plural = _("company contacts")
+
+
+class CompanyUserModerate(BaseModerate):
+    company_user = models.ForeignKey(
+        CompanyUser,
+        on_delete=models.CASCADE,
+        related_name='moderate_reasons'
+    )
+
+    def __str__(self):
+        return f"{self.company_user}: {self.reason}"
+
+    class Meta:
+        db_table = 'developer_moderate_reasons'
+        verbose_name = _('Developer moderate reason')
+        verbose_name_plural = _('Developers moderate reasons')
+
+
+class CompanyModerate(BaseModerate):
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE,
+        related_name='moderate_reasons'
+    )
+
+    def __str__(self):
+        return f"{self.company}: {self.reason}"
+
+    class Meta:
+        db_table = 'company_moderate_reasons'
+        verbose_name = _('Company moderate reason')
+        verbose_name_plural = _('Company moderate reasons')
