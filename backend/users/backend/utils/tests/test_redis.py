@@ -26,8 +26,12 @@ class RedisClientTestCase(TestCase):
         self.assertEqual(bool(result), True)
 
     def test_refresh_in_access(self):
-        result_access = self.redis_access_client.is_token_exist(token='refresh:test_refresh_token_one', prefix=False)
-        result_refresh = self.redis_refresh_client.is_token_exist(token='access:test_access_token_one', prefix=False)
+        result_access = self.redis_access_client.is_token_exist(
+            token='refresh:test_refresh_token_one', prefix=False
+        )
+        result_refresh = self.redis_refresh_client.is_token_exist(
+            token='access:test_access_token_one', prefix=False
+        )
         self.assertEqual(bool(result_access), False)
         self.assertEqual(bool(result_refresh), False)
 
@@ -37,8 +41,12 @@ class RedisClientTestCase(TestCase):
         self.assertEqual(bool(result), True)
 
     def test_is_token_exist_TotpToken(self):
-        result_access = self.redis_access_client.is_token_exist(token='totp:test_totp_token_one', prefix=False)
-        result_refresh = self.redis_refresh_client.is_token_exist(token='totp:test_totp_token_one', prefix=False)
+        result_access = self.redis_access_client.is_token_exist(
+            token='totp:test_totp_token_one', prefix=False
+        )
+        result_refresh = self.redis_refresh_client.is_token_exist(
+            token='totp:test_totp_token_one', prefix=False
+        )
         result_totp = self.redis_totp_client.is_token_exist(token='wrong_totp_token')
 
         self.assertEqual(bool(result_refresh), False)
@@ -49,10 +57,33 @@ class RedisClientTestCase(TestCase):
         self.redis_access_client_basik.add_token(token='access_one')
         self.redis_refresh_client_basik.add_token(token='refresh_one')
         self.redis_totp_client_basik.add_token(token='totp_one')
-        result_access = self.redis_totp_client_basik.is_token_exist(token='access:access_one', prefix=False)
-        result_refresh = self.redis_access_client_basik.is_token_exist(token='refresh:refresh_one', prefix=False)
-        result_totp = self.redis_refresh_client_basik.is_token_exist(token='totp:totp_one', prefix=False)
+        result_access = self.redis_totp_client_basik.is_token_exist(
+            token='access:access_one', prefix=False
+        )
+        result_refresh = self.redis_access_client_basik.is_token_exist(
+            token='refresh:refresh_one', prefix=False
+        )
+        result_totp = self.redis_refresh_client_basik.is_token_exist(
+            token='totp:totp_one', prefix=False
+        )
 
         self.assertEqual(bool(result_access), True)
         self.assertEqual(bool(result_refresh), True)
         self.assertEqual(bool(result_totp), True)
+
+    def test_dict_in_access(self):
+        data = {
+            'type': 'access',
+            'permissions': 'admins',
+            'image': '12',
+            'list': ['1', 1],
+        }
+        self.redis_access_client.add_token(token='12345', value=data)
+        result = self.redis_access_client.is_token_exist(token='12345')
+        result_data = {key: value for key, value in result.items()}
+
+        self.assertEqual(bool(result), True)
+        self.assertEqual(result_data['type'], data['type'])
+        self.assertEqual(result_data['permissions'], data['permissions'])
+        self.assertEqual(result_data['image'], data['image'])
+        self.assertEqual(result_data['list'], data['list'])

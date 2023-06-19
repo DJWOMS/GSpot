@@ -1,22 +1,31 @@
 import time
-from typing import Type
 
-from base.models import BaseAbstractUser
-from base.tokens.token import BaseToken
-from common.services.jwt.exceptions import TokenExpired, PayloadError
-from common.services.jwt.mixins import JWTMixin
-from common.services.jwt.users_payload import PayloadFactory
 from django.conf import settings
 from django.utils import timezone
+
+from base.exceptions import UserBanned, UserInActive
+from base.models import BaseAbstractUser
+from base.tokens.token import BaseToken
+from common.services.jwt.exceptions import PayloadError, TokenExpired
+from common.services.jwt.mixins import JWTMixin
+from common.services.jwt.users_payload import PayloadFactory
+from utils.db.redis_client import RedisAccessClient, RedisClient, RedisRefreshClient
 
 
 class Token(BaseToken, JWTMixin):
     @staticmethod
-    def validate_payload_data(data: dict) -> None:
+    def validate_user(user: BaseAbstractUser):
+        if user.is_active is not True:
+            raise UserInActive('Пользователь долджен быть активным')
+        elif user.is_banned is not False:
+            raise UserBanned('Пользователь не должен быть забанен')
+
+    @staticmethod
+    def validate_payload_data(data: dict):
         required_fields = ['user_id', 'role']
         for field in required_fields:
             if field not in data:
-                raise PayloadError(f"Payload must contain - {field}")
+                raise PayloadError(f"Payload must contain '{field}'")
 
     @staticmethod
     def get_default_payload() -> dict:
@@ -56,12 +65,14 @@ class Token(BaseToken, JWTMixin):
         refresh_token = self._encode(payload)
         return refresh_token
 
-    def generate_tokens_for_user(self, user: Type[BaseAbstractUser]) -> dict:
+    def generate_tokens_for_user(self, user: BaseAbstractUser) -> dict:
+        self.validate_user(user)
         access_token = self.generate_access_token_for_user(user)
         refresh_token = self.generate_refresh_token_for_user(user)
         return {"access": access_token, "refresh": refresh_token}
 
-    def generate_access_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
+    def generate_access_token_for_user(self, user: BaseAbstractUser) -> str:
+        self.validate_user(user)
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
         payload = {
@@ -70,9 +81,11 @@ class Token(BaseToken, JWTMixin):
             **user_payload,
         }
         access_token = self._encode(payload)
+        self.__add_access_to_redis(token=access_token, value=payload)
         return access_token
 
-    def generate_refresh_token_for_user(self, user: Type[BaseAbstractUser]) -> str:
+    def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
+        self.validate_user(user)
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
         payload = {
@@ -81,10 +94,11 @@ class Token(BaseToken, JWTMixin):
             **user_payload,
         }
         refresh_token = self._encode(payload)
+        self.__add_refresh_to_redis(token=refresh_token, value=payload)
         return refresh_token
 
     @staticmethod
-    def get_user_payload(user: Type[BaseAbstractUser]) -> dict:
+    def get_user_payload(user: BaseAbstractUser) -> dict:
         factory = PayloadFactory()
         return factory.create_payload(user)
 
@@ -112,3 +126,17 @@ class Token(BaseToken, JWTMixin):
 
     def check_signature(self, token: str) -> None:
         self._decode(token)
+
+    @staticmethod
+    def __add_token_to_redis(redis_client: RedisClient, token: str, value: dict):
+        redis_client.add_token(token=token, value=value)
+
+    @classmethod
+    def __add_access_to_redis(cls, token: str, value: dict):
+        redis_access_client = RedisAccessClient()
+        cls.__add_token_to_redis(redis_client=redis_access_client, token=token, value=value)
+
+    @classmethod
+    def __add_refresh_to_redis(cls, token: str, value: dict):
+        redis_refresh_client = RedisRefreshClient()
+        cls.__add_token_to_redis(redis_client=redis_refresh_client, token=token, value=value)

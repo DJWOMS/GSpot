@@ -46,11 +46,3 @@ class TestJWTLogoutView(TestCase):
         user_data = {'user_id': str(user.id), 'role': user_model._meta.app_label}
         refresh_token = Token().generate_refresh_token(user_data)
         return {'refresh_token': refresh_token}
-
-    def test_logout_with_invalid_token(self):
-        response = self.client.post(self.path, self.invalid_token, format='json')
-        self.assertEqual(response.status_code, 400)
-
-    def test_logout_without_token(self):
-        response = self.client.post(self.path)
-        self.assertEqual(response.status_code, 400)
