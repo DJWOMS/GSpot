@@ -2,15 +2,15 @@ import uuid
 
 from base.models import BaseAbstractUser
 from base.tokens.totp import BaseTOTPToken
-from utils.db.redis_client import RedisTotpClient, RedisClient
+from utils.broker.message import TOTPTokenMessage, BaseMessage
 from utils.broker.rabbitmq import RabbitMQ
-from utils.broker.message import DevTOTPTokenMessage, BaseMessage
+from utils.db.redis_client import RedisTotpClient, RedisClient
 
 
 class TOTPToken(BaseTOTPToken):
     redis: RedisClient = RedisTotpClient()
     rabbitmq = RabbitMQ()
-    message: BaseMessage = DevTOTPTokenMessage
+    message: BaseMessage = TOTPTokenMessage
 
     def send_totp(self, user: BaseAbstractUser):
         totp = self.generate_totp()
@@ -31,9 +31,7 @@ class TOTPToken(BaseTOTPToken):
     def send_to_channels(self, totp: str, email: str):
         with self.rabbitmq as rabbit:
             message = {'totp': totp, 'email': email}
-            exchange_name = 'dev_totp_exchange'
-            routing_key = 'dev_totp_queue'
-            rabbitmq_message = self.message(exchange_name, routing_key, message)
+            rabbitmq_message = self.message(message)
             rabbit.send_message(rabbitmq_message)
 
     def check_totp(self, totp: str):

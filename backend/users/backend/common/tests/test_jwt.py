@@ -1,9 +1,11 @@
 from datetime import datetime, timedelta
-from django.test import TestCase
-from django.utils import timezone
 from typing import Type
 
+from django.test import TestCase
+from django.utils import timezone
+
 from administrator.models import Admin
+from base.exceptions import UserBanned, UserInActive
 from base.models import BaseAbstractUser
 from common.services.jwt.exceptions import PayloadError, TokenInvalid, TokenExpired
 from common.services.jwt.token import Token
@@ -25,6 +27,7 @@ class TestTokenJWT(TestCase):
             'password': 'test_password',
             'email': 'test_email@example.com',
             'phone': 12341234,
+            'is_active': True,
         }
         if user_model == CustomerUser:
             data['birthday'] = datetime.now()
@@ -74,6 +77,31 @@ class TestTokenJWT(TestCase):
     def test_create_tokens_for_customer_user(self):
         tokens = self.token.generate_tokens_for_user(self.customer)
         self.assertIsInstance(tokens, dict)
+
+    def test_create_tokens_for_inactive_admin_user(self):
+        self.administrator.is_active = False
+        print('inactive', self.administrator.is_active)
+        self.assertRaises(UserInActive, self.token.generate_tokens_for_user, self.administrator)
+
+    def test_create_tokens_for_inactive_developer_user(self):
+        self.developer.is_active = False
+        self.assertRaises(UserInActive, self.token.generate_tokens_for_user, self.developer)
+
+    def test_create_tokens_for_inactive_customer_user(self):
+        self.customer.is_active = False
+        self.assertRaises(UserInActive, self.token.generate_tokens_for_user, self.customer)
+
+    def test_create_tokens_for_banned_admin_user(self):
+        self.administrator.is_banned = True
+        self.assertRaises(UserBanned, self.token.generate_tokens_for_user, self.administrator)
+
+    def test_create_tokens_for_banned_developer_user(self):
+        self.developer.is_banned = True
+        self.assertRaises(UserBanned, self.token.generate_tokens_for_user, self.developer)
+
+    def test_create_tokens_for_banned_customer_user(self):
+        self.customer.is_banned = True
+        self.assertRaises(UserBanned, self.token.generate_tokens_for_user, self.customer)
 
     def test_check_valid_token_signature(self):
         user_payload = self.get_payload_for_user(self.administrator)
