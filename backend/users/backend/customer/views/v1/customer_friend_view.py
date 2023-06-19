@@ -5,92 +5,129 @@ from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, filters, status, viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from common.permissions import permissons
 from common.permissions import verifiers
 from customer.models import CustomerUser, FriendShipRequest
 from customer.serializers.v1 import friends_serializer
+from customer.serializers.v1.friends_serializer import AddFriendSerializer, UserSerializer
 from customer.services.get_query_friend import get_queryset_for_delete_user
 from base.paginations import BasePagination
 
 
-@method_decorator(
-    name='get',
-    decorator=swagger_auto_schema(
-        operation_description='Получение списка пользователей для добавления в друзья',
-        tags=['Пользователь', 'Друзья'],
-        responses={
-            200: openapi.Response('Список пользователей', friends_serializer.UserSerializer),
-            401: openapi.Response('Не аутентифицированный пользователь'),
-        },
-    ),
-)
-class GetUsersList(generics.ListAPIView):
-    serializer_class = friends_serializer.UserSerializer
-    permission_classes = (permissons.IsCustomerScopeUserPerm,)
-    filter_backends = [filters.SearchFilter]
-    search_fields = ('username',)
-    http_method_names = ['get']
-    pagination_class = BasePagination
+#
+# @method_decorator(
+#     name='get',
+#     decorator=swagger_auto_schema(
+#         operation_description='Получение списка пользователей для добавления в друзья',
+#         tags=['Пользователь', 'Друзья'],
+#         responses={
+#             200: openapi.Response('Список пользователей', friends_serializer.UserSerializer),
+#             401: openapi.Response('Не аутентифицированный пользователь'),
+#         },
+#     ),
+# )
+# class GetUsersList(generics.ListAPIView):
+#     serializer_class = friends_serializer.UserSerializer
+#     permission_classes = (permissons.IsCustomerScopeUserPerm,)
+#     filter_backends = [filters.SearchFilter]
+#     search_fields = ('username',)
+#     http_method_names = ['get']
+#     pagination_class = BasePagination
+#
+#     def get_queryset(self):
+#         friends = self.request.user.friends.all() | CustomerUser.objects.filter(
+#             friends=self.request.user
+#         )
+#         return CustomerUser.objects.filter(is_active=True, is_banned=False).exclude(
+#             Q(id=self.request.user.id) | Q(id__in=friends.values_list('id', flat=True))
+#         )
+#
+#
+# @method_decorator(
+#     name='get',
+#     decorator=swagger_auto_schema(
+#         operation_description='Получение пользователя для детального просмотра',
+#         tags=['Пользователь', 'Друзья'],
+#         responses={
+#             200: openapi.Response('Пользователь', friends_serializer.UserRetrieveSerializer),
+#             401: openapi.Response('Не аутентифицированный пользователь'),
+#         },
+#     ),
+# )
+# class GetUserRetrieve(generics.RetrieveAPIView):
+#     serializer_class = friends_serializer.UserRetrieveSerializer
+#     permission_classes = (permissons.IsCustomerScopeUserPerm,)
+#     filter_backends = [filters.SearchFilter]
+#     http_method_names = ['get']
+#     pagination_class = BasePagination
+#     lookup_url_kwarg = 'user_id'
+#
+#     def get_queryset(self):
+#         friends = self.request.user.friends.all() | CustomerUser.objects.filter(
+#             friends=self.request.user
+#         )
+#         return CustomerUser.objects.filter(is_active=True, is_banned=False).exclude(
+#             Q(id=self.request.user.id) | Q(id__in=friends.values_list('id', flat=True))
+#         )
+#
+#
+# @method_decorator(
+#     name='post',
+#     decorator=swagger_auto_schema(
+#         request_body=friends_serializer.AddFriendSerializer,
+#         operation_description='Отправка запроса для добавления в друзья',
+#         tags=['Пользователь', 'Друзья'],
+#         responses={
+#             200: openapi.Response('Пользователь добавлен'),
+#             400: openapi.Response('Данные не валидны'),
+#             401: openapi.Response('Не аутентифицированный пользователь'),
+#         },
+#     ),
+# )
+# class AddFriendsView(generics.CreateAPIView):
+#     permission_classes = [
+#         permissons.IsCustomerScopeUserPerm,
+#     ]
+#     filter_backends = [filters.SearchFilter]
+#     search_fields = ('username',)
+#     http_method_names = ['post']
+#     pagination_class = BasePagination
+#     lookup_url_kwarg = 'user_id'
+# #
+#     def get_queryset(self):
+#         friends = self.request.user.friends.all() | CustomerUser.objects.filter(
+#             friends=self.request.user
+#         )
+#         return CustomerUser.objects.filter(is_active=True, is_banned=False).exclude(
+#             Q(id=self.request.user.id) | Q(id__in=friends.values_list('id', flat=True))
+#         )
+#
+#     def create(self, request, *args, **kwargs):
+#         serializer = friends_serializer.AddFriendSerializer(
+#             data=kwargs, context=self.get_serializer_context()
+#         )
+#         serializer.is_valid(raise_exception=True)
+#         with transaction.atomic():
+#             serializer.save(user=self.request.user, user_add=serializer.validated_data['user_add'])
+#             headers = self.get_success_headers(serializer.data)
+#             send_message_in_rabbitmq = True
+#             if send_message_in_rabbitmq:
+#                 return Response(status=status.HTTP_200_OK, headers=headers)
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
+#
 
-    def get_queryset(self):
-        friends = self.request.user.friends.all() | CustomerUser.objects.filter(
-            friends=self.request.user
-        )
-        return CustomerUser.objects.filter(is_active=True, is_banned=False).exclude(
-            Q(id=self.request.user.id) | Q(id__in=friends.values_list('id', flat=True))
-        )
 
-
-@method_decorator(
-    name='get',
-    decorator=swagger_auto_schema(
-        operation_description='Получение пользователя для детального просмотра',
-        tags=['Пользователь', 'Друзья'],
-        responses={
-            200: openapi.Response('Пользователь', friends_serializer.UserRetrieveSerializer),
-            401: openapi.Response('Не аутентифицированный пользователь'),
-        },
-    ),
-)
-class GetUserRetrieve(generics.RetrieveAPIView):
-    serializer_class = friends_serializer.UserRetrieveSerializer
-    permission_classes = (permissons.IsCustomerScopeUserPerm,)
-    filter_backends = [filters.SearchFilter]
-    http_method_names = ['get']
-    pagination_class = BasePagination
-    lookup_url_kwarg = 'user_id'
-
-    def get_queryset(self):
-        friends = self.request.user.friends.all() | CustomerUser.objects.filter(
-            friends=self.request.user
-        )
-        return CustomerUser.objects.filter(is_active=True, is_banned=False).exclude(
-            Q(id=self.request.user.id) | Q(id__in=friends.values_list('id', flat=True))
-        )
-
-
-@method_decorator(
-    name='post',
-    decorator=swagger_auto_schema(
-        request_body=friends_serializer.AddFriendSerializer,
-        operation_description='Отправка запроса для добавления в друзья',
-        tags=['Пользователь', 'Друзья'],
-        responses={
-            200: openapi.Response('Пользователь добавлен'),
-            400: openapi.Response('Данные не валидны'),
-            401: openapi.Response('Не аутентифицированный пользователь'),
-        },
-    ),
-)
-class AddFriendsView(generics.CreateAPIView):
+class AddFriendsView(viewsets.ModelViewSet):
     permission_classes = [
         permissons.IsCustomerScopeUserPerm,
     ]
+    serializer_class = UserSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ('username',)
-    http_method_names = ['post']
+    http_method_names = ['get', 'post', 'add_friend']
     pagination_class = BasePagination
     lookup_url_kwarg = 'user_id'
 
@@ -102,18 +139,15 @@ class AddFriendsView(generics.CreateAPIView):
             Q(id=self.request.user.id) | Q(id__in=friends.values_list('id', flat=True))
         )
 
-    def create(self, request, *args, **kwargs):
-        serializer = friends_serializer.AddFriendSerializer(
-            data=kwargs, context=self.get_serializer_context()
-        )
+    @action(methods=['post'], detail=True, url_path='add-friend', url_name='add_friend')
+    def add_friend(self, request, user_id):
+        serializer = AddFriendSerializer(data=request.data, context=self.get_serializer_context())
         serializer.is_valid(raise_exception=True)
         with transaction.atomic():
-            serializer.save(user=self.request.user, user_add=serializer.validated_data['user_add'])
+            serializer.save(user=self.request.user, user_add=self.get_object())
             headers = self.get_success_headers(serializer.data)
-            send_message_in_rabbitmq = True
-            if send_message_in_rabbitmq:
-                return Response(status=status.HTTP_200_OK, headers=headers)
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            # Вне зависимости от того отправился rabbit или нет, пусть будет 200
+            return Response(status=status.HTTP_200_OK, headers=headers)
 
 
 @method_decorator(

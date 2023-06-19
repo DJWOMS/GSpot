@@ -1,9 +1,11 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+
 from customer.views.v1.auth_view import CustomerAuthView
 from customer.views.v1 import account_views
+from customer.views.v1.customer_friend_view import AddFriendsView
 from customer.views.v1.customer_registration_view import CustomerRegistrationView
 from customer.views.v1 import customer_friend_view
-
 
 urlpatterns = [
     path("registration/", CustomerRegistrationView.as_view()),
@@ -27,16 +29,16 @@ account_router = [
 auth_routes = [path("login/", CustomerAuthView.as_view(), name="customer_login")]
 
 friends = [
-    path('customers/', customer_friend_view.GetUsersList.as_view(), name='users-list'),
+    path('customers/', AddFriendsView.as_view({'get': 'list'}), name='customers-list'),
     path(
         'customers/<uuid:user_id>/',
-        customer_friend_view.GetUserRetrieve.as_view(),
-        name='user-retrieve',
+        AddFriendsView.as_view({'get': 'retrieve'}),
+        name='customers-detail',
     ),
     path(
-        'customer/<uuid:user_id>/add-friend/',
-        customer_friend_view.AddFriendsView.as_view(),
-        name='add-friend',
+        'customers/<uuid:user_id>/add-friends/',
+        AddFriendsView.as_view({'post': 'add_friend'}),
+        name='customers-add_friend',
     ),
     path(
         'friends_requests/',
@@ -61,6 +63,7 @@ friends = [
         name='retrieve-destroy-friend',
     ),
 ]
+
 
 urlpatterns += account_router
 urlpatterns += auth_routes

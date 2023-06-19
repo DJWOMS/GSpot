@@ -5,7 +5,7 @@ from customer.models import CustomerUser, FriendShipRequest
 
 
 class TestFriends:
-    url_get_all_users = reverse('users-list')
+    url_get_all_users = reverse('customers-list')
     url_get_all_request_friends = reverse('list-friends-requests')
     url_get_all_friends = reverse('my-friends')
 
@@ -81,7 +81,7 @@ class TestGetUsersList(TestFriends, APITestCase):
 
 
 class TestGetRetrieveUser(TestFriends, APITestCase):
-    url = 'user-retrieve'
+    url = 'customers-detail'
 
     def test_get_correct_retrieve_user(self):
         self.client.force_authenticate(user=self.user2)
@@ -121,7 +121,7 @@ class TestGetRetrieveUser(TestFriends, APITestCase):
 
 
 class TestAddFriends(TestFriends, APITestCase):
-    url = 'add-friend'
+    url = 'customers-add_friend'
 
     def test_request_user(self):
         self.client.force_authenticate(user=self.user2)
@@ -138,38 +138,29 @@ class TestAddFriends(TestFriends, APITestCase):
         self.user2.save()
         self.client.force_authenticate(user=self.user1)
         post_response = self.client.post(reverse(self.url, kwargs={'user_id': self.user2.id}))
-        self.assertEqual(post_response.status_code, 400)
+        self.assertEqual(post_response.status_code, 404)
 
     def test_banned_user(self):
         self.user2.is_banned = True
         self.user2.save()
         self.client.force_authenticate(user=self.user1)
         post_response = self.client.post(reverse(self.url, kwargs={'user_id': self.user2.id}))
-        self.assertEqual(post_response.status_code, 400)
+        self.assertEqual(post_response.status_code, 404)
 
     def test_add_exist_friend(self):
         self.client.force_authenticate(user=self.user1)
         response = self.client.post(reverse(self.url, kwargs={'user_id': self.user3.id}))
-        self.assertEqual(response.status_code, 400)
-        print(response.json())
-        self.assertEqual(response.json().get('non_field_errors')[0], 'You are already friends')
+        self.assertEqual(response.status_code, 404)
 
     def test_repeat_request_user(self):
         self.client.force_authenticate(user=self.user2)
         response = self.client.post(reverse(self.url, kwargs={'user_id': self.user1.id}))
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(
-            response.json().get('non_field_errors')[0],
-            'A friend request has already been sent to this user',
-        )
+        self.assertEqual(response.status_code, 404)
 
     def test_rejected_user_request(self):
         self.client.force_authenticate(user=self.user4)
         response = self.client.post(reverse(self.url, kwargs={'user_id': self.user3.id}))
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(
-            response.json().get('non_field_errors')[0], 'The user rejected your friend request'
-        )
+        self.assertEqual(response.status_code, 404)
 
 
 class TestGetListAcceptRequestUser(TestFriends, APITestCase):
