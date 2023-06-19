@@ -70,3 +70,20 @@ class RedisClientTestCase(TestCase):
         self.assertEqual(bool(result_access), True)
         self.assertEqual(bool(result_refresh), True)
         self.assertEqual(bool(result_totp), True)
+
+    def test_dict_in_access(self):
+        data = {
+            'type': 'access',
+            'permissions': 'admins',
+            'image': '12',
+            'list': ['1', 1],
+        }
+        self.redis_access_client.add_token(token='12345', value=data)
+        result = self.redis_access_client.is_token_exist(token='12345')
+        result_data = {key: value for key, value in result.items()}
+
+        self.assertEqual(bool(result), True)
+        self.assertEqual(result_data['type'], data['type'])
+        self.assertEqual(result_data['permissions'], data['permissions'])
+        self.assertEqual(result_data['image'], data['image'])
+        self.assertEqual(result_data['list'], data['list'])
