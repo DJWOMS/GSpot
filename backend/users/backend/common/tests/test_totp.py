@@ -41,7 +41,7 @@ class TestTOTPToken(TestCase):
         self.totp.send_totp(self.developer)
 
         encoded_data = self.r.is_token_exist(test_token)
-        data = {key.decode(): value.decode() for key, value in encoded_data.items()}
+        data = {key: value for key, value in encoded_data.items()}
         self.assertEqual(data['user_id'], str(self.developer.id))
         self.assertEqual(data['role'], self.developer._meta.app_label)
 
@@ -52,7 +52,7 @@ class TestTOTPToken(TestCase):
         self.totp.send_totp(self.administrator)
 
         encoded_data = self.r.is_token_exist(test_token)
-        data = {key.decode(): value.decode() for key, value in encoded_data.items()}
+        data = {key: value for key, value in encoded_data.items()}
         self.assertEqual(data['user_id'], str(self.administrator.id))
         self.assertEqual(data['role'], self.administrator._meta.app_label)
 
@@ -63,6 +63,6 @@ class TestTOTPToken(TestCase):
         self.totp.send_totp(self.customer)
 
         encoded_data = self.r.is_token_exist(test_token)
-        data = {key.decode(): value.decode() for key, value in encoded_data.items()}
+        data = {key: value for key, value in encoded_data.items()}
         self.assertEqual(data['user_id'], str(self.customer.id))
         self.assertEqual(data['role'], self.customer._meta.app_label)
