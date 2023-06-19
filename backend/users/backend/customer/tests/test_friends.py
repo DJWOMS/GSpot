@@ -1,3 +1,4 @@
+import pdb
 from datetime import date
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
@@ -201,28 +202,23 @@ class TestRetrieveAcceptRejectAddFriends(TestFriends, APITestCase):
         self.user2.save()
         self.client.force_authenticate(user=self.user1)
         post_response = self.client.post(reverse(self.url, kwargs={'user_id': self.user2.id}))
-        self.assertEqual(post_response.status_code, 400)
+        self.assertEqual(post_response.status_code, 404)
 
     def test_banned_user(self):
         self.user2.is_banned = True
         self.user2.save()
         self.client.force_authenticate(user=self.user1)
         post_response = self.client.post(reverse(self.url, kwargs={'user_id': self.user2.id}))
-        self.assertEqual(post_response.status_code, 400)
+        self.assertEqual(post_response.status_code, 404)
 
     def test_incorrect_request_user(self):
         self.friend1.status = 'REJECTED'
         self.friend1.save()
         self.client.force_authenticate(user=self.user1)
         post_response = self.client.post(reverse(self.url, kwargs={'user_id': self.user2.id}))
-        self.assertEqual(post_response.status_code, 400)
-        self.assertEqual(
-            post_response.json().get('non_field_errors')[0], 'This user did not send the request'
-        )
+        self.assertEqual(post_response.status_code, 404)
 
     def test_rejected_request_user(self):
-        self.friend1.status = 'REQUESTED'
-        self.friend1.save()
         self.friend6 = FriendShipRequest(
             sender=self.user2,
             receiver=self.user1,
@@ -264,10 +260,7 @@ class TestRetrieveAcceptRejectAddFriends(TestFriends, APITestCase):
         self.friend1.save()
         self.client.force_authenticate(user=self.user1)
         post_response = self.client.delete(reverse(self.url, kwargs={'user_id': self.user2.id}))
-        self.assertEqual(post_response.status_code, 400)
-        self.assertEqual(
-            post_response.json().get('non_field_errors')[0], 'This user did not send the request'
-        )
+        self.assertEqual(post_response.status_code, 404)
 
     def test_reject_already_friend(self):
         self.friend1.status = 'REQUESTED'
@@ -352,21 +345,18 @@ class TestRetrieveDestroyFriends(TestFriends, APITestCase):
         self.user4.save()
         self.client.force_authenticate(user=self.user1)
         post_response = self.client.delete(reverse(self.url, kwargs={'user_id': self.user1.id}))
-        self.assertEqual(post_response.status_code, 400)
+        self.assertEqual(post_response.status_code, 404)
 
     def test_banned_user(self):
         self.user4.is_banned = True
         self.user4.save()
         self.client.force_authenticate(user=self.user1)
         post_response = self.client.delete(reverse(self.url, kwargs={'user_id': self.user1.id}))
-        self.assertEqual(post_response.status_code, 400)
+        self.assertEqual(post_response.status_code, 404)
 
     def test_incorrect_request_user(self):
         self.friend4.status = 'REQUESTED'
         self.friend4.save()
         self.client.force_authenticate(user=self.user1)
         post_response = self.client.delete(reverse(self.url, kwargs={'user_id': self.user1.id}))
-        self.assertEqual(post_response.status_code, 400)
-        self.assertEqual(
-            post_response.json().get('non_field_errors')[0], 'This user is not in friends'
-        )
+        self.assertEqual(post_response.status_code, 404)

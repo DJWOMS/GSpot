@@ -1,3 +1,5 @@
+import pdb
+
 from django.db.models import Q
 from rest_framework import serializers, status
 from customer.models import CustomerUser, FriendShipRequest
@@ -18,13 +20,9 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
 
 
 class BaseFriendSerializer(serializers.Serializer):
-    user_id = serializers.UUIDField()
-
     def validate(self, attrs):
         receiver_user = self.context["request"].user
-        sender_user = CustomerUser.objects.get(pk=attrs['user_id'])
-        ActiveUserValidator().validate(sender_user)
-        BannedUserValidatorVerify().validate(sender_user)
+        sender_user = self.context['view'].get_object()
         self.get_request_function()(receiver_user, sender_user)
         attrs['sender_user'] = sender_user
         attrs['receiver_user'] = receiver_user
