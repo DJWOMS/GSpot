@@ -1,4 +1,4 @@
-from base.views import PersonalAccount, PartialUpdateMixin
+from base.views import BaseAccountViewSet, PersonalAccount
 from administrator.models import Admin
 from administrator.serializers import account_serializers
 from drf_yasg import openapi
@@ -14,7 +14,8 @@ from django.utils.decorators import method_decorator
         tags=['Администратор', 'Личный кабинет администратора'],
         responses={
             200: openapi.Response(
-                'Личная информация администратора', account_serializers.AccountRetrieveSerializers
+                'Личная информация администратора',
+                account_serializers.AccountRetrieveSerializers
             ),
             401: openapi.Response('Не аутентифицированный пользователь'),
         },
@@ -27,7 +28,8 @@ from django.utils.decorators import method_decorator
         tags=['Администратор', 'Личный кабинет администратора'],
         responses={
             200: openapi.Response(
-                'Личная информация администратора', account_serializers.AccountUpdateSerializers
+                'Личная информация администратора',
+                account_serializers.AccountUpdateSerializers
             ),
             401: openapi.Response('Не аутентифицированный пользователь'),
         },
@@ -44,22 +46,15 @@ from django.utils.decorators import method_decorator
         },
     ),
 )
-class AccountViewSet(PersonalAccount):
-    queryset = Admin.objects.all()
-    http_method_names = ['get', 'put', 'delete']
+class AccountViewSet(BaseAccountViewSet):
+    model = Admin
+    http_method_names = ('get', 'put', 'delete')
+    permission_classes = (IsAuthenticated,)
 
     serializer_map = {
-        'default': account_serializers.AccountRetrieveSerializers,
-        'retrieve': account_serializers.AccountRetrieveSerializers,
-        'partial_update': account_serializers.AccountUpdateSerializers,
-        'destroy': account_serializers.AccountRetrieveSerializers,
-    }
-
-    permission_map = {
-        'default': [IsAuthenticated],
-        'retrieve': [IsAuthenticated],
-        'partial_update': [IsAuthenticated],
-        'destroy': [IsAuthenticated],
+        'GET': account_serializers.AccountRetrieveSerializers,
+        'PUT': account_serializers.AccountUpdateSerializers,
+        'DELETE': account_serializers.AccountRetrieveSerializers,
     }
 
 

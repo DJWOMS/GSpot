@@ -27,6 +27,33 @@ class PartialUpdateMixin:
         return self.partial_update(request, *args, **kwargs)
 
 
+class BaseAccountViewSet(viewsets.ModelViewSet):
+    def get_serializer_class(self):
+        '''
+        Метод возвращает сериализатор в зависимости от HTTP метода запроса
+        '''
+        assert self.serializer_map is not None, (
+            "'%s' должен либо включать атрибут `serializer_map`, "
+            "или переопределить метод `get_serializer_class()`."
+            % self.__class__.__name__
+        )
+        return self.serializer_map.get(self.request.method)
+
+    def get_object(self):
+        '''
+        Метод возвращает модель юзера
+        '''
+        assert self.model is not None, (
+            "'%s' должен либо включать атрибут `model`, "
+            "или переопределить метод `get_object()`."
+            % self.__class__.__name__
+        )
+        object_ = self.request.user
+        if isinstance(object_, self.model):
+            return object_
+        raise NotFound()
+
+
 class PersonalAccount(viewsets.ModelViewSet):
     def get_serializer_class(self):
         return self.serializer_map.get(self.action, self.serializer_map["default"])
