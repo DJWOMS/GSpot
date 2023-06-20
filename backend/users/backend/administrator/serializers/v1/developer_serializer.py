@@ -39,8 +39,7 @@ class DeveloperBlockSerializer(serializers.ModelSerializer):
             raise ValidationError(_('User is already banned'))
         return attrs
 
-    def save(self, admin):
-        company_user: CompanyUser = self.context['company_user']
+    def save(self, admin, company_user: CompanyUser):
         CompanyUserModerate.objects.create(
             reason=self.validated_data['reason'],
             company_user=company_user,
@@ -48,7 +47,7 @@ class DeveloperBlockSerializer(serializers.ModelSerializer):
             action='B'
         )
         company_user.is_banned = True
-        super().save()
+        company_user.save()
 
     class Meta:
         ref_name = 'developer_block'
@@ -63,8 +62,7 @@ class DeveloperUnblockSerializer(serializers.ModelSerializer):
             raise ValidationError(_('User is already active'))
         return attrs
 
-    def save(self, admin):
-        company_user: CompanyUser = self.context['company_user']
+    def save(self, admin, company_user: CompanyUser):
         CompanyUserModerate.objects.create(
             reason=self.validated_data['reason'],
             company_user=company_user,
@@ -72,7 +70,7 @@ class DeveloperUnblockSerializer(serializers.ModelSerializer):
             action='U'
         )
         company_user.is_banned = False
-        super().save()
+        company_user.save()
 
     class Meta:
         ref_name = 'developer_unblock'

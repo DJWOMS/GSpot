@@ -20,8 +20,6 @@ router.register(r"permission", AdminPermissionViewSet, basename="admin_permissio
 urlpatterns = router.urls
 
 
-auth_urls = [path("login/", AdminAuthView.as_view(), name="admin_login")]
-
 account_router = [
     path(
         "administrator/me",
@@ -116,10 +114,12 @@ company_urls = [
     ),
 ]
 
+auth_urls = [path("login/", AdminAuthView.as_view(), name="admin_login")]
 
-urlpatterns += auth_urls
+
 urlpatterns += account_router
 urlpatterns += generic_urls
 urlpatterns += customer_urls
 urlpatterns += developer_urls
 urlpatterns += company_urls
+urlpatterns += auth_urls

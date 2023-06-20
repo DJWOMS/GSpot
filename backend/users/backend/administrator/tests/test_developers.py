@@ -19,9 +19,9 @@ class DevelopersViewTest(BaseTestView, TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        Country.objects.create(id=1, name=fake.counry())
+        Country.objects.create(id=1, name=fake.country())
         cls.admin = Admin.objects.create_superuser(
-            fake.first_name(), fake.email(), fake.word(), fake.phone_number()
+            fake.first_name(), fake.email(), fake.word(), '89991112235'
         )
         cls.user = CompanyUser.objects.create_user(
             username=fake.word(),
@@ -29,8 +29,7 @@ class DevelopersViewTest(BaseTestView, TestCase):
             password=fake.word(),
             first_name=fake.first_name(),
             last_name=fake.last_name(),
-            phone=fake.phone_number(),
-            birthday=fake.date_object(),
+            phone='89991112237',
         )
 
     def test_000_list_developer(self):
@@ -48,7 +47,7 @@ class DevelopersViewTest(BaseTestView, TestCase):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         payload = {'reason': fake.text()}
         request = self.client.post(f"{self.url}{self.user.id}/unblock", payload, format='json')
-        self.assertEqual(request.status_code, 200)
+        self.assertEqual(request.status_code, 201)
         
     def test_03_delete(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
