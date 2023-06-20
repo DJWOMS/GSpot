@@ -1,6 +1,6 @@
 import randomItem from 'utils/randomItem'
 import randomNum from 'utils/randomNumber'
-import type { CheckoutGameCardInterface, PurchaseCardInterface } from '../types'
+import type { CheckoutGameCardInterface, PurchaseCardInterface, UserPublicDataInterface } from '../types'
 
 export const generateMockPurchaseCard = (): PurchaseCardInterface => ({
   id: randomNum(4),
@@ -27,4 +27,11 @@ export const generateMockCheckoutGameCard = (props = {}): CheckoutGameCardInterf
   price: randomNum(4),
   currency: 'rub',
   ...props,
+})
+export const generateMockUserPublic = (): UserPublicDataInterface => ({
+  username: randomItem(['Alex', 'Max', 'King', 'Winner']),
+  avatar: `https://loremflickr.com/240/240/abstract?lock=${randomNum(2)}`,
+  is_active: true,
+  is_banned: false,
+  country: randomNum(3),
 })

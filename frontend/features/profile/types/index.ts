@@ -29,3 +29,10 @@ export interface UserDataInterface {
   firstName: string
   lastName: string
 }
+export interface UserPublicDataInterface {
+  username: string
+  avatar: string
+  is_active: boolean
+  is_banned: boolean
+  country: number
+}
