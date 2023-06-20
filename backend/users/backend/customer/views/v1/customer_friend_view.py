@@ -81,7 +81,7 @@ class AddFriendsView(viewsets.ModelViewSet):
         )
 
     @action(methods=['post'], detail=True, url_path='add-friend', url_name='add_friend')
-    def add_friend(self):
+    def add_friend(self, request, user_id):
         with transaction.atomic():
             instance = FriendShipRequest(
                 sender=self.request.user,
