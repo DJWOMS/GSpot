@@ -1,6 +1,7 @@
 from base.views import PersonalAccount
 from customer.serializers import account_serializers
 from customer.models import CustomerUser
+from common.permissions.permissons import IsCustomerScopeUserPerm
 
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
@@ -50,25 +51,17 @@ from rest_framework.viewsets import ModelViewSet
 )
 class AccountViewSet(ModelViewSet):
     model = CustomerUser
-    permission_classes = (IsAuthenticated,)
-    http_method_names = ('get', 'put', 'delete',)
+    permission_classes = (IsCustomerScopeUserPerm,)
+    http_method_names = ('get', 'patch', 'delete',)
 
     serializer_map = {
         'GET': account_serializers.AccountRetrieveSerializers,
-        'PUT': account_serializers.AccountUpdateSerializers,
-        'DELETE': account_serializers.AccountRetrieveSerializers,
+        'PATCH': account_serializers.AccountUpdateSerializers,
     }
 
     def get_serializer_class(self):
-        action = self.request.method
-        return self.serializer_map.get(action)
-
-    def get_object(self):
-        object_ = self.request.user
-
-        if isinstance(self.request.user, self.model):
-            return object_
-        raise NotFound()
+        method = self.request.method
+        return self.serializer_map.get(method)
 
 
 @method_decorator(

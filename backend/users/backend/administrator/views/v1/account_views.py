@@ -1,6 +1,7 @@
 from base.views import PersonalAccount
 from administrator.models import Admin
 from administrator.serializers import account_serializers
+from common.permissions.permissons import IsAdminScopeUserPerm
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -52,25 +53,17 @@ from rest_framework.exceptions import NotFound
 )
 class AccountViewSet(ModelViewSet):
     model = Admin
-    permission_classes = (IsAuthenticated,)
-    http_method_names = ['get', 'put', 'delete']
+    permission_classes = (IsAdminScopeUserPerm,)
+    http_method_names = ['get', 'patch', 'delete']
 
     serializer_map = {
         'GET': account_serializers.AccountRetrieveSerializers,
-        'PUT': account_serializers.AccountUpdateSerializers,
-        'DELETE': account_serializers.AccountRetrieveSerializers,
+        'PATCH': account_serializers.AccountUpdateSerializers,
     }
 
     def get_serializer_class(self):
-        action = self.request.method
-        return self.serializer_map.get(action)
-
-    def get_object(self):
-        object_ = self.request.user
-
-        if isinstance(self.request.user, self.model):
-            return object_
-        raise NotFound()
+        method = self.request.method
+        return self.serializer_map.get(method)
 
 
 @method_decorator(
