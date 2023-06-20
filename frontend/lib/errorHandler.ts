@@ -1,6 +1,6 @@
 import { toast } from 'react-hot-toast'
+import checkAuthClient from '../features/auth/utils/checkAuthClient'
 import { fetchServerSide } from './fetchServerSide'
-import checkAuthClient from "../features/auth/utils/checkAuthClient";
 
 export const errorHandler = async (error: number) => {
   if (error === 401 && typeof window === 'undefined') {

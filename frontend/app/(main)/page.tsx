@@ -1,7 +1,6 @@
 import CarouselSection from 'components/CarouselSection'
 import Container from 'components/Container'
 import Section from 'components/Section'
-import { checkAuthServer } from 'features/auth'
 import { GameCard, GameCardBig, ListGames } from 'features/games/components'
 import type { GameCardInterface, GameListInterface } from 'features/games/types'
 import { LatestNews } from 'features/news/components'

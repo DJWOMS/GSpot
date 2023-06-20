@@ -1,5 +1,4 @@
 import { API_URL } from 'configs'
-import checkAuthClient from 'features/auth/utils/checkAuthClient'
 import { errorHandler } from './errorHandler'
 
 interface fetchProps extends RequestInit {
