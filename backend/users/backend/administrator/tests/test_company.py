@@ -11,7 +11,7 @@ from developer.models import Company, CompanyUser
 fake = Faker(locale='ru_RU')
 
 
-class CustomersViewTest(BaseTestView, TestCase):
+class CompanyViewTest(BaseTestView, TestCase):
     url = reverse('admin_company')
     admin: Admin
     user: CompanyUser
@@ -19,9 +19,9 @@ class CustomersViewTest(BaseTestView, TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        Country.objects.create(id=1, name=fake.counry())
+        Country.objects.create(id=1, name=fake.country())
         cls.admin = Admin.objects.create_superuser(
-            fake.first_name(), fake.email(), fake.word(), fake.phone_number()
+            fake.first_name(), fake.email(), fake.word(), '89991112233'
         )
         cls.user = CompanyUser.objects.create_user(
             username=fake.word(),
@@ -29,8 +29,7 @@ class CustomersViewTest(BaseTestView, TestCase):
             password=fake.word(),
             first_name=fake.first_name(),
             last_name=fake.last_name(),
-            phone=fake.phone_number(),
-            birthday=fake.date_object(),
+            phone='89991112239',
         )
         cls.company = Company.objects.create(
             created_by=cls.user,
@@ -55,7 +54,7 @@ class CustomersViewTest(BaseTestView, TestCase):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         payload = {'reason': fake.text()}
         request = self.client.post(f"{self.url}{self.company.id}/unblock", payload, format='json')
-        self.assertEqual(request.status_code, 200)
+        self.assertEqual(request.status_code, 201)
         
     def test_03_delete(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))

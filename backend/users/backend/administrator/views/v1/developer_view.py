@@ -38,7 +38,7 @@ unblock_schema = swagger_auto_schema(
     operation_description='Разблокировка разработчика',
     tags=['Администратор', 'Административная панель владельца'],
     responses={
-        200: openapi.Response('Успешно'),
+        201: openapi.Response('Успешно'),
         400: openapi.Response('Данные не валидны'),
         403: openapi.Response('Отсутствуют права на редактирование'),
         404: openapi.Response('Пользователь не найден'),
@@ -108,7 +108,7 @@ class DeveloperListView(ModelViewSet):
             },
         )
         serializer.is_valid(raise_exception=True)
-        serializer.save(admin=request.user)
+        serializer.save(admin=request.user, company_user=company_user)
         headers = self.get_success_headers(serializer.data)
         return Response(status=status.HTTP_201_CREATED, headers=headers)
 
@@ -122,6 +122,6 @@ class DeveloperListView(ModelViewSet):
             },
         )
         serializer.is_valid(raise_exception=True)
-        serializer.save(admin=request.user)
+        serializer.save(admin=request.user, company_user=company_user)
         headers = self.get_success_headers(serializer.data)
-        return Response(status=status.HTTP_200_OK, headers=headers)
+        return Response(status=status.HTTP_201_CREATED, headers=headers)
