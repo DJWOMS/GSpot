@@ -8,7 +8,7 @@ from administrator.serializers.v1.company_serializer import (
     CompanyUnblockSerializer,
     CompanyRetrieveSerializer,
 )
-from developer.models import CompanyUser
+from developer.models import Company, CompanyUser
 from base.paginations import BasePagination
 from common.permissions.permissons import IsAdminScopeUserPerm
 from drf_yasg import openapi
@@ -38,7 +38,7 @@ unblock_schema = swagger_auto_schema(
     operation_description='Разблокировка компании',
     tags=['Администратор', 'Административная панель владельца'],
     responses={
-        200: openapi.Response('Успешно'),
+        201: openapi.Response('Успешно'),
         400: openapi.Response('Данные не валидны'),
         403: openapi.Response('Отсутствуют права на редактирование'),
         404: openapi.Response('Пользователь не найден'),
@@ -67,7 +67,7 @@ destroy_schema = swagger_auto_schema(
 
 
 class CompanyListView(ModelViewSet):
-    queryset = CompanyUser.objects.all()
+    queryset = Company.objects.all()
     http_method_names = ['get', 'post', 'delete']
     permission_classes = [IsAdminScopeUserPerm]
     filter_backends = [filters.SearchFilter]
@@ -109,7 +109,7 @@ class CompanyListView(ModelViewSet):
             },
         )
         serializer.is_valid(raise_exception=True)
-        serializer.save(admin=request.user)
+        serializer.save(admin=request.user, company=company)
         headers = self.get_success_headers(serializer.data)
         return Response(status=status.HTTP_201_CREATED, headers=headers)
 
@@ -123,6 +123,6 @@ class CompanyListView(ModelViewSet):
             },
         )
         serializer.is_valid(raise_exception=True)
-        serializer.save(admin=request.user)
+        serializer.save(admin=request.user, company=company)
         headers = self.get_success_headers(serializer.data)
-        return Response(status=status.HTTP_200_OK, headers=headers)
+        return Response(status=status.HTTP_201_CREATED, headers=headers)

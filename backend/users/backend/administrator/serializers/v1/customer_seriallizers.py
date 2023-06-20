@@ -34,8 +34,7 @@ class CustomerBlockSerializer(serializers.ModelSerializer):
         
         return attrs
 
-    def save(self, admin):
-        customer: CustomerUser = self.context['customer']
+    def save(self, admin, customer):
         CustomerModerate.objects.create(
             reason=self.validated_data['reason'],
             customer=customer,
@@ -43,7 +42,7 @@ class CustomerBlockSerializer(serializers.ModelSerializer):
             action='B'
         )
         customer.is_banned = True
-        super().save()
+        customer.save()
 
     class Meta:
         ref_name = 'customer_block'
@@ -59,8 +58,7 @@ class CustomerUnblockSerializer(serializers.ModelSerializer):
         
         return attrs
 
-    def save(self, admin):
-        customer: CustomerUser = self.context['customer']
+    def save(self, admin, customer):
         CustomerModerate.objects.create(
             reason=self.validated_data['reason'],
             customer=customer,
@@ -68,7 +66,7 @@ class CustomerUnblockSerializer(serializers.ModelSerializer):
             action='U'
         )
         customer.is_banned = False
-        super().save()
+        customer.save()
 
     class Meta:
         ref_name = 'customer_unblock'

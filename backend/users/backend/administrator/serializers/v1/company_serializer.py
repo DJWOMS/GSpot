@@ -44,8 +44,7 @@ class CompanyBlockSerializer(serializers.ModelSerializer):
             raise ValidationError(_('Company is already banned'))
         return attrs
 
-    def save(self, admin):
-        company: Company = self.context['company']
+    def save(self, admin, company):
         CompanyModerate.objects.create(
             reason=self.validated_data['reason'],
             company=company,
@@ -53,7 +52,7 @@ class CompanyBlockSerializer(serializers.ModelSerializer):
             action='B'
         )
         company.is_banned = True
-        super().save()
+        company.save()
 
     class Meta:
         ref_name = 'company_block'
@@ -68,8 +67,7 @@ class CompanyUnblockSerializer(serializers.ModelSerializer):
             raise ValidationError(_('Company is already active'))
         return attrs
 
-    def save(self, admin):
-        company: Company = self.context['company']
+    def save(self, admin, company):
         CompanyModerate.objects.create(
             reason=self.validated_data['reason'],
             company=company,
@@ -77,7 +75,7 @@ class CompanyUnblockSerializer(serializers.ModelSerializer):
             action='U'
         )
         company.is_banned = False
-        super().save()
+        company.save()
 
     class Meta:
         ref_name = 'company_unblock'
