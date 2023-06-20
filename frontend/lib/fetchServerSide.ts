@@ -22,12 +22,6 @@ export const fetchServerSide = async <T>({
     })
 
     if (!res.ok) {
-      if (res.status === 403 && typeof window === 'undefined' && !props.error) {
-        if (await checkAuthClient()) {
-          return await fetchServerSide({ path, cache, ...props, error: true })
-        }
-      }
-
       await errorHandler(res.status)
     }
 

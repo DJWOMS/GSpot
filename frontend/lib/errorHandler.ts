@@ -1,20 +1,16 @@
 import { toast } from 'react-hot-toast'
-import { cookies } from 'next/headers'
 import { fetchServerSide } from './fetchServerSide'
+import checkAuthClient from "../features/auth/utils/checkAuthClient";
 
 export const errorHandler = async (error: number) => {
-  if (error === 401) {
-    const refreshToken = cookies().get('refresh_token')?.value
+  if (error === 401 && typeof window === 'undefined') {
+    const authorized = await checkAuthClient()
 
-    if (refreshToken) {
-      try {
-        await fetchServerSide({ path: 'auth/refresh', method: 'POST' })
-      } catch (e) {
-        console.log(e)
-      }
+    if (authorized) {
+      return await fetchServerSide({ path: 'auth/refresh', method: 'POST' })
+    } else {
+      toast.error('Пользователь не авторизирован')
     }
-
-    toast.error('Пользователь не авторизирован')
   }
 
   if (error === 400) {
