@@ -7,6 +7,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, status, viewsets
 from rest_framework.generics import CreateAPIView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
 from . import serializers
@@ -15,7 +16,7 @@ from .exceptions import (
     NotPayoutDayError,
     NotValidAccountNumberError,
 )
-from .models import Account, Owner, PayoutData
+from .models import Account, BalanceChange, Owner, PayoutData
 from .schemas import BalanceIncreaseData, CommissionCalculationInfo
 from .serializers import CreatePayoutDataSerializer
 from .services.balance_change import request_balance_deposit_url
@@ -165,3 +166,26 @@ class PayoutDataCreateView(viewsets.ViewSet):
         validated_data['user_uuid'] = developer_account
         serializer.create(validated_data=validated_data)
         return Response(serializer.validated_data, status.HTTP_201_CREATED)
+
+
+class PayoutHistoryPagination(PageNumberPagination):
+    page_size = 50
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
+
+
+class PayoutHistoryView(viewsets.ViewSet):
+    serializer_class = serializers.PayoutHistorySerializer
+    pagination_class = PayoutHistoryPagination
+
+    def list(self, request, user_uuid=None):  # noqa: A003
+        account = get_object_or_404(Account, user_uuid=user_uuid)
+        queryset = BalanceChange.objects.filter(
+            account_id=account,
+            operation_type='WD',
+            balanceservicemap__operation_type='PO',
+        )
+        paginator = self.pagination_class()
+        page = paginator.paginate_queryset(queryset, request)
+        serializer = self.serializer_class(page, many=True)
+        return Response(serializer.data)
