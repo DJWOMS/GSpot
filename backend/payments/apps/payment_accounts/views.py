@@ -10,6 +10,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
+from ..external_payments.models import BalanceServiceMap
 from . import serializers
 from .exceptions import (
     InsufficientFundsError,
@@ -182,8 +183,8 @@ class PayoutHistoryView(viewsets.ViewSet):
         account = get_object_or_404(Account, user_uuid=user_uuid)
         queryset = BalanceChange.objects.filter(
             account_id=account,
-            operation_type='WD',
-            balanceservicemap__operation_type='PO',
+            operation_type=BalanceChange.OperationType.WITHDRAW,
+            balanceservicemap__operation_type=BalanceServiceMap.OperationType.PAYOUT,
         )
         paginator = self.pagination_class()
         page = paginator.paginate_queryset(queryset, request)
