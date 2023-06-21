@@ -170,8 +170,8 @@ class InvoiceCreator:
 
 
 class ItemPurchaseHistoryData:
-    def __init__(self, user_account: UUID):
-        self.user_account = user_account
+    def __init__(self, user_uuid: UUID):
+        self.user_uuid = user_uuid
 
     def get_item_purchase_qs(self):
         q_exclude_complete = Q(event_type=ItemPurchaseHistory.ItemPurchaseType.COMPLETED)
@@ -179,7 +179,7 @@ class ItemPurchaseHistoryData:
 
         qs = (
             ItemPurchaseHistory.objects.select_related('item_purchase_id')
-            .filter(item_purchase_id__account_from__user_uuid=self.user_account)
+            .filter(item_purchase_id__account_from__user_uuid=self.user_uuid)
             .exclude((q_exclude_complete & q_exclude_paid))
         )
         return qs

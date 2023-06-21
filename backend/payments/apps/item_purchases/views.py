@@ -74,4 +74,4 @@ class ItemPurchaseHistoryView(ListModelMixin, viewsets.GenericViewSet):
     serializer_class = ItemPurchaseHistorySerializer
 
     def get_queryset(self):
-        return ItemPurchaseHistoryData(self.kwargs['account_id']).get_item_purchase_qs()
+        return ItemPurchaseHistoryData(self.kwargs['user_uuid']).get_item_purchase_qs()

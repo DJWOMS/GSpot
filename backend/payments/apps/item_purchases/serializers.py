@@ -1,5 +1,5 @@
 from apps.base.serializer import MoneySerializer, PaymentServiceSerializer
-from apps.item_purchases.models import ItemPurchase
+from apps.item_purchases.models import ItemPurchase, ItemPurchaseHistory
 from rest_framework import serializers
 
 
@@ -50,7 +50,7 @@ class ItemPurchaseHistorySerializer(serializers.Serializer):
 
     STATUSES = {item.value: item.name.lower() for item in ItemPurchase.ItemPurchaseStatus}
 
-    def get_status(self, obj):
+    def get_status(self, obj: ItemPurchaseHistory):
         _status = obj.item_purchase_id.status
         if (
             _status == ItemPurchase.ItemPurchaseStatus.REFUNDED
@@ -59,7 +59,7 @@ class ItemPurchaseHistorySerializer(serializers.Serializer):
             return ItemPurchase.ItemPurchaseStatus.PAID.label.lower()
         return self.STATUSES[_status]
 
-    def get_purchase_type(self, obj):
+    def get_purchase_type(self, obj: ItemPurchaseHistory):
         if obj.item_purchase_id.account_from != obj.item_purchase_id.account_to:
             return 'gift'
         return 'for_self'
