@@ -23,7 +23,8 @@ class PurchaseItemsSerializer(PaymentServiceSerializer):
 
 
 class RefundSerializer(serializers.Serializer):
-    user_uuid = serializers.UUIDField()
+    user_uuid_from = serializers.UUIDField()
+    user_uuid_to = serializers.UUIDField()
     item_uuid = serializers.UUIDField()
 
     def to_internal_value(self, data):

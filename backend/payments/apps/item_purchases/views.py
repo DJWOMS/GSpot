@@ -1,4 +1,4 @@
-from apps.base.classes import DRFtoDataClassMixin, ItemPurchaseStatusChanger
+from apps.base.classes import DRFtoDataClassMixin
 from apps.base.exceptions import AttemptsLimitExceededError, DifferentStructureError
 from apps.payment_accounts.exceptions import InsufficientFundsError
 from django.core.exceptions import ValidationError
@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from .models import ItemPurchase
 from .schemas import PurchaseItemsData
 from .serializers import PurchaseItemsSerializer, RefundSerializer
+from .services.item_purchase_completer import ItemPurchaseStatusChanger
 from .services.item_purchase_creator import ItemPurchaseRequest
 
 
@@ -36,7 +37,7 @@ class PurchaseItemView(viewsets.ViewSet, DRFtoDataClassMixin):
         return Response({'response': response}, status=status.HTTP_200_OK)
 
 
-class ItemPurchaseUpdaterViewSet(viewsets.ViewSet, ItemPurchaseStatusChanger):
+class ItemPurchaseUpdateView(viewsets.ViewSet, ItemPurchaseStatusChanger):
     serializer_class = RefundSerializer
 
     @action(detail=False, methods=['post'])

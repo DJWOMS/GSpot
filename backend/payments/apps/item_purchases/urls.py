@@ -4,7 +4,7 @@ from rest_framework import routers
 from . import views
 
 offer_router = routers.SimpleRouter()
-offer_router.register(r'update_offer', views.ItemPurchaseUpdaterViewSet, basename='update_offer')
+offer_router.register(r'update_offer', views.ItemPurchaseUpdateView, basename='update_offer')
 
 
 urlpatterns = [

@@ -5,6 +5,7 @@ from datetime import timedelta
 from decimal import Decimal
 
 from apps.base.fields import MoneyField
+from apps.item_purchases.managers import TransferHistoryManager
 from apps.payment_accounts.models import Account
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -16,6 +17,11 @@ from django.utils import timezone
 
 
 class TransferHistory(models.Model):
+    """
+    account_to and account_from could be only instances of models Owner and Account
+    """
+
+    objects = TransferHistoryManager()
     account_from_type = models.ForeignKey(
         ContentType,
         on_delete=models.CASCADE,
@@ -27,9 +33,10 @@ class TransferHistory(models.Model):
         related_name='transfer_history_account_to',
     )
 
-    object_id = models.PositiveIntegerField()
-    account_to = GenericForeignKey('account_to_type', 'object_id')
-    account_from = GenericForeignKey('account_from_type', 'object_id')
+    object_id_from = models.PositiveIntegerField()
+    object_id_to = models.PositiveIntegerField()
+    account_to = GenericForeignKey('account_to_type', 'object_id_to')
+    account_from = GenericForeignKey('account_from_type', 'object_id_from')
     amount = MoneyField(
         validators=[MinValueValidator(0, message='Should be a positive value')],
         editable=False,

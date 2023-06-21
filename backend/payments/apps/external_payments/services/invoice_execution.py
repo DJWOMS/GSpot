@@ -87,10 +87,10 @@ def execute_invoice_operations(
         )
         invoice_instance.is_paid = True
         invoice_instance.save()
-
         owner = Owner.objects.first()
         owner.deposit_revenue(owner.pk, decrease_amount)
-        TransferHistory.objects.create(
+
+        TransferHistory.objects.create_transfer_history(
             account_from=payer_account,
             account_to=owner,
             amount=decrease_amount,
