@@ -15,6 +15,7 @@ from apps.payment_accounts.services.payment_commission import (
 )
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
 from ..models import Invoice, ItemPurchase, ItemPurchaseHistory
@@ -166,3 +167,19 @@ class InvoiceCreator:
             event_type=ItemPurchaseHistory.ItemPurchaseType.CREATED,
         )
         return item_purchase
+
+
+class ItemPurchaseHistoryData:
+    def __init__(self, user_uuid: UUID):
+        self.user_uuid = user_uuid
+
+    def get_item_purchase_qs(self):
+        q_exclude_complete = Q(event_type=ItemPurchaseHistory.ItemPurchaseType.COMPLETED)
+        q_exclude_paid = Q(item_purchase_id__status=ItemPurchase.ItemPurchaseStatus.PAID)
+
+        qs = (
+            ItemPurchaseHistory.objects.select_related('item_purchase_id')
+            .filter(item_purchase_id__account_from__user_uuid=self.user_uuid)
+            .exclude((q_exclude_complete & q_exclude_paid))
+        )
+        return qs
