@@ -40,6 +40,7 @@ class CompanyTestAPI(BaseTestView, TestCase):
             phone="1234567890",
             password="testpassword",
             is_active=True,
+            is_superuser=True,
         )
 
     def test_developer_can_create_company(self):
@@ -237,7 +238,7 @@ class CompanyTestAPI(BaseTestView, TestCase):
 
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(company_owner))
         response = self.client.delete(url)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     # def test_admin_cant_delete_company(self):
     #     company = Company.objects.create(
@@ -263,4 +264,4 @@ class CompanyTestAPI(BaseTestView, TestCase):
 
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.customer_user))
         response = self.client.delete(url)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
