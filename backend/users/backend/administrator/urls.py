@@ -69,11 +69,7 @@ customer_urls = [
 ]
 
 developer_urls = [
-    path(
-        "developers/",
-        DeveloperListView.as_view({'get': 'list'}),
-        name="admin_developers"
-    ),
+    path("developers/", DeveloperListView.as_view({'get': 'list'}), name="admin_developers"),
     path(
         "developers/<uuid:pk>/",
         DeveloperListView.as_view({'get': 'retrieve', 'delete': 'destroy'}),
@@ -92,11 +88,7 @@ developer_urls = [
 ]
 
 company_urls = [
-    path(
-        "company/",
-        CompanyListView.as_view({'get': 'list'}),
-        name="admin_company"
-    ),
+    path("company/", CompanyListView.as_view({'get': 'list'}), name="admin_company"),
     path(
         "company/<uuid:pk>/",
         CompanyListView.as_view({'get': 'retrieve', 'delete': 'destroy'}),
