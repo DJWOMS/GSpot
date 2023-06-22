@@ -5,7 +5,7 @@ set -o nounset
 
 python manage.py collectstatic --noinput  
 python manage.py migrate
-python manage.py apps/base/fixtures/base/*.json
+python manage.py loaddata apps/base/fixtures/base/*.json
 gunicorn config.wsgi:application --bind :8000 -k gevent
 
 exec "$@"

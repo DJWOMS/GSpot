@@ -41,6 +41,8 @@ class PayoutProcessor:
 
     def _request_service_payout(self) -> PayoutResponse | None:
         data = YookassaPayOut.create_payout_data(self.payout_data, self.developer_account)
+        if data is None:
+            raise NotImplementedError
         try:
             response = YookassaPayOut().request_payout(data)
         except BadRequestError:

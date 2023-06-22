@@ -3,8 +3,6 @@ from django.db.models import DecimalField
 from djmoney.models import fields
 from rest_framework import serializers
 
-default_money = fields.Money('0.00', settings.DEFAULT_CURRENCY)
-
 
 class MoneyField(fields.MoneyField):
     def __init__(
@@ -12,9 +10,9 @@ class MoneyField(fields.MoneyField):
         verbose_name=None,
         name=None,
         max_digits=settings.MAX_BALANCE_DIGITS,
-        default_currency=default_money.currency,
+        default_currency=settings.DEFAULT_CURRENCY,
         decimal_places=2,
-        default=default_money,
+        default=fields.Money('0.00', settings.DEFAULT_CURRENCY),  # noqa B008
         **kwargs,
     ):
         super().__init__(
