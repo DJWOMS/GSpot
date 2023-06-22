@@ -38,7 +38,6 @@ class CompanyViewTest(BaseTestView, TestCase):
             email=fake.email(),
         )
 
-
     def test_000_list_company(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         request = self.client.get(self.url)
@@ -53,9 +52,11 @@ class CompanyViewTest(BaseTestView, TestCase):
     def test_02_unblock_company(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         payload = {'reason': fake.text()}
+        self.company.is_banned = True
+        self.company.save()
         request = self.client.post(f"{self.url}{self.company.id}/unblock", payload, format='json')
         self.assertEqual(request.status_code, 201)
-        
+
     def test_03_delete(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         request = self.client.delete(f'{self.url}{self.company.id}/')
