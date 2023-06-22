@@ -8,18 +8,13 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import (
-    IsAuthenticatedOrReadOnly,
-    IsAuthenticated,
-    IsAdminUser,
     AllowAny,
 )
 
-from base.views import PartialUpdateMixin
+from common.permissions.permissons import CompanyOwnerPerm
 from developer.models import Company, CompanyUser
-from developer.permissions import IsAdminOrOwnerCompany
 from developer.serializers.serializers import (
     CompanySerializer,
-    CompanyEmployeeSerializer,
 )
 
 
@@ -27,7 +22,7 @@ class CompanyAPIView(APIView):
     http_method_names = ["get", "post", "put", "delete"]
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-    permission_classes = (IsAdminOrOwnerCompany,)
+    permission_classes = (CompanyOwnerPerm,)
 
     def get_permissions(self):
         if self.request.method.lower() == "get":
