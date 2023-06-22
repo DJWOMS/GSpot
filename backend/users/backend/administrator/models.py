@@ -5,18 +5,13 @@ from django.utils.translation import gettext_lazy as _
 
 from common.models import Country
 from customer.models import CustomerUser
-from developer.models import (
-    DeveloperPermission,
-    DeveloperGroup,
-    CompanyUser,
-    Company
-)
+from developer.models import DeveloperPermission, DeveloperGroup, CompanyUser, Company
 from base.models import (
     BaseAbstractUser,
     BasePermission,
     BaseGroup,
     BasePermissionMixin,
-    BaseModerate
+    BaseModerate,
 )
 
 
@@ -143,9 +138,7 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
 
 class CustomerModerate(BaseModerate):
     customer = models.ForeignKey(
-        CustomerUser,
-        on_delete=models.CASCADE,
-        related_name='moderate_reasons'
+        CustomerUser, on_delete=models.CASCADE, related_name='moderate_reasons'
     )
     admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
 
@@ -160,9 +153,7 @@ class CustomerModerate(BaseModerate):
 
 class CompanyUserModerate(BaseModerate):
     company_user = models.ForeignKey(
-        CompanyUser,
-        on_delete=models.CASCADE,
-        related_name='moderate_reasons'
+        CompanyUser, on_delete=models.CASCADE, related_name='moderate_reasons'
     )
     admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
 
@@ -176,11 +167,7 @@ class CompanyUserModerate(BaseModerate):
 
 
 class CompanyModerate(BaseModerate):
-    company = models.ForeignKey(
-        Company,
-        on_delete=models.CASCADE,
-        related_name='moderate_reasons'
-    )
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='moderate_reasons')
     admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):

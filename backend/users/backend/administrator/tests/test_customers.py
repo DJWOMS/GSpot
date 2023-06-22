@@ -47,6 +47,8 @@ class CustomersViewTest(BaseTestView, TestCase):
     def test_02_unblock_customer(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         payload = {'reason': fake.text()}
+        self.user.is_banned = True
+        self.user.save()
         request = self.client.post(f"{self.url}{self.user.id}/unblock", payload, format='json')
         self.assertEqual(request.status_code, 201)
 

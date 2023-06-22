@@ -31,15 +31,12 @@ class CustomerBlockSerializer(serializers.ModelSerializer):
         customer: CustomerUser = self.context['customer']
         if customer.is_banned:
             raise ValidationError(_('User is already banned'))
-        
+
         return attrs
 
     def save(self, admin, customer):
         CustomerModerate.objects.create(
-            reason=self.validated_data['reason'],
-            customer=customer,
-            admin=admin,
-            action='B'
+            reason=self.validated_data['reason'], customer=customer, admin=admin, action='B'
         )
         customer.is_banned = True
         customer.save()
@@ -55,15 +52,12 @@ class CustomerUnblockSerializer(serializers.ModelSerializer):
         customer: CustomerUser = self.context['customer']
         if not customer.is_banned:
             raise ValidationError(_('User is already active'))
-        
+
         return attrs
 
     def save(self, admin, customer):
         CustomerModerate.objects.create(
-            reason=self.validated_data['reason'],
-            customer=customer,
-            admin=admin,
-            action='U'
+            reason=self.validated_data['reason'], customer=customer, admin=admin, action='U'
         )
         customer.is_banned = False
         customer.save()

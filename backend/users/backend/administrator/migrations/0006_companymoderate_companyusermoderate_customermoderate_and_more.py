@@ -18,12 +18,41 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CompanyModerate',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('reason', models.CharField(max_length=255, validators=[django.core.validators.MinLengthValidator(3)], verbose_name='block reason')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
+                (
+                    'reason',
+                    models.CharField(
+                        max_length=255,
+                        validators=[django.core.validators.MinLengthValidator(3)],
+                        verbose_name='block reason',
+                    ),
+                ),
                 ('date', models.DateTimeField(auto_now_add=True, verbose_name='block time')),
-                ('action', models.CharField(choices=[('B', 'Block'), ('U', 'Unblock')], max_length=1)),
-                ('admin', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
-                ('company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='moderate_reasons', to='developer.company')),
+                (
+                    'action',
+                    models.CharField(choices=[('B', 'Block'), ('U', 'Unblock')], max_length=1),
+                ),
+                (
+                    'admin',
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    'company',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='moderate_reasons',
+                        to='developer.company',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Company moderate reason',
@@ -34,12 +63,41 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CompanyUserModerate',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('reason', models.CharField(max_length=255, validators=[django.core.validators.MinLengthValidator(3)], verbose_name='block reason')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
+                (
+                    'reason',
+                    models.CharField(
+                        max_length=255,
+                        validators=[django.core.validators.MinLengthValidator(3)],
+                        verbose_name='block reason',
+                    ),
+                ),
                 ('date', models.DateTimeField(auto_now_add=True, verbose_name='block time')),
-                ('action', models.CharField(choices=[('B', 'Block'), ('U', 'Unblock')], max_length=1)),
-                ('admin', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
-                ('company_user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='moderate_reasons', to='developer.companyuser')),
+                (
+                    'action',
+                    models.CharField(choices=[('B', 'Block'), ('U', 'Unblock')], max_length=1),
+                ),
+                (
+                    'admin',
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    'company_user',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='moderate_reasons',
+                        to='developer.companyuser',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Developer moderate reason',
@@ -50,12 +108,41 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CustomerModerate',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('reason', models.CharField(max_length=255, validators=[django.core.validators.MinLengthValidator(3)], verbose_name='block reason')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
+                (
+                    'reason',
+                    models.CharField(
+                        max_length=255,
+                        validators=[django.core.validators.MinLengthValidator(3)],
+                        verbose_name='block reason',
+                    ),
+                ),
                 ('date', models.DateTimeField(auto_now_add=True, verbose_name='block time')),
-                ('action', models.CharField(choices=[('B', 'Block'), ('U', 'Unblock')], max_length=1)),
-                ('admin', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='moderate_reasons', to='customer.customeruser')),
+                (
+                    'action',
+                    models.CharField(choices=[('B', 'Block'), ('U', 'Unblock')], max_length=1),
+                ),
+                (
+                    'admin',
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    'customer',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='moderate_reasons',
+                        to='customer.customeruser',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Customer moderate reason',

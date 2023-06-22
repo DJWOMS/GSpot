@@ -7,12 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from common.models import Country, ContactType
 
-from base.models import (
-    BaseAbstractUser,
-    BasePermission,
-    BaseGroup,
-    BasePermissionMixin
-)
+from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 
 
 class DeveloperPermission(BasePermission):

@@ -46,10 +46,7 @@ class CompanyBlockSerializer(serializers.ModelSerializer):
 
     def save(self, admin, company):
         CompanyModerate.objects.create(
-            reason=self.validated_data['reason'],
-            company=company,
-            admin=admin,
-            action='B'
+            reason=self.validated_data['reason'], company=company, admin=admin, action='B'
         )
         company.is_banned = True
         company.save()
@@ -69,10 +66,7 @@ class CompanyUnblockSerializer(serializers.ModelSerializer):
 
     def save(self, admin, company):
         CompanyModerate.objects.create(
-            reason=self.validated_data['reason'],
-            company=company,
-            admin=admin,
-            action='U'
+            reason=self.validated_data['reason'], company=company, admin=admin, action='U'
         )
         company.is_banned = False
         company.save()

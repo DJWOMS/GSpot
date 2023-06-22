@@ -46,9 +46,11 @@ class DevelopersViewTest(BaseTestView, TestCase):
     def test_02_unblock_developer(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         payload = {'reason': fake.text()}
+        self.user.is_banned = True
+        self.user.save()
         request = self.client.post(f"{self.url}{self.user.id}/unblock", payload, format='json')
         self.assertEqual(request.status_code, 201)
-        
+
     def test_03_delete(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
         request = self.client.delete(f'{self.url}{self.user.id}/')
