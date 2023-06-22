@@ -6,9 +6,7 @@ export const errorHandler = async (error: number) => {
   if (error === 401 && typeof window === 'undefined') {
     const authorized = await checkAuthClient()
 
-    if (authorized) {
-      return await fetchServerSide({ path: 'auth/refresh', method: 'POST' })
-    } else {
+    if (!authorized) {
       toast.error('Пользователь не авторизирован')
     }
   }
