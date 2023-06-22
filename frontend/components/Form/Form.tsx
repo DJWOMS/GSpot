@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message'
 import s from './Form.module.css'
 
 interface FieldType<T extends FieldValues> extends Pick<UseControllerProps<T>, 'name' | 'rules'> {
-  label: string
+  label?: string
   render: ControllerProps<T>['render']
 }
 
@@ -65,9 +65,11 @@ function Form<T extends FieldValues>({
       <div className={s.col}>
         {fields.map(({ label, ...field }, index) => (
           <div key={`item-${index}`}>
-            <label className={s.formLabel} htmlFor={field.name}>
-              {label}
-            </label>
+            {label && (
+              <label className={s.formLabel} htmlFor={field.name}>
+                {label}
+              </label>
+            )}
             <Controller<T> control={control} {...field} />
             <ErrorMessage
               errors={errors}

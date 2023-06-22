@@ -1,7 +1,6 @@
 'use client'
 
-import { SubmitHandler, useForm, Controller } from 'react-hook-form'
-import { ErrorMessage } from '@hookform/error-message'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { Input } from 'components/Form'
 import Form from 'components/Form/Form'
 import Section from 'components/Section'
@@ -19,10 +18,7 @@ interface FormProps {
 
 const ContactsPage = () => {
   const {
-    register,
-    control,
     reset,
-    handleSubmit,
     formState: { errors },
   } = useForm<FormProps>()
 
@@ -71,25 +67,21 @@ const ContactsPage = () => {
             fields={[
               {
                 name: 'name',
-                label: '',
                 rules: rules,
                 render: ({ field }) => <Input {...field} type="text" placeholder="Name" />,
               },
               {
                 name: 'email',
-                label: '',
                 rules: rulesForEmail,
                 render: ({ field }) => <Input {...field} type="text" placeholder="Email" />,
               },
               {
                 name: 'subject',
-                label: '',
                 rules: rules,
                 render: ({ field }) => <Input {...field} type="text" placeholder="Subject" />,
               },
               {
                 name: 'message',
-                label: '',
                 rules: rules,
                 render: ({ field }) => (
                   <textarea
