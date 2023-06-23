@@ -79,7 +79,10 @@ class CustomerListView(ModelViewSet):
             return CustomerRetrieveSerializer
         if self.action == 'list':
             return CustomerListSerializer
-        return None
+        if self.action == 'block':
+            return CustomerBlockSerializer
+        if self.action == 'unblock':
+            return CustomerUnblockSerializer
 
     @list_schema
     def list(self, request, *args, **kwargs):

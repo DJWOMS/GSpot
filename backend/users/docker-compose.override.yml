@@ -3,8 +3,6 @@ version: "3.9"
 services:
   web_users:
     restart: "always"
-    command:  >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     depends_on:

@@ -84,7 +84,10 @@ class DeveloperListView(ModelViewSet):
             return DeveloperRetrieveSerializer
         if self.action == 'list':
             return DeveloperListSerializer
-        return None
+        if self.action == 'block':
+            return DeveloperBlockSerializer
+        if self.action == 'unblock':
+            return DeveloperUnblockSerializer
 
     @list_schema
     def list(self, request, *args, **kwargs):
