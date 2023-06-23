@@ -1,4 +1,9 @@
-from .base import BASE_DIR, DEBUG, env
+from environs import Env
+
+from .base import BASE_DIR, DEBUG
+
+env = Env()
+env.read_env()
 
 ROLLBAR = {
     'access_token': env.str('ROLLBAR_ACCESS_TOKEN'),

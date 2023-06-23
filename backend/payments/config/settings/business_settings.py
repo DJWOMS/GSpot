@@ -21,10 +21,16 @@ INVOICE_ATTEMPTS_PER_PERIOD = 5
 class YookassaConfig(BaseSettings):
     SHOP_ACCOUNT_ID: int
     SHOP_SECRET_KEY: str
+    GATE_AWAY_ACCOUNT_ID: int
+    GATE_AWAY_SECRET_KEY: str
 
     def get_payment_settings(self):
         Configuration.account_id = self.SHOP_ACCOUNT_ID
         Configuration.secret_key = self.SHOP_SECRET_KEY
+
+    def get_payout_settings(self):
+        Configuration.account_id = self.GATE_AWAY_ACCOUNT_ID
+        Configuration.secret_key = self.GATE_AWAY_SECRET_KEY
 
 
 YOOKASSA_CONFIG = YookassaConfig()
