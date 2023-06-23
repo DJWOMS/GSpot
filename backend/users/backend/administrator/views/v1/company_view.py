@@ -85,7 +85,10 @@ class CompanyListView(ModelViewSet):
             return CompanyRetrieveSerializer
         if self.action == 'list':
             return CompanyListSerializer
-        return None
+        if self.action == 'block':
+            return CompanyBlockSerializer
+        if self.action == 'unblock':
+            return CompanyUnblockSerializer
 
     @list_schema
     def list(self, request, *args, **kwargs):
