@@ -28,6 +28,7 @@ RUN apt-get update && \
   # https://github.com/python-poetry/poetry
 RUN pip install "poetry-core==1.4.0" "poetry==$POETRY_VERSION" && poetry --version
 
+
 # Copy only requirements, to cache them in docker layer
 WORKDIR /app
 COPY ./pyproject.toml /app/

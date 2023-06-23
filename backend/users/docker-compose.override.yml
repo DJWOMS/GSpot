@@ -31,6 +31,8 @@ services:
     restart: always
     command: /bin/sh -c "redis-server --requirepass $$REDIS_PASSWORD"
     image: redis:7.0.5-alpine
+    env_file:
+      - .env.prod
     expose:
       - 6379
     healthcheck:
