@@ -81,6 +81,7 @@ const FilterGames: FC<Props> = ({ sorts, platforms, genres, prices }) => {
           title="Фильтры"
           onSubmit={onSubmitForm}
           btnText="Применить фильтр"
+          styleBtn={s.formBtn}
           updateValueCallback={updateValueCallback}
           config={{
             defaultValues: {
