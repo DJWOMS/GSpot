@@ -6,7 +6,7 @@ from developer.models import CompanyUser
 class DeveloperRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """send totp"""
-        return CompanyUser.objects.create_user(**validated_data, is_superuser=False)
+        return CompanyUser.objects.create_superuser(**validated_data, is_superuser=True)
 
     class Meta:
         model = CompanyUser
