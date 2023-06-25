@@ -1,10 +1,11 @@
 'use client'
 
 import { FC, useCallback, useEffect, useState } from 'react'
-import { IconHeart, IconShoppingCart } from '@tabler/icons-react'
+import { IconUser, IconHeart, IconShoppingCart, IconDoorExit } from '@tabler/icons-react'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
 import Container from 'components/Container'
+import checkAuthClient from 'features/auth/utils/checkAuthClient'
 import Image from 'next/image'
 import Link from 'next/link'
 import Search from '../Search/Search'
@@ -26,6 +27,13 @@ const Header: FC<HeaderProps> = ({ links }) => {
   const [, setScrolling] = useState(false)
   const [, setPreviousTop] = useState(0)
   const [currentTop, setCurrentTop] = useState(0)
+  const [isAuth, setIsAuth] = useState(false)
+
+  const checkAuth = async () => {
+    const auth = await checkAuthClient()
+    setIsAuth(auth)
+  }
+  checkAuth()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -107,9 +115,17 @@ const Header: FC<HeaderProps> = ({ links }) => {
                 ))}
               </ul>
               <div className={s.actions}>
-                <a className={s.loginBtn} href="/signin">
-                  <span>Авторизация</span>
-                </a>
+                {isAuth ? (
+                  <div className={s.loginBtn}>
+                    <IconUser />
+                    <span>JOHN DOE</span>
+                  </div>
+                ) : (
+                  <a className={s.loginBtn} href="/signin">
+                    <IconDoorExit />
+                    <span>Авторизация</span>
+                  </a>
+                )}
               </div>
             </nav>
           </div>
