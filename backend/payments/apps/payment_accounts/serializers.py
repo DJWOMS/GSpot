@@ -102,7 +102,7 @@ class BalanceSerializer(serializers.ModelSerializer):
 
 
 class PayoutHistorySerializer(serializers.ModelSerializer):
-    sum = MoneySerializer(source='amount')  # noqa: A003
+    sum = MoneySerializer(source='amount')  # noqa: VNE003, A003
     created_at = serializers.DateTimeField(source='created_date')
 
     class Meta:
