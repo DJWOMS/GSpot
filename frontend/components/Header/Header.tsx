@@ -29,11 +29,15 @@ const Header: FC<HeaderProps> = ({ links }) => {
   const [currentTop, setCurrentTop] = useState(0)
   const [isAuth, setIsAuth] = useState(false)
 
-  const checkAuth = async () => {
-    const auth = await checkAuthClient()
-    setIsAuth(auth)
-  }
-  checkAuth()
+  useEffect(() => {
+    const checkAuth = async () => {
+      if (typeof document !== 'undefined') {
+        const auth = await checkAuthClient()
+        setIsAuth(auth)
+      }
+    }
+    checkAuth()
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
