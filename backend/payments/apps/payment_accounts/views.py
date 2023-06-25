@@ -19,7 +19,7 @@ from .models import Account, Owner, PayoutData
 from .schemas import BalanceIncreaseData, CommissionCalculationInfo
 from .serializers import CreatePayoutDataSerializer
 from .services.balance_change import request_balance_deposit_url
-from .services.payment_commission import calculate_payment_with_commission
+from .services.payment_commission import PaymentCalculation
 from .services.payout import PayoutProcessor
 
 
@@ -32,10 +32,12 @@ class CalculatePaymentCommissionView(CreateAPIView, DRFtoDataClassMixin):
         except DifferentStructureError:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        amount_with_commission = calculate_payment_with_commission(
-            commission_data.payment_type,
-            commission_data.payment_amount,
-        )
+        amount_with_commission = PaymentCalculation(
+            payment_type=commission_data.payment_type,
+            payment_service=commission_data.payment_service,
+            payment_amount=commission_data.payment_amount,
+        ).calculate_payment_with_commission()
+
         return Response({'amount with commission': amount_with_commission})
 
 

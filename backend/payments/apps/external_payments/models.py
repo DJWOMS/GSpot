@@ -1,6 +1,5 @@
 from apps.base.fields import CommissionField
 from apps.payment_accounts.models import BalanceChange
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -34,3 +33,6 @@ class PaymentCommission(models.Model):
 
     def __str__(self):
         return f'Type of payment: {self.payment_type}' f'Commission amount: {self.commission}'
+
+    class Meta:
+        unique_together = ('payment_service_id', 'payment_type')

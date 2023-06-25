@@ -4,7 +4,7 @@ from apps.base.fields import CommissionField, MoneyField
 from apps.base.utils.classmethod import OperationType, add_change_balance_method
 from apps.payment_accounts.managers import BalanceChangeManager
 from django.core.exceptions import ValidationError
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.http import HttpResponseServerError
 from yookassa.domain.common import PaymentMethodType
