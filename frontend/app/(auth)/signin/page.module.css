@@ -1,0 +1,63 @@
+.sign {
+    &Content {
+        @apply flex min-h-screen w-full flex-col items-center justify-center py-[40px];
+    }
+
+    &Form {
+        @apply relative flex w-full max-w-[400px] flex-col items-stretch justify-center rounded-default
+        border border-main-60 bg-background px-[20px] py-[40px] sm:p-[50px];
+    }
+    &Alternative{
+        @apply flex flex-col items-center;
+    }
+
+    &Btn {
+        @apply my-[15px] flex h-[44px] w-full flex-col items-center justify-center rounded-default bg-acid
+        text-[13px] font-semibold uppercase tracking-[0.6px] text-white hover:bg-primary hover:text-white;
+    }
+
+    &Delimiter {
+        @apply text-[13px] leading-[100%] text-light;
+    }
+
+    &Text {
+        @apply mt-[15px] text-sm text-light;
+
+        a {
+            @apply relative text-primary hover:underline;
+        }
+    }
+
+    &Socials {
+        @apply my-[15px] flex w-full flex-row items-center justify-between;
+    }
+
+    &Social {
+        @apply flex h-[44px] flex-row items-center justify-center rounded-default bg-black;
+        width: calc(33% - 10px);
+
+        svg {
+            @apply h-auto stroke-white;
+            transition: 0.5s ease;
+            transition-property: stroke, fill;
+        }
+
+        &:hover {
+            @apply bg-white;
+
+            svg {
+                @apply stroke-black;
+            }
+        }
+
+        &FB {
+            background-color: #3b5999;
+        }
+        &GL {
+            background-color: #df4a32;
+        }
+        &TW {
+            background-color: #1da1f2;
+        }
+    }
+}
