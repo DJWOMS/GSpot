@@ -17,3 +17,8 @@ class MoneySerializer(serializers.Serializer):
         decimal_places=2,
     )
     currency = EnumField(choices=EnumCurrencies)
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['currency'] = instance.currency.code
+        return representation

@@ -18,5 +18,6 @@ urlpatterns = [
         views.OwnerView.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update'}),
     ),
     path('payout_data/', views.PayoutDataCreateView.as_view({'post': 'create'})),
+    path('payout_history/<uuid:user_uuid>/', views.PayoutHistoryView.as_view({'get': 'list'})),
     path('', include(router.urls)),
 ]
