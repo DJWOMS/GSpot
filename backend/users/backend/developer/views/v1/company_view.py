@@ -1,5 +1,4 @@
-from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
+from django.http import Http404
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -7,116 +6,88 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import (
-    AllowAny,
-)
 
-from common.permissions.permissons import CompanyOwnerPerm
-from developer.models import Company, CompanyUser
-from developer.serializers.serializers import (
+from common.permissions.permissons import CompanyOwnerPerm, IsCompanySuperUserPerm
+from developer.models import Company
+from developer.serializers.v1.company_serializer import (
     CompanySerializer,
+    CompanyCreateSerializer,
+)
+
+post_method_schema = swagger_auto_schema(
+    operation_description="Добавить компанию",
+    request_body=CompanyCreateSerializer,
+    tags=["Разработчик", "Административная панель разработчика"],
+    responses={
+        201: openapi.Response("Компания", CompanyCreateSerializer),
+        401: openapi.Response("Не аутентифицированный пользователь"),
+        403: openapi.Response("Отсутствуют права на просмотр"),
+    },
+)
+
+put_method_schema = swagger_auto_schema(
+    operation_description="Изменить данные компании",
+    request_body=CompanySerializer,
+    tags=["Разработчик", "Административная панель разработчика"],
+    responses={
+        200: openapi.Response("Компания", CompanySerializer),
+        400: openapi.Response("Невалидные данные"),
+        403: openapi.Response("Отсутствуют права"),
+        404: openapi.Response("Компания не найдена"),
+    },
+)
+
+delete_method_schema = swagger_auto_schema(
+    operation_description="Удалить компанию",
+    tags=["Разработчик", "Административная панель разработчика"],
+    responses={
+        204: openapi.Response("Пользователь удалён"),
+        403: openapi.Response("Отсутствуют права на удаление"),
+        404: openapi.Response("Компания не найден"),
+    },
 )
 
 
-class CompanyAPIView(APIView):
-    http_method_names = ["get", "post", "put", "delete"]
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
-    permission_classes = (CompanyOwnerPerm,)
+class CompanyListAPIView(APIView):
+    http_method_names = ["post"]
+    permission_classes = (IsCompanySuperUserPerm,)
 
-    def get_permissions(self):
-        if self.request.method.lower() == "get":
-            permission_classes = [AllowAny]
-        else:
-            permission_classes = self.permission_classes
-        return [permission() for permission in permission_classes]
-
-    @method_decorator(
-        name="get",
-        decorator=swagger_auto_schema(
-            operation_description="Просмотр списка/отдельной компании",
-            tags=["Разработчик", "Административная панель разработчика"],
-            responses={
-                200: openapi.Response("Компания разработчика", CompanySerializer),
-                404: openapi.Response("Компания не найдена"),
-            },
-        ),
-    )
-    def get(self, request, title=None, format=None):
-        print(request.method.lower())
-        if title:
-            company = Company.objects.get(title=title)
-            serializer = self.serializer_class(company, many=False)
-            return Response(serializer.data)
-
-        companies = Company.objects.all()
-        serializer = self.serializer_class(companies, many=True)
-        return Response(serializer.data)
-
-    @method_decorator(
-        name="post",
-        decorator=swagger_auto_schema(
-            operation_description="Добавить компанию",
-            request_body=CompanySerializer,
-            tags=["Разработчик", "Административная панель разработчика"],
-            responses={
-                201: openapi.Response("Компания", CompanySerializer),
-                400: openapi.Response("Невалидные данные"),
-                403: openapi.Response("Отсутствуют права на создание компании"),
-            },
-        ),
-    )
+    @post_method_schema
     def post(self, request, *args, **kwargs):
-        user = request.user
-        if not isinstance(user, CompanyUser):
-            return Response(
-                {"error": "You are not authorized to edit this company."},
-                status=status.HTTP_403_FORBIDDEN,
-            )
-        data = request.data.copy()
-        data["created_by"] = user.id
-
-        serializer = self.serializer_class(data=data)
+        serializer = CompanyCreateSerializer(
+            data=request.data, context={"request": request}
+        )
 
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    @method_decorator(
-        name="update",
-        decorator=swagger_auto_schema(
-            operation_description="Изменить данные компании",
-            tags=["Разработчик", "Административная панель разработчика"],
-            responses={
-                200: openapi.Response("Компания", CompanySerializer),
-                400: openapi.Response("Невалидные данные"),
-                403: openapi.Response("Отсутствуют права"),
-                404: openapi.Response("Компания не найдена"),
-            },
-        ),
-    )
-    def put(self, request, title, format=None):
-        company = get_object_or_404(self.queryset, title=title)
-        if company.created_by != request.user:
-            return Response(
-                {"error": "You are not authorized to edit this company."},
-                status=status.HTTP_403_FORBIDDEN,
-            )
 
-        serializer = self.serializer_class(company, data=request.data, partial=True)
+class CompanyDetailAPIView(APIView):
+    http_method_names = ["put", "delete"]
+    permission_classes = (CompanyOwnerPerm,)
+
+    def get_object(self, pk):
+        try:
+            return Company.objects.get(pk=pk)
+        except Company.DoesNotExist:
+            raise Http404
+
+    @put_method_schema
+    def put(self, request, pk, format=None):
+        company = self.get_object(pk=pk)
+
+        serializer = CompanySerializer(company, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
         return Response(serializer.data)
 
-    def delete(self, request, title, format=None):
-        company = get_object_or_404(Company, title=title)
-        if company.created_by != request.user:
-            return Response(
-                {"error": "You are not authorized to delete this company."},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
+    @delete_method_schema
+    def delete(self, request, pk, format=None):
+        company = self.get_object(pk=pk)
+
         company.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
