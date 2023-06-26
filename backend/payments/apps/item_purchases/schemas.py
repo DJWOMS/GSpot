@@ -25,6 +25,7 @@ class PurchaseItemsData(PaymentServiceInfo):
 
 
 @dataclass
-class RefundData:
-    user_uuid: UUID
+class ItemPurchaseData:
+    user_uuid_from: UUID
+    user_uuid_to: UUID
     item_uuid: UUID

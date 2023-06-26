@@ -21,13 +21,7 @@ class YookassaPaymentAcceptanceView(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         yookassa_object = request.data.get('object')
-        if yookassa_object is None:
-            rollbar.report_message(
-                'Response not from yookassa.',
-                'warning',
-            )
-            return Response(404)
-        if not check_yookassa_response(yookassa_object):
+        if yookassa_object is None or not check_yookassa_response(yookassa_object):
             rollbar.report_message(
                 'Response not from yookassa.',
                 'warning',

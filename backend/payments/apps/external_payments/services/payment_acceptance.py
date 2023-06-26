@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 from apps.base.schemas import PaymentServices, ResponseParsedData
-from apps.base.utils import change_balance
+from apps.base.utils.change_balance import accept_balance_change
 
 from ..models import BalanceServiceMap, PaymentService
 from .invoice_execution import execute_invoice_operations
@@ -31,13 +31,13 @@ def add_to_db_payout_info(parsed_data: ResponseParsedData, income_data):
     payment_service, _ = PaymentService.objects.get_or_create(
         name=PaymentServices.yookassa.value,
     )
-    balance_change = change_balance.edit_change_balance(
+    accept_balance_change(
         balance_change_object=parsed_data.balance_object,
         amount=Decimal(parsed_data.income_amount),
     )
     BalanceServiceMap.objects.create(
         service_id=payment_service,
         payment_id=income_data.object_.id_,
-        balance_change_id=balance_change,
+        balance_change_id=parsed_data.balance_object,
         operation_type=BalanceServiceMap.OperationType.PAYOUT,
     )
