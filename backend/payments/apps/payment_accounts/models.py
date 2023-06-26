@@ -97,7 +97,12 @@ class Owner(models.Model):
     )
     frozen_time = models.DurationField()
     gift_time = models.DurationField()
-    payout_day_of_month = models.IntegerField()
+    payout_day_of_month = models.IntegerField(
+        validators=(
+            MinValueValidator(1, message='The value must be at least 1'),
+            MaxValueValidator(28, message='The value should be no more than 28'),
+        ),
+    )
 
     @classmethod
     def deposit_revenue(cls, pk, amount) -> Owner | HttpResponseServerError:
