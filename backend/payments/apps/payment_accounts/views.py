@@ -23,10 +23,10 @@ from .services.payment_commission import calculate_payment_with_commission
 from .services.payout import PayoutProcessor
 
 
-class CalculatePaymentCommissionView(CreateAPIView, DRFtoDataClassMixin):
+class CalculatePaymentCommissionView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.PaymentCommissionSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         try:
             commission_data = self.convert_data(request, CommissionCalculationInfo)
         except DifferentStructureError:
@@ -39,10 +39,10 @@ class CalculatePaymentCommissionView(CreateAPIView, DRFtoDataClassMixin):
         return Response({'amount with commission': amount_with_commission})
 
 
-class BalanceIncreaseView(CreateAPIView, DRFtoDataClassMixin):
+class BalanceIncreaseView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.BalanceIncreaseSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         try:
             balance_increase_data = self.convert_data(request, BalanceIncreaseData)
         except DifferentStructureError:
@@ -55,7 +55,7 @@ class BalanceIncreaseView(CreateAPIView, DRFtoDataClassMixin):
         )
 
 
-class UserAccountAPIView(CreateAPIView, DRFtoDataClassMixin):
+class UserAccountAPIView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.AccountSerializer
 
     def create(self, request, *args, **kwargs):
@@ -65,8 +65,8 @@ class UserAccountAPIView(CreateAPIView, DRFtoDataClassMixin):
                 {'error': 'A user with this UUID already exists'},
                 status=status.HTTP_409_CONFLICT,
             )
-        return super().create(request, *args, **kwargs)
-
+        # return super().create(request, *args, **kwargs)
+        return Response({"user_uuid": uuid})
 
 class PayoutView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.PayoutSerializer

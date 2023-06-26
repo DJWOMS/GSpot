@@ -16,10 +16,10 @@ from .services.check_yookassa_response import check_yookassa_response
 from .services.payment_acceptance import proceed_payment_response
 
 
-class YookassaPaymentAcceptanceView(CreateAPIView):
+class YookassaPaymentAcceptanceView(viewsets.ViewSet):
     serializer_class = YookassaPaymentAcceptanceSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         yookassa_object = request.data.get('object')
         if yookassa_object is None:
             rollbar.report_message(
