@@ -9,7 +9,7 @@ from developer.views.v1.employee_crud import (
     DeveloperEmployeeListView,
     DeveloperEmployeeDetailView,
 )
-from developer.views.v1.company_view import CompanyAPIView
+from developer.views.v1.company_view import CompanyListAPIView, CompanyDetailAPIView
 
 router = routers.DefaultRouter()
 router.register(r"group", DeveloperGroupViewSet, basename="developer_group")
@@ -46,8 +46,8 @@ generic_routes = [
 auth_routes = [path("login/", DeveloperAuthView.as_view(), name="developer_login")]
 
 company_urls = [
-    path("companies/", CompanyAPIView.as_view(), name="companies"),
-    path("companies/<str:title>/", CompanyAPIView.as_view(), name="company_detail"),
+    path("company/", CompanyListAPIView.as_view(), name="company"),
+    path("company/<uuid:pk>/", CompanyDetailAPIView.as_view(), name="company_detail"),
 ]
 
 urlpatterns += account_router
