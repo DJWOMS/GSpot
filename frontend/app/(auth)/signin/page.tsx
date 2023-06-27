@@ -22,18 +22,14 @@ const SignIn = () => {
     formState: { errors },
   } = useForm<FormProps>()
   const onSubmit: SubmitHandler<FormProps> = async (data) => {
-    const response = await fetchServerSide<{ status: 'authenticated' | 'Invalid credentials' }>({
+    const response = await fetchServerSide({
       method: 'POST',
       path: '/auth/access',
       body: JSON.stringify(data),
     })
     if (response) {
-      if (response.status !== 'authenticated') {
-        alert(response.status)
-      } else {
-        reset()
-        router.push('/profile/purchases')
-      }
+      reset()
+      router.push('/profile/purchases')
     }
   }
   const rules = {
