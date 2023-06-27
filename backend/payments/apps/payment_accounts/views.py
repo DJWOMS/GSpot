@@ -6,7 +6,6 @@ from django.forms import model_to_dict
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, status, viewsets
-from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
 from . import serializers
@@ -65,8 +64,8 @@ class UserAccountAPIView(viewsets.ViewSet, DRFtoDataClassMixin):
                 {'error': 'A user with this UUID already exists'},
                 status=status.HTTP_409_CONFLICT,
             )
-        # return super().create(request, *args, **kwargs)
-        return Response({"user_uuid": uuid})
+        return Response({'user_uuid': uuid})
+
 
 class PayoutView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.PayoutSerializer
