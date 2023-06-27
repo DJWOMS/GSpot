@@ -25,7 +25,7 @@ class PaymentTypes(enum.Enum):
 
 @dataclass(kw_only=True)
 class PaymentServiceInfo:
-    payment_service: PaymentServices
+    payment_service: PaymentServices.yookassa
     payment_type: PaymentTypes | None = None
 
 

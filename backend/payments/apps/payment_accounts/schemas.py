@@ -4,7 +4,6 @@ from uuid import UUID
 
 from apps.base.schemas import URL, PaymentServiceInfo
 
-
 @dataclass(kw_only=True)
 class CommissionCalculationInfo(PaymentServiceInfo):
     payment_amount: Decimal
