@@ -30,8 +30,10 @@ const Header: FC<HeaderProps> = ({ links }) => {
   const [isAuth, setIsAuth] = useState(false)
 
   const checkAuth = async () => {
-    const auth = await checkAuthClient()
-    setIsAuth(auth)
+    if (typeof document !== 'undefined') {
+      const auth = await checkAuthClient()
+      setIsAuth(auth)
+    }
   }
   checkAuth()
 
