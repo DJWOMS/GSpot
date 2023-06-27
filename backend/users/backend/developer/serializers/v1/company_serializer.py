@@ -1,10 +1,14 @@
 from rest_framework import serializers
-from developer.models import CompanyUser, Company
+from developer.models import Company
 from rest_framework.exceptions import ValidationError
 
 
 class CompanyCreateSerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = Company
+        fields = ("title", "description", "contact", "email", "created_by", "image")
 
     def validate(self, attrs):
         user = self.context["request"].user
@@ -12,13 +16,15 @@ class CompanyCreateSerializer(serializers.ModelSerializer):
             raise ValidationError("User can create only one company")
         return attrs
 
+
+class CompanyUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = ("title", "description", "contact", "email", "created_by", "image")
+        fields = ("title", "description", "contact", "email", "image")
+        read_only_fields = ("created_by",)
 
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = ("title", "description", "contact", "email", "created_by", "image")
-        read_only_fields = ("created_by",)
