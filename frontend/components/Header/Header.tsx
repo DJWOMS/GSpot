@@ -1,7 +1,7 @@
 'use client'
 
 import { FC, useCallback, useEffect, useState } from 'react'
-import { IconHeart, IconShoppingCart } from '@tabler/icons-react'
+import { IconUser, IconHeart, IconShoppingCart, IconDoorExit } from '@tabler/icons-react'
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
 import Container from 'components/Container'
@@ -16,12 +16,13 @@ type HeaderLink = {
 }
 interface HeaderProps {
   links: HeaderLink[]
+  isAuthenticated: boolean
 }
 
 const scrollDelta = 10
 const scrollOffset = 140
 
-const Header: FC<HeaderProps> = ({ links }) => {
+const Header: FC<HeaderProps> = ({ links, isAuthenticated }) => {
   const [hideHeader, setHideHeader] = useState(false)
   const [, setScrolling] = useState(false)
   const [, setPreviousTop] = useState(0)
@@ -107,9 +108,17 @@ const Header: FC<HeaderProps> = ({ links }) => {
                 ))}
               </ul>
               <div className={s.actions}>
-                <a className={s.loginBtn} href="/signin">
-                  <span>Авторизация</span>
-                </a>
+                {isAuthenticated ? (
+                  <div className={s.loginBtn}>
+                    <IconUser />
+                    <span>JOHN DOE</span>
+                  </div>
+                ) : (
+                  <a className={s.loginBtn} href="/signin">
+                    <IconDoorExit />
+                    <span>Авторизация</span>
+                  </a>
+                )}
               </div>
             </nav>
           </div>
