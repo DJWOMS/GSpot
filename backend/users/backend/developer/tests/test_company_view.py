@@ -120,9 +120,7 @@ class CompanyTestAPI(BaseTestView, TestCase):
             "description": "We are a company that does things.",
             "email": "info@mycompany.com",
         }
-        self.client.credentials(
-            HTTP_AUTHORIZATION=self.get_token(self.superuser_developer)
-        )
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.superuser_developer))
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Company.objects.count(), 1)
@@ -133,9 +131,7 @@ class CompanyTestAPI(BaseTestView, TestCase):
             "description": "We are a company that does things.",
             "email": "info@mycompany.com",
         }
-        self.client.credentials(
-            HTTP_AUTHORIZATION=self.get_token(self.superuser_developer)
-        )
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.superuser_developer))
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 

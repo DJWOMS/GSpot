@@ -70,9 +70,7 @@ class CompanyAPIView(APIView):
 
     @post_method_schema
     def post(self, request, *args, **kwargs):
-        serializer = CompanyCreateSerializer(
-            data=request.data, context={"request": request}
-        )
+        serializer = CompanyCreateSerializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
