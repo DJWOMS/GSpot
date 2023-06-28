@@ -5,7 +5,6 @@ import { IconUser, IconHeart, IconShoppingCart, IconDoorExit } from '@tabler/ico
 import LogoPNG from 'assets/img/logo.png'
 import cn from 'classnames'
 import Container from 'components/Container'
-import checkAuthClient from 'features/auth/utils/checkAuthClient'
 import Image from 'next/image'
 import Link from 'next/link'
 import Search from '../Search/Search'
@@ -17,25 +16,17 @@ type HeaderLink = {
 }
 interface HeaderProps {
   links: HeaderLink[]
+  isAuthenticated: boolean
 }
 
 const scrollDelta = 10
 const scrollOffset = 140
 
-const Header: FC<HeaderProps> = ({ links }) => {
+const Header: FC<HeaderProps> = ({ links, isAuthenticated }) => {
   const [hideHeader, setHideHeader] = useState(false)
   const [, setScrolling] = useState(false)
   const [, setPreviousTop] = useState(0)
   const [currentTop, setCurrentTop] = useState(0)
-  const [isAuth, setIsAuth] = useState(false)
-
-  const checkAuth = async () => {
-    if (typeof document !== 'undefined') {
-      const auth = await checkAuthClient()
-      setIsAuth(auth)
-    }
-  }
-  checkAuth()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -117,7 +108,7 @@ const Header: FC<HeaderProps> = ({ links }) => {
                 ))}
               </ul>
               <div className={s.actions}>
-                {isAuth ? (
+                {isAuthenticated ? (
                   <div className={s.loginBtn}>
                     <IconUser />
                     <span>JOHN DOE</span>
