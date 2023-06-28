@@ -2,10 +2,6 @@ import os
 
 AUTH_USER_MODEL = 'administrator.Admin'
 
-AUTHENTICATION_BACKENDS = [
-    "common.auth_backends.AdminBackend",
-]
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
