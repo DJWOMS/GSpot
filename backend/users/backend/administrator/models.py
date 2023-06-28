@@ -123,6 +123,7 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
         related_name="admin_set",
         related_query_name="admin",
     )
+    is_staff = models.BooleanField(default=True)
 
     @property
     def permissions_codename(self) -> list[str]:
