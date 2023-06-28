@@ -50,9 +50,9 @@ delete_method_schema = swagger_auto_schema(
     operation_description="Удалить компанию",
     tags=["Разработчик", "Административная панель разработчика"],
     responses={
-        204: openapi.Response("Пользователь удалён"),
+        204: openapi.Response("Компания удалена"),
         403: openapi.Response("Отсутствуют права на удаление"),
-        404: openapi.Response("Компания не найден"),
+        404: openapi.Response("Компания не создана"),
     },
 )
 
@@ -75,25 +75,20 @@ class CompanyAPIView(APIView):
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @put_method_schema
     def put(self, request, format=None):
         user = request.user
         company = get_object_or_404(Company, created_by=user)
-
         serializer = CompanyUpdateSerializer(company, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
         return Response(serializer.data)
 
     @delete_method_schema
     def delete(self, request, format=None):
         user = request.user
-
         company = get_object_or_404(Company, created_by=user)
         company.delete()
-
         return Response(status=status.HTTP_204_NO_CONTENT)
