@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.contrib import admin
 
 from .yasg import urlpatterns as yasg_doc
 
@@ -10,6 +11,7 @@ v1 = [
 ]
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('api/v1/', include(v1)),
 ]
 
