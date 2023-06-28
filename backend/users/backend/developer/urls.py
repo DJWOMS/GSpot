@@ -13,9 +13,7 @@ from developer.views.v1.company_view import CompanyAPIView
 
 router = routers.DefaultRouter()
 router.register(r"group", DeveloperGroupViewSet, basename="developer_group")
-router.register(
-    r"permission", DeveloperPermissionViewSet, basename="developer_permission"
-)
+router.register(r"permission", DeveloperPermissionViewSet, basename="developer_permission")
 
 
 urlpatterns = router.urls
