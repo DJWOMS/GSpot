@@ -19,50 +19,47 @@ account_router = [
         ),
         name="customer-user-account",
     ),
-    path(
-        "customer/me/change-password",
-        account_views.ChangePasswordViewSet.as_view({"post": "create"}),
-        name="customer-user-change-password",
-    ),
 ]
 
 auth_routes = [path("login/", CustomerAuthView.as_view(), name="customer_login")]
 
 friends = [
-    path('customers/', AddFriendsView.as_view({'get': 'list'}), name='customers-list'),
+    path("customers/", AddFriendsView.as_view({"get": "list"}), name="customers-list"),
     path(
-        'customers/<uuid:user_id>/',
-        AddFriendsView.as_view({'get': 'retrieve'}),
-        name='customers-detail',
+        "customers/<uuid:user_id>/",
+        AddFriendsView.as_view({"get": "retrieve"}),
+        name="customers-detail",
     ),
     path(
-        'customers/<uuid:user_id>/add-friends/',
-        AddFriendsView.as_view({'post': 'add_friend'}),
-        name='customers-add_friend',
+        "customers/<uuid:user_id>/add-friends/",
+        AddFriendsView.as_view({"post": "add_friend"}),
+        name="customers-add_friend",
     ),
     path(
-        'friends_requests/',
-        customer_friend_view.ListRetrieveAcceptRejectAddFriendsView.as_view({'get': 'list'}),
-        name='list-friends-requests',
-    ),
-    path(
-        'friends_requests/<uuid:user_id>/ ',
+        "friends_requests/",
         customer_friend_view.ListRetrieveAcceptRejectAddFriendsView.as_view(
-            {'get': 'retrieve', 'post': 'create', 'delete': 'destroy'}
+            {"get": "list"}
         ),
-        name='retrieve-accept-reject-friend',
+        name="list-friends-requests",
     ),
     path(
-        'friends/',
-        customer_friend_view.ListRetrieveDestroyFriendsView.as_view({'get': 'list'}),
-        name='my-friends',
+        "friends_requests/<uuid:user_id>/ ",
+        customer_friend_view.ListRetrieveAcceptRejectAddFriendsView.as_view(
+            {"get": "retrieve", "post": "create", "delete": "destroy"}
+        ),
+        name="retrieve-accept-reject-friend",
     ),
     path(
-        'friends/<uuid:user_id>/',
+        "friends/",
+        customer_friend_view.ListRetrieveDestroyFriendsView.as_view({"get": "list"}),
+        name="my-friends",
+    ),
+    path(
+        "friends/<uuid:user_id>/",
         customer_friend_view.ListRetrieveDestroyFriendsView.as_view(
-            {'get': 'retrieve', 'delete': 'destroy'}
+            {"get": "retrieve", "delete": "destroy"}
         ),
-        name='retrieve-destroy-friend',
+        name="retrieve-destroy-friend",
     ),
 ]
 

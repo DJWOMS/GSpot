@@ -28,11 +28,6 @@ account_router = [
         ),
         name="administrator-user-account",
     ),
-    path(
-        "administrator/me/change-password",
-        account_views.ChangePasswordViewSet.as_view({"post": "create"}),
-        name="admininstrator-user-change-password",
-    ),
 ]
 
 generic_urls = [
@@ -50,58 +45,64 @@ generic_urls = [
 ]
 
 customer_urls = [
-    path("customers/", CustomerListView.as_view({'get': 'list'}), name="admin_customers"),
+    path(
+        "customers/", CustomerListView.as_view({"get": "list"}), name="admin_customers"
+    ),
     path(
         "customers/<uuid:pk>/",
-        CustomerListView.as_view({'get': 'retrieve', 'delete': 'destroy'}),
+        CustomerListView.as_view({"get": "retrieve", "delete": "destroy"}),
         name="admin_customers_remove",
     ),
     path(
         "customers/<uuid:pk>/block",
-        CustomerListView.as_view({'post': 'block'}),
+        CustomerListView.as_view({"post": "block"}),
         name="admin_customers_block",
     ),
     path(
         "customers/<uuid:pk>/unblock",
-        CustomerListView.as_view({'post': 'unblock'}),
+        CustomerListView.as_view({"post": "unblock"}),
         name="admin_customers_unblock",
     ),
 ]
 
 developer_urls = [
-    path("developers/", DeveloperListView.as_view({'get': 'list'}), name="admin_developers"),
+    path(
+        "developers/",
+        DeveloperListView.as_view({"get": "list"}),
+        name="admin_developers",
+    ),
     path(
         "developers/<uuid:pk>/",
-        DeveloperListView.as_view({'get': 'retrieve', 'delete': 'destroy'}),
+        DeveloperListView.as_view({"get": "retrieve", "delete": "destroy"}),
         name="admin_developers_remove",
     ),
     path(
         "developers/<uuid:pk>/block",
-        DeveloperListView.as_view({'post': 'block'}),
+        DeveloperListView.as_view({"post": "block"}),
         name="admin_developers_block",
     ),
     path(
         "developers/<uuid:pk>/unblock",
-        DeveloperListView.as_view({'post': 'unblock'}),
+        DeveloperListView.as_view({"post": "unblock"}),
         name="admin_developers_unblock",
     ),
 ]
 
 company_urls = [
-    path("company/", CompanyListView.as_view({'get': 'list'}), name="admin_company"),
+    path("company/", CompanyListView.as_view({"get": "list"}), name="admin_company"),
     path(
         "company/<uuid:pk>/",
-        CompanyListView.as_view({'get': 'retrieve', 'delete': 'destroy'}),
+        CompanyListView.as_view({"get": "retrieve", "delete": "destroy"}),
         name="admin_company_remove",
     ),
     path(
         "company/<uuid:pk>/block",
-        CompanyListView.as_view({'post': 'block'}),
+        CompanyListView.as_view({"post": "block"}),
         name="admin_company_block",
     ),
     path(
         "company/<uuid:pk>/unblock",
-        CompanyListView.as_view({'post': 'unblock'}),
+        CompanyListView.as_view({"post": "unblock"}),
         name="admin_company_unblock",
     ),
 ]

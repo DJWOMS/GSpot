@@ -26,11 +26,6 @@ account_router = [
         ),
         name="developer-user-account",
     ),
-    path(
-        "developer/me/change-password",
-        account_views.ChangePasswordViewSet.as_view({"post": "create"}),
-        name="developer-user-change-password",
-    ),
 ]
 
 generic_routes = [
