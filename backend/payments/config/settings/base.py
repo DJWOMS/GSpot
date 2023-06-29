@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'drf_spectacular',
     'rest_framework',
+    # 'django_celery_beat',
     # local
     'apps.payment_accounts',
     'apps.item_purchases',

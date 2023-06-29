@@ -4,6 +4,7 @@ from decimal import Decimal
 from pydantic import BaseSettings
 from yookassa import Configuration
 
+
 MAX_BALANCE_DIGITS = 11
 DEFAULT_CURRENCY = 'RUB'
 SUPPORTED_CURRENCIES = (DEFAULT_CURRENCY,)
