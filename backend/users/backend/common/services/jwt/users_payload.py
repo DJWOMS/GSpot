@@ -26,7 +26,11 @@ class AdminPayload(BasePayload, CommonUserPayload):
     def generate_payload(self):
         common_payload = self.get_common_payload()
         admin_payload = {
+            'email': self.user.email,
+            'phone': self.user.phone,
             'country': self.user.country,
+            'created_at': str(self.user.created_at),
+            'update_at': str(self.user.update_at),
             'is_superuser': self.user.is_superuser,
             'groups': list(self.user.groups.all()),
             'user_permissions': list(self.user.user_permissions.all()),
@@ -44,13 +48,18 @@ class DeveloperPayload(BasePayload, CommonUserPayload):
 
     def generate_payload(self):
         common_payload = self.get_common_payload()
+        company = self.user.company if self.user.company is not None else {}
         developer_payload = {
+            'email': self.user.email,
+            'phone': self.user.phone,
             'country': self.user.country,
+            'created_at': str(self.user.created_at),
+            'update_at': str(self.user.update_at),
             'is_active': self.user.is_active,
             'is_superuser': self.user.is_superuser,
             'groups': list(self.user.groups.all()),
             'user_permissions': list(self.user.user_permissions.all()),
-            'company': self.user.company,
+            'company': company,
         }
         payload = common_payload | developer_payload
 
@@ -65,6 +74,10 @@ class CustomerPayload(BasePayload, CommonUserPayload):
         common_payload = self.get_common_payload()
         common_payload['age'] = self.user.age
         customer_payload = {
+            'email': self.user.email,
+            'phone': self.user.phone,
+            'created_at': str(self.user.created_at),
+            'update_at': str(self.user.update_at),
             'friends': list(self.user.friends.all()),
             'birthday': str(self.user.birthday),
             'is_active': self.user.is_active,

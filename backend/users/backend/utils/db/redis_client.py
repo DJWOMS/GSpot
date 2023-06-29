@@ -8,10 +8,9 @@ class RedisClient:
     _prefix = 'basic'
     _ttl = 300
 
-    def __init__(self, db: int):
-        host = redis_config.REDIS_HOST
-        port = redis_config.REDIS_PORT
-        password = redis_config.REDIS_PASSWORD
+    def __init__(self, host: str or tuple, port: int or tuple, db: int, password: str):
+        host = host if type(host) is not tuple else host[0]
+        port = port if type(port) is not tuple else port[0]
         self.__redis_client = redis.StrictRedis(host=host, port=port, db=db, password=password)
 
     @property
@@ -42,28 +41,20 @@ class RedisAccessClient(RedisClient):
     _prefix = redis_config.REDIS_ACCESS_PREFIX
     _ttl = int(os.environ["ACCESS_TOKEN_LIFETIME"])
 
-    def __init__(self, db: int = None):
-        db = redis_config.REDIS_ACCESS_DB if db is None else db
-        super().__init__(db)
+    def __init__(self, host: str, port: int, db: int, password: str):
+        super().__init__(host=host, port=port, db=db, password=password)
 
 
 class RedisRefreshClient(RedisClient):
     _prefix = redis_config.REDIS_REFRESH_PREFIX
     _ttl = int(os.environ["REFRESH_TOKEN_LIFETIME"])
 
-    def __init__(self, db: int = None):
-        db = redis_config.REDIS_REFRESH_DB if db is None else db
-        super().__init__(db)
+    def __init__(self, host: str, port: int, db: int, password: str):
+        super().__init__(host=host, port=port, db=db, password=password)
 
 
 class RedisTotpClient(RedisClient):
     _prefix = redis_config.REDIS_TOTP_PREFIX
 
-    def __init__(self, db: int = None):
-        db = redis_config.REDIS_TOTP_DB if db is None else db
-        super().__init__(db)
-
-
-redis_access_client = RedisAccessClient()
-redis_refresh_client = RedisRefreshClient()
-redis_totp_client = RedisTotpClient()
+    def __init__(self, host: str, port: int, db: int, password: str):
+        super().__init__(host=host, port=port, db=db, password=password)
