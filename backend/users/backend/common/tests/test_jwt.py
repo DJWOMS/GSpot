@@ -4,6 +4,7 @@ from typing import Type
 from django.test import TestCase
 from django.utils import timezone
 
+from config.settings import redis_config
 from administrator.models import Admin
 from base.exceptions import UserBanned, UserInActive
 from base.models import BaseAbstractUser
@@ -11,6 +12,7 @@ from common.services.jwt.exceptions import PayloadError, TokenInvalid, TokenExpi
 from common.services.jwt.token import Token
 from customer.models import CustomerUser
 from developer.models import CompanyUser
+from utils.db.redis_client import RedisAccessClient
 
 
 class TestTokenJWT(TestCase):
@@ -19,6 +21,10 @@ class TestTokenJWT(TestCase):
         self.developer = self.create_user(CompanyUser)
         self.administrator = self.create_user(Admin)
         self.customer = self.create_user(CustomerUser)
+        self.redis_access_client = RedisAccessClient(host=redis_config.REDIS_HOST,
+                                                     port=redis_config.REDIS_PORT,
+                                                     db=redis_config.REDIS_ACCESS_DB,
+                                                     password=redis_config.REDIS_PASSWORD)
 
     @staticmethod
     def create_user(user_model: Type[BaseAbstractUser]) -> Type[BaseAbstractUser]:
@@ -80,7 +86,6 @@ class TestTokenJWT(TestCase):
 
     def test_create_tokens_for_inactive_admin_user(self):
         self.administrator.is_active = False
-        print('inactive', self.administrator.is_active)
         self.assertRaises(UserInActive, self.token.generate_tokens_for_user, self.administrator)
 
     def test_create_tokens_for_inactive_developer_user(self):
