@@ -1,4 +1,4 @@
-from base.views import PersonalAccount
+from base.views import PersonalAccount, PartialUpdateMixin
 from customer.serializers import account_serializers
 from customer.models import CustomerUser
 from common.permissions.permissons import IsCustomerScopeUserPerm
@@ -49,14 +49,14 @@ from rest_framework.viewsets import ModelViewSet
         },
     ),
 )
-class AccountViewSet(ModelViewSet):
+class AccountViewSet(PartialUpdateMixin, ModelViewSet):
     model = CustomerUser
     permission_classes = (IsCustomerScopeUserPerm,)
-    http_method_names = ('get', 'patch', 'delete',)
+    http_method_names = ('get', 'put', 'delete',)
 
     serializer_map = {
         'GET': account_serializers.AccountRetrieveSerializers,
-        'PATCH': account_serializers.AccountUpdateSerializers,
+        'PUT': account_serializers.AccountUpdateSerializers,
     }
 
     def get_serializer_class(self):

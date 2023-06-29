@@ -1,4 +1,4 @@
-from base.views import PersonalAccount
+from base.views import PersonalAccount, PartialUpdateMixin
 from developer.models import CompanyUser
 from developer.serializers import account_serializers
 from common.permissions.permissons import IsCompanyScopeUserPerm
@@ -51,14 +51,14 @@ from rest_framework.exceptions import NotFound
         },
     ),
 )
-class AccountViewSet(ModelViewSet):
+class AccountViewSet(PartialUpdateMixin, ModelViewSet):
     model = CompanyUser
     permission_classes = (IsCompanyScopeUserPerm,)
-    http_method_names = ('get', 'patch', 'delete',)
+    http_method_names = ('get', 'put', 'delete',)
 
     serializer_map = {
         'GET': account_serializers.AccountRetrieveSerializers,
-        'PATCH': account_serializers.AccountUpdateSerializers,
+        'PUT': account_serializers.AccountUpdateSerializers,
     }
 
     def get_serializer_class(self):

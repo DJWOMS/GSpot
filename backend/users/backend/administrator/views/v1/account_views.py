@@ -1,4 +1,4 @@
-from base.views import PersonalAccount
+from base.views import PersonalAccount, PartialUpdateMixin
 from administrator.models import Admin
 from administrator.serializers import account_serializers
 from common.permissions.permissons import IsAdminScopeUserPerm
@@ -51,14 +51,13 @@ from rest_framework.exceptions import NotFound
         },
     ),
 )
-class AccountViewSet(ModelViewSet):
-    model = Admin
+class AccountViewSet(PartialUpdateMixin, ModelViewSet):
     permission_classes = (IsAdminScopeUserPerm,)
-    http_method_names = ['get', 'patch', 'delete']
+    http_method_names = ['get', 'put', 'delete']
 
     serializer_map = {
         'GET': account_serializers.AccountRetrieveSerializers,
-        'PATCH': account_serializers.AccountUpdateSerializers,
+        'PUT': account_serializers.AccountUpdateSerializers,
     }
 
     def get_serializer_class(self):
