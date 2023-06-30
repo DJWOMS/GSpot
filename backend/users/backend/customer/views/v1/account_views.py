@@ -50,7 +50,6 @@ from rest_framework.viewsets import ModelViewSet
     ),
 )
 class AccountViewSet(PartialUpdateMixin, ModelViewSet):
-    model = CustomerUser
     permission_classes = (IsCustomerScopeUserPerm,)
     http_method_names = ('get', 'put', 'delete',)
 

@@ -52,7 +52,6 @@ from rest_framework.exceptions import NotFound
     ),
 )
 class AccountViewSet(PartialUpdateMixin, ModelViewSet):
-    model = CompanyUser
     permission_classes = (IsCompanyScopeUserPerm,)
     http_method_names = ('get', 'put', 'delete',)
 
