@@ -26,14 +26,12 @@ class CheckTOTPSerializer(serializers.Serializer):
         if data is None:
             raise serializers.ValidationError('Current TOTP is not exists.')
         user_model = db_model_factory.get_model(data.get('role'))
-        user = user_model.objects.get(id = data.get('user_id'))
+        user = user_model.objects.get(id=data.get('user_id'))
         self.instance = user
         attrs['user'] = UserTOTPSerializer(user).data
         return attrs
-    
-    def update(self, user, validated_data):
-        # if not isinstance(user, BaseAbstractUser):
-        #     raise TypeError('Object must will be the "BaseAbstractUser" instance required!')
+
+    def update(self, user: BaseAbstractUser, validated_data):
         password = self.validated_data.pop('password')
         user.password = make_password(password)
         user.is_active = True
