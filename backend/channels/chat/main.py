@@ -1,10 +1,19 @@
 from fastapi import FastAPI
+from gspot_fastapi_auth.providers import RedisSingleton
+from contextlib import asynccontextmanager
+
 from core.router import ws_router, router
 from core.database import db
 from core.websocket.router.routing import WebSocketRouter
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    RedisSingleton()
+    yield
+    await RedisSingleton().close()
+
+app = FastAPI(lifespan=lifespan)
 
 app.include_router(router)
 

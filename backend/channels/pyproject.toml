@@ -12,10 +12,10 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = {extras = ["all"], version = "^0.95.1"}
+fastapi = {extras = ["all"], version = "^0.98.0"}
 jinja2 = "^3.1.2"
 uvicorn = {extras = ["standard"], version = "^0.22.0"}
-redis = "4.5.4"
+redis = "4.6.0"
 aio_pika = "8.1.1"
 aiormq = "6.4.2"
 dnspython = "2.3.0"
@@ -33,6 +33,7 @@ attr = "0.3.2"
 attrs = "23.1.0"
 aiohttp = "3.8.4"
 bson = "0.5.10"
+gspot-fastapi-auth = "^0.0.5"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.263"
