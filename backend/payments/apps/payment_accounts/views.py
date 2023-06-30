@@ -54,7 +54,7 @@ class BalanceIncreaseView(viewsets.ViewSet, DRFtoDataClassMixin):
         )
 
 
-class UserAccountAPIView(viewsets.ViewSet, DRFtoDataClassMixin):
+class UserCreateView(viewsets.GenericViewSet, mixins.CreateModelMixin):
     serializer_class = serializers.AccountSerializer
 
     def create(self, request, *args, **kwargs):

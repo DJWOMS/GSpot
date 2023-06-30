@@ -2,6 +2,7 @@ import rollbar
 from apps.base.schemas import PaymentServices
 from dacite import MissingValueError, from_dict
 from rest_framework import viewsets
+from rest_framework.generics import CreateAPIView, mixins
 from rest_framework.response import Response
 
 from .models import PaymentCommission, PaymentService
@@ -15,7 +16,7 @@ from .services.check_yookassa_response import check_yookassa_response
 from .services.payment_acceptance import proceed_payment_response
 
 
-class YookassaPaymentAcceptanceView(viewsets.ViewSet):
+class YookassaPaymentAcceptanceView(viewsets.GenericViewSet, mixins.CreateModelMixin):
     serializer_class = YookassaPaymentAcceptanceSerializer
 
     def create(self, request, *args, **kwargs):

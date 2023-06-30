@@ -9,7 +9,7 @@ router.register(r'payout_data', views.PayoutDataObjectViewSet)
 urlpatterns = [
     path('increase_balance/', views.BalanceIncreaseView.as_view({'post': 'create'})),
     path('payment_commission/', views.CalculatePaymentCommissionView.as_view({'post': 'create'})),
-    path('create_account/', views.UserAccountAPIView.as_view({'post': 'create'})),
+    path('create_account/', views.UserCreateView.as_view({'post': 'create'})),
     path('balances/', views.BalanceViewSet.as_view({'post': 'list'})),
     path('balances/<uuid:user_uuid>/', views.BalanceViewSet.as_view({'get': 'retrieve'})),
     path('payout/', views.PayoutView.as_view({'post': 'create'})),
