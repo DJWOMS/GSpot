@@ -12,13 +12,19 @@ from common.services.totp import TOTPToken
 from customer.models import CustomerUser
 from developer.models import CompanyUser
 from utils.db.redis_client import RedisTotpClient
+from config.settings import redis_config
 
 
 class TestCheckTOTPToken(BaseTestView, TestCase):
     def setUp(self):
         self.check_totp_url = reverse('check-totp')
         self.set_password_url = reverse('totp-set-password')
-        self.r = RedisTotpClient()
+        self.r = RedisTotpClient(
+            host=redis_config.REDIS_LOCAL_HOST,
+            port=redis_config.REDIS_LOCAL_PORT,
+            db=redis_config.REDIS_TOTP_DB,
+            password=redis_config.REDIS_LOCAL_PASSWORD,
+        )
         self.totp = TOTPToken()
         self.developer = self.create_user(CompanyUser)
         self.administrator = self.create_user(Admin)
@@ -62,7 +68,9 @@ class TestCheckTOTPToken(BaseTestView, TestCase):
         request = self.client.put(self.set_password_url, data=data)
         self.assertEqual(request.status_code, 201)
 
-    def test_totp_for_customer(self, ):
+    def test_totp_for_customer(
+        self,
+    ):
         test_token = str(uuid.uuid4())
         self.totp.add_to_redis(test_token, self.customer)
 
