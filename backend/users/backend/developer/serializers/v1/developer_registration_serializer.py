@@ -16,4 +16,5 @@ class DeveloperRegistrationSerializer(serializers.ModelSerializer):
             'groups',
             'user_permissions',
             'is_banned',
+            'password',
         )
