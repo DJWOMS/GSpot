@@ -2,7 +2,7 @@ import rollbar
 from apps.base.schemas import PaymentServices
 from dacite import MissingValueError, from_dict
 from rest_framework import viewsets
-from rest_framework.generics import CreateAPIView, mixins
+from rest_framework.generics import mixins
 from rest_framework.response import Response
 
 from .models import PaymentCommission, PaymentService
