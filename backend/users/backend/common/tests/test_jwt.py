@@ -21,10 +21,12 @@ class TestTokenJWT(TestCase):
         self.developer = self.create_user(CompanyUser)
         self.administrator = self.create_user(Admin)
         self.customer = self.create_user(CustomerUser)
-        self.redis_access_client = RedisAccessClient(host=redis_config.REDIS_HOST,
-                                                     port=redis_config.REDIS_PORT,
-                                                     db=redis_config.REDIS_ACCESS_DB,
-                                                     password=redis_config.REDIS_PASSWORD)
+        self.redis_access_client = RedisAccessClient(
+            host=redis_config.REDIS_SHARED_HOST,
+            port=redis_config.REDIS_SHARED_PORT,
+            db=redis_config.REDIS_ACCESS_DB,
+            password=redis_config.REDIS_SHARED_PASSWORD,
+        )
 
     @staticmethod
     def create_user(user_model: Type[BaseAbstractUser]) -> Type[BaseAbstractUser]:
