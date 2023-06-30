@@ -14,17 +14,19 @@ from utils.db.redis_client import RedisAccessClient, RedisClient, RedisRefreshCl
 
 
 class Token(BaseToken, JWTMixin):
-    redis_access_client = RedisAccessClient(host=redis_config.REDIS_HOST,
-                                            port=redis_config.REDIS_PORT,
-                                            db=redis_config.REDIS_ACCESS_DB,
-                                            password=redis_config.REDIS_PASSWORD)
+    redis_access_client = RedisAccessClient(
+        host=redis_config.REDIS_SHARED_HOST,
+        port=redis_config.REDIS_SHARED_PORT,
+        db=redis_config.REDIS_ACCESS_DB,
+        password=redis_config.REDIS_SHARED_PASSWORD,
+    )
 
     @staticmethod
     def validate_user(user: BaseAbstractUser):
         if user.is_active is not True:
-            raise UserInActive('Пользователь долджен быть активным')
+            raise UserInActive('Пользователь не активный')
         elif user.is_banned is not False:
-            raise UserBanned('Пользователь не должен быть забанен')
+            raise UserBanned('Пользователь заблокирован')
 
     @staticmethod
     def validate_payload_data(data: dict):

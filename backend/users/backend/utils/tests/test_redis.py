@@ -13,9 +13,9 @@ from utils.db.redis_client import RedisAccessClient, RedisRefreshClient, RedisTo
 
 class RedisClientTestCase(TestCase):
     def setUp(self) -> None:
-        host = redis_config.REDIS_HOST,
-        port = redis_config.REDIS_PORT,
-        password = redis_config.REDIS_PASSWORD
+        host = (redis_config.REDIS_LOCAL_HOST,)
+        port = (redis_config.REDIS_LOCAL_PORT,)
+        password = redis_config.REDIS_LOCAL_PASSWORD
         access_db = redis_config.REDIS_ACCESS_DB
         refresh_db = redis_config.REDIS_REFRESH_DB
         totp_db = redis_config.REDIS_TOTP_DB
@@ -23,12 +23,24 @@ class RedisClientTestCase(TestCase):
         self.developer = self.create_user(CompanyUser)
         self.administrator = self.create_user(Admin)
         self.customer = self.create_user(CustomerUser)
-        self.redis_access_client = RedisAccessClient(host=host, port=port, db=access_db, password=password)
-        self.redis_refresh_client = RedisRefreshClient(host=host, port=port, db=refresh_db, password=password)
-        self.redis_totp_client = RedisTotpClient(host=host, port=port, db=totp_db, password=password)
-        self.redis_access_client_basik = RedisAccessClient(host=host, port=port, db=3, password=password)
-        self.redis_refresh_client_basik = RedisRefreshClient(host=host, port=port, db=3, password=password)
-        self.redis_totp_client_basik = RedisTotpClient(host=host, port=port, db=3, password=password)
+        self.redis_access_client = RedisAccessClient(
+            host=host, port=port, db=access_db, password=password
+        )
+        self.redis_refresh_client = RedisRefreshClient(
+            host=host, port=port, db=refresh_db, password=password
+        )
+        self.redis_totp_client = RedisTotpClient(
+            host=host, port=port, db=totp_db, password=password
+        )
+        self.redis_access_client_basik = RedisAccessClient(
+            host=host, port=port, db=3, password=password
+        )
+        self.redis_refresh_client_basik = RedisRefreshClient(
+            host=host, port=port, db=3, password=password
+        )
+        self.redis_totp_client_basik = RedisTotpClient(
+            host=host, port=port, db=3, password=password
+        )
 
     @staticmethod
     def create_user(user_model: Type[BaseAbstractUser]) -> Type[BaseAbstractUser]:
@@ -163,7 +175,9 @@ class RedisClientTestCase(TestCase):
 
     def test_create_and_check_token_developer(self):
         developer_payload_data = self.get_user_payload(self.developer)
-        self.redis_access_client.add_token(token='developer_test_token', value=developer_payload_data)
+        self.redis_access_client.add_token(
+            token='developer_test_token', value=developer_payload_data
+        )
         result = self.redis_access_client.is_token_exist(token='developer_test_token')
         result_data = {key: value for key, value in result.items()}
         self.maxDiff = None

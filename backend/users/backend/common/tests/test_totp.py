@@ -15,10 +15,12 @@ from utils.db.redis_client import RedisTotpClient
 
 class TestTOTPToken(TestCase):
     def setUp(self):
-        self.r = RedisTotpClient(host=redis_config.REDIS_HOST,
-                                 port=redis_config.REDIS_PORT,
-                                 db=redis_config.REDIS_TOTP_DB,
-                                 password=redis_config.REDIS_PASSWORD)
+        self.r = RedisTotpClient(
+            host=redis_config.REDIS_LOCAL_HOST,
+            port=redis_config.REDIS_LOCAL_PORT,
+            db=redis_config.REDIS_TOTP_DB,
+            password=redis_config.REDIS_LOCAL_PASSWORD,
+        )
         self.totp = TOTPToken()
         self.developer = self.create_user(CompanyUser)
         self.administrator = self.create_user(Admin)

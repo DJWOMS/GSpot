@@ -9,10 +9,12 @@ from utils.db.redis_client import RedisTotpClient, RedisClient
 
 
 class TOTPToken(BaseTOTPToken):
-    redis: RedisClient = RedisTotpClient(host=redis_config.REDIS_HOST,
-                                         port=redis_config.REDIS_PORT,
-                                         db=redis_config.REDIS_TOTP_DB,
-                                         password=redis_config.REDIS_PASSWORD)
+    redis: RedisClient = RedisTotpClient(
+        host=redis_config.REDIS_LOCAL_HOST,
+        port=redis_config.REDIS_LOCAL_PORT,
+        db=redis_config.REDIS_TOTP_DB,
+        password=redis_config.REDIS_LOCAL_PASSWORD,
+    )
     rabbitmq = RabbitMQ()
     message: BaseMessage = TOTPTokenMessage
 
