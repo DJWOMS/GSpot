@@ -5,6 +5,7 @@ from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from common.serializers.v1.get_jwt_serializers import GetJwtSerializers, ResponseGetJwtSerializers
 from rest_framework.response import Response
+from common.services.jwt.token import Token
 from common.services.jwt.refresh_is_expired_token import update_access_token
 
 
@@ -29,5 +30,9 @@ class GetJwtView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         refresh_token = serializer.validated_data['refresh_token']
-        dict_token = update_access_token(refresh_token, user)
-        return Response(dict_token, status=status.HTTP_200_OK)
+
+        if Token().redis_refresh_client.is_token_exist(refresh_token):
+            dict_token = update_access_token(refresh_token, user)
+            return Response(dict_token, status=status.HTTP_200_OK)
+
+        return Response(status=status.HTTP_401_UNAUTHORIZED)

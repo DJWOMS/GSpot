@@ -11,7 +11,7 @@ class GetJwtApiTestCase:
         self.first_user = self.user.objects.create_user(**self.data)
         self.first_user.is_active = True
         self.client.force_authenticate(user=self.first_user)
-        self.url = reverse('get-jwt')
+        self.url = reverse('token_refresh')
         self.token = Token().generate_tokens_for_user(self.first_user)
         self.data = {'refresh_token': self.token.get('refresh')}
 
