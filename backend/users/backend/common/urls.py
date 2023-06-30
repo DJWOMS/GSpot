@@ -5,6 +5,7 @@ from common.views.v1.contacttype_view import ContactTypeViewSet
 from common.views.v1.countrylist_view import CountryViewSet
 from common.views.v1.logout_view import JWTLogoutView
 from common.views.v1.get_jwt_view import GetJwtView
+from common.views.v1.totp_view import CheckTOTPView
 
 router = routers.DefaultRouter()
 router.register(r"countries", CountryViewSet, basename="countries")
@@ -14,4 +15,6 @@ urlpatterns = [
     path("logout/", JWTLogoutView.as_view(), name="logout"),
     path("common/", include(router.urls), name="common"),
     path("get-jwt/", GetJwtView.as_view(), name="get-jwt"),
+    path("check-totp/", CheckTOTPView.as_view(), name="check-totp"),
+    path("set-password/", CheckTOTPView.as_view(), name="totp-set-password"),
 ]

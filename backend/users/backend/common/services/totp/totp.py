@@ -6,6 +6,7 @@ from base.tokens.totp import BaseTOTPToken
 from utils.broker.message import TOTPTokenMessage, BaseMessage
 from utils.broker.rabbitmq import RabbitMQ
 from utils.db.redis_client import RedisTotpClient, RedisClient
+from common.services.totp.model_factory import db_model_factory
 
 
 class TOTPToken(BaseTOTPToken):
@@ -41,4 +42,7 @@ class TOTPToken(BaseTOTPToken):
             rabbit.send_message(rabbitmq_message)
 
     def check_totp(self, totp: str):
-        pass
+        data = self.redis.is_token_exist(totp)
+        return data
+
+
