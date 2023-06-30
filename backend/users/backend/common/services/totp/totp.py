@@ -44,5 +44,3 @@ class TOTPToken(BaseTOTPToken):
     def check_totp(self, totp: str):
         data = self.redis.is_token_exist(totp)
         return data
-
-

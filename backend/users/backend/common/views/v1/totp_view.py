@@ -20,7 +20,6 @@ from common.serializers.v1.totp_serializer import CheckTOTPSerializer
         },
     ),
 )
-
 @method_decorator(
     name='put',
     decorator=swagger_auto_schema(
@@ -28,13 +27,13 @@ from common.serializers.v1.totp_serializer import CheckTOTPSerializer
         operation_description='Установка пароля и активация учетной записи',
         tags=['Аутентификация', 'Администратор', 'Разработчик', 'Пользователь'],
         responses={
-            201: openapi.Response('Токен валиден, пароль установлен, учетная запись активирована', CheckTOTPSerializer),
+            201: openapi.Response(
+                'Токен валиден, пароль установлен, учетная запись активирована', CheckTOTPSerializer
+            ),
             400: openapi.Response('Токен не валиден, учетная запись не активирована'),
         },
     ),
 )
-
-
 class CheckTOTPView(generics.GenericAPIView):
     permission_classes = [AllowAny]
     http_method_names = ['post', 'put']
@@ -44,7 +43,7 @@ class CheckTOTPView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
         return Response(data, status=status.HTTP_200_OK)
-    
+
     def put(self, request):
         serializer = CheckTOTPSerializer(data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
