@@ -1,13 +1,19 @@
 import uuid
 from base.models import BaseAbstractUser
 from base.tokens.totp import BaseTOTPToken
+from config.settings import redis_config
 from utils.broker import message as message_broker
 from utils.broker.rabbitmq import RabbitMQ
 from utils.db.redis_client import RedisTotpClient, RedisClient
 
 
 class TOTPToken(BaseTOTPToken):
-    redis: RedisClient = RedisTotpClient()
+    redis: RedisClient = RedisTotpClient(
+        host=redis_config.REDIS_LOCAL_HOST,
+        port=redis_config.REDIS_LOCAL_PORT,
+        db=redis_config.REDIS_TOTP_DB,
+        password=redis_config.REDIS_LOCAL_PASSWORD,
+    )
     rabbitmq: RabbitMQ = RabbitMQ()
 
     def send_totp(self, user: BaseAbstractUser):
