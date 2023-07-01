@@ -7,7 +7,7 @@ services:
       - .env.tests
     restart: "no"
     command: >
-      sh -c "python manage.py test"
+      sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py test"
     depends_on:
       db:
         condition: service_healthy
