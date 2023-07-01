@@ -52,6 +52,7 @@ from rest_framework.exceptions import NotFound
     ),
 )
 class AccountViewSet(PartialUpdateMixin, ModelViewSet):
+    queryset = Admin.objects.all()
     permission_classes = (IsAdminScopeUserPerm,)
     http_method_names = ['get', 'put', 'delete']
 
