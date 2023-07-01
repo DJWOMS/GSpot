@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 
@@ -16,25 +17,22 @@ class UserTOTPSerializer(serializers.Serializer):
 
 
 class CheckTOTPSerializer(serializers.Serializer):
-    totp_token = serializers.CharField()
+    totp_token = serializers.CharField(write_only=True)
     user = UserTOTPSerializer(read_only=True)
     password = serializers.CharField(write_only=True)
 
     def validate(self, attrs: dict):
-        totp_token = attrs.get('totp_token')
-        data = TOTPToken().check_totp(totp_token)
-        if data is None:
-            raise serializers.ValidationError('Current TOTP is not exists.')
-        user_model = db_model_factory.get_model(data.get('role'))
-        user = user_model.objects.get(id=data.get('user_id'))
-        self.instance = user
-        attrs['user'] = UserTOTPSerializer(user).data
+        totp_token = attrs.pop('totp_token')
+        totp_data = TOTPToken().check_totp(totp_token)
+        user_model = db_model_factory.get_model(totp_data['role'])
+        user = get_object_or_404(user_model, id=totp_data['user_id'])
+        attrs['user'] = user
         return attrs
 
-    def update(self, user: BaseAbstractUser, validated_data):
+    def save(self, **kwargs):
         password = self.validated_data.pop('password')
+        user = self.validated_data['user']
         user.password = make_password(password)
         user.is_active = True
         user.save()
-        self.validated_data['user'] = UserTOTPSerializer(user).data
-        return user
+        return self.validated_data['user']

@@ -41,12 +41,10 @@ class CheckTOTPView(generics.GenericAPIView):
     def post(self, request):
         serializer = CheckTOTPSerializer(data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
-        data = serializer.validated_data
-        return Response(data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request):
         serializer = CheckTOTPSerializer(data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        data = serializer.validated_data
-        return Response(data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
