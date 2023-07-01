@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from common import validators
 
 
 class Country(models.Model):
@@ -25,3 +26,52 @@ class ContactType(models.Model):
         db_table = 'contact_type'
         verbose_name = _('contact_type')
         verbose_name_plural = _('contact_types')
+
+
+class MessageNotifyRabbitMQ(models.Model):
+    ADD_FRIEND = "ADD_FRIEND"
+    STATUS_CHOICES = ((ADD_FRIEND, "add_friend"),)
+    text = models.TextField(
+        verbose_name=_('message_notify_rabbitmq'), validators=[validators.validate_user_in_text]
+    )
+    action = models.CharField(choices=STATUS_CHOICES)
+
+    def __str__(self):
+        return self.text
+
+    @property
+    def get_text(self):
+        return f'{self.text}'
+
+    class Meta:
+        db_table = 'message_notify_rabbitmq'
+        verbose_name = _('message_notify_rabbitmq')
+        verbose_name_plural = _('message_notify_rabbitmq')
+
+
+class MessageEmailRabbitMQ(models.Model):
+    ADMIN_ACTIVATION = "ADMIN_ACTIVATION"
+    DEVELOP_ACTIVATION = "DEVELOP_ACTIVATION"
+    CUSTOMER_ACTIVATION = "CUSTOMER_ACTIVATION"
+    STATUS_CHOICES = (
+        (ADMIN_ACTIVATION, 'admin_activation'),
+        (DEVELOP_ACTIVATION, 'develop_activation'),
+        (CUSTOMER_ACTIVATION, 'customer_activation'),
+    )
+    url = models.CharField()
+    text = models.TextField(
+        verbose_name=_('message_email_rabbitmq'), validators=[validators.validate_url_in_text]
+    )
+    action = models.CharField(choices=STATUS_CHOICES)
+
+    def __str__(self):
+        return self.text
+
+    @property
+    def get_text(self):
+        return str(self.text).format(url=self.url)
+
+    class Meta:
+        db_table = 'message_email_rabbitmq'
+        verbose_name = _('message_email_rabbitmq')
+        verbose_name_plural = _('message_email_rabbitmq')

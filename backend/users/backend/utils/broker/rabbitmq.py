@@ -1,4 +1,5 @@
 import pika
+from django.conf import settings
 
 from config.settings.rabbitmq import (
     RABBITMQ_HOST,

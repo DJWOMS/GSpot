@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Type
 from unittest.mock import patch
 
+from django.core.management import call_command
 from django.test import TestCase
 
 from administrator.models import Admin
@@ -14,6 +15,8 @@ from utils.db.redis_client import RedisTotpClient
 
 
 class TestTOTPToken(TestCase):
+    fixtures = ['fixtures/data']
+
     def setUp(self):
         self.r = RedisTotpClient()
         self.totp = TOTPToken()
@@ -39,7 +42,6 @@ class TestTOTPToken(TestCase):
         test_token = str(uuid.uuid4())
         mock_generate_totp.return_value = test_token
         self.totp.send_totp(self.developer)
-
         encoded_data = self.r.is_token_exist(test_token)
         data = {key: value for key, value in encoded_data.items()}
         self.assertEqual(data['user_id'], str(self.developer.id))

@@ -1,5 +1,4 @@
 from django.contrib.auth.models import AbstractUser
-
 from administrator.models import Admin
 from base.base_tests.tests import BaseTestView
 from django.test import TestCase
@@ -7,6 +6,7 @@ from common.models import Country
 
 
 class EmployeeViewTest(BaseTestView, TestCase):
+    fixtures = ['fixtures/data']
     url = '/api/v1/admin/employee/'
     valid_user: AbstractUser
     invalid_user: AbstractUser

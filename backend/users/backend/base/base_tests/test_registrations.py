@@ -3,6 +3,7 @@ from common.models import Country
 
 
 class RegistrationUsersDatasetTest(TestDataSet):
+    fixtures = ['fixtures/data']
     valid_data = [
         {
             "password": "123",

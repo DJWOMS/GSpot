@@ -2,10 +2,15 @@ import pdb
 from datetime import date
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
+
+from common.models import MessageNotifyRabbitMQ
 from customer.models import CustomerUser, FriendShipRequest
 
 
 class TestFriends:
+    fixtures = [
+        'fixtures/data',
+    ]
     url_get_all_users = reverse('customers-list')
     url_get_all_request_friends = reverse('list-friends-requests')
     url_get_all_friends = reverse('my-friends')
@@ -20,7 +25,7 @@ class TestFriends:
             is_active=True,
         )
         self.user2 = CustomerUser.objects.create_user(
-            'user2',
+            'user225',
             'user1@emai.com',
             '9808887796',
             'user1',
