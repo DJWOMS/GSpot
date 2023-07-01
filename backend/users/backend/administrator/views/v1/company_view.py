@@ -2,40 +2,40 @@ from rest_framework import filters, status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from administrator.serializers.v1.customer_seriallizers import (
-    CustomerListSerializer,
-    CustomerBlockSerializer,
-    CustomerUnblockSerializer,
-    CustomerRetrieveSerializer,
+from administrator.serializers.v1.company_serializer import (
+    CompanyListSerializer,
+    CompanyBlockSerializer,
+    CompanyUnblockSerializer,
+    CompanyRetrieveSerializer,
 )
+from developer.models import Company, CompanyUser
 from base.paginations import BasePagination
 from common.permissions.permissons import IsAdminScopeUserPerm
-from customer.models import CustomerUser
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 list_schema = swagger_auto_schema(
-    operation_description='Получить список пользователей',
+    operation_description='Получить список компаний',
     tags=['Администратор', 'Личный кабинет администратора'],
     responses={
-        200: openapi.Response('Список пользователей', CustomerListSerializer(many=True)),
+        200: openapi.Response('Список компаний', CompanyListSerializer(many=True)),
         401: openapi.Response('Не аутентифицированный пользователь'),
         403: openapi.Response('Отсутствуют права на просмотр'),
     },
 )
 
 retrieve_schema = swagger_auto_schema(
-    operation_description='Детальный просмотр пользователя',
+    operation_description='Детальный просмотр компании',
     tags=['Администратор', 'Личный кабинет администратора'],
     responses={
-        200: openapi.Response('Пользователь', CustomerRetrieveSerializer),
+        200: openapi.Response('Компания', CompanyRetrieveSerializer),
         401: openapi.Response('Не аутентифицированный пользователь'),
         403: openapi.Response('Отсутствуют права на просмотр'),
     },
 )
 
 unblock_schema = swagger_auto_schema(
-    operation_description='Разблокировка пользователя',
+    operation_description='Разблокировка компании',
     tags=['Администратор', 'Административная панель владельца'],
     responses={
         201: openapi.Response('Успешно'),
@@ -46,7 +46,7 @@ unblock_schema = swagger_auto_schema(
 )
 
 block_schema = swagger_auto_schema(
-    operation_description='Блокировка пользователя',
+    operation_description='Блокировка компании',
     tags=['Администратор', 'Административная панель владельца'],
     responses={
         201: openapi.Response('Успешно'),
@@ -56,7 +56,7 @@ block_schema = swagger_auto_schema(
 )
 
 destroy_schema = swagger_auto_schema(
-    operation_description='Удалить пользователя',
+    operation_description='Удалить компанию',
     tags=['Администратор', 'Административная панель владельца'],
     responses={
         204: openapi.Response('Пользователь удалён'),
@@ -66,23 +66,29 @@ destroy_schema = swagger_auto_schema(
 )
 
 
-class CustomerListView(ModelViewSet):
-    queryset = CustomerUser.objects.all()
+class CompanyListView(ModelViewSet):
+    queryset = Company.objects.all()
     http_method_names = ['get', 'post', 'delete']
     permission_classes = [IsAdminScopeUserPerm]
     filter_backends = [filters.SearchFilter]
-    search_fields = ['email', 'phone']
     pagination_class = BasePagination
+    search_fields = [
+        'email',
+        'phone',
+        'id',
+        'title',
+        'created_by',
+    ]
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
-            return CustomerRetrieveSerializer
+            return CompanyRetrieveSerializer
         if self.action == 'list':
-            return CustomerListSerializer
+            return CompanyListSerializer
         if self.action == 'block':
-            return CustomerBlockSerializer
+            return CompanyBlockSerializer
         if self.action == 'unblock':
-            return CustomerUnblockSerializer
+            return CompanyUnblockSerializer
 
     @list_schema
     def list(self, request, *args, **kwargs):
@@ -98,28 +104,28 @@ class CustomerListView(ModelViewSet):
 
     @block_schema
     def block(self, request, pk):
-        customer: CustomerUser = self.get_object()
-        serializer = CustomerBlockSerializer(
+        company: CompanyUser = self.get_object()
+        serializer = CompanyBlockSerializer(
             data=request.data,
             context={
-                'customer': customer,
+                'company': company,
             },
         )
         serializer.is_valid(raise_exception=True)
-        serializer.save(admin=request.user, customer=customer)
+        serializer.save(admin=request.user, company=company)
         headers = self.get_success_headers(serializer.data)
         return Response(status=status.HTTP_201_CREATED, headers=headers)
 
     @unblock_schema
     def unblock(self, request, pk):
-        customer: CustomerUser = self.get_object()
-        serializer = CustomerUnblockSerializer(
+        company: CompanyUser = self.get_object()
+        serializer = CompanyUnblockSerializer(
             data=request.data,
             context={
-                'customer': customer,
+                'company': company,
             },
         )
         serializer.is_valid(raise_exception=True)
-        serializer.save(admin=request.user, customer=customer)
+        serializer.save(admin=request.user, company=company)
         headers = self.get_success_headers(serializer.data)
         return Response(status=status.HTTP_201_CREATED, headers=headers)

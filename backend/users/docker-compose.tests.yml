@@ -37,7 +37,7 @@ services:
       retries: 3
   redis:
     restart: always
-    command: /bin/sh -c "redis-server --requirepass $$REDIS_PASSWORD"
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_LOCAL_PASSWORD"
     image: redis:7.0.5-alpine
     expose:
       - 6379

@@ -3,6 +3,7 @@ import time
 from django.conf import settings
 from django.utils import timezone
 
+from config.settings import redis_config
 from base.exceptions import UserBanned, UserInActive
 from base.models import BaseAbstractUser
 from base.tokens.token import BaseToken
@@ -13,12 +14,19 @@ from utils.db.redis_client import RedisAccessClient, RedisClient, RedisRefreshCl
 
 
 class Token(BaseToken, JWTMixin):
+    redis_access_client = RedisAccessClient(
+        host=redis_config.REDIS_SHARED_HOST,
+        port=redis_config.REDIS_SHARED_PORT,
+        db=redis_config.REDIS_ACCESS_DB,
+        password=redis_config.REDIS_SHARED_PASSWORD,
+    )
+
     @staticmethod
     def validate_user(user: BaseAbstractUser):
         if user.is_active is not True:
-            raise UserInActive('Пользователь долджен быть активным')
+            raise UserInActive('Пользователь не активный')
         elif user.is_banned is not False:
-            raise UserBanned('Пользователь не должен быть забанен')
+            raise UserBanned('Пользователь заблокирован')
 
     @staticmethod
     def validate_payload_data(data: dict):
@@ -42,7 +50,8 @@ class Token(BaseToken, JWTMixin):
         refresh_token = self.generate_refresh_token(data)
         return {"access": access_token, "refresh": refresh_token}
 
-    def generate_access_token(self, data: dict = {}) -> str:
+    def generate_access_token(self, data: dict = None) -> str:
+        data = data if data is not None else {}
         self.validate_payload_data(data)
         default_payload = self.get_default_payload()
         payload = {
@@ -75,13 +84,17 @@ class Token(BaseToken, JWTMixin):
         self.validate_user(user)
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_payload()
-        payload = {
+        redis_payload = {
             "token_type": "access",
             **default_payload,
             **user_payload,
         }
+        payload = {
+            "token_type": "access",
+            **default_payload,
+        }
         access_token = self._encode(payload)
-        self.__add_access_to_redis(token=access_token, value=payload)
+        self.__add_access_to_redis(token=access_token, value=redis_payload)
         return access_token
 
     def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
@@ -94,7 +107,7 @@ class Token(BaseToken, JWTMixin):
             **user_payload,
         }
         refresh_token = self._encode(payload)
-        self.__add_refresh_to_redis(token=refresh_token, value=payload)
+
         return refresh_token
 
     @staticmethod
@@ -133,10 +146,4 @@ class Token(BaseToken, JWTMixin):
 
     @classmethod
     def __add_access_to_redis(cls, token: str, value: dict):
-        redis_access_client = RedisAccessClient()
-        cls.__add_token_to_redis(redis_client=redis_access_client, token=token, value=value)
-
-    @classmethod
-    def __add_refresh_to_redis(cls, token: str, value: dict):
-        redis_refresh_client = RedisRefreshClient()
-        cls.__add_token_to_redis(redis_client=redis_refresh_client, token=token, value=value)
+        cls.__add_token_to_redis(redis_client=cls.redis_access_client, token=token, value=value)

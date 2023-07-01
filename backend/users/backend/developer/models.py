@@ -1,13 +1,13 @@
 import uuid
 
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import PermissionsMixin, UserManager
+from django.contrib.auth.models import UserManager
 from django.db import models
-
-from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 from django.utils.translation import gettext_lazy as _
 
 from common.models import Country, ContactType
+
+from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 
 
 class DeveloperPermission(BasePermission):
@@ -147,6 +147,7 @@ class Company(models.Model):
     is_confirmed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Company created date"))
     is_active = models.BooleanField(default=True)
+    is_banned = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 from django.core.management import call_command
 from django.test import TestCase
-
+from config.settings import redis_config
 from administrator.models import Admin
 from base.models import BaseAbstractUser
 from common.services.totp import TOTPToken
@@ -18,7 +18,12 @@ class TestTOTPToken(TestCase):
     fixtures = ['fixtures/data']
 
     def setUp(self):
-        self.r = RedisTotpClient()
+        self.r = RedisTotpClient(
+            host=redis_config.REDIS_LOCAL_HOST,
+            port=redis_config.REDIS_LOCAL_PORT,
+            db=redis_config.REDIS_TOTP_DB,
+            password=redis_config.REDIS_LOCAL_PASSWORD,
+        )
         self.totp = TOTPToken()
         self.developer = self.create_user(CompanyUser)
         self.administrator = self.create_user(Admin)

@@ -23,7 +23,7 @@ ROOT_URLCONF = "config.urls"
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(ROOT_DIR, "static/")
-STATICFILES_DIRS = [os.path.join(APPS_DIR, "static/")]
+# STATICFILES_DIRS = [os.path.join(APPS_DIR, "static/")]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(ROOT_DIR, "media/")
@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 TEMPLATES = [
@@ -93,3 +94,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 FIXTURE_DIRS = [
     'fixtures',
 ]
+CSRF_TRUSTED_ORIGINS = os.environ["DJANGO_CORS_ALLOWED_ORIGINS"].split(",")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

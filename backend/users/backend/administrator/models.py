@@ -1,13 +1,18 @@
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import PermissionsMixin, UserManager
-from django.core.validators import MinLengthValidator
+from django.contrib.auth.models import UserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 from common.models import Country
 from customer.models import CustomerUser
-from developer.models import DeveloperPermission, DeveloperGroup
+from developer.models import DeveloperPermission, DeveloperGroup, CompanyUser, Company
+from base.models import (
+    BaseAbstractUser,
+    BasePermission,
+    BaseGroup,
+    BasePermissionMixin,
+    BaseModerate,
+)
 
 
 class AdminPermission(BasePermission):
@@ -118,6 +123,7 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
         related_name="admin_set",
         related_query_name="admin",
     )
+    is_staff = models.BooleanField(default=True)
 
     @property
     def permissions_codename(self) -> list[str]:
@@ -131,23 +137,44 @@ class Admin(BaseAbstractUser, AdminPermissionMixin):
         db_table = "admin"
 
 
-class BlockReason(models.Model):
-    reason = models.CharField(
-        max_length=255,
-        verbose_name=_('block reason'),
-        validators=[
-            MinLengthValidator(3),
-        ],
+class CustomerModerate(BaseModerate):
+    customer = models.ForeignKey(
+        CustomerUser, on_delete=models.CASCADE, related_name='moderate_reasons'
     )
-    creator = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
-    user = models.ForeignKey(CustomerUser, on_delete=models.CASCADE, related_name='block_reasons')
-
-    blocked_at = models.DateTimeField(_("block time"), auto_now_add=True)
+    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return f"{self.user}: {self.reason}"
+        return f"{self.customer}: {self.reason}"
 
     class Meta:
-        db_table = 'block_reasons'
-        verbose_name = _('Block reason')
-        verbose_name_plural = _('Block reasons')
+        db_table = 'customer_moderate_reasons'
+        verbose_name = _('Customer moderate reason')
+        verbose_name_plural = _('Customers moderate reasons')
+
+
+class CompanyUserModerate(BaseModerate):
+    company_user = models.ForeignKey(
+        CompanyUser, on_delete=models.CASCADE, related_name='moderate_reasons'
+    )
+    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.company_user}: {self.reason}"
+
+    class Meta:
+        db_table = 'developer_moderate_reasons'
+        verbose_name = _('Developer moderate reason')
+        verbose_name_plural = _('Developers moderate reasons')
+
+
+class CompanyModerate(BaseModerate):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='moderate_reasons')
+    admin = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.company}: {self.reason}"
+
+    class Meta:
+        db_table = 'company_moderate_reasons'
+        verbose_name = _('Company moderate reason')
+        verbose_name_plural = _('Company moderate reasons')

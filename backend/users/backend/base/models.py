@@ -1,7 +1,7 @@
 import uuid
 
+from django.core.validators import MinLengthValidator
 from django.utils.translation import gettext_lazy as _
-
 from django.contrib.auth.models import (
     PermissionManager,
     GroupManager,
@@ -73,6 +73,23 @@ class BasePermissionMixin(PermissionsMixin):
 
     def get_all_permissions(self, obj=None):
         raise NotImplementedError
+
+    class Meta:
+        abstract = True
+
+
+class BaseModerate(models.Model):
+    ACTIONS = {('B', 'Block'), ('U', 'Unblock')}
+    reason = models.CharField(
+        max_length=255,
+        verbose_name=_('block reason'),
+        validators=[
+            MinLengthValidator(3),
+        ],
+    )
+    admin = None  # Must be overridden in child class
+    date = models.DateTimeField(_("block time"), auto_now_add=True)
+    action = models.CharField(max_length=1, choices=ACTIONS)
 
     class Meta:
         abstract = True

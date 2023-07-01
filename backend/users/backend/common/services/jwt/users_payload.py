@@ -25,7 +25,21 @@ class AdminPayload(BasePayload, CommonUserPayload):
 
     def generate_payload(self):
         common_payload = self.get_common_payload()
-        return common_payload
+        admin_payload = {
+            'email': self.user.email,
+            'phone': self.user.phone,
+            'country': self.user.country,
+            'created_at': str(self.user.created_at),
+            'update_at': str(self.user.update_at),
+            'is_superuser': self.user.is_superuser,
+            'groups': list(self.user.groups.all()),
+            'user_permissions': list(self.user.user_permissions.all()),
+            'developer_groups': list(self.user.developer_groups.all()),
+            'developer_permissions': list(self.user.developer_permissions.all()),
+        }
+        payload = common_payload | admin_payload
+
+        return payload
 
 
 class DeveloperPayload(BasePayload, CommonUserPayload):
@@ -34,7 +48,22 @@ class DeveloperPayload(BasePayload, CommonUserPayload):
 
     def generate_payload(self):
         common_payload = self.get_common_payload()
-        return common_payload
+        company = self.user.company if self.user.company is not None else {}
+        developer_payload = {
+            'email': self.user.email,
+            'phone': self.user.phone,
+            'country': self.user.country,
+            'created_at': str(self.user.created_at),
+            'update_at': str(self.user.update_at),
+            'is_active': self.user.is_active,
+            'is_superuser': self.user.is_superuser,
+            'groups': list(self.user.groups.all()),
+            'user_permissions': list(self.user.user_permissions.all()),
+            'company': company,
+        }
+        payload = common_payload | developer_payload
+
+        return payload
 
 
 class CustomerPayload(BasePayload, CommonUserPayload):
@@ -44,7 +73,19 @@ class CustomerPayload(BasePayload, CommonUserPayload):
     def generate_payload(self):
         common_payload = self.get_common_payload()
         common_payload['age'] = self.user.age
-        return common_payload
+        customer_payload = {
+            'email': self.user.email,
+            'phone': self.user.phone,
+            'created_at': str(self.user.created_at),
+            'update_at': str(self.user.update_at),
+            'friends': list(self.user.friends.all()),
+            'birthday': str(self.user.birthday),
+            'is_active': self.user.is_active,
+            'country': self.user.country,
+        }
+        payload = common_payload | customer_payload
+
+        return payload
 
 
 class PayloadFactory:

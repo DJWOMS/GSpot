@@ -1,9 +1,6 @@
-import pdb
 from datetime import date
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
-
-from common.models import MessageNotifyRabbitMQ
 from customer.models import CustomerUser, FriendShipRequest
 
 
