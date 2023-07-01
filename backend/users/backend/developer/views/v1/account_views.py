@@ -1,10 +1,15 @@
-from base.views import PersonalAccount
+from base.views import PersonalAccount, PartialUpdateMixin
 from developer.models import CompanyUser
 from developer.serializers import account_serializers
+from common.permissions.permissons import IsCompanyScopeUserPerm
+
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import NotFound
 
 
 @method_decorator(
@@ -14,7 +19,8 @@ from rest_framework.permissions import IsAuthenticated
         tags=['Разработчик', 'Личный кабинет разработчика'],
         responses={
             200: openapi.Response(
-                'Личная информация пользователя', account_serializers.AccountRetrieveSerializers
+                'Личная информация пользователя',
+                account_serializers.AccountRetrieveSerializers
             ),
             401: openapi.Response('Не аутентифицированный'),
         },
@@ -27,7 +33,8 @@ from rest_framework.permissions import IsAuthenticated
         tags=['Разработчик', 'Личный кабинет разработчика'],
         responses={
             200: openapi.Response(
-                'Информация обновлена', account_serializers.AccountUpdateSerializers
+                'Информация обновлена',
+                account_serializers.AccountUpdateSerializers
             ),
             401: openapi.Response('Не аутентифицированный'),
         },
@@ -44,23 +51,21 @@ from rest_framework.permissions import IsAuthenticated
         },
     ),
 )
-class AccountViewSet(PersonalAccount):
-    queryset = CompanyUser.objects.all()
-    http_method_names = ['get', 'put', 'delete']
+class AccountViewSet(PartialUpdateMixin, ModelViewSet):
+    permission_classes = (IsCompanyScopeUserPerm,)
+    http_method_names = ('get', 'put', 'delete',)
 
     serializer_map = {
-        'default': account_serializers.AccountRetrieveSerializers,
-        'retrieve': account_serializers.AccountRetrieveSerializers,
-        'partial_update': account_serializers.AccountUpdateSerializers,
-        'destroy': account_serializers.AccountRetrieveSerializers,
+        'GET': account_serializers.AccountRetrieveSerializers,
+        'PUT': account_serializers.AccountUpdateSerializers,
     }
 
-    permission_map = {
-        'default': [IsAuthenticated],
-        'retrieve': [IsAuthenticated],
-        'partial_update': [IsAuthenticated],
-        'destroy': [IsAuthenticated],
-    }
+    def get_serializer_class(self):
+        method = self.request.method
+        return self.serializer_map.get(method)
+
+    def get_object(self):
+        return self.request.user
 
 
 @method_decorator(

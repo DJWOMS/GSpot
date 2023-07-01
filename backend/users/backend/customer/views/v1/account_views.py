@@ -1,10 +1,15 @@
-from base.views import PersonalAccount
+from base.views import PersonalAccount, PartialUpdateMixin
 from customer.serializers import account_serializers
 from customer.models import CustomerUser
+from common.permissions.permissons import IsCustomerScopeUserPerm
+
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import NotFound
+from rest_framework.viewsets import ModelViewSet
 
 
 @method_decorator(
@@ -44,23 +49,21 @@ from rest_framework.permissions import IsAuthenticated
         },
     ),
 )
-class AccountViewSet(PersonalAccount):
-    queryset = CustomerUser.objects.all()
-    http_method_names = ['get', 'put', 'delete']
+class AccountViewSet(PartialUpdateMixin, ModelViewSet):
+    permission_classes = (IsCustomerScopeUserPerm,)
+    http_method_names = ('get', 'put', 'delete',)
 
     serializer_map = {
-        'default': account_serializers.AccountRetrieveSerializers,
-        'retrieve': account_serializers.AccountRetrieveSerializers,
-        'partial_update': account_serializers.AccountUpdateSerializers,
-        'destroy': account_serializers.AccountRetrieveSerializers,
+        'GET': account_serializers.AccountRetrieveSerializers,
+        'PUT': account_serializers.AccountUpdateSerializers,
     }
 
-    permission_map = {
-        'default': [IsAuthenticated],
-        'retrieve': [IsAuthenticated],
-        'partial_update': [IsAuthenticated],
-        'destroy': [IsAuthenticated],
-    }
+    def get_serializer_class(self):
+        method = self.request.method
+        return self.serializer_map.get(method)
+
+    def get_object(self):
+        return self.request.user
 
 
 @method_decorator(
