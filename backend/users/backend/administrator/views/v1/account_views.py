@@ -52,7 +52,6 @@ from rest_framework.exceptions import NotFound
     ),
 )
 class AccountViewSet(PartialUpdateMixin, ModelViewSet):
-    queryset = Admin.objects.all()
     permission_classes = (IsAdminScopeUserPerm,)
     http_method_names = ['get', 'put', 'delete']
 
@@ -64,6 +63,9 @@ class AccountViewSet(PartialUpdateMixin, ModelViewSet):
     def get_serializer_class(self):
         method = self.request.method
         return self.serializer_map.get(method)
+
+    def get_object(self):
+        return self.request.user
 
 
 @method_decorator(

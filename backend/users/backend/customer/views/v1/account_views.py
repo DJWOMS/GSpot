@@ -50,7 +50,6 @@ from rest_framework.viewsets import ModelViewSet
     ),
 )
 class AccountViewSet(PartialUpdateMixin, ModelViewSet):
-    queryset = CustomerUser.objects.all()
     permission_classes = (IsCustomerScopeUserPerm,)
     http_method_names = ('get', 'put', 'delete',)
 
@@ -62,6 +61,9 @@ class AccountViewSet(PartialUpdateMixin, ModelViewSet):
     def get_serializer_class(self):
         method = self.request.method
         return self.serializer_map.get(method)
+
+    def get_object(self):
+        return self.request.user
 
 
 @method_decorator(
