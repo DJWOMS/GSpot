@@ -11,8 +11,8 @@ class DBModelFactory:
         self._models = {}
 
     def register(self, app_label: str, model: BaseAbstractUser) -> None:
-        # if not isinstance(model, BaseAbstractUser):
-        #     raise TypeError('model must will be the "BaseAbstractUser" instance required!')
+        if not issubclass(model, BaseAbstractUser):
+            raise TypeError('model must will be the "BaseAbstractUser" instance required!')
         self._models[app_label] = model
 
     def get_model(self, app_label: str) -> Type[BaseAbstractUser]:
