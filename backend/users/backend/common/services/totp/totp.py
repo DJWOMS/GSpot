@@ -1,5 +1,7 @@
 import uuid
 
+from rest_framework import serializers
+
 from config.settings import redis_config
 from base.models import BaseAbstractUser
 from base.tokens.totp import BaseTOTPToken
@@ -43,4 +45,6 @@ class TOTPToken(BaseTOTPToken):
 
     def check_totp(self, totp: str):
         data = self.redis.is_token_exist(totp)
+        if not data:
+            raise serializers.ValidationError('Current TOTP is not exists.')
         return data
