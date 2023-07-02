@@ -1,3 +1,4 @@
+from common.serializers.v1.logout_serializer import LogoutSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -6,22 +7,20 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from common.serializers.v1.logout_serializer import LogoutSerializer
-
 
 @method_decorator(
-    name='post',
+    name="post",
     decorator=swagger_auto_schema(
-        operation_description='Прекратить сеанс работы в качестве зарегистрированного пользователя',
+        operation_description="Прекратить сеанс работы в качестве зарегистрированного пользователя",
         tags=[
-            'Аутентификация',
+            "Аутентификация",
         ],
         request_body=LogoutSerializer,
         responses={
             200: openapi.Response(
-                'Сеанс работы прекращен',
+                "Сеанс работы прекращен",
             ),
-            400: openapi.Response('Отсутствует refresh токен'),
+            400: openapi.Response("Отсутствует refresh токен"),
         },
     ),
 )

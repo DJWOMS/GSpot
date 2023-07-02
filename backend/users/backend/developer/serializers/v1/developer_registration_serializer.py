@@ -1,6 +1,5 @@
-from rest_framework import serializers
-
 from developer.models import CompanyUser
+from rest_framework import serializers
 
 
 class DeveloperRegistrationSerializer(serializers.ModelSerializer):
@@ -11,10 +10,10 @@ class DeveloperRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompanyUser
         exclude = (
-            'is_active',
-            'is_superuser',
-            'groups',
-            'user_permissions',
-            'is_banned',
-            'password',
+            "is_active",
+            "is_superuser",
+            "groups",
+            "user_permissions",
+            "is_banned",
+            "password",
         )

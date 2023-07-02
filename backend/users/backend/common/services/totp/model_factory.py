@@ -1,9 +1,9 @@
 from typing import Type
 
+from administrator.models import Admin
 from base.models import BaseAbstractUser
 from customer.models import CustomerUser
 from developer.models import CompanyUser
-from administrator.models import Admin
 
 
 class DBModelFactory:
@@ -23,6 +23,6 @@ class DBModelFactory:
 
 
 db_model_factory = DBModelFactory()
-db_model_factory.register('customer', CustomerUser)
-db_model_factory.register('developer', CompanyUser)
-db_model_factory.register('administrator', Admin)
+db_model_factory.register("customer", CustomerUser)
+db_model_factory.register("developer", CompanyUser)
+db_model_factory.register("administrator", Admin)

@@ -1,14 +1,14 @@
 import uuid
 
-from django.core.validators import MinLengthValidator
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import (
-    PermissionManager,
-    GroupManager,
     AbstractUser,
+    GroupManager,
+    PermissionManager,
     PermissionsMixin,
 )
+from django.core.validators import MinLengthValidator
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class BaseAbstractUser(AbstractUser):
@@ -79,10 +79,10 @@ class BasePermissionMixin(PermissionsMixin):
 
 
 class BaseModerate(models.Model):
-    ACTIONS = {('B', 'Block'), ('U', 'Unblock')}
+    ACTIONS = {("B", "Block"), ("U", "Unblock")}
     reason = models.CharField(
         max_length=255,
-        verbose_name=_('block reason'),
+        verbose_name=_("block reason"),
         validators=[
             MinLengthValidator(3),
         ],

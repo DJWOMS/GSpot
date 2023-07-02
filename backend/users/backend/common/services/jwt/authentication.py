@@ -1,11 +1,10 @@
 from typing import Type
 
-from django.conf import settings
-from rest_framework.authentication import BaseAuthentication
-
 from base.exceptions import AuthenticationFailed
 from base.models import BaseAbstractUser
 from common.services.jwt.token import Token
+from django.conf import settings
+from rest_framework.authentication import BaseAuthentication
 
 
 class CustomJWTAuthentication(BaseAuthentication):
@@ -25,12 +24,12 @@ class CustomJWTAuthentication(BaseAuthentication):
         Token().check_token(token)
 
     def get_user(self, payload: dict) -> BaseAbstractUser:
-        user_id = payload.get('user_id')
-        user_role = payload.get('role')
+        user_id = payload.get("user_id")
+        user_role = payload.get("role")
         if not user_id:
-            raise AuthenticationFailed('User identifier not found')
+            raise AuthenticationFailed("User identifier not found")
         if not user_role:
-            raise AuthenticationFailed('User role not found')
+            raise AuthenticationFailed("User role not found")
 
         user_model = self.get_user_model(user_role)
 
@@ -48,24 +47,24 @@ class CustomJWTAuthentication(BaseAuthentication):
             if user_model._meta.app_label == role:
                 return user_model
 
-        raise AuthenticationFailed('No such User role')
+        raise AuthenticationFailed("No such User role")
 
     def get_token(self, request) -> str:
-        if settings.GET_TOKEN_FROM == 'header':
+        if settings.GET_TOKEN_FROM == "header":
             token = self._get_token_from_header(request)
         else:
             token = self._get_token_from_cookies(request)
 
         if not token:
-            raise AuthenticationFailed('Token not found in %s' % settings.GET_TOKEN_FROM)
+            raise AuthenticationFailed("Token not found in %s" % settings.GET_TOKEN_FROM)
         return token
 
     @staticmethod
     def _get_token_from_header(request) -> str:
-        token = request.META.get('HTTP_AUTHORIZATION')
+        token = request.META.get("HTTP_AUTHORIZATION")
         return token
 
     @staticmethod
     def _get_token_from_cookies(request) -> str:
-        token = request.COOKIES.get('Authentication')
+        token = request.COOKIES.get("Authentication")
         return token

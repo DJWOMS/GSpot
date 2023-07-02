@@ -1,5 +1,4 @@
 from common.models import Country
-
 from rest_framework import serializers
 
 

@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('developer', '0005_alter_companyuser_managers'),
+        ("developer", "0005_alter_companyuser_managers"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='company',
-            name='is_banned',
+            model_name="company",
+            name="is_banned",
             field=models.BooleanField(default=False),
         ),
     ]

@@ -18,32 +18,32 @@ class BaseMessage:
 
 @dataclass
 class DevActivationMessage(BaseMessage):
-    exchange_name: str = 'dev_activation_exchange'
-    routing_key: str = 'dev_activation_queue'
+    exchange_name: str = "dev_activation_exchange"
+    routing_key: str = "dev_activation_queue"
 
 
 @dataclass
 class ClientActivationMessage(BaseMessage):
-    exchange_name: str = 'client_activation_exchange'
-    routing_key: str = 'client_activation_queue'
+    exchange_name: str = "client_activation_exchange"
+    routing_key: str = "client_activation_queue"
 
 
 @dataclass
 class OwnerAccessMessage(BaseMessage):
-    exchange_name: str = 'owner_access_exchange'
-    routing_key: str = 'owner_access_queue'
+    exchange_name: str = "owner_access_exchange"
+    routing_key: str = "owner_access_queue"
 
 
 @dataclass
 class DevAccessMessage(BaseMessage):
-    exchange_name: str = 'dev_access_exchange'
-    routing_key: str = 'dev_access_queue'
+    exchange_name: str = "dev_access_exchange"
+    routing_key: str = "dev_access_queue"
 
 
 @dataclass
 class FriendAddedMessage(BaseMessage):
-    exchange_name: str = 'friend_added_exchange'
-    routing_key: str = 'friend_added_queue'
+    exchange_name: str = "friend_added_exchange"
+    routing_key: str = "friend_added_queue"
 
 
 @dataclass

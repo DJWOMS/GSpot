@@ -1,3 +1,4 @@
+from common.serializers.v1.totp_serializer import CheckTOTPSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -5,38 +6,37 @@ from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from common.serializers.v1.totp_serializer import CheckTOTPSerializer
-
 
 @method_decorator(
-    name='post',
+    name="post",
     decorator=swagger_auto_schema(
         request_body=CheckTOTPSerializer,
-        operation_description='Проверка валидности TOTP токена',
-        tags=['Аутентификация', 'Администратор', 'Разработчик', 'Пользователь'],
+        operation_description="Проверка валидности TOTP токена",
+        tags=["Аутентификация", "Администратор", "Разработчик", "Пользователь"],
         responses={
-            200: openapi.Response('Токен валиден', CheckTOTPSerializer),
-            400: openapi.Response('Токен не валиден'),
+            200: openapi.Response("Токен валиден", CheckTOTPSerializer),
+            400: openapi.Response("Токен не валиден"),
         },
     ),
 )
 @method_decorator(
-    name='put',
+    name="put",
     decorator=swagger_auto_schema(
         request_body=CheckTOTPSerializer,
-        operation_description='Установка пароля и активация учетной записи',
-        tags=['Аутентификация', 'Администратор', 'Разработчик', 'Пользователь'],
+        operation_description="Установка пароля и активация учетной записи",
+        tags=["Аутентификация", "Администратор", "Разработчик", "Пользователь"],
         responses={
             201: openapi.Response(
-                'Токен валиден, пароль установлен, учетная запись активирована', CheckTOTPSerializer
+                "Токен валиден, пароль установлен, учетная запись активирована",
+                CheckTOTPSerializer,
             ),
-            400: openapi.Response('Токен не валиден, учетная запись не активирована'),
+            400: openapi.Response("Токен не валиден, учетная запись не активирована"),
         },
     ),
 )
 class CheckTOTPView(generics.GenericAPIView):
     permission_classes = [AllowAny]
-    http_method_names = ['post', 'put']
+    http_method_names = ["post", "put"]
 
     def post(self, request):
         serializer = CheckTOTPSerializer(data=request.data, partial=True)
