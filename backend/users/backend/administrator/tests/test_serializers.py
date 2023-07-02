@@ -1,8 +1,7 @@
-from django.test import TestCase
-
 from administrator.models import AdminPermission
 from administrator.serializers.v1 import AdminGroupSerializer, AdminPermissionSerializer
 from base.base_tests import BaseGroupSerializerTest, BasePermissionSerializerTest
+from django.test import TestCase
 
 
 class AdminGroupSerializerTest(BaseGroupSerializerTest, TestCase):

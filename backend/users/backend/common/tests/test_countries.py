@@ -1,17 +1,14 @@
 import datetime
 
-from django.test import TestCase
-from django.urls import reverse
-from rest_framework import status
-from faker import Faker
-
 from administrator.models import Admin
-from customer.models import CustomerUser
-from developer.models import CompanyUser
-
 from base.base_tests.tests import BaseTestView
 from common.models import Country
-
+from customer.models import CustomerUser
+from developer.models import CompanyUser
+from django.test import TestCase
+from django.urls import reverse
+from faker import Faker
+from rest_framework import status
 
 fake = Faker()
 

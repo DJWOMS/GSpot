@@ -1,5 +1,5 @@
-from developer.models import DeveloperPermission
 from base.management.commands.createbasepermission import BasePermissionCreatingCommand
+from developer.models import DeveloperPermission
 
 
 class Command(BasePermissionCreatingCommand):

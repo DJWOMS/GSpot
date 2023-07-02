@@ -4,25 +4,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('common', '0001_initial'),
+        ("common", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='contacttype',
-            options={'verbose_name': 'contact_type', 'verbose_name_plural': 'contact_types'},
+            name="contacttype",
+            options={"verbose_name": "contact_type", "verbose_name_plural": "contact_types"},
         ),
         migrations.AlterField(
-            model_name='country',
-            name='id',
+            model_name="country",
+            name="id",
             field=models.BigAutoField(
-                auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                auto_created=True,
+                primary_key=True,
+                serialize=False,
+                verbose_name="ID",
             ),
         ),
         migrations.AlterModelTable(
-            name='contacttype',
-            table='contact_type',
+            name="contacttype",
+            table="contact_type",
         ),
     ]

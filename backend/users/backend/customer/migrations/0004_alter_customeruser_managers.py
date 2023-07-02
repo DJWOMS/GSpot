@@ -5,16 +5,15 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('customer', '0003_remove_customeruser_last_login'),
+        ("customer", "0003_remove_customeruser_last_login"),
     ]
 
     operations = [
         migrations.AlterModelManagers(
-            name='customeruser',
+            name="customeruser",
             managers=[
-                ('objects', customer.models.CustomerManager()),
+                ("objects", customer.models.CustomerManager()),
             ],
         ),
     ]

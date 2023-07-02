@@ -12,11 +12,17 @@ jobs:
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v3
-      - name: Install dependencies
-        run: pip install flake8
-      - name: Test with flake8
-        run: |
-          cd backend/users/backend && python -m flake8
+
+      - name: Install python
+        uses: actions/setup-python@v3
+
+      - run: pip install pre-commit
+      - run: pre-commit --version
+
+      - run: |
+          cd backend/users && pre-commit install
+      - run: |
+          cd backend/users && pre-commit run --all-files
       - name: Run test in docker-compose
         run: |
           cd backend/users/ && docker-compose -f docker-compose.tests.yml \
@@ -24,4 +30,3 @@ jobs:
                               --build  \
                               --abort-on-container-exit \
                               --exit-code-from  web_users_tests
-

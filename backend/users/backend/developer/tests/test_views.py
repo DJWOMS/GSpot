@@ -1,9 +1,8 @@
-from django.test import TestCase
-
 from base.base_tests import BaseGroupViewsTest, BasePermissionViewsTest
 from base.base_tests.test_registrations import RegistrationUsersDatasetTest
 from base.base_tests.tests import TestBase, TestView
-from developer.models import DeveloperPermission, CompanyUser
+from developer.models import CompanyUser, DeveloperPermission
+from django.test import TestCase
 
 
 class DeveloperPermissionViewTest(BasePermissionViewsTest, TestCase):
@@ -31,7 +30,7 @@ class DeveloperGroupViewTest(BaseGroupViewsTest, TestCase):
 
 
 class DeveloperRegistrationViewTest(TestView):
-    url = '/api/v1/developer/registration/'
+    url = "/api/v1/developer/registration/"
 
 
 class DeveloperRegistrationTest(TestBase, TestCase):

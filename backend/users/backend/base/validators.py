@@ -24,9 +24,9 @@ class AbstractUserValidation(AbstractUserVerify, metaclass=ABCMeta):
 
 class BaseUserValidation(AbstractUserValidation):
     exception = ValidationError
-    error_message = 'ValidationError'
+    error_message = "ValidationError"
 
-    def __init__(self, message=''):
+    def __init__(self, message=""):
         if message:
             self.error_message = message
 

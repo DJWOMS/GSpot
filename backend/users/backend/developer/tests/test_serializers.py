@@ -1,12 +1,10 @@
-from django.test import TestCase
-
 from base.base_tests import BaseGroupSerializerTest, BasePermissionSerializerTest
-
 from developer.models import DeveloperPermission
 from developer.serializers.v1 import (
     DeveloperGroupSerializer,
     DeveloperPermissionSerializer,
 )
+from django.test import TestCase
 
 
 class DeveloperGroupSerializerTest(BaseGroupSerializerTest, TestCase):

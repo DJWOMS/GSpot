@@ -1,12 +1,12 @@
 from datetime import date
+
+from base.models import BaseAbstractUser
+from common.models import Country
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import UserManager
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-from common.models import Country
-from base.models import BaseAbstractUser
 
 
 class CustomerManager(UserManager):
@@ -38,7 +38,10 @@ class CustomerUser(BaseAbstractUser):
     avatar = models.ImageField(null=True, blank=True)
     is_active = models.BooleanField(default=False)
     country = models.ForeignKey(
-        Country, verbose_name="Страна", on_delete=models.SET_NULL, null=True
+        Country,
+        verbose_name="Страна",
+        on_delete=models.SET_NULL,
+        null=True,
     )
 
     groups = None
@@ -78,8 +81,12 @@ class FriendShipRequest(models.Model):
     )
     status = models.TextField(choices=STATUS_CHOICES, default=REQUESTED)
     sender = models.ForeignKey(
-        CustomerUser, on_delete=models.CASCADE, related_name="sender"
+        CustomerUser,
+        on_delete=models.CASCADE,
+        related_name="sender",
     )  # отправитель
     receiver = models.ForeignKey(
-        CustomerUser, on_delete=models.CASCADE, related_name="receiver"
+        CustomerUser,
+        on_delete=models.CASCADE,
+        related_name="receiver",
     )  # получатель

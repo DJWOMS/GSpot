@@ -2,23 +2,22 @@ import uuid
 from datetime import datetime
 from typing import Type
 
-from django.test import TestCase
-from django.urls import reverse
-
 from administrator.models import Admin
-from base.models import BaseAbstractUser
 from base.base_tests.tests import BaseTestView
+from base.models import BaseAbstractUser
 from common.services.totp import TOTPToken
+from config.settings import redis_config
 from customer.models import CustomerUser
 from developer.models import CompanyUser
+from django.test import TestCase
+from django.urls import reverse
 from utils.db.redis_client import RedisTotpClient
-from config.settings import redis_config
 
 
 class TestCheckTOTPToken(BaseTestView, TestCase):
     def setUp(self):
-        self.check_totp_url = reverse('check-totp')
-        self.set_password_url = reverse('totp-set-password')
+        self.check_totp_url = reverse("check-totp")
+        self.set_password_url = reverse("totp-set-password")
         self.r = RedisTotpClient(
             host=redis_config.REDIS_LOCAL_HOST,
             port=redis_config.REDIS_LOCAL_PORT,
@@ -34,13 +33,13 @@ class TestCheckTOTPToken(BaseTestView, TestCase):
     @staticmethod
     def create_user(user_model: Type[BaseAbstractUser]) -> Type[BaseAbstractUser]:
         data = {
-            'username': 'test_user',
-            'password': 'test_password',
-            'email': 'test_email@example.com',
-            'phone': 12341234,
+            "username": "test_user",
+            "password": "test_password",
+            "email": "test_email@example.com",
+            "phone": 12341234,
         }
         if user_model == CustomerUser:
-            data['birthday'] = datetime.now()
+            data["birthday"] = datetime.now()
         user = user_model.objects.create_user(**data)
         return user
 
@@ -48,11 +47,11 @@ class TestCheckTOTPToken(BaseTestView, TestCase):
         test_token = str(uuid.uuid4())
         self.totp.add_to_redis(test_token, self.developer)
 
-        data = {'totp_token': test_token}
+        data = {"totp_token": test_token}
         request = self.client.post(self.check_totp_url, data=data)
         self.assertEqual(request.status_code, 200)
 
-        data.update({'password': 12345})
+        data.update({"password": 12345})
         request = self.client.put(self.set_password_url, data=data)
         self.assertEqual(request.status_code, 201)
 
@@ -60,11 +59,11 @@ class TestCheckTOTPToken(BaseTestView, TestCase):
         test_token = str(uuid.uuid4())
         self.totp.add_to_redis(test_token, self.administrator)
 
-        data = {'totp_token': test_token}
+        data = {"totp_token": test_token}
         request = self.client.post(self.check_totp_url, data=data)
         self.assertEqual(request.status_code, 200)
 
-        data.update({'password': 12345})
+        data.update({"password": 12345})
         request = self.client.put(self.set_password_url, data=data)
         self.assertEqual(request.status_code, 201)
 
@@ -74,10 +73,10 @@ class TestCheckTOTPToken(BaseTestView, TestCase):
         test_token = str(uuid.uuid4())
         self.totp.add_to_redis(test_token, self.customer)
 
-        data = {'totp_token': test_token}
+        data = {"totp_token": test_token}
         request = self.client.post(self.check_totp_url, data=data)
         self.assertEqual(request.status_code, 200)
 
-        data.update({'password': 12345})
+        data.update({"password": 12345})
         request = self.client.put(self.set_password_url, data=data)
         self.assertEqual(request.status_code, 201)

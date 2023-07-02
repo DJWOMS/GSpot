@@ -1,11 +1,11 @@
+from base.models import BaseAbstractUser, BaseGroup, BasePermission
+from common.permissions.validators import ActiveUserValidator, BannedUserValidatorVerify
 from django.contrib.auth.password_validation import validate_password
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.exceptions import ParseError
 from rest_framework.fields import ValidationError
 from rest_framework.serializers import ModelSerializer
-from common.permissions.validators import ActiveUserValidator, BannedUserValidatorVerify
-from base.models import BaseAbstractUser, BasePermission, BaseGroup
 
 
 class BasePermissionSerializer(ModelSerializer):

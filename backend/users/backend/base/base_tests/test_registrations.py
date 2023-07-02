@@ -11,7 +11,7 @@ class RegistrationUsersDatasetTest(TestDataSet):
             "last_name": "",
             "email": "gravity@gmail.com",
             "phone": "9805551712",
-            "birthday": '1992-09-09',
+            "birthday": "1992-09-09",
             "country": 1,
         },
     ]
@@ -23,11 +23,11 @@ class RegistrationUsersDatasetTest(TestDataSet):
             "last_name": "",
             "email": "gravity123@gmail.com",
             "phone": "9805551712",
-            "birthday": '19942-09-09',
-            "country": '1',
+            "birthday": "19942-09-09",
+            "country": "1",
         },
     ]
 
     @classmethod
     def perform_create(cls):
-        Country.objects.create(id=1, name='Russia')
+        Country.objects.create(id=1, name="Russia")
