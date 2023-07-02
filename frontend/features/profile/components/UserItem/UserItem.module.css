@@ -1,0 +1,12 @@
+.user{
+  @apply flex  w-full p-2.5 text-white;
+  &Avatar{
+    @apply w-60 h-80 flex justify-center items-center border-2 border-main-60 rounded-md overflow-hidden
+  }
+  &Descr{
+    @apply flex flex-col p-7 justify-between
+  }
+  &DescrName{
+    @apply  text-[22px] leading-[22px]
+  }
+}

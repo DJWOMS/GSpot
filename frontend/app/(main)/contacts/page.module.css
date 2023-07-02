@@ -26,7 +26,7 @@
 
   &Btn {
     @apply flex h-11 w-full flex-row items-center justify-center rounded-md
-    bg-acid  text-[13px] font-semibold uppercase tracking-[0.6px] text-white md:w-36;
+    bg-white  text-[13px] font-semibold uppercase tracking-[0.6px] text-white md:w-36;
 
     &:hover {
       @apply bg-primary text-white;
