@@ -1,5 +1,4 @@
 from datetime import datetime
-from django.test import TestCase
 from typing import Type
 
 from administrator.models import Admin
@@ -7,6 +6,7 @@ from base.models import BaseAbstractUser
 from common.services.jwt.users_payload import PayloadFactory
 from customer.models import CustomerUser
 from developer.models import CompanyUser
+from django.test import TestCase
 
 
 class TestTokenJWT(TestCase):
@@ -19,13 +19,13 @@ class TestTokenJWT(TestCase):
     @staticmethod
     def create_user(user_model: Type[BaseAbstractUser]) -> Type[BaseAbstractUser]:
         data = {
-            'username': 'test_user',
-            'password': 'test_password',
-            'email': 'test_email@example.com',
-            'phone': 12341234,
+            "username": "test_user",
+            "password": "test_password",
+            "email": "test_email@example.com",
+            "phone": 12341234,
         }
         if user_model == CustomerUser:
-            data['birthday'] = datetime.now()
+            data["birthday"] = datetime.now()
         user = user_model.objects.create_user(**data)
         return user
 

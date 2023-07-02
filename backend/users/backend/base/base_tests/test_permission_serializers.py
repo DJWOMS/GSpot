@@ -4,20 +4,20 @@ from base.serializers import BasePermissionSerializer
 class BasePermissionSerializerTest:
     def setUp(self):
         self.valid_data = {
-            'name': 'test_name',
-            'codename': 'test_codename',
+            "name": "test_name",
+            "codename": "test_codename",
         }
         self.empty_data = {
-            'name': '',
-            'codename': '',
+            "name": "",
+            "codename": "",
         }
         self.empty_name_data = {
-            'name': '',
-            'codename': 'test_codename',
+            "name": "",
+            "codename": "test_codename",
         }
         self.empty_codename_data = {
-            'name': 'test_name',
-            'codename': '',
+            "name": "test_name",
+            "codename": "",
         }
 
     def test_create_permission(self):

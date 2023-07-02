@@ -1,15 +1,13 @@
 import datetime
 from typing import List, Optional, Union
 
-from django.test import TestCase
-from django.urls import reverse
-
-from rest_framework import status
-
 from administrator.models import Admin
 from base.base_tests.tests import BaseTestView
 from customer.models import CustomerUser
 from developer.models import Company, CompanyUser
+from django.test import TestCase
+from django.urls import reverse
+from rest_framework import status
 
 
 class CompanyTestAPI(BaseTestView, TestCase):

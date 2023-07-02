@@ -1,7 +1,6 @@
-from rest_framework.test import APIClient
-
 from base.models import BaseAbstractUser
 from common.services.jwt.token import Token
+from rest_framework.test import APIClient
 
 
 class BasePermissionViewsTest:
@@ -10,16 +9,18 @@ class BasePermissionViewsTest:
         self.access_token = self.create_access_token()
         self.path = self.get_permission_path()
         self.data_for_creating_permission = {
-            'name': 'test_name',
-            'codename': 'test_codename',
+            "name": "test_name",
+            "codename": "test_codename",
         }
 
     def create_access_token(self):
         user_model = self.get_user_model()
         user = user_model.objects.create(
-            username='test_user', password='test_password', email='test_email@example.com'
+            username="test_user",
+            password="test_password",
+            email="test_email@example.com",
         )
-        user_data = {'user_id': str(user.id), 'role': user_model._meta.app_label}
+        user_data = {"user_id": str(user.id), "role": user_model._meta.app_label}
         return Token().generate_access_token(user_data)
 
     @staticmethod

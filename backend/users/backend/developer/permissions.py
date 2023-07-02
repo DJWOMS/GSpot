@@ -1,5 +1,5 @@
 from common.permissions.permissons import CompanyOwnerPerm
-from developer.models import CompanyUser, Company
+from developer.models import Company, CompanyUser
 
 
 class CompanyOwnerEmployeePerm(CompanyOwnerPerm):

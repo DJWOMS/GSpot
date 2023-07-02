@@ -1,11 +1,12 @@
-import os
-import redis
 import json
+import os
+
+import redis
 from config.settings import redis_config
 
 
 class RedisClient:
-    _prefix = 'basic'
+    _prefix = "basic"
     _ttl = 300
 
     def __init__(self, host: str or tuple, port: int or tuple, db: int, password: str):
@@ -27,13 +28,13 @@ class RedisClient:
         self.conn.set(name=name, value=value_data, ex=ttl)
 
     def is_token_exist(self, token: str, prefix: bool = True) -> dict | None:
-        key = f'{self._prefix}:{token}' if prefix else token
+        key = f"{self._prefix}:{token}" if prefix else token
         return self.__get(key)
 
     def add_token(self, token: str, value: dict = None, ttl: int = None, prefix: bool = True):
-        key = f'{self._prefix}:{token}' if prefix else token
+        key = f"{self._prefix}:{token}" if prefix else token
         ttl = ttl if ttl is not None else self._ttl
-        value = value if value is not None else {'token': key}
+        value = value if value is not None else {"token": key}
         self.__put(name=key, value=value, ttl=ttl)
 
 

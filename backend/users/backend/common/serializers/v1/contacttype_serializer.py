@@ -1,5 +1,4 @@
 from common.models import ContactType
-
 from rest_framework import serializers
 
 

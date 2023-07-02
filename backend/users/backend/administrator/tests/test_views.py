@@ -1,7 +1,6 @@
-from django.test import TestCase
-
-from administrator.models import AdminPermission, Admin
+from administrator.models import Admin, AdminPermission
 from base.base_tests import BaseGroupViewsTest, BasePermissionViewsTest
+from django.test import TestCase
 
 
 class AdminPermissionViewTest(BasePermissionViewsTest, TestCase):
