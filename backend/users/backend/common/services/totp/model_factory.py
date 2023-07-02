@@ -1,9 +1,9 @@
 from typing import Type
 
+from administrator.models import Admin
 from base.models import BaseAbstractUser
 from customer.models import CustomerUser
 from developer.models import CompanyUser
-from administrator.models import Admin
 
 
 class DBModelFactory:

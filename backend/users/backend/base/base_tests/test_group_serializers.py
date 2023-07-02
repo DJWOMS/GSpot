@@ -5,30 +5,30 @@ from base.serializers import BaseGroupSerializer
 class BaseGroupSerializerTest:
     def setUp(self):
         data_for_creating_permission = {
-            'name': 'test_name',
-            'codename': 'test_codename',
+            "name": "test_name",
+            "codename": "test_codename",
         }
         permission_model = self.get_permission_model()
         self.permission = permission_model.objects.create(**data_for_creating_permission)
         self.valid_data = {
-            'name': 'test_name',
-            'permission': [self.permission.pk],
+            "name": "test_name",
+            "permission": [self.permission.pk],
         }
         self.empty_data = {
-            'name': '',
-            'permission': [],
+            "name": "",
+            "permission": [],
         }
         self.empty_name_data = {
-            'name': '',
-            'permission': [self.permission.pk],
+            "name": "",
+            "permission": [self.permission.pk],
         }
         self.empty_permission_data = {
-            'name': 'test_name_2',
-            'permission': [],
+            "name": "test_name_2",
+            "permission": [],
         }
         self.invalid_permission_data = {
-            'name': 'test_name_3',
-            'permission': ['invalid_pk'],
+            "name": "test_name_3",
+            "permission": ["invalid_pk"],
         }
 
     @staticmethod

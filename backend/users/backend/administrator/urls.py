@@ -1,17 +1,19 @@
-from administrator.views.v1 import account_views
-from django.urls import path
-from rest_framework import routers
-from administrator.views.v1 import AdminGroupViewSet, AdminPermissionViewSet
-from administrator.views.v1.employee_crud import (
-    EmployeeListView,
-    EmployeeDetailView,
-    EmployeeSendEmail,
+from administrator.views.v1 import (
+    AdminGroupViewSet,
+    AdminPermissionViewSet,
+    account_views,
 )
 from administrator.views.v1.auth_view import AdminAuthView
+from administrator.views.v1.company_view import CompanyListView
 from administrator.views.v1.customer_view import CustomerListView
 from administrator.views.v1.developer_view import DeveloperListView
-from administrator.views.v1.company_view import CompanyListView
-
+from administrator.views.v1.employee_crud import (
+    EmployeeDetailView,
+    EmployeeListView,
+    EmployeeSendEmail,
+)
+from django.urls import path
+from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r"group", AdminGroupViewSet, basename="admin_group")
@@ -24,7 +26,7 @@ account_router = [
     path(
         "administrator/me",
         account_views.AccountViewSet.as_view(
-            {"get": "retrieve", "put": "partial_update", "delete": "destroy"}
+            {"get": "retrieve", "put": "partial_update", "delete": "destroy"},
         ),
         name="administrator-user-account",
     ),
@@ -45,9 +47,7 @@ generic_urls = [
 ]
 
 customer_urls = [
-    path(
-        "customers/", CustomerListView.as_view({"get": "list"}), name="admin_customers"
-    ),
+    path("customers/", CustomerListView.as_view({"get": "list"}), name="admin_customers"),
     path(
         "customers/<uuid:pk>/",
         CustomerListView.as_view({"get": "retrieve", "delete": "destroy"}),

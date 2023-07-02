@@ -15,13 +15,13 @@ class Country(models.Model):
 
 
 class ContactType(models.Model):
-    name = models.CharField(max_length=100, verbose_name=_('name contact'))
-    icon = models.ImageField(verbose_name=_('icon contact'), null=True, blank=True)
+    name = models.CharField(max_length=100, verbose_name=_("name contact"))
+    icon = models.ImageField(verbose_name=_("icon contact"), null=True, blank=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        db_table = 'contact_type'
-        verbose_name = _('contact_type')
-        verbose_name_plural = _('contact_types')
+        db_table = "contact_type"
+        verbose_name = _("contact_type")
+        verbose_name_plural = _("contact_types")

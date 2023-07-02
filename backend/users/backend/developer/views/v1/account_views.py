@@ -1,16 +1,13 @@
-from django.utils.decorators import method_decorator
-
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
-
-from rest_framework.permissions import IsAuthenticated
-
 from base.views import PersonalAccount
 from developer.models import CompanyUser
 from developer.serializers.account_serializers import (
     AccountRetrieveSerializers,
     AccountUpdateSerializers,
 )
+from django.utils.decorators import method_decorator
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework.permissions import IsAuthenticated
 
 
 @method_decorator(

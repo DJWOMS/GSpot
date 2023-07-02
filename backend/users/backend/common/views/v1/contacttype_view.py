@@ -1,11 +1,9 @@
+from base.views import BaseAdminSuperUserViewSet
+from common.models import ContactType
+from common.serializers.v1.contacttype_serializer import ContactTypeSerializer
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-
-from base.views import BaseAdminSuperUserViewSet
-
-from common.models import ContactType
-from common.serializers.v1.contacttype_serializer import ContactTypeSerializer
 
 
 @method_decorator(
@@ -18,7 +16,7 @@ from common.serializers.v1.contacttype_serializer import ContactTypeSerializer
         responses={
             200: openapi.Response("Список типов контакта", ContactTypeSerializer(many=True)),
             403: openapi.Response(
-                "Список типов контакта доступен только авторизованным пользователям"
+                "Список типов контакта доступен только авторизованным пользователям",
             ),
         },
     ),
@@ -78,7 +76,7 @@ class ContactTypeViewSet(BaseAdminSuperUserViewSet):
         responses={
             200: openapi.Response("Список типов контакта", ContactTypeSerializer),
             403: openapi.Response(
-                "Список типов контактов доступен только авторизованным пользователям"
+                "Список типов контактов доступен только авторизованным пользователям",
             ),
             404: openapi.Response("Записи с таким ID не существует"),
         },

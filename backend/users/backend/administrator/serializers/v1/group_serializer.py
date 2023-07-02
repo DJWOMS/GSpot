@@ -1,12 +1,12 @@
-from rest_framework import serializers
-
-from administrator.models import AdminPermission, AdminGroup
+from administrator.models import AdminGroup, AdminPermission
 from base.serializers import BaseGroupSerializer
+from rest_framework import serializers
 
 
 class AdminGroupSerializer(BaseGroupSerializer):
     permission = serializers.PrimaryKeyRelatedField(
-        queryset=AdminPermission.objects.all(), many=True
+        queryset=AdminPermission.objects.all(),
+        many=True,
     )
 
     class Meta:

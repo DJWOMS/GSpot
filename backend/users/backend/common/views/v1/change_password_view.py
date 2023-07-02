@@ -1,12 +1,10 @@
+from common.serializers.v1.change_password_serializer import ChangePasswordSerializers
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
 from rest_framework.response import Response
-
-from common.serializers.v1.change_password_serializer import ChangePasswordSerializers
+from rest_framework.views import APIView
 
 post_method_schema = swagger_auto_schema(
     operation_description="Изменение пароля пользователя",
@@ -24,13 +22,9 @@ class ChangePasswordAPIView(APIView):
 
     @post_method_schema
     def post(self, request, *args, **kwargs):
-        serializer = ChangePasswordSerializers(
-            data=request.data, context={"request": request}
-        )
+        serializer = ChangePasswordSerializers(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
 
         serializer.create(serializer.validated_data)
 
-        return Response(
-            {"success": "Password changed successfully"}, status=status.HTTP_200_OK
-        )
+        return Response({"success": "Password changed successfully"}, status=status.HTTP_200_OK)

@@ -1,3 +1,7 @@
+from common.mixins import TOTPVerificationMixin
+from developer.serializers.v1.developer_registration_serializer import (
+    DeveloperRegistrationSerializer,
+)
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -5,24 +9,19 @@ from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from common.mixins import TOTPVerificationMixin
-from developer.serializers.v1.developer_registration_serializer import (
-    DeveloperRegistrationSerializer,
-)
-
 
 @method_decorator(
-    name='post',
+    name="post",
     decorator=swagger_auto_schema(
-        operation_description='Зарегистрировать разработчика',
+        operation_description="Зарегистрировать разработчика",
         tags=[
-            'Разработчик',
-            'Административная панель разработчика',
+            "Разработчик",
+            "Административная панель разработчика",
         ],
         request_body=DeveloperRegistrationSerializer,
         responses={
-            201: openapi.Response('Пользователь зарегистрирован'),
-            400: openapi.Response('Данные не валидны'),
+            201: openapi.Response("Пользователь зарегистрирован"),
+            400: openapi.Response("Данные не валидны"),
         },
     ),
 )

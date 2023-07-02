@@ -26,12 +26,12 @@ class ChangeAccountInfoApiTestCase:
         self.client.force_authenticate(user=self.first_user)
         url = reverse(self.url_reverse)
         responce = self.client.get(url)
-        self.assertEqual('user_of_company', responce.data.get('username'))
+        self.assertEqual("user_of_company", responce.data.get("username"))
         new_data = {
-            'username': 'user_of_company2',
+            "username": "user_of_company2",
         }
         responce_change_username = self.client.put(url, data=new_data)
-        self.assertEqual('user_of_company2', responce_change_username.data.get('username'))
+        self.assertEqual("user_of_company2", responce_change_username.data.get("username"))
 
     def test_change_info_logout_user(self):
         url = reverse(self.url_reverse)

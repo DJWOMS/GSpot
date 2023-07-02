@@ -1,6 +1,5 @@
-from rest_framework import serializers
-
 from administrator.models import Admin
+from rest_framework import serializers
 
 
 class AccountRetrieveSerializers(serializers.ModelSerializer):

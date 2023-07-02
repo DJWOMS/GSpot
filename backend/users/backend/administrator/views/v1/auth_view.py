@@ -1,12 +1,11 @@
+from administrator.serializers.v1.auth_serializer import AdminAuthSerializer
+from base.serializers import AuthTokensResponseSerializer
+from common.services.jwt.token import Token
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView, Response
-from administrator.serializers.v1.auth_serializer import AdminAuthSerializer
-from base.serializers import AuthTokensResponseSerializer
-
-from common.services.jwt.token import Token
 
 
 class AdminAuthView(APIView):

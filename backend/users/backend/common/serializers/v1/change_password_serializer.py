@@ -1,7 +1,6 @@
+from developer.models import CompanyUser
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
-
-from developer.models import CompanyUser
 
 
 class ChangePasswordSerializers(serializers.ModelSerializer):
@@ -20,9 +19,7 @@ class ChangePasswordSerializers(serializers.ModelSerializer):
             raise serializers.ValidationError("Invalid old password")
 
         if attrs["new_password"] != attrs["confirmation_new_password"]:
-            raise serializers.ValidationError(
-                "New password and confirmation do not match"
-            )
+            raise serializers.ValidationError("New password and confirmation do not match")
         return attrs
 
     def create(self, validated_data) -> None:

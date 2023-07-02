@@ -1,13 +1,11 @@
 import uuid
 
+from base.models import BaseAbstractUser, BaseGroup, BasePermission, BasePermissionMixin
+from common.models import ContactType, Country
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import UserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-from common.models import Country, ContactType
-
-from base.models import BaseAbstractUser, BasePermission, BaseGroup, BasePermissionMixin
 
 
 class DeveloperPermission(BasePermission):
@@ -20,13 +18,14 @@ class DeveloperPermission(BasePermission):
 class DeveloperPermissionMixin(BasePermissionMixin):
     def has_perm(self, perm, obj=None):
         queryset = self.user_permissions.filter(codename=perm) | DeveloperPermission.objects.filter(
-            developergroup__companyuser=self, codename=perm
+            developergroup__companyuser=self,
+            codename=perm,
         )
         return queryset.exists()
 
     def get_all_permissions(self, obj=None):
         return self.user_permissions.all() | DeveloperPermission.objects.filter(
-            developergroup__companyuser=self
+            developergroup__companyuser=self,
         )
 
     class Meta:
@@ -86,7 +85,7 @@ class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
         blank=True,
         help_text=_(
             "The groups this user belongs to. A user will get all permissions "
-            "granted to each of their groups."
+            "granted to each of their groups.",
         ),
         related_name="companyuser_set",
         related_query_name="companyuser",
@@ -165,7 +164,9 @@ class CompanyContact(models.Model):
         verbose_name=_("type contact"),
     )
     company = models.ForeignKey(
-        Company, verbose_name=_("company contacts"), on_delete=models.CASCADE
+        Company,
+        verbose_name=_("company contacts"),
+        on_delete=models.CASCADE,
     )
     value = models.CharField(max_length=150, verbose_name=_("value contact"), default="")
 

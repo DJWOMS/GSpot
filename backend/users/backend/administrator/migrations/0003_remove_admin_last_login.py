@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('administrator', '0002_remove_admin_date_joined'),
     ]

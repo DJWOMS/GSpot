@@ -1,5 +1,5 @@
-from rest_framework import serializers
 from developer.models import CompanyUser
+from rest_framework import serializers
 
 
 class AccountRetrieveSerializers(serializers.ModelSerializer):

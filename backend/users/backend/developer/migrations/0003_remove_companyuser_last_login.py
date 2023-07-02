@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('developer', '0002_remove_companyuser_date_joined'),
     ]

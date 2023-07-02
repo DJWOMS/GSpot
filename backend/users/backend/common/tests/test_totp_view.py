@@ -2,17 +2,16 @@ import uuid
 from datetime import datetime
 from typing import Type
 
-from django.test import TestCase
-from django.urls import reverse
-
 from administrator.models import Admin
-from base.models import BaseAbstractUser
 from base.base_tests.tests import BaseTestView
+from base.models import BaseAbstractUser
 from common.services.totp import TOTPToken
+from config.settings import redis_config
 from customer.models import CustomerUser
 from developer.models import CompanyUser
+from django.test import TestCase
+from django.urls import reverse
 from utils.db.redis_client import RedisTotpClient
-from config.settings import redis_config
 
 
 class TestCheckTOTPToken(BaseTestView, TestCase):

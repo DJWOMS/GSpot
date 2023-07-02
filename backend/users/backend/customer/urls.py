@@ -1,11 +1,8 @@
-from django.urls import path
-from rest_framework.routers import DefaultRouter
-
+from customer.views.v1 import account_views, customer_friend_view
 from customer.views.v1.auth_view import CustomerAuthView
-from customer.views.v1 import account_views
 from customer.views.v1.customer_friend_view import AddFriendsView
 from customer.views.v1.customer_registration_view import CustomerRegistrationView
-from customer.views.v1 import customer_friend_view
+from django.urls import path
 
 urlpatterns = [
     path("registration/", CustomerRegistrationView.as_view()),
@@ -15,7 +12,7 @@ account_router = [
     path(
         "customer/me",
         account_views.AccountViewSet.as_view(
-            {"get": "retrieve", "put": "partial_update", "delete": "destroy"}
+            {"get": "retrieve", "put": "partial_update", "delete": "destroy"},
         ),
         name="customer-user-account",
     ),
@@ -37,15 +34,13 @@ friends = [
     ),
     path(
         "friends_requests/",
-        customer_friend_view.ListRetrieveAcceptRejectAddFriendsView.as_view(
-            {"get": "list"}
-        ),
+        customer_friend_view.ListRetrieveAcceptRejectAddFriendsView.as_view({"get": "list"}),
         name="list-friends-requests",
     ),
     path(
         "friends_requests/<uuid:user_id>/ ",
         customer_friend_view.ListRetrieveAcceptRejectAddFriendsView.as_view(
-            {"get": "retrieve", "post": "create", "delete": "destroy"}
+            {"get": "retrieve", "post": "create", "delete": "destroy"},
         ),
         name="retrieve-accept-reject-friend",
     ),
@@ -57,7 +52,7 @@ friends = [
     path(
         "friends/<uuid:user_id>/",
         customer_friend_view.ListRetrieveDestroyFriendsView.as_view(
-            {"get": "retrieve", "delete": "destroy"}
+            {"get": "retrieve", "delete": "destroy"},
         ),
         name="retrieve-destroy-friend",
     ),

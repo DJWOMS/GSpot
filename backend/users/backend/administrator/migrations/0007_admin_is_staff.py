@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('administrator', '0006_companymoderate_companyusermoderate_customermoderate_and_more'),
     ]

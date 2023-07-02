@@ -1,10 +1,10 @@
-from base.views import PersonalAccount, PartialUpdateMixin
 from administrator.models import Admin
 from administrator.serializers import account_serializers
+from base.views import PartialUpdateMixin, PersonalAccount
+from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.permissions import IsAuthenticated
-from django.utils.decorators import method_decorator
 
 
 @method_decorator(

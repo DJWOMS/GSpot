@@ -3,11 +3,11 @@ import unittest
 
 from utils.broker.message import (
     BaseMessage,
-    FriendAddedMessage,
-    DevAccessMessage,
-    OwnerAccessMessage,
     ClientActivationMessage,
+    DevAccessMessage,
     DevActivationMessage,
+    FriendAddedMessage,
+    OwnerAccessMessage,
 )
 from utils.broker.rabbitmq import RabbitMQ
 
@@ -15,10 +15,12 @@ from utils.broker.rabbitmq import RabbitMQ
 class TestBaseMessage(unittest.TestCase):
     def test_create_base_message(self):
         message = {"Hello": "world!"}
-        exchange_name = 'test_exchange'
-        routing_key = 'test_queue'
+        exchange_name = "test_exchange"
+        routing_key = "test_queue"
         base_message = BaseMessage(
-            exchange_name=exchange_name, routing_key=routing_key, message=message
+            exchange_name=exchange_name,
+            routing_key=routing_key,
+            message=message,
         )
         self.assertEqual(base_message.exchange_name, exchange_name)
         self.assertEqual(base_message.routing_key, routing_key)
@@ -28,36 +30,38 @@ class TestBaseMessage(unittest.TestCase):
 class TestRabbitMQ(unittest.TestCase):
     def setUp(self) -> None:
         self.rabbitmq = RabbitMQ()
-        self.queue_name = 'test_queue'
-        self.exchange_name = 'test_exchange'
+        self.queue_name = "test_queue"
+        self.exchange_name = "test_exchange"
 
     def test_send_and_receive_message(self):
         with self.rabbitmq:
             message = BaseMessage(
                 exchange_name=self.exchange_name,
                 routing_key=self.queue_name,
-                message={'test': 'test message'},
+                message={"test": "test message"},
             )
             self.rabbitmq.send_message(message)
             method, properties, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name, auto_ack=True
+                queue=self.queue_name,
+                auto_ack=True,
             )
 
             self.assertIsNotNone(body)
             message_dict = json.loads(body)
             self.assertIsInstance(message_dict, dict)
-            self.assertEqual(message_dict['test'], 'test message')
+            self.assertEqual(message_dict["test"], "test message")
 
     def test_send_and_receive_dev_activation_message(self):
         with self.rabbitmq:
             dev_activation_message = DevActivationMessage(
                 exchange_name=self.exchange_name,
                 routing_key=self.queue_name,
-                message={'user_id': '123', 'is_active': True},
+                message={"user_id": "123", "is_active": True},
             )
             self.rabbitmq.send_message(dev_activation_message)
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name, auto_ack=True
+                queue=self.queue_name,
+                auto_ack=True,
             )
             received_message = json.loads(body)
             self.assertEqual(received_message, dev_activation_message.message)
@@ -67,11 +71,12 @@ class TestRabbitMQ(unittest.TestCase):
             client_activation_message = ClientActivationMessage(
                 exchange_name=self.exchange_name,
                 routing_key=self.queue_name,
-                message={'user_id': '456', 'is_active': True},
+                message={"user_id": "456", "is_active": True},
             )
             self.rabbitmq.send_message(client_activation_message)
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name, auto_ack=True
+                queue=self.queue_name,
+                auto_ack=True,
             )
             received_message = json.loads(body)
             self.assertEqual(received_message, client_activation_message.message)
@@ -81,11 +86,12 @@ class TestRabbitMQ(unittest.TestCase):
             owner_access_message = OwnerAccessMessage(
                 exchange_name=self.exchange_name,
                 routing_key=self.queue_name,
-                message={'user_id': '789', 'access_level': 'admin'},
+                message={"user_id": "789", "access_level": "admin"},
             )
             self.rabbitmq.send_message(owner_access_message)
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name, auto_ack=True
+                queue=self.queue_name,
+                auto_ack=True,
             )
             received_message = json.loads(body)
             self.assertEqual(received_message, owner_access_message.message)
@@ -95,11 +101,12 @@ class TestRabbitMQ(unittest.TestCase):
             dev_access_message = DevAccessMessage(
                 exchange_name=self.exchange_name,
                 routing_key=self.queue_name,
-                message={'user_id': '123', 'access_level': 'developer'},
+                message={"user_id": "123", "access_level": "developer"},
             )
             self.rabbitmq.send_message(dev_access_message)
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name, auto_ack=True
+                queue=self.queue_name,
+                auto_ack=True,
             )
             received_message = json.loads(body)
             self.assertEqual(received_message, dev_access_message.message)
@@ -109,22 +116,23 @@ class TestRabbitMQ(unittest.TestCase):
             friend_added_message = FriendAddedMessage(
                 exchange_name=self.exchange_name,
                 routing_key=self.queue_name,
-                message={'user_id': '123', 'friend_id': '456'},
+                message={"user_id": "123", "friend_id": "456"},
             )
             self.rabbitmq.send_message(friend_added_message)
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name, auto_ack=True
+                queue=self.queue_name,
+                auto_ack=True,
             )
             received_message = json.loads(body)
             self.assertEqual(received_message, friend_added_message.message)
 
     def test_send_message_with_invalid_routing_key(self):
-        with self.assertRaises(Exception):
+        with self.assertRaisesRegex(Exception, "queue must be a str or unicode str, but got 123"):
             with self.rabbitmq:
                 message = BaseMessage(
                     exchange_name=self.exchange_name,
                     routing_key=123,
-                    message={'test': 'test message'},
+                    message={"test": "test message"},
                 )
                 self.rabbitmq.send_message(message)
 
@@ -136,26 +144,27 @@ class TestRabbitMQ(unittest.TestCase):
                 BaseMessage(
                     exchange_name=self.exchange_name,
                     routing_key=queue_name,
-                    message={'test': 'test message 1'},
+                    message={"test": "test message 1"},
                 ),
                 BaseMessage(
                     exchange_name=self.exchange_name,
                     routing_key=queue_name,
-                    message={'test': 'test message 2'},
+                    message={"test": "test message 2"},
                 ),
                 BaseMessage(
                     exchange_name=self.exchange_name,
                     routing_key=queue_name,
-                    message={'test': 'test message 3'},
+                    message={"test": "test message 3"},
                 ),
             ]
             for message in messages:
                 self.rabbitmq.send_message(message)
 
             received_messages = []
-            for i in range(len(messages)):
+            for _ in range(len(messages)):
                 method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                    queue=queue_name, auto_ack=True
+                    queue=queue_name,
+                    auto_ack=True,
                 )
                 if body is not None:
                     received_messages.append(json.loads(body))
@@ -164,17 +173,23 @@ class TestRabbitMQ(unittest.TestCase):
 
     def test_receive_message_from_empty_queue(self):
         with self.rabbitmq:
-            queue_name = 'empty_queue'
+            queue_name = "empty_queue"
             self.rabbitmq._channel.queue_declare(queue=queue_name)
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=queue_name, auto_ack=True
+                queue=queue_name,
+                auto_ack=True,
             )
             self.assertIsNone(body)
 
     def test_send_message_with_invalid_exchange(self):
-        with self.assertRaises(Exception):
+        with self.assertRaisesRegex(
+            Exception,
+            "exchange must be a str or unicode str, but got 123",
+        ):
             with self.rabbitmq:
                 message = BaseMessage(
-                    exchange_name=123, routing_key=self.queue_name, message={'test': 'test message'}
+                    exchange_name=123,
+                    routing_key=self.queue_name,
+                    message={"test": "test message"},
                 )
                 self.rabbitmq.send_message(message)

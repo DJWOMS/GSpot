@@ -1,15 +1,17 @@
+from developer.views.v1 import (
+    DeveloperGroupViewSet,
+    DeveloperPermissionViewSet,
+    account_views,
+)
 from developer.views.v1.auth_view import DeveloperAuthView
-from developer.views.v1 import account_views
+from developer.views.v1.company_view import CompanyAPIView
+from developer.views.v1.developer_registration_view import DeveloperRegistrationView
+from developer.views.v1.employee_crud import (
+    DeveloperEmployeeDetailView,
+    DeveloperEmployeeListView,
+)
 from django.urls import path
 from rest_framework import routers
-from developer.views.v1.developer_registration_view import DeveloperRegistrationView
-from developer.views.v1 import DeveloperGroupViewSet
-from developer.views.v1 import DeveloperPermissionViewSet
-from developer.views.v1.employee_crud import (
-    DeveloperEmployeeListView,
-    DeveloperEmployeeDetailView,
-)
-from developer.views.v1.company_view import CompanyAPIView
 
 router = routers.DefaultRouter()
 router.register(r"group", DeveloperGroupViewSet, basename="developer_group")
@@ -22,7 +24,7 @@ account_router = [
     path(
         "developer/me",
         account_views.AccountViewSet.as_view(
-            {"get": "retrieve", "put": "partial_update", "delete": "destroy"}
+            {"get": "retrieve", "put": "partial_update", "delete": "destroy"},
         ),
         name="developer-user-account",
     ),

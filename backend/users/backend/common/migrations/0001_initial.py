@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = []
@@ -16,14 +15,20 @@ class Migration(migrations.Migration):
                 (
                     'id',
                     models.BigAutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
                     ),
                 ),
                 ('name', models.CharField(max_length=100, verbose_name='name contact')),
                 (
                     'icon',
                     models.ImageField(
-                        blank=True, null=True, upload_to='', verbose_name='icon contact'
+                        blank=True,
+                        null=True,
+                        upload_to='',
+                        verbose_name='icon contact',
                     ),
                 ),
             ],

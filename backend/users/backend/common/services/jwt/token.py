@@ -1,15 +1,15 @@
 import time
+from typing import Optional
 
-from django.conf import settings
-from django.utils import timezone
-
-from config.settings import redis_config
 from base.exceptions import UserBanned, UserInActive
 from base.models import BaseAbstractUser
 from base.tokens.token import BaseToken
 from common.services.jwt.exceptions import PayloadError, TokenExpired
 from common.services.jwt.mixins import JWTMixin
 from common.services.jwt.users_payload import PayloadFactory
+from config.settings import redis_config
+from django.conf import settings
+from django.utils import timezone
 from utils.db.redis_client import RedisAccessClient, RedisClient, RedisRefreshClient
 
 
@@ -24,13 +24,13 @@ class Token(BaseToken, JWTMixin):
     @staticmethod
     def validate_user(user: BaseAbstractUser):
         if user.is_active is not True:
-            raise UserInActive('Пользователь не активный')
+            raise UserInActive("Пользователь долджен быть активным")
         elif user.is_banned is not False:
-            raise UserBanned('Пользователь заблокирован')
+            raise UserBanned("Пользователь не должен быть забанен")
 
     @staticmethod
     def validate_payload_data(data: dict):
-        required_fields = ['user_id', 'role']
+        required_fields = ["user_id", "role"]
         for field in required_fields:
             if field not in data:
                 raise PayloadError(f"Payload must contain '{field}'")
@@ -67,8 +67,8 @@ class Token(BaseToken, JWTMixin):
         default_payload = self.get_default_payload()
         payload = {
             "token_type": "refresh",
-            "user_id": data['user_id'],
-            "role": data['role'],
+            "user_id": data["user_id"],
+            "role": data["role"],
             **default_payload,
         }
         refresh_token = self._encode(payload)
@@ -123,7 +123,7 @@ class Token(BaseToken, JWTMixin):
     def check_exp(self, token: str) -> int:
         exp_left = self.check_exp_left(token)
         if exp_left == 0:
-            raise TokenExpired('Token is expired')
+            raise TokenExpired("Token is expired")
         else:
             return exp_left
 
@@ -131,7 +131,7 @@ class Token(BaseToken, JWTMixin):
         try:
             decoded_token = self._decode(token)
             now = int(time.time())
-            exp = decoded_token['exp']
+            exp = decoded_token["exp"]
             if exp > now:
                 return exp - now
         except TokenExpired:

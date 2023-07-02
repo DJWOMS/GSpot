@@ -1,6 +1,6 @@
 from base.views import PersonalAccount
-from customer.serializers import account_serializers
 from customer.models import CustomerUser
+from customer.serializers import account_serializers
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -28,7 +28,8 @@ from rest_framework.permissions import IsAuthenticated
         tags=["Пользователь", "Личный кабинет пользователя"],
         responses={
             200: openapi.Response(
-                "Информация обновлена", account_serializers.AccountUpdateSerializers
+                "Информация обновлена",
+                account_serializers.AccountUpdateSerializers,
             ),
             401: openapi.Response("Не аутентифицированный"),
         },

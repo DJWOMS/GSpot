@@ -1,14 +1,12 @@
 import datetime
 
-from django.test import TestCase
-from django.urls import reverse
-
-from rest_framework import status
-
 from administrator.models import Admin
 from base.base_tests.tests import BaseTestView
 from customer.models import CustomerUser
 from developer.models import CompanyUser
+from django.test import TestCase
+from django.urls import reverse
+from rest_framework import status
 
 
 class ChangePassTestAPI(BaseTestView, TestCase):
@@ -98,9 +96,7 @@ class ChangePassTestAPI(BaseTestView, TestCase):
         }
         response = self.client.post(self.url, data=data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        user: CustomerUser = CustomerUser.objects.get(
-            username=self.customer_user.username
-        )
+        user: CustomerUser = CustomerUser.objects.get(username=self.customer_user.username)
 
         self.assertTrue(user.check_password("gachiActor1"))
 
