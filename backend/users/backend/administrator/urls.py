@@ -30,11 +30,6 @@ account_router = [
         ),
         name="administrator-user-account",
     ),
-    path(
-        "administrator/me/change-password",
-        account_views.ChangePasswordViewSet.as_view({"post": "create"}),
-        name="admininstrator-user-change-password",
-    ),
 ]
 
 generic_urls = [
