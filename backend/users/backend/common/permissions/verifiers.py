@@ -1,7 +1,7 @@
 from administrator.models import Admin
 from base.validators import AbstractUserVerify
 from customer.models import CustomerUser
-from developer.models import CompanyUser, Company
+from developer.models import Company, CompanyUser
 
 
 class IsActiveUserVerify(AbstractUserVerify):

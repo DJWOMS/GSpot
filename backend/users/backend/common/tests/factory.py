@@ -1,5 +1,5 @@
 import factory
-from common.models import Country, ContactType
+from common.models import ContactType, Country
 
 
 class CountryFactory(factory.django.DjangoModelFactory):

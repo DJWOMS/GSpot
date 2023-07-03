@@ -1,8 +1,7 @@
 import sys
 
-from django.core.management.base import BaseCommand
-
 from base.models import BasePermission
+from django.core.management.base import BaseCommand
 
 
 class BasePermissionCreatingCommand(BaseCommand):

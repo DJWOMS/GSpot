@@ -1,6 +1,5 @@
-from rest_framework.permissions import BasePermission
-
 from base.validators import AbstractUserVerify
+from rest_framework.permissions import BasePermission
 
 
 class BaseUserPermissions(AbstractUserVerify, BasePermission):

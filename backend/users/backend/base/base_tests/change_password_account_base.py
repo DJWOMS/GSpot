@@ -25,44 +25,45 @@ class ChangePasswordAccountInfoApiTestCase:
     def test_change_password_currect_patch(self):
         self.client.force_authenticate(user=self.first_user)
         url = reverse(self.url_reverse)
-        self.first_user.set_password('usercompany')
+        self.first_user.set_password("usercompany")
         data = {
-            'old_password': 'usercompany',
-            'new_password': 'adminnew01',
-            'confirmation_new_password': 'adminnew01',
+            "old_password": "usercompany",
+            "new_password": "adminnew01",
+            "confirmation_new_password": "adminnew01",
         }
         self.client.post(url, data=data)
-        self.assertTrue(self.first_user.check_password('adminnew01'))
+        self.assertTrue(self.first_user.check_password("adminnew01"))
 
     def test_change_password_wrong_old_password(self):
         self.client.force_authenticate(user=self.first_user)
         url = reverse(self.url_reverse)
-        self.first_user.set_password('usercompany')
+        self.first_user.set_password("usercompany")
         data = {
-            'old_password': 'comanyuser',
-            'new_password': 'adminnew01',
-            'confirmation_new_password': 'adminnew01',
+            "old_password": "comanyuser",
+            "new_password": "adminnew01",
+            "confirmation_new_password": "adminnew01",
         }
         responce = self.client.post(url, data=data)
         self.assertEqual(400, responce.status_code)
         self.assertEqual(
-            'Please check that your current password is correct', responce.json().get('detail')
+            "Please check that your current password is correct",
+            responce.json().get("detail"),
         )
 
     def test_change_password_wrong_confirm_password(self):
         self.client.force_authenticate(user=self.first_user)
         url = reverse(self.url_reverse)
-        self.first_user.set_password('usercompany')
+        self.first_user.set_password("usercompany")
         data = {
-            'old_password': 'usercompany',
-            'new_password': 'adminnew01',
-            'confirmation_new_password': 'adminnew',
+            "old_password": "usercompany",
+            "new_password": "adminnew01",
+            "confirmation_new_password": "adminnew",
         }
         responce = self.client.post(url, data=data)
         self.assertEqual(400, responce.status_code)
         self.assertEqual(
-            'The confirmation password does not match the new password',
-            responce.json().get('detail'),
+            "The confirmation password does not match the new password",
+            responce.json().get("detail"),
         )
 
     def test_change_password_logout_user(self):

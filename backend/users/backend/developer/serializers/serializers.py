@@ -1,5 +1,5 @@
+from developer.models import Company, CompanyUser
 from rest_framework import serializers
-from developer.models import CompanyUser, Company
 
 
 class CompanyUserSerializer(serializers.ModelSerializer):

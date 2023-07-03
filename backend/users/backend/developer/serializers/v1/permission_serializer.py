@@ -1,6 +1,5 @@
-from developer.models import DeveloperPermission
-
 from base.serializers import BasePermissionSerializer
+from developer.models import DeveloperPermission
 
 
 class DeveloperPermissionSerializer(BasePermissionSerializer):

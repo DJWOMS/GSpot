@@ -1,13 +1,14 @@
 import json
-from rest_framework.test import APITestCase
 from datetime import date
-from django.conf import settings
+
 from administrator.models import Admin
 from base.base_tests.teardown_base_test import TearDown
 from common.services.notify.notify import Notify
 from common.services.totp import TOTPToken
 from customer.models import CustomerUser
 from developer.models import CompanyUser
+from django.conf import settings
+from rest_framework.test import APITestCase
 from utils.broker.rabbitmq import RabbitMQ
 
 
@@ -51,7 +52,8 @@ class TestRabbitMQ(TearDown, APITestCase):
         Notify().send_notify(user=self.customer_user, sender_user=self.customer_user2)
         with self.rabbitmq:
             method, properties, body = self.rabbitmq._channel.basic_get(
-                queue=settings.NOTIFY_ROUTING_KEY, auto_ack=True
+                queue=settings.NOTIFY_ROUTING_KEY,
+                auto_ack=True,
             )
             self.assertIsNotNone(body)
             response = json.loads(body)
@@ -61,7 +63,8 @@ class TestRabbitMQ(TearDown, APITestCase):
         TOTPToken().send_totp(user=self.admin_user)
         with self.rabbitmq:
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=settings.EMAIL_ROUTING_KEY, auto_ack=True
+                queue=settings.EMAIL_ROUTING_KEY,
+                auto_ack=True,
             )
             response = json.loads(body)
             self.assertEqual(response['subject'], 'admin_activation')
@@ -71,7 +74,8 @@ class TestRabbitMQ(TearDown, APITestCase):
         TOTPToken().send_totp(user=self.developer_user)
         with self.rabbitmq:
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=settings.EMAIL_ROUTING_KEY, auto_ack=True
+                queue=settings.EMAIL_ROUTING_KEY,
+                auto_ack=True,
             )
             response = json.loads(body)
             self.assertEqual(response['subject'], 'develop_activation')
@@ -81,7 +85,8 @@ class TestRabbitMQ(TearDown, APITestCase):
         TOTPToken().send_totp(user=self.customer_user)
         with self.rabbitmq:
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=settings.EMAIL_ROUTING_KEY, auto_ack=True
+                queue=settings.EMAIL_ROUTING_KEY,
+                auto_ack=True,
             )
             self.rabbitmq._channel.basic_ack(delivery_tag=method_frame.delivery_tag)
             response = json.loads(body)
@@ -96,10 +101,12 @@ class TestRabbitMQ(TearDown, APITestCase):
         with self.rabbitmq:
             for _ in range(3):
                 method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                    queue=settings.EMAIL_ROUTING_KEY, auto_ack=True
+                    queue=settings.EMAIL_ROUTING_KEY,
+                    auto_ack=True,
                 )
                 if body is not None:
                     response.append(json.loads(body)['subject'])
         self.assertListEqual(
-            response, ['customer_activation', 'develop_activation', 'admin_activation']
+            response,
+            ['customer_activation', 'develop_activation', 'admin_activation'],
         )

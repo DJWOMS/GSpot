@@ -1,15 +1,13 @@
 import datetime
 
+from administrator.models import Admin
+from base.base_tests.tests import BaseTestView
+from common.models import ContactType
+from customer.models import CustomerUser
+from developer.models import CompanyUser
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
-
-from administrator.models import Admin
-from customer.models import CustomerUser
-from developer.models import CompanyUser
-
-from base.base_tests.tests import BaseTestView
-from common.models import ContactType
 
 
 class ContactTypeTestsCase(BaseTestView, TestCase):

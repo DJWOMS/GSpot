@@ -1,8 +1,9 @@
 import json
 from dataclasses import dataclass, field
-from django.conf import settings
+
 from base.models import BaseAbstractUser
 from common import models
+from django.conf import settings
 
 
 @dataclass
@@ -62,7 +63,7 @@ class AdminActivationMessage(EmailMessage):
 
     def get_message_on_bd(self, *args, **kwargs):
         instance = models.MessageEmailRabbitMQ.objects.get(
-            action=models.MessageEmailRabbitMQ.ADMIN_ACTIVATION
+            action=models.MessageEmailRabbitMQ.ADMIN_ACTIVATION,
         )
         return instance.get_text
 
@@ -73,7 +74,7 @@ class DevelopActivationMessage(EmailMessage):
 
     def get_message_on_bd(self, *args, **kwargs):
         instance = models.MessageEmailRabbitMQ.objects.get(
-            action=models.MessageEmailRabbitMQ.DEVELOP_ACTIVATION
+            action=models.MessageEmailRabbitMQ.DEVELOP_ACTIVATION,
         )
         return instance.get_text
 
@@ -84,7 +85,7 @@ class CustomerActivationMessage(EmailMessage):
 
     def get_message_on_bd(self, *args, **kwargs):
         instance = models.MessageEmailRabbitMQ.objects.get(
-            action=models.MessageEmailRabbitMQ.CUSTOMER_ACTIVATION
+            action=models.MessageEmailRabbitMQ.CUSTOMER_ACTIVATION,
         )
         return instance.get_text
 
@@ -95,7 +96,7 @@ class FriendAddedMessage(NotifyMessage):
 
     def get_message_on_bd(self, *args, **kwargs):
         instance = models.MessageNotifyRabbitMQ.objects.get(
-            action=models.MessageNotifyRabbitMQ.ADD_FRIEND
+            action=models.MessageNotifyRabbitMQ.ADD_FRIEND,
         )
         return instance.get_text
 

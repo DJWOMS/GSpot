@@ -1,6 +1,6 @@
+from common import validators
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from common import validators
 
 
 class Country(models.Model):
@@ -16,8 +16,8 @@ class Country(models.Model):
 
 
 class ContactType(models.Model):
-    name = models.CharField(max_length=100, verbose_name=_('name contact'))
-    icon = models.ImageField(verbose_name=_('icon contact'), null=True, blank=True)
+    name = models.CharField(max_length=100, verbose_name=_("name contact"))
+    icon = models.ImageField(verbose_name=_("icon contact"), null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -32,7 +32,8 @@ class MessageNotifyRabbitMQ(models.Model):
     ADD_FRIEND = "ADD_FRIEND"
     STATUS_CHOICES = ((ADD_FRIEND, "add_friend"),)
     text = models.TextField(
-        verbose_name=_('message_notify_rabbitmq'), validators=[validators.validate_user_in_text]
+        verbose_name=_('message_notify_rabbitmq'),
+        validators=[validators.validate_user_in_text],
     )
     action = models.CharField(choices=STATUS_CHOICES)
 
@@ -60,7 +61,8 @@ class MessageEmailRabbitMQ(models.Model):
     )
     url = models.CharField()
     text = models.TextField(
-        verbose_name=_('message_email_rabbitmq'), validators=[validators.validate_url_in_text]
+        verbose_name=_('message_email_rabbitmq'),
+        validators=[validators.validate_url_in_text],
     )
     action = models.CharField(choices=STATUS_CHOICES)
 

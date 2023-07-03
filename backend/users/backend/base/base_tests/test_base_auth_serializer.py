@@ -1,14 +1,17 @@
+from administrator.models import Admin
+from base.serializers import BaseAuthSerializer
 from django.test import TestCase
 from rest_framework.exceptions import ValidationError
-from administrator.models import Admin
-
-from base.serializers import BaseAuthSerializer
 
 
 class BaseAuthSerializerTestCase(TestCase):
     def setUp(self):
         self.admin_user = Admin.objects.create_superuser(
-            "admin", "admin@example.com", "adminpassword", "9998887766", is_active=True
+            "admin",
+            "admin@example.com",
+            "adminpassword",
+            "9998887766",
+            is_active=True,
         )
 
     def test_valid_credentials(self):
