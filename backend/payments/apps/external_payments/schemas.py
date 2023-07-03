@@ -1,12 +1,10 @@
 import enum
 from dataclasses import dataclass, field
-from decimal import Decimal
 from uuid import UUID
 
-from apps.base.schemas import URL, EnumCurrencies, PaymentTypes
+from apps.base.schemas import URL, PaymentTypes, YookassaMoneyDataClass
 from apps.payment_accounts.models import PayoutData
 from dataclasses_json import config, dataclass_json
-from django.conf import settings
 from pydantic import BaseModel, Field
 
 
@@ -16,12 +14,6 @@ class YookassaPaymentStatuses(enum.Enum):
     waiting_for_capture = 'payment.waiting_for_capture'
     refund_succeeded = 'refund.succeeded'
     payout_succeeded = 'succeeded'
-
-
-@dataclass
-class AmountDataClass:
-    value: Decimal
-    currency: str = settings.DEFAULT_CURRENCY
 
 
 # RESPONSE PAYMENT SCHEMAS
@@ -34,8 +26,8 @@ class PaymentMethodDataResponse:
 @dataclass
 class YookassaPaymentBody:
     id_: UUID = field(metadata=config(field_name='id'))
-    income_amount: AmountDataClass
-    amount: AmountDataClass
+    income_amount: YookassaMoneyDataClass
+    amount: YookassaMoneyDataClass
     description: str
     metadata: dict
     payment_method: PaymentMethodDataResponse
@@ -69,18 +61,13 @@ class PaymentMethodDataCreate:
 @dataclass_json
 @dataclass
 class YookassaPaymentCreate:
-    amount: AmountDataClass
+    amount: YookassaMoneyDataClass
     payment_method_data: PaymentMethodDataCreate
     confirmation: ConfirmationDataClass
     metadata: dict
     capture: bool = True
     refundable: bool = False
     description: str | None = None
-
-
-class AmountModel(BaseModel):
-    value: Decimal
-    currency: EnumCurrencies = EnumCurrencies.RUB
 
 
 class PayoutDestination(BaseModel):
@@ -94,6 +81,6 @@ class PayoutDestination(BaseModel):
 
 
 class YookassaPayoutModel(BaseModel):
-    amount: AmountModel
+    amount: YookassaMoneyDataClass
     payout_destination_data: PayoutDestination
     user_uuid: UUID
