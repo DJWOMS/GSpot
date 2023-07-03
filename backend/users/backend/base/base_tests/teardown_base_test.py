@@ -1,6 +1,5 @@
 import pika
 from django.conf import settings
-
 from utils.broker.rabbitmq import RabbitMQ
 
 
