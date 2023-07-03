@@ -8,6 +8,6 @@ router.register(r'commissions', views.PaymentCommissionView, basename='commissio
 router.register(r'services', views.PaymentServiceView, basename='services')
 
 urlpatterns = [
-    path('accept_payment/', views.YookassaPaymentAcceptanceView.as_view()),
+    path('accept_payment/', views.YookassaPaymentAcceptanceView.as_view({'post': 'create'})),
     path('', include(router.urls)),
 ]

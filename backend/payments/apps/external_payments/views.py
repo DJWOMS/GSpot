@@ -2,7 +2,6 @@ import rollbar
 from apps.base.schemas import PaymentServices
 from dacite import MissingValueError, from_dict
 from rest_framework import viewsets
-from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
 from .models import PaymentCommission, PaymentService
@@ -16,10 +15,10 @@ from .services.check_yookassa_response import check_yookassa_response
 from .services.payment_acceptance import proceed_payment_response
 
 
-class YookassaPaymentAcceptanceView(CreateAPIView):
+class YookassaPaymentAcceptanceView(viewsets.GenericViewSet):
     serializer_class = YookassaPaymentAcceptanceSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         yookassa_object = request.data.get('object')
         if yookassa_object is None or not check_yookassa_response(yookassa_object):
             rollbar.report_message(
