@@ -11,12 +11,8 @@ from apps.item_purchases.schemas import PurchaseItemsData
 from apps.payment_accounts.models import Account, BalanceChange, PayoutData
 from apps.payment_accounts.schemas import BalanceIncreaseData, YookassaRequestPayment
 from django.conf import settings
-from environs import Env
-from yookassa import Configuration, Payment, Payout
+from yookassa import Payment, Payout
 from yookassa.domain.response import PayoutResponse
-
-env = Env()
-env.read_env()
 
 
 class YookassaService(AbstractPaymentService):
@@ -83,7 +79,7 @@ class YookassaService(AbstractPaymentService):
             payment_amount=invoice_instance.price_with_commission.amount,
             payment_service=purchase_items_data.payment_service,
             payment_type=purchase_items_data.payment_type,
-            user_uuid=purchase_items_data.user_uuid,
+            user_uuid=purchase_items_data.user_uuid_from,
             return_url=purchase_items_data.return_url,
             metadata=metadata,
         )
@@ -221,8 +217,7 @@ class InvoiceValidator:
 
 class YookassaPayOut(AbstractPayoutService):
     def __init__(self):
-        Configuration.account_id = env.int('GATE_AWAY_ACCOUNT_ID')
-        Configuration.secret_key = env.str('GATE_AWAY_SECRET_KEY')
+        settings.YOOKASSA_CONFIG.get_payout_settings()
 
     def request_payout(self, payout_data: dict) -> PayoutResponse:
         return Payout.create(payout_data)

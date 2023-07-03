@@ -1,12 +1,23 @@
-from .base import env
+import dj_database_url
+from pydantic import BaseSettings
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': env.str('POSTGRES_HOST'),
-        'PORT': env.str('POSTGRES_PORT'),
-        'USER': env.str('POSTGRES_USER'),
-        'PASSWORD': env.str('POSTGRES_PASSWORD'),
-        'NAME': env.str('POSTGRES_DB'),
-    },
-}
+
+class DatabaseConfig(BaseSettings):
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+    POSTGRES_USER: str
+    POSTGRES_PORT: int
+    POSTGRES_HOST: str
+
+    @property
+    def url(self):
+        return (
+            f'postgres://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@'
+            f'{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}'
+        )
+
+
+db_data_config = DatabaseConfig()
+
+
+DATABASES = {'default': dj_database_url.config(default=db_data_config.url)}
