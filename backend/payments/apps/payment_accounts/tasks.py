@@ -9,7 +9,8 @@ from config.celery import app
 from .exceptions import (
     InsufficientFundsError,
     NotPayoutDayError,
-    NotValidAccountNumberError)
+    NotValidAccountNumberError
+)
 from .models import PayoutData
 from .services.payout import PayoutProcessor
 
