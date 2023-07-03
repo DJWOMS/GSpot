@@ -1,15 +1,17 @@
 import rollbar
-from dacite import from_dict
 from django.conf import settings
 from django.db.models import F
-from rest_framework import status
-from rest_framework.response import Response
 
+from apps.base.classes import DRFtoDataClassMixin
 from apps.external_payments.schemas import YookassaPayoutModel
+from apps.payment_accounts.serializers import PayoutSerializer
 from config.celery import app
 
-from .exceptions import (InsufficientFundsError, NotPayoutDayError,
-                         NotValidAccountNumberError)
+from .exceptions import (
+    InsufficientFundsError,
+    NotPayoutDayError,
+    NotValidAccountNumberError
+)
 from .models import PayoutData
 from .services.payout import PayoutProcessor
 
@@ -31,24 +33,17 @@ def make_auto_payout():
             },
             'user_uuid': payout.user_uuid_id
         }
-
-        try:
-            data_model_data = from_dict(
-                YookassaPayoutModel,
-                payout_data,
-            )
-        except AttributeError:
-            data_model_data = YookassaPayoutModel(**payout_data)
-
+        drf_to_dataclass = DRFtoDataClassMixin()
+        serializer = PayoutSerializer(data=payout_data)
+        serializer.is_valid(raise_exception=True)
+        data_model_data = drf_to_dataclass._DRFtoDataClassMixin__convert_drf_to_dataclass(
+            YookassaPayoutModel, serializer)
         payout_processor = PayoutProcessor(data_model_data)
         try:
-            response = payout_processor.create_payout()
+            payout_processor.create_payout()
         except (
             NotPayoutDayError,
             InsufficientFundsError,
             NotValidAccountNumberError,
         ) as error:
             rollbar.report_message(f'{error}', level='error')
-            return Response({'error': str(error)}, status=status.HTTP_400_BAD_REQUEST)
-
-        return Response({'payout status': response})
