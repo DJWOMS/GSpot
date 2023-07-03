@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message'
 import s from './Form.module.css'
 
 interface FieldType<T extends FieldValues> extends Pick<UseControllerProps<T>, 'name' | 'rules'> {
-  label: string
+  label?: string
   render: ControllerProps<T>['render']
 }
 
@@ -16,6 +16,8 @@ interface Props<T extends FieldValues> {
   onSubmit: (values: T) => void
   btnText: string
   config: UseFormProps<T>
+  disabled?: boolean
+  styleBtn?: string
   onResetButton?: boolean
   onResetSubmit?: boolean
   updateValueCallback?: (value: UseFormSetValue<T>) => void
@@ -23,7 +25,9 @@ interface Props<T extends FieldValues> {
 
 function Form<T extends FieldValues>({
   fields,
+  styleBtn = s.formBtn,
   title,
+  disabled,
   onSubmit,
   btnText,
   config,
@@ -61,9 +65,11 @@ function Form<T extends FieldValues>({
       <div className={s.col}>
         {fields.map(({ label, ...field }, index) => (
           <div key={`item-${index}`}>
-            <label className={s.formLabel} htmlFor={field.name}>
-              {label}
-            </label>
+            {label && (
+              <label className={s.formLabel} htmlFor={field.name}>
+                {label}
+              </label>
+            )}
             <Controller<T> control={control} {...field} />
             <ErrorMessage
               errors={errors}
@@ -73,7 +79,7 @@ function Form<T extends FieldValues>({
           </div>
         ))}
       </div>
-      <button type="submit" className={s.formBtn}>
+      <button type="submit" className={styleBtn} disabled={disabled}>
         {btnText}
       </button>
     </form>

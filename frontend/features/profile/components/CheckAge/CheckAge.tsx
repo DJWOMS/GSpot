@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import cn from 'classnames'
+import Cookies from 'js-cookie'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import s from './CheckAge.module.css'
@@ -34,6 +35,9 @@ const CheckAge = ({ image, age }: { image: string; age: string }) => {
     if (userAge < 18) {
       alert('Пожалуйста, введите корректную дату')
     } else {
+      const expirationDate = new Date()
+      expirationDate.setFullYear(expirationDate.getFullYear() + 2)
+      Cookies.set('adultCheck', 'true', { expires: expirationDate, path: '/details/id' })
       setIsVisible(false)
     }
   }

@@ -15,11 +15,17 @@ export interface GameCardInterface extends GameListInterface {
   platforms: PlatformType[]
 }
 
+export interface GameCardInterfaceCarousel {
+  link: string
+  id: number
+}
+
 export interface GameDetailsInterface extends GameCardInterface {
   description: string
   languages: LanguageInterface[]
   requirements: RequirementInterface[]
   age: string
+  carouselImages: GameCardInterfaceCarousel[]
 }
 
 export interface LanguageInterface {

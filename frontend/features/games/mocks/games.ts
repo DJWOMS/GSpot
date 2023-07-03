@@ -37,8 +37,18 @@ export const generateRequirement = (props = {}) => ({
   ...props,
 })
 
+const generateMockCarouselImages = (props = {}) => {
+  return [...new Array(12)].map((i) => {
+    return {
+      link: `https://loremflickr.com/240/340/pc-games?lock=${randomNum(12)}`,
+      id: randomNum(12),
+    }
+  })
+}
+
 export const generateMockGameDetails = (props = {}): GameDetailsInterface => ({
   description: 'Some description for game',
+  carouselImages: generateMockCarouselImages(),
   languages: [
     {
       languageName: 'English',
