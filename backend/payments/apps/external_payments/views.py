@@ -16,7 +16,7 @@ from .services.check_yookassa_response import check_yookassa_response
 from .services.payment_acceptance import proceed_payment_response
 
 
-class YookassaPaymentAcceptanceView(viewsets.GenericViewSet, mixins.CreateModelMixin):
+class YookassaPaymentAcceptanceView(viewsets.GenericViewSet):
     serializer_class = YookassaPaymentAcceptanceSerializer
 
     def create(self, request, *args, **kwargs):

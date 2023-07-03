@@ -64,7 +64,7 @@ class UserCreateView(viewsets.GenericViewSet, mixins.CreateModelMixin):
                 {'error': 'A user with this UUID already exists'},
                 status=status.HTTP_409_CONFLICT,
             )
-        return Response({'user_uuid': uuid})
+        return super().create(request, *args, **kwargs)
 
 
 class PayoutView(viewsets.ViewSet, DRFtoDataClassMixin):
