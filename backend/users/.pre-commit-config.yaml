@@ -1,4 +1,5 @@
 files: 'backend/users*'
+exclude: 'backend/users/config/settings/__init__.py'
 repos:
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.74.1
