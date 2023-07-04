@@ -1,11 +1,8 @@
+from common.services.totp.model_factory import db_model_factory
+from common.services.totp.totp import TOTPToken
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
-from django.contrib.auth.hashers import make_password
-from customer.models import CustomerUser
-
-from base.models import BaseAbstractUser
-from common.services.totp.totp import TOTPToken
-from common.services.totp.model_factory import db_model_factory
 
 
 class CheckTOTPSerializer(serializers.Serializer):
