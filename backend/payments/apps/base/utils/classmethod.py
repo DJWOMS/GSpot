@@ -3,6 +3,8 @@ from decimal import Decimal
 from typing import TypeVar
 
 import rollbar
+from apps.base.classes import ListAdminMixin
+from django.contrib import admin
 from django.db import transaction
 from django.db.models import Model
 from django.http import HttpResponseServerError
@@ -52,3 +54,12 @@ def add_change_balance_method(
         setattr(obj, django_field, new_balance)
         obj.save()
     return obj
+
+
+def register_admin_classes(models):
+    for model in models:
+        admin_class = type('AdminClass', (ListAdminMixin, admin.ModelAdmin), {})
+        try:
+            admin.site.register(model, admin_class)
+        except admin.sites.AlreadyRegistered:
+            pass

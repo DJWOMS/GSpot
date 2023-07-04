@@ -6,7 +6,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from rest_enumfield import EnumField
 from rest_framework import serializers
 
-from .models import Account, Owner, PayoutData
+from ..base.serializer import MoneySerializer
+from .models import Account, BalanceChange, Owner, PayoutData
 
 
 class PaymentCommissionSerializer(PaymentServiceSerializer):
@@ -98,6 +99,15 @@ class BalanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ('user_uuid', 'balance', 'balance_currency')
+
+
+class PayoutHistorySerializer(serializers.ModelSerializer):
+    sum = MoneySerializer(source='amount')  # noqa: VNE003, A003
+    created_at = serializers.DateTimeField(source='created_date')
+
+    class Meta:
+        model = BalanceChange
+        fields = ('sum', 'created_at')
 
 
 class OwnerSerializer(serializers.ModelSerializer):

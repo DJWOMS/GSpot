@@ -1,11 +1,14 @@
-from config.settings.base import env
+from config.settings import env
 
-CELERY_BROKER_URL = env.str('REDIS') + '0'
+REDIS_URL = env.str('REDIS')
+
+
+CELERY_BROKER_URL = REDIS_URL + '0'
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': env.str('REDIS') + '0',
+        'LOCATION': REDIS_URL + '0',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         },
