@@ -7,4 +7,4 @@ class PaymentAccountsConfig(AppConfig):
     verbose_name = 'Счета пользователя'
 
     def ready(self):
-        import apps.payment_accounts.signals
+        import apps.payment_accounts.signals  # noqa: F401

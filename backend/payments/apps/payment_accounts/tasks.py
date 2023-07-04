@@ -1,15 +1,14 @@
 import rollbar
+from apps.external_payments.schemas import YookassaPayoutModel
+from config.celery import app
 from dacite import from_dict
 from django.conf import settings
 from django.db.models import F
 
-from apps.external_payments.schemas import YookassaPayoutModel
-from config.celery import app
-
 from .exceptions import (
     InsufficientFundsError,
     NotPayoutDayError,
-    NotValidAccountNumberError
+    NotValidAccountNumberError,
 )
 from .models import PayoutData
 from .services.payout import PayoutProcessor
@@ -17,20 +16,23 @@ from .services.payout import PayoutProcessor
 
 @app.task()
 def make_auto_payout():
-    payouts = PayoutData.objects.filter(is_auto_payout=True).annotate(
-        balance=F('user_uuid__balance')).iterator()
+    payouts = (
+        PayoutData.objects.filter(is_auto_payout=True)
+        .annotate(balance=F('user_uuid__balance'))
+        .iterator()
+    )
 
     for payout in payouts:
         payout_data = {
             'amount': {
                 'value': payout.balance,
-                'currency': settings.DEFAULT_CURRENCY
+                'currency': settings.DEFAULT_CURRENCY,
             },
             'payout_destination_data': {
                 'type_': payout.payout_type,
-                'account_number': payout.account_number
+                'account_number': payout.account_number,
             },
-            'user_uuid': payout.user_uuid_id
+            'user_uuid': payout.user_uuid_id,
         }
 
         try:
