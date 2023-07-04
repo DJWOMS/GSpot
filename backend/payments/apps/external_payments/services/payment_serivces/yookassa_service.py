@@ -1,8 +1,14 @@
+import json
 from dataclasses import asdict
 
 import rollbar
 from apps.base.classes import AbstractPaymentService, AbstractPayoutService
-from apps.base.schemas import URL, ResponseParsedData
+from apps.base.schemas import (
+    URL,
+    EnumCurrencies,
+    ResponseParsedData,
+    YookassaMoneyDataClass,
+)
 from apps.base.utils import change_balance
 from apps.external_payments import schemas
 from apps.external_payments.schemas import YookassaPayoutModel
@@ -10,6 +16,7 @@ from apps.item_purchases.models import Invoice
 from apps.item_purchases.schemas import PurchaseItemsData
 from apps.payment_accounts.models import Account, BalanceChange, PayoutData
 from apps.payment_accounts.schemas import BalanceIncreaseData, YookassaRequestPayment
+from dacite import from_dict
 from django.conf import settings
 from yookassa import Payment, Payout
 from yookassa.domain.response import PayoutResponse
@@ -29,21 +36,18 @@ class YookassaService(AbstractPaymentService):
         payment_data: YookassaRequestPayment,
     ) -> URL:
         yookassa_payment_info = schemas.YookassaPaymentCreate(
-            amount=schemas.AmountDataClass(
-                value=payment_data.payment_amount,
-            ),
+            amount=payment_data.amount,
             payment_method_data=schemas.PaymentMethodDataCreate(
-                payment_type=payment_data.payment_type.value,
+                payment_type=payment_data.payment_type,
             ),
             confirmation=schemas.ConfirmationDataClass(
                 confirmation_type='redirect',
                 return_url=payment_data.return_url,
             ),
             metadata=payment_data.metadata,
-            description=f'Пополнение на {str(payment_data.payment_amount)}',
+            description=f'Пополнение на {str(payment_data.amount.value)}',
         )
-
-        payment = Payment.create(yookassa_payment_info.to_dict())
+        payment = Payment.create(json.loads(yookassa_payment_info.to_json()))
 
         return URL(payment.confirmation.confirmation_url)
 
@@ -53,14 +57,12 @@ class YookassaService(AbstractPaymentService):
         user_account: Account,
         balance_change: BalanceChange,
     ) -> YookassaRequestPayment:
-        metadata = {
+        payment_data = asdict(balance_increase_data)
+        payment_data['metadata'] = {
             'account_id': user_account.pk,
             'balance_change_id': balance_change.pk,
         }
-        return YookassaRequestPayment(
-            **asdict(balance_increase_data),
-            metadata=metadata,
-        )
+        return from_dict(YookassaRequestPayment, payment_data)
 
     @staticmethod
     def create_purchase_items_data(
@@ -74,9 +76,13 @@ class YookassaService(AbstractPaymentService):
             'balance_change_id': balance_change.pk,
             'invoice_id': str(invoice_instance.invoice_id),
         }
+        invoice_price = invoice_instance.price_with_commission
 
         return YookassaRequestPayment(
-            payment_amount=invoice_instance.price_with_commission.amount,
+            amount=YookassaMoneyDataClass(
+                value=invoice_price.amount,
+                currency=EnumCurrencies[str(invoice_price.currency)],
+            ),
             payment_service=purchase_items_data.payment_service,
             payment_type=purchase_items_data.payment_type,
             user_uuid=purchase_items_data.user_uuid_from,

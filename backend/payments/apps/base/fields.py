@@ -62,7 +62,10 @@ class MoneyAmountSerializerField(serializers.DecimalField):
         )
 
     def to_representation(self, obj):
-        value = super().to_representation(obj.amount)
+        try:
+            value = super().to_representation(obj.value)
+        except AttributeError:
+            value = super().to_representation(obj)
         return value
 
     def to_internal_value(self, data):
