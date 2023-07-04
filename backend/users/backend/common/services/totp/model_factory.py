@@ -32,7 +32,10 @@ class DBModelFactory:
         self._serializers = {}
 
     def register(
-        self, app_label: str, model: BaseAbstractUser, serializer: ModelSerializer,
+        self,
+        app_label: str,
+        model: BaseAbstractUser,
+        serializer: ModelSerializer,
     ) -> None:
         if not issubclass(model, BaseAbstractUser):
             raise TypeError('model must will be the "BaseAbstractUser" instance required!')
