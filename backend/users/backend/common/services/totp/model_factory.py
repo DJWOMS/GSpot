@@ -1,28 +1,52 @@
-from typing import Type
+from rest_framework.serializers import ModelSerializer
 
 from administrator.models import Admin
 from base.models import BaseAbstractUser
 from customer.models import CustomerUser
 from developer.models import CompanyUser
+from administrator.models import Admin
+
+
+
+class CustomerTOTPSerializer(ModelSerializer):
+    class Meta:
+        model = CustomerUser
+        field = '__all__'
+        exclude = ('password', )
+
+
+class CompanyUserTOTPSerializer(ModelSerializer):
+    class Meta:
+        model = CompanyUser
+        field = '__all__'
+        exclude = ('password', )
+
+
+class AdminTOTPSerializer(ModelSerializer):
+    class Meta:
+        model = Admin
+        field = '__all__'
+        exclude = ('password', )
 
 
 class DBModelFactory:
     def __init__(self):
         self._models = {}
+        self._serializers = {}
 
-    def register(self, app_label: str, model: BaseAbstractUser) -> None:
+    def register(self, app_label: str, model: BaseAbstractUser, serializer: ModelSerializer) -> None:
         if not issubclass(model, BaseAbstractUser):
             raise TypeError('model must will be the "BaseAbstractUser" instance required!')
-        self._models[app_label] = model
+        self._models[app_label] = (model, serializer)
 
-    def get_model(self, app_label: str) -> Type[BaseAbstractUser]:
+    def get_models(self, app_label: str) -> tuple[type[BaseAbstractUser], type[ModelSerializer]]:
         model = self._models.get(app_label)
         if not model:
-            raise ValueError(f'User model from "{app_label}" is not registered!')
+            raise ValueError(f'Models for "{app_label}" is not registered!')
         return model
-
+    
 
 db_model_factory = DBModelFactory()
-db_model_factory.register("customer", CustomerUser)
-db_model_factory.register("developer", CompanyUser)
-db_model_factory.register("administrator", Admin)
+db_model_factory.register('customer', CustomerUser, CustomerTOTPSerializer)
+db_model_factory.register('developer', CompanyUser, CompanyUserTOTPSerializer)
+db_model_factory.register('administrator', Admin, AdminTOTPSerializer)
