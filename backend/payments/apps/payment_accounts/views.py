@@ -55,8 +55,14 @@ class BalanceIncreaseView(viewsets.ViewSet, DRFtoDataClassMixin):
         )
 
 
-class UserCreateView(viewsets.GenericViewSet, mixins.CreateModelMixin):
+class UserCreateDeleteView(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.DestroyModelMixin,
+):
     serializer_class = serializers.AccountSerializer
+    queryset = Account.objects.all()
+    lookup_field = 'user_uuid'
 
     def create(self, request, *args, **kwargs):
         uuid = request.data.get('user_uuid')
