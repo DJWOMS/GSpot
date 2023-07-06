@@ -9,6 +9,9 @@ class TearDown:
         with self.rabbitmq:
             try:
                 self.rabbitmq._channel.queue_purge(queue=settings.EMAIL_ROUTING_KEY)
+            except pika.exceptions.ChannelClosedByBroker:
+                pass
+            try:
                 self.rabbitmq._channel.queue_purge(queue=settings.NOTIFY_ROUTING_KEY)
             except pika.exceptions.ChannelClosedByBroker:
                 pass

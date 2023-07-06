@@ -22,7 +22,7 @@ class BaseMessage:
     def set_message(self, *args, **kwargs):
         raise NotImplementedError
 
-    def get_message_on_bd(self, *args, **kwargs):
+    def get_message_from_bd(self, *args, **kwargs):
         raise NotImplementedError
 
 
@@ -35,10 +35,9 @@ class EmailMessage(BaseMessage):
 
     def set_message(self, *args, **kwargs):
         return {
-            'totp': self.totp,
             'email': self.user.email,
             'subject': self.subject,
-            'body': self.get_message_on_bd(),
+            'body': self.get_message_from_bd(),
         }
 
 
@@ -53,7 +52,7 @@ class NotifyMessage(BaseMessage):
         return {
             'user_id': str(self.user.id),
             'subject': self.subject,
-            'text': self.get_message_on_bd().format(user=self.sender_user),
+            'text': self.get_message_from_bd().format(user=self.sender_user),
         }
 
 
@@ -61,40 +60,43 @@ class NotifyMessage(BaseMessage):
 class AdminActivationMessage(EmailMessage):
     subject: str = 'admin_activation'
 
-    def get_message_on_bd(self, *args, **kwargs):
+    def get_message_from_bd(self, *args, **kwargs):
         instance = models.MessageEmailRabbitMQ.objects.get(
-            action=models.MessageEmailRabbitMQ.ADMIN_ACTIVATION,
+            action=models.MessageEmailRabbitMQ.DEVELOP_ACTIVATION,
         )
-        return instance.get_text
+        text, url = instance.get_text
+        return str(text.format(url.format(self.totp)))
 
 
 @dataclass
 class DevelopActivationMessage(EmailMessage):
     subject: str = 'develop_activation'
 
-    def get_message_on_bd(self, *args, **kwargs):
+    def get_message_from_bd(self, *args, **kwargs):
         instance = models.MessageEmailRabbitMQ.objects.get(
             action=models.MessageEmailRabbitMQ.DEVELOP_ACTIVATION,
         )
-        return instance.get_text
+        text, url = instance.get_text
+        return str(text.format(url.format(self.totp)))
 
 
 @dataclass
 class CustomerActivationMessage(EmailMessage):
     subject: str = 'customer_activation'
 
-    def get_message_on_bd(self, *args, **kwargs):
+    def get_message_from_bd(self, *args, **kwargs):
         instance = models.MessageEmailRabbitMQ.objects.get(
-            action=models.MessageEmailRabbitMQ.CUSTOMER_ACTIVATION,
+            action=models.MessageEmailRabbitMQ.DEVELOP_ACTIVATION,
         )
-        return instance.get_text
+        text, url = instance.get_text
+        return str(text.format(url.format(self.totp)))
 
 
 @dataclass
 class FriendAddedMessage(NotifyMessage):
     subject: str = 'Добавить в друзья'
 
-    def get_message_on_bd(self, *args, **kwargs):
+    def get_message_from_bd(self, *args, **kwargs):
         instance = models.MessageNotifyRabbitMQ.objects.get(
             action=models.MessageNotifyRabbitMQ.ADD_FRIEND,
         )

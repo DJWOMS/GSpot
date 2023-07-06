@@ -9,3 +9,8 @@ def validate_user_in_text(value):
 def validate_url_in_text(value):
     if '{url}' not in value:
         raise ValidationError("В тексте должно присуствовать {url}")
+
+
+def validate_totp_in_url(value):
+    if '{totp}' not in value:
+        raise ValidationError("В ссылке должно присуствовать {totp}")

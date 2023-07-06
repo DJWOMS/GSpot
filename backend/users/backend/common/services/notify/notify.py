@@ -9,9 +9,6 @@ class Notify(BaseNotify):
     message = FriendAddedMessage
 
     def send_notify(self, user: BaseAbstractUser, sender_user: BaseAbstractUser):
-        self.send_to_channels(user, sender_user)
-
-    def send_to_channels(self, user: BaseAbstractUser, sender_user: BaseAbstractUser):
         with self.rabbitmq as rabbit:
             rabbitmq_message = self.message(user=user, sender_user=sender_user)
             rabbit.send_message(rabbitmq_message)

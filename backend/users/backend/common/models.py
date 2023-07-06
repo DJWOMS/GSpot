@@ -59,7 +59,7 @@ class MessageEmailRabbitMQ(models.Model):
         (DEVELOP_ACTIVATION, 'develop_activation'),
         (CUSTOMER_ACTIVATION, 'customer_activation'),
     )
-    url = models.CharField()
+    url = models.CharField(validators=[validators.validate_totp_in_url])
     text = models.TextField(
         verbose_name=_('message_email_rabbitmq'),
         validators=[validators.validate_url_in_text],
@@ -71,7 +71,7 @@ class MessageEmailRabbitMQ(models.Model):
 
     @property
     def get_text(self):
-        return str(self.text).format(url=self.url)
+        return self.text, self.url
 
     class Meta:
         db_table = 'message_email_rabbitmq'
