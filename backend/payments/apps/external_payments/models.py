@@ -36,3 +36,7 @@ class PaymentCommission(models.Model):
 
     class Meta:
         unique_together = ('payment_service_id', 'payment_type')
+
+    @property
+    def cache_key(self):
+        return f'unique_key_{self.payment_service_id.name}_{self.payment_type}'
