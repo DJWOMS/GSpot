@@ -71,7 +71,7 @@ class MessageEmailRabbitMQ(models.Model):
 
     @property
     def get_text(self):
-        return self.text, self.url
+        return str(self.text), str(self.url)
 
     class Meta:
         db_table = 'message_email_rabbitmq'

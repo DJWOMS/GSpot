@@ -65,7 +65,7 @@ class AdminActivationMessage(EmailMessage):
             action=models.MessageEmailRabbitMQ.DEVELOP_ACTIVATION,
         )
         text, url = instance.get_text
-        return str(text.format(url.format(self.totp)))
+        return text.format(url=url.format(totp=self.totp))
 
 
 @dataclass
@@ -77,7 +77,7 @@ class DevelopActivationMessage(EmailMessage):
             action=models.MessageEmailRabbitMQ.DEVELOP_ACTIVATION,
         )
         text, url = instance.get_text
-        return str(text.format(url.format(self.totp)))
+        return text.format(url=url.format(totp=self.totp))
 
 
 @dataclass
@@ -89,7 +89,7 @@ class CustomerActivationMessage(EmailMessage):
             action=models.MessageEmailRabbitMQ.DEVELOP_ACTIVATION,
         )
         text, url = instance.get_text
-        return str(text.format(url.format(self.totp)))
+        return text.format(url=url.format(totp=self.totp))
 
 
 @dataclass
