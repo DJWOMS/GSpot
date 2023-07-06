@@ -1,4 +1,3 @@
-from base.serializers import ChangePasswordSerializers
 from customer.models import CustomerUser
 from rest_framework import serializers
 
@@ -44,10 +43,3 @@ class AccountUpdateSerializers(serializers.ModelSerializer):
             "country",
             "birthday",
         )
-
-
-class ChangePasswordRetUpdSerializers(ChangePasswordSerializers):
-    class Meta:
-        ref_name = "customer_account_change_pass"
-        model = CustomerUser
-        fields = ("old_password", "new_password", "confirmation_new_password")

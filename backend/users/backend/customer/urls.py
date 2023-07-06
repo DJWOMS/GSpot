@@ -17,11 +17,6 @@ account_router = [
         ),
         name="customer-user-account",
     ),
-    path(
-        "customer/me/change-password",
-        account_views.ChangePasswordViewSet.as_view({"post": "create"}),
-        name="customer-user-change-password",
-    ),
 ]
 
 auth_routes = [path("login/", CustomerAuthView.as_view(), name="customer_login")]

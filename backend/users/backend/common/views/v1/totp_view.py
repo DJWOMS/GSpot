@@ -14,8 +14,8 @@ from rest_framework.response import Response
         operation_description="Проверка валидности TOTP токена",
         tags=["Аутентификация", "Администратор", "Разработчик", "Пользователь"],
         responses={
-            200: openapi.Response("Токен валиден", CheckTOTPSerializer),
-            400: openapi.Response("Токен не валиден"),
+            200: openapi.Response('Токен валиден', CheckTOTPSerializer),
+            400: openapi.Response('Токен не найден'),
         },
     ),
 )
@@ -30,7 +30,8 @@ from rest_framework.response import Response
                 "Токен валиден, пароль установлен, учетная запись активирована",
                 CheckTOTPSerializer,
             ),
-            400: openapi.Response("Токен не валиден, учетная запись не активирована"),
+            400: openapi.Response('Токен не найден, учетная запись не активирована'),
+            404: openapi.Response('Пользователь не найден'),
         },
     ),
 )

@@ -63,26 +63,3 @@ class AccountViewSet(PersonalAccount):
         "partial_update": [IsAuthenticated],
         "destroy": [IsAuthenticated],
     }
-
-
-@method_decorator(
-    name="create",
-    decorator=swagger_auto_schema(
-        operation_description="Изменение пароля пользователя",
-        tags=["Пользователь", "Личный кабинет пользователя"],
-        responses={
-            200: openapi.Response("Пароль успешно изменён"),
-            401: openapi.Response("Не аутентифицированный"),
-        },
-    ),
-)
-class ChangePasswordViewSet(PersonalAccount):
-    queryset = CustomerUser.objects.all()
-    http_method_names = ["post"]
-
-    serializer_map = {
-        "default": account_serializers.ChangePasswordRetUpdSerializers,
-        "post": account_serializers.ChangePasswordRetUpdSerializers,
-    }
-
-    permission_map = {"default": [IsAuthenticated], "post": [IsAuthenticated]}

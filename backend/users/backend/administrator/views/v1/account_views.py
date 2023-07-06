@@ -1,6 +1,6 @@
 from administrator.models import Admin
 from administrator.serializers import account_serializers
-from base.views import PartialUpdateMixin, PersonalAccount
+from base.views import PersonalAccount
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -63,26 +63,3 @@ class AccountViewSet(PersonalAccount):
         "partial_update": [IsAuthenticated],
         "destroy": [IsAuthenticated],
     }
-
-
-@method_decorator(
-    name="create",
-    decorator=swagger_auto_schema(
-        operation_description="Изменение пароля пользователя",
-        tags=["Администратор", "Личный кабинет администратора"],
-        responses={
-            200: openapi.Response("Пароль успешно изменён"),
-            401: openapi.Response("Не аутентифицированный пользователь"),
-        },
-    ),
-)
-class ChangePasswordViewSet(PersonalAccount):
-    queryset = Admin.objects.all()
-    http_method_names = ["post"]
-
-    serializer_map = {
-        "default": account_serializers.ChangePasswordRetUpdSerializers,
-        "post": account_serializers.ChangePasswordRetUpdSerializers,
-    }
-
-    permission_map = {"default": [IsAuthenticated], "post": [IsAuthenticated]}
