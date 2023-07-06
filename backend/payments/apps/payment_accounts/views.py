@@ -6,16 +6,16 @@ from django.forms import model_to_dict
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, status, viewsets
-from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
+from ..external_payments.models import BalanceServiceMap
 from . import serializers
 from .exceptions import (
     InsufficientFundsError,
     NotPayoutDayError,
     NotValidAccountNumberError,
 )
-from .models import Account, Owner, PayoutData
+from .models import Account, BalanceChange, Owner, PayoutData
 from .schemas import BalanceIncreaseData, CommissionCalculationInfo
 from .serializers import CreatePayoutDataSerializer
 from .services.balance_change import request_balance_deposit_url
@@ -23,10 +23,10 @@ from .services.payment_commission import calculate_payment_with_commission
 from .services.payout import PayoutProcessor
 
 
-class CalculatePaymentCommissionView(CreateAPIView, DRFtoDataClassMixin):
+class CalculatePaymentCommissionView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.PaymentCommissionSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         try:
             commission_data = self.convert_data(request, CommissionCalculationInfo)
         except DifferentStructureError:
@@ -39,10 +39,10 @@ class CalculatePaymentCommissionView(CreateAPIView, DRFtoDataClassMixin):
         return Response({'amount with commission': amount_with_commission})
 
 
-class BalanceIncreaseView(CreateAPIView, DRFtoDataClassMixin):
+class BalanceIncreaseView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.BalanceIncreaseSerializer
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         try:
             balance_increase_data = self.convert_data(request, BalanceIncreaseData)
         except DifferentStructureError:
@@ -55,7 +55,7 @@ class BalanceIncreaseView(CreateAPIView, DRFtoDataClassMixin):
         )
 
 
-class UserAccountAPIView(CreateAPIView, DRFtoDataClassMixin):
+class UserCreateView(viewsets.GenericViewSet, mixins.CreateModelMixin):
     serializer_class = serializers.AccountSerializer
 
     def create(self, request, *args, **kwargs):
@@ -165,3 +165,17 @@ class PayoutDataCreateView(viewsets.ViewSet):
         validated_data['user_uuid'] = developer_account
         serializer.create(validated_data=validated_data)
         return Response(serializer.validated_data, status.HTTP_201_CREATED)
+
+
+class PayoutHistoryView(viewsets.GenericViewSet, mixins.ListModelMixin):
+    serializer_class = serializers.PayoutHistorySerializer
+
+    def get_queryset(self):
+        user_uuid = self.kwargs.get('user_uuid')
+        account = get_object_or_404(Account, user_uuid=user_uuid)
+        queryset = BalanceChange.objects.filter(
+            account_id=account,
+            operation_type=BalanceChange.OperationType.WITHDRAW,
+            balanceservicemap__operation_type=BalanceServiceMap.OperationType.PAYOUT,
+        )
+        return queryset

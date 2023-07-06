@@ -47,3 +47,9 @@ EnumCurrencies = enum.Enum(
 class MoneyDataClass:
     amount: Decimal
     currency: EnumCurrencies
+
+
+@dataclass
+class YookassaMoneyDataClass:
+    value: Decimal
+    currency: EnumCurrencies = settings.DEFAULT_CURRENCY

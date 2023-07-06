@@ -1,12 +1,15 @@
 from apps.base.fields import MoneyAmountSerializerField
-from apps.base.schemas import EnumCurrencies
-from apps.base.serializer import PaymentServiceSerializer
-from django.conf import settings
-from django.core.validators import MaxValueValidator, MinValueValidator
+from apps.base.serializer import (
+    AmountPayoutSerializer,
+    PaymentServiceSerializer,
+    YookassaMoneySerializer,
+)
+from django.core.validators import MinValueValidator
 from rest_enumfield import EnumField
 from rest_framework import serializers
 
-from .models import Account, Owner, PayoutData
+from ..base.serializer import MoneySerializer
+from .models import Account, BalanceChange, Owner, PayoutData
 
 
 class PaymentCommissionSerializer(PaymentServiceSerializer):
@@ -15,9 +18,10 @@ class PaymentCommissionSerializer(PaymentServiceSerializer):
     )
 
 
-class BalanceIncreaseSerializer(PaymentCommissionSerializer):
+class BalanceIncreaseSerializer(PaymentServiceSerializer):
     user_uuid = serializers.UUIDField()
     return_url = serializers.URLField()
+    amount = YookassaMoneySerializer()
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -30,22 +34,6 @@ class AccountSerializer(serializers.ModelSerializer):
 
 class UUIDSerializer(serializers.Serializer):
     uuid_list = serializers.ListField(child=serializers.UUIDField())
-
-
-class AmountPayoutSerializer(serializers.Serializer):
-    value = MoneyAmountSerializerField(
-        validators=[
-            MinValueValidator(
-                settings.MINIMUM_PAYOUT_AMOUNT,
-                message=f'Should be more then {settings.MINIMUM_PAYOUT_AMOUNT}',
-            ),
-            MaxValueValidator(
-                settings.MAXIMUM_YOOKASSA_PAYOUT,
-                message=f'Payout service limit exceeded {settings.MAXIMUM_YOOKASSA_PAYOUT}',
-            ),
-        ],
-    )
-    currency = EnumField(choices=EnumCurrencies)
 
 
 class PayoutDestination(serializers.Serializer):
@@ -98,6 +86,15 @@ class BalanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ('user_uuid', 'balance', 'balance_currency')
+
+
+class PayoutHistorySerializer(serializers.ModelSerializer):
+    sum = MoneySerializer(source='amount')  # noqa: VNE003, A003
+    created_at = serializers.DateTimeField(source='created_date')
+
+    class Meta:
+        model = BalanceChange
+        fields = ('sum', 'created_at')
 
 
 class OwnerSerializer(serializers.ModelSerializer):
