@@ -63,12 +63,17 @@ class Token(BaseToken, JWTMixin):
         data = data if data is not None else {}
         self.validate_payload_data(data)
         default_payload = self.get_default_access_payload()
-        payload = {
+        redis_payload = {
             "token_type": "access",
             **default_payload,
             **data,
         }
+        payload = {
+            "token_type": "access",
+            **default_payload,
+        }
         access_token = self._encode(payload)
+        self.__add_access_to_redis(token=access_token, value=redis_payload)
         return access_token
 
     def generate_refresh_token(self, data: dict) -> str:
