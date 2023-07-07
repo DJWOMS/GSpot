@@ -6,6 +6,8 @@ from common.services.jwt.token import Token
 from django.conf import settings
 from rest_framework.authentication import BaseAuthentication
 
+from .exceptions import TokenIsNotFoundInDb
+
 
 class CustomJWTAuthentication(BaseAuthentication):
     def authenticate(self, request):
@@ -16,8 +18,11 @@ class CustomJWTAuthentication(BaseAuthentication):
 
         self.validate_token(jwt_token)
         payload = Token().get_access_data(jwt_token)
-        user = self.get_user(payload)
-        return user, payload
+        if payload:
+            user = self.get_user(payload)
+            return user, payload
+        else:
+            raise TokenIsNotFoundInDb()
 
     @staticmethod
     def validate_token(token) -> None:
