@@ -15,7 +15,7 @@ class CustomJWTAuthentication(BaseAuthentication):
             return None
 
         self.validate_token(jwt_token)
-        payload = Token._decode(jwt_token)
+        payload = Token().get_access_data(jwt_token)
         user = self.get_user(payload)
         return user, payload
 

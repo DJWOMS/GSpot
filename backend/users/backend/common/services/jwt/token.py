@@ -156,3 +156,6 @@ class Token(BaseToken, JWTMixin):
     @classmethod
     def __add_access_to_redis(cls, token: str, value: dict):
         cls.__add_token_to_redis(redis_client=cls.redis_access_client, token=token, value=value)
+
+    def get_access_data(self, token: str) -> dict | None:
+        return self.redis_access_client.is_token_exist(token)
