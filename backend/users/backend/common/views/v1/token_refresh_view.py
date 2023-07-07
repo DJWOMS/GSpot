@@ -36,4 +36,3 @@ class GetJwtView(generics.GenericAPIView):
 
         dict_token = update_access_token(refresh_token, user)
         return Response(dict_token, status=status.HTTP_200_OK)
-
