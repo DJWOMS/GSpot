@@ -8,13 +8,14 @@ from django.shortcuts import get_object_or_404
 from rest_framework import mixins, status, viewsets
 from rest_framework.response import Response
 
+from ..external_payments.models import BalanceServiceMap
 from . import serializers
 from .exceptions import (
     InsufficientFundsError,
     NotPayoutDayError,
     NotValidAccountNumberError,
 )
-from .models import Account, Owner, PayoutData
+from .models import Account, BalanceChange, Owner, PayoutData
 from .schemas import BalanceIncreaseData, CommissionCalculationInfo
 from .serializers import CreatePayoutDataSerializer
 from .services.balance_change import request_balance_deposit_url
@@ -164,3 +165,17 @@ class PayoutDataCreateView(viewsets.ViewSet):
         validated_data['user_uuid'] = developer_account
         serializer.create(validated_data=validated_data)
         return Response(serializer.validated_data, status.HTTP_201_CREATED)
+
+
+class PayoutHistoryView(viewsets.GenericViewSet, mixins.ListModelMixin):
+    serializer_class = serializers.PayoutHistorySerializer
+
+    def get_queryset(self):
+        user_uuid = self.kwargs.get('user_uuid')
+        account = get_object_or_404(Account, user_uuid=user_uuid)
+        queryset = BalanceChange.objects.filter(
+            account_id=account,
+            operation_type=BalanceChange.OperationType.WITHDRAW,
+            balanceservicemap__operation_type=BalanceServiceMap.OperationType.PAYOUT,
+        )
+        return queryset

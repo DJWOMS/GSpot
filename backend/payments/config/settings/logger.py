@@ -1,5 +1,6 @@
-from .base import BASE_DIR, DEBUG
 from environs import Env
+
+from .base import BASE_DIR, DEBUG
 
 env = Env()
 env.read_env()
