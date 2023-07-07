@@ -33,9 +33,7 @@ class JWTLogoutView(GenericAPIView):
 
     def post(self, request):
         try:
-            serializer = GetJwtSerializers(data=request.data, context=self.get_serializer_context())
-            serializer.is_valid(raise_exception=True)
-            refresh_token = serializer.validated_data['refresh_token']
+            refresh_token = request.data['refresh_token']
             Token().add_refresh_to_redis(token=refresh_token)
             return Response(status=status.HTTP_205_RESET_CONTENT)
 
