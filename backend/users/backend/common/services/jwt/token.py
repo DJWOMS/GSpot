@@ -35,9 +35,19 @@ class Token(BaseToken, JWTMixin):
                 raise PayloadError(f"Payload must contain '{field}'")
 
     @staticmethod
-    def get_default_payload() -> dict:
+    def get_default_access_payload() -> dict:
         iat = timezone.localtime()
         exp = iat + settings.ACCESS_TOKEN_LIFETIME
+        default_payload = {
+            "iat": int(iat.timestamp()),
+            "exp": int(exp.timestamp()),
+        }
+        return default_payload
+
+    @staticmethod
+    def get_default_refresh_payload() -> dict:
+        iat = timezone.localtime()
+        exp = iat + settings.REFRESH_TOKEN_LIFETIME
         default_payload = {
             "iat": int(iat.timestamp()),
             "exp": int(exp.timestamp()),
@@ -52,7 +62,7 @@ class Token(BaseToken, JWTMixin):
     def generate_access_token(self, data: dict = None) -> str:
         data = data if data is not None else {}
         self.validate_payload_data(data)
-        default_payload = self.get_default_payload()
+        default_payload = self.get_default_access_payload()
         payload = {
             "token_type": "access",
             **default_payload,
@@ -63,7 +73,7 @@ class Token(BaseToken, JWTMixin):
 
     def generate_refresh_token(self, data: dict) -> str:
         self.validate_payload_data(data)
-        default_payload = self.get_default_payload()
+        default_payload = self.get_default_refresh_payload()
         payload = {
             "token_type": "refresh",
             "user_id": data["user_id"],
@@ -82,7 +92,7 @@ class Token(BaseToken, JWTMixin):
     def generate_access_token_for_user(self, user: BaseAbstractUser) -> str:
         self.validate_user(user)
         user_payload = self.get_user_payload(user)
-        default_payload = self.get_default_payload()
+        default_payload = self.get_default_access_payload()
         redis_payload = {
             "token_type": "access",
             **default_payload,
@@ -99,7 +109,7 @@ class Token(BaseToken, JWTMixin):
     def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
         self.validate_user(user)
         user_payload = self.get_user_payload(user)
-        default_payload = self.get_default_payload()
+        default_payload = self.get_default_refresh_payload()
         payload = {
             "token_type": "refresh",
             **default_payload,
