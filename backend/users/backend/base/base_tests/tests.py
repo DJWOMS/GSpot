@@ -33,7 +33,7 @@ class TestView:
 
 
 class TestBase(TearDown):
-    fixtures = ['fixtures/data']
+    fixtures = ['fixtures/message_and_notify']
 
     @classmethod
     def setUpTestData(cls):

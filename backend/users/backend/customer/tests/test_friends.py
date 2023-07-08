@@ -7,7 +7,7 @@ from rest_framework.test import APITestCase
 
 class TestFriends:
     fixtures = [
-        'fixtures/data',
+        'fixtures/message_and_notify',
     ]
     url_get_all_users = reverse('customers-list')
     url_get_all_request_friends = reverse('list-friends-requests')

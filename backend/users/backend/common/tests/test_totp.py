@@ -14,7 +14,7 @@ from utils.db.redis_client import RedisTotpClient
 
 
 class TestTOTPToken(TestCase):
-    fixtures = ['fixtures/data']
+    fixtures = ['fixtures/message_and_notify']
 
     def setUp(self):
         self.r = RedisTotpClient(

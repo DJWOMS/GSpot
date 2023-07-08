@@ -9,11 +9,12 @@ from customer.models import CustomerUser
 from developer.models import CompanyUser
 from django.conf import settings
 from rest_framework.test import APITestCase
+from utils.broker.message import FriendAddedMessage
 from utils.broker.rabbitmq import RabbitMQ
 
 
 class TestRabbitMQ(TearDown, APITestCase):
-    fixtures = ['fixtures/data']
+    fixtures = ['fixtures/message_and_notify']
 
     def setUp(self) -> None:
         self.rabbitmq = RabbitMQ()
@@ -49,7 +50,11 @@ class TestRabbitMQ(TearDown, APITestCase):
         )
 
     def test_01_send_and_receive_message_add_friend(self):
-        Notify().send_notify(user=self.customer_user, sender_user=self.customer_user2)
+        Notify().send_notify(
+            user=self.customer_user,
+            sender_user=self.customer_user2,
+            message=FriendAddedMessage,
+        )
         with self.rabbitmq:
             method, properties, body = self.rabbitmq._channel.basic_get(
                 queue=settings.NOTIFY_ROUTING_KEY,

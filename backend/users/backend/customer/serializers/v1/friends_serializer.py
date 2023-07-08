@@ -1,10 +1,7 @@
-import pdb
-
-from common.permissions.validators import ActiveUserValidator, BannedUserValidatorVerify
 from customer.models import CustomerUser, FriendShipRequest
 from customer.services.check_friendship_user import RequestFriends
 from django.db.models import Q
-from rest_framework import serializers, status
+from rest_framework import serializers
 
 
 class UserSerializer(serializers.ModelSerializer):

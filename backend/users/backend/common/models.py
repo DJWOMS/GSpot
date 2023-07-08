@@ -33,7 +33,7 @@ class MessageNotifyRabbitMQ(models.Model):
     STATUS_CHOICES = ((ADD_FRIEND, "add_friend"),)
     text = models.TextField(
         verbose_name=_('message_notify_rabbitmq'),
-        validators=[validators.validate_user_in_text],
+        validators=[validators.ValidateUserInText()],
     )
     action = models.CharField(choices=STATUS_CHOICES)
 
@@ -59,10 +59,10 @@ class MessageEmailRabbitMQ(models.Model):
         (DEVELOP_ACTIVATION, 'develop_activation'),
         (CUSTOMER_ACTIVATION, 'customer_activation'),
     )
-    url = models.CharField(validators=[validators.validate_totp_in_url])
+    url = models.CharField(validators=[validators.ValidateTotpInUrl()])
     text = models.TextField(
         verbose_name=_('message_email_rabbitmq'),
-        validators=[validators.validate_url_in_text],
+        validators=[validators.ValidateUrlInText()],
     )
     action = models.CharField(choices=STATUS_CHOICES)
 

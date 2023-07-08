@@ -4,7 +4,11 @@ from base.models import BaseAbstractUser
 from base.tokens.totp import BaseTOTPToken
 from config.settings import redis_config
 from rest_framework import serializers
-from utils.broker import message as message_broker
+from utils.broker.message import (
+    AdminActivationMessage,
+    CustomerActivationMessage,
+    DevelopActivationMessage,
+)
 from utils.broker.rabbitmq import RabbitMQ
 from utils.db.redis_client import RedisClient, RedisTotpClient
 
@@ -36,12 +40,13 @@ class TOTPToken(BaseTOTPToken):
 
     def send_to_channels(self, totp: str, user: BaseAbstractUser):
         with self.rabbitmq as rabbit:
-            if user._meta.app_label == 'administrator':
-                message = message_broker.AdminActivationMessage
-            elif user._meta.app_label == 'customer':
-                message = message_broker.CustomerActivationMessage
-            else:
-                message = message_broker.DevelopActivationMessage
+            messages = {
+                'administrator': AdminActivationMessage,
+                'customer': CustomerActivationMessage,
+                'developer': DevelopActivationMessage,
+            }
+            user_role = user._meta.app_label
+            message = messages.get(user_role)
             rabbitmq_message = message(user=user, totp=totp)
             rabbit.send_message(rabbitmq_message)
 

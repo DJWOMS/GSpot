@@ -12,6 +12,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from utils.broker.message import FriendAddedMessage
 
 
 @method_decorator(
@@ -84,7 +85,11 @@ class AddFriendsView(viewsets.ModelViewSet):
     @action(methods=["post"], detail=True, url_path="add-friend", url_name="add_friend")
     def add_friend(self, request, user_id):
         get_object = self.get_object()
-        Notify().send_notify(user=get_object, sender_user=self.request.user)
+        Notify().send_notify(
+            user=get_object,
+            sender_user=self.request.user,
+            message=FriendAddedMessage,
+        )
         with transaction.atomic():
             instance = FriendShipRequest(
                 sender=self.request.user,
