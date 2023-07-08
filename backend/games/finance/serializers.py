@@ -1,7 +1,8 @@
 from rest_framework import serializers
+from django.db.models import Count
+from django.db import transaction
 from core.models.product import Product
 from finance.models import Price, ProductOffer, Offer, Library
-from django.db import transaction
 
 
 class PriceSerializer(serializers.ModelSerializer):
@@ -78,3 +79,51 @@ class LibrarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Library
         fields = ('products',)
+
+
+class ProductPackSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = ('id', 'name',)
+
+
+class PricePackSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Price
+        fields = ('amount', 'currency',)
+
+
+class OfferPackSerializer(serializers.ModelSerializer):
+    price = PricePackSerializer()
+    products = ProductPackSerializer(many=True)
+
+    class Meta:
+        model = Offer
+        fields = ('id', 'price', 'products',)
+
+
+class DlcsPackSerializer(serializers.ModelSerializer):
+    price = serializers.SerializerMethodField()
+
+    def get_price(self, obj):
+        try:
+            offer = ProductOffer.objects.annotate(
+                product_count=Count('product')).filter(product=obj, product_count=1)[0].offer
+        except ProductOffer.DoesNotExist:
+            return None
+        return [offer.price.amount, offer.price.currency]
+
+    class Meta:
+        model = Product
+        fields = ('id', 'name', 'price', )
+
+
+class ProductContentShowSerializer(serializers.ModelSerializer):
+    offers = OfferPackSerializer(many=True)
+    dlcs = DlcsPackSerializer(many=True)
+
+    class Meta:
+        model = Product
+        fields = ('offers', 'dlcs',)
