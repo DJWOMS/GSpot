@@ -54,3 +54,10 @@ class GetJwtApiTestCase:
         time.sleep(1)
         response = self.client_post(self.data)
         self.assertIsNot(self.data.get('refresh_token'), response.data['refresh'])
+
+    def test_ban_list_refresh_token(self):
+        refresh_token = self.data['refresh_token']
+        self.assertEqual(Token.redis_refresh_client.is_token_exist(refresh_token), None)
+        Token.redis_refresh_client.add_token(token=refresh_token)
+        response = self.client_post(self.data)
+        self.assertEqual(response.status_code, 401)

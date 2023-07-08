@@ -31,7 +31,7 @@ class GetJwtView(generics.GenericAPIView):
         user = serializer.validated_data['user']
         refresh_token = serializer.validated_data['refresh_token']
 
-        if Token().redis_refresh_client.is_token_exist(refresh_token):
+        if Token.redis_refresh_client.is_token_exist(refresh_token):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
         dict_token = update_access_token(refresh_token, user)

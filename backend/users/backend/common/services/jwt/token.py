@@ -147,15 +147,15 @@ class Token(BaseToken, JWTMixin):
     def check_signature(self, token: str) -> None:
         self._decode(token)
 
-    @staticmethod
-    def __add_token_to_redis(redis_client: RedisClient, token: str, value: dict):
-        redis_client.add_token(token=token, value=value)
+    # @staticmethod
+    # def __add_token_to_redis(redis_client: RedisClient, token: str, value: dict):
+    #     redis_client.add_token(token=token, value=value)
 
     @classmethod
     def __add_access_to_redis(cls, token: str, value: dict):
-        cls.__add_token_to_redis(redis_client=cls.redis_access_client, token=token, value=value)
+        cls.redis_access_client.add_token(token=token, value=value)
 
-    @classmethod
-    def add_refresh_to_redis(cls, token: str, value: dict = None):
-        value = value if value is not None else {}
-        cls.__add_token_to_redis(redis_client=cls.redis_refresh_client, token=token, value=value)
+    # @classmethod
+    # def add_refresh_to_redis(cls, token: str, value: dict = None):
+    #     value = value if value is not None else {}
+    #     cls.redis_refresh_client.add_token(token=token, value=value)

@@ -20,7 +20,7 @@ from common.serializers.v1.logout_serializer import LogoutSerializer
         ],
         request_body=LogoutSerializer,
         responses={
-            200: openapi.Response(
+            205: openapi.Response(
                 'Сеанс работы прекращен',
             ),
             400: openapi.Response('Отсутствует refresh токен'),
@@ -34,7 +34,7 @@ class JWTLogoutView(GenericAPIView):
     def post(self, request):
         try:
             refresh_token = request.data['refresh_token']
-            Token().add_refresh_to_redis(token=refresh_token)
+            Token.redis_refresh_client.add_token(token=refresh_token)
             return Response(status=status.HTTP_205_RESET_CONTENT)
 
         except Exception:
