@@ -174,7 +174,7 @@ class PayoutDataCreateView(viewsets.ViewSet):
 
 
 class PayoutHistoryView(viewsets.GenericViewSet, mixins.ListModelMixin):
-    serializer_class = serializers.PayoutHistoryRefillHistorySerializer
+    serializer_class = serializers.BalanceHistorySerializer
 
     def get_queryset(self):
         user_uuid = self.kwargs.get('user_uuid')
@@ -187,8 +187,8 @@ class PayoutHistoryView(viewsets.GenericViewSet, mixins.ListModelMixin):
         return queryset
 
 
-class BalanceRefillHistoryView(viewsets.GenericViewSet, mixins.ListModelMixin):
-    serializer_class = serializers.PayoutHistoryRefillHistorySerializer
+class RefillHistoryView(viewsets.GenericViewSet, mixins.ListModelMixin):
+    serializer_class = serializers.BalanceHistorySerializer
 
     def get_queryset(self):
         user_uuid = self.kwargs.get('user_uuid')
