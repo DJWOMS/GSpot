@@ -1,5 +1,4 @@
 from config.settings import env
-import django_redis
 
 REDIS_URL = env.str('REDIS')
 
