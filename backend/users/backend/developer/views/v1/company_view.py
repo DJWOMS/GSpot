@@ -1,20 +1,17 @@
-from django.http import Http404
-from django.shortcuts import get_object_or_404
-
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
-
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.response import Response
-
 from common.permissions.permissons import CompanyOwnerPerm, IsCompanySuperUserPerm
 from developer.models import Company
 from developer.serializers.v1.company_serializer import (
-    CompanySerializer,
     CompanyCreateSerializer,
+    CompanySerializer,
     CompanyUpdateSerializer,
 )
+from django.http import Http404
+from django.shortcuts import get_object_or_404
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 get_method_schema = swagger_auto_schema(
     operation_description="Получить содержимое собственной компании владельцем компании",
@@ -76,7 +73,7 @@ class CompanyAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @put_method_schema
-    def put(self, request, format=None):
+    def put(self, request):
         user = request.user
         company = get_object_or_404(Company, created_by=user)
         serializer = CompanyUpdateSerializer(company, data=request.data, partial=True)
@@ -85,7 +82,7 @@ class CompanyAPIView(APIView):
         return Response(serializer.data)
 
     @delete_method_schema
-    def delete(self, request, format=None):
+    def delete(self, request):
         user = request.user
         company = get_object_or_404(Company, created_by=user)
         company.delete()

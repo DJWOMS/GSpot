@@ -1,5 +1,4 @@
 from administrator.models import AdminPermission
-
 from base.serializers import BasePermissionSerializer
 
 

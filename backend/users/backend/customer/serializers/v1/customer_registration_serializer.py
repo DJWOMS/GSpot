@@ -1,6 +1,5 @@
-from rest_framework import serializers
-
 from customer.models import CustomerUser
+from rest_framework import serializers
 
 
 class CustomerRegistrationSerializer(serializers.ModelSerializer):
@@ -10,4 +9,4 @@ class CustomerRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomerUser
-        exclude = ('is_active', 'friends', 'is_banned')
+        exclude = ("is_active", "friends", "is_banned", "password")

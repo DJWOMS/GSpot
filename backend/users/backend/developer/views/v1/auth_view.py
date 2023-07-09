@@ -1,12 +1,11 @@
+from base.serializers import AuthTokensResponseSerializer
+from common.services.jwt.token import Token
+from developer.serializers.v1.auth_serializer import DeveloperAuthSerializer
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView, Response
-from base.serializers import AuthTokensResponseSerializer
-from developer.serializers.v1.auth_serializer import DeveloperAuthSerializer
-
-from common.services.jwt.token import Token
 
 
 class DeveloperAuthView(APIView):

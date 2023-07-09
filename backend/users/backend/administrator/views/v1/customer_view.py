@@ -1,87 +1,86 @@
-from rest_framework import filters, status
-from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
-
 from administrator.serializers.v1.customer_seriallizers import (
-    CustomerListSerializer,
     CustomerBlockSerializer,
-    CustomerUnblockSerializer,
+    CustomerListSerializer,
     CustomerRetrieveSerializer,
+    CustomerUnblockSerializer,
 )
 from base.paginations import BasePagination
 from common.permissions.permissons import IsAdminScopeUserPerm
 from customer.models import CustomerUser
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import filters, status
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
 list_schema = swagger_auto_schema(
-    operation_description='Получить список пользователей',
-    tags=['Администратор', 'Личный кабинет администратора'],
+    operation_description="Получить список пользователей",
+    tags=["Администратор", "Личный кабинет администратора"],
     responses={
-        200: openapi.Response('Список пользователей', CustomerListSerializer(many=True)),
-        401: openapi.Response('Не аутентифицированный пользователь'),
-        403: openapi.Response('Отсутствуют права на просмотр'),
+        200: openapi.Response("Список пользователей", CustomerListSerializer(many=True)),
+        401: openapi.Response("Не аутентифицированный пользователь"),
+        403: openapi.Response("Отсутствуют права на просмотр"),
     },
 )
 
 retrieve_schema = swagger_auto_schema(
-    operation_description='Детальный просмотр пользователя',
-    tags=['Администратор', 'Личный кабинет администратора'],
+    operation_description="Детальный просмотр пользователя",
+    tags=["Администратор", "Личный кабинет администратора"],
     responses={
-        200: openapi.Response('Пользователь', CustomerRetrieveSerializer),
-        401: openapi.Response('Не аутентифицированный пользователь'),
-        403: openapi.Response('Отсутствуют права на просмотр'),
+        200: openapi.Response("Пользователь", CustomerRetrieveSerializer),
+        401: openapi.Response("Не аутентифицированный пользователь"),
+        403: openapi.Response("Отсутствуют права на просмотр"),
     },
 )
 
 unblock_schema = swagger_auto_schema(
-    operation_description='Разблокировка пользователя',
-    tags=['Администратор', 'Административная панель владельца'],
+    operation_description="Разблокировка пользователя",
+    tags=["Администратор", "Административная панель владельца"],
     responses={
-        201: openapi.Response('Успешно'),
-        400: openapi.Response('Данные не валидны'),
-        403: openapi.Response('Отсутствуют права на редактирование'),
-        404: openapi.Response('Пользователь не найден'),
+        201: openapi.Response("Успешно"),
+        400: openapi.Response("Данные не валидны"),
+        403: openapi.Response("Отсутствуют права на редактирование"),
+        404: openapi.Response("Пользователь не найден"),
     },
 )
 
 block_schema = swagger_auto_schema(
-    operation_description='Блокировка пользователя',
-    tags=['Администратор', 'Административная панель владельца'],
+    operation_description="Блокировка пользователя",
+    tags=["Администратор", "Административная панель владельца"],
     responses={
-        201: openapi.Response('Успешно'),
-        400: openapi.Response('Данные не валидны'),
-        403: openapi.Response('Отсутствуют права на редактирование'),
+        201: openapi.Response("Успешно"),
+        400: openapi.Response("Данные не валидны"),
+        403: openapi.Response("Отсутствуют права на редактирование"),
     },
 )
 
 destroy_schema = swagger_auto_schema(
-    operation_description='Удалить пользователя',
-    tags=['Администратор', 'Административная панель владельца'],
+    operation_description="Удалить пользователя",
+    tags=["Администратор", "Административная панель владельца"],
     responses={
-        204: openapi.Response('Пользователь удалён'),
-        403: openapi.Response('Отсутствуют права на редактирование'),
-        404: openapi.Response('Пользователь не найден'),
+        204: openapi.Response("Пользователь удалён"),
+        403: openapi.Response("Отсутствуют права на редактирование"),
+        404: openapi.Response("Пользователь не найден"),
     },
 )
 
 
 class CustomerListView(ModelViewSet):
     queryset = CustomerUser.objects.all()
-    http_method_names = ['get', 'post', 'delete']
+    http_method_names = ["get", "post", "delete"]
     permission_classes = [IsAdminScopeUserPerm]
     filter_backends = [filters.SearchFilter]
-    search_fields = ['email', 'phone']
+    search_fields = ["email", "phone"]
     pagination_class = BasePagination
 
     def get_serializer_class(self):
-        if self.action == 'retrieve':
+        if self.action == "retrieve":
             return CustomerRetrieveSerializer
-        if self.action == 'list':
+        if self.action == "list":
             return CustomerListSerializer
-        if self.action == 'block':
+        if self.action == "block":
             return CustomerBlockSerializer
-        if self.action == 'unblock':
+        if self.action == "unblock":
             return CustomerUnblockSerializer
 
     @list_schema
@@ -102,7 +101,7 @@ class CustomerListView(ModelViewSet):
         serializer = CustomerBlockSerializer(
             data=request.data,
             context={
-                'customer': customer,
+                "customer": customer,
             },
         )
         serializer.is_valid(raise_exception=True)
@@ -116,7 +115,7 @@ class CustomerListView(ModelViewSet):
         serializer = CustomerUnblockSerializer(
             data=request.data,
             context={
-                'customer': customer,
+                "customer": customer,
             },
         )
         serializer.is_valid(raise_exception=True)

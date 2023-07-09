@@ -1,12 +1,15 @@
+from common.serializers.v1.get_jwt_serializers import (
+    GetJwtSerializers,
+    ResponseGetJwtSerializers,
+)
+from common.services.jwt.refresh_is_expired_token import update_access_token
+from common.services.jwt.token import Token
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
-from common.serializers.v1.get_jwt_serializers import GetJwtSerializers, ResponseGetJwtSerializers
 from rest_framework.response import Response
-from common.services.jwt.token import Token
-from common.services.jwt.refresh_is_expired_token import update_access_token
 
 
 @method_decorator(
@@ -31,7 +34,7 @@ class GetJwtView(generics.GenericAPIView):
         user = serializer.validated_data['user']
         refresh_token = serializer.validated_data['refresh_token']
 
-        if Token.redis_refresh_client.is_token_exist(refresh_token):
+        if Token().get_refresh_data(refresh_token):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
         dict_token = update_access_token(refresh_token, user)

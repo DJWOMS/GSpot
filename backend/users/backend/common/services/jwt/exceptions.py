@@ -11,3 +11,7 @@ class TokenInvalid(AuthenticationFailed):
 
 class PayloadError(AuthenticationFailed):
     pass
+
+
+class TokenIsNotFoundInDb(AuthenticationFailed):
+    pass

@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('administrator', '0002_remove_admin_date_joined'),
+        ("administrator", "0002_remove_admin_date_joined"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='admin',
-            name='last_login',
+            model_name="admin",
+            name="last_login",
         ),
     ]

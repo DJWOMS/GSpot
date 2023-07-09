@@ -1,10 +1,9 @@
-from rest_framework.permissions import BasePermission
-
 from administrator.models import Admin
 from base.permissions import BaseUserPermissions
 from common.permissions import verifiers
 from common.permissions.verifiers import IsAdminSuperUserVerify
 from developer.models import CompanyUser
+from rest_framework.permissions import BasePermission
 
 
 class IsAdminSuperUserPerm(BaseUserPermissions, IsAdminSuperUserVerify):

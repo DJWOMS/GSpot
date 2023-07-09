@@ -1,11 +1,13 @@
 import uuid
 
-from config.settings import redis_config
 from base.models import BaseAbstractUser
 from base.tokens.totp import BaseTOTPToken
-from utils.broker.message import TOTPTokenMessage, BaseMessage
+from common.services.totp.model_factory import db_model_factory
+from config.settings import redis_config
+from rest_framework import serializers
+from utils.broker.message import BaseMessage, TOTPTokenMessage
 from utils.broker.rabbitmq import RabbitMQ
-from utils.db.redis_client import RedisTotpClient, RedisClient
+from utils.db.redis_client import RedisClient, RedisTotpClient
 
 
 class TOTPToken(BaseTOTPToken):
@@ -36,9 +38,12 @@ class TOTPToken(BaseTOTPToken):
 
     def send_to_channels(self, totp: str, email: str):
         with self.rabbitmq as rabbit:
-            message = {'totp': totp, 'email': email}
+            message = {"totp": totp, "email": email}
             rabbitmq_message = self.message(message)
             rabbit.send_message(rabbitmq_message)
 
     def check_totp(self, totp: str):
-        pass
+        data = self.redis.is_token_exist(totp)
+        if not data:
+            raise serializers.ValidationError("Current TOTP is not exists.")
+        return data
