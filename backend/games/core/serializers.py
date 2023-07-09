@@ -145,7 +145,12 @@ class GamesListSerializer(serializers.ModelSerializer):
     def get_price(self, obj):
         try:
             offer = ProductOffer.objects.filter(product=obj).latest('id')
-            return Offer.objects.get(id=str(offer.offer_id)).price.amount
+            price = Offer.objects.get(id=str(offer.offer_id)).price
+            result = {
+                'amount': price.amount,
+                'currency': price.currency
+            }
+            return result
         except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
             return None
 
@@ -181,7 +186,12 @@ class GameDetailSerializer(serializers.ModelSerializer):
     def get_price(self, obj):
         try:
             offer = ProductOffer.objects.filter(product=obj).latest('id')
-            return Offer.objects.get(id=str(offer.offer_id)).price.amount
+            price = Offer.objects.get(id=str(offer.offer_id)).price
+            result = {
+                'amount': price.amount,
+                'currency': price.currency
+            }
+            return result
         except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
             return None
 
