@@ -50,11 +50,8 @@ class TestRabbitMQ(TearDown, APITestCase):
         )
 
     def test_01_send_and_receive_message_add_friend(self):
-        Notify().send_notify(
-            user=self.customer_user,
-            sender_user=self.customer_user2,
-            message=FriendAddedMessage,
-        )
+        message = FriendAddedMessage(user=self.customer_user, sender_user=self.customer_user2)
+        Notify().send_notify(message=message)
         with self.rabbitmq:
             method, properties, body = self.rabbitmq._channel.basic_get(
                 queue=settings.NOTIFY_ROUTING_KEY,

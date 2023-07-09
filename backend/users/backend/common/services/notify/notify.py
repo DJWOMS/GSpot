@@ -11,10 +11,7 @@ class Notify(BaseNotify):
 
     def send_notify(
         self,
-        user: BaseAbstractUser,
-        sender_user: BaseAbstractUser,
-        message: Type[NotifyMessage],
+        message: NotifyMessage,
     ):
         with self.rabbitmq as rabbit:
-            rabbitmq_message = message(user=user, sender_user=sender_user)
-            rabbit.send_message(rabbitmq_message)
+            rabbit.send_message(message=message)

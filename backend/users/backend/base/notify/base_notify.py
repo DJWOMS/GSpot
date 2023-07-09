@@ -8,8 +8,6 @@ class BaseNotify(ABC):
     @abstractmethod
     def send_notify(
         self,
-        user: BaseAbstractUser,
-        sender_user: BaseAbstractUser,
         message: NotifyMessage,
     ) -> str:
         pass

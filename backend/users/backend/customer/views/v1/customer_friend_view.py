@@ -85,10 +85,9 @@ class AddFriendsView(viewsets.ModelViewSet):
     @action(methods=["post"], detail=True, url_path="add-friend", url_name="add_friend")
     def add_friend(self, request, user_id):
         get_object = self.get_object()
+        message = FriendAddedMessage(user=get_object, sender_user=self.request.user)
         Notify().send_notify(
-            user=get_object,
-            sender_user=self.request.user,
-            message=FriendAddedMessage,
+            message=message,
         )
         with transaction.atomic():
             instance = FriendShipRequest(
