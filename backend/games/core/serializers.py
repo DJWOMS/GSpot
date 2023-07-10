@@ -144,14 +144,15 @@ class GamesListSerializer(serializers.ModelSerializer):
 
     def get_price(self, obj):
         try:
-            offer = ProductOffer.objects.get(product=obj)
-            offer_id = str(offer.offer_id)
-            offer = Offer.objects.get(id=offer_id)
-        except ProductOffer.DoesNotExist:
+            offer = ProductOffer.objects.filter(product=obj).latest('id')
+            price = Offer.objects.get(id=str(offer.offer_id)).price
+            result = {
+                'amount': price.amount,
+                'currency': price.currency
+            }
+            return result
+        except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
             return None
-        except Offer.DoesNotExist:
-            return None
-        return offer.price.amount
 
     class Meta:
         model = Product
@@ -184,10 +185,15 @@ class GameDetailSerializer(serializers.ModelSerializer):
 
     def get_price(self, obj):
         try:
-            offer = ProductOffer.objects.get(product=obj).offer
-        except ProductOffer.DoesNotExist:
+            offer = ProductOffer.objects.filter(product=obj).latest('id')
+            price = Offer.objects.get(id=str(offer.offer_id)).price
+            result = {
+                'amount': price.amount,
+                'currency': price.currency
+            }
+            return result
+        except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
             return None
-        return offer.price.amount
 
     class Meta:
         model = Product
@@ -236,3 +242,9 @@ class GameDlcLinkSerializer(serializers.Serializer):
             'game': instance[0].game_id,
             'dlc': [link.dlc_id for link in instance]
         }
+
+
+class SaveToLibrarySerializer(serializers.Serializer):
+    user_to = serializers.UUIDField()
+    user_from = serializers.UUIDField(required=False)
+    offer_uuid = serializers.ListField(child=serializers.UUIDField())
