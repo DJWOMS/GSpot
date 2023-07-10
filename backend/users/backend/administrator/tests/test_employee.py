@@ -6,7 +6,8 @@ from django.test import TestCase
 
 
 class EmployeeViewTest(BaseTestView, TestCase):
-    url = "/api/v1/admin/employee/"
+    fixtures = ['fixtures/message_and_notify']
+    url = '/api/v1/admin/employee/'
     valid_user: AbstractUser
     invalid_user: AbstractUser
     created: Admin

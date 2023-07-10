@@ -1,4 +1,3 @@
-import pdb
 from datetime import date
 
 from customer.models import CustomerUser, FriendShipRequest
@@ -7,9 +6,12 @@ from rest_framework.test import APITestCase
 
 
 class TestFriends:
-    url_get_all_users = reverse("customers-list")
-    url_get_all_request_friends = reverse("list-friends-requests")
-    url_get_all_friends = reverse("my-friends")
+    fixtures = [
+        'fixtures/message_and_notify',
+    ]
+    url_get_all_users = reverse('customers-list')
+    url_get_all_request_friends = reverse('list-friends-requests')
+    url_get_all_friends = reverse('my-friends')
 
     def setUp(self):
         self.user1 = CustomerUser.objects.create_user(
@@ -21,10 +23,10 @@ class TestFriends:
             is_active=True,
         )
         self.user2 = CustomerUser.objects.create_user(
-            "user2",
-            "user1@emai.com",
-            "9808887796",
-            "user1",
+            'user225',
+            'user1@emai.com',
+            '9808887796',
+            'user1',
             is_active=True,
             birthday=date.today(),
         )

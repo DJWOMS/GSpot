@@ -27,4 +27,56 @@ class Migration(migrations.Migration):
             name="contacttype",
             table="contact_type",
         ),
+        migrations.CreateModel(
+            name='MessageEmailRabbitMQ',
+            fields=[
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                ('url', models.CharField()),
+                ('text', models.TextField(verbose_name='message_email_rabbitmq')),
+                (
+                    'action',
+                    models.CharField(
+                        choices=[
+                            ('ADMIN_ACTIVATION', 'admin_activation'),
+                            ('DEVELOP_ACTIVATION', 'develop_activation'),
+                            ('CUSTOMER_ACTIVATION', 'customer_activation'),
+                        ],
+                    ),
+                ),
+            ],
+            options={
+                'verbose_name': 'message_email_rabbitmq',
+                'verbose_name_plural': 'message_email_rabbitmq',
+                'db_table': 'message_email_rabbitmq',
+            },
+        ),
+        migrations.CreateModel(
+            name='MessageNotifyRabbitMQ',
+            fields=[
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                ('text', models.TextField(verbose_name='message_notify_rabbitmq')),
+                ('action', models.CharField(choices=[('ADD_FRIEND', 'add_friend')])),
+            ],
+            options={
+                'verbose_name': 'message_notify_rabbitmq',
+                'verbose_name_plural': 'message_notify_rabbitmq',
+                'db_table': 'message_notify_rabbitmq',
+            },
+        ),
     ]

@@ -11,11 +11,11 @@ class BaseTOTPToken(ABC):
 
     @staticmethod
     @abstractmethod
-    def send_totp() -> str:
+    def send_totp(user: BaseAbstractUser) -> str:
         pass
 
     @abstractmethod
-    def send_to_channels(self, totp: str):
+    def send_to_channels(self, totp: str, user: BaseAbstractUser):
         pass
 
     @abstractmethod

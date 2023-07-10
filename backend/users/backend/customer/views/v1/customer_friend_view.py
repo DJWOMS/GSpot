@@ -1,5 +1,6 @@
 from base.paginations import BasePagination
 from common.permissions import permissons
+from common.services.notify.notify import Notify
 from customer.models import CustomerUser, FriendShipRequest
 from customer.serializers.v1 import friends_serializer
 from customer.services.get_query_friend import get_queryset_for_delete_user
@@ -11,6 +12,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from utils.broker.message import FriendAddedMessage
 
 
 @method_decorator(
@@ -82,14 +84,18 @@ class AddFriendsView(viewsets.ModelViewSet):
 
     @action(methods=["post"], detail=True, url_path="add-friend", url_name="add_friend")
     def add_friend(self, request, user_id):
+        get_object = self.get_object()
+        message = FriendAddedMessage(user=get_object, sender_user=self.request.user)
+        Notify().send_notify(
+            message=message,
+        )
         with transaction.atomic():
             instance = FriendShipRequest(
                 sender=self.request.user,
-                receiver=self.get_object(),
-                status="REQUESTED",
+                receiver=get_object,
+                status='REQUESTED',
             )
             instance.save()
-            # # Вне зависимости от того отправился rabbit или нет, пусть будет 200
             return Response(status=status.HTTP_200_OK)
 
 

@@ -1,0 +1,37 @@
+[
+  {
+    "model": "common.MessageNotifyRabbitMQ",
+    "uuid": "8f6c8130-5494-4dcf-9258-a820fc7de68f",
+    "fields": {
+      "text": "{user} is want adding you in friends",
+      "action": "ADD_FRIEND"
+    }
+  },
+  {
+    "model": "common.MessageEmailRabbitMQ",
+    "uuid": "fc9ae9b1-5df6-495c-845c-23d51a597453",
+    "fields": {
+      "url": "https://www.yandex.ru/search/?text=choices+python+django&lr=11218&src=suggest_T {totp}",
+      "text": "Admin welcome our project {url}",
+      "action": "ADMIN_ACTIVATION"
+    }
+  },
+  {
+    "model": "common.MessageEmailRabbitMQ",
+    "uuid": "32d3cc8b-240b-4848-923c-bdb62eaaf0aa",
+    "fields": {
+      "url": "https://www.yandex.ru/search/?text=choices+python+django&lr=11218&src=suggest_T {totp}",
+      "text": "Customer welcome our project {url}",
+      "action": "CUSTOMER_ACTIVATION"
+    }
+  },
+  {
+    "model": "common.MessageEmailRabbitMQ",
+    "uuid": "0b95ee96-e057-48e1-9df2-441680c060db",
+    "fields": {
+      "url": "https://www.yandex.ru/search/?text=choices+python+django&lr=11218&src=suggest_T {totp}",
+      "text": "Developer welcome our project {url}",
+      "action": "DEVELOP_ACTIVATION"
+    }
+  }
+]
