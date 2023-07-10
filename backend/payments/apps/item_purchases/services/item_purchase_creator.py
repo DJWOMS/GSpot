@@ -10,9 +10,7 @@ from apps.external_payments.services.payment_serivces.yookassa_service import (
 )
 from apps.payment_accounts.exceptions import InsufficientFundsError
 from apps.payment_accounts.models import Account, BalanceChange
-from apps.payment_accounts.services.payment_commission import (
-    calculate_payment_with_commission,
-)
+from apps.payment_accounts.services.payment_commission import PaymentCalculation
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db.models import Q
@@ -91,10 +89,11 @@ class ItemPurchaseRequest:
         if self.purchase_items_data.payment_service == PaymentServices.from_balance:
             compare_price = items_sum_price
         else:
-            compare_price = calculate_payment_with_commission(
-                self.purchase_items_data.payment_type,
-                items_sum_price,
-            )
+            compare_price = PaymentCalculation(
+                payment_type=self.purchase_items_data.payment_type,
+                payment_service=self.purchase_items_data.payment_service,
+                payment_amount=items_sum_price,
+            ).calculate_payment_with_commission()
         return compare_price == self.purchase_items_data.price_with_commission.amount
 
     def _is_developers_exists(self):

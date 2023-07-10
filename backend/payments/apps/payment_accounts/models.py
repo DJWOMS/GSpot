@@ -86,15 +86,7 @@ class Owner(models.Model):
         validators=[MinValueValidator(0, message='Insufficient Funds')],
         editable=False,
     )
-    commission = CommissionField(
-        validators=(
-            MinValueValidator(0, message='Should be positive value'),
-            MaxValueValidator(
-                MAX_COMMISSION,
-                message=f'Should be not greater than {MAX_COMMISSION}',
-            ),
-        ),
-    )
+    commission = CommissionField()
     frozen_time = models.DurationField()
     gift_time = models.DurationField()
     payout_day_of_month = models.IntegerField(
