@@ -14,6 +14,21 @@ from reference.serializers import GenreGamesSerializer
 from .models import SystemRequirement, Product
 
 
+class PricePackSeriazerMixin:
+
+    def get_price(self, obj):
+        try:
+            offer = ProductOffer.objects.filter(product=obj).latest('id')
+            price = Offer.objects.get(id=str(offer.offer_id)).price
+            result = {
+                'amount': price.amount,
+                'currency': price.currency
+            }
+            return result
+        except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
+            return None
+
+
 class SystemRequirementSerializer(serializers.ModelSerializer):
     class Meta:
         model = SystemRequirement
@@ -131,7 +146,7 @@ class ShortSystemReqSerializers(serializers.ModelSerializer):
         fields = ('id', 'operating_system')
 
 
-class GamesListSerializer(serializers.ModelSerializer):
+class GamesListSerializer(serializers.ModelSerializer, PricePackSeriazerMixin):
     price = serializers.SerializerMethodField()
     # TODO реализовать систему скидок
     discount = serializers.IntegerField(default=0)
@@ -141,18 +156,6 @@ class GamesListSerializer(serializers.ModelSerializer):
 
     system_requirements = ShortSystemReqSerializers(many=True, read_only=True)
     genres = serializers.StringRelatedField(many=True)
-
-    def get_price(self, obj):
-        try:
-            offer = ProductOffer.objects.filter(product=obj).latest('id')
-            price = Offer.objects.get(id=str(offer.offer_id)).price
-            result = {
-                'amount': price.amount,
-                'currency': price.currency
-            }
-            return result
-        except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
-            return None
 
     class Meta:
         model = Product
@@ -169,7 +172,38 @@ class GamesListSerializer(serializers.ModelSerializer):
         )
 
 
-class GameDetailSerializer(serializers.ModelSerializer):
+class PricePackSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Price
+        fields = ('amount', 'currency',)
+
+
+class ProductPackSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = ('id', 'name',)
+
+
+class OfferPackSerializer(serializers.ModelSerializer):
+    price = PricePackSerializer()
+    products = ProductPackSerializer(many=True)
+
+    class Meta:
+        model = Offer
+        fields = ('id', 'price', 'products',)
+
+
+class DlcsPackSerializer(serializers.ModelSerializer, PricePackSeriazerMixin):
+    price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = ('id', 'name', 'price',)
+
+
+class GameDetailSerializer(serializers.ModelSerializer, PricePackSeriazerMixin):
     price = serializers.SerializerMethodField()
     # TODO реализовать систему скидок
     discount = serializers.IntegerField(default=0)
@@ -179,21 +213,10 @@ class GameDetailSerializer(serializers.ModelSerializer):
 
     system_requirements = SystemRequirementSerializer(many=True, read_only=True)
     genres = GenreGamesSerializer(many=True, read_only=True)
-    dlcs = ProductSerializer(many=True, read_only=False)
+    dlcs = DlcsPackSerializer(many=True, read_only=False)
     langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
     genres = GenreGamesSerializer(many=True, read_only=True)
-
-    def get_price(self, obj):
-        try:
-            offer = ProductOffer.objects.filter(product=obj).latest('id')
-            price = Offer.objects.get(id=str(offer.offer_id)).price
-            result = {
-                'amount': price.amount,
-                'currency': price.currency
-            }
-            return result
-        except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
-            return None
+    offers = OfferPackSerializer(many=True)
 
     class Meta:
         model = Product
@@ -215,6 +238,7 @@ class GameDetailSerializer(serializers.ModelSerializer):
             'type',
             'developers_uuid',
             'publishers_uuid',
+            'offers',
             'dlcs',
             'langs',
             'system_requirements',
