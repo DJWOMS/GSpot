@@ -12,6 +12,15 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  web_users_create_superuser:
+    image: users_web_users:latest
+    env_file:
+      - .env.prod
+    command: >
+        sh -c "python manage.py createsuperuser --noinput"
+    depends_on:
+      db:
+        condition: service_healthy
   db:
     container_name: users-service-db
     image: postgres:14-alpine
