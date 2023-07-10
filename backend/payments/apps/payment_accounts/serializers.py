@@ -47,9 +47,8 @@ class PayoutDestination(serializers.Serializer):
         return super().to_internal_value(data)
 
 
-class PayoutSerializer(serializers.Serializer):
+class WithdrawSerializer(serializers.Serializer):
     amount = AmountPayoutSerializer()
-    payout_destination_data = PayoutDestination()
     user_uuid = serializers.UUIDField()
 
 
