@@ -10,16 +10,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 
-##############################
-# INLINES
-##############################
 class AdministratorPermissionInline(admin.TabularInline):
     model = Admin.user_permissions.through
 
 
-##############################
-# MODELS
-##############################
 @admin.register(AdminPermission)
 class AdministratorPermissionAdmin(admin.ModelAdmin):
     list_display = (

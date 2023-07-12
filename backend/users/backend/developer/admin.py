@@ -9,9 +9,6 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 
-##############################
-# INLINES
-##############################
 class CompanyContactInline(admin.TabularInline):
     model = CompanyContact
     fields = ("type", "value")
@@ -21,9 +18,6 @@ class DeveloperPermissionInline(admin.TabularInline):
     model = CompanyUser.user_permissions.through
 
 
-##############################
-# MODELS
-##############################
 @admin.register(CompanyUser)
 class CompanyUserAdmin(UserAdmin):
     inlines = (DeveloperPermissionInline,)

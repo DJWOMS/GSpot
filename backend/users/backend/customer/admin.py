@@ -3,17 +3,11 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 
-##############################
-# INLINES
-##############################
 class FriendInline(admin.TabularInline):
     model = CustomerUser.friends.through
     fk_name = "sender"
 
 
-##############################
-# MODELS
-##############################
 @admin.register(CustomerUser)
 class CustomerAdmin(UserAdmin):
     def get_friends(self, obj):
