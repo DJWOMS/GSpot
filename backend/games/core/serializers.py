@@ -5,6 +5,7 @@ from community.models import Social
 from core.models.product import GameDlcLink
 from finance.models.offer import Offer, Price, ProductOffer
 from finance.serializers import ProductOfferSerializer
+from finance.mixin import PricePackSeriazerMixin
 
 from reference import serializers as ref_serializers
 from community import serializers as com_serializers
@@ -12,21 +13,6 @@ from reference.models.genres import Genre, GenreProduct
 from reference.models.langs import Language, ProductLanguage
 from reference.serializers import GenreGamesSerializer
 from .models import SystemRequirement, Product
-
-
-class PricePackSeriazerMixin:
-
-    def get_price(self, obj):
-        try:
-            offer = ProductOffer.objects.filter(product=obj).latest('id')
-            price = Offer.objects.get(id=str(offer.offer_id)).price
-            result = {
-                'amount': price.amount,
-                'currency': price.currency
-            }
-            return result
-        except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
-            return None
 
 
 class SystemRequirementSerializer(serializers.ModelSerializer):
