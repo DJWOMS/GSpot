@@ -2,46 +2,51 @@
 
 import { useState } from 'react'
 import { FC } from 'react'
-import type { RequirementInterface } from '../../types'
+import { IconBrandWindows, IconBrandXbox, IconPlaystationSquare } from '@tabler/icons-react'
+import { RequirementInterface } from 'features/games/types'
 import { Requirement } from './Requirement'
 import s from './Requirements.module.css'
 
-type RequirementsProps = {
-  children: RequirementInterface[]
+export interface PlatformType {
+  type: 'ps' | 'xbox' | 'win' | 'ap'
 }
 
-const Requirements: FC<RequirementsProps> = ({ children }) => {
-  const [activeTab, setActiveTab] = useState('windows')
+type RequirementsProps = {
+  children: RequirementInterface[]
+  platforms: PlatformType[]
+}
+
+const Requirements: FC<RequirementsProps> = ({ children, platforms }) => {
+  const [activeTab, setActiveTab] = useState<PlatformType>(platforms[0])
+
+  const handleClick = (platform: PlatformType) => {
+    setActiveTab(platform)
+  }
 
   return (
     <>
       <div className={s.requirements}>
         <div className={s.requirementsTabs}>
-          <button
-            className={activeTab === 'windows' ? s.requirementsTabsActive : s.requirementsTabsButton}
-            onClick={() => setActiveTab('windows')}
-          >
-            Windows
-          </button>
-          <button
-            className={activeTab === 'linux' ? s.requirementsTabsActive : s.requirementsTabsButton}
-            onClick={() => setActiveTab('linux')}
-          >
-            Linux
-          </button>
-          <button
-            className={activeTab === 'apple' ? s.requirementsTabsActive : s.requirementsTabsButton}
-            onClick={() => setActiveTab('apple')}
-          >
-            Apple
-          </button>
+          {platforms.map((platform) => (
+            <button
+              key={platform.type}
+              className={
+                activeTab.type === platform.type ? s.requirementsTabsActive : s.requirementsTabsButton
+              }
+              onClick={() => handleClick(platform)}
+            >
+              {platform.type === 'xbox' && <IconBrandXbox />}
+              {platform.type === 'win' && <IconBrandWindows />}
+              {platform.type === 'ps' && <IconPlaystationSquare />}
+            </button>
+          ))}
         </div>
 
         <div>
           {children.map((requirement, index) => (
             <div
               key={index}
-              className={activeTab !== requirement.operatingSystem.toLowerCase() ? 'hidden' : ''}
+              className={activeTab.type !== requirement.operatingSystem.toLowerCase() ? 'hidden' : ''}
             >
               <Requirement {...requirement} />
             </div>
