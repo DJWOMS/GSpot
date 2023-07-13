@@ -88,7 +88,7 @@ class BalanceSerializer(serializers.ModelSerializer):
         fields = ('user_uuid', 'balance', 'balance_currency')
 
 
-class PayoutHistorySerializer(serializers.ModelSerializer):
+class BalanceHistorySerializer(serializers.ModelSerializer):
     sum = MoneySerializer(source='amount')  # noqa: VNE003, A003
     created_at = serializers.DateTimeField(source='created_date')
 
