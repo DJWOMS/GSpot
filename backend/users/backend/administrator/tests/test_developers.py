@@ -2,8 +2,6 @@ from administrator.models import Admin
 from base.base_tests.tests import BaseTestView
 from common.models import Country
 from developer.models import CompanyUser
-from django.contrib.auth.models import AbstractUser
-from django.test import TestCase
 from django.urls import reverse
 
 

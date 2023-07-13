@@ -1,26 +1,39 @@
-from base.base_tests.change_account_info_tests_base import ChangeAccountInfoApiTestCase
+from base.base_tests.tests import BaseTestView
+from base.models import BaseAbstractUser
 from developer.models import CompanyUser
-from rest_framework.test import APITestCase
+from django.urls import reverse
 
 
-class DeveloperChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITestCase):
-    @staticmethod
-    def set_settings_user():
-        user = {
-            "username": "user_of_company",
-            "email": "email@mail.ru",
-            "password": "usercompany",
-            "first_name": "user1",
-            "last_name": "user2",
-            "phone": "89991234567",
-            "company": None,
+class DeveloperChangeAccountInfoApiTestCase(BaseTestView):
+    @classmethod
+    def setUpTestData(cls):
+        cls.url = reverse('developer-user-account')
+        cls.admin_user = cls.create_user(CompanyUser, username='CompanyUser')
+
+    @classmethod
+    def create_user(cls, model: type[BaseAbstractUser], **kwargs) -> type[BaseAbstractUser]:
+        data = {
+            "email": cls.faker.email(),
+            "phone": cls.faker.random_number(digits=10, fix_len=True),
+            "is_active": True,
         }
-        return user
+        return model.objects.create(**data, **kwargs)
 
-    @staticmethod
-    def get_user_model():
-        return CompanyUser
+    def setUp(self):
+        super().setUp()
 
-    @staticmethod
-    def get_reverse_url():
-        return "developer-user-account"
+    def test_change_info_patch(self):
+        self.client.force_authenticate(user=self.admin_user)
+        url = self.url
+        responce = self.client.get(url)
+        self.assertEqual("CompanyUser", responce.data.get("username"))
+        new_data = {
+            "username": "CompanyUser2",
+        }
+        responce_change_username = self.client.put(url, data=new_data)
+        self.assertEqual("CompanyUser2", responce_change_username.data.get("username"))
+
+    def test_change_info_logout_user(self):
+        url = self.url
+        responce = self.client.get(url)
+        self.assertEqual(403, responce.status_code)

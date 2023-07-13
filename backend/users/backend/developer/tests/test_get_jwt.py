@@ -7,7 +7,7 @@ from developer.models import CompanyUser
 from django.urls import reverse
 
 
-class CustomerGetJwtApiTestCase(BaseTestView):
+class DeveloperGetJwtApiTestCase(BaseTestView):
     @classmethod
     def setUpTestData(cls):
         cls.user = CompanyUser.objects.create_user(

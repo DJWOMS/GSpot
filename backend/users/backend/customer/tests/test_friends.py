@@ -2,7 +2,6 @@ from base.base_tests.tests import BaseTestView
 from base.models import BaseAbstractUser
 from customer.models import CustomerUser, FriendShipRequest
 from rest_framework.reverse import reverse
-from rest_framework.test import APITestCase
 
 
 class TestFriends(BaseTestView):
@@ -45,7 +44,7 @@ class TestFriends(BaseTestView):
     @classmethod
     def create_user(cls, model: type[BaseAbstractUser]) -> type[BaseAbstractUser]:
         data = {
-            "username": cls.faker.first_name(),
+            "username": cls.faker.text(max_nb_chars=50),
             "password": cls.faker.word(),
             "email": cls.faker.email(),
             "phone": cls.faker.random_number(digits=10, fix_len=True),
@@ -153,7 +152,7 @@ class TestAddFriends(TestFriends):
         self.assertEqual(response.status_code, 404)
 
 
-class TestGetListAcceptRequestUser(TestFriends, APITestCase):
+class TestGetListAcceptRequestUser(TestFriends):
     def test_correct_get_list_user(self):
         self.client.force_authenticate(user=self.user1)
         response = self.client.get(self.url_get_all_request_friends)
@@ -165,7 +164,7 @@ class TestGetListAcceptRequestUser(TestFriends, APITestCase):
         self.assertEqual(response.data["count"], 0)
 
 
-class TestRetrieveAcceptRejectAddFriends(TestFriends, APITestCase):
+class TestRetrieveAcceptRejectAddFriends(TestFriends):
     url = "retrieve-accept-reject-friend"
 
     def test_get_retrieve_request_adding_user(self):
@@ -267,7 +266,7 @@ class TestRetrieveAcceptRejectAddFriends(TestFriends, APITestCase):
         self.assertEqual(post_response.json().get("non_field_errors")[0], "You are already friends")
 
 
-class TestGetListFriends(TestFriends, APITestCase):
+class TestGetListFriends(TestFriends):
     def test_correct_get_list_friends(self):
         self.client.force_authenticate(user=self.user4)
         response = self.client.get(self.url_get_all_friends)
@@ -279,7 +278,7 @@ class TestGetListFriends(TestFriends, APITestCase):
         self.assertEqual(response.data["count"], 0)
 
 
-class TestRetrieveDestroyFriends(TestFriends, APITestCase):
+class TestRetrieveDestroyFriends(TestFriends):
     url = "retrieve-destroy-friend"
 
     def test_get_correct_retrieve_user(self):
