@@ -1,5 +1,6 @@
 from typing import List
 
+from base.base_tests.teardown_base_test import TearDown
 from common.services.jwt.token import Token
 from django.test import TestCase
 from rest_framework.test import APIClient
@@ -31,7 +32,9 @@ class TestView:
             test.assertEqual(response.status_code, 400)
 
 
-class TestBase:
+class TestBase(TearDown):
+    fixtures = ['fixtures/message_and_notify']
+
     @classmethod
     def setUpTestData(cls):
         cls.Meta.dataset.perform_create()

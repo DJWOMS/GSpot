@@ -171,7 +171,7 @@ class CompanyContact(models.Model):
     value = models.CharField(max_length=150, verbose_name=_("value contact"), default="")
 
     def __str__(self):
-        return f"{self.type__name}-{self.value}"
+        return f"{self.type.name}-{self.value}"
 
     class Meta:
         db_table = "company_contact"

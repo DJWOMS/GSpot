@@ -1,195 +1,114 @@
 import json
-import unittest
+from datetime import date
 
-from utils.broker.message import (
-    BaseMessage,
-    ClientActivationMessage,
-    DevAccessMessage,
-    DevActivationMessage,
-    FriendAddedMessage,
-    OwnerAccessMessage,
-)
+from administrator.models import Admin
+from base.base_tests.teardown_base_test import TearDown
+from common.services.notify.notify import Notify
+from common.services.totp import TOTPToken
+from customer.models import CustomerUser
+from developer.models import CompanyUser
+from django.conf import settings
+from rest_framework.test import APITestCase
+from utils.broker.message import FriendAddedMessage
 from utils.broker.rabbitmq import RabbitMQ
 
 
-class TestBaseMessage(unittest.TestCase):
-    def test_create_base_message(self):
-        message = {"Hello": "world!"}
-        exchange_name = "test_exchange"
-        routing_key = "test_queue"
-        base_message = BaseMessage(
-            exchange_name=exchange_name,
-            routing_key=routing_key,
-            message=message,
-        )
-        self.assertEqual(base_message.exchange_name, exchange_name)
-        self.assertEqual(base_message.routing_key, routing_key)
-        self.assertEqual(base_message.message, message)
+class TestRabbitMQ(TearDown, APITestCase):
+    fixtures = ['fixtures/message_and_notify']
 
-
-class TestRabbitMQ(unittest.TestCase):
     def setUp(self) -> None:
         self.rabbitmq = RabbitMQ()
-        self.queue_name = "test_queue"
-        self.exchange_name = "test_exchange"
+        self.admin_user = Admin.objects.create_user(
+            username='user1230',
+            email='user1230@email.com',
+            phone='98088127792',
+            password='user',
+            is_active=True,
+        )
+        self.customer_user = CustomerUser.objects.create_user(
+            username='user25',
+            email='user54@email.com',
+            phone='9808887691',
+            password='user',
+            birthday=date.today(),
+            is_active=True,
+        )
+        self.customer_user2 = CustomerUser.objects.create_user(
+            username='user225',
+            email='user541@email.com',
+            phone='98088876912',
+            password='user',
+            birthday=date.today(),
+            is_active=True,
+        )
+        self.developer_user = CompanyUser.objects.create_user(
+            username='user1234',
+            email='email123@mail.ru',
+            password='usercompany124',
+            phone='89991234561',
+            company=None,
+        )
 
-    def test_send_and_receive_message(self):
+    def test_01_send_and_receive_message_add_friend(self):
+        message = FriendAddedMessage(user=self.customer_user, sender_user=self.customer_user2)
+        Notify().send_notify(message=message)
         with self.rabbitmq:
-            message = BaseMessage(
-                exchange_name=self.exchange_name,
-                routing_key=self.queue_name,
-                message={"test": "test message"},
-            )
-            self.rabbitmq.send_message(message)
             method, properties, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name,
+                queue=settings.NOTIFY_ROUTING_KEY,
                 auto_ack=True,
             )
-
             self.assertIsNotNone(body)
-            message_dict = json.loads(body)
-            self.assertIsInstance(message_dict, dict)
-            self.assertEqual(message_dict["test"], "test message")
+            response = json.loads(body)
+            self.assertTrue(response['text'])
 
-    def test_send_and_receive_dev_activation_message(self):
+    def test_02_send_and_receive_admin_activation_message(self):
+        TOTPToken().send_totp(user=self.admin_user)
         with self.rabbitmq:
-            dev_activation_message = DevActivationMessage(
-                exchange_name=self.exchange_name,
-                routing_key=self.queue_name,
-                message={"user_id": "123", "is_active": True},
-            )
-            self.rabbitmq.send_message(dev_activation_message)
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name,
+                queue=settings.EMAIL_ROUTING_KEY,
                 auto_ack=True,
             )
-            received_message = json.loads(body)
-            self.assertEqual(received_message, dev_activation_message.message)
+            response = json.loads(body)
+            self.assertEqual(response['subject'], 'admin_activation')
+            self.assertEqual(response['email'], self.admin_user.email)
 
-    def test_send_and_receive_client_activation_message(self):
+    def test_03_send_and_receive_develop_activation_message(self):
+        TOTPToken().send_totp(user=self.developer_user)
         with self.rabbitmq:
-            client_activation_message = ClientActivationMessage(
-                exchange_name=self.exchange_name,
-                routing_key=self.queue_name,
-                message={"user_id": "456", "is_active": True},
-            )
-            self.rabbitmq.send_message(client_activation_message)
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name,
+                queue=settings.EMAIL_ROUTING_KEY,
                 auto_ack=True,
             )
-            received_message = json.loads(body)
-            self.assertEqual(received_message, client_activation_message.message)
+            response = json.loads(body)
+            self.assertEqual(response['subject'], 'develop_activation')
+            self.assertEqual(response['email'], self.developer_user.email)
 
-    def test_send_and_receive_owner_access_message(self):
+    def test_04_send_and_receive_customer_activation_message(self):
+        TOTPToken().send_totp(user=self.customer_user)
         with self.rabbitmq:
-            owner_access_message = OwnerAccessMessage(
-                exchange_name=self.exchange_name,
-                routing_key=self.queue_name,
-                message={"user_id": "789", "access_level": "admin"},
-            )
-            self.rabbitmq.send_message(owner_access_message)
             method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name,
+                queue=settings.EMAIL_ROUTING_KEY,
                 auto_ack=True,
             )
-            received_message = json.loads(body)
-            self.assertEqual(received_message, owner_access_message.message)
+            self.rabbitmq._channel.basic_ack(delivery_tag=method_frame.delivery_tag)
+            response = json.loads(body)
+            self.assertEqual(response['subject'], 'customer_activation')
+            self.assertEqual(response['email'], self.customer_user.email)
 
-    def test_send_and_receive_dev_access_message(self):
+    def test_05_send_and_receive_multiple_messages_in_order(self):
+        TOTPToken().send_totp(user=self.customer_user)
+        TOTPToken().send_totp(user=self.developer_user)
+        TOTPToken().send_totp(user=self.admin_user)
+        response = list()
         with self.rabbitmq:
-            dev_access_message = DevAccessMessage(
-                exchange_name=self.exchange_name,
-                routing_key=self.queue_name,
-                message={"user_id": "123", "access_level": "developer"},
-            )
-            self.rabbitmq.send_message(dev_access_message)
-            method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name,
-                auto_ack=True,
-            )
-            received_message = json.loads(body)
-            self.assertEqual(received_message, dev_access_message.message)
-
-    def test_send_and_receive_friend_added_message(self):
-        with self.rabbitmq:
-            friend_added_message = FriendAddedMessage(
-                exchange_name=self.exchange_name,
-                routing_key=self.queue_name,
-                message={"user_id": "123", "friend_id": "456"},
-            )
-            self.rabbitmq.send_message(friend_added_message)
-            method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=self.queue_name,
-                auto_ack=True,
-            )
-            received_message = json.loads(body)
-            self.assertEqual(received_message, friend_added_message.message)
-
-    def test_send_message_with_invalid_routing_key(self):
-        with self.assertRaisesRegex(Exception, "queue must be a str or unicode str, but got 123"):
-            with self.rabbitmq:
-                message = BaseMessage(
-                    exchange_name=self.exchange_name,
-                    routing_key=123,
-                    message={"test": "test message"},
-                )
-                self.rabbitmq.send_message(message)
-
-    def test_send_and_receive_multiple_messages_in_order(self):
-        with self.rabbitmq:
-            queue_name = self.queue_name
-            self.rabbitmq._channel.queue_declare(queue=queue_name)
-            messages = [
-                BaseMessage(
-                    exchange_name=self.exchange_name,
-                    routing_key=queue_name,
-                    message={"test": "test message 1"},
-                ),
-                BaseMessage(
-                    exchange_name=self.exchange_name,
-                    routing_key=queue_name,
-                    message={"test": "test message 2"},
-                ),
-                BaseMessage(
-                    exchange_name=self.exchange_name,
-                    routing_key=queue_name,
-                    message={"test": "test message 3"},
-                ),
-            ]
-            for message in messages:
-                self.rabbitmq.send_message(message)
-
-            received_messages = []
-            for _ in range(len(messages)):
+            for _ in range(3):
                 method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                    queue=queue_name,
+                    queue=settings.EMAIL_ROUTING_KEY,
                     auto_ack=True,
                 )
                 if body is not None:
-                    received_messages.append(json.loads(body))
-
-            self.assertListEqual(received_messages, [m.message for m in messages])
-
-    def test_receive_message_from_empty_queue(self):
-        with self.rabbitmq:
-            queue_name = "empty_queue"
-            self.rabbitmq._channel.queue_declare(queue=queue_name)
-            method_frame, header_frame, body = self.rabbitmq._channel.basic_get(
-                queue=queue_name,
-                auto_ack=True,
-            )
-            self.assertIsNone(body)
-
-    def test_send_message_with_invalid_exchange(self):
-        with self.assertRaisesRegex(
-            Exception,
-            "exchange must be a str or unicode str, but got 123",
-        ):
-            with self.rabbitmq:
-                message = BaseMessage(
-                    exchange_name=123,
-                    routing_key=self.queue_name,
-                    message={"test": "test message"},
-                )
-                self.rabbitmq.send_message(message)
+                    response.append(json.loads(body)['subject'])
+        self.assertListEqual(
+            response,
+            ['customer_activation', 'develop_activation', 'admin_activation'],
+        )

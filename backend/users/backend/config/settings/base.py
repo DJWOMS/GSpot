@@ -91,5 +91,8 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+FIXTURE_DIRS = [
+    'fixtures',
+]
 CSRF_TRUSTED_ORIGINS = os.environ["DJANGO_CORS_ALLOWED_ORIGINS"].split(",")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
