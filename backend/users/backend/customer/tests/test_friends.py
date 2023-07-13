@@ -1,78 +1,64 @@
-from datetime import date
-
+from base.base_tests.tests import BaseTestView
+from base.models import BaseAbstractUser
 from customer.models import CustomerUser, FriendShipRequest
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
 
-class TestFriends:
-    fixtures = [
-        'fixtures/message_and_notify',
-    ]
-    url_get_all_users = reverse('customers-list')
-    url_get_all_request_friends = reverse('list-friends-requests')
-    url_get_all_friends = reverse('my-friends')
+class TestFriends(BaseTestView):
+    fixtures = ['fixtures/message_and_notify']
 
-    def setUp(self):
-        self.user1 = CustomerUser.objects.create_user(
-            "user1",
-            "user@email.com",
-            "9808887795",
-            "user",
-            birthday=date.today(),
-            is_active=True,
-        )
-        self.user2 = CustomerUser.objects.create_user(
-            'user225',
-            'user1@emai.com',
-            '9808887796',
-            'user1',
-            is_active=True,
-            birthday=date.today(),
-        )
-        self.user3 = CustomerUser.objects.create_user(
-            "user3",
-            "user_friend@emai.com",
-            "9808887797",
-            "user_friend",
-            is_active=True,
-            birthday=date.today(),
-        )
-        self.user4 = CustomerUser.objects.create_user(
-            "user4",
-            "user_friend_sender@emai.com",
-            "9808887798",
-            "user_friend",
-            is_active=True,
-            birthday=date.today(),
-        )
-        self.friend1 = FriendShipRequest(
-            sender=self.user2,
-            receiver=self.user1,
+    @classmethod
+    def setUpTestData(cls):
+        cls.url_get_all_users = reverse('customers-list')
+        cls.url_get_all_request_friends = reverse('list-friends-requests')
+        cls.url_get_all_friends = reverse('my-friends')
+        cls.user1 = cls.create_user(CustomerUser)
+        cls.user2 = cls.create_user(CustomerUser)
+        cls.user3 = cls.create_user(CustomerUser)
+        cls.user4 = cls.create_user(CustomerUser)
+        cls.friend1 = FriendShipRequest(
+            sender=cls.user2,
+            receiver=cls.user1,
             status="REQUESTED",
         )
-        self.friend1.save()
-        self.friend2 = FriendShipRequest(
-            sender=self.user3,
-            receiver=self.user1,
+        cls.friend1.save()
+        cls.friend2 = FriendShipRequest(
+            sender=cls.user3,
+            receiver=cls.user1,
             status="ACCEPTED",
         )
-        self.friend2.save()
-        self.friend3 = FriendShipRequest(
-            sender=self.user3,
-            receiver=self.user4,
+        cls.friend2.save()
+        cls.friend3 = FriendShipRequest(
+            sender=cls.user3,
+            receiver=cls.user4,
             status="REJECTED",
         )
-        self.friend3.save()
-        self.friend4 = FriendShipRequest(
-            sender=self.user4,
-            receiver=self.user1,
+        cls.friend3.save()
+        cls.friend4 = FriendShipRequest(
+            sender=cls.user4,
+            receiver=cls.user1,
             status="ACCEPTED",
         )
-        self.friend4.save()
+        cls.friend4.save()
+
+    @classmethod
+    def create_user(cls, model: type[BaseAbstractUser]) -> type[BaseAbstractUser]:
+        data = {
+            "username": cls.faker.first_name(),
+            "password": cls.faker.word(),
+            "email": cls.faker.email(),
+            "phone": cls.faker.random_number(digits=10, fix_len=True),
+            "birthday": cls.faker.date_object(),
+            "is_active": True,
+        }
+        return model.objects.create_user(**data)
+
+    def setUp(self):
+        super().setUp()
 
 
-class TestGetUsersList(TestFriends, APITestCase):
+class TestGetUsersList(TestFriends):
     def test_get_correct_user_list(self):
         self.client.force_authenticate(user=self.user2)
         response = self.client.get(self.url_get_all_users)
@@ -84,7 +70,7 @@ class TestGetUsersList(TestFriends, APITestCase):
         self.assertEqual(response.data["count"], 3)
 
 
-class TestGetRetrieveUser(TestFriends, APITestCase):
+class TestGetRetrieveUser(TestFriends):
     url = "customers-detail"
 
     def test_get_correct_retrieve_user(self):
@@ -124,7 +110,7 @@ class TestGetRetrieveUser(TestFriends, APITestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class TestAddFriends(TestFriends, APITestCase):
+class TestAddFriends(TestFriends):
     url = "customers-add_friend"
 
     def test_request_user(self):

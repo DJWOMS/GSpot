@@ -1,11 +1,12 @@
-from base.serializers import BasePermissionSerializer
+from base.base_tests.tests import BaseTestView
+from developer.serializers.v1 import DeveloperPermissionSerializer
 
 
-class BasePermissionSerializerTest:
+class DeveloperPermissionSerializerTest(BaseTestView):
     def setUp(self):
         self.valid_data = {
-            "name": "test_name",
-            "codename": "test_codename",
+            "name": self.faker.word(),
+            "codename": self.faker.word(),
         }
         self.empty_data = {
             "name": "",
@@ -13,29 +14,33 @@ class BasePermissionSerializerTest:
         }
         self.empty_name_data = {
             "name": "",
-            "codename": "test_codename",
+            "codename": self.faker.word(),
         }
         self.empty_codename_data = {
-            "name": "test_name",
+            "name": self.faker.word(),
             "codename": "",
         }
 
-    def test_create_permission(self):
+    @staticmethod
+    def get_permission_serializer() -> DeveloperPermissionSerializer:
+        return DeveloperPermissionSerializer
+
+    def test_01_create_permission(self):
         permission_serializer = self.get_permission_serializer()
         serializer = permission_serializer(data=self.valid_data)
         self.assertTrue(serializer.is_valid())
 
-    def test_create_permission_with_empty_data(self):
+    def test_02_create_permission_with_empty_data(self):
         permission_serializer = self.get_permission_serializer()
         serializer = permission_serializer(data=self.empty_data)
         self.assertFalse(serializer.is_valid())
 
-    def test_create_permission_with_empty_name(self):
+    def test_03_create_permission_with_empty_name(self):
         permission_serializer = self.get_permission_serializer()
         serializer = permission_serializer(data=self.empty_name_data)
         self.assertFalse(serializer.is_valid())
 
-    def test_create_permission_with_duplicated_name(self):
+    def test_04_create_permission_with_duplicated_name(self):
         permission_serializer = self.get_permission_serializer()
         serializer = permission_serializer(data=self.valid_data)
         serializer.is_valid()
@@ -43,11 +48,7 @@ class BasePermissionSerializerTest:
         serializer = permission_serializer(data=self.valid_data)
         self.assertFalse(serializer.is_valid())
 
-    def test_create_permission_with_empty_codename(self):
+    def test_05_create_permission_with_empty_codename(self):
         permission_serializer = self.get_permission_serializer()
         serializer = permission_serializer(data=self.empty_codename_data)
         self.assertFalse(serializer.is_valid())
-
-    @staticmethod
-    def get_permission_serializer() -> BasePermissionSerializer:
-        raise NotImplementedError

@@ -5,32 +5,26 @@ from developer.models import CompanyUser
 from django.contrib.auth.models import AbstractUser
 from django.test import TestCase
 from django.urls import reverse
-from faker import Faker
-
-fake = Faker(locale="ru_RU")
 
 
-class DevelopersViewTest(BaseTestView, TestCase):
-    url = reverse("admin_developers")
-    user: AbstractUser
-    admin: Admin
-
+class DevelopersViewTest(BaseTestView):
     @classmethod
     def setUpTestData(cls):
-        Country.objects.create(id=1, name=fake.country())
+        cls.url = reverse("admin_developers")
+        Country.objects.create(id=1, name=cls.faker.country())
         cls.admin = Admin.objects.create_superuser(
-            fake.first_name(),
-            fake.email(),
-            fake.word(),
-            "89991112235",
+            username=cls.faker.first_name(),
+            email=cls.faker.email(),
+            password=cls.faker.word(),
+            phone=cls.faker.random_number(digits=10, fix_len=True),
         )
         cls.user = CompanyUser.objects.create_user(
-            username=fake.word(),
-            email=fake.email(),
-            password=fake.word(),
-            first_name=fake.first_name(),
-            last_name=fake.last_name(),
-            phone="89991112237",
+            username=cls.faker.word(),
+            email=cls.faker.email(),
+            password=cls.faker.word(),
+            first_name=cls.faker.first_name(),
+            last_name=cls.faker.last_name(),
+            phone=cls.faker.random_number(digits=10, fix_len=True),
         )
 
     def test_000_list_developer(self):
@@ -40,13 +34,13 @@ class DevelopersViewTest(BaseTestView, TestCase):
 
     def test_01_block_developer(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
-        payload = {"reason": fake.text()}
+        payload = {"reason": self.faker.text()}
         request = self.client.post(f"{self.url}{self.user.id}/block", payload, format="json")
         self.assertEqual(request.status_code, 201)
 
     def test_02_unblock_developer(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
-        payload = {"reason": fake.text()}
+        payload = {"reason": self.faker.text()}
         self.user.is_banned = True
         self.user.save()
         request = self.client.post(f"{self.url}{self.user.id}/unblock", payload, format="json")

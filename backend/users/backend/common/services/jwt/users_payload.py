@@ -3,6 +3,7 @@ from base.models import BaseAbstractUser
 from base.tokens.payload import BasePayload
 from customer.models import CustomerUser
 from developer.models import CompanyUser
+from django.forms import model_to_dict
 
 
 class CommonUserPayload:
@@ -48,7 +49,11 @@ class DeveloperPayload(BasePayload, CommonUserPayload):
 
     def generate_payload(self):
         common_payload = self.get_common_payload()
-        company = self.user.company if self.user.company is not None else {}
+        company = {}
+        if self.user.company is not None:
+            company = model_to_dict(self.user.company)
+            company['created_by'] = str(company['created_by'])
+            company['image'] = str(self.user.company.image)
         developer_payload = {
             "email": self.user.email,
             "phone": self.user.phone,
@@ -62,7 +67,6 @@ class DeveloperPayload(BasePayload, CommonUserPayload):
             "company": company,
         }
         payload = common_payload | developer_payload
-
         return payload
 
 

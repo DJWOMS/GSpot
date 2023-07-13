@@ -1,56 +1,57 @@
-from base.models import BasePermission
-from base.serializers import BaseGroupSerializer
+from administrator.models import AdminPermission
+from administrator.serializers.v1 import AdminGroupSerializer
+from base.base_tests.tests import BaseTestView
 
 
-class BaseGroupSerializerTest:
-    def setUp(self):
-        data_for_creating_permission = {
-            "name": "test_name",
-            "codename": "test_codename",
+class AdminPermissionGroupSerializerTest(BaseTestView):
+    @classmethod
+    def setUpTestData(cls):
+        permission_creating_data = {
+            "name": cls.faker.word(),
+            "codename": cls.faker.word(),
         }
-        permission_model = self.get_permission_model()
-        self.permission = permission_model.objects.create(**data_for_creating_permission)
-        self.valid_data = {
-            "name": "test_name",
-            "permission": [self.permission.pk],
+        cls.permission = AdminPermission.objects.create(**permission_creating_data)
+        cls.valid_data = {
+            "name": cls.faker.word(),
+            "permission": [cls.permission.pk],
         }
-        self.empty_data = {
+        cls.empty_data = {
             "name": "",
             "permission": [],
         }
-        self.empty_name_data = {
+        cls.empty_name_data = {
             "name": "",
-            "permission": [self.permission.pk],
+            "permission": [cls.permission.pk],
         }
-        self.empty_permission_data = {
-            "name": "test_name_2",
+        cls.empty_permission_data = {
+            "name": cls.faker.word(),
             "permission": [],
         }
-        self.invalid_permission_data = {
-            "name": "test_name_3",
+        cls.invalid_permission_data = {
+            "name": cls.faker.word(),
             "permission": ["invalid_pk"],
         }
 
     @staticmethod
-    def get_permission_model() -> BasePermission:
-        raise NotImplementedError
+    def get_group_serializer() -> AdminGroupSerializer:
+        return AdminGroupSerializer
 
-    def test_create_valid_group(self):
+    def test_01_create_valid_group(self):
         group_serializer = self.get_group_serializer()
         serializer = group_serializer(data=self.valid_data)
         self.assertTrue(serializer.is_valid())
 
-    def test_create_group_with_empty_data(self):
+    def test_02_create_group_with_empty_data(self):
         group_serializer = self.get_group_serializer()
         serializer = group_serializer(data=self.empty_data)
         self.assertFalse(serializer.is_valid())
 
-    def test_create_group_with_empty_name(self):
+    def test_03_create_group_with_empty_name(self):
         group_serializer = self.get_group_serializer()
         serializer = group_serializer(data=self.empty_name_data)
         self.assertFalse(serializer.is_valid())
 
-    def test_create_group_with_duplicated_name(self):
+    def test_04_create_group_with_duplicated_name(self):
         group_serializer = self.get_group_serializer()
         serializer = group_serializer(data=self.valid_data)
         serializer.is_valid()
@@ -58,16 +59,12 @@ class BaseGroupSerializerTest:
         serializer = group_serializer(data=self.valid_data)
         self.assertFalse(serializer.is_valid())
 
-    def test_create_group_with_empty_permission(self):
+    def test_05_create_group_with_empty_permission(self):
         group_serializer = self.get_group_serializer()
         serializer = group_serializer(data=self.empty_permission_data)
         self.assertTrue(serializer.is_valid())
 
-    def test_create_group_with_invalid_permission(self):
+    def test_06_create_group_with_invalid_permission(self):
         group_serializer = self.get_group_serializer()
         serializer = group_serializer(data=self.invalid_permission_data)
         self.assertFalse(serializer.is_valid())
-
-    @staticmethod
-    def get_group_serializer() -> BaseGroupSerializer:
-        raise NotImplementedError
