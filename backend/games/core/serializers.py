@@ -5,7 +5,7 @@ from community.models import Social
 from core.models.product import GameDlcLink
 from finance.models.offer import Offer, Price, ProductOffer
 from finance.serializers import ProductOfferSerializer
-from finance.mixin import PricePackSeriazerMixin
+from finance.mixins import PricePackSeriazerMixin
 
 from reference import serializers as ref_serializers
 from community import serializers as com_serializers
@@ -78,9 +78,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
         product = Product.objects.create(**validated_data)
         ProductOffer.objects.create(product=product, offer=offer, **product_offer)
 
-        social_objects = [
-            Social(product=product, **social) for social in socials
-        ]
+        social_objects = [Social(product=product, **social) for social in socials]
         Social.objects.bulk_create(social_objects)
 
         requirement_objects = [
@@ -95,13 +93,15 @@ class CreateProductSerializer(serializers.ModelSerializer):
                 language = Language.objects.get(name=language_name)
             except Language.DoesNotExist as e:
                 raise serializers.ValidationError(str(e), code='invalid')
-            language_objects.append(ProductLanguage(
-                product=product,
-                language=language,
-                interface=lang['interface'],
-                subtitles=lang['subtitles'],
-                voice=lang['voice']
-            ))
+            language_objects.append(
+                ProductLanguage(
+                    product=product,
+                    language=language,
+                    interface=lang['interface'],
+                    subtitles=lang['subtitles'],
+                    voice=lang['voice'],
+                ),
+            )
 
         ProductLanguage.objects.bulk_create(language_objects)
 
@@ -119,7 +119,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
 
 
 class OperatingSystemSerializer(serializers.Serializer):
-    """ Operating System Serializer """
+    """Operating System Serializer"""
 
     class Meta:
         model = SystemRequirement
@@ -154,22 +154,26 @@ class GamesListSerializer(serializers.ModelSerializer, PricePackSeriazerMixin):
             'price',
             'discount',
             'is_bought',
-            'is_favorite'
+            'is_favorite',
         )
 
 
 class PricePackSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Price
-        fields = ('amount', 'currency',)
+        fields = (
+            'amount',
+            'currency',
+        )
 
 
 class ProductPackSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Product
-        fields = ('id', 'name',)
+        fields = (
+            'id',
+            'name',
+        )
 
 
 class OfferPackSerializer(serializers.ModelSerializer):
@@ -178,7 +182,11 @@ class OfferPackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Offer
-        fields = ('id', 'price', 'products',)
+        fields = (
+            'id',
+            'price',
+            'products',
+        )
 
 
 class DlcsPackSerializer(serializers.ModelSerializer, PricePackSeriazerMixin):
@@ -186,7 +194,11 @@ class DlcsPackSerializer(serializers.ModelSerializer, PricePackSeriazerMixin):
 
     class Meta:
         model = Product
-        fields = ('id', 'name', 'price',)
+        fields = (
+            'id',
+            'name',
+            'price',
+        )
 
 
 class GameDetailSerializer(serializers.ModelSerializer, PricePackSeriazerMixin):
@@ -248,10 +260,7 @@ class GameDlcLinkSerializer(serializers.Serializer):
 
     def to_representation(self, instance):
         print(instance)
-        return {
-            'game': instance[0].game_id,
-            'dlc': [link.dlc_id for link in instance]
-        }
+        return {'game': instance[0].game_id, 'dlc': [link.dlc_id for link in instance]}
 
 
 class SaveToLibrarySerializer(serializers.Serializer):
