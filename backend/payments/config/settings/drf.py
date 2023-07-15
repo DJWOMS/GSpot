@@ -6,10 +6,17 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
     'EXCEPTION_HANDLER': 'rollbar.contrib.django_rest_framework.post_exception_handler',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'gspot_django_auth.authentication.CustomJWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'GSpot Payments API',
     'DESCRIPTION': 'API for game store payments service',
     'VERSION': '1.0.0',
+    'SERVE_AUTHENTICATION': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
 }

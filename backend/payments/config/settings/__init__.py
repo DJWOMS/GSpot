@@ -1,4 +1,5 @@
 # flake8: noqa
+from .auth import *
 from .base import *
 from .business_settings import *
 from .celery import *

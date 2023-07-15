@@ -1,11 +1,11 @@
-Django==4.1.7
+Django==4.2.2
 environs[django]==9.5.0
 django-environ==0.10.0
 psycopg2-binary==2.9.5
 djangorestframework==3.14.0
 drf-spectacular==0.26.0
-pyjwt==2.6.0
-django-extensions==3.2.1
+pyjwt==2.7.0
+django-extensions==3.2.3
 yookassa==2.3.5
 rollbar==0.16.3
 celery[redis]==5.2.7
@@ -19,3 +19,4 @@ django-money==3.1.0
 pydantic==1.10.7
 python-dotenv==1.0.0
 dateutils==0.6.12
+gspot-django-auth==0.1.0

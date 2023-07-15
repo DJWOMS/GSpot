@@ -1,6 +1,7 @@
 import rollbar
 from apps.base.schemas import PaymentServices
 from dacite import MissingValueError, from_dict
+from gspot_django_auth.permissions import IsAdminSuperUserPerm
 from rest_framework import viewsets
 from rest_framework.response import Response
 
@@ -58,6 +59,7 @@ class YookassaPaymentAcceptanceView(viewsets.GenericViewSet):
 class PaymentCommissionView(viewsets.ModelViewSet):
     serializer_class = PaymentCommissionSerializer
     pagination_class = None
+    permission_classes = (IsAdminSuperUserPerm,)
 
     def get_queryset(self):
         if self.request.method == 'LIST':
@@ -71,3 +73,4 @@ class PaymentServiceView(viewsets.ModelViewSet):
     queryset = PaymentService.objects.all()
     serializer_class = PaymentServiceSerializer
     pagination_class = None
+    permission_classes = (IsAdminSuperUserPerm,)

@@ -5,6 +5,8 @@ from apps.external_payments.schemas import YookassaPayoutModel
 from django.forms import model_to_dict
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from gspot_django_auth.permissions import IsAdminSuperUserPerm
+from gspot_django_auth.permissions.verifiers import CompanyScopeUserVerify
 from rest_framework import mixins, status, viewsets
 from rest_framework.response import Response
 
@@ -78,6 +80,7 @@ class UserCreateDeleteView(
 
 class PayoutView(viewsets.ViewSet, DRFtoDataClassMixin):
     serializer_class = serializers.PayoutSerializer
+    permission_classes = (CompanyScopeUserVerify,)
 
     def create(self, request, *args, **kwargs):
         try:
@@ -123,6 +126,7 @@ class BalanceViewSet(viewsets.ViewSet):
 
 class OwnerView(viewsets.GenericViewSet, mixins.RetrieveModelMixin, mixins.UpdateModelMixin):
     serializer_class = serializers.OwnerSerializer
+    permission_classes = (IsAdminSuperUserPerm,)
 
     def get_object(self):
         return Owner.objects.first()
@@ -136,6 +140,7 @@ class PayoutDataObjectViewSet(
 ):
     serializer_class = serializers.PayoutDataSerializer
     queryset = PayoutData.objects.all()
+    permission_classes = (CompanyScopeUserVerify,)
 
     def partial_update(self, request, *args, **kwargs):
         payout_data_obj = self.get_object()
@@ -154,6 +159,7 @@ class PayoutDataObjectViewSet(
 
 class PayoutDataCreateView(viewsets.ViewSet):
     serializer_class = CreatePayoutDataSerializer
+    permission_classes = (CompanyScopeUserVerify,)
 
     def create(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
@@ -177,6 +183,7 @@ class PayoutDataCreateView(viewsets.ViewSet):
 
 class PayoutHistoryView(viewsets.GenericViewSet, mixins.ListModelMixin):
     serializer_class = serializers.BalanceHistorySerializer
+    permission_classes = (CompanyScopeUserVerify,)
 
     def get_queryset(self):
         user_uuid = self.kwargs.get('user_uuid')
