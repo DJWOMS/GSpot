@@ -1,6 +1,5 @@
 from apps.base.utils.change_balance import DjangoModel
 from django.http import Http404
-from rest_framework.exceptions import ValidationError
 
 
 def multiple_select_or_404(
@@ -9,8 +8,6 @@ def multiple_select_or_404(
     look_up_field: str,
 ) -> list[DjangoModel] | None:
     """Main purpose of this function to prevent sending multiple get_object_or_404 to database"""
-    if not data_list:
-        raise ValidationError('List is empty.')
     field_name = f'{look_up_field}__in'
     query = list(django_model.objects.filter(**{field_name: data_list}))
 

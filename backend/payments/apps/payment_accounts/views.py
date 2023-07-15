@@ -107,6 +107,12 @@ class BalanceViewSet(viewsets.ViewSet):
         serializer.is_valid(raise_exception=True)
 
         uuid_list = serializer.validated_data['uuid_list']
+        if not uuid_list:
+            return Response(
+                {'detail': 'uuid_list cannot be empty.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         try:
             balance_list = multiple_select_or_404(uuid_list, Account, 'user_uuid')
         except Http404 as error:
