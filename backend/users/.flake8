@@ -1,6 +1,6 @@
 [flake8]
 max-line-length = 100
-extend-ignore = 
+extend-ignore =
     # assignment lambda to variable - okay
     E731,
     # unnecessary variable assignment before return statement.
@@ -16,7 +16,7 @@ extend-ignore =
     A003,
     B006,
 
-exclude = 
+exclude =
     venv
     **migrations**
     __init__.py

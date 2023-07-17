@@ -20,6 +20,13 @@ class Token(BaseToken, JWTMixin):
         password=redis_config.REDIS_SHARED_PASSWORD,
     )
 
+    redis_refresh_client = RedisRefreshClient(
+        host=redis_config.REDIS_SHARED_HOST,
+        port=redis_config.REDIS_SHARED_PORT,
+        db=redis_config.REDIS_REFRESH_DB,
+        password=redis_config.REDIS_SHARED_PASSWORD,
+    )
+
     @staticmethod
     def validate_user(user: BaseAbstractUser):
         if user.is_active is not True:
@@ -162,5 +169,12 @@ class Token(BaseToken, JWTMixin):
     def __add_access_to_redis(cls, token: str, value: dict):
         cls.__add_token_to_redis(redis_client=cls.redis_access_client, token=token, value=value)
 
+    @classmethod
+    def add_refresh_to_redis(cls, token: str, value: dict = None):
+        cls.__add_token_to_redis(redis_client=cls.redis_refresh_client, token=token, value=value)
+
     def get_access_data(self, token: str) -> dict | None:
         return self.redis_access_client.is_token_exist(token)
+
+    def get_refresh_data(self, token: str) -> dict | None:
+        return self.redis_refresh_client.is_token_exist(token)

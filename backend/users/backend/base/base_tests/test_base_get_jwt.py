@@ -12,9 +12,9 @@ class GetJwtApiTestCase:
         self.first_user = self.user.objects.create_user(**self.data)
         self.first_user.is_active = True
         self.client.force_authenticate(user=self.first_user)
-        self.url = reverse("get-jwt")
+        self.url = reverse('token_refresh')
         self.token = Token().generate_tokens_for_user(self.first_user)
-        self.data = {"refresh_token": self.token.get("refresh")}
+        self.data = {'refresh_token': self.token.get('refresh')}
 
     @staticmethod
     def set_settings_user():
@@ -54,4 +54,11 @@ class GetJwtApiTestCase:
         os.environ["REFRESH_TOKEN_ROTATE_MIN_LIFETIME"] = "87000"
         time.sleep(1)
         response = self.client_post(self.data)
-        self.assertIsNot(self.data.get("refresh_token"), response.data["refresh"])
+        self.assertIsNot(self.data.get('refresh_token'), response.data['refresh'])
+
+    def test_ban_list_refresh_token(self):
+        refresh_token = self.data['refresh_token']
+        self.assertEqual(Token().get_refresh_data(refresh_token), None)
+        Token().add_refresh_to_redis(token=refresh_token)
+        response = self.client_post(self.data)
+        self.assertEqual(response.status_code, 401)

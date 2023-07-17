@@ -10,8 +10,8 @@ def get_expired_time_token(refresh_token):
 def update_access_token(refresh_token, user):
     if get_expired_time_token(refresh_token):
         dict_token = {
-            "refresh": refresh_token,
-            "access": Token().generate_access_token_for_user(user),
+            'refresh': refresh_token,
+            'access': Token().generate_access_token_for_user(user),
         }
     else:
         dict_token = Token().generate_tokens_for_user(user)

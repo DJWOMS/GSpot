@@ -23,31 +23,31 @@ class ContactType(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'contact_type'
-        verbose_name = _('contact_type')
-        verbose_name_plural = _('contact_types')
+        db_table = "contact_type"
+        verbose_name = _("contact_type")
+        verbose_name_plural = _("contact_types")
 
 
 class MessageNotifyRabbitMQ(models.Model):
     ADD_FRIEND = "ADD_FRIEND"
     STATUS_CHOICES = ((ADD_FRIEND, "add_friend"),)
     text = models.TextField(
-        verbose_name=_('message_notify_rabbitmq'),
-        validators=[validators.ValidateUserInText()],
+        verbose_name=_("message_notify_rabbitmq"),
+        validators=[validators.ValidateUserInText],
     )
-    action = models.CharField(choices=STATUS_CHOICES)
+    action = models.CharField(choices=STATUS_CHOICES, max_length=120)
 
     def __str__(self):
         return self.text
 
     @property
     def get_text(self):
-        return f'{self.text}'
+        return f"{self.text}"
 
     class Meta:
-        db_table = 'message_notify_rabbitmq'
-        verbose_name = _('message_notify_rabbitmq')
-        verbose_name_plural = _('message_notify_rabbitmq')
+        db_table = "message_notify_rabbitmq"
+        verbose_name = _("message_notify_rabbitmq")
+        verbose_name_plural = _("message_notify_rabbitmq")
 
 
 class MessageEmailRabbitMQ(models.Model):
@@ -55,16 +55,16 @@ class MessageEmailRabbitMQ(models.Model):
     DEVELOP_ACTIVATION = "DEVELOP_ACTIVATION"
     CUSTOMER_ACTIVATION = "CUSTOMER_ACTIVATION"
     STATUS_CHOICES = (
-        (ADMIN_ACTIVATION, 'admin_activation'),
-        (DEVELOP_ACTIVATION, 'develop_activation'),
-        (CUSTOMER_ACTIVATION, 'customer_activation'),
+        (ADMIN_ACTIVATION, "admin_activation"),
+        (DEVELOP_ACTIVATION, "develop_activation"),
+        (CUSTOMER_ACTIVATION, "customer_activation"),
     )
-    url = models.CharField(validators=[validators.ValidateTotpInUrl()])
+    url = models.CharField(validators=[validators.ValidateTotpInUrl], max_length=255)
     text = models.TextField(
-        verbose_name=_('message_email_rabbitmq'),
-        validators=[validators.ValidateUrlInText()],
+        verbose_name=_("message_email_rabbitmq"),
+        validators=[validators.ValidateUrlInText],
     )
-    action = models.CharField(choices=STATUS_CHOICES)
+    action = models.CharField(choices=STATUS_CHOICES, max_length=120)
 
     def __str__(self):
         return self.text
@@ -74,6 +74,6 @@ class MessageEmailRabbitMQ(models.Model):
         return str(self.text), str(self.url)
 
     class Meta:
-        db_table = 'message_email_rabbitmq'
-        verbose_name = _('message_email_rabbitmq')
-        verbose_name_plural = _('message_email_rabbitmq')
+        db_table = "message_email_rabbitmq"
+        verbose_name = _("message_email_rabbitmq")
+        verbose_name_plural = _("message_email_rabbitmq")
