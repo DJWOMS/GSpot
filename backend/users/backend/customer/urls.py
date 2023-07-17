@@ -5,7 +5,7 @@ from customer.views.v1.customer_registration_view import CustomerRegistrationVie
 from django.urls import path
 
 urlpatterns = [
-    path("registration/", CustomerRegistrationView.as_view()),
+    path("registration/", CustomerRegistrationView.as_view(), name="customer_registration"),
 ]
 
 account_router = [
