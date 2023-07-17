@@ -1,0 +1,142 @@
+[
+    {
+        "model": "reference.genre",
+        "pk": 1,
+        "fields": {
+            "name": "Action"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 2,
+        "fields": {
+            "name": "Adventure"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 3,
+        "fields": {
+            "name": "RPG"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 4,
+        "fields": {
+            "name": "Strategy"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 5,
+        "fields": {
+            "name": "Simulation"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 6,
+        "fields": {
+            "name": "Sports"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 7,
+        "fields": {
+            "name": "Puzzle"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 8,
+        "fields": {
+            "name": "Racing"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 9,
+        "fields": {
+            "name": "Shooter"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 10,
+        "fields": {
+            "name": "Fighting"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 11,
+        "fields": {
+            "name": "Horror"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 12,
+        "fields": {
+            "name": "Platformer"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 13,
+        "fields": {
+            "name": "Rhythm"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 14,
+        "fields": {
+            "name": "Stealth"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 15,
+        "fields": {
+            "name": "Open World"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 16,
+        "fields": {
+            "name": "Survival"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 17,
+        "fields": {
+            "name": "MMORPG"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 18,
+        "fields": {
+            "name": "Visual Novel"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 19,
+        "fields": {
+            "name": "Indie"
+        }
+    },
+    {
+        "model": "reference.genre",
+        "pk": 20,
+        "fields": {
+            "name": "Casual"
+        }
+    }
+]

@@ -7,7 +7,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('community', '0001_initial'),
+        ('community', '0002_alter_media_type_alter_reaction_like_type_and_more'),
     ]
 
     operations = [

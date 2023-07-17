@@ -1,0 +1,74 @@
+[
+    {
+        "model": "reference.subgenre",
+        "pk": 1,
+        "fields": {
+            "name": "First-Person Shooter",
+            "genre": 9
+        }
+    },
+    {
+        "model": "reference.subgenre",
+        "pk": 2,
+        "fields": {
+            "name": "Turn-Based Strategy",
+            "genre": 4
+        }
+    },
+    {
+        "model": "reference.subgenre",
+        "pk": 3,
+        "fields": {
+            "name": "Stealth Action",
+            "genre": 14
+        }
+    },
+    {
+        "model": "reference.subgenre",
+        "pk": 4,
+        "fields": {
+            "name": "Open World RPG",
+            "genre": 3
+        }
+    },
+    {
+        "model": "reference.subgenre",
+        "pk": 5,
+        "fields": {
+            "name": "Puzzle Platformer",
+            "genre": 12
+        }
+    },
+    {
+        "model": "reference.subgenre",
+        "pk": 6,
+        "fields": {
+            "name": "Sports Simulation",
+            "genre": 6
+        }
+    },
+    {
+        "model": "reference.subgenre",
+        "pk": 7,
+        "fields": {
+            "name": "Survival Horror",
+            "genre": 11
+        }
+    },
+    {
+        "model": "reference.subgenre",
+        "pk": 8,
+        "fields": {
+            "name": "Real-Time Strategy",
+            "genre": 4
+        }
+    },
+    {
+        "model": "reference.subgenre",
+        "pk": 9,
+        "fields": {
+            "name": "Racing Simulator",
+            "genre": 8
+        }
+    }
+]

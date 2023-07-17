@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from ..validators import correct_date
 from simple_history.models import HistoricalRecords
+import uuid
 
 
 class PriceAbstractModel(models.Model):
@@ -41,6 +42,7 @@ class SchedulerPrice(PriceAbstractModel):
 
 
 class Offer(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_by = models.UUIDField('UUID creator')
     price = models.OneToOneField(Price, on_delete=models.CASCADE, related_name='offer')
     is_active = models.BooleanField(default=False)

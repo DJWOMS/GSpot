@@ -87,21 +87,31 @@ class CreateProductSerializer(serializers.ModelSerializer):
         ]
         SystemRequirement.objects.bulk_create(requirement_objects)
 
-        language_objects = [
-            ProductLanguage(
+        language_objects = []
+        for lang in langs:
+            language_name = lang['language']['name']
+            try:
+                language = Language.objects.get(name=language_name)
+            except Language.DoesNotExist as e:
+                raise serializers.ValidationError(str(e), code='invalid')
+            language_objects.append(ProductLanguage(
                 product=product,
-                language=Language.objects.get(name=lang['language']['name']),
+                language=language,
                 interface=lang['interface'],
                 subtitles=lang['subtitles'],
                 voice=lang['voice']
-            ) for lang in langs
-        ]
+            ))
+
         ProductLanguage.objects.bulk_create(language_objects)
 
-        genre_objects = [
-            GenreProduct(product=product, genre=Genre.objects.get(name=genre))
-            for genre in genres
-        ]
+        genre_objects = []
+        for genre_name in genres:
+            try:
+                genre = Genre.objects.get(name=genre_name)
+            except Genre.DoesNotExist as e:
+                raise serializers.ValidationError(str(e), code='invalid')
+            genre_objects.append(GenreProduct(product=product, genre=genre))
+
         GenreProduct.objects.bulk_create(genre_objects)
 
         return product
@@ -134,10 +144,15 @@ class GamesListSerializer(serializers.ModelSerializer):
 
     def get_price(self, obj):
         try:
-            offer = ProductOffer.objects.get(product=obj).offer
-        except ProductOffer.DoesNotExist:
+            offer = ProductOffer.objects.filter(product=obj).latest('id')
+            price = Offer.objects.get(id=str(offer.offer_id)).price
+            result = {
+                'amount': price.amount,
+                'currency': price.currency
+            }
+            return result
+        except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
             return None
-        return offer.price.amount
 
     class Meta:
         model = Product
@@ -170,10 +185,15 @@ class GameDetailSerializer(serializers.ModelSerializer):
 
     def get_price(self, obj):
         try:
-            offer = ProductOffer.objects.get(product=obj).offer
-        except ProductOffer.DoesNotExist:
+            offer = ProductOffer.objects.filter(product=obj).latest('id')
+            price = Offer.objects.get(id=str(offer.offer_id)).price
+            result = {
+                'amount': price.amount,
+                'currency': price.currency
+            }
+            return result
+        except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
             return None
-        return offer.price.amount
 
     class Meta:
         model = Product
@@ -222,3 +242,9 @@ class GameDlcLinkSerializer(serializers.Serializer):
             'game': instance[0].game_id,
             'dlc': [link.dlc_id for link in instance]
         }
+
+
+class SaveToLibrarySerializer(serializers.Serializer):
+    user_to = serializers.UUIDField()
+    user_from = serializers.UUIDField(required=False)
+    offer_uuid = serializers.ListField(child=serializers.UUIDField())
