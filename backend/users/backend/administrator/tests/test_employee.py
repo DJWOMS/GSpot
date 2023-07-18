@@ -48,10 +48,12 @@ class EmployeeViewTest(BaseViewTestCase):
         request = self.client.post(self.url, self.test_data)
         self.assertEqual(request.status_code, 403)
 
-    def test_02_permissions(self):
+    def test_02_permissions_success_auth(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.valid_admin))
         request = self.client.get(self.url)
         self.assertEqual(request.status_code, 200)
+
+    def test_03_permissions_fail_auth(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.invalid_admin))
         request = self.client.get(self.url)
         self.assertEqual(request.status_code, 403)
