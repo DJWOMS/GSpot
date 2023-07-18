@@ -1,53 +1,40 @@
 import json
-from datetime import date
 
 from administrator.models import Admin
-from base.base_tests.teardown_base_test import TearDown
+from base.base_tests.tests import BaseViewTestCase
+from base.models import BaseAbstractUser
 from common.services.notify.notify import Notify
 from common.services.totp import TOTPToken
 from customer.models import CustomerUser
 from developer.models import CompanyUser
 from django.conf import settings
-from rest_framework.test import APITestCase
 from utils.broker.message import FriendAddedMessage
 from utils.broker.rabbitmq import RabbitMQ
 
 
-class TestRabbitMQ(TearDown, APITestCase):
+class TestRabbitMQ(BaseViewTestCase):
     fixtures = ['fixtures/message_and_notify']
 
-    def setUp(self) -> None:
-        self.rabbitmq = RabbitMQ()
-        self.admin_user = Admin.objects.create_user(
-            username='user1230',
-            email='user1230@email.com',
-            phone='98088127792',
-            password='user',
-            is_active=True,
-        )
-        self.customer_user = CustomerUser.objects.create_user(
-            username='user25',
-            email='user54@email.com',
-            phone='9808887691',
-            password='user',
-            birthday=date.today(),
-            is_active=True,
-        )
-        self.customer_user2 = CustomerUser.objects.create_user(
-            username='user225',
-            email='user541@email.com',
-            phone='98088876912',
-            password='user',
-            birthday=date.today(),
-            is_active=True,
-        )
-        self.developer_user = CompanyUser.objects.create_user(
-            username='user1234',
-            email='email123@mail.ru',
-            password='usercompany124',
-            phone='89991234561',
-            company=None,
-        )
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.rabbitmq = RabbitMQ()
+        cls.admin_user = cls.create_user(Admin)
+        cls.customer_user = cls.create_user(CustomerUser)
+        cls.customer_user2 = cls.create_user(CustomerUser)
+        cls.developer_user = cls.create_user(CompanyUser)
+
+    @classmethod
+    def create_user(cls, model: type[BaseAbstractUser], **kwargs) -> type[BaseAbstractUser]:
+        data = {
+            "username": cls.faker.word(),
+            "password": cls.faker.word(),
+            "email": cls.faker.email(),
+            "phone": cls.faker.random_number(digits=10, fix_len=True),
+            "is_active": True,
+        }
+        if model == CustomerUser:
+            data["birthday"] = cls.faker.date_object()
+        return model.objects.create_user(**data, **kwargs)
 
     def test_01_send_and_receive_message_add_friend(self):
         message = FriendAddedMessage(user=self.customer_user, sender_user=self.customer_user2)

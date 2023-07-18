@@ -1,66 +1,35 @@
-from typing import List
-
-from base.base_tests.teardown_base_test import TearDown
+import pika
+from base.models import BaseAbstractUser
 from common.services.jwt.token import Token
+from django.conf import settings
 from django.test import TestCase
+from faker import Faker
 from rest_framework.test import APIClient
+from utils.broker.rabbitmq import RabbitMQ
 
 
-class TestDataSet:
-    valid_data: List[dict]
-    invalid_data: List[dict]
-
-    @classmethod
-    def perform_create(cls):
-        ...
-
-
-class TestView:
-    client = APIClient()
-    url: str
-
-    def test_list(self):
-        ...
-
-    @classmethod
-    def test_create(cls, valid_data: List[dict], invalid_data: List[dict], test: TestCase):
-        for data in valid_data:
-            response = cls.client.post(cls.url, data)
-            test.assertEqual(response.status_code, 201)
-        for data in invalid_data:
-            response = cls.client.post(cls.url, data)
-            test.assertEqual(response.status_code, 400)
-
-
-class TestBase(TearDown):
-    fixtures = ['fixtures/message_and_notify']
-
-    @classmethod
-    def setUpTestData(cls):
-        cls.Meta.dataset.perform_create()
-
-    def test_view(self):
-        self.Meta.view.test_create(
-            self.Meta.dataset.valid_data,
-            self.Meta.dataset.invalid_data,
-            self,
-        )
-
-    class Meta:
-        dataset: TestDataSet
-        view: TestView
-
-
-class BaseTestView:
-    url: str
+class BaseViewTestCase(TestCase):
+    faker = Faker(locale='ru_RU')
 
     def setUp(self) -> None:
         self.client = APIClient()
 
+    def tearDown(self) -> None:
+        self.rabbitmq = RabbitMQ()
+        with self.rabbitmq:
+            try:
+                self.rabbitmq._channel.queue_purge(queue=settings.EMAIL_ROUTING_KEY)
+            except (pika.exceptions.ChannelClosedByBroker, pika.exceptions.ChannelWrongStateError):
+                pass
+            try:
+                self.rabbitmq._channel.queue_purge(queue=settings.NOTIFY_ROUTING_KEY)
+            except (pika.exceptions.ChannelClosedByBroker, pika.exceptions.ChannelWrongStateError):
+                pass
+
     @staticmethod
-    def get_token(user) -> str:
-        context = {
-            "user_id": str(user.id),
-            "role": user._meta.app_label,
-        }
-        return Token().generate_access_token(context)
+    def get_access_token(user: BaseAbstractUser) -> str:
+        return Token().generate_access_token_for_user(user)
+
+    @staticmethod
+    def get_tokens(user: BaseAbstractUser) -> dict:
+        return Token().generate_tokens_for_user(user)
