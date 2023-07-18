@@ -34,9 +34,7 @@ class YookassaPaymentBody(BaseModel, DRFtoDataClassMixin):
 
 class YookassaPaymentResponse(BaseModel, DRFtoDataClassMixin):
     event: YookassaPaymentStatuses
-    object_: YookassaPaymentBody = Field(
-        alias='object'
-    )
+    object_: YookassaPaymentBody = Field(alias='object')
 
     class Config:
         allow_population_by_field_name = True
