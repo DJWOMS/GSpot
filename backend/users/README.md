@@ -2,32 +2,23 @@
 
 ## Quick Start
 
-**NOTE**: The project uses Python 3.11, so need it installed first. It is recommended to use [`Poetry`](https://github.com/python-poetry/poetry) for installation.
+**NOTE**: The project uses Python 3.11, so need it installed first. It is recommended to use [`pyenv`](https://github.com/pyenv/pyenv) for installation.
 
 **NOTE**: Root of the django project is at the `backend` folder
 
 Here is a short instruction on how to quickly set up the project for development:
 
-## Poetry guide
-
-**NOTE**: Run commands in directory with `pyproject.toml`
-
-**NOTE**: Check for Poetry exist in $PATH
+## PIP guide
 
 ### Installing dependencies:
-- All dependencies (recommended)
 ```
-$ poetry install
+$ pip install -r requirements.txt
 ```
-- Without development dependencies
+
+### Freezing dependencies:
 ```
-$ poetry install --without dev
+$ pip freeze > requirements.txt
 ```
-### Running shell (Poetry auto-generated virtual environment):
-```
-$ poetry shell
-```
-[`More commands`](https://python-poetry.org/docs/cli/)
             
 ## Before start
 
@@ -53,29 +44,6 @@ $ python manage.py shell
 - `DJANGO_CORS_ALLOWED_ORIGINS` - sources that can make requests to django API (default `http://localhost:3000`)
 - `DJANGO_ALLOWED_HOSTS` - hosts that django can run on in production (default `*`)
 - `GET_TOKEN_FROM` - where to get JWT tokens `(headers/cookies)`
-
-#### Django superuser credentials:
-
-- `DJANGO_SUPERUSER_USERNAME` - superuser's usersname
-- `DJANGO_SUPERUSER_PHONE` - superuser's phone
-- `DJANGO_SUPERUSER_EMAIL` - superuser's email
-- `DJANGO_SUPERUSER_PASSWORD` - superuser's password
-
-#### PostgreSQL:
-
-- `POSTGRES_DB` - database name
-- `POSTGRES_USER` - database owner
-- `POSTGRES_PASSWORD` - database password
-- `POSTGRES_HOST` - host on which the database runs
-- `POSTGRES_PORT` - port on which the database runs
-
-#### RabbitMQ:
-
-- `RABBITMQ_HOST` - host on which RabbitMQ runs
-- `RABBITMQ_PORT` - port on which RabbitMQ runs
-- `RABBITMQ_USERNAME` - username of RabbitMQ panel account
-- `RABBITMQ_PASSWORD` - password of RabbitMQ panel account
-- `RABBITMQ_VIRTUAL_HOST` - relative path on RabbitMQ host from application
 
 #### JWT Tokens:
 
