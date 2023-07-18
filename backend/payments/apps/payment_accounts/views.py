@@ -24,7 +24,7 @@ from .services.payout import PayoutProcessor
 
 
 class CalculatePaymentCommissionView(viewsets.ViewSet, DRFtoDataClassMixin):
-    serializer_class = serializers.PaymentCommissionSerializer
+    serializer_class = serializers.CalculateCommissionSerializer
 
     def create(self, request, *args, **kwargs):
         try:
