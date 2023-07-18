@@ -1,15 +1,5 @@
-from typing import Type
-
 from base.delivery.base_email import BaseEmail
-from base.delivery.base_notify import BaseNotify
-from base.models import BaseAbstractUser
-from utils.broker.message import (
-    AdminActivationMessage,
-    BaseMessage,
-    CustomerActivationMessage,
-    DevelopActivationMessage,
-    NotifyMessage,
-)
+from utils.broker.message import BaseMessage
 from utils.broker.rabbitmq import RabbitMQ
 
 
