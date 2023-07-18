@@ -1,5 +1,6 @@
 import uuid
 
+from base.utils import get_avatar_upload_path
 from django.contrib.auth.models import (
     AbstractUser,
     GroupManager,
@@ -15,6 +16,7 @@ class BaseAbstractUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(_("email address"), unique=True, db_index=True)
     phone = models.CharField(_("phone"), max_length=15, unique=True, default="")
+    avatar = models.ImageField(null=True, blank=True, upload_to=get_avatar_upload_path)
     is_banned = models.BooleanField(default=False)
     created_at = models.DateTimeField(_("user creation date"), auto_now_add=True)
     update_at = models.DateTimeField(_("user modify date"), auto_now=True)

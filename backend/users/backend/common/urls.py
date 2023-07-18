@@ -17,5 +17,5 @@ urlpatterns = [
     path("token_refresh/", GetJwtView.as_view(), name="token_refresh"),
     path("check-totp/", CheckTOTPView.as_view(), name="check-totp"),
     path("set-password/", CheckTOTPView.as_view(), name="totp-set-password"),
-    path("change_passworg/", ChangePasswordAPIView.as_view(), name="user_change_password"),
+    path("change_password/", ChangePasswordAPIView.as_view(), name="user_change_password"),
 ]

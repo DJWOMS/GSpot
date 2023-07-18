@@ -79,7 +79,6 @@ class AdminManager(UserManager):
 
 
 class Admin(BaseAbstractUser, AdminPermissionMixin):
-    avatar = models.ImageField(null=True, blank=True)
     is_superuser = models.BooleanField(default=False)
     country = models.ForeignKey(
         Country,

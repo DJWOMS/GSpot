@@ -1,33 +1,30 @@
-from datetime import datetime
-from typing import Type
-
 from administrator.models import Admin
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from common.services.jwt.users_payload import PayloadFactory
 from customer.models import CustomerUser
 from developer.models import CompanyUser
-from django.test import TestCase
 
 
-class TestTokenJWT(TestCase):
-    def setUp(self):
-        self.payload_factory = PayloadFactory()
-        self.developer = self.create_user(CompanyUser)
-        self.administrator = self.create_user(Admin)
-        self.customer = self.create_user(CustomerUser)
+class TestTokenJWT(BaseViewTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.payload_factory = PayloadFactory()
+        cls.developer = cls.create_user(CompanyUser)
+        cls.administrator = cls.create_user(Admin)
+        cls.customer = cls.create_user(CustomerUser)
 
-    @staticmethod
-    def create_user(user_model: Type[BaseAbstractUser]) -> Type[BaseAbstractUser]:
+    @classmethod
+    def create_user(cls, model: type[BaseAbstractUser]) -> type[BaseAbstractUser]:
         data = {
-            "username": "test_user",
-            "password": "test_password",
-            "email": "test_email@example.com",
-            "phone": 12341234,
+            "username": cls.faker.word(),
+            "password": cls.faker.word(),
+            "email": cls.faker.email(),
+            "phone": cls.faker.random_number(digits=10, fix_len=True),
         }
-        if user_model == CustomerUser:
-            data["birthday"] = datetime.now()
-        user = user_model.objects.create_user(**data)
-        return user
+        if model == CustomerUser:
+            data["birthday"] = cls.faker.date_object()
+        return model.objects.create_user(**data)
 
     def test_admin_payload(self):
         payload = self.payload_factory.create_payload(self.administrator)

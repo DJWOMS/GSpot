@@ -1,9 +1,9 @@
 from collections import namedtuple
-from datetime import datetime
 from unittest import mock
 from unittest.mock import MagicMock, patch
 
 from administrator.models import Admin, AdminGroup
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from base.permissions import BaseUserPermissions
 from base.validators import BaseUserValidation
@@ -20,12 +20,11 @@ from common.permissions.permissons import (
 from common.permissions.validators import ActiveUserValidator, BannedUserValidatorVerify
 from customer.models import CustomerUser
 from developer.models import Company, CompanyUser, DeveloperGroup, DeveloperPermission
-from django.test import TestCase
 from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
 
 
-class TestBasePermissions(TestCase):
+class TestBasePermissions(BaseViewTestCase):
     @patch.object(BaseUserPermissions, "verify")
     def test_010_base_permission(self, mock_verify: MagicMock):
         mock_verify.return_value = True
@@ -49,7 +48,7 @@ class TestBasePermissions(TestCase):
         self.assertEqual(context.exception.detail[0], "custom error")
 
 
-class TestValidators(TestCase):
+class TestValidators(BaseViewTestCase):
     def test_010_active_user_validator(self):
         user = mock.create_autospec(BaseAbstractUser)
         user.is_active = True
@@ -70,67 +69,44 @@ class TestValidators(TestCase):
         BannedUserValidatorVerify().validate(user)
 
 
-class TestPermissions(TestCase):
+class TestPermissions(BaseViewTestCase):
     def setUp(self) -> None:
         self.view = MagicMock()
         self.request = mock.create_autospec(Request)
 
+    @classmethod
+    def create_user(cls, model: type[BaseAbstractUser], **kwargs) -> type[BaseAbstractUser]:
+        data = {
+            "username": cls.faker.word(),
+            "email": cls.faker.email(),
+            "phone": cls.faker.random_number(digits=10, fix_len=True),
+            "password": cls.faker.word(),
+            "is_active": True,
+        }
+        if model == CustomerUser:
+            data["birthday"] = cls.faker.date_object()
+        return model.objects.create(**data, **kwargs)
+
     def test_010_is_admin_superuser(self):
-        admin = Admin.objects.create_superuser(
-            "admin",
-            "admin@mail.com",
-            "admin",
-            "9875643908",
-        )
+        admin = self.create_user(Admin, is_superuser=True)
         self.request.user = admin
         self.assertTrue(IsAdminSuperUserPerm().has_permission(self.request, self.view))
-        admin_user = Admin.objects.create_user(
-            "admin_user",
-            "admin_user@mail.com",
-            "admin_user",
-            "9875643912",
-        )
+        admin_user = self.create_user(Admin)
         self.request.user = admin_user
         self.assertFalse(IsAdminSuperUserPerm().has_permission(self.request, self.view))
 
     def test_020_is_company_superuser(self):
-        company_superuser = CompanyUser.objects.create_superuser(
-            "admin",
-            "admin@mail.com",
-            "admin",
-            "9875643908",
-        )
+        company_superuser = self.create_user(CompanyUser, is_superuser=True)
         self.request.user = company_superuser
         self.assertTrue(IsCompanySuperUserPerm().has_permission(self.request, self.view))
-        company_user = CompanyUser.objects.create_user(
-            "admin_user",
-            "admin_user@mail.com",
-            "admin_user",
-            "9875643912",
-        )
+        company_user = self.create_user(CompanyUser)
         self.request.user = company_user
         self.assertFalse(IsCompanySuperUserPerm().has_permission(self.request, self.view))
 
     def test_030_scope_permissions(self):
-        company_user = CompanyUser.objects.create_user(
-            "developer",
-            "developer@mail.com",
-            "developer",
-            "9875643907",
-        )
-        admin_user = Admin.objects.create_user(
-            "admin",
-            "admin@mail.com",
-            "admin",
-            "9875643908",
-        )
-        customer = CustomerUser.objects.create_user(
-            "user",
-            "user@mail.com",
-            "user",
-            "9875643910",
-            birthday=datetime.strptime("03-09-2000", "%m-%d-%Y").date(),
-        )
+        company_user = self.create_user(CompanyUser)
+        admin_user = self.create_user(Admin)
+        customer = self.create_user(CustomerUser)
         ScopeTuple = namedtuple("ScopeTuple", ["user", "perm"])
         scopes = [
             ScopeTuple(company_user, IsCompanyScopeUserPerm),
@@ -146,25 +122,15 @@ class TestPermissions(TestCase):
                     self.assertFalse(scope2.perm().has_permission(self.request, self.view))
 
     def test_040_company_permissions(self):
-        company_owner = CompanyUser.objects.create_user(
-            "company_owner",
-            "company_owner@example.com",
-            "9803449811",
-            "company_owner",
-        )
+        company_owner = self.create_user(CompanyUser)
         company = Company.objects.create(
             created_by=company_owner,
-            title="company",
-            email="company_email@example.com",
+            title=self.faker.word(),
+            email=self.faker.email(),
         )
         company_owner.company = company
         company_owner.save()
-        company_user = CompanyUser.objects.create_user(
-            "company_user",
-            "company_user@example.com",
-            "9803449822",
-            "company_user",
-        )
+        company_user = self.create_user(CompanyUser)
         company_user.company = company
         company_user.save()
         self.request.user = company_owner
@@ -175,12 +141,7 @@ class TestPermissions(TestCase):
         self.assertTrue(CompanyEmployeePerm().has_permission(self.request, self.view))
 
     def test_050_admin_perm_check(self):
-        admin = Admin.objects.create_user(
-            "admin",
-            "admin@mail.com",
-            "admin",
-            "9875643908",
-        )
+        admin = self.create_user(Admin)
         admin.user_permissions.create(
             name="user_permission",
             codename="up",
@@ -224,12 +185,7 @@ class TestPermissions(TestCase):
         self.assertTrue(UserPermissionCheck("cgp").has_permission(self.request, self.view))
 
     def test_060_dev_perm_check(self):
-        company_user = CompanyUser.objects.create_user(
-            "company_user",
-            "company_user@mail.com",
-            "company_user",
-            "9875643338",
-        )
+        company_user = self.create_user(CompanyUser)
         self.request.user = company_user
         self.assertFalse(UserPermissionCheck("cup").has_permission(self.request, self.view))
 
@@ -258,12 +214,6 @@ class TestPermissions(TestCase):
         self.assertTrue(UserPermissionCheck("cgp").has_permission(self.request, self.view))
 
     def test_070_customer_perm_check(self):
-        customer_user = CustomerUser.objects.create_user(
-            "customer_user",
-            "customer_user@example.com",
-            "9830008312",
-            "customer_user",
-            birthday=datetime.strptime("03-09-2000", "%m-%d-%Y").date(),
-        )
+        customer_user = self.create_user(CustomerUser)
         self.request.user = customer_user
         self.assertFalse(UserPermissionCheck("perm").has_permission(self.request, self.view))

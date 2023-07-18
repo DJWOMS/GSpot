@@ -1,48 +1,39 @@
-from datetime import datetime, timedelta
-from typing import Type
+from datetime import timedelta
 
 from administrator.models import Admin
+from base.base_tests.tests import BaseViewTestCase
 from base.exceptions import UserBanned, UserInActive
 from base.models import BaseAbstractUser
 from common.services.jwt.exceptions import PayloadError, TokenExpired, TokenInvalid
 from common.services.jwt.token import Token
-from config.settings import redis_config
 from customer.models import CustomerUser
 from developer.models import CompanyUser
-from django.test import TestCase
 from django.utils import timezone
-from utils.db.redis_client import RedisAccessClient
 
 
-class TestTokenJWT(TestCase):
-    def setUp(self):
-        self.token = Token()
-        self.developer = self.create_user(CompanyUser)
-        self.administrator = self.create_user(Admin)
-        self.customer = self.create_user(CustomerUser)
-        self.redis_access_client = RedisAccessClient(
-            host=redis_config.REDIS_SHARED_HOST,
-            port=redis_config.REDIS_SHARED_PORT,
-            db=redis_config.REDIS_ACCESS_DB,
-            password=redis_config.REDIS_SHARED_PASSWORD,
-        )
+class TestTokenJWT(BaseViewTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.token = Token()
+        cls.developer = cls.create_user(CompanyUser)
+        cls.administrator = cls.create_user(Admin)
+        cls.customer = cls.create_user(CustomerUser)
 
-    @staticmethod
-    def create_user(user_model: Type[BaseAbstractUser]) -> Type[BaseAbstractUser]:
+    @classmethod
+    def create_user(cls, model: type[BaseAbstractUser]) -> type[BaseAbstractUser]:
         data = {
-            "username": "test_user",
-            "password": "test_password",
-            "email": "test_email@example.com",
-            "phone": 12341234,
+            "username": cls.faker.word(),
+            "password": cls.faker.word(),
+            "email": cls.faker.email(),
+            "phone": cls.faker.random_number(digits=10, fix_len=True),
             "is_active": True,
         }
-        if user_model == CustomerUser:
-            data["birthday"] = datetime.now()
-        user = user_model.objects.create_user(**data)
-        return user
+        if model == CustomerUser:
+            data["birthday"] = cls.faker.date_object()
+        return model.objects.create_user(**data)
 
     @staticmethod
-    def get_payload_for_user(user: Type[BaseAbstractUser]) -> dict:
+    def get_payload_for_user(user: type[BaseAbstractUser]) -> dict:
         user_payload = {"user_id": str(user.id), "role": user._meta.app_label}
         return user_payload
 

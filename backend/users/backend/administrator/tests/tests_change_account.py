@@ -1,25 +1,35 @@
 from administrator.models import Admin
-from base.base_tests.change_account_info_tests_base import ChangeAccountInfoApiTestCase
-from rest_framework.test import APITestCase
+from base.base_tests.tests import BaseViewTestCase
+from django.urls import reverse
 
 
-class AdminChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITestCase):
-    @staticmethod
-    def set_settings_user():
-        user = {
-            "username": "user_of_company",
-            "email": "email@mail.ru",
-            "password": "usercompany",
-            "first_name": "user1",
-            "last_name": "user2",
-            "phone": "89991234567",
+class AdminChangeAccountInfoApiTestCase(BaseViewTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.url = reverse('administrator-user-account')
+        cls.admin_user = Admin.objects.create(
+            username='Admin',
+            email=cls.faker.email(),
+            phone=cls.faker.random_number(digits=10, fix_len=True),
+            is_active=True,
+        )
+
+    def setUp(self):
+        super().setUp()
+
+    def test_get_account_info(self):
+        self.client.force_authenticate(user=self.admin_user)
+        responce = self.client.get(self.url)
+        self.assertEqual("Admin", responce.data.get("username"))
+
+    def test_change_info_authorized(self):
+        self.client.force_authenticate(user=self.admin_user)
+        new_data = {
+            "username": "Admin2",
         }
-        return user
+        responce_change_username = self.client.put(self.url, data=new_data)
+        self.assertEqual("Admin2", responce_change_username.data.get("username"))
 
-    @staticmethod
-    def get_user_model():
-        return Admin
-
-    @staticmethod
-    def get_reverse_url():
-        return "administrator-user-account"
+    def test_change_info_unauthorized(self):
+        responce = self.client.get(self.url)
+        self.assertEqual(403, responce.status_code)

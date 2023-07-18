@@ -1,7 +1,7 @@
 from typing import Type
 
+from base.delivery.base_notify import BaseNotify
 from base.models import BaseAbstractUser
-from base.notify.base_notify import BaseNotify
 from utils.broker.message import NotifyMessage
 from utils.broker.rabbitmq import RabbitMQ
 

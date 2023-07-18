@@ -29,7 +29,6 @@ class AdminTOTPSerializer(ModelSerializer):
 class DBModelFactory:
     def __init__(self):
         self._models = {}
-        self._serializers = {}
 
     def register(
         self,
@@ -38,7 +37,7 @@ class DBModelFactory:
         serializer: ModelSerializer,
     ) -> None:
         if not issubclass(model, BaseAbstractUser):
-            raise TypeError('model must will be the "BaseAbstractUser" instance required!')
+            raise TypeError('Model must will be the "BaseAbstractUser" instance required!')
         self._models[app_label] = (model, serializer)
 
     def get_models(self, app_label: str) -> tuple[type[BaseAbstractUser], type[ModelSerializer]]:

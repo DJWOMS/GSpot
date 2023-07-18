@@ -35,7 +35,6 @@ class CustomerUser(BaseAbstractUser):
         through_fields=("sender", "receiver"),
     )
     birthday = models.DateField(_("customer birthday"))
-    avatar = models.ImageField(null=True, blank=True)
     is_active = models.BooleanField(default=False)
     country = models.ForeignKey(
         Country,

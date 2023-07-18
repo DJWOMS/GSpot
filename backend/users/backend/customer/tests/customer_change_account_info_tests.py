@@ -1,28 +1,35 @@
-import datetime
-
-from base.base_tests.change_account_info_tests_base import ChangeAccountInfoApiTestCase
+from base.base_tests.tests import BaseViewTestCase
 from customer.models import CustomerUser
-from rest_framework.test import APITestCase
+from django.urls import reverse
 
 
-class CustomerChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITestCase):
-    @staticmethod
-    def set_settings_user():
-        user = {
-            "username": "user_of_company",
-            "email": "email@mail.ru",
-            "password": "usercompany",
-            "first_name": "user1",
-            "last_name": "user2",
-            "phone": "89991234567",
-            "birthday": datetime.date.today(),
+class CustomerChangeAccountInfoApiTestCase(BaseViewTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.url = reverse('customer-user-account')
+        cls.customer_user = CustomerUser.objects.create(
+            username='CustomerUser',
+            email=cls.faker.email(),
+            phone=cls.faker.random_number(digits=10, fix_len=True),
+            birthday=cls.faker.date_object(),
+            is_active=True,
+        )
+
+    def setUp(self):
+        super().setUp()
+
+    def test_change_info_patch(self):
+        self.client.force_authenticate(user=self.customer_user)
+        url = self.url
+        responce = self.client.get(url)
+        self.assertEqual("CustomerUser", responce.data.get("username"))
+        new_data = {
+            "username": "CustomerUser2",
         }
-        return user
+        responce_change_username = self.client.put(url, data=new_data)
+        self.assertEqual("CustomerUser2", responce_change_username.data.get("username"))
 
-    @staticmethod
-    def get_user_model():
-        return CustomerUser
-
-    @staticmethod
-    def get_reverse_url():
-        return "customer-user-account"
+    def test_change_info_logout_user(self):
+        url = self.url
+        responce = self.client.get(url)
+        self.assertEqual(403, responce.status_code)
