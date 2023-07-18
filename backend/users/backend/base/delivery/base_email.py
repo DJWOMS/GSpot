@@ -1,16 +1,12 @@
 from abc import ABC, abstractmethod
 
-from utils.broker.message import (
-    AdminActivationMessage,
-    CustomerActivationMessage,
-    DevelopActivationMessage,
-)
+from utils.broker.message import BaseMessage
 
 
 class BaseEmail(ABC):
     @abstractmethod
     def send_email(
         self,
-        message: AdminActivationMessage | CustomerActivationMessage | DevelopActivationMessage,
+        message: BaseMessage,
     ) -> str:
         pass
