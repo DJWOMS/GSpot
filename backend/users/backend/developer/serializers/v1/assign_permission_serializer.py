@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from developer.models import CompanyUser, DeveloperPermission, DeveloperGroup
+from administrator.models import AdminPermission, AdminGroup
 
 class DeveloperPermissionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,9 +12,21 @@ class DeveloperGroupSerializer(serializers.ModelSerializer):
         model = DeveloperGroup
         fields = ['id']
 
+class AdminPermissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdminPermission
+        fields = ['id']
+
+class AdminGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdminGroup
+        fields = ['id']
+
 class CompanyUserPermissionSerializer(serializers.ModelSerializer):
     user_permissions = DeveloperPermissionSerializer(many=True)
     groups = DeveloperGroupSerializer(many=True)
+    admin_permissions = AdminPermissionSerializer(many=True)
+    admin_groups = AdminGroupSerializer(many=True)
 
     class Meta:
         model = CompanyUser

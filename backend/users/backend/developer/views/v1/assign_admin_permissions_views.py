@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from developer.serializers.v1.assign_permission_serializer import CompanyUserPermissionSerializer
 
-class AssignPermissionsView(APIView):
+class AssignAdminPermissionsView(APIView):
     def post(self, request, format=None):
         serializer = CompanyUserPermissionSerializer(data=request.data)
         if serializer.is_valid():
