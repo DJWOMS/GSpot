@@ -1,8 +1,7 @@
 import json
 
-import pika
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from common.services.notify.notify import Notify
 from common.services.totp import TOTPToken
@@ -13,7 +12,7 @@ from utils.broker.message import FriendAddedMessage
 from utils.broker.rabbitmq import RabbitMQ
 
 
-class TestRabbitMQ(BaseTestView):
+class TestRabbitMQ(BaseViewTestCase):
     fixtures = ['fixtures/message_and_notify']
 
     @classmethod
@@ -36,18 +35,6 @@ class TestRabbitMQ(BaseTestView):
         if model == CustomerUser:
             data["birthday"] = cls.faker.date_object()
         return model.objects.create_user(**data, **kwargs)
-
-    def tearDown(self) -> None:
-        self.rabbitmq = RabbitMQ()
-        with self.rabbitmq:
-            try:
-                self.rabbitmq._channel.queue_purge(queue=settings.EMAIL_ROUTING_KEY)
-            except pika.exceptions.ChannelClosedByBroker:
-                pass
-            try:
-                self.rabbitmq._channel.queue_purge(queue=settings.NOTIFY_ROUTING_KEY)
-            except pika.exceptions.ChannelClosedByBroker:
-                pass
 
     def test_01_send_and_receive_message_add_friend(self):
         message = FriendAddedMessage(user=self.customer_user, sender_user=self.customer_user2)

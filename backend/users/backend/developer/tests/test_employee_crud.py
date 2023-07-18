@@ -1,11 +1,11 @@
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from common.models import Country
 from developer.models import Company, CompanyUser
 from django.urls import reverse
 
 
-class DeveloperTestView(BaseTestView):
+class DeveloperTestView(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.url = reverse('developer_users_list')
@@ -43,12 +43,12 @@ class DeveloperTestView(BaseTestView):
             "country": 1,
             "is_banned": False,
         }
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.company_owner))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.company_owner))
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, 201)
 
     def test_020_get_list_by_company_owner(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.company_owner))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.company_owner))
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
@@ -58,7 +58,7 @@ class DeveloperTestView(BaseTestView):
         self.assertEqual(response.status_code, 403)
 
     def test_040_get_developer_detail(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.company_owner))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.company_owner))
         response = self.client.get(f"{self.url}{self.developer.id}/")
         self.assertEqual(response.status_code, 200)
 
@@ -66,7 +66,7 @@ class DeveloperTestView(BaseTestView):
         data = {
             "first_name": self.faker.word(),
         }
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.company_owner))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.company_owner))
         response = self.client.put(f"{self.url}{self.developer.id}/", data)
         self.assertEqual(response.status_code, 200)
 
@@ -83,7 +83,7 @@ class DeveloperTestView(BaseTestView):
         )
         test_company_owner.company = test_company
         test_company_owner.save()
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(test_company_owner))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(test_company_owner))
         response = self.client.get(self.url)
         self.assertEqual(len(response.data), 0)
         response = self.client.get(f"{self.url}{self.developer.id}/")

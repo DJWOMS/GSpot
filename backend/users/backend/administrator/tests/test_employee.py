@@ -1,10 +1,10 @@
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from common.models import Country
 from django.urls import reverse
 
 
-class EmployeeViewTest(BaseTestView):
+class EmployeeViewTest(BaseViewTestCase):
     fixtures = ['fixtures/message_and_notify']
 
     @classmethod
@@ -40,7 +40,7 @@ class EmployeeViewTest(BaseTestView):
         }
 
     def test_000_create_employee(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.valid_admin))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.valid_admin))
         request = self.client.post(self.url, self.test_data)
         self.assertEqual(request.status_code, 201)
 
@@ -49,26 +49,26 @@ class EmployeeViewTest(BaseTestView):
         self.assertEqual(request.status_code, 403)
 
     def test_02_permissions(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.valid_admin))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.valid_admin))
         request = self.client.get(self.url)
         self.assertEqual(request.status_code, 200)
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.invalid_admin))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.invalid_admin))
         request = self.client.get(self.url)
         self.assertEqual(request.status_code, 403)
 
     def test_03_get_retrieve(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.valid_admin))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.valid_admin))
         request = self.client.get(f"{self.url}{self.employee.id}/")
         self.assertEqual(request.status_code, 200)
 
     def test_04_partial_update(self):
         data = {"last_name": self.faker.word()}
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.valid_admin))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.valid_admin))
         request = self.client.put(f"{self.url}{self.employee.id}/", data)
         self.assertEqual(request.status_code, 200)
         self.assertEqual(Admin.objects.get(pk=self.employee.id).last_name, data["last_name"])
 
     def test_05_delete(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.valid_admin))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.valid_admin))
         request = self.client.delete(f"{self.url}{self.employee.id}/")
         self.assertEqual(request.status_code, 204)

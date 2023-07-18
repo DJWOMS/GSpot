@@ -1,14 +1,13 @@
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from developer.models import CompanyUser
 from django.urls import reverse
 
 
-class DeveloperPermissionViewTest(BaseTestView):
+class DeveloperPermissionViewTest(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.access_token = cls.create_access_token(cls)
         cls.url = '/api/v1/developer/permission/'
-        # cls.url = reverse('admin_permission')
         cls.creating_permission_data = {
             "name": cls.faker.word(),
             "codename": cls.faker.word(),
@@ -21,7 +20,7 @@ class DeveloperPermissionViewTest(BaseTestView):
             email=self.faker.email(),
             is_active=True,
         )
-        return self.get_token(user)
+        return self.get_access_token(user)
 
     def test_01_get_permission_authenticated(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.access_token)

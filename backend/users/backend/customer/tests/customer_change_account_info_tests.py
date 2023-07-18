@@ -1,24 +1,19 @@
-from base.base_tests.tests import BaseTestView
-from base.models import BaseAbstractUser
+from base.base_tests.tests import BaseViewTestCase
 from customer.models import CustomerUser
 from django.urls import reverse
 
 
-class CustomerChangeAccountInfoApiTestCase(BaseTestView):
+class CustomerChangeAccountInfoApiTestCase(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.url = reverse('customer-user-account')
-        cls.customer_user = cls.create_user(CustomerUser, username='CustomerUser')
-
-    @classmethod
-    def create_user(cls, model: type[BaseAbstractUser], **kwargs) -> type[BaseAbstractUser]:
-        data = {
-            "email": cls.faker.email(),
-            "phone": cls.faker.random_number(digits=10, fix_len=True),
-            "birthday": cls.faker.date_object(),
-            "is_active": True,
-        }
-        return model.objects.create(**data, **kwargs)
+        cls.customer_user = CustomerUser.objects.create(
+            username='CustomerUser',
+            email=cls.faker.email(),
+            phone=cls.faker.random_number(digits=10, fix_len=True),
+            birthday=cls.faker.date_object(),
+            is_active=True,
+        )
 
     def setUp(self):
         super().setUp()

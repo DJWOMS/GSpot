@@ -1,5 +1,5 @@
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from common.services.totp import TOTPToken
 from customer.models import CustomerUser
@@ -7,7 +7,7 @@ from developer.models import CompanyUser
 from django.urls import reverse
 
 
-class TestCheckTOTPToken(BaseTestView):
+class TestCheckTOTPToken(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.check_totp_url = reverse("check-totp")

@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Type
 
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from common.services.jwt.users_payload import PayloadFactory
 from config.settings import redis_config
@@ -11,7 +11,7 @@ from developer.models import CompanyUser
 from utils.db.redis_client import RedisAccessClient, RedisRefreshClient, RedisTotpClient
 
 
-class RedisClientTestCase(BaseTestView):
+class RedisClientTestCase(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.developer = cls.create_user(CompanyUser)

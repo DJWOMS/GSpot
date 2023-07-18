@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from base.exceptions import UserBanned, UserInActive
 from base.models import BaseAbstractUser
 from common.services.jwt.exceptions import PayloadError, TokenExpired, TokenInvalid
@@ -11,7 +11,7 @@ from developer.models import CompanyUser
 from django.utils import timezone
 
 
-class TestTokenJWT(BaseTestView):
+class TestTokenJWT(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.token = Token()

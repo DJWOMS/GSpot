@@ -1,10 +1,10 @@
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from django.urls import reverse
 from rest_framework import status
 
 
-class AdminAuthViewTestCase(BaseTestView):
+class AdminAuthViewTestCase(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.url = reverse("admin_login")

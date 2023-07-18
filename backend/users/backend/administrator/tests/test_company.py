@@ -1,11 +1,11 @@
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from common.models import Country
 from developer.models import Company, CompanyUser
 from django.urls import reverse
 
 
-class CompanyViewTest(BaseTestView):
+class CompanyViewTest(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.url = reverse("admin_company")
@@ -32,18 +32,18 @@ class CompanyViewTest(BaseTestView):
         )
 
     def test_000_list_company(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.admin))
         request = self.client.get(self.url)
         self.assertEqual(request.status_code, 200)
 
     def test_01_block_company(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.admin))
         payload = {"reason": self.faker.text()}
         request = self.client.post(f"{self.url}{self.company.id}/block", payload, format="json")
         self.assertEqual(request.status_code, 201)
 
     def test_02_unblock_company(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.admin))
         payload = {"reason": self.faker.text()}
         self.company.is_banned = True
         self.company.save()
@@ -51,6 +51,6 @@ class CompanyViewTest(BaseTestView):
         self.assertEqual(request.status_code, 201)
 
     def test_03_delete(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.admin))
         request = self.client.delete(f"{self.url}{self.company.id}/")
         self.assertEqual(request.status_code, 204)

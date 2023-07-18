@@ -1,10 +1,10 @@
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from customer.models import CustomerUser, FriendShipRequest
 from rest_framework.reverse import reverse
 
 
-class TestFriends(BaseTestView):
+class TestFriends(BaseViewTestCase):
     fixtures = ['fixtures/message_and_notify']
 
     @classmethod

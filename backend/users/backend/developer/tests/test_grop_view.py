@@ -1,9 +1,9 @@
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from developer.models import CompanyUser, DeveloperPermission
 from django.urls import reverse
 
 
-class DeveloperGroupViewTest(BaseTestView):
+class DeveloperGroupViewTest(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.access_token = cls.create_access_token(cls)
@@ -14,7 +14,7 @@ class DeveloperGroupViewTest(BaseTestView):
             codename=cls.faker.word(),
         )
         cls.data_for_creating_group = {
-            "name": cls.faker.email(),
+            "name": cls.faker.word(),
             "permission": [permission.pk],
         }
 
@@ -25,7 +25,7 @@ class DeveloperGroupViewTest(BaseTestView):
             email=self.faker.email(),
             is_active=True,
         )
-        return self.get_token(user)
+        return self.get_access_token(user)
 
     def test_01_get_group_authenticated(self):
         self.client.credentials(HTTP_AUTHORIZATION=self.access_token)

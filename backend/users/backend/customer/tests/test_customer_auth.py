@@ -1,10 +1,10 @@
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from customer.models import CustomerUser
 from django.urls import reverse
 from rest_framework import status
 
 
-class DeveloperAuthViewTestCase(BaseTestView):
+class DeveloperAuthViewTestCase(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.url = reverse("customer_login")

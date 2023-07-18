@@ -1,5 +1,5 @@
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from common.services.jwt.token import Token
 from customer.models import CustomerUser
@@ -7,7 +7,7 @@ from developer.models import CompanyUser
 from django.urls import reverse
 
 
-class TestJWTLogoutView(BaseTestView):
+class TestJWTLogoutView(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.url = reverse("logout")
@@ -16,7 +16,7 @@ class TestJWTLogoutView(BaseTestView):
         cls.customer = cls.create_user(CustomerUser)
 
     @classmethod
-    def create_user(cls, model: type[BaseAbstractUser]) -> type[BaseAbstractUser]:
+    def create_user(cls, model: type[BaseAbstractUser]) -> BaseAbstractUser:
         data = {
             "username": cls.faker.word(),
             "password": cls.faker.word(),
@@ -46,21 +46,3 @@ class TestJWTLogoutView(BaseTestView):
         refresh_token = self.create_refresh_token(self.customer)
         response = self.client.post(self.url, refresh_token, format="json")
         self.assertEqual(response.status_code, 205)
-
-    # def test_04_invalid_logout_developer(self):
-    #     refresh_token = self.create_refresh_token(self.developer)
-    #     Token().add_refresh_to_redis(token=refresh_token)
-    #     response = self.client.post(self.url, refresh_token, format="json")
-    #     self.assertEqual(response.status_code, 400)
-
-    # def test_05_invalid_logout_admin(self):
-    #     refresh_token = self.create_refresh_token(self.admin)
-    #     Token().add_refresh_to_redis(token=refresh_token)
-    #     response = self.client.post(self.url, refresh_token, format="json")
-    #     self.assertEqual(response.status_code, 400)
-
-    # def test_06_invalid_logout_customer(self):
-    #     refresh_token = self.create_refresh_token(self.customer)
-    #     Token().add_refresh_to_redis(token=refresh_token)
-    #     response = self.client.post(self.url, refresh_token, format="json")
-    #     self.assertEqual(response.status_code, 400)

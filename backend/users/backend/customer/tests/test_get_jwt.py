@@ -1,13 +1,13 @@
 import os
 import time
 
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from common.services.jwt.token import Token
 from customer.models import CustomerUser
 from django.urls import reverse
 
 
-class CustomerGetJwtApiTestCase(BaseTestView):
+class CustomerGetJwtApiTestCase(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.user = CustomerUser.objects.create_user(
@@ -20,7 +20,6 @@ class CustomerGetJwtApiTestCase(BaseTestView):
             birthday=cls.faker.date_object(),
             is_active=True,
         )
-        cls.user.is_active = True
         cls.url = reverse("token_refresh")
         cls.token = cls.get_tokens(cls.user)
         cls.data = {"refresh_token": cls.token.get("refresh")}
@@ -62,9 +61,10 @@ class CustomerGetJwtApiTestCase(BaseTestView):
         response = self.client_post(self.data)
         self.assertIsNot(self.data.get("refresh_token"), response.data["refresh"])
 
-    # def test_04_ban_list_refresh_token(self):
-    #     refresh_token = self.data['refresh_token']
-    #     self.assertEqual(Token().get_refresh_data(refresh_token), None)
-    #     Token().add_refresh_to_redis(token=refresh_token)
-    #     response = self.client_post(self.data)
-    #     self.assertEqual(response.status_code, 401)
+    def test_04_ban_list_refresh_token(self):
+        self.client.credentials(HTTP_AUTHORIZATION=self.token.get('access'))
+        refresh_token = self.data['refresh_token']
+        self.assertEqual(Token().get_refresh_data(refresh_token), None)
+        Token().add_refresh_to_redis(token=refresh_token)
+        response = self.client_post(self.data)
+        self.assertEqual(response.status_code, 401)

@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from common.services.totp import TOTPToken
 from config.settings import redis_config
@@ -10,7 +10,7 @@ from developer.models import CompanyUser
 from utils.db.redis_client import RedisTotpClient
 
 
-class TestTOTPToken(BaseTestView):
+class TestTOTPToken(BaseViewTestCase):
     fixtures = ['fixtures/message_and_notify']
 
     @classmethod

@@ -1,11 +1,8 @@
-import pika
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from common.models import Country
-from django.conf import settings
-from utils.broker.rabbitmq import RabbitMQ
 
 
-class CustomerRegistrationViewTest(BaseTestView):
+class CustomerRegistrationViewTest(BaseViewTestCase):
     fixtures = ['fixtures/message_and_notify']
 
     @classmethod
@@ -38,15 +35,3 @@ class CustomerRegistrationViewTest(BaseTestView):
 
         response = self.client.post(self.url, self.invalid_data)
         self.assertEqual(response.status_code, 400)
-
-    def tearDown(self) -> None:
-        self.rabbitmq = RabbitMQ()
-        with self.rabbitmq:
-            try:
-                self.rabbitmq._channel.queue_purge(queue=settings.EMAIL_ROUTING_KEY)
-            except pika.exceptions.ChannelClosedByBroker:
-                pass
-            try:
-                self.rabbitmq._channel.queue_purge(queue=settings.NOTIFY_ROUTING_KEY)
-            except pika.exceptions.ChannelClosedByBroker:
-                pass

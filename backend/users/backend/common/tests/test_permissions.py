@@ -3,7 +3,7 @@ from unittest import mock
 from unittest.mock import MagicMock, patch
 
 from administrator.models import Admin, AdminGroup
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from base.permissions import BaseUserPermissions
 from base.validators import BaseUserValidation
@@ -24,7 +24,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
 
 
-class TestBasePermissions(BaseTestView):
+class TestBasePermissions(BaseViewTestCase):
     @patch.object(BaseUserPermissions, "verify")
     def test_010_base_permission(self, mock_verify: MagicMock):
         mock_verify.return_value = True
@@ -48,7 +48,7 @@ class TestBasePermissions(BaseTestView):
         self.assertEqual(context.exception.detail[0], "custom error")
 
 
-class TestValidators(BaseTestView):
+class TestValidators(BaseViewTestCase):
     def test_010_active_user_validator(self):
         user = mock.create_autospec(BaseAbstractUser)
         user.is_active = True
@@ -69,7 +69,7 @@ class TestValidators(BaseTestView):
         BannedUserValidatorVerify().validate(user)
 
 
-class TestPermissions(BaseTestView):
+class TestPermissions(BaseViewTestCase):
     def setUp(self) -> None:
         self.view = MagicMock()
         self.request = mock.create_autospec(Request)

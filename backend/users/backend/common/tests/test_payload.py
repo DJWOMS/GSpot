@@ -1,12 +1,12 @@
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from common.services.jwt.users_payload import PayloadFactory
 from customer.models import CustomerUser
 from developer.models import CompanyUser
 
 
-class TestTokenJWT(BaseTestView):
+class TestTokenJWT(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
         cls.payload_factory = PayloadFactory()
