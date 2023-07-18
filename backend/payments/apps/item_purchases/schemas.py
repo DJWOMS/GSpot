@@ -1,19 +1,17 @@
-from dataclasses import dataclass
 from decimal import Decimal
 from uuid import UUID
+from pydantic import BaseModel
 
 from apps.base.schemas import URL, MoneyDataClass, PaymentServiceInfo
 
 
-@dataclass
-class ItemPaymentData:
+class ItemPaymentData(BaseModel):
     item_uuid: UUID
     price: MoneyDataClass
     developer_uuid: UUID
 
 
-@dataclass(kw_only=True)
-class PurchaseItemsData(PaymentServiceInfo):
+class PurchaseItemsData(PaymentServiceInfo, BaseModel):
     user_uuid_from: UUID
     user_uuid_to: UUID
     return_url: URL
@@ -24,8 +22,7 @@ class PurchaseItemsData(PaymentServiceInfo):
         return sum(item_payment_data.price.amount for item_payment_data in self.items_payment_data)
 
 
-@dataclass
-class ItemPurchaseData:
+class ItemPurchaseData(BaseModel):
     user_uuid_from: UUID
     user_uuid_to: UUID
     item_uuid: UUID

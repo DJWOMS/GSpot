@@ -1,7 +1,7 @@
 import enum
-from dataclasses import dataclass
 from decimal import Decimal
-from typing import NewType
+from typing import NewType, Optional
+from pydantic import BaseModel
 
 from apps.item_purchases.models import Invoice
 from apps.payment_accounts.models import Account, BalanceChange
@@ -23,18 +23,19 @@ class PaymentTypes(enum.Enum):
     from_balance = 'from_balance'
 
 
-@dataclass(kw_only=True)
-class PaymentServiceInfo:
+class PaymentServiceInfo(BaseModel):
     payment_service: PaymentServices
-    payment_type: PaymentTypes | None = None
+    payment_type: Optional[PaymentTypes] = None
 
 
-@dataclass
-class ResponseParsedData:
+class ResponseParsedData(BaseModel):
     income_amount: Decimal
     account: Account
     balance_object: BalanceChange
-    invoice: Invoice | None = None
+    invoice: Optional[Invoice] = None
+
+    class Config:
+        arbitrary_types_allowed = True
 
 
 EnumCurrencies = enum.Enum(
@@ -43,13 +44,11 @@ EnumCurrencies = enum.Enum(
 )
 
 
-@dataclass
-class MoneyDataClass:
+class MoneyDataClass(BaseModel):
     amount: Decimal
     currency: EnumCurrencies
 
 
-@dataclass
-class YookassaMoneyDataClass:
+class YookassaMoneyDataClass(BaseModel):
     value: Decimal
     currency: EnumCurrencies = settings.DEFAULT_CURRENCY
