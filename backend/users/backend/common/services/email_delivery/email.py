@@ -5,6 +5,7 @@ from base.delivery.base_notify import BaseNotify
 from base.models import BaseAbstractUser
 from utils.broker.message import (
     AdminActivationMessage,
+    BaseMessage,
     CustomerActivationMessage,
     DevelopActivationMessage,
     NotifyMessage,
@@ -17,7 +18,7 @@ class EmailDelivery(BaseEmail):
 
     def send_email(
         self,
-        message: AdminActivationMessage | CustomerActivationMessage | DevelopActivationMessage,
+        message: BaseMessage,
     ):
         with self.rabbitmq as rabbit:
             rabbit.send_message(message=message)
