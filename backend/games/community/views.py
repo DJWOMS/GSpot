@@ -6,6 +6,10 @@ from .models import Comment, Review
 from .serializers import ReviewSerializer, CommentSerializer
 
 
+class ReviewCreateAPIView(generics.CreateAPIView):
+    serializer_class = ReviewSerializer
+
+
 class GameReviewListView(generics.ListAPIView):
     serializer_class = ReviewSerializer
 
