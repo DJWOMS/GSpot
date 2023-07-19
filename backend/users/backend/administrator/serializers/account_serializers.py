@@ -1,5 +1,4 @@
 from administrator.models import Admin
-from base.serializers import ChangePasswordSerializers
 from rest_framework import serializers
 
 

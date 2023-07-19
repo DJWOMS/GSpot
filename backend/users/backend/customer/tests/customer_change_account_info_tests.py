@@ -25,4 +25,4 @@ class CustomerChangeAccountInfoApiTestCase(ChangeAccountInfoApiTestCase, APITest
 
     @staticmethod
     def get_reverse_url():
-        return "customer-user-account"
+        return "user-account"

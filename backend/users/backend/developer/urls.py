@@ -1,8 +1,4 @@
-from developer.views.v1 import (
-    DeveloperGroupViewSet,
-    DeveloperPermissionViewSet,
-    account_views,
-)
+from developer.views.v1 import DeveloperGroupViewSet, DeveloperPermissionViewSet
 from developer.views.v1.auth_view import DeveloperAuthView
 from developer.views.v1.company_view import CompanyAPIView
 from developer.views.v1.developer_registration_view import DeveloperRegistrationView
@@ -20,15 +16,6 @@ router.register(r"permission", DeveloperPermissionViewSet, basename="developer_p
 
 urlpatterns = router.urls
 
-account_router = [
-    path(
-        "developer/me",
-        account_views.AccountViewSet.as_view(
-            {"get": "retrieve", "put": "partial_update", "delete": "destroy"},
-        ),
-        name="developer-user-account",
-    ),
-]
 
 generic_routes = [
     path("registration/", DeveloperRegistrationView.as_view()),
@@ -46,7 +33,6 @@ company_urls = [
     path("company/", CompanyAPIView.as_view(), name="company"),
 ]
 
-urlpatterns += account_router
 urlpatterns += generic_routes
 urlpatterns += auth_routes
 urlpatterns += company_urls
