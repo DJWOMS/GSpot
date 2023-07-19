@@ -38,7 +38,7 @@ class ReactionSerializer(serializers.ModelSerializer):
 class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
-        fields = ('name',)
+        fields = '__all__'
 
 
 class ReviewSerializer(serializers.ModelSerializer):
