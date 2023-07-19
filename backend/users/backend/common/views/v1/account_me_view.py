@@ -20,7 +20,6 @@ from rest_framework.permissions import IsAuthenticated
         responses={
             200: openapi.Response(
                 "Личная информация пользователя",
-                # account_serializers.AccountRetrieveSerializers,
             ),
             401: openapi.Response("Не аутентифицированный пользователь"),
         },

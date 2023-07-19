@@ -1,114 +1,96 @@
-import datetime
-
 from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
+from base.base_tests.tests import BaseViewTestCase
+from base.models import BaseAbstractUser
 from customer.models import CustomerUser
 from developer.models import CompanyUser
-from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 
 
-class ChangePassTestAPI(BaseTestView, TestCase):
-    url = reverse("user_change_password")
-    admin_user: Admin
-    customer_user: CustomerUser
-    developer: CompanyUser
-
+class ChangePassTestAPI(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.admin_user = Admin.objects.create_superuser(
-            username="adminR",
-            email="adminR@test.com",
-            phone="891123123",
-            password="testpassAdmin123R",
-            is_active=True,
-        )
-        cls.customer_user = CustomerUser.objects.create_user(
-            username="customer_user",
-            email="email@mail.ru",
-            password="test_customer_user1",
-            first_name="user_test_name",
-            last_name="user_test_name",
-            phone="89991234567",
-            birthday=datetime.date.today(),
-            is_active=True,
-        )
-        cls.developer = CompanyUser.objects.create_user(
-            username="test super_user",
-            email="testuser@example.com",
-            phone="1234567890",
-            password="testpassword",
-            is_active=True,
-            is_superuser=True,
-        )
+        cls.url = reverse("user_change_password")
+        cls.old_password = cls.faker.lexify(text='??????????')
+        cls.new_password = cls.faker.lexify(text='??????????')
+        cls.admin = cls.create_user(Admin, password=cls.old_password)
+        cls.customer = cls.create_user(CustomerUser, password=cls.old_password)
+        cls.developer = cls.create_user(CompanyUser, password=cls.old_password)
 
-    def test_developer_change_password_currect_patch(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.developer))
+    @classmethod
+    def create_user(cls, model: type[BaseAbstractUser], **kwargs) -> BaseAbstractUser:
         data = {
-            "old_password": "testpassword",
-            "new_password": "adminnew01",
-            "confirmation_new_password": "adminnew01",
+            "username": cls.faker.word(),
+            "email": cls.faker.email(),
+            "phone": cls.faker.random_number(digits=10, fix_len=True),
+            "is_active": True,
+        }
+        if model == CustomerUser:
+            data["birthday"] = cls.faker.date_object()
+        return model.objects.create_user(**data, **kwargs)
+
+    def test_01_developer_change_password_correct_patch(self):
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.developer))
+        data = {
+            "old_password": self.old_password,
+            "new_password": self.new_password,
+            "confirmation_new_password": self.new_password,
         }
         response = self.client.post(self.url, data=data, format="json")
         user: CompanyUser = CompanyUser.objects.get(username=self.developer.username)
-
-        self.assertTrue(user.check_password("adminnew01"))
+        self.assertTrue(user.check_password(self.new_password))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_developer_change_password_wrong_old_password(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.developer))
+    def test_02_developer_change_password_wrong_old_password(self):
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.developer))
         data = {
-            "old_password": "wrongpassword",
-            "new_password": "developernew01",
-            "confirmation_new_password": "developernew01",
+            "old_password": self.faker.word(),
+            "new_password": self.new_password,
+            "confirmation_new_password": self.new_password,
         }
         response = self.client.post(self.url, data=data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_developer_change_password_wrong_confirm_password(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.developer))
+    def test_03_developer_change_password_wrong_confirm_password(self):
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.developer))
         data = {
-            "old_password": "testpassword",
-            "new_password": "Gachidevelopernew01",
-            "confirmation_new_password": "NOGachidevelopernew01",
+            "old_password": self.old_password,
+            "new_password": self.new_password,
+            "confirmation_new_password": self.new_password + "asd",
         }
         response = self.client.post(self.url, data=data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_change_password_unauthenticate_user(self):
+    def test_04_change_password_unauthenticate_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="")
         data = {
-            "old_password": "somepassword",
-            "new_password": "adminnew01",
-            "confirmation_new_password": "adminnew01",
+            "old_password": self.old_password,
+            "new_password": self.new_password,
+            "confirmation_new_password": self.new_password,
         }
         response = self.client.post(self.url, data=data, format="json")
-
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_costumer_user_change_password_currect_patch(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.customer_user))
+    def test_05_customer_user_change_password_correct_patch(self):
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.customer))
         data = {
-            "old_password": "test_customer_user1",
-            "new_password": "gachiActor1",
-            "confirmation_new_password": "gachiActor1",
+            "old_password": self.old_password,
+            "new_password": self.new_password,
+            "confirmation_new_password": self.new_password,
         }
         response = self.client.post(self.url, data=data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        user: CustomerUser = CustomerUser.objects.get(username=self.customer_user.username)
+        user: CustomerUser = CustomerUser.objects.get(username=self.customer.username)
+        self.assertTrue(user.check_password(self.new_password))
 
-        self.assertTrue(user.check_password("gachiActor1"))
-
-    def test_admin_user_change_password_currect_patch(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.admin_user))
+    def test_06_admin_user_change_password_correct_patch(self):
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.admin))
         data = {
-            "old_password": "testpassAdmin123R",
-            "new_password": "gachiAdmin12ru",
-            "confirmation_new_password": "gachiAdmin12ru",
+            "old_password": self.old_password,
+            "new_password": self.new_password,
+            "confirmation_new_password": self.new_password,
         }
         response = self.client.post(self.url, data=data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        user: Admin = Admin.objects.get(username=self.admin_user.username)
-
-        self.assertTrue(user.check_password("gachiAdmin12ru"))
+        user: Admin = Admin.objects.get(username=self.admin.username)
+        self.assertTrue(user.check_password(self.new_password))

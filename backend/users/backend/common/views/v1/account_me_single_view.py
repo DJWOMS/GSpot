@@ -10,45 +10,19 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
-# @method_decorator(
-#     name="retrieve",
-#     decorator=swagger_auto_schema(
-#         operation_description="Личный кабинет пользователя",
-#         tags=["Пользователь", "Личный кабинет пользователя"],
-#         responses={
-#             200: openapi.Response(
-#                 "Личная информация пользователя",
-#                 #account_serializers.AccountRetrieveSerializers,
-#             ),
-#             401: openapi.Response("Не аутентифицированный пользователь"),
-#         },
-#     ),
-# )
-# @method_decorator(
-#     name="partial_update",
-#     decorator=swagger_auto_schema(
-#         operation_description="Изменение информации в личном кабинете пользователя",
-#         tags=["Пользователь", "Личный кабинет пользователя"],
-#         responses={
-#             200: openapi.Response(
-#                 "Информация обновлена",
-#                 #account_serializers.AccountUpdateSerializers,
-#             ),
-#             401: openapi.Response("Не аутентифицированный пользователь"),
-#         },
-#     ),
-# )
-# @method_decorator(
-#     name="delete",
-#     decorator=swagger_auto_schema(
-#         operation_description="Удаление своего профиля самим пользователем",
-#         tags=["Пользователь", "Личный кабинет пользователя"],
-#         responses={
-#             200: openapi.Response("профиль пользователя успешно удалён"),
-#             401: openapi.Response("Не аутентифицированный пользователь"),
-#         },
-#     ),
-# )
+@method_decorator(
+    name="retrieve",
+    decorator=swagger_auto_schema(
+        operation_description="Личный кабинет пользователя",
+        tags=["Пользователь", "Личный кабинет пользователя"],
+        responses={
+            200: openapi.Response(
+                "Личная информация пользователя",
+            ),
+            401: openapi.Response("Не аутентифицированный пользователь"),
+        },
+    ),
+)
 class AccountSingleUserViewSet(viewsets.ViewSet):
     http_method_names = ["get", "put", "delete"]
     admin_serializer_map = {
@@ -85,7 +59,10 @@ class AccountSingleUserViewSet(viewsets.ViewSet):
                 'customer': self.customer_serializer_map,
             }
             role = user._meta.app_label
-            serializer_map = serializers_by_role[role]
+            serializer_map = serializers_by_role.get(role)
+            if serializer_map is None:
+                return Response(status=404)
+
             serializer = serializer_map['default'](user)
             return Response(serializer.data)
         else:

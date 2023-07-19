@@ -28,7 +28,6 @@ class BaseMessage:
 
 @dataclass
 class EmailMessage(BaseMessage):
-    totp: str
     subject: str
     exchange_name: str = settings.EMAIL_EXCHANGE_NAME
     routing_key: str = settings.EMAIL_ROUTING_KEY
@@ -58,6 +57,7 @@ class NotifyMessage(BaseMessage):
 
 @dataclass
 class AdminActivationMessage(EmailMessage):
+    totp: str = ...
     subject: str = 'admin_activation'
 
     def get_message_from_db(self, *args, **kwargs):
@@ -70,6 +70,7 @@ class AdminActivationMessage(EmailMessage):
 
 @dataclass
 class DevelopActivationMessage(EmailMessage):
+    totp: str = ...
     subject: str = 'develop_activation'
 
     def get_message_from_db(self, *args, **kwargs):
@@ -82,6 +83,7 @@ class DevelopActivationMessage(EmailMessage):
 
 @dataclass
 class CustomerActivationMessage(EmailMessage):
+    totp: str = ...
     subject: str = 'customer_activation'
 
     def get_message_from_db(self, *args, **kwargs):

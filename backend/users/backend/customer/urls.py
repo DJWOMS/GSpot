@@ -1,23 +1,13 @@
-from customer.views.v1 import customer_friend_view  # , account_views
+from customer.views.v1 import customer_friend_view
 from customer.views.v1.auth_view import CustomerAuthView
 from customer.views.v1.customer_friend_view import AddFriendsView
 from customer.views.v1.customer_registration_view import CustomerRegistrationView
 from django.urls import path
-from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
     path("registration/", CustomerRegistrationView.as_view()),
 ]
 
-# account_router = [
-#     path(
-#         "customer/me",
-#         account_views.AccountViewSet.as_view(
-#             {"get": "retrieve", "put": "partial_update", "delete": "destroy"},
-#         ),
-#         name="customer-user-account",
-#     ),
-# ]
 
 auth_routes = [path("login/", CustomerAuthView.as_view(), name="customer_login")]
 
@@ -60,6 +50,5 @@ friends = [
 ]
 
 
-# urlpatterns += account_router
 urlpatterns += auth_routes
 urlpatterns += friends

@@ -1,59 +1,54 @@
-from administrator.models import Admin
-from base.base_tests.tests import BaseTestView
-from common.models import ContactType, Country
+from base.base_tests.tests import BaseViewTestCase
+from base.models import BaseAbstractUser
+from common.models import Country
 from developer.models import Company, CompanyUser
-from django.test import TestCase
+from django.urls import reverse
 
 
-class DeveloperTestView(BaseTestView, TestCase):
-    url = "/api/v1/developer/employee/"
-    company_owner: CompanyUser
-    created: CompanyUser
-
+class DeveloperTestView(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
-        Country.objects.create(id=1, name="Russia")
-        cls.company_owner = CompanyUser.objects.create_user(
-            "company_owner",
-            "company_owner@mail.ru",
-            "9803489988",
-            "company_owner",
-        )
+        cls.url = reverse('developer_users_list')
+        Country.objects.create(id=1, name=cls.faker.country())
+        cls.company_owner = cls.create_user(CompanyUser)
         company = Company.objects.create(
             id=1,
             created_by=cls.company_owner,
-            title="company",
-            description="company_description",
-            email="company@email.com",
+            title=cls.faker.word(),
+            description=cls.faker.text(),
+            email=cls.faker.email(),
             is_confirmed=True,
             is_active=True,
         )
         cls.company_owner.company = company
         cls.company_owner.save()
-        cls.created = CompanyUser.objects.create_user(
-            "company_user",
-            "company_user@example.com",
-            "9807789345",
-            "company_user",
-            company=company,
-        )
+        cls.developer = cls.create_user(CompanyUser, company=company)
+
+    @classmethod
+    def create_user(cls, model: type[BaseAbstractUser], **kwargs) -> type[BaseAbstractUser]:
+        data = {
+            "username": cls.faker.word(),
+            "password": cls.faker.word(),
+            "email": cls.faker.email(),
+            "phone": cls.faker.random_number(digits=10, fix_len=True),
+            "is_active": True,
+        }
+        return model.objects.create_user(**data, **kwargs)
 
     def test_010_create_employee(self):
         data = {
-            "username": "company_user1",
-            "first_name": "company_user1",
-            "last_name": "company_user1",
-            "email": "company_user1@example.com",
-            "phone": "9803449861",
+            "username": self.faker.word(),
+            "email": self.faker.email(),
+            "phone": self.faker.random_number(digits=10, fix_len=True),
             "country": 1,
             "is_banned": False,
         }
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.company_owner))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.company_owner))
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, 201)
 
     def test_020_get_list_by_company_owner(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.company_owner))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.company_owner))
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
@@ -63,38 +58,33 @@ class DeveloperTestView(BaseTestView, TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_040_get_developer_detail(self):
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.company_owner))
-        response = self.client.get(f"{self.url}{self.created.id}/")
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.company_owner))
+        response = self.client.get(f"{self.url}{self.developer.id}/")
         self.assertEqual(response.status_code, 200)
 
     def test_050_partial_update_developer(self):
         data = {
-            "first_name": "123",
+            "first_name": self.faker.word(),
         }
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(self.company_owner))
-        response = self.client.put(f"{self.url}{self.created.id}/", data)
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(self.company_owner))
+        response = self.client.put(f"{self.url}{self.developer.id}/", data)
         self.assertEqual(response.status_code, 200)
 
     def test_060_queryset(self):
-        test_company_owner = CompanyUser.objects.create_user(
-            "company_owner2",
-            "company_owner2@mail.ru",
-            "9803484188",
-            "company_owner2",
-        )
+        test_company_owner = self.create_user(CompanyUser)
         test_company = Company.objects.create(
             id=2,
             created_by=test_company_owner,
-            title="company2",
-            description="company_description2",
-            email="company2@email.com",
+            title=self.faker.word(),
+            description=self.faker.text(),
+            email=self.faker.email(),
             is_confirmed=True,
             is_active=True,
         )
         test_company_owner.company = test_company
         test_company_owner.save()
-        self.client.credentials(HTTP_AUTHORIZATION=self.get_token(test_company_owner))
+        self.client.credentials(HTTP_AUTHORIZATION=self.get_access_token(test_company_owner))
         response = self.client.get(self.url)
         self.assertEqual(len(response.data), 0)
-        response = self.client.get(f"{self.url}{self.created.id}/")
+        response = self.client.get(f"{self.url}{self.developer.id}/")
         self.assertEqual(response.status_code, 404)

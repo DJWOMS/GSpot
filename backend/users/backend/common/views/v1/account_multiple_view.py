@@ -10,21 +10,21 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
-# @method_decorator(
-#     name="retrieve",
-#     decorator=swagger_auto_schema(
-#         operation_description="Личный кабинет пользователя",
-#         tags=["Пользователь", "Личный кабинет пользователя"],
-#         responses={
-#             200: openapi.Response(
-#                 "Личная информация пользователя",
-#                 #account_serializers.AccountRetrieveSerializers,
-#             ),
-#             401: openapi.Response("Не аутентифицированный пользователь"),
-#         },
-#     ),
-# )
+@method_decorator(
+    name="create",
+    decorator=swagger_auto_schema(
+        operation_description="Личный кабинет пользователя",
+        tags=["Пользователь", "Личный кабинет пользователя"],
+        responses={
+            200: openapi.Response(
+                "Личная информация пользователя",
+            ),
+            401: openapi.Response("Не аутентифицированный пользователь"),
+        },
+    ),
+)
 class AccountMultipleUsersViewSet(viewsets.ViewSet):
+    http_method_names = ["post"]
     permission_map = {
         "default": [IsAuthenticated],
         "retrieve": [IsAuthenticated],

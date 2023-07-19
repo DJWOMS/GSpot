@@ -1,7 +1,4 @@
-from administrator.views.v1 import (  # account_views,
-    AdminGroupViewSet,
-    AdminPermissionViewSet,
-)
+from administrator.views.v1 import AdminGroupViewSet, AdminPermissionViewSet
 from administrator.views.v1.auth_view import AdminAuthView
 from administrator.views.v1.company_view import CompanyListView
 from administrator.views.v1.customer_view import CustomerListView
@@ -20,16 +17,6 @@ router.register(r"permission", AdminPermissionViewSet, basename="admin_permissio
 
 urlpatterns = router.urls
 
-
-# account_router = [
-#     path(
-#         "administrator/me",
-#         account_views.AccountViewSet.as_view(
-#             {"get": "retrieve", "put": "partial_update", "delete": "destroy"},
-#         ),
-#         name="administrator-user-account",
-#     ),
-# ]
 
 generic_urls = [
     path("employee/", EmployeeListView.as_view(), name="admin_employee"),
@@ -105,7 +92,6 @@ company_urls = [
 auth_urls = [path("login/", AdminAuthView.as_view(), name="admin_login")]
 
 
-# urlpatterns += account_router
 urlpatterns += generic_urls
 urlpatterns += customer_urls
 urlpatterns += developer_urls

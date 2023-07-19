@@ -2,16 +2,22 @@ from datetime import datetime
 from typing import Type
 
 from administrator.models import Admin
+from base.base_tests.tests import BaseViewTestCase
 from base.models import BaseAbstractUser
 from common.services.jwt.users_payload import PayloadFactory
 from config.settings import redis_config
 from customer.models import CustomerUser
 from developer.models import CompanyUser
-from django.test import TestCase
 from utils.db.redis_client import RedisAccessClient, RedisRefreshClient, RedisTotpClient
 
 
-class RedisClientTestCase(TestCase):
+class RedisClientTestCase(BaseViewTestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.developer = cls.create_user(CompanyUser)
+        cls.administrator = cls.create_user(Admin)
+        cls.customer = cls.create_user(CustomerUser)
+
     def setUp(self) -> None:
         host = (redis_config.REDIS_LOCAL_HOST,)
         port = (redis_config.REDIS_LOCAL_PORT,)
@@ -19,10 +25,6 @@ class RedisClientTestCase(TestCase):
         access_db = redis_config.REDIS_ACCESS_DB
         refresh_db = redis_config.REDIS_REFRESH_DB
         totp_db = redis_config.REDIS_TOTP_DB
-
-        self.developer = self.create_user(CompanyUser)
-        self.administrator = self.create_user(Admin)
-        self.customer = self.create_user(CustomerUser)
         self.redis_access_client = RedisAccessClient(
             host=host,
             port=port,
@@ -60,13 +62,13 @@ class RedisClientTestCase(TestCase):
             password=password,
         )
 
-    @staticmethod
-    def create_user(user_model: Type[BaseAbstractUser]) -> Type[BaseAbstractUser]:
+    @classmethod
+    def create_user(cls, user_model: Type[BaseAbstractUser]) -> Type[BaseAbstractUser]:
         data = {
-            "username": "test_user",
-            "password": "test_password",
-            "email": "test_email@example.com",
-            "phone": 12341234,
+            "username": cls.faker.first_name(),
+            "password": cls.faker.word(),
+            "email": cls.faker.email(),
+            "phone": cls.faker.random_number(digits=10, fix_len=True),
             "is_active": True,
         }
         if user_model == CustomerUser:

@@ -76,7 +76,6 @@ class CompanyUser(BaseAbstractUser, DeveloperPermissionMixin):
         null=True,
         verbose_name=_("Developer country"),
     )
-    avatar = models.ImageField(blank=True, verbose_name=_("Developer avatar"))
     is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     groups = models.ManyToManyField(
