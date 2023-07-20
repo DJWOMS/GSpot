@@ -16,15 +16,15 @@ class CommonUserPayload:
             country = model_to_dict(self.user.country)
         common_payload = {
             "user_id": str(self.user.id),
-            'username': self.user.username,
-            'first_name': self.user.username,
-            'last_name': self.user.username,
+            "username": self.user.username,
+            "first_name": self.user.username,
+            "last_name": self.user.username,
             "email": self.user.email,
             "phone": self.user.phone,
             "role": self.user._meta.app_label,
             "avatar": str(self.user.avatar),
             "permissions": self.user.permissions_codename,
-            'country': country,
+            "country": country,
             "is_active": self.user.is_active,
             "is_banned": self.user.is_banned,
             "created_at": str(self.user.created_at),
@@ -62,8 +62,8 @@ class DeveloperPayload(BasePayload, CommonUserPayload):
         company = {}
         if self.user.company is not None:
             company = model_to_dict(self.user.company)
-            company['created_by'] = str(company['created_by'])
-            company['image'] = str(self.user.company.image)
+            company["created_by"] = str(company["created_by"])
+            company["image"] = str(self.user.company.image)
         developer_payload = {
             "is_superuser": self.user.is_superuser,
             "groups": list(self.user.groups.all()),
@@ -83,7 +83,7 @@ class CustomerPayload(BasePayload, CommonUserPayload):
     def generate_payload(self):
         common_payload = self.get_common_payload()
         common_payload["age"] = self.user.age
-        friends_ids = self.user.friends.values_list('id', flat=True)
+        friends_ids = self.user.friends.values_list("id", flat=True)
         friends_ids = [str(f_id) for f_id in friends_ids]
         customer_payload = {
             "friends": friends_ids,
