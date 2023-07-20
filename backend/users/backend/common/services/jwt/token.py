@@ -120,12 +120,10 @@ class Token(BaseToken, JWTMixin):
 
     def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
         self.validate_user(user)
-        user_payload = self.get_user_payload(user)
         default_payload = self.get_default_refresh_payload()
         payload = {
             "token_type": "refresh",
             **default_payload,
-            **user_payload,
         }
         refresh_token = self._encode(payload)
 
