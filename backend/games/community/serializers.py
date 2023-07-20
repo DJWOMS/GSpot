@@ -1,6 +1,9 @@
-from django.db.models import Count
-
+from django.http import HttpResponse
 from rest_framework import serializers
+from rest_framework import status
+from rest_framework.response import Response
+
+from base.choices import GradeChoices
 
 from .models import Media, Social, Review, Comment, Reaction
 
@@ -30,9 +33,11 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class ReactionSerializer(serializers.ModelSerializer):
+    user_uuid = serializers.UUIDField()
+
     class Meta:
         model = Reaction
-        fields = ('id', 'like_type')
+        fields = ('user_uuid', 'review', 'like_type')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -45,6 +50,6 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     def get_reactions(self, obj):
         reactions = Reaction.objects.filter(review=obj)
-        likes = reactions.filter(like_type='Like').count()
-        dislikes = reactions.filter(like_type='Dislike').count()
+        likes = reactions.filter(like_type=GradeChoices.LIKE).count()
+        dislikes = reactions.filter(like_type=GradeChoices.DISLIKE).count()
         return {'like': likes, 'dislike': dislikes}
