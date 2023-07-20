@@ -1,4 +1,4 @@
-from django.db import IntegrityError, transaction
+from django.db import transaction
 
 from rest_framework import serializers
 from base.choices import TypeProductChoices
@@ -249,10 +249,7 @@ class GameDlcLinkSerializer(serializers.Serializer):
         if not dlc_links:
             raise serializers.ValidationError('DLC указаны неверно', code='invalid')
 
-        try:
-            GameDlcLink.objects.bulk_create(dlc_links)
-        except IntegrityError as e:
-            raise serializers.ValidationError(str(e), code='invalid')
+        GameDlcLink.objects.bulk_create(dlc_links)
 
         return dlc_links
 
