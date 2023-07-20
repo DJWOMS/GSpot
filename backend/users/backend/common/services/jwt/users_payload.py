@@ -11,27 +11,36 @@ class CommonUserPayload:
         self.user = None
 
     def get_common_payload(self) -> dict:
+        country = {}
+        if self.user.country:
+            country = model_to_dict(self.user.country)
         common_payload = {
             "user_id": str(self.user.id),
+            'username': self.user.username,
+            'first_name': self.user.username,
+            'last_name': self.user.username,
+            "email": self.user.email,
+            "phone": self.user.phone,
             "role": self.user._meta.app_label,
             "avatar": str(self.user.avatar),
             "permissions": self.user.permissions_codename,
+            'country': country,
+            "is_active": self.user.is_active,
+            "is_banned": self.user.is_banned,
+            "created_at": str(self.user.created_at),
+            "update_at": str(self.user.update_at),
         }
         return common_payload
 
 
 class AdminPayload(BasePayload, CommonUserPayload):
     def __init__(self, user: Admin):
+        super().__init__()
         self.user = user
 
     def generate_payload(self):
         common_payload = self.get_common_payload()
         admin_payload = {
-            "email": self.user.email,
-            "phone": self.user.phone,
-            "country": self.user.country,
-            "created_at": str(self.user.created_at),
-            "update_at": str(self.user.update_at),
             "is_superuser": self.user.is_superuser,
             "groups": list(self.user.groups.all()),
             "user_permissions": list(self.user.user_permissions.all()),
@@ -44,26 +53,18 @@ class AdminPayload(BasePayload, CommonUserPayload):
 
 
 class DeveloperPayload(BasePayload, CommonUserPayload):
-    def __init__(self, user: BaseAbstractUser):
+    def __init__(self, user: CompanyUser):
+        super().__init__()
         self.user = user
 
     def generate_payload(self):
         common_payload = self.get_common_payload()
         company = {}
-        country = {}
         if self.user.company is not None:
             company = model_to_dict(self.user.company)
             company['created_by'] = str(company['created_by'])
             company['image'] = str(self.user.company.image)
-        if self.user.country:
-            country = model_to_dict(self.user.country)
         developer_payload = {
-            "email": self.user.email,
-            "phone": self.user.phone,
-            "country": country,
-            "created_at": str(self.user.created_at),
-            "update_at": str(self.user.update_at),
-            "is_active": self.user.is_active,
             "is_superuser": self.user.is_superuser,
             "groups": list(self.user.groups.all()),
             "user_permissions": list(self.user.user_permissions.all()),
@@ -75,26 +76,18 @@ class DeveloperPayload(BasePayload, CommonUserPayload):
 
 
 class CustomerPayload(BasePayload, CommonUserPayload):
-    def __init__(self, user: BaseAbstractUser):
+    def __init__(self, user: CustomerUser):
+        super().__init__()
         self.user = user
 
     def generate_payload(self):
         common_payload = self.get_common_payload()
         common_payload["age"] = self.user.age
-        country = {}
-        if self.user.country:
-            country = model_to_dict(self.user.country)
         friends_ids = self.user.friends.values_list('id', flat=True)
         friends_ids = [str(f_id) for f_id in friends_ids]
         customer_payload = {
-            "email": self.user.email,
-            "phone": self.user.phone,
-            "created_at": str(self.user.created_at),
-            "update_at": str(self.user.update_at),
             "friends": friends_ids,
             "birthday": str(self.user.birthday),
-            "is_active": self.user.is_active,
-            "country": country,
         }
         payload = common_payload | customer_payload
 
