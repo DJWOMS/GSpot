@@ -1,12 +1,14 @@
+from administrator.models import Admin
 from administrator.serializers import account_serializers as admin_account_serializers
-from base.models import BaseAbstractUser
+from common.permissions.user_permission_class import UserPermissionClass
+from customer.models import CustomerUser
 from customer.serializers import account_serializers as customer_account_serializers
+from developer.models import CompanyUser
 from developer.serializers import account_serializers as developer_account_serializers
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
@@ -43,15 +45,20 @@ class AccountSingleUserViewSet(viewsets.ViewSet):
         "partial_update": customer_account_serializers.AccountUpdateSerializers,
         "destroy": customer_account_serializers.AccountRetrieveSerializers,
     }
-    permission_map = {
-        "default": [IsAuthenticated],
-        "retrieve": [IsAuthenticated],
-        "partial_update": [IsAuthenticated],
-        "destroy": [IsAuthenticated],
-    }
+    permission_map = UserPermissionClass.get_permission_map()
 
-    def retrieve(self, request, user_uuid=None):
-        user = BaseAbstractUser.objects.filter(uuid=user_uuid).first()
+    def get_queryset(self):
+        qs = {
+            'administrator': Admin.objects.all(),
+            'developer': CompanyUser.objects.all(),
+            'customer': CustomerUser.objects.all(),
+        }
+
+        role = self.request.user._meta.app_label
+        return qs.get(role, [])
+
+    def retrieve(self):
+        user = self.get_object()
         if user:
             serializers_by_role = {
                 'administrator': self.admin_serializer_map,

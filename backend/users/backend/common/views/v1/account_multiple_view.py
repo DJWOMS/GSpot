@@ -1,4 +1,5 @@
 from base.models import BaseAbstractUser
+from common.permissions.user_permission_class import UserPermissionClass
 from common.serializers.v1.mixed_account_retrieve_serializer import (
     MixedAccountRetrieveSerializer,
 )
@@ -6,7 +7,6 @@ from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
@@ -25,12 +25,7 @@ from rest_framework.response import Response
 )
 class AccountMultipleUsersViewSet(viewsets.ViewSet):
     http_method_names = ["post"]
-    permission_map = {
-        "default": [IsAuthenticated],
-        "retrieve": [IsAuthenticated],
-        "partial_update": [IsAuthenticated],
-        "destroy": [IsAuthenticated],
-    }
+    permission_map = UserPermissionClass.get_permission_map()
 
     def create(self, request):
         uuid_list = request.data.get('uuid_list', [])

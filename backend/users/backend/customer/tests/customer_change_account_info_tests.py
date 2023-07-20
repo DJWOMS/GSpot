@@ -29,14 +29,6 @@ class CustomerChangeAccountInfoApiTestCase(BaseViewTestCase):
         responce_change_username = self.client.put(url, data=new_data)
         self.assertEqual("CustomerUser2", responce_change_username.data.get("username"))
 
-    @staticmethod
-    def get_user_model():
-        return CustomerUser
-
-    @staticmethod
-    def get_reverse_url():
-        return "user-account"
-
     def test_change_info_logout_user(self):
         url = self.url
         responce = self.client.get(url)

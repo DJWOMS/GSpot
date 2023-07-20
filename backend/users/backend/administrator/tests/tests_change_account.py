@@ -30,14 +30,6 @@ class AdminChangeAccountInfoApiTestCase(BaseViewTestCase):
         responce_change_username = self.client.put(self.url, data=new_data)
         self.assertEqual("Admin2", responce_change_username.data.get("username"))
 
-    @staticmethod
-    def get_user_model():
-        return Admin
-
-    @staticmethod
-    def get_reverse_url():
-        return "user-account"
-
     def test_change_info_unauthorized(self):
         responce = self.client.get(self.url)
         self.assertEqual(403, responce.status_code)
