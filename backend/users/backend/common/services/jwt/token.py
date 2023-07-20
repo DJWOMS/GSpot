@@ -71,8 +71,6 @@ class Token(BaseToken, JWTMixin):
         self.validate_payload_data(data)
         default_payload = self.get_default_access_payload()
         redis_payload = {
-            "token_type": "access",
-            **default_payload,
             **data,
         }
         payload = {
@@ -106,8 +104,6 @@ class Token(BaseToken, JWTMixin):
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_access_payload()
         redis_payload = {
-            "token_type": "access",
-            **default_payload,
             **user_payload,
         }
         payload = {
