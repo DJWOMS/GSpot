@@ -1,6 +1,7 @@
-from django.db import transaction
+from django.db import IntegrityError, transaction
 
 from rest_framework import serializers
+from base.choices import TypeProductChoices
 from community.models import Social
 from core.models.product import GameDlcLink
 from finance.models.offer import Offer, Price, ProductOffer
@@ -229,15 +230,33 @@ class GameDlcLinkSerializer(serializers.Serializer):
         game_id = validated_data['game']
         dlc_ids = validated_data['dlc']
 
-        dlc_links = []
-        for dlc_id in dlc_ids:
-            dlc_links.append(GameDlcLink(game_id=game_id, dlc_id=dlc_id))
+        if not dlc_ids:
+            raise serializers.ValidationError('DLC не указаны', code='invalid')
 
-        GameDlcLink.objects.bulk_create(dlc_links)
+        game = Product.objects.filter(id=game_id).first()
+
+        if not game or game.type != TypeProductChoices.GAMES:
+            raise serializers.ValidationError('Игра указана неверно', code='invalid')
+
+        dlc_products = Product.objects.filter(id__in=dlc_ids)
+
+        dlc_links = []
+        for dlc in dlc_products:
+            if dlc.type != TypeProductChoices.DLC:
+                raise serializers.ValidationError('DLC указаны неверно', code='invalid')
+            dlc_links.append(GameDlcLink(game_id=game_id, dlc_id=dlc.id))
+
+        if not dlc_links:
+            raise serializers.ValidationError('DLC указаны неверно', code='invalid')
+
+        try:
+            GameDlcLink.objects.bulk_create(dlc_links)
+        except IntegrityError as e:
+            raise serializers.ValidationError(str(e), code='invalid')
+
         return dlc_links
 
     def to_representation(self, instance):
-        print(instance)
         return {
             'game': instance[0].game_id,
             'dlc': [link.dlc_id for link in instance]
