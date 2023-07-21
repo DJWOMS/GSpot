@@ -48,11 +48,3 @@ services:
       interval: 1s
       timeout: 3s
       retries: 30
-  worker:
-    container_name: users-service-celery-worker
-    restart: always
-    build: ./
-    command: celery -A config worker --loglevel=info
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
