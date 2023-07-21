@@ -6,5 +6,5 @@ urlpatterns = [
     path('review/<uuid:game_uuid>/', GameReviewListView.as_view(), name='review'),
     path('comments/<int:review_id>/',
          GameReviewCommentListView.as_view(), name='review-comments'),
-    path('add_review/', ReviewCreateView.as_view(), name='add-review'),
+    path('review/', ReviewCreateView.as_view(), name='add-review'),
 ]
