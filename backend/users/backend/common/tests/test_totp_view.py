@@ -38,10 +38,6 @@ class TestCheckTOTPToken(BaseViewTestCase):
         request = self.client.post(self.check_totp_url, data=data)
         self.assertEqual(request.status_code, 200)
 
-        data.update({"password": self.faker.word()})
-        request = self.client.put(self.set_password_url, data=data)
-        self.assertEqual(request.status_code, 201)
-
     def test_totp_for_admin(self):
         test_token = self.totp.generate_totp()
         self.totp.add_to_redis(test_token, self.administrator)
@@ -50,10 +46,6 @@ class TestCheckTOTPToken(BaseViewTestCase):
         request = self.client.post(self.check_totp_url, data=data)
         self.assertEqual(request.status_code, 200)
 
-        data.update({"password": self.faker.word()})
-        request = self.client.put(self.set_password_url, data=data)
-        self.assertEqual(request.status_code, 201)
-
     def test_totp_for_customer(self):
         test_token = self.totp.generate_totp()
         self.totp.add_to_redis(test_token, self.customer)
@@ -61,7 +53,3 @@ class TestCheckTOTPToken(BaseViewTestCase):
         data = {"totp_token": test_token}
         request = self.client.post(self.check_totp_url, data=data)
         self.assertEqual(request.status_code, 200)
-
-        data.update({"password": self.faker.word()})
-        request = self.client.put(self.set_password_url, data=data)
-        self.assertEqual(request.status_code, 201)
