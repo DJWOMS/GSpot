@@ -1,5 +1,5 @@
 [tool.black]
-line-length = 79
+line-length = 100
 include = '.pyi?$'
 exclude = '''
 /(
@@ -17,5 +17,5 @@ exclude = '''
 
 [tool.isort]
 profile = "black"
-line_length = 79
+line_length = 100
 src_paths = ["backend", "backend/games"]
