@@ -119,6 +119,7 @@ class Token(BaseToken, JWTMixin):
         default_payload = self.get_default_refresh_payload()
         payload = {
             "token_type": "refresh",
+            "user_id": user.id,
             **default_payload,
         }
         refresh_token = self._encode(payload)
