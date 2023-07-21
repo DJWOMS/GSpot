@@ -12,7 +12,7 @@ from ..base.serializer import MoneySerializer
 from .models import Account, BalanceChange, Owner, PayoutData
 
 
-class PaymentCommissionSerializer(PaymentServiceSerializer):
+class CalculateCommissionSerializer(PaymentServiceSerializer):
     payment_amount = MoneyAmountSerializerField(
         validators=[MinValueValidator(0, message='Insufficient Funds')],
     )
