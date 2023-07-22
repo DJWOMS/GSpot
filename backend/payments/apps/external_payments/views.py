@@ -1,8 +1,10 @@
 import rollbar
 from apps.base.schemas import PaymentServices
 from dacite import MissingValueError, from_dict
+from gspot_django_auth.authentication import CustomJWTAuthentication
 from gspot_django_auth.permissions import IsAdminSuperUserPerm
 from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 
 from .models import PaymentCommission, PaymentService
@@ -60,6 +62,7 @@ class PaymentCommissionView(viewsets.ModelViewSet):
     serializer_class = PaymentCommissionSerializer
     pagination_class = None
     permission_classes = (IsAdminSuperUserPerm,)
+    authentication_classes = (CustomJWTAuthentication, TokenAuthentication)
 
     def get_queryset(self):
         if self.request.method == 'LIST':
@@ -74,3 +77,4 @@ class PaymentServiceView(viewsets.ModelViewSet):
     serializer_class = PaymentServiceSerializer
     pagination_class = None
     permission_classes = (IsAdminSuperUserPerm,)
+    authentication_classes = (CustomJWTAuthentication, TokenAuthentication)
