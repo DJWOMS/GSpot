@@ -77,10 +77,13 @@ class PayoutDestination(BaseModel):
     account_number: str
 
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
 
 
-class YookassaPayoutModel(BaseModel):
+class WithdrawModel(BaseModel):
     amount: YookassaMoneyDataClass
-    payout_destination_data: PayoutDestination
     user_uuid: UUID
+
+
+class YookassaPayoutModel(WithdrawModel):
+    payout_destination_data: PayoutDestination

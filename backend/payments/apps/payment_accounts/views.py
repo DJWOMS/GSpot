@@ -1,7 +1,7 @@
 from apps.base.classes import DRFtoDataClassMixin
 from apps.base.exceptions import AttemptsLimitExceededError, DifferentStructureError
 from apps.base.utils.db_query import multiple_select_or_404
-from apps.external_payments.schemas import YookassaPayoutModel
+from apps.external_payments.schemas import WithdrawModel
 from django.forms import model_to_dict
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -27,7 +27,7 @@ from .services.payout import PayoutProcessor
 
 
 class CalculatePaymentCommissionView(viewsets.ViewSet, DRFtoDataClassMixin):
-    serializer_class = serializers.PaymentCommissionSerializer
+    serializer_class = serializers.CalculateCommissionSerializer
 
     def create(self, request, *args, **kwargs):
         try:
@@ -80,17 +80,20 @@ class UserCreateDeleteView(
 
 
 class PayoutView(viewsets.ViewSet, DRFtoDataClassMixin):
-    serializer_class = serializers.PayoutSerializer
+    serializer_class = serializers.WithdrawSerializer
     permission_classes = (IsCompanyScopeUserPerm,)
     authentication_classes = (CustomJWTAuthentication, TokenAuthentication)
 
     def create(self, request, *args, **kwargs):
         try:
-            payout_data = self.convert_data(request, YookassaPayoutModel)
+            withdraw_data = self.convert_data(request, WithdrawModel)
         except DifferentStructureError:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        try:
+            pre_payout_processor = PayoutProcessor(withdraw_data)
+        except Http404 as e:
+            return Response({'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
 
-        pre_payout_processor = PayoutProcessor(payout_data)
         try:
             response = pre_payout_processor.create_payout()
         except (
@@ -114,6 +117,12 @@ class BalanceViewSet(viewsets.ViewSet):
         serializer.is_valid(raise_exception=True)
 
         uuid_list = serializer.validated_data['uuid_list']
+        if not uuid_list:
+            return Response(
+                {'detail': 'uuid_list cannot be empty.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         try:
             balance_list = multiple_select_or_404(uuid_list, Account, 'user_uuid')
         except Http404 as error:

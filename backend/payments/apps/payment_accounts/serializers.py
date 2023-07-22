@@ -12,7 +12,7 @@ from ..base.serializer import MoneySerializer
 from .models import Account, BalanceChange, Owner, PayoutData
 
 
-class PaymentCommissionSerializer(PaymentServiceSerializer):
+class CalculateCommissionSerializer(PaymentServiceSerializer):
     payment_amount = MoneyAmountSerializerField(
         validators=[MinValueValidator(0, message='Insufficient Funds')],
     )
@@ -47,9 +47,8 @@ class PayoutDestination(serializers.Serializer):
         return super().to_internal_value(data)
 
 
-class PayoutSerializer(serializers.Serializer):
+class WithdrawSerializer(serializers.Serializer):
     amount = AmountPayoutSerializer()
-    payout_destination_data = PayoutDestination()
     user_uuid = serializers.UUIDField()
 
 

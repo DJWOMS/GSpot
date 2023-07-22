@@ -11,7 +11,7 @@ from apps.base.schemas import (
 )
 from apps.base.utils import change_balance
 from apps.external_payments import schemas
-from apps.external_payments.schemas import YookassaPayoutModel
+from apps.external_payments.schemas import PayoutDestination, WithdrawModel
 from apps.item_purchases.models import Invoice
 from apps.item_purchases.schemas import PurchaseItemsData
 from apps.payment_accounts.models import Account, BalanceChange, PayoutData
@@ -229,21 +229,25 @@ class YookassaPayOut(AbstractPayoutService):
         return Payout.create(payout_data)
 
     @staticmethod
-    def create_payout_data(payout_data: YookassaPayoutModel, developer_account: Account):
+    def create_payout_data(
+        withdraw_data: WithdrawModel,
+        developer_account: Account,
+        payout_data: PayoutDestination,
+    ):
         response = {
             'amount': {
-                'value': payout_data.amount.value,
-                'currency': payout_data.amount.currency.value,
+                'value': withdraw_data.amount.value,
+                'currency': withdraw_data.amount.currency.value,
             },
             'description': f'Выплата для {developer_account.user_uuid}',
         }
-        if payout_data.payout_destination_data.type_ == PayoutData.PayoutType.YOO_MONEY:
+        if payout_data.type_ == PayoutData.PayoutType.YOO_MONEY:
             response['payout_destination_data'] = {
-                'type': payout_data.payout_destination_data.type_.value,
-                'account_number': payout_data.payout_destination_data.account_number,
+                'type': payout_data.type_.value,
+                'account_number': payout_data.account_number,
             }
             return response
-        elif payout_data.payout_destination_data.type_ == PayoutData.PayoutType.BANK_CARD:
+        elif payout_data.type_ == PayoutData.PayoutType.BANK_CARD:
             # TODO add functionality to support bank card # noqa: T000
             #  https://yookassa.ru/developers/api#payout_object
             pass
