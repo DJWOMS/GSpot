@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'drf_spectacular',
     'rest_framework',
+    'gspot_django_auth',
     # local
     'apps.payment_accounts',
     'apps.item_purchases',
