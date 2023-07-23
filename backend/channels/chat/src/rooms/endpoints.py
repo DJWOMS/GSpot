@@ -6,7 +6,7 @@ from .services import get_room_messages
 room = APIRouter(prefix='/room', tags=['Room'])
 
 
-@room.get('/{room_id}/{token}/{user_id}', dependencies=[
+@room.get('/{room_id}/{token}', dependencies=[
     Depends(get_user_or_403), Depends(user_is_participant)
 ])
 async def chat_room(room_id: str):
