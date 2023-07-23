@@ -1,5 +1,6 @@
 aio-pika==8.1.1
 aiormq==6.4.2
+aiosmtplib==2.0.2
 dnspython==2.3.0
 idna==3.4
 motor==3.1.1
