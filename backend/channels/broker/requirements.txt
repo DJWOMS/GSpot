@@ -10,3 +10,4 @@ pymongo==4.3.3
 typing_extensions==4.5.0
 yarl==1.8.2
 redis==4.5.4
+email-validator==2.0.0.post2
