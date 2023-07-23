@@ -1,8 +1,13 @@
 import unittest
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase, AsyncIOMotorCollection
-from config.database import db_config
-from bson.binary import JAVA_LEGACY
+
 from bson import CodecOptions
+from bson.binary import JAVA_LEGACY
+from config.database import db_config
+from motor.motor_asyncio import (
+    AsyncIOMotorClient,
+    AsyncIOMotorCollection,
+    AsyncIOMotorDatabase,
+)
 from pymongo import ReadPreference, WriteConcern
 from pymongo.read_preferences import Secondary
 

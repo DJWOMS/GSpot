@@ -1,23 +1,18 @@
-from fastapi import (
-    Query,
-    WebSocketException,
-    status,
-)
 import aiohttp
+from fastapi import HTTPException
+from starlette.status import HTTP_403_FORBIDDEN
 
 
-async def get_token(token):
-    print(token)
-    return token
+async def get_token():
+    pass
 
 
-# async def get_token(
-#     token: str | None = Query(default=None),
-# ):
-#     print(token)
-#     return True
-    # async with aiohttp.ClientSession() as session:
-    #     async with session.post('http://users/token', json={'token': token}) as resp:
-    #         if resp.status != 201:
-    #             raise WebSocketException(code=status.WS_1008_POLICY_VIOLATION)
-    # return token
+async def get_user_or_403(token: str):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+            'http://users.alpha.g-spot.website/api/v1/customer/customer/me',
+            headers={'Authorization': token}
+        ) as resp:
+            if resp.status != 200:
+                raise HTTPException(HTTP_403_FORBIDDEN)
+    return

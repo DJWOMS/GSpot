@@ -1,9 +1,7 @@
-import asyncio
 import unittest
-from redis import Redis
-from config.redis import redis_config
+
 import redis.asyncio as redis
-from redis.asyncio.client import PubSub
+from config.redis import redis_config
 
 
 class TestRedis(unittest.IsolatedAsyncioTestCase):

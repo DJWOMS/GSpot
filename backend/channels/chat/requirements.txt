@@ -7,7 +7,9 @@ dnspython==2.3.0
 idna==3.4
 motor==3.1.1
 multidict==6.0.4
+pre-commit==3.3.3
 pydantic==1.10.7
 pymongo==4.3.3
 typing_extensions==4.5.0
 yarl==1.8.2
+pre-commit==3.3.3

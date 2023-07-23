@@ -1,14 +1,13 @@
-import redis.asyncio as redis
-from redis.asyncio.client import PubSub, Redis
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
-from aio_pika.abc import AbstractRobustConnection, AbstractRobustChannel
-import aio_pika
 import asyncio
 
-from config.redis import redis_config
+import aio_pika
+import redis.asyncio as redis
+from aio_pika.abc import AbstractRobustChannel, AbstractRobustConnection
 from config.database import db_config
 from config.rabbitmq import rabbitmq_config
-
+from config.redis import redis_config
+from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
+from redis.asyncio.client import PubSub, Redis
 from services.database import MongoManager
 from services.rabbitmq import RabbitManager
 
