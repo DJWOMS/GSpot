@@ -1,8 +1,10 @@
-from pydantic import BaseModel
+import uuid
+
+from pydantic import BaseModel, EmailStr
 
 
 class Mail(BaseModel):
-    uuid: int
-    email: str
+    uuid: uuid.UUID
+    email: EmailStr
     subject: str
     body: str
