@@ -2,7 +2,7 @@ from django.db.models import Count
 
 from rest_framework import serializers
 
-from .models import Media, Social, Review, Comment, Reaction
+from .models import Media, Social, Review, Comment, Reaction, Language
 
 
 class MediaSerializer(serializers.ModelSerializer):
@@ -35,13 +35,19 @@ class ReactionSerializer(serializers.ModelSerializer):
         fields = ('id', 'like_type')
 
 
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Language
+        fields = '__all__'
+
+
 class ReviewSerializer(serializers.ModelSerializer):
     reactions = serializers.SerializerMethodField()
-    language = serializers.StringRelatedField()
+    language = LanguageSerializer
 
     class Meta:
         model = Review
-        exclude = ('game', )
+        fields = '__all__'
 
     def get_reactions(self, obj):
         reactions = Reaction.objects.filter(review=obj)
