@@ -1,16 +1,11 @@
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework import generics
-from finance.models import Library
+from finance.models import Library, Offer
 from finance.serializers import OfferSerializer, LibrarySerializer
 
 
-class OfferAPIView(APIView):
-    def post(self, request):
-        serializer = OfferSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+class OfferAPIView(generics.CreateAPIView):
+    serializer_class = OfferSerializer
+    queryset = Offer.objects.all()
 
 
 class ShowLibraryView(generics.RetrieveAPIView):
