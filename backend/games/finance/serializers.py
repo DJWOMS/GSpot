@@ -1,7 +1,7 @@
 from rest_framework import serializers
+from django.db import transaction
 from core.models.product import Product
 from finance.models import Price, ProductOffer, Offer, Library
-from django.db import transaction
 
 
 class PriceSerializer(serializers.ModelSerializer):

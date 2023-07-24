@@ -5,6 +5,7 @@ from community.models import Social
 from core.models.product import GameDlcLink
 from finance.models.offer import Offer, Price, ProductOffer
 from finance.serializers import ProductOfferSerializer
+from finance.mixins import PricePackSeriazerMixin
 
 from reference import serializers as ref_serializers
 from community import serializers as com_serializers
@@ -77,9 +78,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
         product = Product.objects.create(**validated_data)
         ProductOffer.objects.create(product=product, offer=offer, **product_offer)
 
-        social_objects = [
-            Social(product=product, **social) for social in socials
-        ]
+        social_objects = [Social(product=product, **social) for social in socials]
         Social.objects.bulk_create(social_objects)
 
         requirement_objects = [
@@ -94,13 +93,15 @@ class CreateProductSerializer(serializers.ModelSerializer):
                 language = Language.objects.get(name=language_name)
             except Language.DoesNotExist as e:
                 raise serializers.ValidationError(str(e), code='invalid')
-            language_objects.append(ProductLanguage(
-                product=product,
-                language=language,
-                interface=lang['interface'],
-                subtitles=lang['subtitles'],
-                voice=lang['voice']
-            ))
+            language_objects.append(
+                ProductLanguage(
+                    product=product,
+                    language=language,
+                    interface=lang['interface'],
+                    subtitles=lang['subtitles'],
+                    voice=lang['voice'],
+                ),
+            )
 
         ProductLanguage.objects.bulk_create(language_objects)
 
@@ -118,7 +119,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
 
 
 class OperatingSystemSerializer(serializers.Serializer):
-    """ Operating System Serializer """
+    """Operating System Serializer"""
 
     class Meta:
         model = SystemRequirement
@@ -131,7 +132,7 @@ class ShortSystemReqSerializers(serializers.ModelSerializer):
         fields = ('id', 'operating_system')
 
 
-class GamesListSerializer(serializers.ModelSerializer):
+class GamesListSerializer(serializers.ModelSerializer, PricePackSeriazerMixin):
     price = serializers.SerializerMethodField()
     # TODO реализовать систему скидок
     discount = serializers.IntegerField(default=0)
@@ -141,18 +142,6 @@ class GamesListSerializer(serializers.ModelSerializer):
 
     system_requirements = ShortSystemReqSerializers(many=True, read_only=True)
     genres = serializers.StringRelatedField(many=True)
-
-    def get_price(self, obj):
-        try:
-            offer = ProductOffer.objects.filter(product=obj).latest('id')
-            price = Offer.objects.get(id=str(offer.offer_id)).price
-            result = {
-                'amount': price.amount,
-                'currency': price.currency
-            }
-            return result
-        except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
-            return None
 
     class Meta:
         model = Product
@@ -165,11 +154,54 @@ class GamesListSerializer(serializers.ModelSerializer):
             'price',
             'discount',
             'is_bought',
-            'is_favorite'
+            'is_favorite',
         )
 
 
-class GameDetailSerializer(serializers.ModelSerializer):
+class PricePackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Price
+        fields = (
+            'amount',
+            'currency',
+        )
+
+
+class ProductPackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = (
+            'id',
+            'name',
+        )
+
+
+class OfferPackSerializer(serializers.ModelSerializer):
+    price = PricePackSerializer()
+    products = ProductPackSerializer(many=True)
+
+    class Meta:
+        model = Offer
+        fields = (
+            'id',
+            'price',
+            'products',
+        )
+
+
+class DlcsPackSerializer(serializers.ModelSerializer, PricePackSeriazerMixin):
+    price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = (
+            'id',
+            'name',
+            'price',
+        )
+
+
+class GameDetailSerializer(serializers.ModelSerializer, PricePackSeriazerMixin):
     price = serializers.SerializerMethodField()
     # TODO реализовать систему скидок
     discount = serializers.IntegerField(default=0)
@@ -179,21 +211,10 @@ class GameDetailSerializer(serializers.ModelSerializer):
 
     system_requirements = SystemRequirementSerializer(many=True, read_only=True)
     genres = GenreGamesSerializer(many=True, read_only=True)
-    dlcs = ProductSerializer(many=True, read_only=False)
+    dlcs = DlcsPackSerializer(many=True, read_only=False)
     langs = ref_serializers.ProductLanguageSerializer(many=True, read_only=False)
     genres = GenreGamesSerializer(many=True, read_only=True)
-
-    def get_price(self, obj):
-        try:
-            offer = ProductOffer.objects.filter(product=obj).latest('id')
-            price = Offer.objects.get(id=str(offer.offer_id)).price
-            result = {
-                'amount': price.amount,
-                'currency': price.currency
-            }
-            return result
-        except (ProductOffer.DoesNotExist, Offer.DoesNotExist):
-            return None
+    offers = OfferPackSerializer(many=True)
 
     class Meta:
         model = Product
@@ -215,6 +236,7 @@ class GameDetailSerializer(serializers.ModelSerializer):
             'type',
             'developers_uuid',
             'publishers_uuid',
+            'offers',
             'dlcs',
             'langs',
             'system_requirements',
@@ -238,10 +260,7 @@ class GameDlcLinkSerializer(serializers.Serializer):
 
     def to_representation(self, instance):
         print(instance)
-        return {
-            'game': instance[0].game_id,
-            'dlc': [link.dlc_id for link in instance]
-        }
+        return {'game': instance[0].game_id, 'dlc': [link.dlc_id for link in instance]}
 
 
 class SaveToLibrarySerializer(serializers.Serializer):
