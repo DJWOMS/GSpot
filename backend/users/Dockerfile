@@ -18,9 +18,6 @@ RUN apt-get update && \
   libpq-dev \
   wget && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-  # Installing `poetry` package manager:
-  # https://github.com/python-poetry/poetry
-
 # Copy only requirements, to cache them in docker layer
 WORKDIR /app
 COPY ./requirements.txt /app/

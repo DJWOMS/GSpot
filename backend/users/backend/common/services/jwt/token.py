@@ -71,8 +71,6 @@ class Token(BaseToken, JWTMixin):
         self.validate_payload_data(data)
         default_payload = self.get_default_access_payload()
         redis_payload = {
-            "token_type": "access",
-            **default_payload,
             **data,
         }
         payload = {
@@ -106,8 +104,6 @@ class Token(BaseToken, JWTMixin):
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_access_payload()
         redis_payload = {
-            "token_type": "access",
-            **default_payload,
             **user_payload,
         }
         payload = {
@@ -120,12 +116,12 @@ class Token(BaseToken, JWTMixin):
 
     def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
         self.validate_user(user)
-        user_payload = self.get_user_payload(user)
         default_payload = self.get_default_refresh_payload()
         payload = {
             "token_type": "refresh",
+            "user_id": str(user.id),
+            "role": user._meta.app_label,
             **default_payload,
-            **user_payload,
         }
         refresh_token = self._encode(payload)
 
