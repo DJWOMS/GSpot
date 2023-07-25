@@ -1,7 +1,6 @@
 from administrator.models import Admin
 from administrator.serializers import account_serializers as admin_account_serializers
 from base.views import PersonalAccount
-from common.permissions.user_permission_class import UserPermissionClass
 from customer.models import CustomerUser
 from customer.serializers import account_serializers as customer_account_serializers
 from developer.models import CompanyUser
@@ -9,6 +8,7 @@ from developer.serializers import account_serializers as developer_account_seria
 from django.utils.decorators import method_decorator
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.permissions import IsAuthenticated
 
 
 @method_decorator(
@@ -68,19 +68,16 @@ class AccountViewSet(PersonalAccount):
         "partial_update": customer_account_serializers.AccountUpdateSerializers,
         "destroy": customer_account_serializers.AccountRetrieveSerializers,
     }
-    permission_map = UserPermissionClass.get_permission_map()
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        qs = {
+            'administrator': Admin.objects.all(),
+            'developer': CompanyUser.objects.all(),
+            'customer': CustomerUser.objects.all(),
+        }
         role = self.request.user._meta.app_label
-
-        if role == 'administrator':
-            return Admin.objects.all()
-        elif role == 'customer':
-            return CustomerUser.objects.all()
-        elif role == 'developer':
-            return CompanyUser.objects.all()
-
-        return []
+        return qs.get(role, [])
 
     def get_serializer_class(self):
         role = self.request.user._meta.app_label
