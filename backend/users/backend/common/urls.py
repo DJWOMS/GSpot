@@ -1,3 +1,6 @@
+from common.views.v1.account_me_single_view import AccountSingleUserViewSet
+from common.views.v1.account_me_view import AccountViewSet
+from common.views.v1.account_multiple_view import AccountMultipleUsersViewSet
 from common.views.v1.change_password_view import ChangePasswordAPIView
 from common.views.v1.contacttype_view import ContactTypeViewSet
 from common.views.v1.countrylist_view import CountryViewSet
@@ -19,3 +22,29 @@ urlpatterns = [
     path("set-password/", CheckTOTPView.as_view(), name="totp-set-password"),
     path("change_password/", ChangePasswordAPIView.as_view(), name="user_change_password"),
 ]
+
+account_router = [
+    path(
+        "account/me",
+        AccountViewSet.as_view(
+            {"get": "retrieve", "put": "partial_update", "delete": "destroy"},
+        ),
+        name="user-account",
+    ),
+    path(
+        "account/me/<uuid:user_id>/",
+        AccountSingleUserViewSet.as_view(
+            {"get": "retrieve", "put": "partial_update", "delete": "destroy"},
+        ),
+        name="user-single-account",
+    ),
+    path(
+        "account/me",
+        AccountMultipleUsersViewSet.as_view(
+            {"post": "create"},
+        ),
+        name="user-mixed-accounts",
+    ),
+]
+
+urlpatterns += account_router

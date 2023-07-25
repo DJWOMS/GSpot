@@ -6,7 +6,7 @@ from django.urls import reverse
 class CustomerChangeAccountInfoApiTestCase(BaseViewTestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.url = reverse('customer-user-account')
+        cls.url = reverse('user-account')
         cls.customer_user = CustomerUser.objects.create(
             username='CustomerUser',
             email=cls.faker.email(),
