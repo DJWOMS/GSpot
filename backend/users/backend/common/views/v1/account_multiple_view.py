@@ -29,7 +29,8 @@ class AccountMultipleUsersViewSet(viewsets.ViewSet):
     http_method_names = ["post"]
     permission_classes = [IsAuthenticated]
 
-    def get_users_queryset(self, users_uuid: list):
+    @staticmethod
+    def get_users_queryset(users_uuid: list):
         administrators = Admin.objects.filter(id__in=users_uuid)
         customers = CustomerUser.objects.filter(id__in=users_uuid)
         developers = CompanyUser.objects.filter(id__in=users_uuid)
