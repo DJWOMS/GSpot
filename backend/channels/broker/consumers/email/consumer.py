@@ -5,6 +5,7 @@ from email.message import EmailMessage
 import aiosmtplib
 from aio_pika.message import IncomingMessage
 from aio_pika.queue import Queue
+from config.database import db_config
 from config.smtp import smtp_config
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic.error_wrappers import ValidationError
@@ -23,12 +24,13 @@ class EmailConsumer(RabbitMQConsumer):
             queue=queue,
             db_client=db_client
         )
+        self.db = db_client[db_config.db]
 
     async def process_message(self, orig_message: IncomingMessage):
         async with orig_message.process():
             try:
-                message = json.loads(orig_message.body)
-                mail = Mail(**message)
+                msg = json.loads(orig_message.body)
+                mail = Mail(**msg)
 
                 smtp_client = aiosmtplib.SMTP(
                     hostname=smtp_config.SMTP_HOST,
@@ -46,7 +48,9 @@ class EmailConsumer(RabbitMQConsumer):
                     await smtp_client.login(username=smtp_config.EMAIL_ADDRESS, password=smtp_config.EMAIL_PASSWORD)
                     await smtp_client.send_message(message)
 
-                logger.info(f'Сообщение отправлено {orig_message.body}')
+                self.db.email.insert_one(msg)
+
+                logger.info(f'Сообщение отправлено {msg}')
 
             except (ValidationError, json.JSONDecodeError, aiosmtplib.SMTPDataError):
                 logger.error(f'Не удалось отправить сообщение {orig_message.body}')
