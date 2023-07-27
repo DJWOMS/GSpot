@@ -5,28 +5,13 @@ from base.models import BaseAbstractUser
 from base.tokens.token import BaseToken
 from common.services.jwt.exceptions import PayloadError, TokenExpired
 from common.services.jwt.mixins import JWTMixin
+from common.services.jwt.redis import RedisAccessToken, RedisBanRefreshToken
 from common.services.jwt.users_payload import PayloadFactory
-from config.settings import redis_config
 from django.conf import settings
 from django.utils import timezone
-from utils.db.redis_client import RedisAccessClient, RedisClient, RedisRefreshClient
 
 
 class Token(BaseToken, JWTMixin):
-    redis_access_client = RedisAccessClient(
-        host=redis_config.REDIS_SHARED_HOST,
-        port=redis_config.REDIS_SHARED_PORT,
-        db=redis_config.REDIS_ACCESS_DB,
-        password=redis_config.REDIS_SHARED_PASSWORD,
-    )
-
-    redis_refresh_client = RedisRefreshClient(
-        host=redis_config.REDIS_SHARED_HOST,
-        port=redis_config.REDIS_SHARED_PORT,
-        db=redis_config.REDIS_REFRESH_DB,
-        password=redis_config.REDIS_SHARED_PASSWORD,
-    )
-
     @staticmethod
     def validate_user(user: BaseAbstractUser):
         if user.is_active is not True:
@@ -71,8 +56,6 @@ class Token(BaseToken, JWTMixin):
         self.validate_payload_data(data)
         default_payload = self.get_default_access_payload()
         redis_payload = {
-            "token_type": "access",
-            **default_payload,
             **data,
         }
         payload = {
@@ -80,7 +63,7 @@ class Token(BaseToken, JWTMixin):
             **default_payload,
         }
         access_token = self._encode(payload)
-        self.__add_access_to_redis(token=access_token, value=redis_payload)
+        RedisAccessToken.add_access_to_redis(token=access_token, value=redis_payload)
         return access_token
 
     def generate_refresh_token(self, data: dict) -> str:
@@ -106,8 +89,6 @@ class Token(BaseToken, JWTMixin):
         user_payload = self.get_user_payload(user)
         default_payload = self.get_default_access_payload()
         redis_payload = {
-            "token_type": "access",
-            **default_payload,
             **user_payload,
         }
         payload = {
@@ -115,17 +96,17 @@ class Token(BaseToken, JWTMixin):
             **default_payload,
         }
         access_token = self._encode(payload)
-        self.__add_access_to_redis(token=access_token, value=redis_payload)
+        RedisAccessToken.add_access_to_redis(token=access_token, value=redis_payload)
         return access_token
 
     def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
         self.validate_user(user)
-        user_payload = self.get_user_payload(user)
         default_payload = self.get_default_refresh_payload()
         payload = {
             "token_type": "refresh",
+            "user_id": str(user.id),
+            "role": user._meta.app_label,
             **default_payload,
-            **user_payload,
         }
         refresh_token = self._encode(payload)
 
@@ -161,20 +142,8 @@ class Token(BaseToken, JWTMixin):
     def check_signature(self, token: str) -> None:
         self._decode(token)
 
-    @staticmethod
-    def __add_token_to_redis(redis_client: RedisClient, token: str, value: dict):
-        redis_client.add_token(token=token, value=value)
-
-    @classmethod
-    def __add_access_to_redis(cls, token: str, value: dict):
-        cls.__add_token_to_redis(redis_client=cls.redis_access_client, token=token, value=value)
-
-    @classmethod
-    def add_refresh_to_redis(cls, token: str, value: dict = None):
-        cls.__add_token_to_redis(redis_client=cls.redis_refresh_client, token=token, value=value)
-
-    def get_access_data(self, token: str) -> dict | None:
-        return self.redis_access_client.is_token_exist(token)
-
-    def get_refresh_data(self, token: str) -> dict | None:
-        return self.redis_refresh_client.is_token_exist(token)
+    # for backward compatibility
+    redis_refresh_client = RedisBanRefreshToken.redis_refresh_client
+    add_refresh_to_redis = RedisBanRefreshToken().add_refresh_to_redis
+    get_access_data = RedisAccessToken().get_access_data
+    get_refresh_data = RedisBanRefreshToken().get_refresh_data
