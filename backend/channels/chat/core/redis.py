@@ -1,6 +1,9 @@
+import json
+from typing import Dict
+
+import redis.asyncio as rd
 from config.redis import redis_config
 from redis.asyncio.client import PubSub, Redis
-import redis.asyncio as rd
 
 
 class RedisManager:
@@ -10,6 +13,10 @@ class RedisManager:
         decode_responses=True
     )
     pubsub: PubSub
+
+    async def get(self, key: str, is_json: bool) -> Dict | str:
+        if value := await self.redis.get(key):
+            return json.loads(value) if is_json else value
 
 
 redis_manager = RedisManager()
