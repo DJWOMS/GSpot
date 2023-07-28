@@ -29,8 +29,8 @@ class TestJWTLogoutView(BaseViewTestCase):
         return model.objects.create_user(**data)
 
     def create_refresh_token(self, user) -> dict:
-        refresh_token = self.get_tokens(user)
-        return {"refresh_token": refresh_token.get('refresh')}
+        refresh_token = self.get_refresh_token(user)
+        return {"refresh_token": refresh_token}
 
     def test_01_logout_developer(self):
         refresh_token = self.create_refresh_token(self.developer)

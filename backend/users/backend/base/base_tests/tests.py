@@ -31,5 +31,9 @@ class BaseViewTestCase(TestCase):
         return Token().generate_access_token_for_user(user)
 
     @staticmethod
+    def get_refresh_token(user: BaseAbstractUser) -> str:
+        return Token().generate_refresh_token_for_user(user)
+
+    @staticmethod
     def get_tokens(user: BaseAbstractUser) -> dict:
         return Token().generate_tokens_for_user(user)
