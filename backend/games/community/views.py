@@ -3,12 +3,17 @@ from rest_framework import generics
 from base.paginations import CommentsResultsSetPagination
 
 from .models import Comment, Review
-from .serializers import ReviewSerializer, CommentSerializer
+from .serializers import ReviewSerializer, CommentSerializer, FullCommentSerializer
 
 
 class ReviewCreateView(generics.CreateAPIView):
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
+
+
+class CommentCreateView(generics.CreateAPIView):
+    serializer_class = FullCommentSerializer
+    queryset = Comment.objects.all()
 
 
 class GameReviewListView(generics.ListAPIView):
