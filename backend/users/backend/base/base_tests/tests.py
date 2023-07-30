@@ -1,10 +1,15 @@
 import pika
+
+from administrator.models import Admin
 from base.models import BaseAbstractUser
 from common.services.jwt.token import Token
 from django.conf import settings
 from django.test import TestCase
 from faker import Faker
 from rest_framework.test import APIClient
+
+from customer.models import CustomerUser
+from developer.models import CompanyUser
 from utils.broker.rabbitmq import RabbitMQ
 
 
@@ -37,3 +42,30 @@ class BaseViewTestCase(TestCase):
     @staticmethod
     def get_tokens(user: BaseAbstractUser) -> dict:
         return Token().generate_tokens_for_user(user)
+
+    def get_user(self, user: BaseAbstractUser):
+
+        data_user = self.__generate_data_for_users(user)
+
+        if isinstance(user, CustomerUser):
+            customer_user = CustomerUser.objects.create_user(**data_user)
+            return customer_user
+        elif isinstance(user, Admin):
+            customer_user = Admin.objects.create_user(**data_user)
+            return customer_user
+        elif isinstance(user, CompanyUser):
+            customer_user = CompanyUser.objects.create_user(**data_user)
+            return customer_user
+        else:
+            raise ValueError(f"Type user {user.__class__.__name__} not found")
+
+    def __generate_data_for_users(self, type_user: BaseAbstractUser) -> dict:
+        data = {
+            "username": self.faker.word(),
+            "password": self.faker.word(),
+            "email": self.faker.email(),
+            "phone": self.faker.random_number(digits=10, fix_len=True),
+        }
+        if isinstance(type_user, CustomerUser):
+            data["birthday"] = self.faker.date_object()
+        return data
