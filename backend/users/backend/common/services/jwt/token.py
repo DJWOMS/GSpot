@@ -12,6 +12,9 @@ from django.utils import timezone
 
 
 class Token(BaseToken, JWTMixin):
+    redis_access_client = RedisAccessToken()
+    redis_ban_refresh_client = RedisBanRefreshToken()
+
     @staticmethod
     def validate_user(user: BaseAbstractUser):
         if user.is_active is not True:
@@ -63,7 +66,7 @@ class Token(BaseToken, JWTMixin):
             **default_payload,
         }
         access_token = self._encode(payload)
-        RedisAccessToken.add_access_to_redis(token=access_token, value=redis_payload)
+        self.redis_access_client.add(token=access_token, value=redis_payload)
         return access_token
 
     def generate_refresh_token(self, data: dict) -> str:
@@ -96,7 +99,7 @@ class Token(BaseToken, JWTMixin):
             **default_payload,
         }
         access_token = self._encode(payload)
-        RedisAccessToken.add_access_to_redis(token=access_token, value=redis_payload)
+        self.redis_access_client.add(token=access_token, value=redis_payload)
         return access_token
 
     def generate_refresh_token_for_user(self, user: BaseAbstractUser) -> str:
@@ -143,7 +146,7 @@ class Token(BaseToken, JWTMixin):
         self._decode(token)
 
     # for backward compatibility
-    redis_refresh_client = RedisBanRefreshToken.redis_refresh_client
-    add_refresh_to_redis = RedisBanRefreshToken().add_refresh_to_redis
-    get_access_data = RedisAccessToken().get_access_data
-    get_refresh_data = RedisBanRefreshToken().get_refresh_data
+    redis_refresh_client = redis_ban_refresh_client.client
+    add_refresh_to_redis = redis_ban_refresh_client.ban
+    get_access_data = redis_access_client.get_data
+    get_refresh_data = redis_ban_refresh_client.get_data
