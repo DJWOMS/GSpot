@@ -23,16 +23,12 @@ class BaseUserFactory(factory.django.DjangoModelFactory):
     email = factory.Faker('email')
     username = factory.Faker('lexify', text='??????????')
     phone = factory.Faker('random_number', digits=10)
-    avatar = ''
-    is_banned = False
     is_active = True
 
 
 class AdminUserFactory(BaseUserFactory):
     class Meta:
         model = Admin
-
-    is_superuser = False
 
 
 class CustomerUserFactory(BaseUserFactory):
@@ -45,8 +41,6 @@ class CustomerUserFactory(BaseUserFactory):
 class DeveloperUserFactory(BaseUserFactory):
     class Meta:
         model = CompanyUser
-
-    is_superuser = False
 
 
 class UsersFactory:
