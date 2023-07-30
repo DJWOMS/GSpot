@@ -1,6 +1,8 @@
 import os
 import time
 
+from social_core.pipeline import user
+
 from administrator.models import Admin
 from base.base_tests.tests import BaseViewTestCase
 from common.services.jwt.token import Token
@@ -21,7 +23,7 @@ class AdminGetJwtApiTestCase(BaseViewTestCase):
         )
         cls.url = reverse("token_refresh")
         cls.token = cls.get_tokens(cls.user)
-        cls.data = {"refresh_token": cls.token.get("refresh")}
+        cls.data = {"refresh_token": cls.get_refresh_token(cls.user)}
 
     def client_post(self, data):
         return self.client.post(self.url, data=data, format="json")

@@ -21,7 +21,7 @@ class DeveloperGetJwtApiTestCase(BaseViewTestCase):
         )
         cls.url = reverse("token_refresh")
         cls.token = cls.get_tokens(cls.user)
-        cls.data = {"refresh_token": cls.token.get("refresh")}
+        cls.data = {"refresh_token": cls.get_refresh_token(cls.user)}
 
     def client_post(self, data):
         return self.client.post(self.url, data=data, format="json")
