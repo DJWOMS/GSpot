@@ -1,6 +1,23 @@
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.4.0
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
     hooks:
-    -   id: flake8
-        args: [--config, backend/games/.flake8]
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+
+  - repo: https://github.com/ambv/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
