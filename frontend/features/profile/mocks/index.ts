@@ -28,10 +28,10 @@ export const generateMockCheckoutGameCard = (props = {}): CheckoutGameCardInterf
   currency: 'rub',
   ...props,
 })
-export const generateMockUserPublic = (): UserPublicDataInterface => ({
+export const generateMockUserPublic = (props = {}): UserPublicDataInterface => ({
   username: randomItem(['Alex', 'Max', 'King', 'Winner']),
   avatar: `https://loremflickr.com/240/240/abstract?lock=${randomNum(2)}`,
   is_active: true,
-  is_banned: false,
   country: randomNum(3),
+  ...props,
 })

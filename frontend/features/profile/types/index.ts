@@ -31,8 +31,7 @@ export interface UserDataInterface {
 }
 export interface UserPublicDataInterface {
   username: string
-  avatar: string
+  avatar?: string
   is_active: boolean
-  is_banned: boolean
   country: number
 }
