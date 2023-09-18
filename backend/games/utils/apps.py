@@ -1,6 +1,6 @@
-from django.apps import AppConfig
+from base.apps import BaseAppConfig
 
 
-class UtilsConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
+class UtilsConfig(BaseAppConfig):
     name = 'utils'
+    verbose_name = "Utils"
