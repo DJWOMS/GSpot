@@ -1,0 +1,22 @@
+name: Django CI/CD for games
+on:
+  push:
+    branches: [ "main", "games" ]
+  pull_request:
+    branches: [ "main", "games" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v3
+    - name: Install dependencies
+      run: |
+        pip install flake8
+    - name: Test with flake8
+      run: |
+        cd backend/games
+        python -m flake8
+    - name: Build and run containers
+      run: |
+        cd backend/games && docker-compose up -d --build
