@@ -1,0 +1,7 @@
+.input {
+  @apply relative my-2 h-[44px] w-full rounded-default border border-solid border-main-60 bg-main-30 px-[20px] text-[14px] tracking-[.4px] text-white;
+
+  &:focus {
+    @apply border-main-500 bg-main-40;
+  }
+}

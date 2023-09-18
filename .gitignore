@@ -12,8 +12,6 @@ idea
 dist
 db.sqlite3
 
-poetry.lock
-
 venv
 
 .env*

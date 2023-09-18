@@ -1,0 +1,23 @@
+.platform {
+  @apply mr-[10px] flex h-[26px] w-[26px] flex-row items-center justify-center rounded-full last:mr-0;
+
+  svg {
+    @apply h-auto w-[18px] fill-white;
+  }
+}
+
+.ps {
+  @apply bg-platform-ps;
+}
+
+.xbox {
+  @apply bg-platform-xb;
+}
+
+.win {
+  @apply bg-platform-wn;
+}
+
+.ap {
+  @apply bg-platform-ap;
+}

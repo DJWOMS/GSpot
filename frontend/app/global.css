@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply container mx-auto box-border bg-background px-4 font-sans font-normal antialiased;
+}
+body._lock {
+  overflow: hidden;
+}
+
+button {
+  @apply cursor-pointer border-none bg-transparent p-0 focus:outline-none;
+}
+
+button,
+a {
+  transition: 0.5s ease;
+}
+
+a:hover,
+a:active,
+a:focus {
+  outline: none;
+}
+
+::-moz-selection,
+::selection {
+  @apply bg-primary text-white shadow-none;
+}
+
+::-moz-placeholder,
+::-webkit-input-placeholder {
+  @apply text-light opacity-100;
+}
+
+body::-webkit-scrollbar {
+  @apply w-4;
+}
+
+body::-webkit-scrollbar-track {
+  @apply bg-main-60;
+}
+
+body::-webkit-scrollbar-thumb {
+  @apply bg-primary outline-1 outline-main-60;
+}
+.swiper,
+.swiper-container {
+  position: static !important;
+}

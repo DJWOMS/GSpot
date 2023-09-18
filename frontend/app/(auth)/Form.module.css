@@ -1,0 +1,130 @@
+.sign {
+  &Content {
+    @apply flex min-h-screen w-full flex-row items-center justify-center py-[40px];
+  }
+
+  &Form {
+    @apply relative flex w-full max-w-[400px] flex-col items-center justify-center rounded-default
+        border border-main-60 bg-background px-[20px] py-[40px] sm:p-[50px];
+  }
+
+  &Logo {
+    @apply mb-[40px] block transition-none sm:mb-[50px];
+
+    img {
+      @apply h-full w-full;
+    }
+  }
+
+  &Group {
+    @apply relative mb-[20px] w-full;
+  }
+
+  &Btn {
+    @apply my-[15px] flex h-[44px] w-full flex-col items-center justify-center rounded-default bg-acid
+        text-[13px] font-semibold uppercase tracking-[0.6px] text-white hover:bg-primary hover:text-white;
+  }
+
+  &Delimiter {
+    @apply text-[13px] leading-[100%] text-light;
+  }
+
+  &Input {
+    @apply relative h-[44px] w-full rounded-default border border-main-60 bg-main-30 px-[20px]
+        text-sm tracking-default text-white;
+
+    &:focus {
+      background-color: rgba(167, 130, 233, 0.04);
+      border-color: rgba(167, 130, 233, 0.5);
+    }
+  }
+
+  &Checkbox {
+    @apply w-full text-left;
+
+    input:not(:checked),
+    input:checked {
+      @apply absolute -left-[9999px];
+    }
+
+    input:not(:checked) + label,
+    input:checked + label {
+      @apply relative m-0 cursor-pointer pl-[35px] text-sm font-normal leading-[20px] text-light;
+    }
+
+    input:not(:checked) + label a,
+    input:checked + label a {
+      @apply text-primary;
+    }
+
+    input:not(:checked) + label:before,
+    input:checked + label:before {
+      @apply absolute left-0 top-0 h-[20px] w-[20px] rounded-default border
+            border-main-60 bg-main-30 content-[''];
+    }
+
+    input:not(:checked) + label:after,
+    input:checked + label:after {
+      @apply absolute left-0 top-0 h-[20px] w-[20px] text-center content-[''];
+      transition: 0.5s;
+      background: url('/img/checkmark.svg') no-repeat center/16px auto;
+    }
+
+    input:not(:checked) + label:after {
+      @apply scale-0 opacity-0;
+    }
+
+    input:checked + label:after {
+      @apply scale-100 opacity-100;
+    }
+
+    label::-moz-selection {
+      @apply bg-transparent text-light;
+    }
+
+    label::selection {
+      @apply bg-transparent text-light;
+    }
+  }
+
+  &Text {
+    @apply mt-[15px] text-sm text-light;
+
+    a {
+      @apply relative text-primary hover:underline;
+    }
+  }
+
+  &Socials {
+    @apply my-[15px] flex w-full flex-row items-center justify-between;
+  }
+
+  &Social {
+    @apply flex h-[44px] flex-row items-center justify-center rounded-default bg-black;
+    width: calc(33% - 10px);
+
+    svg {
+      @apply h-auto stroke-white;
+      transition: 0.5s ease;
+      transition-property: stroke, fill;
+    }
+
+    &:hover {
+      @apply bg-white;
+
+      svg {
+        @apply stroke-black;
+      }
+    }
+
+    &FB {
+      background-color: #3b5999;
+    }
+    &GL {
+      background-color: #df4a32;
+    }
+    &TW {
+      background-color: #1da1f2;
+    }
+  }
+}

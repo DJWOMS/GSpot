@@ -1,0 +1,66 @@
+name: Frontend Deploy Workflow
+on:
+  workflow_run:
+    workflows: [Frontend Tests]
+    branches:
+      - main
+      - develop
+    types:
+      - completed
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+defaults:
+  run:
+    working-directory: frontend
+jobs:
+  deploy-dev:
+    name: Develop deploy
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment:
+      name: Develop
+      url: ${{ steps.deploy.outputs.PREVIEW_URL }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+      - name: Build Project Artifacts
+        run: vercel build --token=$VERCEL_TOKEN
+      - id: deploy
+        name: Deploy Project Artifacts to Vercel
+        run: |
+          echo "PREVIEW_URL=$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)" >> $GITHUB_OUTPUT
+
+  deploy-prod:
+    name: Deploy to production
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: ${{ steps.deploy.outputs.PRODUCTION_URL }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=$VERCEL_TOKEN
+      - id: deploy
+        name: Deploy Project Artifacts to Vercel
+        run: |
+          echo "PRODUCTION_URL=$(vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN)" >> $GITHUB_OUTPUT

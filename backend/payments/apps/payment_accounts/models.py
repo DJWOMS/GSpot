@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 from apps.base.fields import CommissionField, MoneyField
 from apps.base.utils.classmethod import OperationType, add_change_balance_method
 from apps.payment_accounts.managers import BalanceChangeManager
@@ -50,6 +51,7 @@ class BalanceChange(models.Model):
         on_delete=models.PROTECT,
         related_name='balance_changes',
     )
+
     amount = MoneyField(
         validators=[MinValueValidator(0, message='Should be positive value')],
         editable=False,
@@ -60,6 +62,7 @@ class BalanceChange(models.Model):
         db_index=True,
     )
     is_accepted = models.BooleanField(default=False)
+
     operation_type = models.CharField(max_length=20, choices=OperationType.choices)
 
     objects = BalanceChangeManager()

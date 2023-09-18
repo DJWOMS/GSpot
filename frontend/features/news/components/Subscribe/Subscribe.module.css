@@ -1,0 +1,37 @@
+.subscribe {
+  @apply relative mt-[30px] flex flex-col items-center justify-start
+  rounded border border-main-60 bg-background p-5;
+}
+
+.image {
+  @apply mb-5 flex h-auto w-full flex-row
+  items-center justify-center;
+
+  svg {
+    @apply h-auto w-[56px] stroke-primary;
+  }
+}
+
+.title {
+  @apply relative mb-5 font-mont text-[24px] font-normal leading-[100%] text-white;
+}
+
+.text {
+  @apply mb-[25px] w-full text-center text-sm leading-6 text-light;
+}
+
+.button {
+  @apply flex h-[44px] w-full flex-row items-center justify-center rounded
+  text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
+
+  background-color: #29b474 !important;
+}
+
+.input {
+  @apply relative mb-5 h-[44px] w-full 
+  rounded border border-main-60 bg-main-30 py-0 px-5 text-sm tracking-default text-white;
+
+  &:focus {
+    @apply border border-main-500 bg-main-40;
+  }
+}

@@ -1,13 +1,16 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true
     },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
+        "plugin:@next/next/recommended",
         "plugin:@typescript-eslint/recommended",
-        "next/core-web-vitals"
+        "plugin:react-hooks/recommended",
+        "prettier"
     ],
     "overrides": [
     ],
@@ -18,8 +21,18 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "prettier",
+        "@typescript-eslint",
+        "react-hooks"
     ],
     "rules": {
-    }
+        "react/jsx-key": "error",
+        "prettier/prettier": "error",
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "react-hooks/exhaustive-deps": "error"
+    },
+    "ignorePatterns": [
+        "**/*.scss"
+    ]
 }

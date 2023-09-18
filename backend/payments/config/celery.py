@@ -3,6 +3,7 @@ import time
 
 from celery import Celery
 from celery.schedules import crontab
+
 from config import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
