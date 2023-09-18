@@ -1,0 +1,15 @@
+.row {
+  @apply grid gap-x-8 lg:grid-cols-12;
+}
+
+.columns2 {
+  @apply lg:col-span-3 xl:col-span-2;
+}
+
+.columns10 {
+  @apply lg:col-span-9 xl:col-span-10;
+}
+
+.list {
+  @apply grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4;
+}

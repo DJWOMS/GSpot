@@ -1,0 +1,11 @@
+.checkbox {
+  @apply flex items-center py-2;
+}
+
+.square {
+  @apply h-5 w-5 rounded bg-gray-700;
+}
+
+.line {
+  @apply ml-3 h-4 rounded bg-gray-700;
+}

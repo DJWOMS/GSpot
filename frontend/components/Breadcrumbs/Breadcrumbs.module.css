@@ -1,0 +1,31 @@
+.components {
+  @apply mt-[30px] flex flex-row items-center justify-start md:mt-0;
+}
+
+.breadcrumb {
+  @apply relative mr-[40px] text-sm leading-[22px] tracking-default text-light
+    hover:text-light;
+  transition: 0.5s;
+
+  &:first-child {
+    @apply pl-[25px];
+
+    &:after {
+      @apply absolute left-0 top-0 h-[22px] w-[25px] content-[''];
+      background: url('/svg/home.svg') no-repeat center left/16px auto;
+    }
+  }
+
+  &:before {
+    @apply absolute left-full top-0 h-[22px] w-[40px] opacity-80 content-[''];
+    background: url('/svg/breadcrumb.svg') no-repeat center/14px auto;
+  }
+
+  &Active {
+    @apply mr-0 cursor-default before:hidden hover:text-light;
+  }
+}
+
+.linkBtn {
+  @apply text-white hover:text-primary;
+}

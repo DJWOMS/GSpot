@@ -1,0 +1,251 @@
+.details {
+  @apply relative flex w-full flex-row flex-wrap items-start justify-start overflow-hidden rounded-md border border-solid border-main-60 bg-background p-5;
+
+  &Head {
+    @apply relative w-full;
+
+    @media (min-width: 768px) {
+      @apply flex flex-row items-start justify-between;
+    }
+
+    @media (min-width: 1026px) {
+      width: calc(100% - 210px);
+    }
+
+    @media (min-width: 1310px) {
+      width: calc(100% - 240px);
+    }
+  }
+
+  &Cover {
+    @apply relative mb-[15px] block w-full overflow-hidden rounded-md;
+
+    img {
+      @apply relative z-[1] w-full;
+    }
+
+    @media (min-width: 576px) {
+      @apply w-60;
+    }
+
+    @media (min-width: 768px) {
+      @apply mb-0;
+    }
+  }
+
+  &Trailer {
+    @apply absolute bottom-5 left-5 z-[2] flex h-[55px] flex-row items-center justify-center rounded-md border border-solid border-main-400 bg-main-150 text-sm tracking-default text-white;
+    width: calc(100% - 40px);
+
+    svg {
+      @apply relative z-[3] mr-[15px] h-auto w-[22px] stroke-primary duration-150;
+    }
+
+    span {
+      @apply z-[3];
+    }
+
+    &:before {
+      @apply pointer-events-none absolute bottom-[5px] left-[5px] right-[5px] top-[5px] z-[1] block rounded-md bg-background opacity-75 duration-150 content-none;
+    }
+
+    &:hover {
+      @apply border-main-60 bg-main-300 text-white;
+    }
+
+    &:hover:before {
+      @apply opacity-100;
+    }
+  }
+
+  &Wrap {
+    @apply relative w-4/5;
+
+    @media (min-width: 768px) {
+      @apply flex flex-col items-start justify-start;
+      width: calc(100% - 260px);
+    }
+  }
+
+  &Title {
+    @apply relative mb-2.5 w-full text-lg font-normal text-white;
+
+    @media (min-width: 768px) {
+      @apply text-[22px];
+    }
+
+    @media (min-width: 1200px) {
+      @apply text-xl;
+    }
+  }
+
+  &Cart {
+    @apply relative mt-5 h-auto border-t border-solid border-main-60 pt-5;
+
+    &Title {
+      @apply mb-2.5 block w-full text-sm tracking-default text-light;
+    }
+
+    @media (min-width: 992px) {
+      @apply order-2 mt-0 flex h-[340px] w-[220px] flex-col items-start justify-end border-l border-t-0 border-main-60 pl-5 pt-0;
+    }
+
+    @media (min-width: 993px) {
+      @apply w-[210px];
+    }
+
+    @media (min-width: 1310px) {
+      @apply w-60;
+    }
+  }
+
+  &Actions {
+    @apply mt-5 flex w-full flex-col items-start justify-start;
+
+    @media (min-width: 768px) {
+      @apply w-60;
+    }
+
+    @media (min-width: 992px) {
+      @apply w-full;
+    }
+  }
+
+  &Buy {
+    @apply flex h-11 w-full flex-row items-center justify-center rounded-md bg-acid text-sm font-semibold tracking-[.8px] text-white;
+
+    &:hover {
+      @apply bg-primary text-white;
+    }
+
+    @media (min-width: 576px) {
+      @apply w-60;
+    }
+
+    @media (min-width: 992px) {
+      @apply w-full;
+    }
+  }
+
+  &Favorite {
+    @apply mt-5 flex h-11 w-full flex-row items-center justify-center rounded-md border border-solid border-main-60 bg-main-30 text-sm tracking-default text-white;
+
+    svg {
+      @apply mr-[15px] h-auto w-[22px] stroke-primary duration-150;
+    }
+
+    &:hover {
+      @apply border-main-70 bg-main-40 text-white;
+    }
+
+    &:hover svg {
+      @apply stroke-danger;
+    }
+
+    @media (min-width: 576px) {
+      @apply w-60;
+    }
+
+    @media (min-width: 992px) {
+      @apply w-full;
+    }
+  }
+
+  &Platforms {
+    @apply relative mb-5 flex flex-row items-center justify-start;
+
+    li:last-child {
+      @apply mr-0;
+    }
+
+    @media (min-width: 992px) {
+      @apply mb-auto;
+    }
+  }
+
+  &List {
+    @apply w-3/5;
+
+    li {
+      @apply text-sm leading-[26px] text-white;
+
+      span {
+        @apply mr-[5px] text-light;
+      }
+    }
+  }
+
+  &Text {
+    @apply relative order-4 mt-5 max-h-max w-full overflow-hidden border border-solid border-main-60 p-4;
+
+    p {
+      @apply mb-5 text-sm leading-[26px] text-white;
+
+      &:last-child {
+        @apply mb-0;
+      }
+    }
+  }
+
+  &Price {
+    @apply flex w-full flex-row flex-wrap items-start justify-start;
+
+    span {
+      @apply block w-full text-[26px] font-semibold text-white;
+    }
+
+    s {
+      @apply mr-[15px] mt-[7px] text-sm text-light;
+    }
+
+    b {
+      @apply mr-[15px] mt-[7px] text-sm font-semibold text-danger;
+    }
+  }
+
+  &Gallery {
+    @apply relative mt-5 mr-auto ml-auto max-w-[94%] border-t border-solid border-main-60 pt-5;
+
+    @media (min-width: 992px) {
+      @apply order-3 w-full;
+    }
+  }
+
+  &Carousel {
+    @apply relative block w-full;
+
+    a {
+      @apply block h-auto w-[120px] overflow-hidden rounded-md;
+
+      img {
+        @apply h-auto w-full opacity-100 delay-500;
+      }
+
+      &:hover img {
+        @apply opacity-60;
+      }
+
+      @media (min-width: 576px) {
+        @apply w-[140px];
+      }
+
+      @media (min-width: 768px) {
+        @apply w-full;
+      }
+    }
+  }
+
+  &Content {
+    @media (min-width: 992px) {
+      @apply relative order-5 w-full;
+    }
+  }
+
+  @media (min-width: 992px) {
+    @apply flex flex-row flex-wrap items-start justify-start;
+  }
+
+  @media (min-width: 1200px) {
+    @apply flex flex-row items-start justify-start;
+  }
+}

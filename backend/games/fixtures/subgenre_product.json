@@ -1,0 +1,90 @@
+[
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 1,
+    "fields": {
+      "product": "2a309400-a2ea-4b7b-bc36-4115f7e1a40c",
+      "subgenre": 1
+    }
+  },
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 2,
+    "fields": {
+      "product": "2a309400-a2ea-4b7b-bc36-4115f7e1a40c",
+      "subgenre": 3
+    }
+  },
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 3,
+    "fields": {
+      "product": "2a309400-a2ea-4b7b-bc36-4115f7e1a40c",
+      "subgenre": 7
+    }
+  },
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 4,
+    "fields": {
+      "product": "19d1e55e-cc6a-4dd7-8e17-5d33b0b5438d",
+      "subgenre": 4
+    }
+  },
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 5,
+    "fields": {
+      "product": "19d1e55e-cc6a-4dd7-8e17-5d33b0b5438d",
+      "subgenre": 1
+    }
+  },
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 6,
+    "fields": {
+      "product": "455cd924-5c92-451e-a79c-fba68fb65dee",
+      "subgenre": 1
+    }
+  },
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 7,
+    "fields": {
+      "product": "7c2a4715-fd95-43a2-b70b-05324f2f44b4",
+      "subgenre": 5
+    }
+  },
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 8,
+    "fields": {
+      "product": "8d5c339f-f67b-4094-a86e-9ae0f8baecbb",
+      "subgenre": 1
+    }
+  },
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 9,
+    "fields": {
+      "product": "8d5c339f-f67b-4094-a86e-9ae0f8baecbb",
+      "subgenre": 9
+    }
+  },
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 10,
+    "fields": {
+      "product": "7e1bdb84-1064-4350-80ca-7247bd42b7d3",
+      "subgenre": 7
+    }
+  },
+  {
+    "model": "reference.subgenreproduct",
+    "pk": 11,
+    "fields": {
+      "product": "32c1a7ff-7eaf-4fe2-9c0a-26b8e1527c62",
+      "subgenre": 4
+    }
+  }
+]

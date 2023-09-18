@@ -1,0 +1,79 @@
+.wrapper {
+  @apply flex w-full flex-col;
+}
+
+.outer {
+  @apply overflow-x-auto sm:-mx-6 lg:-mx-8;
+}
+
+.inner {
+  @apply inline-block min-w-full py-4 sm:px-6 lg:px-8;
+}
+
+.container {
+  @apply overflow-hidden p-2;
+}
+
+.table {
+  @apply w-full min-w-full text-center;
+
+  &Head {
+    &Column {
+      @apply pt-0 pr-5 pb-[10px] pl-0 text-sm font-normal leading-none tracking-default text-light;
+
+      svg {
+        @apply h-auto w-5 fill-light;
+      }
+
+      &:hover {
+        @apply text-white;
+
+        svg {
+          @apply fill-primary;
+        }
+      }
+    }
+
+    &Sort {
+      @apply flex cursor-pointer select-none items-center gap-1;
+    }
+  }
+
+  &Body {
+    &Cell {
+      @apply text-base;
+    }
+
+    &Column {
+      @apply py-[10px] pr-5 pl-0 text-center font-normal text-white hover:text-primary;
+    }
+  }
+}
+
+.navigation {
+  @apply flex items-center gap-1;
+
+  &Separator {
+    @apply mt-5 h-2;
+  }
+
+  &Container {
+    @apply flex items-center gap-2 text-white;
+  }
+
+  &Btn {
+    @apply cursor-pointer border bg-none p-1 text-white outline-none;
+  }
+
+  &Page {
+    @apply flex cursor-pointer items-center gap-1;
+  }
+
+  &Input {
+    @apply w-16 rounded border bg-none p-1 text-white;
+  }
+
+  &Select {
+    @apply bg-none px-1 py-0.5 text-white;
+  }
+}

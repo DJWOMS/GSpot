@@ -37,4 +37,6 @@ yarn.lock
 *.tsbuildinfo
 next-env.d.ts
 
-.vscode/*
+.vscode
+
+yarn.lock

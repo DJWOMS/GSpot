@@ -1,0 +1,7 @@
+.component {
+  @apply container mx-auto;
+
+  @media (min-width: 1310px) {
+    max-width: 1310px;
+  }
+}

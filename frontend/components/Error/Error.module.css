@@ -1,0 +1,47 @@
+.errorsContainer {
+    container: errorBar / inline-size;
+}
+.errorsContainer{
+    @apply text-center my-24 text-light font-medium;
+}
+.title {
+    @apply text-3xl ;
+}
+@container errorBar (max-width: 50px) {
+    .errorsContainer{
+        @apply my-3
+    }
+    .title {
+        @apply invisible
+    }
+}
+
+@container errorBar (max-width: 200px) {
+    .errorsContainer{
+        @apply my-6
+    }
+    .title {
+        @apply text-sm
+    }
+    .btnError{
+        @apply h-16 w-24 my-3
+    }
+}
+@container errorBar (max-width: 700px) {
+    .title {
+        @apply text-lg
+    }
+}
+@container errorBar (max-width: 1200px) {
+    .title {
+        @apply text-xl
+    }
+}
+
+.btnError {
+    @apply
+    w-40 h-11 my-8 items-center justify-center rounded-md
+    bg-acid text-[13px] font-semibold tracking-[0.6px] text-white hover:bg-primary
+
+
+}

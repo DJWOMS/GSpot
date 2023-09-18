@@ -1,0 +1,15 @@
+.list {
+  @apply relative  mt-[30px] block rounded-default border border-main-60 p-[15px];
+
+  @media (min-width: 360px) {
+    @apply p-[20px];
+  }
+
+  @media (min-width: 768px) {
+    @apply mb-[60px];
+  }
+
+  @media (min-width: 1200px) {
+    @apply mb-0;
+  }
+}

@@ -1,0 +1,236 @@
+[
+    {
+        "model": "core.systemrequirement",
+        "pk": "0893ae26-173d-4ca2-be6e-30186b78bbb2",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "8d5c339f-f67b-4094-a86e-9ae0f8baecbb",
+            "device_processor": "Intel Core 2 Duo E4500 @ 2.20GHz",
+            "device_memory": "2 GB",
+            "device_storage": "10 GB",
+            "device_graphics": "GeForce 8800 GT",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "0ee61aad-6b7d-475a-b5ac-67d7f8438f3e",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "2a309400-a2ea-4b7b-bc36-4115f7e1a40c",
+            "device_processor": "Intel Core i5-2400/AMD FX-8320 or better",
+            "device_memory": "8 GB",
+            "device_storage": "60 GB",
+            "device_graphics": "NVIDIA GTX 670 2GB/AMD Radeon HD 7870 2GB or better",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "14965aa2-5d76-428c-b5f8-1e5e42880520",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "ffa5910e-c9da-4289-9ec0-e793e213a92f",
+            "device_processor": "Core i5 / AMD FX 2.4Ghz",
+            "device_memory": "4 GB",
+            "device_storage": "800 MB",
+            "device_graphics": "GeForce 8800 GT",
+            "type_requirements": "RECOMMEND"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "14ad6aeb-1f7f-48f9-b98e-d2cdc819678d",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "8f02ce0e-d8a7-48c9-8014-1ae700451d14",
+            "device_processor": "Core i5 / AMD FX 2.4Ghz",
+            "device_memory": "8 GB ОЗУ",
+            "device_storage": "25 GB",
+            "device_graphics": "NVIDIA GeForce GTX 480 / AMD Radeon HD 5970. OpenGL 3.3",
+            "type_requirements": "RECOMMEND"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "2cb90d8e-4cae-471d-a989-334ae1b50f39",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "7e1bdb84-1064-4350-80ca-7247bd42b7d3",
+            "device_processor": "Intel Core i5 2400",
+            "device_memory": "8 ГБ",
+            "device_storage": "55 ГБ",
+            "device_graphics": "Nvidia GeForce GTX 670",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "3e1f4b8f-fc3c-40ec-9bd1-85f6ed18695a",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "7e1bdb84-1064-4350-80ca-7247bd42b7d3",
+            "device_processor": "Intel Core i7 3770",
+            "device_memory": "8 ГБ",
+            "device_storage": "55 ГБ",
+            "device_graphics": "Nvidia GeForce GTX 970",
+            "type_requirements": "RECOMMEND"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "41bbf5b9-f40e-4981-9a77-9892c36cb03e",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "455cd924-5c92-451e-a79c-fba68fb65dee",
+            "device_processor": "AMD Athlon 64 X2 Dual Core 5200+",
+            "device_memory": "2 GB",
+            "device_storage": "8 GB",
+            "device_graphics": "AMD Radeon HD 3800 series",
+            "type_requirements": "RECOMMEND"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "4f63c1ba-2bc6-4185-b700-8c020a7ef8e5",
+        "fields": {
+            "operating_system": "MACOS",
+            "game": "ffa5910e-c9da-4289-9ec0-e793e213a92f",
+            "device_processor": "AMD A6 2.4Ghz",
+            "device_memory": "2 GB",
+            "device_storage": "800 MB",
+            "device_graphics": "GeForce GTX 480",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "94c6a484-ec4a-486a-8c02-31858c222a81",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "7c2a4715-fd95-43a2-b70b-05324f2f44b4",
+            "device_processor": "Pentium® 4 1.5 GHz / Athlon® XP",
+            "device_memory": "512 MB",
+            "device_storage": "877 MB",
+            "device_graphics": "DirectX® 9.0c compatible",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "a7638709-4ce9-495f-86a4-e6e21cd76ea2",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "8f02ce0e-d8a7-48c9-8014-1ae700451d14",
+            "device_processor": "Core i3 / AMD A6 2.4Ghz",
+            "device_memory": "4 GB ОЗУ",
+            "device_storage": "25 GB",
+            "device_graphics": "NVIDIA GeForce GTX 260 / AMD Radeon HD 5750. OpenGL 3.3",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "bbc7b5b8-5d3f-4afb-ac2c-f7c7c2879c04",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "455cd924-5c92-451e-a79c-fba68fb65dee",
+            "device_processor": "Intel Pentium D 840 3.2GHz",
+            "device_memory": "1 GB",
+            "device_storage": "8 GB",
+            "device_graphics": "AMD Radeon X800 SE",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "c7ab30dd-1c65-417d-9c08-6e27f0a06b25",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "ffa5910e-c9da-4289-9ec0-e793e213a92f",
+            "device_processor": "Core i3 / AMD A6 2.4Ghz",
+            "device_memory": "2 GB",
+            "device_storage": "800 MB",
+            "device_graphics": "AMD Radeon X800 SE",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "cff45bcd-5a14-4ac2-8f0e-001cb745c108",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "8d5c339f-f67b-4094-a86e-9ae0f8baecbb",
+            "device_processor": "AMD Athlon II X2 270",
+            "device_memory": "4 GB",
+            "device_storage": "10 GB",
+            "device_graphics": "GeForce GTX 480",
+            "type_requirements": "RECOMMEND"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "0893ae26-173d-4ca2-be6e-30186b78bbb2",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "2a309400-a2ea-4b7b-bc36-4115f7e1a40c",
+            "device_processor": "Intel Core i5-2400/AMD FX-8320",
+            "device_memory": "8 GB",
+            "device_storage": "60 GB",
+            "device_graphics": "NVIDIA GTX 670 2GB/AMD Radeon HD 7870 2GB",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "6a77cb06-9a88-44e2-a3a2-8928e55ef43e",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "e1be06b2-1b27-4ef2-bac2-8e6e74b2dc15",
+            "device_processor": "Intel CPU Core i7 3770 3.4 GHz/AMD CPU AMD FX-8350 4 GHz",
+            "device_memory": "8 GB",
+            "device_storage": "70 GB",
+            "device_graphics": "Nvidia GPU GeForce GTX 770/AMD GPU Radeon R9 290",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "3e61be61-d3f5-491a-9a3b-98ff4a75de7b",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "32c1a7ff-7eaf-4fe2-9c0a-26b8e1527c62",
+            "device_processor": "Intel Core 2 Quad CPU Q6600 @ 2.40GHz/AMD Phenom 9850 Quad-Core Processor @ 2.5GHz",
+            "device_memory": "4 GB",
+            "device_storage": "72 GB",
+            "device_graphics": "NVIDIA 9800 GT 1GB/AMD HD 4870 1GB (DX 10, 10.1, 11)",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "904f77d5-d478-48b7-9d0f-98460d0d1b6a",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "edeb246e-4a1f-4136-b9e7-b9e826c9e5de",
+            "device_processor": "Intel Core i5-4690 / AMD A10-7800 or equivalent",
+            "device_memory": "8 GB",
+            "device_storage": "4 GB",
+            "device_graphics": "NVIDIA GeForce 700 Series or AMD Radeon Rx 200 Series",
+            "type_requirements": "MINIMUM"
+        }
+    },
+    {
+        "model": "core.systemrequirement",
+        "pk": "b0ceafdb-97f1-4ab7-91d5-482770f9a7e0",
+        "fields": {
+            "operating_system": "WINDOWS",
+            "game": "19d1e55e-cc6a-4dd7-8e17-5d33b0b5438d",
+            "device_processor": "Intel Core i5-4460/AMD Ryzen 3 1200",
+            "device_memory": "8 GB",
+            "device_storage": "50 GB",
+            "device_graphics": "NVIDIA GeForce GTX 960/AMD Radeon R9 380",
+            "type_requirements": "MINIMUM"
+        }
+    }
+]

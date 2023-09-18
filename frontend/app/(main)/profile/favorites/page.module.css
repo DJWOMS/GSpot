@@ -1,0 +1,8 @@
+.columns10 {
+  @apply lg:col-span-12 xl:col-span-12;
+  @apply relative pt-[40px];
+}
+
+.list {
+  @apply grid grid-cols-1 gap-x-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4;
+}

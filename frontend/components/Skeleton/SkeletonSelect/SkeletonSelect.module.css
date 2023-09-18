@@ -1,0 +1,7 @@
+.animate {
+  @apply animate-pulse;
+}
+
+.line {
+  @apply my-4 h-7 w-full rounded bg-gray-700;
+}

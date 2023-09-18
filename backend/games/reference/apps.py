@@ -1,6 +1,6 @@
-from django.apps import AppConfig
+from base.apps import BaseAppConfig
 
 
-class ReferenceConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
+class ReferenceConfig(BaseAppConfig):
     name = 'reference'
+    verbose_name = "Reference"

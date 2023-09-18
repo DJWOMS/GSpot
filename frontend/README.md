@@ -1,84 +1,104 @@
 # GSpot Frontend
 
-## Структура папок
-### App
-Папка app содержит настройки маршрутизации для всего сервиса.
+[Next.js Documentation](https://nextjs.org/docs/getting-started).  
+[Next.js Beta Documentation](https://beta.nextjs.org/docs/getting-started).  
 
-Соглашение о файлах:
+Some functionality of Next 13.2+ is unstable.
+
+## Folder Structure
+### app
+The app folder contains routing configuration for the entire service.
+
+File Convention:
+
 - layout.js  
-Пользовательский интерфейс, который используется совместно между маршрутами.
+A custom user interface used across routes.
 
 - page.js  
-Пользовательский интерфейс, уникальный для маршрута.
+A unique user interface for the route.
 
 - loading.js  
-Состояние загрузки, пока контент страницы еще не загружен.
+Loading state while page content is still being loaded.
 
 - error.js  
-Сообщение, которое будет отображено пользователю в момент возникновения ошибки.
+Message displayed to the user when an error occurs.
 
 - not-found.js  
+The not-found file is used to render UI when the notFound function is thrown within a route segment.
 
 - route.js  
-Пользовательский обработчик запросов для данного маршрута, подобный вызову api endpoint.
-
+A custom request handler for this route, similar to an API endpoint call.
 
 ### components
-Папка components содержит все компоненты React, которые используются глобально.
+The components folder contains all React components that are used globally.
 
 ### features
-Папка features содержит модули, относящиеся к конкретной функциональности.
+The features folder contains modules related to specific functionality.
 
 ### lib
-Папка lib содержит библиотеки или пакеты, которые используются в приложении.
+The lib folder contains libraries or packages used in the application.
 
 ### public
-Папка public содержит медиа файлы, которые могут быть необходимы для отображения на сайте.
-
+The public folder contains media files that may be required for display on the website.
 
 ### utils 
-Папка utils содержит различные утилиты и функции, которые используются в приложении. Каждый файл содержит толлько одну функцию, название файла определяется названием функции.
+The utils folder contains various utilities and functions used in the application. Each file contains only one function, and the file name is determined by the function name.
 
 
-## Установка и запуск
-Перед началом работы необходимо установить все необходимые файлы, которые нужны для работы с проектом. Выполните `npm i` или `npm install`.  
+## Installation and Setup
+Before starting work, you need to install all the necessary files required to work with the project. Run `npm i` or `npm install`.
 
-Выполнение этой команды также добавит git hook для работы автоматического форматирования кода (см. [Husky](https://typicode.github.io/husky/#/)). В дальнейшем каждый локальный коммит будет автоматически форматировать все файлы с расширением `.js`, `.jsx`, `.ts`, `.tsx`. Чтобы изменить это поведение используйте файлы `.lintstagedrc`, `.husky/pre-commit` в корне проекта.
+Running this command will also add a git hook to automatically format code (see [Husky](https://typicode.github.io/husky/#/)). In the future, each local commit will automatically format all files with the extensions `.js`, `.jsx`, `.ts`, `.tsx`. To change this behavior, use the `.lintstagedrc`, `.husky/pre-commit` files in the project root.
 
-### Локальная разработка
-#### Используя Docker
-Для запуска проекта в dev режиме используется docker-compose. Чтобы запустить проект необходимо выполнить:
+### Local Development
+#### Using Docker
+To run the project in dev mode, docker-compose is used. To start the project, run:
+
 ```
 docker-compose up
 ```
-Эта команда создаст контейнер Docker и запустит внутри него веб сервер. Docker Compose в этом случае позволяет автоматически перезапускать веб сервер при изменении файлов исходного кода проекта.   
+This command will create a Docker container and run a web server inside it. Docker Compose in this case allows you to automatically restart the web server when the project source code files are changed.   
 
-#### Без использования Docker
+#### Without Docker
 ```
 npm run dev
 ```  
-Запускает приложение в режиме разработки на порту `3000`.
+Starts the application in development mode on port `3000`.
 
 ```
 npm run build
 ```  
-Собирает приложение для production режима.
+Builds the application for production mode.
 
 ```
 npm start
 ```  
-Запускает приложение в production режиме.
+Starts the application in production mode.
 
-### Развертывание на сервере
-Необходимо скомпилировать файлы в единый контейнер для дальнейшего деплоя. Используйте команду `make build` или:
+### Mocks Server
+We are using the server's built-in next.js functions. More details can be found in the [`CONTRIBUTING.md`](repo/blob/master/CONTRIBUTING.md) file.
+
+
+### Server Deployment
+Compile the files into a single container for further deployment. Use the `make build` command or:
 ```
 docker build -f Dockerfile.prod -t gspot-frontend:latest .
 ```
 
-Для запуска скомпилированного контейнера используйте команду `make run` или:
+To start the compiled container, use the `make run` command or:
+
 ```
 docker run --name gspot_production_frontend -d -p 3000:3000 gspot-frontend:latest
 ```
 
-## Разработка
-Необходимо сделать форк текущего репозитория в свой аккаунт. Сделав необходимые изменения, создайте pull request.
+## Contributing
+Fork this repository to your account. After making the necessary changes, create a pull request.  
+More details are described in a special file [`CONTRIBUTING.md`](repo/blob/master/CONTRIBUTING.md).
+
+
+## Github Actions
+- Retrieve your Vercel [Access Token](https://vercel.com/guides/how-do-i-use-a-vercel-api-access-token);
+- Install the [Vercel CLI](https://vercel.com/docs/cli) and run `vercel login`;
+- Inside `frontend` folder, run `vercel link` to create a new Vercel project;
+- Inside the generated `frontend/.vercel` folder, save the `projectId` and `orgId` from the `project.json`;
+- Inside GitHub, add `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` as secrets.
