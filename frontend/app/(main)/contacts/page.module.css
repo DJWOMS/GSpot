@@ -1,0 +1,57 @@
+.row {
+  @apply grid grid-flow-row-dense grid-cols-1 gap-10 md:grid-cols-3;
+}
+.col {
+  @extend .row;
+  @apply gap-3 gap-x-5;
+}
+
+/* Contacts Form */
+
+.contactsForm {
+  @apply col-span-2;
+}
+.form {
+  @apply mt-[30px] rounded-lg border border-solid border-main-60
+  border-opacity-10 bg-background p-5;
+
+  input {
+    @apply mb-5 flex flex-col gap-[10] placeholder-white;
+  }
+
+  &Textarea {
+    @apply relative h-[150px] w-full  resize-none rounded-md border border-solid border-main-60 bg-main-30
+    py-[15px] px-5 text-sm tracking-[0.4px] text-white placeholder-white focus:border-primary;
+  }
+
+  &Btn {
+    @apply flex h-11 w-full flex-row items-center justify-center rounded-md
+    bg-acid  text-[13px] font-semibold uppercase tracking-[0.6px] text-white md:w-36;
+
+    &:hover {
+      @apply bg-primary text-white;
+    }
+
+    &:disabled {
+      @apply opacity-30;
+    }
+  }
+}
+.errorMessage {
+  @apply h-5 align-middle text-xs text-danger;
+}
+
+/* Contacts info */
+
+.contacts {
+  @apply mt-8 text-base leading-6 text-white;
+  p {
+    @apply duration-500;
+  }
+}
+.list {
+  @apply mt-10 font-mont;
+  li {
+    @apply mb-3;
+  }
+}

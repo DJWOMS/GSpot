@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+  payments:
+    build: .
+    restart: always
+    expose:
+      - 8000
+    depends_on:
+      payments_db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  payments_db:
+    image: postgres:15.2
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  redis:
+    restart: always
+    image: redis:7.0.5-alpine
+    expose:
+      - 6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  worker:
+    restart: always
+    build: .
+    command: celery -A config worker --loglevel=info
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  beat:
+    restart: always
+    build: .
+    command: celery -A config beat --loglevel=info
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

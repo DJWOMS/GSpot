@@ -1,0 +1,92 @@
+[
+    {
+        "model": "item_purchases.itempurchasehistory",
+        "pk": 1,
+        "fields": {
+            "created_date": "2023-05-25 22:38:07.511369+00",
+            "event_type": "CT",
+            "item_purchase_id_id": "1"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchasehistory",
+        "pk": 2,
+        "fields": {
+            "created_date": "2023-05-26 22:38:07.511369+00",
+            "event_type": "CD",
+            "item_purchase_id_id": "1"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchasehistory",
+        "pk": 3,
+        "fields": {
+            "created_date": "2023-05-25 22:38:07.511369+00",
+            "event_type": "CT",
+            "item_purchase_id_id": "2"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchasehistory",
+        "pk": 4,
+        "fields": {
+            "created_date": "2023-05-26 22:38:07.511369+00",
+            "event_type": "CD",
+            "item_purchase_id_id": "2"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchasehistory",
+        "pk": 5,
+        "fields": {
+            "created_date": "2023-05-25 22:38:07.511369+00",
+            "event_type": "CT",
+            "item_purchase_id_id": "3"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchasehistory",
+        "pk": 6,
+        "fields": {
+            "created_date": "2023-05-26 22:38:07.511369+00",
+            "event_type": "CD",
+            "item_purchase_id_id": "3"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchasehistory",
+        "pk": 7,
+        "fields": {
+            "created_date": "2023-05-25 22:38:07.511369+00",
+            "event_type": "CT",
+            "item_purchase_id_id": "4"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchasehistory",
+        "pk": 8,
+        "fields": {
+            "created_date": "2023-05-26 22:38:07.511369+00",
+            "event_type": "CD",
+            "item_purchase_id_id": "4"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchasehistory",
+        "pk": 9,
+        "fields": {
+            "created_date": "2023-05-25 22:38:07.511369+00",
+            "event_type": "CT",
+            "item_purchase_id_id": "5"
+        }
+    },
+    {
+        "model": "item_purchases.itempurchasehistory",
+        "pk": 10,
+        "fields": {
+            "created_date": "2023-05-25 23:38:07.511369+00",
+            "event_type": "CD",
+            "item_purchase_id_id": "5"
+        }
+    }
+]

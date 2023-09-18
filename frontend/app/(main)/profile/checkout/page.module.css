@@ -1,0 +1,113 @@
+.checkout {
+  @apply relative flex min-h-[400px] flex-col items-start justify-between overflow-x-hidden rounded-md border border-solid border-main-60 bg-background p-5;
+
+  &Info {
+    @apply mt-[30px] flex w-full flex-row flex-wrap items-end justify-between;
+  }
+
+  &Total {
+    @apply flex flex-col items-start justify-start;
+
+    p {
+      @apply mb-[10px] text-sm text-[#dbdada];
+    }
+
+    span {
+      @apply text-[26px] font-semibold leading-none text-white;
+    }
+  }
+
+  &Systems {
+    @apply mt-5 flex w-full flex-row items-center justify-start text-2xl text-[rgba(219,218,218,0.6)];
+
+    i {
+      @apply mr-[15px];
+
+      &:last-child {
+        @apply mr-0;
+      }
+    }
+
+    @media (min-width: 768px) {
+      @apply mt-0 w-auto;
+    }
+  }
+}
+
+.row {
+  @apply grid gap-x-8 lg:grid-cols-12;
+}
+
+.left {
+  @apply lg:col-span-7 xl:col-span-8;
+}
+
+.right {
+  @apply gap-10 lg:col-span-5 xl:col-span-4;
+}
+
+.form {
+  @apply rounded-lg border border-solid border-main-60
+    border-opacity-10 bg-background p-5;
+
+  &Title {
+    @apply mb-5 block text-base tracking-[0.4px] text-white;
+  }
+
+  &Label {
+    @apply mb-[10px] text-sm font-normal tracking-[0.4px] text-[#dbdada];
+  }
+
+  &Input {
+    @apply relative my-2 h-11 w-full rounded-md border border-solid border-main-60
+      bg-main-30 py-0 px-5 text-sm tracking-[0.4px] text-white;
+
+    &:focus {
+      @apply border-main-500 bg-main-40;
+    }
+  }
+
+  &Select {
+    @apply mb-5 w-full cursor-pointer rounded-md border border-solid border-main-60 py-0 px-5 text-sm tracking-[0.4px] text-white;
+    background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
+    background-size: 12px auto;
+
+    option {
+      @apply m-0 p-0 text-black;
+    }
+
+    &:focus {
+      @apply border-main-500 bg-main-40;
+    }
+  }
+
+  &Textarea {
+    @apply relative mb-5 h-[150px] w-full resize-none rounded-md border border-solid border-main-60 bg-main-30
+        py-[15px] px-5 text-sm tracking-[0.4px] text-white;
+
+    &:focus {
+      @apply border-main-500 bg-main-40;
+    }
+  }
+
+  &Text {
+    @apply mb-5 block w-full text-sm leading-6 text-white;
+
+    a {
+      @apply relative text-primary;
+
+      &:hover {
+        @apply underline;
+      }
+    }
+  }
+
+  &Btn {
+    @apply mt-5 flex h-11  w-full flex-row items-center justify-center
+       rounded-md bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
+
+    &:hover {
+      @apply bg-primary text-white;
+    }
+  }
+}

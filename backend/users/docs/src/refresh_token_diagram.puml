@@ -1,0 +1,57 @@
+@startuml
+participant frontend [
+    =Frontend
+    ----
+    Axios
+]
+participant users [
+    =Users
+    ----
+    ""View""
+]
+participant jwt [
+    =Users
+    ----
+    ""JWT""
+]
+database Redis as redis
+database Database as database
+frontend -> users : Refresh Token
+users -> jwt : Verify token
+     alt CheckTokenSignature
+      jwt -> jwt: check token signature
+else SignatureFailure
+      jwt -> users: SignatureFailureError
+      users -> frontend: Response 401
+end
+alt CheckTokenExpired
+       jwt -> jwt: check token expire
+else TokenExpired
+    jwt -> users: TokenExpireError
+    users -> frontend: Response 401
+end
+alt CheckBannedToken
+     jwt -> redis: check token in black list
+else TokenBanned
+     jwt -> users: TokenBannedError
+      users -> frontend: Response 401
+end
+alt CheckAuthorizedUser
+      jwt -> database: get user data by uuid
+      database -> jwt: user data
+      jwt -> jwt: check active user
+      jwt -> jwt: check blocked user
+else UnauthorizedUser
+      jwt -> users: UnauthorizedUserError
+      users -> frontend: Response 401
+end
+alt CheckTokenReissue
+       jwt -> jwt: check token expire less than the threshold value
+else TokenExpired
+       jwt-> redis: ban refresh token
+    jwt -> jwt: update refresh token
+end
+jwt -> jwt: generate access token
+jwt -> users: access token, refresh token
+users -> frontend: access token, refresh token\nResponse 200
+@enduml

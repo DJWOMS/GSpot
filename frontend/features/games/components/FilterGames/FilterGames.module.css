@@ -1,0 +1,79 @@
+.openFilter {
+  @apply mb-[30px] block h-[44px] w-full flex-row items-center justify-center rounded-default
+    border border-solid border-main-400 bg-main-30 tracking-[0.4px] text-white hover:border-main-500 hover:bg-main-40 lg:hidden;
+}
+
+.components {
+  @apply mb-[10px] flex flex-col items-start justify-start;
+
+  @media (min-width: 576px) {
+    @apply mb-[20px];
+  }
+  @media (min-width: 1310px) {
+    @apply pr-[10px];
+  }
+}
+
+.wrapper {
+  @apply hidden lg:block;
+}
+
+.open {
+  @apply block;
+}
+
+.header {
+  @apply mb-[25px] flex w-full items-center justify-between text-base font-semibold tracking-default text-white;
+}
+
+.clearFilters {
+  @apply text-[12px] font-normal tracking-[0px] text-primary;
+
+  :hover {
+    @apply text-danger;
+  }
+}
+
+.applyFilter {
+  @apply flex h-[44px] w-full flex-row items-center justify-center rounded-default border
+    border-solid border-main-400 bg-main-30 tracking-[.4px] text-white hover:border-main-500 hover:bg-main-40;
+
+  &:hover svg {
+    @apply stroke-primary;
+  }
+}
+
+.range {
+  @apply relative mb-[10px] flex h-[30px] w-full flex-row items-center justify-start rounded-default
+  border border-main-60 bg-main-30 px-3 text-[13px] tracking-[.4px] text-white;
+
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &Box {
+    @apply flex w-full gap-2;
+  }
+}
+
+.separator {
+  @apply text-lg font-medium text-white;
+}
+
+.slider {
+  div:first-child {
+    @apply opacity-40;
+  }
+
+  div:nth-child(2) {
+    @apply bg-primary;
+  }
+
+  div[role='slider'] {
+    @apply border-primary bg-background opacity-100 !shadow-none;
+  }
+}

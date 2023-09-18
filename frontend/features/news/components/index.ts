@@ -1,0 +1,7 @@
+export { default as LatestNews } from './LatestNews'
+export { default as NewsItem } from './NewsItem'
+export { default as ArticleContent } from './ArticleContent'
+export { default as SocialLink } from './SocialLink'
+export { default as Subscribe } from './Subscribe'
+export { default as Comments } from './Comments'
+export { default as RelatedNews } from './RelatedNews'

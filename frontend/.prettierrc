@@ -1,10 +1,13 @@
 {
     "useTabs": false,
-    "printWidth": 150,
-    "tabWidth": 4,
+    "printWidth": 110,
+    "tabWidth": 2,
     "singleQuote": true,
     "trailingComma": "es5",
-    "jsxBracketSameLine": false,
-    "parser": "flow",
-    "semi": false
+    "semi": false,
+    "plugins": [
+        "@trivago/prettier-plugin-sort-imports",
+        "prettier-plugin-tailwindcss"
+    ],
+    "importOrder": ["^react(.*)", "<THIRD_PARTY_MODULES>", "@/(.*)", "^[./]"]
 }

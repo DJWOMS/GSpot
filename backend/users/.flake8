@@ -1,0 +1,23 @@
+[flake8]
+max-line-length = 100
+extend-ignore =
+    # assignment lambda to variable - okay
+    E731,
+    # unnecessary variable assignment before return statement.
+    R504,
+    # too many leading '#' for block comment
+    E266,
+    # imported but unused
+    F401,
+    # Remove bad quotes
+    Q000,
+    Q001,
+    # class attribute "attribute" is shadowing a python builtin
+    A003,
+    B006,
+
+exclude =
+    venv
+    **migrations**
+    __init__.py
+

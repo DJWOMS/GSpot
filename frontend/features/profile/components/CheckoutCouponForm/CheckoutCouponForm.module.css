@@ -1,0 +1,32 @@
+.form {
+  @apply rounded-lg border border-solid border-main-60
+    border-opacity-10 bg-background p-5;
+
+  &Btn {
+    @apply mt-5 flex h-11  w-full flex-row items-center justify-center
+       rounded-md bg-acid text-sm font-semibold uppercase tracking-normal text-white;
+
+    &:hover {
+      @apply bg-primary text-white;
+    }
+  }
+}
+
+.coupon {
+  @apply mt-2 mr-2 text-acid;
+
+  &Invalid {
+    @apply mt-2 text-red-600;
+  }
+}
+
+.deleteCoupon {
+  svg {
+    @apply h-auto w-6 stroke-white;
+    transition: 0.5s;
+  }
+
+  &:hover svg {
+    @apply stroke-primary;
+  }
+}

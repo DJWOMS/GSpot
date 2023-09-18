@@ -1,0 +1,19 @@
+.title {
+  @apply block text-sm font-semibold leading-6 text-white;
+}
+
+.list {
+  @apply mb-5 w-full;
+
+  li {
+    @apply text-sm leading-6 text-white;
+
+    span {
+      @apply mr-1 text-light;
+    }
+  }
+
+  &:last-child {
+    @apply mb-0;
+  }
+}

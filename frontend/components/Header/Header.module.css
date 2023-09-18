@@ -1,0 +1,277 @@
+.header {
+  @apply left-0 top-0 z-[99] w-full bg-background sticky;
+
+  transition: 0.5s, margin 0s;
+
+  &Hide {
+    @apply top-[-71px];
+  }
+}
+
+.wrapper {
+  @apply border-b border-main-60;
+}
+.contentWrap {
+  @apply flex justify-between;
+}
+.content {
+  @apply relative flex h-[70px]  flex-row items-center justify-between;
+}
+
+.logo {
+  @apply ml-[30px] block h-auto;
+
+  img {
+    @apply h-auto w-[120px];
+  }
+
+  @media (min-width: 360px) {
+    @apply ml-[40px];
+  }
+  @media (min-width: 1200px) {
+    @apply ml-0 w-[196px];
+  }
+
+  @media (min-width: 1310px) {
+    @apply w-[232px];
+  }
+}
+
+.menu {
+  @apply absolute left-0 top-[24px] block h-[22px] w-[24px];
+
+  span {
+    @apply absolute left-0 h-[2px] w-[24px] rounded-[3px] bg-white opacity-100;
+
+    transition: 0.5s;
+
+    &:first-child {
+      @apply top-0;
+    }
+    &:nth-child(2) {
+      @apply top-[10px] w-[10px];
+    }
+    &:last-child {
+      @apply top-[20px] w-[8px];
+    }
+  }
+
+  &Open {
+    span {
+      &:first-child {
+        @apply top-[10px] rotate-[45deg];
+      }
+      &:nth-child(2) {
+        @apply opacity-0;
+      }
+      &:last-child {
+        @apply top-[10px] w-[24px] rotate-[-45deg];
+      }
+    }
+  }
+
+  @media (min-width: 1200px) {
+    @apply hidden;
+  }
+}
+
+.navWrap {
+  @apply flex w-full justify-end;
+}
+.nav {
+  @apply fixed -left-full bottom-0 top-[71px] z-[100] flex w-full flex-col items-start justify-start bg-background px-[15px] pb-[15px] pt-[20px];
+
+  &Open {
+    @apply left-0;
+  }
+
+  @media (min-width: 576px) {
+    padding-left: calc((100% - 510px) / 2);
+    padding-top: 20px;
+  }
+  @media (min-width: 768px) {
+    padding-left: calc((100% - 690px) / 2);
+  }
+  @media (min-width: 992px) {
+    padding-left: calc((100% - 930px) / 2);
+  }
+  @media (min-width: 1200px) {
+    @apply relative bottom-auto left-auto top-auto z-[2] ml-[30px] mr-auto
+        h-[70px] w-auto flex-row items-center bg-transparent p-0;
+
+    &:before {
+      @apply pointer-events-none absolute bottom-[24px] left-[-29px] top-[24px] block w-px bg-main-60
+            content-none;
+    }
+  }
+
+  &Item {
+    @apply relative mb-[20px];
+
+    @media (min-width: 1200px) {
+      @apply mb-0 mr-[60px] flex h-[70px] flex-row items-center justify-start;
+
+      &:last-child {
+        @apply mr-0;
+      }
+    }
+  }
+
+  &Link {
+    @apply inline-flex h-[22px] flex-row items-center justify-start text-[12px] uppercase leading-[22px] tracking-default text-white;
+
+    svg {
+      @apply ml-[4px] h-auto w-[10px] stroke-primary;
+
+      transition: stroke 0.5s ease;
+    }
+
+    &:hover {
+      @apply text-primary;
+
+      svg {
+        @apply text-primary;
+      }
+    }
+  }
+}
+
+.actions {
+  @apply flex h-[70px] w-[120px] items-center justify-end gap-3;
+
+  &:has(> &:last-child:nth-child(2)) {
+    @apply justify-between;
+  }
+}
+
+.loginBtn {
+  @apply flex h-[44px] w-[44px] items-center justify-center rounded-default bg-main-30 text-center hover:border-main-500 hover:bg-main-40;
+
+  svg {
+    @apply h-auto w-[22px] stroke-white;
+
+    transition: 0.5s;
+  }
+
+  span {
+    @apply hidden;
+  }
+
+  &:hover {
+    svg {
+      @apply stroke-primary;
+    }
+  }
+
+  @media (min-width: 576px) {
+    @apply w-[114px];
+
+    svg {
+      @apply hidden;
+    }
+    span {
+      @apply block text-xs uppercase tracking-default text-white;
+
+      transition: 0.5s;
+    }
+
+    &:hover span {
+      @apply text-primary;
+    }
+  }
+  @media (min-width: 768px) {
+    @apply w-[120px];
+  }
+  @media (min-width: 1200px) {
+    @apply w-[114px];
+  }
+  @media (min-width: 1310px) {
+    @apply w-[130px];
+  }
+}
+
+.form {
+  @apply relative flex h-[44px] w-[220px] flex-row items-center justify-between rounded-default border border-main-60 bg-light;
+
+  @media (min-width: 768px) {
+    @apply w-[260px];
+  }
+  @media (min-width: 1200px) {
+    @apply w-[426px];
+
+    &:before {
+      @apply pointer-events-none absolute bottom-[10px] left-[196px] top-[10px] block w-px bg-main-60 content-[''];
+    }
+  }
+  @media (min-width: 1310px) {
+    @apply w-[494px];
+
+    &:before {
+      @apply left-[232px];
+    }
+  }
+}
+
+.select {
+  @apply hidden;
+
+  @media (min-width: 1200px) {
+    @apply block h-[44px] w-[115px] cursor-pointer border-none bg-transparent p-0
+         text-sm text-white;
+
+    background: url('/svg/arrow2.svg') no-repeat center right;
+    background-size: 12px auto;
+
+    option {
+      @apply m-0 p-0 text-black;
+    }
+  }
+  @media (min-width: 1310px) {
+    @apply w-[150px];
+  }
+}
+
+.input {
+  @apply h-[44px] rounded-l-default rounded-t-default bg-transparent p-[20px] text-sm text-white;
+  width: calc(100% - 50px);
+
+  @media (min-width: 1200px) {
+    @apply w-[196px];
+  }
+  @media (min-width: 1310px) {
+    @apply w-[232px];
+  }
+}
+
+.searchBtn {
+  @apply relative flex h-[44px] w-[50px] flex-row items-center justify-start;
+
+  &:before {
+    @apply pointer-events-none absolute bottom-[10px] left-0 top-[10px] block w-px bg-main-60 content-none;
+  }
+  svg {
+    @apply h-auto w-[18px] stroke-primary;
+  }
+}
+
+.actionLink {
+  @apply flex flex-row items-center justify-start;
+
+  svg {
+    @apply h-auto w-[22px] stroke-primary;
+
+    transition: stroke 0.5s;
+  }
+  span {
+    @apply hidden;
+  }
+
+  @media (min-width: 576px) {
+    span {
+      @apply ml-[10px] block text-xs uppercase tracking-default text-white;
+    }
+    &:hover span {
+      @apply text-primary;
+    }
+  }
+}

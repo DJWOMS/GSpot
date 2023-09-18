@@ -1,0 +1,92 @@
+.form {
+  @apply mt-[30px] rounded-lg border border-solid border-main-60
+    border-opacity-10 bg-background p-5;
+
+  &Title {
+    @apply mb-5 block text-base tracking-[0.4px] text-white;
+  }
+
+  &Label {
+    @apply mb-[12px] text-sm font-normal tracking-[0.4px] text-[#dbdada];
+  }
+
+  &Input {
+    @apply relative h-11 w-full rounded-md border border-solid border-main-60
+      bg-main-30 py-0 px-5 text-sm tracking-[0.4px] text-white;
+
+    &:focus {
+      @apply border-main-500 bg-main-40;
+    }
+  }
+  &Password {
+    @apply text-[#cc4646];
+  }
+
+  &Select {
+    @apply mb-5 w-full cursor-pointer rounded-md border border-solid border-main-60 py-0 px-5 text-sm tracking-[0.4px] text-white;
+    background: url('/svg/arrow2.svg') no-repeat center right 20px rgba(167, 130, 233, 0.03);
+    background-size: 12px auto;
+
+    option {
+      @apply m-0 p-0 text-black;
+    }
+
+    &:focus {
+      @apply border-main-500 bg-main-40;
+    }
+  }
+
+  &Textarea {
+    @apply relative mb-5 h-[150px] w-full resize-none rounded-md border border-solid border-main-60 bg-main-30
+        py-[15px] px-5 text-sm tracking-[0.4px] text-white;
+
+    &:focus {
+      @apply border-main-500 bg-main-40;
+    }
+  }
+
+  &Text {
+    @apply mb-5 block w-full text-sm leading-6 text-white;
+
+    a {
+      @apply relative text-primary;
+
+      &:hover {
+        @apply underline;
+      }
+    }
+  }
+
+  &Btn {
+    @apply mt-5 flex h-11  w-full flex-row items-center justify-center
+       rounded-md bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
+
+    &:hover {
+      @apply bg-primary text-white;
+    }
+
+    &:disabled {
+      @apply opacity-[0.3];
+      &:hover {
+        @apply bg-acid;
+      }
+    }
+  }
+}
+
+.row {
+  @apply grid grid-cols-1 gap-10 md:grid-cols-2;
+}
+
+.col {
+  @extend .row;
+  @apply gap-3 gap-x-5;
+}
+
+.errorMessage {
+  @apply text-danger;
+}
+
+.saved {
+  @apply text-acid;
+}

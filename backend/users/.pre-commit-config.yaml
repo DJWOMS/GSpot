@@ -1,0 +1,41 @@
+files: 'backend/users*'
+repos:
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.74.1
+    hooks:
+      - id: terraform_fmt
+        args: [--args=-write=true]
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        args: [--skip-string-normalization, --line-length=100, backend/users]
+        language_version: python3
+
+  - repo: https://github.com/timothycrosley/isort
+    rev: 5.12.0 
+    hooks:
+      - id: isort
+        args: [--profile=black]
+
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.4.0
+    hooks:
+      - id: add-trailing-comma
+
+  - repo: https://github.com/pycqa/flake8.git
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        args: [--config, backend/users/.flake8]
+        additional_dependencies: [
+          "flake8-bugbear",
+          "flake8-builtins",
+          "pep8-naming",
+          "flake8-commas",
+          "flake8-quotes",
+          "flake8-todo",
+          "flake8-django",
+          "flake8-cognitive-complexity"
+        ]
