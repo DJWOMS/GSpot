@@ -10,7 +10,6 @@
 - Django Rest Framework
 - FastAPI
 - Docker
-
 - Postgres
 - Next.js
 
