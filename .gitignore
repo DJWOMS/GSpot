@@ -16,7 +16,6 @@ venv
 
 .env*
 .env.dev
-.env.prod
 
 __pycache__/
 */__pycache__/

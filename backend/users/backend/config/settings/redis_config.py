@@ -1,0 +1,16 @@
+import os
+
+REDIS_LOCAL_HOST = os.getenv("REDIS_LOCAL_HOST", "redis")
+REDIS_LOCAL_PORT = int(os.getenv("REDIS_LOCAL_PORT", 6379))
+REDIS_LOCAL_PASSWORD = os.getenv("REDIS_LOCAL_PASSWORD", None)
+
+REDIS_SHARED_HOST = os.getenv("REDIS_SHARED_HOST", "redis")
+REDIS_SHARED_PORT = int(os.getenv("REDIS_SHARED_PORT", 6379))
+REDIS_SHARED_PASSWORD = os.getenv("REDIS_SHARED_PASSWORD", None)
+
+REDIS_ACCESS_DB = int(os.getenv("REDIS_ACCESS_DB", 0))
+REDIS_REFRESH_DB = int(os.getenv("REDIS_REFRESH_DB", 1))
+REDIS_TOTP_DB = int(os.getenv("REDIS_TOTP_DB", 2))
+REDIS_ACCESS_PREFIX = os.getenv("REDIS_ACCESS_PREFIX", "access")
+REDIS_REFRESH_PREFIX = os.getenv("REDIS_REFRESH_PREFIX", "refresh")
+REDIS_TOTP_PREFIX = os.getenv("REDIS_TOTP_PREFIX", "totp")

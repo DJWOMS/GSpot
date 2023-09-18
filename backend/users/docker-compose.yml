@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  web_users:
+    container_name: users-service
+    build: ./
+    restart: always
+    expose:
+      - 8000
+    env_file:
+      - .env.prod
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    container_name: users-service-db
+    image: postgres:14-alpine
+    expose:
+      - 5432
+    env_file:
+      - .env.prod
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

@@ -1,6 +1,23 @@
 [flake8]
-ignore = E203, E231, E266, E501, W503, F403, F401
-max-line-length = 88
-max-complexity = 18
-select = B,C,E,F,W,T4,B9
+max-line-length = 100
+extend-ignore =
+    # assignment lambda to variable - okay
+    E731,
+    # unnecessary variable assignment before return statement.
+    R504,
+    # too many leading '#' for block comment
+    E266,
+    # imported but unused
+    F401,
+    # Remove bad quotes
+    Q000,
+    Q001,
+    # class attribute "attribute" is shadowing a python builtin
+    A003,
+    B006,
+
+exclude =
+    venv
+    **migrations**
+    __init__.py
 

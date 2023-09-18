@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  web_users:
+    restart: "always"
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: users-service-rabbitmq
+    expose:
+      - 5672
+      - 15672
+    env_file:
+      - .env.prod
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+  redis:
+    restart: always
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_LOCAL_PASSWORD"
+    image: redis:7.0.5-alpine
+    env_file:
+      - .env.prod
+    expose:
+      - 6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+
+

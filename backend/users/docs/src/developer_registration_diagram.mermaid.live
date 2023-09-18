@@ -1,0 +1,30 @@
+sequenceDiagram
+    actor C as Пользователь
+    participant US as Users Service
+    participant RB as RabbitMQ
+    participant PS as PostgreSQL
+
+    Note over C,PS:Регистрация Разработчика
+    C->>US: Данные для Регистрации Разработчика
+    US->>PS: Проверяем существование email в БД
+    alt email не существует
+        US->>PS: Сохраняем данные
+        US->>C: Разработчик создан
+    else email существует
+        US->>C: Повторная регистрация. <br>Пользователь с таким Email уже существует
+    end
+    US->>RB: Отправляем totp код + email<br>для потверждения в сервис Channels
+
+    Note over C,PS:Проверка Email'a
+    C->>US: Потверждение Email'a через totp код
+    US->US: Проверяем totp код
+    alt totp код не существует
+        US->>C: Такого кода не существует. <br> Email не потвержден
+    else totp код существует
+        US->C: 
+    end
+    alt totp код верный
+        US->>C: Еmail потвержден
+    else totp код неверный
+        US->>C: Отправить потверждение на email снова.<br> ИЛИ <br> Повторная регистрация
+    end
