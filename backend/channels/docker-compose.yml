@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+
+  redis:
+    container_name: channels_redis
+    image: redis:7.0
+    ports:
+      - "6379:6379"
+    networks:
+      - mongodb_net
+
+  mongodb:
+    container_name: channels_db
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    env_file:
+      - .env.dev
+    networks:
+      - mongodb_net
+      - rabbitmq_net
+
+  consumer:
+    container_name: channels_consumer
+    build:
+      context: broker
+      dockerfile: Dockerfile
+#    restart: on-failure
+    env_file:
+      - .env.dev
+    volumes:
+      - ./broker:/app
+    command: >
+      sh -c "python -m unittest tests/main.py && python main.py"
+    networks:
+      - mongodb_net
+      - rabbitmq_net
+    depends_on:
+      - mongodb
+      - redis
+
+  chat:
+    container_name: channels_chat
+    build: ./chat
+    restart: always
+    env_file:
+      - .env.dev
+    volumes:
+      - ./chat:/chat/
+    ports:
+      - "8000:8000"
+    networks:
+      - mongodb_net
+    depends_on:
+      - mongodb
+      - redis
+networks:
+  mongodb_net:
+  rabbitmq_net:
+    external: true
+
+
+volumes:
+  mongodb_data:
