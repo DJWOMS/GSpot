@@ -1,0 +1,24 @@
+[
+    {
+        "model": "item_purchases.invoice",
+        "pk": 1,
+        "fields": {
+            "invoice_id": "04056b5d-ccca-442b-b91d-c7eba9931895",
+            "price_with_commission": "300.00",
+            "price_with_commission_currency": "RUB",
+            "is_paid": "True",
+            "created_date": "2023-05-25 22:38:07.511369+00"
+        }
+    },
+    {
+        "model": "item_purchases.invoice",
+        "pk": 2,
+        "fields": {
+            "invoice_id": "0d23249f-9dee-4f10-aa0d-15f236d3bd61",
+            "price_with_commission": "1750.00",
+            "price_with_commission_currency": "RUB",
+            "is_paid": "True",
+            "created_date": "2023-05-26 22:38:07.511369+00"
+        }
+    }
+]

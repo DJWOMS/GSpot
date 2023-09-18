@@ -8,9 +8,9 @@ Django image reads settings from environment variables, default settings for tes
 - `SECRET_KEY` - salt for hash generation. The value can be an arbitrary string.
 - `DEBUG` - configuring Django to enable debug mode.
 - `ALLOWED_HOSTS` - list of allowed hosts.
-- `account_id` - id of your [yookassa](https://yookassa.ru/yooid/signin/step/login?origin=Checkout&returnUrl=https%3A%2F%2Fyookassa.ru%2Fmy%3Fget-auth%3Dyes) store.
-- `shop_secret_key` - api key of your [yookassa](https://yookassa.ru/yooid/signin/step/login?origin=Checkout&returnUrl=https%3A%2F%2Fyookassa.ru%2Fmy%3Fget-auth%3Dyes) store.
-- `rollbar_access_token` - токен ключ [rollbar](https://rollbar.com/) для логирования событий.
+- `SHOP_AСCOUNT_ID` - id of your [yookassa](https://yookassa.ru/yooid/signin/step/login?origin=Checkout&returnUrl=https%3A%2F%2Fyookassa.ru%2Fmy%3Fget-auth%3Dyes) store.
+- `SHOP_SECRET_KEY` - api key of your [yookassa](https://yookassa.ru/yooid/signin/step/login?origin=Checkout&returnUrl=https%3A%2F%2Fyookassa.ru%2Fmy%3Fget-auth%3Dyes) store.
+- `ROLLBAR_ACCESS_TOKEN` - token [rollbar](https://rollbar.com/) for logging events.
 - `POSTGRES_DB` - db of postgres.
 - `POSTGRES_USER` - user for postgres.
 - `POSTGRES_PASSWORD` - password for postgres.
@@ -18,6 +18,8 @@ Django image reads settings from environment variables, default settings for tes
 - `POSTGRES_HOST` - host for postgres, if local - localhost, if docker - name of container.
 - `REDIS` - broker for celery, variable in **settings.py -> CELERY_BROKER_URL**.
 - `SUBDOMAIN` - for localtunnel, use it for yookassa.
+- `GAMES_DOMAIN` - game service domain.
+- `GAMES_REFUND` - send message for change frozen status to service games.
 
 ## How to run local-version
 
@@ -27,7 +29,7 @@ Django image reads settings from environment variables, default settings for tes
 
 ```shell
 python -m venv venv             ## windows
-./venv/scripts/activavte        ## windows
+./venv/scripts/activate         ## windows
 
 virtualenv venv                 ## linux
 source ../venv/bin/activate     ## linux
@@ -79,7 +81,7 @@ Subsequently, all indexed files will be checked with `Flake8` before committing.
 
 To check with `Flake8` the files indexed for the commit run:
 ```shell
-pre-commit run  
+pre-commit run --all-files
 ```
 If it's necessary to skip using `pre-commit hook`, the commit should run with the `-n` or `--no-verify` flag:
 ```shell
@@ -156,4 +158,33 @@ Or if you start project local you need to use [`ngrok`](https://ngrok.com/) or n
 5. At last, you need to put this link in yookassa settings and you're done:
 
 ![alt text](https://i.pinimg.com/originals/90/1a/27/901a279e9df3b0da2bcac4f236fc3a4b.png)
--
+
+## Fixtures
+
+Our app has fixtures:
+- base - fixtures with commissions for services
+- test - test data to test our app
+
+### Linux
+
+Base fixtures run in entrypoint for container but you also can run them by your own:
+
+```shell
+python manage.py apps/base/fixtures/base/*.json
+```
+
+Test fixtures don't apply automatically you need to run them by command:
+
+```shell
+python manage.py apps/base/fixtures/test/*.json
+```
+
+### Windows
+
+If you use Windows, you can't apply all fixtures by one command, you need to apply them by one, for example:
+
+```shell
+python manage.py apps/base/fixtures/test/invoices.json
+```
+
+---
