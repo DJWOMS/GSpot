@@ -1,0 +1,14 @@
+aio-pika==8.1.1
+aiormq==6.4.2
+aiosmtplib==2.0.2
+dnspython==2.3.0
+idna==3.4
+motor==3.1.1
+multidict==6.0.4
+pamqp==3.2.1
+pydantic==1.10.7
+pymongo==4.3.3
+typing_extensions==4.5.0
+yarl==1.8.2
+redis==4.5.4
+email-validator==2.0.0.post2
