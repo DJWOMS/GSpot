@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   db:
@@ -9,13 +9,12 @@ services:
     env_file:
       - .env.dev
     ports:
-      - 5432:5432
+      - "5432:5432"
   web:
     build: .
     container_name: games
     command: >
-      sh -c "python manage.py makemigrations --noinput && 
-      python manage.py migrate
+      sh -c "python manage.py migrate
       && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./:/games

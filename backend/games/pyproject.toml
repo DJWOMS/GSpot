@@ -1,0 +1,26 @@
+[tool.black]
+line-length = 100
+include = '.pyi?$'
+exclude = '''
+/(
+    .git
+    | .hg
+    | .mypy_cache
+    | .tox
+    | .venv
+    | _build
+    | buck-out
+    | build
+    | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+src_paths = ["backend", "backend/games"]
+
+[flake8]
+exclude = ["venv", "migrations"]
+max-line-length=100
+extend-ignore = ["E203", "E231", "E266", "E501", "W503", "F403", "F401"]

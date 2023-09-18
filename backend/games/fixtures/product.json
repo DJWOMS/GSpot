@@ -1,0 +1,194 @@
+[
+    {
+        "model": "core.product",
+        "pk": "2a309400-a2ea-4b7b-bc36-4115f7e1a40c",
+        "fields": {
+            "name": "ARK: Survival Evolved",
+            "release_date": "2023-06-09",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d2",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d1",
+            "description": "Being stranded naked on the shore of a mysterious island, starving and freezing, you will have to craft, hunt and build to survive. Use experience and dexterity to tame, breed, and ride the primitive creatures that live in ARK.",
+            "about": "Being stranded naked on the shore of a mysterious island called ARK, freezing and starving, you will have to hunt, gather resources, create items, grow crops, research technology and build shelters to withstand the weather. Use your cunning and resources to kill or tame and breed the enormous dinosaurs and other primitive creatures that inhabit the island, and team up with or hunt hundreds of other players to survive, dominate... and overcome challenges!\r\n\r\nThe following features have been present in the game since day one of launch in Early Access. We have many more features and enhancements planned for the game's long-term development plan, and here's what's available to you right now in ARK:\r\n\r\nTAME, TRAIN, BREED AND RIDE DINOSAURS IN A LIVING ECOSYSTEM\r\n\r\nDinosaurs, other creatures, and their breeding! - more than 50 creatures in early access and 100+ by the final release - can be tamed with a sophisticated capture and attachment system, including weakening an untamed beast to a complete stun and then grooming it with appropriate food. Once tamed, you will be able to give commands to your pet, which will depend on how well you have tamed and trained it. Level up pets will require food, they can carry items and equipment such as armor, can carry prey back to your settlement depending on their strength, and larger animals can be ridden and directly controlled! Fly a pterodactyl over snow-capped mountains, throw allies over enemy walls, chase through the jungle with your pack of raptors, break into an enemy base on a giant brontosaurus, or stalk your prey while sitting on the back of a fierce T-Rex! Become part of a dynamic ecosystem life cycle with your own food chain, where you're just one link, among many species of creatures fighting for dominance and survival. Pets can also be bred by mating with the opposite sex through sequential selection using a trait system based on recombinant genetic inheritance. This process involves both the incubation of eggs and the development of pregnancy in mammals! Or, simply put, breed and raise baby dinosaurs and other creatures!\r\n\r\nFOOD, WATER, TEMPERATURE, AND WEATHER\r\n\r\nYou must eat and drink to survive, using different kinds of plants and meats, including human meats, which have different nutritional properties. Providing fresh water for your dwelling and stocking it in your inventory is also a pressing problem. All physical activities consume food and water parameters, so long-distance movement is a threat to survival! The weight of your inventory forces you to move slower, and the cycle of day and night, along with capricious weather conditions, present another challenge through fluctuating ambient temperatures, causing your hunger or thirst to increase. Make fires or build shelters, and craft a variety of clothing and armor with variable appearances to protect yourself from physical damage and extreme temperatures using a dynamic heat and cold resistance calculation system, both indoors and out!\r\n\r\nGATHERING RESOURCES, BUILDING STRUCTURES AND PAINTING ITEMS\r\n\r\nBy cutting down forests teeming with trees and mining metal and other valuable resources, you can fabricate various items to build massive multi-level structures made up of complex connected parts, including ramps, bridges, pillars, windows, doors, hatches, remote-controlled gates, water pipes and cranes, generators, wires and all kinds of electrical devices, ladders, and more. Many buildings and objects can be painted to diversify the appearance of your home, and pixel-paintable signs, billboards with text and other decorative objects can be added. The shelter reduces the impact of extreme weather conditions and keeps you and your prey safe! Weapons, clothing and armor can also be painted to accentuate your image.\r\n\r\nPLANT, GROW AND HARVEST\r\n\r\nPick seeds of wild vegetation around you, plant them in your placed beds, water and feed them with fertilizer (after digesting food, everyone poops, these feces can then be composted, with some fertilizer better than others). Take care of your crops and they will grow, producing delicious and rare fruits that can then be used to make many elaborate recipes and in creating healthy tonics! Explore and search for rare plant seeds that have the most potent effects! With this opportunity to master and conquer ARK in a non-violent way, vegetarians and vegans can thrive!\r\n\r\nSUMMON HIGHER LIFE FORMS\r\n\r\nUsing enough rare sacrificial items in special summoning areas, you can attract the attention of one of ARK's mythical god-like creatures that will arrive for battle. Only the most experienced players with their pet armies will be able to defeat these monsters and gain valuable items to advance on the game's final objectives.\r\n\r\nTHE PLAN SYSTEM.\r\n\r\nCreate a tribe and add your friends to it, and all of your pets can be managed and become allies for any of your tribe. Your tribe will also have revival available at any of your home revival points. Promote your tribe members to administrators to reduce the burden of government. Distribute items and PINs to provide access to common settlements!\r\n\r\nROLE-PLAYING COMPONENT.\r\n\r\nAll items are created from blueprints, which have different characteristics and qualities, and require appropriate resources. More remote and rugged ARK locations tend to have better resources, with the highest mountains, darkest caves, and the depths of the ocean among them! Level up your game character by gaining experience for performing actions, level up your pets, and learn new \"engrams\" to be able to create items from memory without using blueprints, even after death! Customize your character's physical appearance by changing hair and eye color, skin tone, along with a host of body proportion modifiers.\r\n\r\nHARDCORE MECHANICS.\r\n\r\nEverything you make is sturdy and wears out during extended use, if it's not repaired, and when you leave the game, your character is left \"asleep\" in the game world. Your items in crates or with your character can be looted and stolen, so to achieve safety, you must fortify yourself, recruit a team, or get pets to guard your loot. Death is irreversible and means losing everything, and you can even stun, capture, and force-feed other players, using them for your own purposes, such as extracting blood for transfusion, collecting their feces to use as fertilizer, or using slaves as fodder for carnivorous pets!\r\n\r\n\r\nEXPLORE AND DISCOVER\r\n\r\nThe mysterious ARK is a formidable and imposing environment made up of many natural and man-made objects placed on the ground, underground and underwater. As you explore its mysteries, you will find the most exotic procedurally generated creatures and rare blueprints. You may also find explorer's notes, which are dynamically updated throughout the game and were written throughout the millennium by previous human inhabitants of ARK, who creatively described the creatures as well as the backstory of ARK and its animal life. Complete your in-game map through exploration, mark interesting places on it, and use a manufactured compass or GPS to meet other players, with whom you can communicate via local text and voice chat or long-distance radio. Build and paint signposts to help you find or trip other players... Also...how will you ultimately defy the Creators and conquer ARK? A certain ending to the game is already planned.\r\n\r\nA LARGE PERSISTENT WORLD AND META UNIVERSE\r\n\r\nOn servers with around 100 players, your character, your buildings, and your pets remain in the game world even if you quit the game. You can move your character and items between ARK servers using Obelisk terminals to download (or upload) your data from Steam! A whole host of worlds, each one a little different from the previous ones - so you can leave your mark and conquer them one at a time. Special themed events will be held in ARK for a limited time with corresponding valuable items!\r\n\r\nROBUST MOD SUPPORT BY MASTERMIND STEAM\r\n\r\nYou can play the single-player game and move your character and items between unofficial player servers - back and forth. Mod the game - fully supported by the Steam workshop and the customizable Unreal Engine 4 editor. See how we created our ARK, use our maps and materials as examples. Create your own server and customize it exactly to your liking. We want to see what you create!\r\n\r\nHIGH-END NEXT-GEN VISUAL EFFECTS\r\n\r\nThe incredible super-realistic creature imagery of the ARK world is brought to life using the finely tuned Unreal Engine 4, with fully dynamic shading and global lighting, weather systems (rain, fog, snow, etc.), realistic volumetric cloud modeling, and the latest advanced DirectX11 and DirectX12 visualization techniques. All this is complemented by music from the acclaimed composer of Ori and the Blind Forest, Gareth Cocker!",
+            "age": 6,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "455cd924-5c92-451e-a79c-fba68fb65dee",
+        "fields": {
+            "name": "Wolfenstein",
+            "release_date": "2023-06-09",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d2",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d1",
+            "description": "Wolfenstein 2009 - the storyline of this first-person shooter will tell us about a brave elite agent from America named BJ Blaskowitz, who desperately fights against the powerful Nazi army. If the main character fails to stop this deadly killing machine, then the whole world will be overrun and people will be turned into helpless slaves.",
+            "about": "Wolfenstein 2009 - the storyline of this first-person shooter will tell us about a brave elite agent from America named BJ Blaskowitz, who desperately fights against the powerful Nazi army. If the main character fails to stop this deadly killing machine, then the whole world will be overrun and people will be turned into helpless slaves.\r\n\r\nThe power of the Germans is unimaginable, and exceeds several times that of the other leading nations. But the Nazis decided to multiply their power several times over, so they began to look for ancient artifacts that would help them bring the dead back to life and summon demons.\r\n\r\nSo here you will face not only experienced warriors armed to the teeth, but also various supernatural creatures. Luckily, BJ will also be able to use paranormal abilities, thanks to an artifact found in a sunken submarine.",
+            "age": 16,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "7c2a4715-fd95-43a2-b70b-05324f2f44b4",
+        "fields": {
+            "name": "Everlasting Summer",
+            "release_date": "2023-06-09",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d2",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d1",
+            "description": "Beloved by many visual novel \"Endless Summer\" from the Russian developers - now in Steam!",
+            "about": "Having met Semyon, the protagonist of the game, in the street, you would never pay attention to him - indeed, there are thousands and even hundreds of thousands of similar people in every city. But one day a very unusual event happens to him: he falls asleep in the winter on the bus, and wakes up... in the middle of a hot summer. In front of him - a pioneer camp \"Sovenok\", and behind - the past life. To unravel what happened to him, Semyon will have to get to know the local residents better (and maybe even meet love), to understand the maze of complex human relationships and his own problems, solve the mysteries of the camp. And most importantly - how to get back or not to go back at all?",
+            "age": 99,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "7e1bdb84-1064-4350-80ca-7247bd42b7d3",
+        "fields": {
+            "name": "Doom 2016",
+            "release_date": "2023-06-09",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d2",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d1",
+            "description": "The game was developed by id Software, the studio that laid the foundations of the first-person shooter genre and created the Deathmatch multiplayer mode. The famous DOOM returns in the form of a ruthless, complex and exciting modern shooter. The relentlessly brutal demons, incredible weapons and blistering moves make for intense and memorable battles in both the single-player campaign, where you will plunge into the depths of hell, and the numerous online game modes. The included DOOM SnapMap editor makes it easy to create your own levels, test them and share them with other DOOM fans around the world.",
+            "about": "Doom is a computer game in the first-person shooter genre. Developed by id Software together with Certain Affinity and published by Bethesda Softworks. The game was released on Windows, Xbox One, and PlayStation 4 on May 13, 2016. On November 10, 2017, it was released on Nintendo Switch",
+            "age": 18,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "8d5c339f-f67b-4094-a86e-9ae0f8baecbb",
+        "fields": {
+            "name": "Metro 2033 Reduxe",
+            "release_date": "2023-06-09",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d2",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d1",
+            "description": "a multiplatform first-person shooter game. The game was released on August 26, 2014 in the United States, with a worldwide release on August 28. For the Nintendo Switch gaming platform it was released on February 28, 2020. Remake of the game \"Metro 2033\", released in 2010.",
+            "about": "a multiplatform first-person shooter game. The game was released on August 26, 2014 in the United States, with a worldwide release on August 28. For the Nintendo Switch gaming platform it was released on February 28, 2020. Remake of the game \"Metro 2033\", released in 2010.",
+            "age": 16,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "8f02ce0e-d8a7-48c9-8014-1ae700451d14",
+        "fields": {
+            "name": "SOMA",
+            "release_date": "2023-06-09",
+            "developers_uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "publishers_uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "description": "The developers of Amnesia: Ghosts of the Past have created a new sci-fi horror game SOMA that will take you to the bottom of the Atlantic Ocean. You will have to fight for life in a dangerous world that will make you doubt your own existence.",
+            "about": "SOMA is a sci-fi horror film from Frictional Games, the creators of Amnesia: Ghosts of the Past. It's a terrifying story that asks hard questions about consciousness, identity, and what it means to be human.\r\n\r\nThe radio is silent, the food is running out, and the robots think they are human. Travelling on the submarine station \"Paphos II\", which has long been completely cut off from the outside world, you have difficult decisions to make. What can you do? What else matters? Is there anything left that makes sense to fight for?\r\n\r\nImmerse yourself in the world of SOMA and face the horrors lurking in the depths of the ocean. Study the records on locked terminals and read secret documents to discover what secrets lurk beneath the veil of chaos that surrounds you. Try to find the last survivors of the station and decide the fate of the underwater complex. Be extremely careful as danger lurks around every corner: infected humans, ugly creatures, mindless robots and the omnipresent mysterious AI.\r\n\r\nYou'll have to find a personal approach to each opponent. Remember that resistance is useless: cunning and quick feet are your main weapons.",
+            "age": 12,
+            "adult": "string",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "9a3f3555-153e-466f-bcbb-d5d0f4df3c23",
+        "fields": {
+            "name": "Albion Online",
+            "release_date": "2023-06-09",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d2",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d1",
+            "description": "Albion Online - a sandbox MMORPG in a fantasy setting, where there is a player-controlled economy, combat system without reference to the classes and constant PvP-battles.",
+            "about": "Albion Online is a sandbox MMORPG in an open medieval fantasy world. The game features a player-driven economy where almost every item is created by someone. You can mix and match different items of armor and weaponry thanks to the lack of a strict class system, because you are what you wear. Explore the world, engage in exciting battles with other adventurers, conquer territory, and build your own home.",
+            "age": 6,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "ffa5910e-c9da-4289-9ec0-e793e213a92f",
+        "fields": {
+            "name": "Brawlhalla",
+            "release_date": "2023-06-09",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d2",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d1",
+            "description": "An epic platform fighter for up to 8 players online or local. Try casual free-for-alls, ranked matches, or invite friends to a private room. And it's free! Play cross-platform with millions of players on PlayStation, Xbox, Nintendo Switch, iOS, Android & Steam! Frequent updates. Over fifty Legends.",
+            "about": "An epic platform fighter for up to 8 players online or local. Try casual free-for-alls, ranked matches, or invite friends to a private room. And it's free! Play cross-platform with millions of players on PlayStation, Xbox, Nintendo Switch, iOS, Android & Steam! Frequent updates. Over fifty Legends.",
+            "age": 6,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "e1be06b2-1b27-4ef2-bac2-8e6e74b2dc15",
+        "fields": {
+            "name": "The Witcher 3: Wild Hunt",
+            "release_date": "2015-05-19",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d3",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d4",
+            "description": "The Witcher 3: Wild Hunt is a role-playing game set in an open-world environment, where players control Geralt of Rivia, a monster hunter known as a Witcher. It is the third and final installment in The Witcher series, concluding the story of the witcher Geralt of Rivia.",
+            "about": "sdasdas",
+            "age": 18,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "32c1a7ff-7eaf-4fe2-9c0a-26b8e1527c62",
+        "fields": {
+            "name": "Grand Theft Auto V",
+            "release_date": "2013-09-17",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d5",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d6",
+            "description": "Grand Theft Auto V is an action-adventure game played from either a third-person or first-person perspective. Players complete missions—linear scenarios with set objectives—to progress through the story. Outside of the missions, players may freely roam the open world.",
+            "about": "sdasdas",
+            "age": 18,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "edeb246e-4a1f-4136-b9e7-b9e826c9e5de",
+        "fields": {
+            "name": "Minecraft",
+            "release_date": "2011-11-18",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d7",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d8",
+            "description": "Minecraft is a sandbox video game that allows players to build and explore virtual worlds made up of blocks. It offers a creative mode, where players have unlimited resources to build and experiment, and a survival mode, where they must gather resources and fend off enemies.",
+            "about": "sdasdas",
+            "age": 6,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    },
+    {
+        "model": "core.product",
+        "pk": "19d1e55e-cc6a-4dd7-8e17-5d33b0b5438d",
+        "fields": {
+            "name": "Assassin's Creed Valhalla",
+            "release_date": "2020-11-10",
+            "developers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d9",
+            "publishers_uuid": "78b19ed1-29a3-46f3-89c9-f013a0a8a2d0",
+            "description": "Assassin's Creed Valhalla is an action role-playing game set in the Viking Age. Players control Eivor, a Viking raider who becomes embroiled in the conflict between the Brotherhood of Assassins and the Templar Order. The game features an open-world environment and combines elements of stealth, exploration, and combat.",
+            "about": "sdasdas",
+            "age": 18,
+            "adult": "",
+            "status": "PUBLISH",
+            "type": "GAMES"
+        }
+    }
+]

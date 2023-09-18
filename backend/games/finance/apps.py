@@ -1,6 +1,6 @@
-from django.apps import AppConfig
+from base.apps import BaseAppConfig
 
 
-class FinanceConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
+class FinanceConfig(BaseAppConfig):
     name = 'finance'
+    verbose_name = 'Finance'
