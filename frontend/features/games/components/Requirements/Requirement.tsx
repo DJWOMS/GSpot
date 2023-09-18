@@ -12,7 +12,7 @@ const Requirement: FC<RequirementInterface> = ({
 }) => {
   return (
     <div>
-      <span className={s.title}>{typeRequirements}:</span>
+      <span className={s.title}>{typeRequirements}Minimal:</span>
       <ul className={s.list}>
         <li>
           <span>System:</span> {operatingSystem}

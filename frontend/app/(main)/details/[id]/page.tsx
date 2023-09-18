@@ -1,24 +1,49 @@
 import { IconHeart, IconPlayerPlay } from '@tabler/icons-react'
 import Carousel from 'components/Carousel'
-import Platform from 'components/Platform'
+import Platform, { PlatformType } from 'components/Platform'
 import Section from 'components/Section'
 import { Languages, Requirements } from 'features/games/components'
-import type { GameDetailsInterface } from 'features/games/types'
+import type { GameDetailsInterface, RequirementInterface } from 'features/games/types'
 import { CheckAge } from 'features/profile/components'
 import { fetchServerSide } from 'lib/fetchServerSide'
-import { cookies } from 'next/headers'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import s from './page.module.css'
+
+const requirementsMain: RequirementInterface[] = [
+  {
+    operatingSystem: 'win',
+    deviceMemory: '8GB',
+    deviceGraphics: 'NVIDIA 1800',
+    deviceProcessor: 'Intel',
+    deviceStorage: '60GB',
+    typeRequirements: '',
+  },
+  {
+    operatingSystem: 'xbox',
+    deviceMemory: '4GB',
+    deviceGraphics: 'NVIDIA 1080',
+    deviceProcessor: 'Intel',
+    deviceStorage: '14GB',
+    typeRequirements: '',
+  },
+  {
+    operatingSystem: 'ps',
+    deviceMemory: '16GB',
+    deviceGraphics: 'AMD Radeon 5215',
+    deviceProcessor: 'AMD',
+    deviceStorage: '16GB',
+    typeRequirements: '',
+  },
+]
+
+const platforms: PlatformType[] = [{ type: 'win' }, { type: 'xbox' }, { type: 'ps' }]
 
 const Page = async () => {
   const details = await fetchServerSide<GameDetailsInterface>({
     path: '/games/details/id',
     cache: 'no-cache',
   })
-
-  const cookieStore = cookies()
-  const adultCheck = cookieStore.get('adultCheck')
 
   if (!details) {
     notFound()
@@ -27,7 +52,6 @@ const Page = async () => {
   return (
     <Section>
       <div className="container">
-        {!adultCheck && <CheckAge image={details.coverImg} age={details.age} />}
         <CheckAge image={details.coverImg} age={details.age} />
         <div className="-mx-41">
           <div className="flex-1">
@@ -81,8 +105,8 @@ const Page = async () => {
                     }}
                     navigation={true}
                   >
-                    {details.carouselImages.map((item) => (
-                      <img key={item.id} src={item.link} alt="" />
+                    {[...new Array(12)].map((_, index) => (
+                      <img key={index} src="https://picsum.photos/1020" alt="" />
                     ))}
                   </Carousel>
                 </div>
@@ -120,7 +144,7 @@ const Page = async () => {
               </div>
 
               <div className={s.detailsContent}>
-                <Requirements>{details.requirements}</Requirements>
+                <Requirements platforms={platforms}>{requirementsMain}</Requirements>
               </div>
             </div>
           </div>
