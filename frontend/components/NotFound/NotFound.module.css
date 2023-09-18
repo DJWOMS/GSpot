@@ -1,0 +1,27 @@
+.page {
+  @apply relative block;
+}
+.wrap {
+  @apply flex min-h-screen w-[100px] flex-row items-center justify-center py-[40px];
+}
+.content {
+  @apply relative w-full max-w-[400px] flex-col items-center justify-center rounded-default bg-background px-[20px] py-[40px];
+  border: 1px solid rgba(167, 130, 233, 0.06);
+
+  @media (min-width: 576px) {
+    @apply p-[50px];
+  }
+}
+.title {
+  @apply relative mb-5 font-[montserrat] text-[120px] font-medium leading-none text-primary;
+}
+.text {
+  @apply mb-10 block w-full text-center text-sm leading-[26px] text-white;
+}
+.link {
+  @apply flex h-11 w-[140px] flex-row items-center justify-center rounded-default bg-acid text-[13px] font-semibold uppercase tracking-[0.6px] text-white;
+
+  &:hover {
+    @apply bg-primary text-white;
+  }
+}

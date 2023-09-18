@@ -1,0 +1,6 @@
+.bestGames {
+  @apply mt-3 grid grid-cols-2 gap-4 max-[1200px]:grid-cols-1 max-sm:grid-cols-2 max-[500px]:grid-cols-1;
+}
+.card {
+  @apply mt-3 grid grid-cols-5 gap-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-[500px]:grid-cols-1;
+}

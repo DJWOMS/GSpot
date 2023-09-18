@@ -8,8 +8,9 @@
 
 - Python >= 3.9
 - Django Rest Framework
-- Docker *(нет указания версии - не у всех работает!)*
-- docker-compose -version *??? вообще не указали*
+- FastAPI
+- Docker
+
 - Postgres
 - Next.js
 

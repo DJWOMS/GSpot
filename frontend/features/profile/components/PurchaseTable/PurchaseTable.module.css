@@ -1,0 +1,75 @@
+.purchase {
+  &Image {
+    @apply flex h-auto w-full flex-row items-center justify-center overflow-hidden rounded-[6px] bg-transparent py-[10px];
+
+    img {
+      @apply h-auto w-[100px];
+    }
+  }
+
+  &Price {
+    @apply text-sm font-semibold text-white;
+  }
+
+  &Status {
+    @apply text-light;
+  }
+
+  &Delete {
+    @apply flex h-[24px] w-[24px] flex-row items-center justify-center;
+
+    svg {
+      @apply h-auto w-[24px] stroke-light;
+      transition: stroke 0.5s ease;
+    }
+
+    :hover svg {
+      @apply stroke-primary;
+    }
+  }
+}
+
+.purchases {
+  @apply w-full min-w-[920px] overflow-x-auto rounded-md border border-solid border-main-60 bg-background;
+
+  th {
+    @apply border-b border-solid border-main-60 p-3 pl-0 text-sm font-normal leading-none tracking-[0.4px] text-light;
+
+    a {
+      @apply inline-flex flex-row content-start items-center text-light;
+
+      svg {
+        @apply h-auto w-5 fill-light;
+        transition: fill 0.5s ease;
+      }
+
+      &:hover {
+        @apply text-white;
+
+        svg {
+          @apply fill-primary;
+        }
+      }
+    }
+
+    a .active {
+      @apply text-white;
+
+      svg {
+        @apply w-[16px] fill-primary;
+      }
+    }
+  }
+
+  td {
+    @apply py-[10px] pr-5 pl-0 text-center text-[16px] font-normal text-white;
+
+    a {
+      @apply border-b-2 border-dotted border-primary text-sm text-white;
+
+      &:hover {
+        @apply text-primary;
+      }
+    }
+  }
+}
