@@ -1,10 +1,9 @@
 import enum
-from dataclasses import dataclass, field
 from uuid import UUID
 
 from apps.base.schemas import URL, PaymentTypes, YookassaMoneyDataClass
+from apps.base.classes import DRFtoDataClassMixin
 from apps.payment_accounts.models import PayoutData
-from dataclasses_json import config, dataclass_json
 from pydantic import BaseModel, Field
 
 
@@ -17,50 +16,47 @@ class YookassaPaymentStatuses(enum.Enum):
 
 
 # RESPONSE PAYMENT SCHEMAS
-@dataclass
-class PaymentMethodDataResponse:
+class PaymentMethodDataResponse(BaseModel):
     type_: PaymentTypes
 
 
-@dataclass_json
-@dataclass
-class YookassaPaymentBody:
-    id_: UUID = field(metadata=config(field_name='id'))
+class YookassaPaymentBody(BaseModel, DRFtoDataClassMixin):
+    id_: UUID = Field(alias='id')
     income_amount: YookassaMoneyDataClass
     amount: YookassaMoneyDataClass
     description: str
     metadata: dict
     payment_method: PaymentMethodDataResponse
 
+    class Config:
+        allow_population_by_field_name = True
 
-@dataclass_json
-@dataclass
-class YookassaPaymentResponse:
+
+class YookassaPaymentResponse(BaseModel, DRFtoDataClassMixin):
     event: YookassaPaymentStatuses
-    object_: YookassaPaymentBody = field(
-        metadata=config(field_name='object'),
-    )
+    object_: YookassaPaymentBody = Field(alias='object')
+
+    class Config:
+        allow_population_by_field_name = True
 
 
 # CREATE PAYMENT SCHEMAS
-@dataclass_json
-@dataclass
-class ConfirmationDataClass:
-    confirmation_type: str = field(metadata=config(field_name='type'))
+class ConfirmationDataClass(BaseModel, DRFtoDataClassMixin):
+    confirmation_type: str = Field(..., alias='type')
     return_url: URL
 
-
-@dataclass_json
-@dataclass
-class PaymentMethodDataCreate:
-    payment_type: PaymentTypes = field(
-        metadata=config(field_name='type'),
-    )
+    class Config:
+        allow_population_by_field_name = True
 
 
-@dataclass_json
-@dataclass
-class YookassaPaymentCreate:
+class PaymentMethodDataCreate(BaseModel, DRFtoDataClassMixin):
+    payment_type: PaymentTypes = Field(..., alias='type')
+
+    class Config:
+        allow_population_by_field_name = True
+
+
+class YookassaPaymentCreate(BaseModel, DRFtoDataClassMixin):
     amount: YookassaMoneyDataClass
     payment_method_data: PaymentMethodDataCreate
     confirmation: ConfirmationDataClass
