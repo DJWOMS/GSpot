@@ -29,6 +29,12 @@ class CommentSerializer(serializers.ModelSerializer):
         exclude = ('review', )
 
 
+class FullCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
 class ReactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reaction
